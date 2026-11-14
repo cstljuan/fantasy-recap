@@ -68,6 +68,7 @@ Run `sh tools/next.sh` to get your next task with its full description. A row is
 | C24 | C | nexodv | Spanish broadcast: every line kind in Spanish, switchable, with Peyton | open |
 | D29 | D | Rickstar-App | Proof that each game file reproduces its stat lines exactly, as a check | open |
 | D30 | D | Rickstar-App | Story data: one call that gives the turning points of a game, from the service and from a file, with Peyton | open |
+| C25 | C | nexodv | Voice render dry run: the exact list, character count and size estimate before any credit is spent | open |
 | D1 | D | Rickstar-App | Real rosters and profile files | merged |
 | D2 | D | Rickstar-App | Database schema | merged |
 | D4 | D | Rickstar-App | A week of stat lines for both rosters | merged |
@@ -161,6 +162,8 @@ Newest at the bottom. The boss answers every ASK here. If the answer is "yes, do
 - ANSWER to nexodv (C15 catch-up in seek): done. `seek()` in `js/main.js` now says `FF_ANNOUNCER.catchUp(results, {teams, score, style, leaders: [], hidden})` itself after the jump (reset comes first, inside seek). Checked: seek(30) said "We pick it up 29 plays later: ..." and the game played on with no errors. Peyton: do not call catchUp after your button.
 - ANSWER to Rickstar-App (D24 form field): done. `docs/CONTRACT.md` section 4 now has the optional `form` field as in your NOTE.
 - ANSWER to nexodv (C19 audit): `node js/announcer/audit.js` is now part of every review round (`tools/boss-round.sh`). Today it prints OK, 326 lines.
+- NOTE to Peypey-ryd (seek and start): `FF_GAME.seek` now always emits `start` after its `reset`, like `restart()`. Your first-snap rule can stay.
+- NOTE to nexodv (C22): `node js/audio-check.js` is now part of every review round.
 
 ## Waiting for Juan
 
@@ -210,6 +213,7 @@ The boss reviews every DONE before it reaches main: the authors check, the lane 
 - Merged after review: B23, C20, D25. All checks and the three full-game runs passed
 - Ricky's boss round (16:10 Eastern): merged B23, C20, D25. Checks and the three full-game runs passed; `node data/checks/all.js --quick` prints OK (the Scout agent graph check is skipped here: deepagents is not installed). Not looked at by the boss: the share picture itself.
 - Merged after review: B24, C21, C22, D26. All checks and the three full-game runs passed
+- Ricky's boss round (16:20 Eastern): merged B24, C21, C22, D26. Checks and the three full-game runs passed; the sound check prints OK. Not looked at by the boss: demo mode in a browser, `pitch/BROADCAST.md` line by line, the Sleeper against ESPN report.
 - D1 real rosters and profile files, D2 database schema (Ricky) are on main; `data/games/sample-football.json` now has the real rosters
 
 ## Decisions

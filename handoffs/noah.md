@@ -135,3 +135,7 @@ Nobody on the review side can hear the game. Write `js/audio-check.js` (node, no
 ## Task C24: Spanish broadcast (with Peyton)
 
 `FF_ANNOUNCER.lang = 'en'` or `'es'`. In Spanish every kind of line (plays, intro, halftime, wrap, catch-up, big call, tendency, hot and cold, rule explainers, sound captions) comes out in natural Spanish, the way a Spanish language football broadcast says it, Straight style at least, with the same variants count as the check asks for in English. Lines live in their own file (`js/announcer/lines-es.js`); ask the boss to load it. The audit (C19) and the check run in both languages. The browser voice uses a Spanish voice when one is installed. Tell Peyton the switch name for B28.
+
+## Task C25: voice render dry run
+
+Rendering spends Noah's ElevenLabs credits, so a person must see the bill first. Add `--dry-run` to `js/announcer/voice/render.js`: with no key and no network it prints every line it would render for the football game the app plays and the soccer sample (after the audit's rules: no repeats rendered twice), the count, the total characters, an estimate of the audio size against the 15 MB limit, and writes the list to `js/announcer/voice/render-list.json` so the real run renders exactly that list. Never call the service in this task. Post `NOTE "boss: ..."` with the numbers so they go under "Waiting for Juan" for Noah to approve.
