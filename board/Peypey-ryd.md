@@ -19,3 +19,4 @@
 - 11-14 19:47 UTC | CLAIM | Peypey-ryd/work | B5 why this play card: js/app.js, css/app.css
 - 11-14 19:48 UTC | ASK | Peypey-ryd/work | boss: for B5, how will a v1 event say which why option was chosen? I read e.chosen as { play: 'deep_pass' } if present, else infer it from the event (run, short or deep pass by yards). Option names beyond deep_pass, run, short_pass, screen?
 - 11-14 19:49 UTC | DONE | Peypey-ryd/work | B5 why this play card, checked: headless Chromium at 375 wide, nothing shows without why, ?whydemo=1 puts cards on the first three plays from scrimmage, bars and percentages, called option marked, card stays open as plays come in, no sideways scroll, no console errors, not checked: real v1 why data and how it names the chosen option (ASK posted), real phone
+- 11-14 19:49 UTC | CLAIM | Peypey-ryd/work | B6 my team view: js/app.js, css/app.css
