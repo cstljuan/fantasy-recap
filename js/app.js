@@ -7,7 +7,7 @@
   var G = window.FF_GAME, D = window.FF_DATA, Rules = window.FF_RULES, Spr = window.FF_SPRITES;
   var TEAMS = D.TEAMS;
   var WEEK = 'Week 11';
-  var TABS = ['matchup', 'lineups', 'plays', 'recap'];
+  var TABS = ['league', 'matchup', 'lineups', 'plays', 'recap'];
   var SLOTS = [
     { role: 'QB', pos: 'QB' }, { role: 'RB', pos: 'RB' }, { role: 'WR1', pos: 'WR' }, { role: 'WR2', pos: 'WR' },
     { role: 'WR3', pos: 'FLEX' }, { role: 'TE', pos: 'TE' }, { role: 'K', pos: 'K' }, { role: 'DST', pos: 'D/ST' }
@@ -135,7 +135,7 @@
     m.field = res.post.score.slice();
     m.done += 1;
     m.feed.push({
-      n: m.done, team: off, where: res.where || '', desc: describe(res), tags: tags,
+      n: m.done, team: off, where: res.where || '', desc: describe(res), tags: tags, why: whyFor(e, res),
       scoring: changed, flag: e.t === 'pen', score: res.post.score.slice(),
       fp: res.fp.map(function (f) { return { pts: f.pts, who: shortName(f.team, f.role) }; })
     });
@@ -214,6 +214,66 @@
       '</div>';
   }
 
+  // "Why this play": the play caller's probabilities for a play, from the event's
+  // optional why field (contract v1). ?whydemo=1 attaches a sample to the first
+  // three plays from scrimmage so the card can be seen before real data exists.
+  var WHY_DEMO = /[?&]whydemo=1(&|$)/.test(location.search);
+  var WHY_SAMPLE = { play: { deep_pass: 0.46, run: 0.31, short_pass: 0.17, screen: 0.06 } };
+  var WHY_QUESTIONS = { play: 'Which play to call' };
+  var SCRIMMAGE = ['run', 'pass', 'inc', 'sack', 'int', 'fumble'];
+  var whyDemoUsed = 0, whyOpen = {};
+
+  function isProbMap(o) {
+    if (!o || typeof o !== 'object') return false;
+    var ks = Object.keys(o);
+    return ks.length > 0 && ks.every(function (k) { return typeof o[k] === 'number' && isFinite(o[k]); });
+  }
+  // Which option the play turned out to be: e.chosen if the game file says, else read from what happened.
+  function chosenFor(q, opts, e, res) {
+    if (e.chosen && typeof e.chosen === 'object' && typeof e.chosen[q] === 'string') return e.chosen[q];
+    if (typeof e.chosen === 'string' && q === 'play') return e.chosen;
+    if (q !== 'play') return '';
+    var guess = '';
+    if (e.t === 'run' || e.t === 'fumble') guess = 'run';
+    else if (e.t === 'pass') guess = e.yds >= 15 ? 'deep_pass' : 'short_pass';
+    return guess && guess in opts ? guess : '';
+  }
+  function whyFor(e, res) {
+    var why = e.why;
+    if (!why && WHY_DEMO && SCRIMMAGE.indexOf(e.t) >= 0 && whyDemoUsed < 3) { whyDemoUsed += 1; why = WHY_SAMPLE; }
+    if (!why || typeof why !== 'object') return null;
+    var out = [];
+    Object.keys(why).forEach(function (q) {
+      if (!isProbMap(why[q])) return;
+      var opts = why[q], sum = 0;
+      Object.keys(opts).forEach(function (k) { sum += Math.max(0, opts[k]); });
+      if (!(sum > 0)) return;
+      var chosen = chosenFor(q, opts, e, res);
+      out.push({
+        q: q, chosen: chosen,
+        opts: Object.keys(opts).map(function (k) { return { k: k, p: Math.max(0, opts[k]) / sum }; })
+                .sort(function (a, b) { return b.p - a.p; })
+      });
+    });
+    return out.length ? out : null;
+  }
+  function humanize(k) { var t = String(k).replace(/_/g, ' '); return t.charAt(0).toUpperCase() + t.slice(1); }
+  function whyCard(p) {
+    if (!p.why) return '';
+    var body = p.why.map(function (w) {
+      return '<div class="why-q">' + esc(WHY_QUESTIONS[w.q] || humanize(w.q)) + '?</div>' +
+        '<ul class="why-bars">' + w.opts.map(function (o) {
+          var pct = Math.round(o.p * 100), on = o.k === w.chosen;
+          return '<li' + (on ? ' class="is-chosen"' : '') + '>' +
+            '<span class="why-name">' + esc(humanize(o.k)) + (on ? '<b>Called</b>' : '') + '</span>' +
+            '<span class="why-bar"><i style="width:' + pct + '%"></i></span>' +
+            '<span class="why-pct">' + pct + '%</span></li>';
+        }).join('') + '</ul>';
+    }).join('');
+    return '<details class="why" data-n="' + p.n + '"' + (whyOpen[p.n] ? ' open' : '') + '>' +
+      '<summary>Why this play</summary>' + body + '</details>';
+  }
+
   function playItem(p, isNew) {
     if (p.divider) return '<li class="divider">' + esc(p.divider) + '</li>';
     var tags = p.tags.map(function (t) { return '<span class="tag t-' + t[0] + '">' + t[1] + '</span>'; }).join('');
@@ -229,6 +289,7 @@
         (tags ? '<div class="play-tags">' + tags + '</div>' : '') +
       '</div>' +
       (fp ? '<div class="play-fp">' + fp + '</div>' : '') +
+      whyCard(p) +
       '</li>';
   }
 
@@ -371,7 +432,43 @@
         '</table></div></div>';
   }
 
-  var RENDER = { matchup: renderMatchup, lineups: renderLineups, plays: renderPlays, recap: renderRecap };
+  // League home: this week's matchups in a small sample league, ours first.
+  // The other teams are invented for the demo; only our matchup has a game to watch.
+  var RELEASE = 'Recap drops Tuesday';
+  var OTHER_MATCHUPS = [
+    { teams: [{ full: 'Turbo Turtles', tile: '#2f8f6b' }, { full: 'Midnight Owls', tile: '#4a5bd0' }], optedIn: true }
+  ];
+
+  function leagueTeam(name, tile, sprite) {
+    return '<div class="lg-team">' +
+      (sprite ? '<img class="sprite" src="' + sprite + '" alt="">' : '<span class="tile" style="--c: ' + tile + '">' + esc(name.charAt(0)) + '</span>') +
+      '<span class="team-name">' + esc(name) + '</span></div>';
+  }
+  function optMark(on) {
+    return on ? '<span class="lg-mark is-on">Opted in</span>' : '<span class="lg-mark">Not opted in</span>';
+  }
+
+  function renderLeague() {
+    var ours = '<a class="panel lg-match is-ours" href="#matchup">' +
+      '<div class="lg-top"><span class="eyebrow">Your matchup</span>' + statusChip() + '</div>' +
+      '<div class="lg-teams">' + leagueTeam(TEAMS[0].full, '', marks[0]) + '<span class="lg-vs">vs</span>' + leagueTeam(TEAMS[1].full, '', marks[1]) + '</div>' +
+      '<div class="lg-foot">' + optMark(optin === 'in') + '<span class="lg-drop">' + RELEASE + '</span><span class="lg-go">Open</span></div>' +
+      '</a>';
+    var others = OTHER_MATCHUPS.map(function (x) {
+      return '<div class="panel lg-match">' +
+        '<div class="lg-teams">' + leagueTeam(x.teams[0].full, x.teams[0].tile) + '<span class="lg-vs">vs</span>' + leagueTeam(x.teams[1].full, x.teams[1].tile) + '</div>' +
+        '<div class="lg-foot">' + optMark(x.optedIn) + '<span class="lg-drop">' + RELEASE + '</span></div>' +
+        '</div>';
+    }).join('');
+    return '<div class="narrow">' +
+      '<div class="lg-head"><h2>' + esc(WEEK) + ' matchups</h2><span class="lg-count">' + (1 + OTHER_MATCHUPS.length) + ' matchups, 4 teams</span></div>' +
+      ours + others +
+      '<p class="note" style="border:0;margin-top:14px">Sample league. Each recap is released on Tuesday, after the week is over. ' +
+      'Only your matchup has a game to watch in this demo.</p>' +
+      '</div>';
+  }
+
+  var RENDER = { league: renderLeague, matchup: renderMatchup, lineups: renderLineups, plays: renderPlays, recap: renderRecap };
 
   function render(isFresh) {
     fresh = !!isFresh;
@@ -420,9 +517,82 @@
     revealClose();
   });
 
+  // Announcer style switch, Straight or Fun, under the speed control. It calls
+  // FF_ANNOUNCER.setStyle and is saved under fr.style. Only built when the announcer is loaded.
+  var ANN = window.FF_ANNOUNCER, STYLE_KEY = 'fr.style';
+  var STYLE_NAMES = [['straight', 'Straight'], ['fun', 'Fun']];
+  var styleEl = null;
+  function markStyle() {
+    if (!styleEl) return;
+    Array.prototype.forEach.call(styleEl.children, function (b) {
+      b.setAttribute('aria-pressed', String(b.getAttribute('data-style') === ANN.style));
+    });
+  }
+  if (ANN && ANN.setStyle) {
+    styleEl = document.createElement('div');
+    styleEl.className = 'speed voice';
+    styleEl.setAttribute('role', 'group');
+    styleEl.setAttribute('aria-label', 'Announcer style');
+    styleEl.hidden = true;
+    styleEl.innerHTML = STYLE_NAMES.map(function (n) {
+      return '<button type="button" data-style="' + n[0] + '">' + n[1] + '</button>';
+    }).join('');
+    $('closeGame').parentNode.appendChild(styleEl);
+    try { var savedStyle = window.localStorage.getItem(STYLE_KEY); if (savedStyle) ANN.setStyle(savedStyle); } catch (err) { /* storage may be off */ }
+    markStyle();
+    styleEl.addEventListener('click', function (ev) {
+      var b = ev.target.closest ? ev.target.closest('[data-style]') : null;
+      if (!b) return;
+      ANN.setStyle(b.getAttribute('data-style'));
+      try { window.localStorage.setItem(STYLE_KEY, ANN.style); } catch (err) { /* storage may be off */ }
+      markStyle();
+      revealClose();
+    });
+  }
+
+  // Captions: one line at the bottom of the game view with what the announcer just said.
+  // It sits in the band past the end line, so it stays clear of the players and their names.
+  var capEl = document.createElement('div');
+  capEl.className = 'captions';
+  capEl.setAttribute('aria-live', 'polite');
+  capEl.hidden = true;
+  $('closeGame').parentNode.appendChild(capEl);
+  function showCaption(text) {
+    if (text && typeof text === 'object') text = text.text || text.line || '';
+    if (!text) return;
+    var span = document.createElement('span');
+    span.textContent = String(text);
+    capEl.textContent = '';
+    capEl.appendChild(span);
+    capEl.title = span.textContent;
+    capEl.hidden = false;
+    // A line longer than the strip scrolls sideways once so it can be read to the end.
+    var over = span.scrollWidth - (capEl.clientWidth - 20);
+    if (over > 0) {
+      span.style.setProperty('--shift', -over + 'px');
+      span.style.animationDuration = Math.max(2.5, over / 45 + 1.5) + 's';
+      span.className = 'scroll';
+    }
+  }
+  function clearCaption() { capEl.textContent = ''; capEl.hidden = true; }
+  // FF_ANNOUNCER.onLine (task C3) hands over the exact line that was said. Until it is on
+  // main, the app asks FF_ANNOUNCER.line itself, which can pick a different wording than the voice.
+  var hasOnLine = !!(ANN && typeof ANN.onLine === 'function');
+  if (hasOnLine) ANN.onLine(showCaption);
+  function captionFor(type, d) {
+    if (type === 'reset') { clearCaption(); return; }
+    if (hasOnLine || !ANN || !ANN.line) return;
+    try {
+      if (type === 'result') showCaption(ANN.line(d.res, { teams: TEAMS, score: d.res.post.score, style: ANN.style }));
+      else if (type === 'half' || type === 'final') showCaption(ANN.line({ kind: type }, { teams: TEAMS, score: m.field.slice(), style: ANN.style }));
+    } catch (err) { /* captions are optional */ }
+  }
+
   function setControls(on) {
     $('closeGame').hidden = !on;
     speedEl.hidden = !on;
+    if (styleEl) styleEl.hidden = !on;
+    markStyle();
   }
 
   var closeTimer = 0;
@@ -443,8 +613,21 @@
     closeTimer = setTimeout(function () { setControls(false); }, 2600);
   }
 
+  // The League tab and screen are made here, so index.html stays as it is.
+  (function addLeague() {
+    var link = document.createElement('a');
+    link.href = '#league'; link.setAttribute('data-tab', 'league'); link.textContent = 'League';
+    $('tabs').insertBefore(link, $('tabs').firstChild);
+    var sec = document.createElement('section');
+    sec.className = 'screen'; sec.id = 's-league'; sec.setAttribute('aria-label', 'League'); sec.hidden = true;
+    var first = $('s-matchup');
+    first.parentNode.insertBefore(sec, first);
+    var brand = document.querySelector('.brand');
+    if (brand) brand.setAttribute('href', '#league');
+  })();
+
   function route() {
-    var h = (location.hash || '#matchup').slice(1);
+    var h = (location.hash || '#league').slice(1);
     if (h === 'game') {
       // The game can only be opened from a button, because sound needs a tap.
       if (G.mode === 'ready') { location.replace('#matchup'); return; }
@@ -452,7 +635,7 @@
       return;
     }
     if (inGame) showGame(false);
-    if (TABS.indexOf(h) < 0) h = 'matchup';
+    if (TABS.indexOf(h) < 0) h = 'league';
     var changed = h !== tab;
     tab = h;
     TABS.forEach(function (t) { $('s-' + t).hidden = t !== tab; });
@@ -462,6 +645,12 @@
     render(false);
     if (changed) window.scrollTo(0, 0);
   }
+
+  // Keep a why card open when the feed is drawn again after the next play.
+  document.addEventListener('toggle', function (ev) {
+    var el = ev.target;
+    if (el && el.classList && el.classList.contains('why')) whyOpen[el.getAttribute('data-n')] = el.open;
+  }, true);
 
   document.addEventListener('click', function (ev) {
     var el = ev.target.closest ? ev.target.closest('[data-act]') : null;
@@ -484,7 +673,7 @@
   };
 
   G.on(function (type, d) {
-    if (type === 'reset') m = blank();
+    if (type === 'reset') { m = blank(); whyDemoUsed = 0; whyOpen = {}; }
     else if (type === 'start') m.status = 'live';
     else if (type === 'snap') m.now = d.res.e.t === 'kickoff' ? 'Kickoff' : d.res.e.t === 'xp' ? 'Extra point try' : d.res.where;
     else if (type === 'result') {
@@ -494,6 +683,7 @@
     else if (type === 'half') { m.feed.push({ divider: 'Halftime' }); m.now = 'Halftime'; }
     else if (type === 'final') { m.status = 'final'; m.now = ''; }
     syncFloaters();
+    captionFor(type, d);
     if (!inGame) render(type === 'result');
   });
 
@@ -505,6 +695,7 @@
     get optin() { return optin; },
     get masked() { return masked(); },
     get paused() { return paused(); },
+    get caption() { return capEl.hidden ? '' : capEl.textContent; },
     totals: function () { return [f1(total(0)), f1(total(1))]; }
   };
 

@@ -75,3 +75,7 @@ Create `db/seed.sql`: `INSERT` statements that put the sample game from `data/ga
 ## Task Q3: honesty check
 
 Read `README.md`, `pitch/` and the DONE posts on the board, and compare them with the code on main. Send each owner a NOTE for anything that says more than the code does: `sh tools/post.sh NOTE "<name>: <file>: <the sentence> is not true because <what the code does>"`. Send the boss the same for `README.md`. The Devpost rules disqualify projects that overstate, so be strict.
+
+## Task D11: optional certificate check
+
+In `server/index.js`: when the environment has `DATABASE_CA_FILE`, read that certificate file and pass it to the driver so the server is verified against it; when it is not set, connect exactly as the connection string says. Cover both paths in `server/test.js` with the fake database, and describe it in `server/README.md`. Never turn certificate checking off in code.

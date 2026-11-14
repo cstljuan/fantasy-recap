@@ -34,8 +34,12 @@
     this.dur = 4; this.tEnd = 3; this.spot = null;
     this.ball0 = { x: ctx.ball.x, y: ctx.ball.y };
     this.holder0 = ctx.holder || null;
-    // Every player starts where the last play left them.
+    // Every player starts where the last play left them. The referee too.
+    this.ref = ctx.ref || null;
     this.all.forEach(function (a) { a.path = [{ t: 0, x: a.x, y: a.y }]; a.state = ''; });
+    if (this.ref) { this.ref.path = [{ t: 0, x: this.ref.x, y: this.ref.y }]; this.ref.state = ''; }
+    this.cut = false;      // true when the play opens with a camera cut to a set piece
+    this.goalAt = undefined; this.focus = null;
   }
 
   Play.prototype.down = function (team) { return (team === 0) === (this.half === 1); };
@@ -68,6 +72,13 @@
   };
   Play.prototype.holdAll = function (t) {
     for (var i = 0; i < this.all.length; i++) this.hold(this.all[i], t);
+    if (this.ref) this.hold(this.ref, t);
+  };
+
+  // The referee keeps a diagonal: wide of the ball and a few meters behind the attack.
+  Play.prototype.refSpot = function (bx, by, attTeam) {
+    var dy = this.down(attTeam) ? -9 : 9, dx = bx < WID / 2 ? 10 : -10;
+    return { x: clamp(bx + dx, 4, WID - 4), y: clamp(by + dy, 3, LEN - 3) };
   };
 
   Play.prototype.cue = function (t, fn) { this.cues.push({ t: t, fn: fn, done: false }); };
@@ -108,6 +119,7 @@
       if (skip && skip.indexOf(a) >= 0) continue;
       this.go(a, t, this.target(a, bx, by, attTeam), speed);
     }
+    if (this.ref) this.go(this.ref, t, this.refSpot(bx, by, attTeam), speed === 'cut' ? 'cut' : 7);
   };
 
   // The nearest defender steps in, on the goal side of the ball.
@@ -177,6 +189,7 @@
       if (tele) a.path = [{ t: 0, x: p.x, y: p.y }];
       else P.go(a, ts - 0.3, p, 12);
     });
+    if (P.ref) P.go(P.ref, tele ? 0 : ts - 0.3, { x: CX + 11, y: LEN / 2 + 1 }, tele ? 'cut' : 10);
     P.holdAll(ts);
     var S = P.T[k].s, st = S.ST, cm = S.CM2, back = S[rng() < 0.5 ? 'CB1' : 'CB2'];
     P.kick(ts, ts + 0.5, cm, 0);
@@ -232,6 +245,8 @@
   function setupPenalty(P, team) {
     var opp = 1 - team, S = P.T[team].s, sh = S[P.ctx.e.by], spot = P.at(team, 94, 0), rng = P.rng;
     P.place(0, spot);
+    P.cut = true;
+    if (P.ref) P.go(P.ref, 0, P.at(team, 88, 9), 'cut');
     var ts = 1.0;
     P.all.forEach(function (a) {
       if (a === sh) { P.go(a, 0, P.at(team, 91.8, -0.9), 'cut'); return; }
@@ -302,7 +317,12 @@
       endT = te + 0.4;
       // Celebration: the scorer runs for the corner, his teammates chase him.
       var cf = P.at(team, 99, (P.LX(team, spot.x) >= 0 ? 1 : -1) * 28);
+      P.goalAt = te;
+      P.focus = { a: sh, t: te + 0.5 };
       P.cue(te + 0.3, function () { sh.state = 'celebrate'; });
+      P.cue(te + 2.2, function () {
+        P.T[team].list.forEach(function (a) { if (a !== sh && a.role !== 'GK') a.state = 'cheer'; });
+      });
       P.go(sh, te + 2.4, cf, 7.5);
       P.T[team].list.forEach(function (a) {
         if (a === sh || a.role === 'GK') return;
@@ -355,6 +375,8 @@
     var kicker = S[e.by], side = P.LX(team, P.ball0.x) >= 0 ? 1 : -1;
     var cs = P.at(team, 104.6, side * 33.4);
     P.place(0, cs);
+    P.cut = true;
+    if (P.ref) P.go(P.ref, 0, P.at(team, 88, -side * 12), 'cut');
     var ts = 1.1;
     P.go(kicker, 0, P.at(team, 105.6, side * 34.2), 'cut');
     var boxSlots = ['CB1', 'CB2', 'ST', 'CM2', 'LW', 'RW', 'CM3'].filter(function (k) { return S[k] !== kicker; });
@@ -410,6 +432,7 @@
     var team = P.att, opp = 1 - team, rng = P.rng, S = P.T[team].s, O = P.T[opp].s, k = S[e.by];
     var spot = P.ctx.spot || P.ball0, sF = P.F(team, spot.y), sL = P.LX(team, spot.x);
     P.place(0, spot);
+    P.cut = true;
     var ts = 1.1;
     P.go(k, 0, P.at(team, sF - 2.2, sL - 0.6), 'cut');
     P.shape(0, spot.x, spot.y, team, [k], 'cut');
@@ -420,8 +443,12 @@
         var o = (i - 1.5) * 0.9;
         P.go(O[s], 0, P.at(team, wF + pF * o, wL + pL * o), 'cut');
       });
+      // Vanishing spray: a line where the wall stands and the ball's spot.
+      P.marks.push({ kind: 'spray', t: 0, until: ts + 0.4, line: [P.at(team, wF + pF * 2.4, wL + pL * 2.4), P.at(team, wF - pF * 2.4, wL - pL * 2.4)], spot: { x: spot.x, y: spot.y } });
+      if (P.ref) P.go(P.ref, 0, P.at(team, wF + pF * 3.6 - dF / dd * 1.5, wL + pL * 3.6 - dL / dd * 1.5), 'cut');
       P.go(O.GK, 0, P.at(team, 104.4, clamp(-sL * 0.1, -1.5, 1.5)), 'cut');
     }
+    if (!P.marks.length) P.marks.push({ kind: 'spray', t: 0, until: ts + 0.4, line: null, spot: { x: spot.x, y: spot.y } });
     P.holdAll(ts);
     var tEnd;
     if (e.to) {
@@ -456,7 +483,12 @@
     var loose = P.at(vt, Math.min(tF + 2.5, 104), P.LX(vt, dp.x) + 1);
     P.kick(tc, tc + 0.6, loose, 0);
     P.spot = e.box ? P.at(vt, 94, 0) : { x: dp.x, y: dp.y };
-    if (res.card) P.cards.push({ a: off, color: res.card === 'red' ? '#ff3b30' : '#ffd400', t0: tc + 1.0 });
+    if (P.ref) P.go(P.ref, tc + 1.0, { x: dp.x + 2.4, y: dp.y + (P.down(vt) ? -1.6 : 1.6) }, 8);
+    if (res.card) {
+      var cc = res.card === 'red' ? '#e5322b' : '#ffd21a';
+      P.cards.push({ a: off, color: cc, t0: tc + 1.0 });
+      if (P.ref) { P.cards.push({ a: P.ref, color: cc, t0: tc + 1.0 }); P.cue(tc + 1.0, function () { P.ref.state = 'card'; }); }
+    }
     P.hold(vic, tc + 1.6);
     P.cue(tc + 2.6, function () { vic.state = ''; });
     P.finish(tc + 0.3, res);

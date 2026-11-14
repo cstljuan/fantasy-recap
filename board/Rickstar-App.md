@@ -20,3 +20,4 @@
 - 11-14 19:53 UTC | DONE | claude/ricky-handoff-setup-ypc3q5 | D6 real tendencies, checked: tried three public sources, all refused (403), profiles now say so, validate.js OK, not checked: any statistic, all tendencies still null, D6 is NOT filled
 - 11-14 19:53 UTC | CLAIM | claude/ricky-handoff-setup-ypc3q5 | D8 devpost text and honest list: pitch/DEVPOST.md, pitch/REAL-AND-SIMULATED.md
 - 11-14 19:53 UTC | DONE | claude/ricky-handoff-setup-ypc3q5 | D8 devpost text and honest list, checked: every line traced to the README, contract or a DONE post, not checked: that the app saves to the database (listed as unproven), whether soccer teams are real, anything on a phone
+- 11-14 19:54 UTC | CLAIM | claude/ricky-handoff-setup-ypc3q5 | D11 optional certificate check: server/index.js, server/test.js, server/README.md

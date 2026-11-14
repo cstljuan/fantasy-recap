@@ -1,0 +1,29 @@
+<!doctype html><meta charset="utf-8"><title>smoke</title>
+<!-- Boss tool. Plays the whole game at high speed inside a frame and prints what happened.
+     Run it with: sh tools/smoke.sh   (headless Chrome, no window) -->
+<pre id="result">running</pre>
+<iframe id="f" width="390" height="760"></iframe>
+<script>
+var q = new URLSearchParams(location.search);
+var f = document.getElementById('f'), out = document.getElementById('result');
+var page = q.get('page') || 'index.html';
+var base = location.href.replace(/tools\/smoke\.html.*$/, '') + page.replace(/[^\/]*$/, '');
+// Headless Chrome does not run animation frames on a clock, so the frame gets a timer-driven one.
+var shim = '<base href="' + base + '"><script>window.requestAnimationFrame = function (fn) { return setTimeout(function () { fn(performance.now()); }, 16); };' +
+  (q.get('game') === 'sample' ? 'window.FF_USE_SAMPLE = true;' : '') + '<\/script>';
+fetch('../' + page).then(function (r) { return r.text(); }).then(function (html) { f.srcdoc = html.replace(/<head>/i, '<head>' + shim); });
+f.onload = function () {
+  var w = f.contentWindow, G = w.FF_GAME || w.SC_GAME, H = w.__ff || w.__sc;
+  if (!G || !H) { out.textContent = JSON.stringify({ ok: false, error: 'no game object on the page' }); return; }
+  try { H.speed = 40; G.setBackground && G.setBackground(true); G.start(); G.setActive(true); } catch (e) { out.textContent = JSON.stringify({ ok: false, error: String(e) }); return; }
+  var t0 = Date.now();
+  var timer = setInterval(function () {
+    var done = H.mode === 'final' || (H.errors && H.errors.length) || Date.now() - t0 > 120000;
+    if (!done) { out.textContent = JSON.stringify({ ok: false, running: true, mode: H.mode, plays: H.log ? H.log.length : null, ms: Date.now() - t0 }); return; }
+    clearInterval(timer);
+    out.textContent = JSON.stringify({ ok: H.mode === 'final' && !(H.errors && H.errors.length), mode: H.mode, score: H.score, plays: H.log ? H.log.length : null,
+      errors: (H.errors || []).slice(0, 3), gameFile: w.FF_GAME_FILE ? w.FF_GAME_FILE.id : 'built-in sample', whyCards: w.document.querySelectorAll('[class*="why"]').length });
+    document.title = 'done';
+  }, 200);
+};
+</script>

@@ -37,7 +37,16 @@
   var W = 8, H = 11;
   var cache = {};
 
-  function make(colors, keeper, view, frame, tone, hair) {
+  // Arms raised: hands beside the head, nothing at the hips. Used for celebrations.
+  function armsUp(rows) {
+    return rows.map(function (r, y) {
+      if (y <= 3) return 'k' + r.slice(1, 7) + 'k';
+      if (y === 5 || y === 6) return '.' + r.slice(1, 7) + '.';
+      return r;
+    });
+  }
+
+  function make(colors, keeper, view, frame, tone, hair, pose) {
     var c = document.createElement('canvas');
     c.width = W; c.height = H;
     var g = c.getContext('2d');
@@ -47,7 +56,9 @@
       c: keeper ? '#111111' : colors.trim, p: keeper ? '#111111' : colors.shorts,
       s: keeper ? shirt : colors.socks, b: '#0e0e10'
     };
-    var rows = (view === 'b' ? BACK : FRONT).concat(LEGS[frame]);
+    var top = view === 'b' ? BACK : FRONT;
+    if (pose === 'up') top = armsUp(top);
+    var rows = top.concat(LEGS[frame]);
     for (var y = 0; y < rows.length; y++) {
       for (var x = 0; x < W; x++) {
         var ch = rows[y].charAt(x);
@@ -60,9 +71,10 @@
   }
 
   // view: 'f' facing the camera, 'b' facing away. frame: 'stand', 'a' or 'b'.
-  function get(teamIndex, colors, keeper, view, frame, tone, hair) {
-    var key = teamIndex + (keeper ? 'k' : 'o') + view + frame + tone + hair;
-    if (!cache[key]) cache[key] = make(colors, keeper, view, frame, tone, hair);
+  // pose: undefined, or 'up' for arms raised.
+  function get(teamIndex, colors, keeper, view, frame, tone, hair, pose) {
+    var key = teamIndex + (keeper ? 'k' : 'o') + view + frame + tone + hair + (pose || '');
+    if (!cache[key]) cache[key] = make(colors, keeper, view, frame, tone, hair, pose);
     return cache[key];
   }
 
