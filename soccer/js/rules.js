@@ -6,6 +6,8 @@
   'use strict';
 
   var SLOTS = ['GK', 'LB', 'CB1', 'CB2', 'RB', 'CM1', 'CM2', 'CM3', 'LW', 'ST', 'RW'];
+  // Fantasy points come from soccer/js/fantasy.js (loaded first in the browser).
+  var Fantasy = root.SC_FANTASY || (typeof require === 'function' ? require('./fantasy.js') : null);
 
   function create(teams) {
     return {
@@ -190,6 +192,7 @@
     }
 
     r.post = { poss: s.poss, score: s.score.slice() };
+    r.fp = Fantasy ? Fantasy.pointsFor(r) : [];
     return r;
   }
 

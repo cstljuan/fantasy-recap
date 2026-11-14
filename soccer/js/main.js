@@ -5,7 +5,7 @@
   'use strict';
 
   var D = window.SC_DATA, Rules = window.SC_RULES, Plays = window.SC_PLAYS, Spr = window.SC_SPRITES;
-  var Font = window.SC_FONT, Stadium = window.SC_STADIUM;
+  var Font = window.SC_FONT, Stadium = window.SC_STADIUM, Fantasy = window.SC_FANTASY;
   var TEAMS = D.TEAMS;
   var LEN = Plays.LEN, WID = Plays.WID;
 
@@ -25,6 +25,8 @@
   var SPEED = clamp(parseFloat(q.get('speed')) || 1, 0.25, 40);
   var SEED = q.has('seed') ? (parseInt(q.get('seed'), 10) >>> 0) : ((Date.now() ^ Math.floor(Math.random() * 1e9)) >>> 0);
   var VOICE = q.get('voice') !== '0';
+  // Same switches as football: point floaters on or off, and ?bg=1 to keep running while the view is closed.
+  var FLOATERS = true, BACKGROUND = q.get('bg') === '1';
   var rng = mulberry32(SEED);
 
   // Logical canvas size. The width is fixed, the height follows the phone.
@@ -74,7 +76,7 @@
   var steps = Rules.flatten(D.SAMPLE_GAME, TEAMS);
   var state, si, play, pt, mode, clock = 0, interUntil = 0, camX = 0, camY = 0, camSet = false;
   var ball = { x: WID / 2, y: LEN / 2, holder: null }, spot = null, teleport = true;
-  var disp = { score: [0, 0], min: 0, half: 1, banner: null, ticker: null, flash: -9, scoreAt: [-9, -9] };
+  var disp = { score: [0, 0], min: 0, half: 1, banner: null, ticker: null, flash: -9, scoreAt: [-9, -9], floaters: [] };
   var log = [], errors = [];
   var active = false, listeners = [];
 
@@ -96,6 +98,7 @@
       for (var i = 0; i < 2; i++) if (res.post.score[i] !== disp.score[i]) disp.scoreAt[i] = clock;
       disp.score = res.post.score.slice();
       disp.ticker = { min: res.min, team: res.team, text: res.text.replace(/^\d+' /, '').toUpperCase(), t0: clock };
+      floatPoints(res.fp);
       if (res.say) say(res.say);
       emit('result', { res: res, play: p.name, step: si });
     }
@@ -109,6 +112,15 @@
       u.rate = 1.15;
       window.speechSynthesis.speak(u);
     } catch (err) { /* the announcer is optional */ }
+  }
+
+  // Fantasy points rise from the player who earned them: "+4 GOAL".
+  function floatPoints(fp) {
+    if (!FLOATERS) return;
+    fp.forEach(function (f, i) {
+      var a = teams[f.team].s[f.role];
+      if (a) disp.floaters.push({ a: a, text: (f.pts > 0 ? '+' : '') + f.pts + ' ' + String(f.why || '').toUpperCase(), good: f.pts > 0, t0: clock + i * 0.35 });
+    });
   }
 
   function spokenScore() { return TEAMS[0].name + ' ' + disp.score[0] + ', ' + TEAMS[1].name + ' ' + disp.score[1] + '.'; }
@@ -139,7 +151,15 @@
       mode = 'final'; disp.banner = null; disp.min = 90;
       say('Full time. ' + spokenScore());
       log.push({ step: si, text: 'FULL TIME', score: state.score.slice() });
-      emit('final', { score: state.score.slice() });
+      // Clean sheets are only known at full time. They arrive as one last result, same shape as any other.
+      var ft = Fantasy.fullTime(state.score);
+      if (ft.length) {
+        floatPoints(ft);
+        emit('result', { res: { e: { t: 'ft', min: 90 }, kind: 'ft', team: -1, min: 90, text: "90' Full time", calls: [], fp: ft,
+                                pre: { poss: -1, score: state.score.slice() }, post: { poss: -1, score: state.score.slice() } },
+                         play: 'full time', step: si });
+      }
+      emit('final', { score: state.score.slice(), fp: ft });
       return;
     }
     var res = Rules.apply(state, st.e, st.team);
@@ -166,7 +186,7 @@
     state = Rules.create(TEAMS);
     si = 0; clock = 0; camSet = false; teleport = true; spot = null;
     ball = { x: WID / 2, y: LEN / 2, holder: null };
-    disp.score = [0, 0]; disp.min = 0; disp.half = 1; disp.banner = null; disp.ticker = null; disp.flash = -9; disp.scoreAt = [-9, -9];
+    disp.score = [0, 0]; disp.min = 0; disp.half = 1; disp.banner = null; disp.ticker = null; disp.flash = -9; disp.scoreAt = [-9, -9]; disp.floaters = [];
     log.length = 0;
     emit('reset');
     startStep();
@@ -325,6 +345,18 @@
     g.fillRect(x - 1, y - 1, 2, 2);
   }
 
+  function drawFloaters() {
+    disp.floaters = disp.floaters.filter(function (f) { return clock - f.t0 < 2.0; });
+    disp.floaters.forEach(function (f) {
+      var age = clock - f.t0;
+      if (age < 0 || !FLOATERS) return;
+      var x = sx(f.a.x), y = sy(f.a.y) - 44 - Math.round(age * 9) * 2;
+      g.globalAlpha = clamp((2.0 - age) / 0.5, 0, 1);
+      text(f.text, x, y, { unit: 2, color: f.good ? '#8dff6e' : '#ff6a5c', align: 'center', shadow: INK });
+      g.globalAlpha = 1;
+    });
+  }
+
   function chip(team, x, y, size) {
     var c = TEAMS[team].colors;
     g.fillStyle = RULE; g.fillRect(x - 1, y - 1, size + 2, size + 2);
@@ -459,6 +491,7 @@
     for (i = 0; i < list.length; i++) drawPlayer(list[i], list[i] === carrier);
     for (i = 0; i < list.length; i++) drawLabel(list[i], list[i] === carrier);
     drawBall(b);
+    drawFloaters();
     if (clock - disp.flash < 0.22) { g.fillStyle = 'rgba(255,255,255,' + (0.5 * (1 - (clock - disp.flash) / 0.22)).toFixed(3) + ')'; g.fillRect(0, 0, W, H); }
     drawScoreBug();
     drawBanner();
@@ -474,7 +507,8 @@
     var real = Math.min(0.05, Math.max(0, (now - lastNow) / 1000));
     lastNow = now;
     try {
-      update(mode === 'ready' ? 0 : real * SPEED);
+      // Like football, the match only advances while its view is open, unless setBackground(true).
+      update(mode === 'ready' || (!active && !BACKGROUND) ? 0 : real * SPEED);
       if (active) { updateCamera(real); draw(); }
     } catch (err) {
       errors.push(String(err && err.stack || err));
@@ -504,6 +538,10 @@
     },
     get mode() { return mode; },
     get active() { return active; },
+    setFloaters: function (on) { FLOATERS = !!on; if (!FLOATERS) disp.floaters = []; },
+    setBackground: function (on) { BACKGROUND = !!on; },
+    get floaters() { return FLOATERS; },
+    get background() { return BACKGROUND; },
     get plays() { return steps.filter(function (st) { return st.kind === 'play'; }).length; }
   };
   window.SC_GAME = api;

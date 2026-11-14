@@ -1,12 +1,15 @@
-// Soccer mock data. Every team, player and event in this file is made up for
-// the demo. Nothing here comes from a real league, a real club or a real player.
-// Real rosters come in task S2.
+// Demo data. The player names are real footballers, picked for two fantasy
+// rosters, the same way the football demo uses real NFL players. The fantasy
+// team names and colors are made up, and so is the sample match: no event in
+// it really happened.
 (function (root) {
   'use strict';
 
   // Slots, 4-3-3: GK, LB, CB1, CB2, RB, CM1, CM2, CM3, LW, ST, RW.
-  // `fantasy` lists the slots a fantasy manager owns. Only those players carry
-  // a name under them on the pitch.
+  // `fantasy` lists the slots in the fantasy lineup (soccer/js/fantasy.js,
+  // LINEUP). Only those players score points and carry a name on the pitch.
+  // Names are written without accents so the pixel font and Node agree.
+  var FANTASY = ['GK', 'CB1', 'CB2', 'CM2', 'LW', 'ST', 'RW'];
   var TEAMS = [
     {
       id: 'IRN',
@@ -14,11 +17,11 @@
       full: 'Ironside FC',
       colors: { shirt: '#17191c', trim: '#d4ff2a', shorts: '#17191c', socks: '#d4ff2a', keeper: '#ff6a1a', tile: '#3a4a12' },
       roster: {
-        GK: 'Teo Varga', LB: 'Idris Kanu', CB1: 'Mats Lund', CB2: 'Rui Seixas', RB: 'Owen Farr',
-        CM1: 'Dario Penn', CM2: 'Kenji Arai', CM3: 'Luka Brajic',
-        LW: 'Sami Tahir', ST: 'Bastian Roe', RW: 'Nico Ferro'
+        GK: 'David Raya', LB: 'Alphonso Davies', CB1: 'William Saliba', CB2: 'Ruben Dias', RB: 'Achraf Hakimi',
+        CM1: 'Declan Rice', CM2: 'Jude Bellingham', CM3: 'Florian Wirtz',
+        LW: 'Khvicha Kvaratskhelia', ST: 'Erling Haaland', RW: 'Bukayo Saka'
       },
-      fantasy: ['GK', 'CB1', 'CM2', 'LW', 'ST']
+      fantasy: FANTASY
     },
     {
       id: 'RHB',
@@ -26,11 +29,11 @@
       full: 'Red Harbour SC',
       colors: { shirt: '#b3121b', trim: '#f2ead8', shorts: '#f2ead8', socks: '#b3121b', keeper: '#1fb5ff', tile: '#7a0c12' },
       roster: {
-        GK: 'Aaron Pell', LB: 'Jonas Ek', CB1: 'Malik Osei', CB2: 'Viktor Hale', RB: 'Theo Quist',
-        CM1: 'Ravi Desai', CM2: 'Emil Strand', CM3: 'Paulo Reyes',
-        LW: 'Callum Shaw', ST: 'Yusuf Demir', RW: 'Ilan Mor'
+        GK: 'Mike Maignan', LB: 'Nuno Mendes', CB1: 'Josko Gvardiol', CB2: 'Antonio Rudiger', RB: 'Jules Kounde',
+        CM1: 'Federico Valverde', CM2: 'Vitinha', CM3: 'Cole Palmer',
+        LW: 'Kylian Mbappe', ST: 'Harry Kane', RW: 'Mohamed Salah'
       },
-      fantasy: ['GK', 'CB2', 'CM1', 'RW', 'ST']
+      fantasy: FANTASY
     }
   ];
 
@@ -63,7 +66,7 @@
       { min: 11, t: 'build', team: 'IRN', chain: ['GK', 'CB2', 'CM1', 'CM3', 'RW'], to: 'att' },
       { min: 12, t: 'foul', team: 'RHB', by: 'LB', on: 'RW', card: 'yellow' },
       { min: 13, t: 'freekick', team: 'IRN', by: 'CM2' },
-      { min: 13, t: 'shot', team: 'IRN', by: 'CM2', out: 'blocked' },
+      { min: 13, t: 'shot', team: 'IRN', by: 'CM2', out: 'saved' },
       { min: 14, t: 'corner', team: 'IRN', by: 'LW', to: 'ST' },
       { min: 14, t: 'shot', team: 'IRN', by: 'ST', assist: 'LW', head: true, out: 'in' },
       { min: 15, t: 'kickoff', team: 'RHB' },
@@ -88,7 +91,8 @@
       { min: 66, t: 'build', team: 'RHB', chain: ['CB1', 'CM3', 'RW'], to: 'att' },
       { min: 67, t: 'foul', team: 'IRN', by: 'CM2', on: 'RW', card: 'yellow' },
       { min: 68, t: 'freekick', team: 'RHB', by: 'RW', to: 'CB1' },
-      { min: 68, t: 'shot', team: 'RHB', by: 'CB1', assist: 'RW', head: true, out: 'wide' },
+      { min: 68, t: 'shot', team: 'RHB', by: 'CB1', assist: 'RW', head: true, out: 'in' },
+      { min: 69, t: 'kickoff', team: 'IRN' },
       { min: 74, t: 'build', team: 'IRN', chain: ['GK', 'CB2', 'CM1', 'LW'], to: 'box' },
       { min: 75, t: 'shot', team: 'IRN', by: 'CM2', assist: 'LW', out: 'in' },
       { min: 76, t: 'kickoff', team: 'RHB' },
@@ -96,7 +100,8 @@
       { min: 82, t: 'shot', team: 'RHB', by: 'ST', out: 'saved' },
       { min: 82, t: 'corner', team: 'RHB', by: 'LW' },
       { min: 87, t: 'build', team: 'IRN', chain: ['CB1', 'CM3', 'RW'], to: 'att' },
-      { min: 88, t: 'offside', team: 'IRN', by: 'ST' },
+      { min: 88, t: 'shot', team: 'IRN', by: 'RW', assist: 'ST', out: 'in' },
+      { min: 89, t: 'kickoff', team: 'RHB' },
       { min: 90, t: 'build', team: 'RHB', chain: ['CB2', 'CM2', 'ST'], to: 'box' },
       { min: 90, t: 'shot', team: 'RHB', by: 'ST', out: 'wide' }
     ]

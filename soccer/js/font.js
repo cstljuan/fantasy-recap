@@ -58,11 +58,14 @@
   var HGT = 7, GAP = 1;
   var cache = {};
 
+  // Accents are dropped (Mbappé draws as MBAPPE), so any real name renders.
+  function clean(str) { return String(str).normalize('NFD').replace(/[\u0300-\u036f]/g, '').toUpperCase(); }
+
   function glyph(ch) { return G[ch] || G[ch.toUpperCase()] || G['?']; }
 
   // Width in canvas pixels of `str` at `unit`, with `track` extra font pixels between letters.
   function width(str, unit, track) {
-    var w = 0, s = String(str).toUpperCase();
+    var w = 0, s = clean(str);
     for (var i = 0; i < s.length; i++) w += glyph(s.charAt(i))[0].length + (i ? GAP + (track || 0) : 0);
     return w * (unit || 1);
   }
@@ -70,7 +73,7 @@
   function render(str, unit, color, track) {
     var key = str + '|' + unit + '|' + color + '|' + (track || 0);
     if (cache[key]) return cache[key];
-    var s = String(str).toUpperCase(), c = document.createElement('canvas');
+    var s = clean(str), c = document.createElement('canvas');
     c.width = Math.max(1, width(s, unit, track)); c.height = HGT * unit;
     var g = c.getContext('2d'), x = 0;
     g.fillStyle = color;
