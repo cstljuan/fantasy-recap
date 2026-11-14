@@ -112,3 +112,7 @@ Live run on 2026-11-14: 21 of 22 players filled. William Saliba stays null: ESPN
 ## More teams
 
 `fill_profiles.py` and `form.py` take `--roster-files data/rosters/TUR.json,data/rosters/OWL.json` to fill teams that are not in `js/data.js`. Both merge into `data/rosters/season-2026.json` and `form-2026.json`, so a run for some teams keeps the others. Live run on 2026-11-14: all 14 Turtles and Owls players resolved and filled, with form.
+
+## Notes pages
+
+`python3 agents/scout/notes.py` writes `data/profiles/notes/<team>-<slot>.md` for the 28 players of the four football teams: season tendencies with how, source and date; recent form next to the season; the Sleeper and ESPN result; and two sentences on what it means for play calling. The sentences come from fixed rules on the numbers (`RULES` in the script), not from a model, and each page says so. Run it again after the profiles change; do not edit the pages by hand. Offline check: `python3 agents/scout/check_notes.py`. `data/rosters/crosscheck-2026.json` now covers all 28 players (all agree).

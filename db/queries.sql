@@ -1,5 +1,7 @@
 -- Example queries that are not part of the schema. $1 is the game id.
--- Not run on any database yet.
+-- The drive chart query was run on a plain PostgreSQL 16 on 2026-11-14 and gave the same 12 drives as
+-- node server/drives.js data/games/week11-football.json. The momentum query needs TimescaleDB (time_bucket) and
+-- has not been run.
 
 -- Drive chart (film room): one row per drive, the same numbers as server/drives.js.
 -- Needs plays saved by server/push-game.js or db/seed.sql from the current make-seed, which keep the drive
@@ -56,7 +58,7 @@ LEFT JOIN ends e USING (index)
 ORDER BY d.index;
 
 -- Momentum: fantasy points and real points per team per bucket of play time. $2 is the bucket in seconds.
--- Not run on any database. server/momentum.js gives the same buckets in JavaScript (and also lists empty buckets).
+-- Needs TimescaleDB; not run. server/momentum.js gives the same buckets in JavaScript (and also lists empty buckets).
 WITH g AS (SELECT home, away FROM games WHERE id = $1),
 t0 AS (SELECT min(played_at) AS t FROM plays WHERE game_id = $1),
 fp AS (

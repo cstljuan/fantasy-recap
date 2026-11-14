@@ -374,6 +374,79 @@ var srv = createServer(fake).listen(0, function () {
         return call('POST', '/league', {}, undefined, noDb.address().port);
       }).then(function (r) { assert.equal(r.status, 405); withDb.close(); noDb.close(); });
     })
+    // commissioner: opt-ins per week, release by hand, watched counts; with a database and in memory without one
+    .then(function () {
+      var rel = {}, wat = {};
+      var dbc = { query: function (t, p) {
+        if (/^INSERT INTO releases/.test(t)) { rel[p[0]] = { released: p[1], changed_at: new Date('2026-11-17T09:00:00Z') }; return Promise.resolve({ rows: [{ changed_at: rel[p[0]].changed_at }] }); }
+        if (/FROM releases/.test(t)) return Promise.resolve({ rows: rel[p[0]] ? [rel[p[0]]] : [] });
+        if (/^INSERT INTO watched/.test(t)) { if (p[0] === 'nogame') { var e = new Error('fk'); e.code = '23503'; return Promise.reject(e); } (wat[p[0]] = wat[p[0]] || {})[p[1]] = 1; return Promise.resolve({ rows: [] }); }
+        if (/FROM watched/.test(t)) return Promise.resolve({ rows: [{ n: String(Object.keys(wat[p[0]] || {}).length) }] });
+        if (/FROM optins/.test(t)) return Promise.resolve({ rows: p[0] === 'week11-football' ? [{ manager: 'PYT' }, { manager: 'stranger' }] : [] });
+        return Promise.resolve({ rows: [] });
+      } };
+      var down = { query: function () { return Promise.reject(new Error('down')); } };
+      var a = createServer(dbc).listen(0), b = createServer(down).listen(0), O = { Origin: 'http://localhost:5173' };
+      function ca(m, p, body) { return call(m, p, body, O, a.address().port); }
+      function cb(m, p, body) { return call(m, p, body, O, b.address().port); }
+      return ca('GET', '/league/week/11/optins').then(function (r) {
+        assert.equal(r.status, 200); assert.equal(r.headers['access-control-allow-origin'], O.Origin);
+        assert.deepEqual(r.body.matchups[0].optedIn, ['PYT']); assert.equal(r.body.matchups[0].from, 'database');
+        assert.deepEqual(r.body.matchups[1].optedIn, ['TUR', 'OWL']); assert.equal(r.body.matchups[1].from, 'file');
+        assert.ok(JSON.stringify(r.body).indexOf('final') < 0 && JSON.stringify(r.body).indexOf('points') < 0, 'no points in the opt-in view');
+        return ca('GET', '/league/week/11/release');
+      }).then(function (r) {
+        assert.deepEqual([r.body.released, r.body.changed_at, r.body.source], [false, null, 'database']);
+        return ca('POST', '/league/week/11/release', { released: true });
+      }).then(function (r) {
+        assert.equal(r.status, 200); assert.equal(r.body.released, true); assert.equal(r.body.source, 'database');
+        return ca('GET', '/league/week/11/release');
+      }).then(function (r) {
+        assert.equal(r.body.released, true); assert.equal(r.body.changed_at, '2026-11-17T09:00:00.000Z');
+        return ca('POST', '/games/week11-football/watched', { manager: 'GOB' });
+      }).then(function (r) {
+        assert.equal(r.status, 201); assert.equal(r.body.watched, 1);
+        return ca('POST', '/games/week11-football/watched', { manager: ' GOB ' });
+      }).then(function (r) {
+        assert.equal(r.body.watched, 1, 'the same manager counts once');
+        return ca('GET', '/league/week/11/optins');
+      }).then(function (r) {
+        assert.equal(r.body.matchups[0].watched, 1);
+        return Promise.all([
+          ca('POST', '/games/nogame/watched', { manager: 'GOB' }),
+          ca('POST', '/league/week/11/release', { released: 'yes' }),
+          ca('POST', '/league/week/11/release', [true]),
+          ca('POST', '/league/week/20/release', { released: true }),
+          ca('GET', '/league/week/0/release'),
+          ca('GET', '/league/week/eleven/optins'),
+          ca('GET', '/league/week/5/optins'),
+          ca('DELETE', '/league/week/11/release'),
+          ca('POST', '/games/week11-football/watched', { manager: '' }),
+          ca('POST', '/games/week11-football/watched', { manager: new Array(200).join('m') }),
+          ca('GET', '/games/week11-football/watched')
+        ]);
+      }).then(function (rs) {
+        assert.deepEqual(rs.map(function (r) { return r.status; }), [404, 400, 400, 404, 400, 400, 404, 405, 400, 400, 405]);
+        rs.forEach(function (r) { assert.equal(r.headers['access-control-allow-origin'], O.Origin); });
+        // without a database: the same routes, kept in memory
+        return cb('POST', '/league/week/11/release', { released: true });
+      }).then(function (r) {
+        assert.equal(r.body.source, 'memory'); assert.equal(r.body.released, true);
+        return cb('GET', '/league/week/11/release');
+      }).then(function (r) {
+        assert.equal(r.body.released, true); assert.equal(r.body.source, 'memory');
+        return cb('POST', '/games/week11-football/watched', { manager: 'PYT' });
+      }).then(function (r) {
+        assert.equal(r.body.source, 'memory'); assert.equal(r.body.watched, 1);
+        return cb('GET', '/league/week/11/optins');
+      }).then(function (r) {
+        assert.deepEqual(r.body.matchups[0].optedIn, ['GOB', 'PYT']); assert.equal(r.body.matchups[0].from, 'file'); assert.equal(r.body.matchups[0].watched, 1);
+        return cb('GET', '/league/week/9/optins');
+      }).then(function (r) {
+        assert.equal(r.body.finished, true); assert.deepEqual(r.body.matchups[0].optedIn, []); assert.equal(r.body.matchups[0].from, 'none');
+        a.close(); b.close();
+      });
+    })
     .then(function () { console.log('OK'); srv.close(); })
     .catch(function (e) { console.error('FAIL', e.message); process.exit(1); });
 });

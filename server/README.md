@@ -1,5 +1,7 @@
 # Plays service
 
+Step by step from a clean clone, with what each command prints: `server/SETUP.md`.
+
 A small Node service with no framework. It saves plays to the database and returns them. The database is Tiger Data (PostgreSQL), set up by `db/schema.sql`.
 
 ## Run it
@@ -36,6 +38,16 @@ node server/index.js
 - `GET /league` returns the league home's data: `{ name, week, invented, release, weeks: [{ week, finished, matchups: [{ teams: [{id, full, tile}, x2], final: [a, b] or null, gameId, finalFrom }] }], standings: [{ id, full, wins, losses, ties, pointsFor, pointsAgainst }], current: { week, matchups: [{ teams, gameId, optedIn: [team ids], optinsFrom }] }, note, source: { optins, finals } }`.
 
 It starts from `data/league.json` (an invented league). Standings are worked out from the finished weeks, best first. For this week, `optedIn` comes from the `optins` table when the database answers (only managers equal to one of the matchup's team ids count; a matchup without a game id keeps the file's list) and from the file when it does not; `optinsFrom` says which. A finished week whose game is in the database gets its fantasy points from the plays. **The current week's points are always null**, even when the database or a game file holds them, so the league home can never show hidden points before the final. In a page: `<script src="server/league.js"></script>` and `FR_LEAGUE.fromLeague(leagueJson)` gives the same without the service (checked in headless Chromium). `node server/league.js` prints it and checks the standings against the file.
+
+## Commissioner
+
+**There are no accounts and no login. Anyone who can reach the service can call these routes**, including releasing a week. Run the service only where the people who can reach it are the league.
+
+- `GET /league/week/:n/optins` returns `{ week, finished, matchups: [{ teams: [ids], gameId, optedIn: [team ids], from, watched }] }`. No points. `from` is `database` (the `optins` table), `file` (the current week in `data/league.json` when the database does not answer or the matchup has no game) or `none` (a past week the file does not know). `watched` counts the managers who reached the final.
+- `POST /league/week/:n/release` with `{ released: true | false }` sets the Tuesday release by hand; `GET /league/week/:n/release` returns `{ week, released, changed_at, source }`. A week never set reads as `released: false`. The app should show a week's recap only when it is released.
+- `POST /games/:id/watched` with `{ manager }` (1 to 100 characters) records that a manager reached the final: `201 { game_id, manager, watched, source }`. The same manager counts once.
+
+`n` is a whole number from 1 to 30 and must be a week of the league (404 otherwise). Bodies are limited to 2 KB. With the database these need `db/migrate-003-commissioner.sql` (tables `releases` and `watched`). When the database does not answer, release and watched are kept in the service's memory instead and the answer says `source: 'memory'`; that memory ends when the service stops. Covered by `node server/test.js` (database and memory) and `node server/stress.js`; not run on the real database.
 
 ## Watch party relay
 
