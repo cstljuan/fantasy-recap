@@ -265,10 +265,10 @@
     var ks = Object.keys(o);
     return ks.length > 0 && ks.every(function (k) { return typeof o[k] === 'number' && isFinite(o[k]); });
   }
-  // Which option the play turned out to be: e.chosen if the game file says, else read from what happened.
-  function chosenFor(q, opts, e, res) {
-    if (e.chosen && typeof e.chosen === 'object' && typeof e.chosen[q] === 'string') return e.chosen[q];
-    if (typeof e.chosen === 'string' && q === 'play') return e.chosen;
+  // Which option was called: why.picked from the game file (contract v1), else, for the
+  // ?whydemo=1 sample, read from what happened on the play.
+  function chosenFor(q, opts, e, res, why) {
+    if (q === 'play' && typeof why.picked === 'string') return why.picked in opts ? why.picked : '';
     if (q !== 'play') return '';
     var guess = '';
     if (e.t === 'run' || e.t === 'fumble') guess = 'run';
@@ -285,9 +285,9 @@
       var opts = why[q], sum = 0;
       Object.keys(opts).forEach(function (k) { sum += Math.max(0, opts[k]); });
       if (!(sum > 0)) return;
-      var chosen = chosenFor(q, opts, e, res);
+      var chosen = chosenFor(q, opts, e, res, why);
       out.push({
-        q: q, chosen: chosen,
+        q: q, chosen: chosen, team: res.pre.poss,
         opts: Object.keys(opts).map(function (k) { return { k: k, p: Math.max(0, opts[k]) / sum }; })
                 .sort(function (a, b) { return b.p - a.p; })
       });
@@ -295,6 +295,13 @@
     return out.length ? out : null;
   }
   function humanize(k) { var t = String(k).replace(/_/g, ' '); return t.charAt(0).toUpperCase() + t.slice(1); }
+  // pass_WR1 is "Pass to" the WR1 on that team's roster, run_RB is "Run by" the RB.
+  function optionName(k, t) {
+    var mm = /^(pass|run)_([A-Z]+[0-9]*)$/.exec(String(k));
+    var name = mm && TEAMS[t] && TEAMS[t].roster && TEAMS[t].roster[mm[2]];
+    if (!name) return humanize(k);
+    return (mm[1] === 'pass' ? 'Pass to ' : 'Run by ') + Rules.lastName(name);
+  }
   function whyCard(p) {
     if (!p.why) return '';
     var body = p.why.map(function (w) {
@@ -302,13 +309,13 @@
         '<ul class="why-bars">' + w.opts.map(function (o) {
           var pct = Math.round(o.p * 100), on = o.k === w.chosen;
           return '<li' + (on ? ' class="is-chosen"' : '') + '>' +
-            '<span class="why-name">' + esc(humanize(o.k)) + (on ? '<b>Called</b>' : '') + '</span>' +
+            '<span class="why-name"><span>' + esc(optionName(o.k, w.team)) + '</span>' + (on ? '<b>Called</b>' : '') + '</span>' +
             '<span class="why-bar"><i style="width:' + pct + '%"></i></span>' +
             '<span class="why-pct">' + pct + '%</span></li>';
         }).join('') + '</ul>';
     }).join('');
     return '<details class="why" data-n="' + p.n + '"' + (whyOpen[p.n] ? ' open' : '') + '>' +
-      '<summary>Why this play</summary>' + body + '</details>';
+      '<summary>Why this play</summary>' + body + '<p class="why-note">Chosen by the play caller from these odds</p></details>';
   }
 
   function playItem(p, isNew) {
