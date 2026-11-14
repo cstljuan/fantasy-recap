@@ -14,20 +14,22 @@ Written 2026-11-14 from the code and the DONE posts on the board. If something i
 - The player names on both fantasy rosters are real NFL players.
 - The league scoring rules (`data/scoring.json`) are real fantasy rules, half a point per reception. `agents/scout/score.js` turns a stat line into points, and three examples were worked by hand.
 - The database schema (`db/schema.sql`) was run on a real Tiger Data database by the boss: 10 statements, no failures, `plays` is a hypertable, both aggregates exist.
-- The soccer game (`soccer/`) plays a full match in a browser and has its own fantasy scoring.
+- The game maker (`engine/make-game.js`) builds a full legal football game from stat lines. The rules engine replays it and the result matches every player's stat line (final GOB 17, PYT 14, 84 plays). 40 of the 84 plays were chosen by Jev, an outside play caller reached over the network, which returned real probabilities.
+- The soccer game (`soccer/`) plays a full match in a browser and has its own fantasy scoring. It is a separate page and is not connected to the main app.
 
 ## Simulated
 
-- The football game itself. The sample game is a scripted list of plays that someone invented. No play in it happened in a real game, so the score does not match any real result.
+- The football game itself. The game the app plays is built from invented stat lines. No play in it happened in a real game, so the score does not match any real result. The older sample game in `js/data.js` is a scripted list that someone invented.
 - Every stat line in `data/statlines/week11.json`. The file says it is invented. The numbers are not those players' real numbers.
 - The soccer match is scripted. Whether its teams and players are real was not checked here.
 - The player profiles have no real statistics. Every tendency is `null`, because no public stats source could be reached.
 - There is no live data feed. Nothing reads a real fantasy league or a real NFL game.
-- The two managers and their matchup are sample data.
+- The two managers and their matchup are sample data. There is one viewer and no accounts. The opt-in choice lives in the browser, not in the `optins` table. The other matchup on the League screen and its opted-in marks are fixed invented text.
+- The wait is simulated: nothing is hidden for a week, scores are hidden only until the replay ends.
 
 ## Written but not proven
 
-- The plays service (`server/`) saves and returns plays. It passes its test against a fake database. It has not yet worked against the real database: the boss's run failed with a certificate error and the fix is still open (board task D3).
-- Whether the app saves plays to the database during a game was not checked here. The contract says the app must work from the game file alone.
-- The game maker that builds a game from stat lines and profiles is a task for the boss and was not finished when this was written. Do not describe it as working.
+- The plays service (`server/`) saves and returns plays. It passes its test against a fake database, and the boss reported it worked against the real database (a save, a repeat save without duplicates, and a read). The summary read came back empty because the aggregates had not refreshed yet. The optional certificate file check was only tested with a fake file.
+- The app does not use the database. Nothing in `js/` calls the service. The seed file `db/seed.sql` has not been run.
+- Profiles are read by the game maker, but every tendency is `null`, so the plays are not shaped by any real player tendency yet.
 - Current team and roster status of every real player was not checked.
