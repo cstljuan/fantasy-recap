@@ -58,3 +58,7 @@ Bring the soccer page level with the football app: lineups with fantasy points, 
 ## Task S6: soccer voice and captions
 
 When Noah's agent posts the soccer announcer (task C12), connect it: call it for every result, show captions, and keep `window.SC_GAME` matching the contract.
+
+## Task S7: seek and hold for soccer
+
+`SC_GAME.seek(index)` and `SC_GAME.hold(true or false)` (with `held`), same meaning as `FF_GAME` in `docs/CONTRACT.md` section 2: seek runs the skipped events at once with listeners still called and no sound, voice, floater or banner, then says `SC_ANNOUNCER.catchUp(...)` if it exists; hold stops the clock with the view open. Peyton's jump bar and rule cards (`js/screens/`, task B26) turn on for soccer when both exist. Post `NOTE "peyton: ..."` when done.

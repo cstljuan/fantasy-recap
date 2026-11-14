@@ -149,3 +149,11 @@ On the recap screen, after the reveal, a written recap a person can read in thir
 ## Task B28: Spanish for the screens (with Noah)
 
 A language switch (English, Spanish) remembered as `fr.lang`. Every word the screens show goes through one table in a file of yours, with the Spanish next to the English; nothing is left in English when Spanish is on, including button names for screen readers and the share card. Noah's C24 makes the announcer and captions speak Spanish: set `FF_ANNOUNCER.lang` from the switch (ask him for the exact name). Player and team names stay as they are. Check: a headless run in Spanish finds no English word from the table on any screen.
+
+## Task B29: watch party (with Ricky)
+
+One game on a laptop or television, phones as remotes. The laptop opens `?party=host` and shows a four letter room code; a phone opens the app, taps "Join a watch party", types the code and gets a remote: play, hold, previous play, next play, next big moment, speed, and its own private view of its fantasy points if it is not opted in to hidden scores. The laptop obeys the commands through `FF_GAME` (`start`, `hold`, `seek`, speed). The relay is Ricky's task D31 in the service (`?api=` gives its address): ask him for the routes. When there is no service, fall back to `BroadcastChannel` so two tabs on one machine work, and say on screen that phones need the service. Check: two pages in headless Chromium, one hosts, one sends each command, the host does it.
+
+## Task B30: every screen at four widths
+
+Open every screen and state (league, matchup before and after opt-in, lineups, plays, film room, this week, recap before and after the reveal, the game view with the jump bar, a rule card, a why card, the share card dialog, demo mode, watch party when it exists) at 320, 375, 768 and 1280 wide in headless Chromium, in English and in Spanish when B28 is in. Fix everything that overlaps, is cut, scrolls sideways, or has a tap target under 44 pixels. Say in the DONE post what you found and fixed per screen, and what only a real phone can show.

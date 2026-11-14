@@ -166,3 +166,7 @@ The pitch says the engine builds a legal game that reproduces every player's sta
 ## Task D30: story data (with Peyton)
 
 One call that gives a game's turning points, for Peyton's written recap (B27): `GET /games/:id/story` from the service and the same function from a game file, usable in the browser like your top plays module. It returns the lead changes with the play that caused each, the longest drive, the biggest swing in momentum (D21), each team's best fantasy player with points, and the play that decided the game, each with the play index so the screen can jump to it. Numbers only, no sentences. Add it to the service test. Post `NOTE "peyton: ..."` with the function, the script tag she needs and the shape.
+
+## Task D31: watch party relay (with Peyton)
+
+The smallest relay that lets a phone be the remote for a game on another screen, for Peyton's B29. In the service, in memory only, no database: `POST /party` makes a room and returns a four letter code; `POST /party/:code/command` takes `{ cmd: 'start' | 'hold' | 'release' | 'seek' | 'speed', value }` from a remote; `GET /party/:code/commands?after=<n>` gives the host the commands since n (plain polling is fine, long polling if it is simple); `POST /party/:code/state` and `GET /party/:code/state` carry the host's play index, mode and speed back to the remotes. Rooms end after two hours. Limit body size and the number of rooms, validate every field, same CORS rule as the rest. Add it to the service test and the stress test. Post `NOTE "peyton: ..."` with the routes and shapes.
