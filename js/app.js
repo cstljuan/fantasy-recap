@@ -53,6 +53,7 @@
     optin = v;
     try { window.localStorage.setItem(OPTIN_KEY, v); } catch (err) { /* storage may be off */ }
     syncFloaters();
+    if (v === 'in') saveOptinToLeague();
   }
   // My team: ?me=<team id> or the choice on the matchup screen, saved under fr.me.
   // -1 means no team chosen, and then the app looks as it always did.
@@ -443,6 +444,61 @@
       (m.status === 'final' ? 'Watch again' : m.status === 'live' ? 'Keep watching' : 'Watch the game') + '</button>';
   }
 
+  // ------------------------------------------------ the opt-in and the service
+  // With ?api=http://localhost:<port> the opt-in also goes to Ricky's service
+  // (server/index.js): GET /health once at start, POST /games/:id/optin, GET /games/:id/optins.
+  // Without it, or when the service or its database does not answer within two seconds,
+  // nothing changes: the choice stays on this device and the screen says so.
+  var API = (function () {
+    var mm = /[?&]api=([^&]+)/.exec(location.search), u = mm ? decodeURIComponent(mm[1]) : '';
+    return /^https?:\/\/[^\s"'<>]+$/.test(u) ? u.replace(/\/+$/, '') : '';
+  })();
+  var league$ = { state: API ? 'checking' : 'off', saved: '', optins: null };
+  function apiFetch(path, opts) {
+    var ctrl = window.AbortController ? new AbortController() : null;
+    var t = setTimeout(function () { if (ctrl) ctrl.abort(); }, 2000);
+    var o = opts || {};
+    if (ctrl) o.signal = ctrl.signal;
+    return fetch(API + path, o).then(function (r) { clearTimeout(t); return r; }, function (e) { clearTimeout(t); throw e; });
+  }
+  function gameId() {
+    var useFile = window.FF_GAME_FILE && window.FF_GAME_FILE.id && !/[?&]game=sample/.test(location.search);
+    return useFile ? window.FF_GAME_FILE.id : 'sample-football';
+  }
+  function managerName() { return me >= 0 ? TEAMS[me].id : TEAMS[0].id; }
+  function leagueChanged() { if (!inGame) render(false); }
+  function loadOptins() {
+    return apiFetch('/games/' + encodeURIComponent(gameId()) + '/optins').then(function (r) { return r.ok ? r.json() : null; }).then(function (j) {
+      if (j && Array.isArray(j.optins)) { league$.optins = j.optins.map(function (x) { return String(x.manager); }); leagueChanged(); }
+    }).catch(function () { /* the list is optional */ });
+  }
+  function saveOptinToLeague() {
+    if (league$.state !== 'up') { league$.saved = 'device'; return; }
+    league$.saved = 'saving';
+    apiFetch('/games/' + encodeURIComponent(gameId()) + '/optin', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ manager: managerName() })
+    }).then(function (r) {
+      league$.saved = r.status === 201 || r.status === 200 ? 'league' : 'device';
+      if (league$.saved === 'league') loadOptins();
+      leagueChanged();
+    }).catch(function () { league$.saved = 'device'; leagueChanged(); });
+  }
+  if (API && window.fetch) {
+    apiFetch('/health').then(function (r) { return r.ok ? r.json() : null; }).then(function (j) {
+      league$.state = j && j.ok ? 'up' : 'down';
+      if (league$.state === 'up') { loadOptins(); if (optin === 'in') saveOptinToLeague(); } else league$.saved = 'device';
+      leagueChanged();
+    }).catch(function () { league$.state = 'down'; league$.saved = 'device'; leagueChanged(); });
+  } else if (API) { league$.state = 'down'; }
+  function savedLine() {
+    var t;
+    if (league$.saved === 'league') {
+      t = 'Saved to the league.' + (league$.optins && league$.optins.length ? ' Opted in: ' + league$.optins.join(', ') + '.' : '');
+    } else if (league$.saved === 'saving' || league$.state === 'checking') t = 'Saving to the league\u2026';
+    else t = 'Saved on this device.';
+    return '<p class="optin-saved">' + esc(t) + '</p>';
+  }
+
   // The opt in card shows on the matchup screen before kickoff, until a choice is made.
   // Once opted in, a short line says so and lets the manager take it back.
   function optinCard() {
@@ -457,7 +513,7 @@
         '</div></div>';
     }
     if (optin === 'in') {
-      return '<div class="panel optin is-on"><div class="optin-text"><p>Your score is hidden until the final.</p></div>' +
+      return '<div class="panel optin is-on"><div class="optin-text"><p>Your score is hidden until the final.</p>' + savedLine() + '</div>' +
         '<button type="button" class="optin-undo" data-act="optin" data-v="out">Show scores</button></div>';
     }
     return '';
@@ -1341,6 +1397,7 @@
     get drives() { return m.drives; },
     topPlays: function (n) { return topPlaysLocal(n || 3); },
     get seeking() { return seeking; },
+    get league() { return { state: league$.state, saved: league$.saved, optins: league$.optins }; },
     get scoringFromFile() { return useFile(); },
     // Each player's points from the game and, when the file is loaded, from data/scoring.json.
     comparePoints: function () {

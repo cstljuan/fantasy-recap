@@ -249,6 +249,7 @@ h2 { margin: 0; font: 700 var(--fs-label)/1 var(--body); letter-spacing: 0.14em;
 .optin-btns .cta { flex: 1 1 0; min-width: 0; font-size: var(--fs-lead); }
 .optin.is-on { flex-direction: row; align-items: center; justify-content: space-between; border-top-color: var(--rule); }
 .optin.is-on p { margin: 0; color: var(--text); }
+.optin.is-on p.optin-saved { margin-top: var(--sp-1); color: var(--dim); font-size: var(--fs-meta); }
 .optin-undo { flex: none; }
 
 /* --------------------------------------------------------------- league */
