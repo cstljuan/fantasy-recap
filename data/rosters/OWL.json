@@ -1,0 +1,24 @@
+{
+  "team": "OWL",
+  "sport": "football",
+  "name": "Owls",
+  "full": "Midnight Owls",
+  "note": "Fantasy roster of real NFL players for the invented league in data/league.json. The team name and colors are made up. No player is on the Goblins or the Pythons. Players checked active on Sleeper on 2026-11-14, each from a different real team.",
+  "colors": {
+    "jersey": "#4a5bd0",
+    "helmet": "#e6e8f5",
+    "stripe": "#2a347f",
+    "pants": "#1d2350",
+    "tile": "#4a5bd0",
+    "zone": "#3b49aa"
+  },
+  "roster": {
+    "QB": "Patrick Mahomes",
+    "RB": "Derrick Henry",
+    "WR1": "Tee Higgins",
+    "WR2": "Jaxon Smith-Njigba",
+    "WR3": "Ladd McConkey",
+    "TE": "Tucker Kraft",
+    "K": "Ka'imi Fairbairn"
+  }
+}

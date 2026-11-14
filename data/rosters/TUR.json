@@ -1,0 +1,24 @@
+{
+  "team": "TUR",
+  "sport": "football",
+  "name": "Turtles",
+  "full": "Turbo Turtles",
+  "note": "Fantasy roster of real NFL players for the invented league in data/league.json. The team name and colors are made up. No player is on the Goblins or the Pythons. Players checked active on Sleeper on 2026-11-14, each from a different real team.",
+  "colors": {
+    "jersey": "#2f8f6b",
+    "helmet": "#f2e94e",
+    "stripe": "#1b5a43",
+    "pants": "#e8f5ee",
+    "tile": "#2f8f6b",
+    "zone": "#24745a"
+  },
+  "roster": {
+    "QB": "Jayden Daniels",
+    "RB": "Jahmyr Gibbs",
+    "WR1": "CeeDee Lamb",
+    "WR2": "Garrett Wilson",
+    "WR3": "Drake London",
+    "TE": "Brock Bowers",
+    "K": "Cameron Dicker"
+  }
+}

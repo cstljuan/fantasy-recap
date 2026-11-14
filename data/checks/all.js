@@ -46,6 +46,7 @@ var CHECKS = [
   { name: 'league file and standings', cmd: 'node', args: ['data/checks/league.js'] },
   { name: 'league as the service gives it', cmd: 'node', args: ['server/league.js'] },
   { name: 'stat line sums', cmd: 'node', args: ['data/checks/statlines.js'] },
+  { name: 'rosters, profiles and matchup lines', cmd: 'node', args: ['data/checks/rosters.js'] },
   { name: 'game files reproduce their stat lines', cmd: 'node', args: ['data/checks/game-vs-lines.js'] },
   { name: 'scoring file equals js/rules.js', cmd: 'node', args: ['agents/scout/check-scoring.js'] },
   { name: 'Scout tools on fixtures', cmd: 'python3', args: ['agents/scout/check.py'], skip: python ? null : 'python3 is not installed' },

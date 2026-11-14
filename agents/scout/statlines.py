@@ -28,6 +28,16 @@ def rosters_from_js():
     return {t["id"]: t["roster"] for t in json.loads(subprocess.check_output(["node", "-e", code], cwd=T.ROOT))}
 
 
+def rosters_from_files(paths):
+    """{team: {slot: name}} from roster files in data/rosters/ (each has "team" and "roster")."""
+    out = {}
+    for p in paths:
+        with open(p, "r", encoding="utf-8") as f:
+            d = json.load(f)
+        out[d["team"]] = d["roster"]
+    return out
+
+
 def line_from(stats):
     """Sleeper stat names to our eleven fields. A stat the source does not list for a player who played is 0."""
     g = lambda k: int(stats.get(k, 0) or 0)
