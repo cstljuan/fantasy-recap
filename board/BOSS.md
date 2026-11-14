@@ -13,7 +13,7 @@ Run `sh tools/next.sh` to get your next task with its full description. A row is
 | B3 | B | Peypey-ryd | Recap reveal | merged |
 | B10 | B | Peypey-ryd | Hide the point floaters while opted in, and check the screens now that the game pauses when closed | merged |
 | B11 | B | Peypey-ryd | Captions strip and the Straight or Fun switch, with Noah | merged |
-| B13 | B | Peypey-ryd | Why card from the real game file: read `e.why.picked`, name options by player | open |
+| B13 | B | Peypey-ryd | Why card from the real game file: read `e.why.picked`, name options by player | merged |
 | B4 | B | Peypey-ryd | League home: this week's matchups and the Tuesday release | merged |
 | B5 | B | Peypey-ryd | "Why this play" card with probability bars | merged |
 | B6 | B | Peypey-ryd | My team view: `?me=<team id>` | merged |
@@ -38,13 +38,13 @@ Run `sh tools/next.sh` to get your next task with its full description. A row is
 | D1 | D | Rickstar-App | Real rosters and profile files | merged |
 | D2 | D | Rickstar-App | Database schema | merged |
 | D4 | D | Rickstar-App | A week of stat lines for both rosters | merged |
-| D5 | D | Rickstar-App | Fantasy scoring rules as data plus a small module | open |
-| D6 | D | Rickstar-App | Fill the profile tendencies from real season numbers, with sources | open |
-| D8 | D | Rickstar-App | Devpost text and the "what is real, what is simulated" list | open |
+| D5 | D | Rickstar-App | Fantasy scoring rules as data plus a small module | merged |
+| D6 | D | Rickstar-App | Fill the profile tendencies from real season numbers, with sources | waiting: a season numbers file from the boss |
+| D8 | D | Rickstar-App | Devpost text and the "what is real, what is simulated" list | merged |
 | D3 | D | Rickstar-App | The database service | merged |
-| D11 | D | Rickstar-App | Optional certificate check for the database service | open |
-| D9 | D | Rickstar-App | Sample league file for the League screen, with Peyton | open |
-| D10 | D | Rickstar-App | Seed file: the sample game as database rows | open |
+| D11 | D | Rickstar-App | Optional certificate check for the database service | merged |
+| D9 | D | Rickstar-App | Sample league file for the League screen, with Peyton | merged |
+| D10 | D | Rickstar-App | Seed file: the sample game as database rows | merged |
 | Q3 | D | Rickstar-App | Check the README and Devpost text against the code and send each owner what is overstated | open |
 | D7 | D | Rickstar-App | Soccer rosters and profiles | open |
 | S1 | S | cstljuan | The soccer game | merged |
@@ -55,6 +55,7 @@ Run `sh tools/next.sh` to get your next task with its full description. A row is
 | A3 | A | cstljuan | Connect the announcer, crowd, captions and the floaters switch | merged |
 | A4 | A | cstljuan | Sport switch wiring and home-screen install | open |
 | A5 | A | cstljuan | Game maker reads `data/statlines/week11.json`, and tags highlights | open |
+| A6 | A | cstljuan | Season numbers file for the profiles: `data/rosters/season-2026.json`, with the source | open |
 
 ## Answers to ASK posts
 
@@ -74,6 +75,9 @@ Newest at the bottom. The boss answers every ASK here. If the answer is "yes, do
 - ANSWER to nexodv (ElevenLabs): recorded under Decisions. Playback code goes in `js/announcer/voice/`, the generated audio in `assets/voice/football/` and `assets/voice/soccer/` (both are yours now), and the script that makes the audio in `js/announcer/voice/render.js`, reading `ELEVENLABS_API_KEY` from the environment only. Render the lines of the game the app plays (`data/games/week11-football.json`, and the soccer sample), keep the total under 15 MB, and keep the browser voice as the fallback whenever a clip is missing so the demo is never silent.
 - NOTE to all (the game maker works): `node engine/make-game.js --from-sample --out data/games/week11-football.json` builds a full legal game that reproduces every player's stat line: 84 plays, 40 of them chosen by Jev 1.14.0 from real probabilities, final GOB 17, PYT 14. The boss played it, the old sample and the soccer match start to finish in headless Chrome with `sh tools/smoke.sh`: no errors in any of the three.
 
+- ANSWER to Rickstar-App (D3 and the CA certificate): D3 is merged and works against the real database as it is. Build the certificate option as task D11 with the name `DATABASE_CA_FILE`; the boss will add the file path on the laptop when it exists.
+- ANSWER to Rickstar-App (D6 stats source): do not guess and do not wait on it. The boss will fetch season numbers from here and put them in `data/rosters/season-2026.json` with the source. D6 is on hold until that file is on main; take your next task.
+
 ## Review
 
 The boss reviews every DONE before it reaches main: the authors check, the lane check (`sh tools/boss-check.sh`), the project's own checks, and a run in a browser where it applies. Then either the task is merged, or its Status becomes `changes: <what to fix>` and `sh tools/next.sh` gives it back to its owner first.
@@ -86,6 +90,7 @@ The boss reviews every DONE before it reaches main: the authors check, the lane 
 - S1 the soccer game and S2 fantasy soccer (Juan) are on main in `soccer/`. Boss check: `node soccer/check.js` OK, all files parse; not run in a browser by the boss. Open `soccer/index.html` to see it. C8 soccer lines and D7 soccer rosters are now open
 - Merged in this round: B11, B4, B5, D3, D4, S3. Checks: every file parses, football rules OK, announcer check OK, soccer check OK, service test OK, three full games in headless Chrome with no errors
 - Merged after review: B6, B7. All checks and the three full-game runs passed
+- Merged after review: B13, D10, D11, D5, D8, D9. All checks and the three full-game runs passed
 - D1 real rosters and profile files, D2 database schema (Ricky) are on main; `data/games/sample-football.json` now has the real rosters
 
 ## Decisions
