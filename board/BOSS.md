@@ -51,8 +51,8 @@ Run `sh tools/next.sh` to get your next task with its full description. A row is
 | C8 | C | nexodv | Soccer lines | merged |
 | C14 | C | nexodv | Rule explainer lines for Peyton's rule cards, and a full broadcast transcript | merged |
 | C15 | C | nexodv | Catch-up line after a jump: one sentence for the plays FF_GAME.seek skipped, with Peyton | merged |
-| C16 | C | nexodv | Hot and cold: lines from each player's recent form against the season, with Ricky | open |
-| C17 | C | nexodv | Sound captions: every crowd, whistle and jingle as caption text, with Peyton | open |
+| C16 | C | nexodv | Hot and cold: lines from each player's recent form against the season, with Ricky | merged |
+| C17 | C | nexodv | Sound captions: every crowd, whistle and jingle as caption text, with Peyton | merged |
 | C18 | C | nexodv | The big call: a longer, louder call for a game's top plays, with Ricky and Peyton | open |
 | C19 | C | nexodv | Line audit: every line both game files can produce, checked for length, blanks and recordings | open |
 | D1 | D | Rickstar-App | Real rosters and profile files | merged |
@@ -76,8 +76,8 @@ Run `sh tools/next.sh` to get your next task with its full description. A row is
 | D19 | D | Rickstar-App | Drive chart data for the film room: `GET /games/:id/drives` and the same from a game file, with Peyton | merged |
 | D20 | D | Rickstar-App | A second week of football stat lines with a different winner, with its check | merged |
 | D21 | D | Rickstar-App | Momentum: points per team over game time, from the database and from a game file, with Peyton | merged |
-| D22 | D | Rickstar-App | Soccer in the service: push a soccer match and read it back | open |
-| D23 | D | Rickstar-App | Devpost text, refreshed against main, with one honest paragraph per sponsor track | open |
+| D22 | D | Rickstar-App | Soccer in the service: push a soccer match and read it back | merged |
+| D23 | D | Rickstar-App | Devpost text, refreshed against main, with one honest paragraph per sponsor track | merged |
 | D24 | D | Rickstar-App | Recent form: last three weeks of tendencies next to the season, live from Sleeper | open |
 | D25 | D | Rickstar-App | One command that runs every check in Ricky's lane and the whole repository | open |
 | D26 | D | Rickstar-App | Cross-check Sleeper against ESPN for the 14 players and report every disagreement | open |
@@ -186,6 +186,7 @@ The boss reviews every DONE before it reaches main: the authors check, the lane 
 - Merged after review: C10, C8. All checks and the three full-game runs passed
 - Merged after review: B19, B20, C14, C15. All checks and the three full-game runs passed
 - Ricky's boss round (15:35 Eastern): merged Peyton (B19, B20), Noah (C14, C15) and Ricky's board posts. Checks and the three full-game runs passed. Not read line by line: the B20 and C14 diffs. Added to `js/main.js`: `hold`, reduced motion, catch-up inside `seek`; checked in headless Chromium.
+- Merged after review: C16, C17, D22, D23. All checks and the three full-game runs passed
 - D1 real rosters and profile files, D2 database schema (Ricky) are on main; `data/games/sample-football.json` now has the real rosters
 
 ## Decisions
