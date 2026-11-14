@@ -71,6 +71,34 @@ STYLES.forEach(function (style) {
   });
 });
 
+// Captions: onLine gets every line, caption() returns the last one, and a
+// listener that throws or is removed does not break anything.
+(function () {
+  A.reset();
+  if (A.caption() !== null) problems.push('caption() should be null after reset');
+  var got = [], off = A.onLine(function (text, kind, style) { got.push([text, kind, style]); });
+  A.onLine(function () { throw new Error('bad listener'); });
+  var teams = data.TEAMS, s = Rules.create(teams), n = 0;
+  Rules.flatten(data.SAMPLE_GAME, teams).slice(0, 12).forEach(function (st) {
+    if (st.kind !== 'play') return;
+    var res = Rules.apply(s, st.e, st.team);
+    var t = A.line(res, { teams: teams, style: 'straight' });
+    if (t) n++;
+    var c = A.caption();
+    if (t && (!c || c.text !== t || c.style !== 'straight' || typeof c.at !== 'number')) problems.push('caption() does not match the last line: ' + t);
+  });
+  if (got.length !== n) problems.push('onLine got ' + got.length + ' lines, expected ' + n);
+  if (got.length && !got[0][1]) problems.push('onLine got no kind');
+  var half = A.line({ kind: 'half' }, { teams: teams, score: [7, 3], style: 'fun' });
+  var last = got[got.length - 1];
+  if (!last || last[0] !== half || last[1] !== 'half' || last[2] !== 'fun') problems.push('onLine missed the halftime line');
+  off();
+  A.line({ kind: 'final' }, { teams: teams, score: [7, 3] });
+  if (got[got.length - 1][1] === 'final') problems.push('removed listener still called');
+  if (A.caption().kind !== 'final') problems.push('caption() not updated after the listener was removed');
+  console.log('\nCaptions: ' + got.length + ' lines heard by onLine, last caption: ' + A.caption().text);
+})();
+
 console.log('\nStyle switch: ' + A.setStyle('fun') + ', ' + A.setStyle('nonsense') + ', ' + A.setStyle('straight'));
 console.log('speak() without a speech voice does nothing: ' + (A.speak('test') === undefined ? 'ok' : 'unexpected'));
 console.log('line() with no teams is quiet: ' + (A.line({}, {}) === '' ? 'ok' : 'unexpected'));

@@ -8,6 +8,10 @@
 //   speak(text)     says it with the browser's speech voice; does nothing without one.
 //   setStyle(name)  'straight' or 'fun'. style holds the current one.
 //   reset()         starts a new game: every line becomes available again.
+//   onLine(fn)      fn(text, kind, style) is called for every line produced, spoken or not.
+//                   Returns a function that removes the listener.
+//   caption()       the last line: { text, kind, style, at } (at is Date.now() when it was made),
+//                   or null before the first line.
 // Needs js/announcer/lines.js loaded first (in Node it is required directly).
 (function (root) {
   'use strict';
@@ -18,6 +22,15 @@
   var decks = {};   // kind + style -> variants not used yet in this game
   var lastUsed = {}; // kind + style -> last variant index, so a reshuffle never repeats right away
   var rand = Math.random;
+  var listeners = [];
+  var last = null;    // the last caption
+
+  function announce(text, kind, style) {
+    last = { text: text, kind: kind, style: style, at: Date.now() };
+    for (var i = 0; i < listeners.length; i++) {
+      try { listeners[i](text, kind, style); } catch (err) { /* a listener must never stop the game */ }
+    }
+  }
 
   function lastName(name) { return String(name || '').split(' ').pop(); }
 
@@ -120,7 +133,9 @@
         var style = STYLES.indexOf(ctx.style) >= 0 ? ctx.style : api.style;
         var c = classify(res, teams, score);
         if (!c.kind) return '';
-        return fill(pick(c.kind, style), c.v);
+        var text = fill(pick(c.kind, style), c.v);
+        if (text) announce(text, c.kind, style);
+        return text;
       } catch (err) {
         return ''; // the announcer must never stop the game
       }
@@ -142,7 +157,15 @@
       return api.style;
     },
 
-    reset: function () { decks = {}; lastUsed = {}; },
+    reset: function () { decks = {}; lastUsed = {}; last = null; },
+
+    onLine: function (fn) {
+      if (typeof fn !== 'function') return function () {};
+      listeners.push(fn);
+      return function () { var i = listeners.indexOf(fn); if (i >= 0) listeners.splice(i, 1); };
+    },
+
+    caption: function () { return last ? { text: last.text, kind: last.kind, style: last.style, at: last.at } : null; },
 
     // For js/announcer/check.js and tests.
     kinds: function () { return Object.keys(LINES); },
