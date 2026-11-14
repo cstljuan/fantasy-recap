@@ -29,3 +29,4 @@
 - 11-14 19:54 UTC | DONE | claude/ricky-handoff-setup-ypc3q5 | D9 sample league file, checked: JSON parses, shape mirrors what js/app.js already uses, team names and colors match js/data.js, not checked: that Peyton's screen can load it (asked, no answer yet), the tile colors of the invented teams were copied from app.js
 - 11-14 19:54 UTC | CLAIM | claude/ricky-handoff-setup-ypc3q5 | D10 seed file: db/seed.sql, db/make-seed.js
 - 11-14 19:55 UTC | DONE | claude/ricky-handoff-setup-ypc3q5 | D10 seed file, checked: node db/make-seed.js writes 73 play rows plus the game (final GOB 17, PYT 14), quotes in names escaped, ON CONFLICT on both inserts, not checked: seed.sql has not run on any database. Note for boss: one row per play credits one player, so a pass's QB points sit in detail.fp and not in the aggregates; quarters and times are derived
+- 11-14 19:55 UTC | CLAIM | claude/ricky-handoff-setup-ypc3q5 | Q3 honesty check: reads README.md, pitch/, board; posts NOTEs
