@@ -321,3 +321,28 @@ h2 { margin: 0; font: 700 11px/1 var(--body); letter-spacing: 0.14em; text-trans
 @media (prefers-reduced-motion: reduce) {
   .status.is-live i, .tick, .play.is-new { animation: none; }
 }
+
+/* --------------------------------------------------------- phone polish */
+/* Safe areas for the notch and the home indicator, and tap targets of at least 44 pixels. */
+
+#app { padding-top: env(safe-area-inset-top, 0px);
+       padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+.tabs { padding-left: env(safe-area-inset-left, 0px); padding-right: env(safe-area-inset-right, 0px); }
+.brand { min-height: 44px; }
+.panel-head a { display: inline-flex; align-items: center; min-height: 44px; margin: -10px 0; padding: 0 2px; }
+.panel-head { min-height: 46px; }
+.filters button, .me-btns button, .optin-undo, .sport button { min-height: 44px; }
+.why summary { min-height: 44px; }
+.close { top: calc(8px + env(safe-area-inset-top, 0px)); right: calc(8px + env(safe-area-inset-right, 0px)); min-height: 44px; }
+.speed { top: calc(60px + env(safe-area-inset-top, 0px)); right: calc(8px + env(safe-area-inset-right, 0px)); }
+.speed button { min-height: 44px; }
+.speed.voice { top: calc(112px + env(safe-area-inset-top, 0px)); }
+.captions { bottom: calc(4px + env(safe-area-inset-bottom, 0px));
+            left: calc(8px + env(safe-area-inset-left, 0px)); right: calc(8px + env(safe-area-inset-right, 0px)); }
+.close:focus-visible, .speed button:focus-visible { outline-offset: -3px; }
+.lg-match.is-ours:focus-visible { outline-offset: -2px; }
+
+@media (min-width: 760px) {
+  #app { padding-left: max(24px, env(safe-area-inset-left, 0px)); padding-right: max(24px, env(safe-area-inset-right, 0px)); }
+  .tabs { padding: 0; }
+}

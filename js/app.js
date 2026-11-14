@@ -779,7 +779,15 @@
     $('gameView').hidden = !on;
     setControls(false);
     document.body.classList.toggle('in-game', on);
+    // The screens behind the game view take no focus or taps while it is open.
+    $('app').inert = on;
     G.setActive(on);
+  }
+
+  // Controls stay up while the keyboard is on one of them.
+  function focusInControls() {
+    var a = document.activeElement;
+    return !!(a && a !== document.body && $('closeGame').parentNode.contains(a));
   }
 
   function leaveGame(to) { location.replace('#' + (to || tab)); }
@@ -788,7 +796,10 @@
     setControls(true);
     markSpeed();
     clearTimeout(closeTimer);
-    closeTimer = setTimeout(function () { setControls(false); }, 2600);
+    closeTimer = setTimeout(function hide() {
+      if (focusInControls()) { closeTimer = setTimeout(hide, 2600); return; }
+      setControls(false);
+    }, 2600);
   }
 
   // The League tab and screen are made here, so index.html stays as it is.
@@ -891,7 +902,20 @@
 
   $('closeGame').addEventListener('click', function () { leaveGame(tab); });
   $('gameView').addEventListener('pointermove', function (ev) { if (ev.pointerType === 'mouse') revealClose(); });
-  window.addEventListener('keydown', function (ev) { if (ev.key === 'Escape' && inGame) leaveGame(tab); });
+  window.addEventListener('keydown', function (ev) {
+    if (!inGame) return;
+    if (ev.key === 'Escape') { leaveGame(tab); return; }
+    // Tab in the game view shows the controls and starts on Close.
+    if (ev.key === 'Tab') {
+      if (!focusInControls()) { ev.preventDefault(); revealClose(); $('closeGame').focus(); return; }
+      revealClose();
+      // Keep the keyboard inside the game view: wrap from the last control to the first.
+      var list = Array.prototype.filter.call($('closeGame').parentNode.querySelectorAll('button'), function (x) { return !x.closest('[hidden]'); });
+      var i = list.indexOf(document.activeElement);
+      if (!ev.shiftKey && i === list.length - 1) { ev.preventDefault(); list[0].focus(); }
+      else if (ev.shiftKey && i === 0) { ev.preventDefault(); list[list.length - 1].focus(); }
+    }
+  });
   window.addEventListener('hashchange', route);
 
   // A tap on the game shows the close control. After the final it leads to the recap.
