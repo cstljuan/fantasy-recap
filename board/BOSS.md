@@ -22,7 +22,7 @@ Run `sh tools/next.sh` to get your next task with its full description. A row is
 | B9 | B | Peypey-ryd | Phone polish and keyboard use | merged |
 | B12 | B | Peypey-ryd | Lineup points from the scoring rules, with Ricky | merged |
 | Q1 | B | Peypey-ryd | Listen-through: read every announcer line and send Noah the ones to fix | merged |
-| P1 | B | Peypey-ryd | The two-minute demo script with timings | open |
+| P1 | B | Peypey-ryd | The two-minute demo script with timings | merged |
 | B14 | B | Peypey-ryd | The film room: drive chart and the play caller panel | open |
 | B15 | B | Peypey-ryd | First run walkthrough and install | open |
 | B16 | B | Peypey-ryd | The season: standings and past weeks, with Ricky | open |
@@ -35,7 +35,7 @@ Run `sh tools/next.sh` to get your next task with its full description. A row is
 | C6 | C | nexodv | Tendency lines from the player profiles | merged |
 | C7 | C | nexodv | Kickoff and final jingles made in code | merged |
 | C9 | C | nexodv | Fit lines to the captions strip, with Peyton | merged |
-| Q2 | C | nexodv | Walk the reveal flow at phone width and send Peyton what breaks | open |
+| Q2 | C | nexodv | Walk the reveal flow at phone width and send Peyton what breaks | merged |
 | P2 | C | nexodv | Shot list for the demo video | open |
 | C11 | C | nexodv | Commentary that remembers the game | open |
 | C12 | C | nexodv | The soccer broadcast, with Juan's soccer agent | open |
@@ -57,9 +57,11 @@ Run `sh tools/next.sh` to get your next task with its full description. A row is
 | D13 | D | Rickstar-App | A real week of stat lines from a public source | merged |
 | D15 | D | Rickstar-App | Make `data/scoring.json` describe exactly what `js/rules.js` scores, with Peyton | merged |
 | D14 | D | Rickstar-App | The service, finished: opt-ins, push a game, health | merged |
-| D16 | D | Rickstar-App | Two finished past weeks and standings in `data/league.json`, with Peyton | open |
-| D17 | D | Rickstar-App | Judges' questions with honest answers: `pitch/QUESTIONS.md` | open |
+| D16 | D | Rickstar-App | Two finished past weeks and standings in `data/league.json`, with Peyton | merged |
+| D17 | D | Rickstar-App | Judges' questions with honest answers: `pitch/QUESTIONS.md` | merged |
 | D18 | D | Rickstar-App | Top plays of a game and of a week, from the service and from a game file, with Peyton | open |
+| D19 | D | Rickstar-App | Drive chart data for the film room: `GET /games/:id/drives` and the same from a game file, with Peyton | open |
+| D20 | D | Rickstar-App | A second week of football stat lines with a different winner, with its check | open |
 | D7 | D | Rickstar-App | Soccer rosters and profiles | merged |
 | S1 | S | cstljuan | The soccer game | merged |
 | S2 | S | cstljuan | Fantasy soccer on top | merged |
@@ -148,6 +150,7 @@ The boss reviews every DONE before it reaches main: the authors check, the lane 
 - Merged after review: C9, D13, D14, D15, Q1, S4. All checks and the three full-game runs passed. D15: `node agents/scout/check-scoring.js` says the file and `js/rules.js` agree on all 16 scoring slots. D14: the service test passes without a database; queries use parameters and CORS answers only localhost; not run against the real database (laptop only). D13: offline check passes, no live run. S4: `soccer/check.js` and the soccer full game pass; the match maker has not run with Jev
 - Merged after review: C7, D12. All checks and the three full-game runs passed. C7: the game now plays both jingles. D12: `agents/scout/check.py` and `check_statlines.py` pass on the boss machine and no key is in any file; Scout has not run against a real model or the stats host yet
 - Merged after review: C9, D13, D14, D15, Q1. All checks and the three full-game runs passed
+- Merged after review: D16, D17, P1, Q2. All checks and the three full-game runs passed
 - D1 real rosters and profile files, D2 database schema (Ricky) are on main; `data/games/sample-football.json` now has the real rosters
 
 ## Decisions

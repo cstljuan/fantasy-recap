@@ -28,8 +28,14 @@ function fill(t, v) { return t.replace(/\{(\w+)\}/g, function (m, k) { return v[
 // The longest values a line can be filled with: the longest last name and team name in the
 // data, the longest score. Every line must still fit FF_ANNOUNCER.maxLength.
 var worst = (function () {
-  var names = [], tnames = [];
-  data.TEAMS.forEach(function (t) {
+  var names = [], tnames = [], fs = require('fs'), path = require('path'), all = data.TEAMS.slice();
+  // Also every game file the app can play, so a new game with longer names fails here.
+  var dir = path.join(__dirname, '../../data/games');
+  (fs.existsSync(dir) ? fs.readdirSync(dir) : []).forEach(function (f) {
+    if (!/\.json$/.test(f)) return;
+    try { (JSON.parse(fs.readFileSync(path.join(dir, f), 'utf8')).teams || []).forEach(function (t) { if (t && t.roster) all.push(t); }); } catch (err) { /* not a game file */ }
+  });
+  all.forEach(function (t) {
     tnames.push(t.name);
     Object.keys(t.roster).forEach(function (k) { names.push(String(t.roster[k]).split(' ').pop()); });
   });
