@@ -1,0 +1,259 @@
+{
+  "invented": true,
+  "note": "INVENTED SAMPLE DATA for the second week 11 matchup of the invented league (Turbo Turtles against Midnight Owls). These stat lines were made up for the demo. They are not real game results. Real player names are used (data/rosters/TUR.json, OWL.json), the numbers are not theirs. Turtles 24, Owls 20. The lines add up: receiving yards and touchdowns equal the quarterback's passing, extra points equal touchdowns, and points allowed equal the other team's score (data/checks/statlines.js).",
+  "week": 11,
+  "teams": {
+    "TUR": {
+      "players": {
+        "QB": {
+          "name": "Jayden Daniels",
+          "line": {
+            "pass_yards": 286,
+            "pass_td": 2,
+            "interceptions": 1,
+            "rush_yards": 38,
+            "rush_td": 0,
+            "receptions": 0,
+            "rec_yards": 0,
+            "rec_td": 0,
+            "fg_made": 0,
+            "fg_missed": 0,
+            "xp_made": 0
+          }
+        },
+        "RB": {
+          "name": "Jahmyr Gibbs",
+          "line": {
+            "pass_yards": 0,
+            "pass_td": 0,
+            "interceptions": 0,
+            "rush_yards": 88,
+            "rush_td": 1,
+            "receptions": 3,
+            "rec_yards": 21,
+            "rec_td": 0,
+            "fg_made": 0,
+            "fg_missed": 0,
+            "xp_made": 0
+          }
+        },
+        "WR1": {
+          "name": "CeeDee Lamb",
+          "line": {
+            "pass_yards": 0,
+            "pass_td": 0,
+            "interceptions": 0,
+            "rush_yards": 0,
+            "rush_td": 0,
+            "receptions": 7,
+            "rec_yards": 96,
+            "rec_td": 1,
+            "fg_made": 0,
+            "fg_missed": 0,
+            "xp_made": 0
+          }
+        },
+        "WR2": {
+          "name": "Garrett Wilson",
+          "line": {
+            "pass_yards": 0,
+            "pass_td": 0,
+            "interceptions": 0,
+            "rush_yards": 0,
+            "rush_td": 0,
+            "receptions": 5,
+            "rec_yards": 58,
+            "rec_td": 0,
+            "fg_made": 0,
+            "fg_missed": 0,
+            "xp_made": 0
+          }
+        },
+        "WR3": {
+          "name": "Drake London",
+          "line": {
+            "pass_yards": 0,
+            "pass_td": 0,
+            "interceptions": 0,
+            "rush_yards": 0,
+            "rush_td": 0,
+            "receptions": 4,
+            "rec_yards": 49,
+            "rec_td": 0,
+            "fg_made": 0,
+            "fg_missed": 0,
+            "xp_made": 0
+          }
+        },
+        "TE": {
+          "name": "Brock Bowers",
+          "line": {
+            "pass_yards": 0,
+            "pass_td": 0,
+            "interceptions": 0,
+            "rush_yards": 0,
+            "rush_td": 0,
+            "receptions": 6,
+            "rec_yards": 62,
+            "rec_td": 1,
+            "fg_made": 0,
+            "fg_missed": 0,
+            "xp_made": 0
+          }
+        },
+        "K": {
+          "name": "Cameron Dicker",
+          "line": {
+            "pass_yards": 0,
+            "pass_td": 0,
+            "interceptions": 0,
+            "rush_yards": 0,
+            "rush_td": 0,
+            "receptions": 0,
+            "rec_yards": 0,
+            "rec_td": 0,
+            "fg_made": 1,
+            "fg_missed": 0,
+            "xp_made": 3
+          }
+        }
+      },
+      "defense": {
+        "name": "TUR defense",
+        "line": {
+          "sacks": 2,
+          "def_interceptions": 0,
+          "fumble_recoveries": 0,
+          "def_td": 0,
+          "points_allowed": 20
+        }
+      }
+    },
+    "OWL": {
+      "players": {
+        "QB": {
+          "name": "Patrick Mahomes",
+          "line": {
+            "pass_yards": 261,
+            "pass_td": 1,
+            "interceptions": 0,
+            "rush_yards": 22,
+            "rush_td": 0,
+            "receptions": 0,
+            "rec_yards": 0,
+            "rec_td": 0,
+            "fg_made": 0,
+            "fg_missed": 0,
+            "xp_made": 0
+          }
+        },
+        "RB": {
+          "name": "Derrick Henry",
+          "line": {
+            "pass_yards": 0,
+            "pass_td": 0,
+            "interceptions": 0,
+            "rush_yards": 104,
+            "rush_td": 1,
+            "receptions": 1,
+            "rec_yards": 6,
+            "rec_td": 0,
+            "fg_made": 0,
+            "fg_missed": 0,
+            "xp_made": 0
+          }
+        },
+        "WR1": {
+          "name": "Tee Higgins",
+          "line": {
+            "pass_yards": 0,
+            "pass_td": 0,
+            "interceptions": 0,
+            "rush_yards": 0,
+            "rush_td": 0,
+            "receptions": 6,
+            "rec_yards": 71,
+            "rec_td": 0,
+            "fg_made": 0,
+            "fg_missed": 0,
+            "xp_made": 0
+          }
+        },
+        "WR2": {
+          "name": "Jaxon Smith-Njigba",
+          "line": {
+            "pass_yards": 0,
+            "pass_td": 0,
+            "interceptions": 0,
+            "rush_yards": 0,
+            "rush_td": 0,
+            "receptions": 8,
+            "rec_yards": 104,
+            "rec_td": 1,
+            "fg_made": 0,
+            "fg_missed": 0,
+            "xp_made": 0
+          }
+        },
+        "WR3": {
+          "name": "Ladd McConkey",
+          "line": {
+            "pass_yards": 0,
+            "pass_td": 0,
+            "interceptions": 0,
+            "rush_yards": 0,
+            "rush_td": 0,
+            "receptions": 4,
+            "rec_yards": 47,
+            "rec_td": 0,
+            "fg_made": 0,
+            "fg_missed": 0,
+            "xp_made": 0
+          }
+        },
+        "TE": {
+          "name": "Tucker Kraft",
+          "line": {
+            "pass_yards": 0,
+            "pass_td": 0,
+            "interceptions": 0,
+            "rush_yards": 0,
+            "rush_td": 0,
+            "receptions": 3,
+            "rec_yards": 33,
+            "rec_td": 0,
+            "fg_made": 0,
+            "fg_missed": 0,
+            "xp_made": 0
+          }
+        },
+        "K": {
+          "name": "Ka'imi Fairbairn",
+          "line": {
+            "pass_yards": 0,
+            "pass_td": 0,
+            "interceptions": 0,
+            "rush_yards": 0,
+            "rush_td": 0,
+            "receptions": 0,
+            "rec_yards": 0,
+            "rec_td": 0,
+            "fg_made": 2,
+            "fg_missed": 1,
+            "xp_made": 2
+          }
+        }
+      },
+      "defense": {
+        "name": "OWL defense",
+        "line": {
+          "sacks": 3,
+          "def_interceptions": 1,
+          "fumble_recoveries": 0,
+          "def_td": 0,
+          "points_allowed": 24
+        }
+      }
+    }
+  }
+}

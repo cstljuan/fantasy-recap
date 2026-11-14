@@ -1,0 +1,32 @@
+{
+ "splits": {
+  "categories": [
+   {
+    "name": "general",
+    "stats": [
+     {
+      "name": "appearances",
+      "value": 10
+     }
+    ]
+   },
+   {
+    "name": "goalKeeping",
+    "stats": [
+     {
+      "name": "saves",
+      "value": 6
+     },
+     {
+      "name": "shotsFaced",
+      "value": 0
+     },
+     {
+      "name": "goalsConceded",
+      "value": 4
+     }
+    ]
+   }
+  ]
+ }
+}

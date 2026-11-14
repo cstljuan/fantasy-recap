@@ -143,13 +143,30 @@
   } catch (err) { /* no matchMedia: full motion */ }
   if (q.get('calm') === '1') CALM = true;
 
+  // Words drawn on the field go through the app's language table when it is loaded (js/screens/, FR_I18N).
+  // The whole string is passed, for example 'TOUCHDOWN GOBLINS!'; unknown text comes back unchanged.
+  function tr(text) {
+    var i = window.FR_I18N;
+    try { return i && typeof i.tr === 'function' ? String(i.tr(text)) : text; } catch (err) { return text; }
+  }
+
+  // The profiles (season tendencies and recent form) for the announcer's tendency and hot or cold remarks.
+  // Missing when the page is opened straight from a file: the announcer then says nothing about them.
+  var PROFILES = {};
+  TEAMS.forEach(function (T) {
+    try {
+      fetch('data/profiles/' + encodeURIComponent(T.id) + '.json').then(function (r) { return r.ok ? r.json() : null; })
+        .then(function (d) { if (d && d.players) PROFILES[T.id] = d; }).catch(function () { /* optional */ });
+    } catch (err) { /* optional */ }
+  });
+
   // Every finished play of this game so far, for the announcer's longer pieces.
   var results = [];
   // The intro, the halftime report and the wrap, from js/announcer/ when it has them.
   function piece(name, score) {
     var ann = window.FF_ANNOUNCER;
     if (seeking || !ann || typeof ann[name] !== 'function') return '';
-    try { return ann[name]({ teams: TEAMS, score: score || [0, 0], style: ann.style, leaders: [], plays: results.slice(), hidden: !!(window.__app && window.__app.masked) }) || ''; }
+    try { return ann[name]({ teams: TEAMS, score: score || [0, 0], style: ann.style, leaders: [], plays: results.slice(), profiles: PROFILES, hidden: !!(window.__app && window.__app.masked) }) || ''; }
     catch (err) { return ''; }
   }
 
@@ -157,7 +174,7 @@
   function announce(res, score) {
     var ann = window.FF_ANNOUNCER;
     if (seeking || !ann || !ann.line) return '';
-    try { return ann.line(res, { teams: TEAMS, score: score, style: ann.style }) || ''; }
+    try { return ann.line(res, { teams: TEAMS, score: score, style: ann.style, profiles: PROFILES }) || ''; }
     catch (err) { return ''; }
   }
 
@@ -465,12 +482,13 @@
       if (disp.poss === i) { g.fillStyle = '#ffe600'; g.fillRect(x + w - 10, ry + 4, 5, 5); }
     }
     g.textAlign = 'left'; g.fillStyle = 'rgba(255,255,255,0.75)'; g.font = 'bold 7px ' + FONT;
-    g.fillText('SAMPLE GAME, MADE-UP STATS', x + 5, y + h - 4);
+    g.fillText(tr('SAMPLE GAME, MADE-UP STATS'), x + 5, y + h - 4);
   }
 
   function drawBanner() {
     var b = disp.banner;
     if (!b || clock >= b.until) return;
+    b = { text: tr(b.text), sub: b.sub ? tr(b.sub) : '', color: b.color };
     var fs = 16;
     g.font = 'bold ' + fs + 'px ' + FONT;
     var tw = g.measureText(b.text).width;
@@ -491,7 +509,7 @@
     g.fillStyle = 'rgba(8,14,10,0.92)'; g.fillRect(bx, by, bw, bh);
     g.strokeStyle = '#ffffff'; g.lineWidth = 2; g.strokeRect(bx + 1, by + 1, bw - 2, bh - 2);
     g.textAlign = 'center';
-    g.fillStyle = '#ffe600'; g.font = 'bold 24px ' + FONT; g.fillText('FINAL', W / 2, by + 36);
+    g.fillStyle = '#ffe600'; g.font = 'bold 24px ' + FONT; g.fillText(tr('FINAL'), W / 2, by + 36);
     g.font = 'bold 18px ' + FONT;
     for (var i = 0; i < 2; i++) {
       g.fillStyle = '#ffffff';
@@ -500,8 +518,8 @@
     }
     g.textAlign = 'center';
     g.fillStyle = 'rgba(255,255,255,0.8)'; g.font = 'bold 10px ' + FONT;
-    g.fillText('Sample game. Real names, made-up stats.', W / 2, by + 128);
-    g.fillText('Tap for the recap', W / 2, by + 148);
+    g.fillText(tr('Sample game. Real names, made-up stats.'), W / 2, by + 128);
+    g.fillText(tr('Tap for the recap'), W / 2, by + 148);
   }
 
   function draw() {
@@ -579,12 +597,11 @@
         if (steps[k].kind === 'play' && ++n === index) { target = k; break; }
       }
       if (target < 0 || index !== Math.floor(index)) return false;
-      var wasReady = mode === 'ready';
       Snd.init();
       seeking = true;
       try {
         reset();
-        if (wasReady) emit('start');
+        emit('start');  // like restart(): listeners see the game as running again after the reset
         while (si < target) {
           if (mode === 'play') {
             var cues = play.cues;

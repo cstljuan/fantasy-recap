@@ -1,0 +1,59 @@
+21:08:02 | form starts (no model, fixed order). season=2026, weeks=3
+21:08:02 | starting TUR QB Jayden Daniels: find the player
+21:08:03 | find_player(Jayden Daniels) -> 1 match(es)
+21:08:03 | weekly_stats(11566) -> 7 weeks
+21:08:03 | starting TUR RB Jahmyr Gibbs: find the player
+21:08:03 | find_player(Jahmyr Gibbs) -> 1 match(es)
+21:08:03 | weekly_stats(9221) -> 8 weeks
+21:08:03 | starting TUR WR1 CeeDee Lamb: find the player
+21:08:03 | find_player(CeeDee Lamb) -> 1 match(es)
+21:08:03 | weekly_stats(6786) -> 9 weeks
+21:08:03 | starting TUR WR2 Garrett Wilson: find the player
+21:08:03 | find_player(Garrett Wilson) -> 1 match(es)
+21:08:03 | weekly_stats(8146) -> 8 weeks
+21:08:03 | starting TUR WR3 Drake London: find the player
+21:08:03 | find_player(Drake London) -> 1 match(es)
+21:08:04 | weekly_stats(8112) -> 9 weeks
+21:08:04 | starting TUR TE Brock Bowers: find the player
+21:08:04 | find_player(Brock Bowers) -> 1 match(es)
+21:08:04 | weekly_stats(11604) -> 7 weeks
+21:08:04 | starting TUR K Cameron Dicker: find the player
+21:08:04 | find_player(Cameron Dicker) -> 1 match(es)
+21:08:04 | weekly_stats(8259) -> 8 weeks
+21:08:04 | starting OWL QB Patrick Mahomes: find the player
+21:08:04 | find_player(Patrick Mahomes) -> 1 match(es)
+21:08:04 | weekly_stats(4046) -> 8 weeks
+21:08:04 | starting OWL RB Derrick Henry: find the player
+21:08:04 | find_player(Derrick Henry) -> 1 match(es)
+21:08:04 | weekly_stats(3198) -> 9 weeks
+21:08:04 | starting OWL WR1 Tee Higgins: find the player
+21:08:04 | find_player(Tee Higgins) -> 1 match(es)
+21:08:05 | weekly_stats(6801) -> 8 weeks
+21:08:05 | starting OWL WR2 Jaxon Smith-Njigba: find the player
+21:08:05 | find_player(Jaxon Smith-Njigba) -> 1 match(es)
+21:08:05 | weekly_stats(9488) -> 9 weeks
+21:08:05 | starting OWL WR3 Ladd McConkey: find the player
+21:08:05 | find_player(Ladd McConkey) -> 1 match(es)
+21:08:05 | weekly_stats(11635) -> 8 weeks
+21:08:05 | starting OWL TE Tucker Kraft: find the player
+21:08:05 | find_player(Tucker Kraft) -> 1 match(es)
+21:08:05 | weekly_stats(9484) -> 9 weeks
+21:08:05 | starting OWL K Ka'imi Fairbairn: find the player
+21:08:05 | find_player(Ka'imi Fairbairn) -> 1 match(es)
+21:08:05 | weekly_stats(3451) -> 8 weeks
+21:08:05 | plan: last week with stats is 10; walk back from it to the last 3 weeks each player played
+21:08:05 | Jayden Daniels: form weeks [8, 9, 10], skipped [], deep_ball=0.636, short_pass=0.649, scramble=0.083
+21:08:05 | Jahmyr Gibbs: form weeks [7, 8, 9], skipped [10], run_share=0.867, pass_catching=0.636, red_zone_use=0.194
+21:08:05 | CeeDee Lamb: form weeks [7, 8, 9], skipped [10], deep_ball=0.743, catch_rate=0.564, red_zone_use=0.205
+21:08:05 | Garrett Wilson: form weeks [6, 7, 8], skipped [9, 10], deep_ball=0.637, catch_rate=0.571, red_zone_use=0.19
+21:08:05 | Drake London: form weeks [7, 8, 9], skipped [10], deep_ball=0.546, catch_rate=0.619, red_zone_use=0.095
+21:08:05 | Brock Bowers: form weeks [7, 8, 9], skipped [10], deep_ball=0.69, catch_rate=0.769, red_zone_use=0.154
+21:08:05 | Cameron Dicker: form weeks [6, 8, 9], skipped [7, 10], kicker_range=0.5, accuracy=1.0
+21:08:05 | Patrick Mahomes: form weeks [7, 8, 9], skipped [10], deep_ball=0.578, short_pass=0.686, scramble=0.037
+21:08:05 | Derrick Henry: form weeks [7, 8, 9], skipped [10], run_share=0.918, pass_catching=0.75, red_zone_use=0.178
+21:08:05 | Tee Higgins: form weeks [7, 8, 9], skipped [10], deep_ball=0.798, catch_rate=0.875, red_zone_use=0.208
+21:08:05 | Jaxon Smith-Njigba: form weeks [7, 8, 9], skipped [10], deep_ball=0.725, catch_rate=0.667, red_zone_use=0.061
+21:08:05 | Ladd McConkey: form weeks [6, 8, 9], skipped [7, 10], deep_ball=1.0, catch_rate=0.714, red_zone_use=None
+21:08:05 | Tucker Kraft: form weeks [7, 8, 9], skipped [10], deep_ball=0.464, catch_rate=0.733, red_zone_use=0.2
+21:08:05 | Ka'imi Fairbairn: form weeks [6, 7, 9], skipped [8, 10], kicker_range=0.714, accuracy=1.0
+21:08:05 | form finished: 14 of 14 players have form

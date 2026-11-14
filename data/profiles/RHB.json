@@ -1,118 +1,348 @@
 {
   "team": "RHB",
-  "source": "Player names and positions only, picked by hand from soccer/js/data.js on 2026-11-14. No statistics were read, because this session could not reach any public stats source (requests were refused by the network), so every tendency is null.",
+  "source": "Soccer numbers from ESPN's public JSON (season totals of each player's club league), read on 2026-11-14 by agents/scout/fill_soccer.py. The address, date and formula of every number are in tendency_sources. Nothing was estimated: a number ESPN does not give is null.",
   "players": {
     "GK": {
       "name": "Mike Maignan",
       "position": "GK",
       "tendencies": {
-        "save_rate": null,
+        "save_rate": 0.74,
         "pen_save_rate": null
       },
-      "notes": "Tendencies are null: no public source could be read on 2026-11-14 and nothing was estimated. Current club and status were not checked."
+      "notes": "Season 2026 league numbers from ESPN (AC Milan, ita.1), 11.0 appearances, read on 2026-11-14. No model. Null: pen_save_rate.",
+      "tendency_sources": {
+        "save_rate": {
+          "source": "https://sports.core.api.espn.com/v2/sports/soccer/leagues/ita.1/seasons/2026/types/1/athletes/189026/statistics",
+          "date": "2026-11-14",
+          "how": "saves divided by saves plus goals conceded (ESPN gives no shots faced)"
+        },
+        "pen_save_rate": {
+          "source": "https://sports.core.api.espn.com/v2/sports/soccer/leagues/ita.1/seasons/2026/types/1/athletes/189026/statistics",
+          "date": "2026-11-14",
+          "how": "penalties saved divided by penalties faced, null when none were faced"
+        }
+      },
+      "club": "AC Milan",
+      "league": "ita.1",
+      "espn_id": "189026"
     },
     "LB": {
       "name": "Nuno Mendes",
       "position": "DEF",
       "tendencies": {
-        "tackle_rate": null,
+        "tackle_rate": 0.667,
         "aerial_win_rate": null,
-        "goal_share": null
+        "goal_share": 0.0
       },
-      "notes": "Tendencies are null: no public source could be read on 2026-11-14 and nothing was estimated. Current club and status were not checked."
+      "notes": "Season 2026 league numbers from ESPN (Paris Saint-Germain, fra.1), 3.0 appearances, read on 2026-11-14. No model. Null: aerial_win_rate.",
+      "tendency_sources": {
+        "tackle_rate": {
+          "source": "https://sports.core.api.espn.com/v2/sports/soccer/leagues/fra.1/seasons/2026/types/1/athletes/290591/statistics",
+          "date": "2026-11-14",
+          "how": "tackles won divided by tackles"
+        },
+        "aerial_win_rate": {
+          "source": "https://sports.core.api.espn.com/v2/sports/soccer/leagues/fra.1/seasons/2026/types/1/athletes/290591/statistics",
+          "date": "2026-11-14",
+          "how": "null: ESPN gives all duels together, not aerial duels"
+        },
+        "goal_share": {
+          "source": "https://sports.core.api.espn.com/v2/sports/soccer/leagues/fra.1/seasons/2026/types/1/athletes/290591/statistics",
+          "date": "2026-11-14",
+          "how": "goals per appearance, capped at 1"
+        }
+      },
+      "club": "Paris Saint-Germain",
+      "league": "fra.1",
+      "espn_id": "290591"
     },
     "CB1": {
       "name": "Josko Gvardiol",
       "position": "DEF",
       "tendencies": {
-        "tackle_rate": null,
+        "tackle_rate": 0.667,
         "aerial_win_rate": null,
-        "goal_share": null
+        "goal_share": 0.1
       },
-      "notes": "Tendencies are null: no public source could be read on 2026-11-14 and nothing was estimated. Current club and status were not checked."
+      "notes": "Season 2026 league numbers from ESPN (Manchester City, eng.1), 10.0 appearances, read on 2026-11-14. No model. Null: aerial_win_rate.",
+      "tendency_sources": {
+        "tackle_rate": {
+          "source": "https://sports.core.api.espn.com/v2/sports/soccer/leagues/eng.1/seasons/2026/types/1/athletes/299910/statistics",
+          "date": "2026-11-14",
+          "how": "tackles won divided by tackles"
+        },
+        "aerial_win_rate": {
+          "source": "https://sports.core.api.espn.com/v2/sports/soccer/leagues/eng.1/seasons/2026/types/1/athletes/299910/statistics",
+          "date": "2026-11-14",
+          "how": "null: ESPN gives all duels together, not aerial duels"
+        },
+        "goal_share": {
+          "source": "https://sports.core.api.espn.com/v2/sports/soccer/leagues/eng.1/seasons/2026/types/1/athletes/299910/statistics",
+          "date": "2026-11-14",
+          "how": "goals per appearance, capped at 1"
+        }
+      },
+      "club": "Manchester City",
+      "league": "eng.1",
+      "espn_id": "299910"
     },
     "CB2": {
       "name": "Antonio Rudiger",
       "position": "DEF",
       "tendencies": {
-        "tackle_rate": null,
+        "tackle_rate": 1.0,
         "aerial_win_rate": null,
-        "goal_share": null
+        "goal_share": 0.25
       },
-      "notes": "Tendencies are null: no public source could be read on 2026-11-14 and nothing was estimated. Current club and status were not checked."
+      "notes": "Season 2026 league numbers from ESPN (Real Madrid, esp.1), 4.0 appearances, read on 2026-11-14. No model. Null: aerial_win_rate.",
+      "tendency_sources": {
+        "tackle_rate": {
+          "source": "https://sports.core.api.espn.com/v2/sports/soccer/leagues/esp.1/seasons/2026/types/1/athletes/169438/statistics",
+          "date": "2026-11-14",
+          "how": "tackles won divided by tackles"
+        },
+        "aerial_win_rate": {
+          "source": "https://sports.core.api.espn.com/v2/sports/soccer/leagues/esp.1/seasons/2026/types/1/athletes/169438/statistics",
+          "date": "2026-11-14",
+          "how": "null: ESPN gives all duels together, not aerial duels"
+        },
+        "goal_share": {
+          "source": "https://sports.core.api.espn.com/v2/sports/soccer/leagues/esp.1/seasons/2026/types/1/athletes/169438/statistics",
+          "date": "2026-11-14",
+          "how": "goals per appearance, capped at 1"
+        }
+      },
+      "club": "Real Madrid",
+      "league": "esp.1",
+      "espn_id": "169438"
     },
     "RB": {
       "name": "Jules Kounde",
       "position": "DEF",
       "tendencies": {
-        "tackle_rate": null,
+        "tackle_rate": 0.6,
         "aerial_win_rate": null,
-        "goal_share": null
+        "goal_share": 0.167
       },
-      "notes": "Tendencies are null: no public source could be read on 2026-11-14 and nothing was estimated. Current club and status were not checked."
+      "notes": "Season 2026 league numbers from ESPN (Barcelona, esp.1), 6.0 appearances, read on 2026-11-14. No model. Null: aerial_win_rate.",
+      "tendency_sources": {
+        "tackle_rate": {
+          "source": "https://sports.core.api.espn.com/v2/sports/soccer/leagues/esp.1/seasons/2026/types/1/athletes/231692/statistics",
+          "date": "2026-11-14",
+          "how": "tackles won divided by tackles"
+        },
+        "aerial_win_rate": {
+          "source": "https://sports.core.api.espn.com/v2/sports/soccer/leagues/esp.1/seasons/2026/types/1/athletes/231692/statistics",
+          "date": "2026-11-14",
+          "how": "null: ESPN gives all duels together, not aerial duels"
+        },
+        "goal_share": {
+          "source": "https://sports.core.api.espn.com/v2/sports/soccer/leagues/esp.1/seasons/2026/types/1/athletes/231692/statistics",
+          "date": "2026-11-14",
+          "how": "goals per appearance, capped at 1"
+        }
+      },
+      "club": "Barcelona",
+      "league": "esp.1",
+      "espn_id": "231692"
     },
     "CM1": {
       "name": "Federico Valverde",
       "position": "MID",
       "tendencies": {
-        "pass_share": null,
-        "shot_share": null,
-        "assist_share": null
+        "pass_share": 0.903,
+        "shot_share": 0.164,
+        "assist_share": 0.182
       },
-      "notes": "Tendencies are null: no public source could be read on 2026-11-14 and nothing was estimated. Current club and status were not checked."
+      "notes": "Season 2026 league numbers from ESPN (Real Madrid, esp.1), 11.0 appearances, read on 2026-11-14. No model.",
+      "tendency_sources": {
+        "pass_share": {
+          "source": "https://sports.core.api.espn.com/v2/sports/soccer/leagues/esp.1/seasons/2026/types/1/athletes/235818/statistics",
+          "date": "2026-11-14",
+          "how": "accurate passes divided by passes"
+        },
+        "shot_share": {
+          "source": "https://sports.core.api.espn.com/v2/sports/soccer/leagues/esp.1/seasons/2026/types/1/athletes/235818/statistics",
+          "date": "2026-11-14",
+          "how": "shots per appearance divided by 5, capped at 1"
+        },
+        "assist_share": {
+          "source": "https://sports.core.api.espn.com/v2/sports/soccer/leagues/esp.1/seasons/2026/types/1/athletes/235818/statistics",
+          "date": "2026-11-14",
+          "how": "assists per appearance, capped at 1"
+        }
+      },
+      "club": "Real Madrid",
+      "league": "esp.1",
+      "espn_id": "235818"
     },
     "CM2": {
       "name": "Vitinha",
       "position": "MID",
       "tendencies": {
-        "pass_share": null,
-        "shot_share": null,
-        "assist_share": null
+        "pass_share": 0.928,
+        "shot_share": 0.311,
+        "assist_share": 0.111
       },
-      "notes": "Tendencies are null: no public source could be read on 2026-11-14 and nothing was estimated. Current club and status were not checked."
+      "notes": "2 ESPN players named Vitinha with position M; took the first in ESPN's order (id 288897). Season 2026 league numbers from ESPN (Paris Saint-Germain, fra.1), 9.0 appearances, read on 2026-11-14. No model.",
+      "tendency_sources": {
+        "pass_share": {
+          "source": "https://sports.core.api.espn.com/v2/sports/soccer/leagues/fra.1/seasons/2026/types/1/athletes/288897/statistics",
+          "date": "2026-11-14",
+          "how": "accurate passes divided by passes"
+        },
+        "shot_share": {
+          "source": "https://sports.core.api.espn.com/v2/sports/soccer/leagues/fra.1/seasons/2026/types/1/athletes/288897/statistics",
+          "date": "2026-11-14",
+          "how": "shots per appearance divided by 5, capped at 1"
+        },
+        "assist_share": {
+          "source": "https://sports.core.api.espn.com/v2/sports/soccer/leagues/fra.1/seasons/2026/types/1/athletes/288897/statistics",
+          "date": "2026-11-14",
+          "how": "assists per appearance, capped at 1"
+        }
+      },
+      "club": "Paris Saint-Germain",
+      "league": "fra.1",
+      "espn_id": "288897"
     },
     "CM3": {
       "name": "Cole Palmer",
       "position": "MID",
       "tendencies": {
-        "pass_share": null,
-        "shot_share": null,
-        "assist_share": null
+        "pass_share": 0.83,
+        "shot_share": 0.58,
+        "assist_share": 0.3
       },
-      "notes": "Tendencies are null: no public source could be read on 2026-11-14 and nothing was estimated. Current club and status were not checked."
+      "notes": "Season 2026 league numbers from ESPN (Chelsea, eng.1), 10.0 appearances, read on 2026-11-14. No model.",
+      "tendency_sources": {
+        "pass_share": {
+          "source": "https://sports.core.api.espn.com/v2/sports/soccer/leagues/eng.1/seasons/2026/types/1/athletes/296395/statistics",
+          "date": "2026-11-14",
+          "how": "accurate passes divided by passes"
+        },
+        "shot_share": {
+          "source": "https://sports.core.api.espn.com/v2/sports/soccer/leagues/eng.1/seasons/2026/types/1/athletes/296395/statistics",
+          "date": "2026-11-14",
+          "how": "shots per appearance divided by 5, capped at 1"
+        },
+        "assist_share": {
+          "source": "https://sports.core.api.espn.com/v2/sports/soccer/leagues/eng.1/seasons/2026/types/1/athletes/296395/statistics",
+          "date": "2026-11-14",
+          "how": "assists per appearance, capped at 1"
+        }
+      },
+      "club": "Chelsea",
+      "league": "eng.1",
+      "espn_id": "296395"
     },
     "LW": {
       "name": "Kylian Mbappe",
       "position": "FWD",
       "tendencies": {
-        "shot_share": null,
-        "shot_conversion": null,
-        "assist_share": null,
-        "header_share": null
+        "shot_share": 1.0,
+        "shot_conversion": 0.203,
+        "assist_share": 0.167,
+        "header_share": 0.0
       },
-      "notes": "Tendencies are null: no public source could be read on 2026-11-14 and nothing was estimated. Current club and status were not checked."
+      "notes": "Season 2026 league numbers from ESPN (Real Madrid, esp.1), 12.0 appearances, read on 2026-11-14. No model.",
+      "tendency_sources": {
+        "shot_share": {
+          "source": "https://sports.core.api.espn.com/v2/sports/soccer/leagues/esp.1/seasons/2026/types/1/athletes/231388/statistics",
+          "date": "2026-11-14",
+          "how": "shots per appearance divided by 5, capped at 1"
+        },
+        "shot_conversion": {
+          "source": "https://sports.core.api.espn.com/v2/sports/soccer/leagues/esp.1/seasons/2026/types/1/athletes/231388/statistics",
+          "date": "2026-11-14",
+          "how": "goals divided by shots"
+        },
+        "assist_share": {
+          "source": "https://sports.core.api.espn.com/v2/sports/soccer/leagues/esp.1/seasons/2026/types/1/athletes/231388/statistics",
+          "date": "2026-11-14",
+          "how": "assists per appearance, capped at 1"
+        },
+        "header_share": {
+          "source": "https://sports.core.api.espn.com/v2/sports/soccer/leagues/esp.1/seasons/2026/types/1/athletes/231388/statistics",
+          "date": "2026-11-14",
+          "how": "headed goals divided by goals, null with no goals"
+        }
+      },
+      "club": "Real Madrid",
+      "league": "esp.1",
+      "espn_id": "231388"
     },
     "ST": {
       "name": "Harry Kane",
       "position": "FWD",
       "tendencies": {
-        "shot_share": null,
-        "shot_conversion": null,
-        "assist_share": null,
-        "header_share": null
+        "shot_share": 0.956,
+        "shot_conversion": 0.093,
+        "assist_share": 0.889,
+        "header_share": 0.25
       },
-      "notes": "Tendencies are null: no public source could be read on 2026-11-14 and nothing was estimated. Current club and status were not checked."
+      "notes": "Season 2026 league numbers from ESPN (Bayern München, ger.1), 9.0 appearances, read on 2026-11-14. No model.",
+      "tendency_sources": {
+        "shot_share": {
+          "source": "https://sports.core.api.espn.com/v2/sports/soccer/leagues/ger.1/seasons/2026/types/1/athletes/142200/statistics",
+          "date": "2026-11-14",
+          "how": "shots per appearance divided by 5, capped at 1"
+        },
+        "shot_conversion": {
+          "source": "https://sports.core.api.espn.com/v2/sports/soccer/leagues/ger.1/seasons/2026/types/1/athletes/142200/statistics",
+          "date": "2026-11-14",
+          "how": "goals divided by shots"
+        },
+        "assist_share": {
+          "source": "https://sports.core.api.espn.com/v2/sports/soccer/leagues/ger.1/seasons/2026/types/1/athletes/142200/statistics",
+          "date": "2026-11-14",
+          "how": "assists per appearance, capped at 1"
+        },
+        "header_share": {
+          "source": "https://sports.core.api.espn.com/v2/sports/soccer/leagues/ger.1/seasons/2026/types/1/athletes/142200/statistics",
+          "date": "2026-11-14",
+          "how": "headed goals divided by goals, null with no goals"
+        }
+      },
+      "club": "Bayern München",
+      "league": "ger.1",
+      "espn_id": "142200"
     },
     "RW": {
       "name": "Mohamed Salah",
       "position": "FWD",
       "tendencies": {
-        "shot_share": null,
-        "shot_conversion": null,
-        "assist_share": null,
-        "header_share": null
+        "shot_share": 0.582,
+        "shot_conversion": 0.281,
+        "assist_share": 0.273,
+        "header_share": 0.0
       },
-      "notes": "Tendencies are null: no public source could be read on 2026-11-14 and nothing was estimated. Current club and status were not checked."
+      "notes": "Season 2026 league numbers from ESPN (Trabzonspor, tur.1), 11.0 appearances, read on 2026-11-14. No model.",
+      "tendency_sources": {
+        "shot_share": {
+          "source": "https://sports.core.api.espn.com/v2/sports/soccer/leagues/tur.1/seasons/2026/types/1/athletes/173896/statistics",
+          "date": "2026-11-14",
+          "how": "shots per appearance divided by 5, capped at 1"
+        },
+        "shot_conversion": {
+          "source": "https://sports.core.api.espn.com/v2/sports/soccer/leagues/tur.1/seasons/2026/types/1/athletes/173896/statistics",
+          "date": "2026-11-14",
+          "how": "goals divided by shots"
+        },
+        "assist_share": {
+          "source": "https://sports.core.api.espn.com/v2/sports/soccer/leagues/tur.1/seasons/2026/types/1/athletes/173896/statistics",
+          "date": "2026-11-14",
+          "how": "assists per appearance, capped at 1"
+        },
+        "header_share": {
+          "source": "https://sports.core.api.espn.com/v2/sports/soccer/leagues/tur.1/seasons/2026/types/1/athletes/173896/statistics",
+          "date": "2026-11-14",
+          "how": "headed goals divided by goals, null with no goals"
+        }
+      },
+      "club": "Trabzonspor",
+      "league": "tur.1",
+      "espn_id": "173896"
     }
   }
 }

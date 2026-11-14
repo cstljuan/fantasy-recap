@@ -1,0 +1,133 @@
+20:47:42 | fill_soccer starts (no model, fixed order). Last date for the round: 2026-11-14
+20:47:42 | plan: for each player find him on ESPN, read his game log (club, league, matches), read his league season totals, compute tendencies, take his last league match before 2026-11-14 as his line
+20:47:42 | starting IRN.GK David Raya: find on ESPN
+20:47:42 | find(David Raya, G) -> 1 match(es)
+20:47:42 | gamelog(196176) -> Arsenal, eng.1, 10 league matches
+20:47:42 | season_stats(eng.1, 196176) -> 107 stats
+20:47:42 | David Raya: Arsenal eng.1, save_rate=0.8, pen_save_rate=None
+20:47:42 | starting IRN.LB Alphonso Davies: find on ESPN
+20:47:43 | find(Alphonso Davies, D) -> 1 match(es)
+20:47:43 | gamelog(236721) -> Bayern München, ger.1, 9 league matches
+20:47:43 | season_stats(ger.1, 236721) -> 106 stats
+20:47:43 | Alphonso Davies: Bayern München ger.1, tackle_rate=0.667, aerial_win_rate=None, goal_share=0.0
+20:47:43 | starting IRN.CB1 William Saliba: find on ESPN
+20:47:44 | find(William Saliba, D) -> 1 match(es)
+20:47:44 | gamelog(277385) -> Arsenal U21, eng.trophy, 2 league matches
+20:47:44 | William Saliba: ESPN's game log for this player only has season 2020 (Arsenal U21, eng.trophy), not 2026, so ESPN gives no current numbers
+20:47:44 | starting IRN.CB2 Ruben Dias: find on ESPN
+20:47:44 | find(Ruben Dias, D) -> 1 match(es)
+20:47:44 | gamelog(234878) -> Manchester City, eng.1, 10 league matches
+20:47:44 | season_stats(eng.1, 234878) -> 106 stats
+20:47:44 | Ruben Dias: Manchester City eng.1, tackle_rate=0.333, aerial_win_rate=None, goal_share=0.0
+20:47:44 | starting IRN.RB Achraf Hakimi: find on ESPN
+20:47:45 | find(Achraf Hakimi, D) -> 1 match(es)
+20:47:45 | gamelog(240233) -> Paris Saint-Germain, fra.1, 8 league matches
+20:47:45 | season_stats(fra.1, 240233) -> 106 stats
+20:47:45 | Achraf Hakimi: Paris Saint-Germain fra.1, tackle_rate=0.5, aerial_win_rate=None, goal_share=0.375
+20:47:45 | starting IRN.CM1 Declan Rice: find on ESPN
+20:47:45 | find(Declan Rice, M) -> 1 match(es)
+20:47:46 | gamelog(238262) -> Arsenal, eng.1, 10 league matches
+20:47:46 | season_stats(eng.1, 238262) -> 106 stats
+20:47:46 | Declan Rice: Arsenal eng.1, pass_share=0.901, shot_share=0.24, assist_share=0.5
+20:47:46 | starting IRN.CM2 Jude Bellingham: find on ESPN
+20:47:46 | find(Jude Bellingham, M) -> 1 match(es)
+20:47:46 | gamelog(291281) -> Real Madrid, esp.1, 12 league matches
+20:47:46 | season_stats(esp.1, 291281) -> 106 stats
+20:47:46 | Jude Bellingham: Real Madrid esp.1, pass_share=0.887, shot_share=0.417, assist_share=0.25
+20:47:46 | starting IRN.CM3 Florian Wirtz: find on ESPN
+20:47:47 | find(Florian Wirtz, M) -> 1 match(es)
+20:47:47 | gamelog(303748) -> Liverpool, eng.1, 10 league matches
+20:47:47 | season_stats(eng.1, 303748) -> 106 stats
+20:47:47 | Florian Wirtz: Liverpool eng.1, pass_share=0.796, shot_share=0.46, assist_share=0.3
+20:47:47 | starting IRN.LW Khvicha Kvaratskhelia: find on ESPN
+20:47:47 | find(Khvicha Kvaratskhelia, F) -> 1 match(es)
+20:47:47 | gamelog(274745) -> Paris Saint-Germain, fra.1, 7 league matches
+20:47:47 | season_stats(fra.1, 274745) -> 106 stats
+20:47:47 | Khvicha Kvaratskhelia: Paris Saint-Germain fra.1, shot_share=0.4, shot_conversion=0.071, assist_share=0.143, header_share=0.0
+20:47:47 | starting IRN.ST Erling Haaland: find on ESPN
+20:47:48 | find(Erling Haaland, F) -> 1 match(es)
+20:47:48 | gamelog(253989) -> Manchester City, eng.1, 10 league matches
+20:47:48 | season_stats(eng.1, 253989) -> 106 stats
+20:47:48 | Erling Haaland: Manchester City eng.1, shot_share=0.76, shot_conversion=0.237, assist_share=0.0, header_share=0.444
+20:47:48 | starting IRN.RW Bukayo Saka: find on ESPN
+20:47:48 | find(Bukayo Saka, F) -> 1 match(es)
+20:47:48 | gamelog(280555) -> Arsenal, eng.1, 7 league matches
+20:47:49 | season_stats(eng.1, 280555) -> 106 stats
+20:47:49 | Bukayo Saka: Arsenal eng.1, shot_share=0.486, shot_conversion=0.176, assist_share=0.0, header_share=0.0
+20:47:49 | starting RHB.GK Mike Maignan: find on ESPN
+20:47:49 | find(Mike Maignan, G) -> 1 match(es)
+20:47:49 | gamelog(189026) -> AC Milan, ita.1, 11 league matches
+20:47:50 | season_stats(ita.1, 189026) -> 107 stats
+20:47:50 | Mike Maignan: AC Milan ita.1, save_rate=0.74, pen_save_rate=None
+20:47:50 | starting RHB.LB Nuno Mendes: find on ESPN
+20:47:50 | find(Nuno Mendes, D) -> 1 match(es)
+20:47:50 | gamelog(290591) -> Paris Saint-Germain, fra.1, 3 league matches
+20:47:50 | season_stats(fra.1, 290591) -> 106 stats
+20:47:50 | Nuno Mendes: Paris Saint-Germain fra.1, tackle_rate=0.667, aerial_win_rate=None, goal_share=0.0
+20:47:50 | starting RHB.CB1 Josko Gvardiol: find on ESPN
+20:47:50 | find(Josko Gvardiol, D) -> 1 match(es)
+20:47:51 | gamelog(299910) -> Manchester City, eng.1, 10 league matches
+20:47:51 | season_stats(eng.1, 299910) -> 106 stats
+20:47:51 | Josko Gvardiol: Manchester City eng.1, tackle_rate=0.667, aerial_win_rate=None, goal_share=0.1
+20:47:51 | starting RHB.CB2 Antonio Rudiger: find on ESPN
+20:47:51 | find(Antonio Rudiger, D) -> 1 match(es)
+20:47:51 | gamelog(169438) -> Real Madrid, esp.1, 12 league matches
+20:47:51 | season_stats(esp.1, 169438) -> 106 stats
+20:47:51 | Antonio Rudiger: Real Madrid esp.1, tackle_rate=1.0, aerial_win_rate=None, goal_share=0.25
+20:47:51 | starting RHB.RB Jules Kounde: find on ESPN
+20:47:51 | find(Jules Kounde, D) -> 1 match(es)
+20:47:52 | gamelog(231692) -> Barcelona, esp.1, 9 league matches
+20:47:52 | season_stats(esp.1, 231692) -> 106 stats
+20:47:52 | Jules Kounde: Barcelona esp.1, tackle_rate=0.6, aerial_win_rate=None, goal_share=0.167
+20:47:52 | starting RHB.CM1 Federico Valverde: find on ESPN
+20:47:52 | find(Federico Valverde, M) -> 1 match(es)
+20:47:52 | gamelog(235818) -> Real Madrid, esp.1, 11 league matches
+20:47:52 | season_stats(esp.1, 235818) -> 106 stats
+20:47:52 | Federico Valverde: Real Madrid esp.1, pass_share=0.903, shot_share=0.164, assist_share=0.182
+20:47:52 | starting RHB.CM2 Vitinha: find on ESPN
+20:47:52 | find(Vitinha, M) -> 2 match(es)
+20:47:53 | gamelog(288897) -> Paris Saint-Germain, fra.1, 10 league matches
+20:47:53 | season_stats(fra.1, 288897) -> 106 stats
+20:47:53 | Vitinha: Paris Saint-Germain fra.1, pass_share=0.928, shot_share=0.311, assist_share=0.111
+20:47:53 | starting RHB.CM3 Cole Palmer: find on ESPN
+20:47:53 | find(Cole Palmer, M) -> 1 match(es)
+20:47:53 | gamelog(296395) -> Chelsea, eng.1, 10 league matches
+20:47:54 | season_stats(eng.1, 296395) -> 106 stats
+20:47:54 | Cole Palmer: Chelsea eng.1, pass_share=0.83, shot_share=0.58, assist_share=0.3
+20:47:54 | starting RHB.LW Kylian Mbappe: find on ESPN
+20:47:54 | find(Kylian Mbappe, F) -> 1 match(es)
+20:47:54 | gamelog(231388) -> Real Madrid, esp.1, 12 league matches
+20:47:54 | season_stats(esp.1, 231388) -> 106 stats
+20:47:54 | Kylian Mbappe: Real Madrid esp.1, shot_share=1.0, shot_conversion=0.203, assist_share=0.167, header_share=0.0
+20:47:54 | starting RHB.ST Harry Kane: find on ESPN
+20:47:54 | find(Harry Kane, F) -> 1 match(es)
+20:47:55 | gamelog(142200) -> Bayern München, ger.1, 9 league matches
+20:47:55 | season_stats(ger.1, 142200) -> 106 stats
+20:47:55 | Harry Kane: Bayern München ger.1, shot_share=0.956, shot_conversion=0.093, assist_share=0.889, header_share=0.25
+20:47:55 | starting RHB.RW Mohamed Salah: find on ESPN
+20:47:55 | find(Mohamed Salah, F) -> 1 match(es)
+20:47:55 | gamelog(173896) -> Trabzonspor, tur.1, 11 league matches
+20:47:56 | season_stats(tur.1, 173896) -> 106 stats
+20:47:56 | Mohamed Salah: Trabzonspor tur.1, shot_share=0.582, shot_conversion=0.281, assist_share=0.273, header_share=0.0
+20:47:56 | David Raya: round line {"saves": 2}
+20:47:56 | Alphonso Davies: round line {"sot": 1}
+20:47:56 | Ruben Dias: round line {}
+20:47:56 | Achraf Hakimi: round line {} (no league match in the round)
+20:47:56 | Declan Rice: round line {"sot": 2}
+20:47:56 | Jude Bellingham: round line {"sot": 2}
+20:47:56 | Florian Wirtz: round line {"goals": 1, "assists": 1, "sot": 2}
+20:47:56 | Khvicha Kvaratskhelia: round line {} (no league match in the round)
+20:47:56 | Erling Haaland: round line {"sot": 2}
+20:47:56 | Bukayo Saka: round line {} (no league match in the round)
+20:47:56 | Mike Maignan: round line {"saves": 5}
+20:47:56 | Nuno Mendes: round line {} (no league match in the round)
+20:47:56 | Josko Gvardiol: round line {}
+20:47:56 | Antonio Rudiger: round line {}
+20:47:56 | Jules Kounde: round line {} (no league match in the round)
+20:47:56 | Federico Valverde: round line {"goals": 1, "sot": 1}
+20:47:56 | Vitinha: round line {}
+20:47:56 | Cole Palmer: round line {"sot": 1}
+20:47:56 | Kylian Mbappe: round line {"goals": 1, "sot": 4, "yellow": 1}
+20:47:56 | Harry Kane: round line {"assists": 2, "sot": 1}
+20:47:56 | Mohamed Salah: round line {"goals": 1, "sot": 2}
+20:47:56 | fill_soccer finished: 21 players filled, lines in soccer-real-2026-11-08.json, 2 match maker rules broken

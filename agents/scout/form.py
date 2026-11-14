@@ -132,10 +132,14 @@ def main(argv):
     ap.add_argument("--weeks", type=int, default=3)
     ap.add_argument("--latest", type=int, help="the last week to look at (default: the last week with any stats)")
     ap.add_argument("--roster-file", help="JSON {team: {slot: name}} instead of js/data.js")
+    ap.add_argument("--roster-files", help="comma separated roster files in data/rosters/ instead of js/data.js")
     a = ap.parse_args(argv)
     log = T.start_run("form")
     T.log_step("form starts (no model, fixed order). season=%d, weeks=%d" % (T.season(), a.weeks))
-    rosters = json.load(open(a.roster_file)) if a.roster_file else S.rosters_from_js()
+    if a.roster_files:
+        rosters = S.rosters_from_files(a.roster_files.split(","))
+    else:
+        rosters = json.load(open(a.roster_file)) if a.roster_file else S.rosters_from_js()
 
     found = []
     for team, roster in rosters.items():
@@ -151,8 +155,11 @@ def main(argv):
     T.log_step("plan: last week with stats is %d; walk back from it to the last %d weeks each player played" % (latest, a.weeks))
 
     raw_path = os.path.join(T.out_dir(), "rosters", "form-%d.json" % T.season())
-    raw = {"season": T.season(), "source": "Sleeper public API, weekly stats", "latest_week": latest,
-           "weeks_wanted": a.weeks, "date": T.today(), "players": {}}
+    # Merge into the file: a run for some teams keeps the other teams' entries.
+    raw = T._read(raw_path, {"players": {}})
+    raw.update({"season": T.season(), "source": "Sleeper public API, weekly stats", "latest_week": latest,
+                "weeks_wanted": a.weeks, "date": T.today()})
+    raw.setdefault("players", {})
     filled = 0
     for team, slot, name, pos, pid, why, weekly in found:
         if not pid:

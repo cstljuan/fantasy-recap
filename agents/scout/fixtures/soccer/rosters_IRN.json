@@ -1,0 +1,9 @@
+{
+ "team": "IRN",
+ "sport": "soccer",
+ "roster": {
+  "GK": "Test Keeper",
+  "CB1": "Old Defender",
+  "ST": "Test Striker"
+ }
+}

@@ -30,6 +30,19 @@
   function posOf(role) { for (var i = 0; i < SLOTS.length; i++) if (SLOTS[i].role === role) return SLOTS[i].pos; return role; }
 
   // Team colors and the 8-bit player from the game, reused as each team's mark.
+  // Spanish for the screens (js/screens/i18n.js). Until the table has loaded, text stays English;
+  // with Spanish saved the page waits for it (at most 1.5 s) so English does not flash.
+  function lang() { return window.FR_I18N ? window.FR_I18N.lang : 'en'; }
+  function tr(s) { return window.FR_I18N ? window.FR_I18N.tr(s) : s; }
+  (function () {
+    var saved = null;
+    try { saved = window.localStorage.getItem('fr.lang'); } catch (err) { saved = null; }
+    if (saved === 'es') {
+      document.documentElement.classList.add('i18n-wait');
+      setTimeout(function () { document.documentElement.classList.remove('i18n-wait'); }, 1500);
+    }
+  })();
+
   var root = document.documentElement;
   root.style.setProperty('--t0', TEAMS[0].colors.jersey);
   root.style.setProperty('--t1', TEAMS[1].colors.jersey);
@@ -96,7 +109,8 @@
       pts: [{}, {}], st: [{}, {}],
       team: [{ pass: 0, rush: 0, to: 0, pens: 0, penYds: 0 }, { pass: 0, rush: 0, to: 0, pens: 0, penYds: 0 }],
       field: [0, 0], feed: [], done: 0, now: '', flash: {},
-      drives: []               // the film room: one entry per drive, built as the plays come in
+      drives: [],              // the film room: one entry per drive, built as the plays come in
+      results: [], halfScore: null  // the story of the game
     };
     SLOTS.forEach(function (s) { for (var t = 0; t < 2; t++) { o.pts[t][s.role] = 0; o.st[t][s.role] = {}; } });
     return o;
@@ -238,6 +252,7 @@
       fp: before ? filePointsDelta(before) : res.fp.map(function (f) { return { pts: f.pts, who: shortName(f.team, f.role), team: f.team }; })
     });
     filmRecord(res);
+    m.results.push(res);
   }
 
   // ------------------------------------------------------------- film room
@@ -341,6 +356,53 @@
       '</div>';
   }
 
+  // ------------------------------------------------------- hot and cold
+  // Recent form from data/profiles/<team>.json (Ricky, D24). The same rule as Noah's hot and
+  // cold lines (C16): recent 0.15 or more above the season number is hot, 0.15 or more below
+  // is cold, otherwise steady; the tendency with the biggest gap decides. Nothing shows when
+  // form is missing or null, or when the files cannot be read (opened from a file).
+  var FORM_DIFF = 0.15, profiles = {};
+  var TENDENCY_WORDS = { deep_ball: 'deep ball rate', short_pass: 'short pass rate', scramble: 'scramble rate', run_share: 'run share',
+    pass_catching: 'pass catching', red_zone_use: 'red zone use', catch_rate: 'catch rate', kicker_range: 'long kick share', accuracy: 'accuracy' };
+  if (window.fetch) {
+    TEAMS.forEach(function (T) {
+      fetch('data/profiles/' + encodeURIComponent(T.id) + '.json').then(function (r) { return r.ok ? r.json() : null; }).then(function (d) {
+        if (d && d.players && typeof d.players === 'object') { profiles[T.id] = d; if (tab === 'lineups' && !inGame) render(false); }
+      }).catch(function () { /* no form then */ });
+    });
+  }
+  function num01(v) { return typeof v === 'number' && isFinite(v) && v >= 0 && v <= 1 ? v : null; }
+  function formFor(t, role) {
+    var prof = profiles[TEAMS[t].id], pl = prof && prof.players && prof.players[role], f = pl && pl.form;
+    if (!f || !pl.tendencies) return null;
+    var best = null;
+    Object.keys(pl.tendencies).forEach(function (k) {
+      var season = num01(pl.tendencies[k]), recent = num01(f.tendencies && typeof f.tendencies === 'object' ? f.tendencies[k] : f[k]);
+      if (season === null || recent === null) return;
+      if (!best || Math.abs(recent - season) > Math.abs(best.recent - best.season)) best = { key: k, season: season, recent: recent };
+    });
+    if (!best) return null;
+    var d = best.recent - best.season;
+    best.mark = d >= FORM_DIFF - 1e-9 ? 'hot' : d <= -FORM_DIFF + 1e-9 ? 'cold' : 'steady';
+    best.weeks = Array.isArray(f.weeks) ? f.weeks : [];
+    best.date = f.date || '';
+    return best;
+  }
+  function formLine(t, role) {
+    var f = formFor(t, role);
+    if (!f) return '';
+    var what = TENDENCY_WORDS[f.key] || f.key.replace(/_/g, ' ');
+    var weeks = f.weeks.length ? 'weeks ' + f.weeks.join(', ') : 'recent weeks';
+    var why = what + ' ' + f.recent.toFixed(2) + ' over ' + weeks + ', ' + f.season.toFixed(2) + ' on the season';
+    return '<div class="form is-' + f.mark + '"><span class="form-mark">' + f.mark + '</span><span class="form-why">' + esc(why) + '</span></div>';
+  }
+  function formSource(t) {
+    var prof = profiles[TEAMS[t].id];
+    if (!prof || !prof.source) return '';
+    var any = SLOTS.some(function (s) { return !!formFor(t, s.role); });
+    return any ? '<p class="form-source">Recent form: ' + esc(prof.source) + '</p>' : '';
+  }
+
   function playerRow(t, role, rank) {
     var pts = playerPts(t, role), hot = !masked() && m.flash[t + role] && Date.now() - m.flash[t + role] < 1500;
     return '<div class="row' + (hot ? ' flash' : '') + (t === me ? ' is-mine' : '') + '">' +
@@ -348,7 +410,8 @@
       '<span class="tile" style="--c: ' + TEAMS[t].colors.tile + '">' + initials(t, role) + '</span>' +
       '<div class="who"><div class="name">' + esc(fullName(t, role)) + '</div>' +
       '<div class="sub"><span class="pos">' + posOf(role) + '</span>' +
-        (masked() ? (rank ? TEAMS[t].id : '') : (rank ? TEAMS[t].id + ', ' : '') + esc(statLine(t, role))) + '</div></div>' +
+        (masked() ? (rank ? TEAMS[t].id : '') : (rank ? TEAMS[t].id + ', ' : '') + esc(statLine(t, role))) + '</div>' +
+        (rank ? '' : formLine(t, role)) + '</div>' +
       '<span class="pts num' + (pts === 0 || masked() ? ' zero' : '') + '">' + pts1(pts) + '</span>' +
       '</div>';
   }
@@ -547,7 +610,7 @@
         '<div class="lineup-head" style="--c: var(--t' + t + ')"><img class="sprite" src="' + marks[t] + '" alt="">' +
         '<h2 class="team-name">' + esc(TEAMS[t].full) + '</h2><span class="num">' + pts1(total(t)) + '</span></div>' +
         SLOTS.map(function (s) { return playerRow(t, s.role, 0); }).join('') +
-        '</div>';
+        formSource(t) + '</div>';
     }
     return '<div class="grid two is-first">' + ord().map(team).join('') + '</div>' +
       '<p class="note is-plain">' + rulesNote() + '</p>';
@@ -614,7 +677,7 @@
     g.fillStyle = C.text; g.font = '700 44px ' + CARD_FONT; g.textAlign = 'left';
     g.fillText('FANTASY RECAP', P + 38, 114);
     g.fillStyle = C.dim; g.font = '700 28px ' + CARD_BODY; g.textAlign = 'right';
-    g.fillText((WEEK + ' result').toUpperCase(), CARD_W - P, 112);
+    g.fillText(tr((WEEK + ' result').toUpperCase()), CARD_W - P, 112);
 
     // The winner, large, with the team's player.
     var y = 210;
@@ -627,10 +690,10 @@
     }
     var tx = w >= 0 ? P + 156 : P;
     g.textAlign = 'left'; g.fillStyle = C.text; g.font = '700 112px ' + CARD_FONT;
-    var lines = wrapText(g, (w < 0 ? 'It is a tie' : TEAMS[w].full).toUpperCase(), CARD_W - P - tx);
+    var lines = wrapText(g, (w < 0 ? tr('It is a tie') : TEAMS[w].full).toUpperCase(), CARD_W - P - tx);
     lines.slice(0, 2).forEach(function (l, i) { g.fillText(l, tx, y + 92 + i * 104); });
     var after = y + 92 + (Math.min(lines.length, 2) - 1) * 104;
-    if (w >= 0) { g.fillStyle = amber; g.font = '700 72px ' + CARD_FONT; g.fillText('WIN', tx, after + 86); after += 86; }
+    if (w >= 0) { g.fillStyle = amber; g.font = '700 72px ' + CARD_FONT; g.fillText(tr('WIN'), tx, after + 86); after += 86; }
 
     // Both fantasy totals, my team first when I have one.
     y = Math.max(after + 70, 560);
@@ -645,13 +708,13 @@
       var label = (TEAMS[t].name + (t === me ? ' (you)' : '') + ', fantasy pts').toUpperCase(), fs = 26;
       g.font = '700 ' + fs + 'px ' + CARD_BODY;
       while (fs > 18 && g.measureText(label).width > boxW - 56) { fs -= 1; g.font = '700 ' + fs + 'px ' + CARD_BODY; }
-      g.fillText(label, x + 28, y + 200);
+      g.fillText(tr(label), x + 28, y + 200);
     });
 
     // The score on the field.
     y += boxH + 70;
     g.fillStyle = C.dim; g.font = '700 26px ' + CARD_BODY; g.textAlign = 'left';
-    g.fillText('ON THE FIELD', P, y);
+    g.fillText(tr('ON THE FIELD'), P, y);
     g.fillStyle = C.text; g.font = '700 54px ' + CARD_FONT;
     g.fillText(order.map(function (t) { return TEAMS[t].id + ' ' + m.field[t]; }).join('   '), P + 250, y + 6);
 
@@ -660,7 +723,7 @@
     g.fillStyle = C.panel; g.fillRect(P, y, inner, 190);
     g.strokeStyle = C.rule; g.lineWidth = 2; g.strokeRect(P + 1, y + 1, inner - 2, 188);
     g.fillStyle = C.dim; g.font = '700 26px ' + CARD_BODY;
-    g.fillText('TOP PERFORMER', P + 32, y + 50);
+    g.fillText(tr('TOP PERFORMER'), P + 32, y + 50);
     if (top) {
       g.fillStyle = C.text; g.font = '700 64px ' + CARD_FONT;
       var nm = fullName(top.t, top.role);
@@ -674,7 +737,7 @@
 
     // Footer.
     g.textAlign = 'left'; g.fillStyle = C.dim; g.font = '600 26px ' + CARD_BODY;
-    g.fillText('Sample league with mock data. Made with Fantasy Recap.', P, CARD_H - 70);
+    g.fillText(tr('Sample league with mock data. Made with Fantasy Recap.'), P, CARD_H - 70);
     return c;
   }
 
@@ -739,7 +802,7 @@
     g.fillStyle = C.text; g.font = '700 44px ' + CARD_FONT; g.textAlign = 'left';
     g.fillText('FANTASY RECAP', P + 38, 114);
     g.fillStyle = C.dim; g.font = '700 28px ' + CARD_BODY; g.textAlign = 'right';
-    g.fillText((WEEK + ', top play').toUpperCase(), CARD_W - P, 112);
+    g.fillText(tr((WEEK + ', top play').toUpperCase()), CARD_W - P, 112);
 
     // Both teams and the final score.
     var y = 190;
@@ -751,7 +814,7 @@
       g.textAlign = 'right'; g.fillText(String(m.field[t]), CARD_W - P, yy + 52);
     });
     g.fillStyle = C.dim; g.font = '700 26px ' + CARD_BODY; g.textAlign = 'left';
-    g.fillText('FINAL', P, y + 84 * 2 + 30);
+    g.fillText(tr('FINAL'), P, y + 84 * 2 + 30);
 
     // The play.
     y = 520;
@@ -762,12 +825,13 @@
     g.fillStyle = C.panel; g.fillRect(P, y, inner, panelH);
     g.fillStyle = TEAMS[ti].colors.jersey; g.fillRect(P, y, 10, panelH);
     g.fillStyle = C.dim; g.font = '700 26px ' + CARD_BODY;
-    g.fillText(top && top.quarter ? ('TOP PLAY, Q' + top.quarter + ' ' + top.clock + ', ' + top.team) : 'TOP PLAY', P + 44, y + 62);
-    var text = top ? String(top.text) : 'No play moved any points.';
+    g.fillText(tr(top && top.quarter ? ('TOP PLAY, Q' + top.quarter + ' ' + top.clock + ', ' + top.team) : 'TOP PLAY'), P + 44, y + 62);
+    var text = top ? String(top.text) : tr('No play moved any points.');
     var mm = /^(?:.+? at (?:the )?[A-Z0-9 ]+|1st and goal[^:]*): (.*)$/.exec(text);
     if (mm) text = mm[1];
     text = text.charAt(0).toUpperCase() + text.slice(1).replace(/TOUCHDOWN/g, 'touchdown');
     if (!/[.!]$/.test(text)) text += '.';
+    text = tr(text);
     g.fillStyle = C.text; g.font = '700 76px ' + CARD_FONT;
     var lines = wrapText(g, text, inner - 88).slice(0, 4);
     lines.forEach(function (l, i) { g.fillText(l, P + 44, y + 150 + i * 84); });
@@ -780,15 +844,172 @@
       g.fillStyle = C.amber; g.font = '700 120px ' + CARD_FONT; g.textAlign = 'right';
       g.fillText(f1(top.points), CARD_W - P - 40, py + 20);
       g.fillStyle = C.dim; g.font = '700 24px ' + CARD_BODY;
-      g.fillText('FANTASY POINTS', CARD_W - P - 40, py + 60);
+      g.fillText(tr('FANTASY POINTS'), CARD_W - P - 40, py + 60);
     }
     g.textAlign = 'left'; g.fillStyle = C.dim; g.font = '600 26px ' + CARD_BODY;
-    g.fillText('Sample game. Real names, made-up stats.', P, CARD_H - 70);
+    g.fillText(tr('Sample game. Real names, made-up stats.'), P, CARD_H - 70);
     return c;
   }
   function shareTopPlay(btn) {
     if (masked()) return; // never while scores are hidden
     sharePicture(drawTopPlayCard(), 'fantasy-recap-' + WEEK.toLowerCase().replace(/\s+/g, '-') + '-top-play.png', 'Top play, ' + WEEK, btn);
+  }
+
+  // ------------------------------------------------------- story of the game
+  // A short written recap after the reveal. Every sentence is filled from numbers the game
+  // produced: scores before and after each play, the drives, each player's points, and the
+  // quarter and clock worked out as in server/replay.js. Noah's bigCall gives the top plays' text.
+  var QWORD = ['', 'first', 'second', 'third', 'fourth'];
+  function whenOf(index) { topPlaysLocal(1); var c = playClock[index]; return c ? 'the ' + QWORD[c.quarter] + ' quarter' : ''; }
+  function scoreSay(sc) { return TEAMS[0].name + ' ' + sc[0] + ', ' + TEAMS[1].name + ' ' + sc[1]; }
+  function playSay(res) { return describe(res).replace(/ First down\.$/, '').replace(/\.$/, ''); }
+  var storyCache = null;
+  function storyOf() {
+    var R = m.results, n = R.length;
+    if (!n) return null;
+    // One story per finished game, so the announcer's wording does not change on every redraw.
+    var lng = lang();
+    if (storyCache && storyCache.results === R && storyCache.n === n && storyCache.me === me && storyCache.lang === lng) return storyCache.story;
+    var story = lng === 'es' ? buildStoryEs(R, n) : buildStory(R, n);
+    storyCache = { results: R, n: n, me: me, lang: lng, story: story };
+    return story;
+  }
+  function buildStory(R, n) {
+    var fin = R[n - 1].post.score, f0 = Number(f1(total(0))), f1v = Number(f1(total(1)));
+    var fw = f0 === f1v ? -1 : f0 > f1v ? 0 : 1;
+    var out = { paras: [] };
+    out.headline = fw < 0 ? TEAMS[0].full + ' and ' + TEAMS[1].full + ' tie at ' + f1(total(0))
+      : TEAMS[fw].full + ' beat ' + TEAMS[1 - fw].full + ', ' + f1(total(fw)) + ' to ' + f1(total(1 - fw));
+    // How it started: the first score, and the score at the half.
+    var first = -1;
+    for (var i = 0; i < n; i++) { var a = R[i].pre.score, b = R[i].post.score; if (a[0] !== b[0] || a[1] !== b[1]) { first = i; break; } }
+    if (first >= 0) {
+      var r1 = R[first], who = r1.post.score[0] > r1.pre.score[0] ? 0 : 1;
+      var start = 'The ' + TEAMS[who].name + ' scored first, in ' + whenOf(first + 1) + ': ' + playSay(r1) + '.';
+      if (m.halfScore) start += ' At the half it was ' + scoreSay(m.halfScore) + '.';
+      out.paras.push(start);
+    } else out.paras.push('Neither team scored.');
+    // The turning point: the last time the lead changed hands, or a lead kept all game.
+    var lead = 0, lastChange = -1, changes = 0;
+    for (var j = 0; j < n; j++) {
+      var d = R[j].post.score[0] - R[j].post.score[1], l = d > 0 ? 1 : d < 0 ? -1 : 0;
+      if (l !== 0 && l !== lead) { if (lead !== 0) changes += 1; lastChange = j; }
+      if (l !== 0) lead = l;
+    }
+    var finalLead = fin[0] > fin[1] ? 0 : fin[1] > fin[0] ? 1 : -1;
+    if (finalLead >= 0 && lastChange >= 0) {
+      var rt = R[lastChange];
+      out.paras.push(changes
+        ? 'The lead changed hands ' + changes + (changes === 1 ? ' time' : ' times') + '. The turning point came in ' + whenOf(lastChange + 1) + ': ' + playSay(rt) + ', and the ' + TEAMS[finalLead].name + ' led ' + scoreSay(rt.post.score) + ' and never trailed again.'
+        : lastChange === first
+          ? 'The ' + TEAMS[finalLead].name + ' never trailed.'
+          : 'The ' + TEAMS[finalLead].name + ' went ahead in ' + whenOf(lastChange + 1) + ' (' + playSay(rt) + ') and never trailed after that.');
+      out.turn = lastChange + 1;
+    } else if (finalLead < 0) out.paras.push('Neither team could pull away, and it ended level.');
+    var longest = null;
+    m.drives.forEach(function (dv) { if (dv.plays.length && (!longest || dv.plays.length > longest.plays.length)) longest = dv; });
+    if (longest) {
+      var yds = longest.plays[longest.plays.length - 1].to - longest.start;
+      var nm = TEAMS[longest.team].name, poss = /s$/.test(nm) ? nm + '\'' : nm + '\'s';
+      out.paras[out.paras.length - 1] += ' The longest drive was the ' + poss + ' ' + longest.plays.length + ' plays and ' +
+        yds + (Math.abs(yds) === 1 ? ' yard' : ' yards') + (longest.end ? ', ending in ' + (longest.end === 'Touchdown' ? 'a touchdown' : longest.end === 'Field goal' ? 'a field goal' : longest.end.toLowerCase()) : '') + '.';
+    }
+    // Who won it for which fantasy team.
+    var best = [0, 1].map(function (t) {
+      var b = null;
+      SLOTS.forEach(function (sl) { var v = playerPts(t, sl.role); if (!b || v > b.pts) b = { role: sl.role, pts: v }; });
+      return b;
+    });
+    out.paras.push('For ' + TEAMS[0].full + ', ' + fullName(0, best[0].role) + ' led with ' + f1(best[0].pts) + ' fantasy points. For ' +
+      TEAMS[1].full + ', ' + fullName(1, best[1].role) + ' led with ' + f1(best[1].pts) + '.');
+    // The final.
+    out.paras.push('Final on the field: ' + scoreSay(fin) + '. In fantasy points, ' +
+      (fw < 0 ? 'a tie at ' + f1(total(0)) + '.' : TEAMS[fw].full + ' win the matchup, ' + f1(total(fw)) + ' to ' + f1(total(1 - fw)) + '.'));
+    // The three top plays, with the announcer's big call when it has one.
+    var A = window.FF_ANNOUNCER;
+    out.top = topPlaysLocal(3).map(function (x) {
+      var res = R[x.index - 1], call = '';
+      if (res && A && typeof A.bigCall === 'function') {
+        try { call = A.bigCall(res, { teams: TEAMS, score: res.post.score, style: A.style, hidden: false }) || ''; } catch (err) { call = ''; }
+        // The third sentence is a fact from the announcer's memory, which after the final holds the
+        // whole game, not the game up to this play. Keep the call and what it did to the score.
+        var cut = /(That makes it|That ties it|The [A-Z][a-z]+ take over|That puts the|That flips the field)[^.]*\./.exec(call);
+        if (cut) call = call.slice(0, cut.index + cut[0].length);
+      }
+      return { index: x.index, when: 'Q' + x.quarter + ' ' + x.clock, text: call || (res ? playSay(res) + '.' : x.text), points: x.points };
+    });
+    return out;
+  }
+  // The same story in Spanish, from the same numbers. Play sentences go through the i18n table.
+  var QWORD_ES = ['', 'el primer cuarto', 'el segundo cuarto', 'el tercer cuarto', 'el último cuarto'];
+  var END_ES = { 'Touchdown': 'un touchdown', 'Field goal': 'un gol de campo', 'Missed field goal': 'un gol de campo fallado', 'Punt': 'un despeje',
+    'Turnover': 'una pérdida', 'Downs': 'una pérdida en downs', 'End of half': 'el medio tiempo', 'End of game': 'el final' };
+  function whenEs(index) { topPlaysLocal(1); var c = playClock[index]; return c ? QWORD_ES[c.quarter] : ''; }
+  function playEs(res) { return tr(describe(res).replace(/ First down\.$/, '')).replace(/\.$/, ''); }
+  function buildStoryEs(R, n) {
+    var fin = R[n - 1].post.score, f0 = Number(f1(total(0))), f1v = Number(f1(total(1)));
+    var fw = f0 === f1v ? -1 : f0 > f1v ? 0 : 1, out = { paras: [] };
+    out.headline = fw < 0 ? TEAMS[0].full + ' y ' + TEAMS[1].full + ' empatan a ' + f1(total(0))
+      : TEAMS[fw].full + ' vence a ' + TEAMS[1 - fw].full + ', ' + f1(total(fw)) + ' a ' + f1(total(1 - fw));
+    var first = -1;
+    for (var i = 0; i < n; i++) { var a = R[i].pre.score, b = R[i].post.score; if (a[0] !== b[0] || a[1] !== b[1]) { first = i; break; } }
+    if (first >= 0) {
+      var r1 = R[first], who = r1.post.score[0] > r1.pre.score[0] ? 0 : 1;
+      var start = 'Los ' + TEAMS[who].name + ' anotaron primero, en ' + whenEs(first + 1) + ': ' + playEs(r1) + '.';
+      if (m.halfScore) start += ' Al medio tiempo iba ' + scoreSay(m.halfScore) + '.';
+      out.paras.push(start);
+    } else out.paras.push('Ningún equipo anotó.');
+    var lead = 0, lastChange = -1, changes = 0;
+    for (var j = 0; j < n; j++) {
+      var d = R[j].post.score[0] - R[j].post.score[1], l = d > 0 ? 1 : d < 0 ? -1 : 0;
+      if (l !== 0 && l !== lead) { if (lead !== 0) changes += 1; lastChange = j; }
+      if (l !== 0) lead = l;
+    }
+    var finalLead = fin[0] > fin[1] ? 0 : fin[1] > fin[0] ? 1 : -1;
+    if (finalLead >= 0 && lastChange >= 0) {
+      var rt = R[lastChange], tn = TEAMS[finalLead].name;
+      out.paras.push(changes
+        ? 'La ventaja cambió de manos ' + changes + (changes === 1 ? ' vez' : ' veces') + '. El momento clave llegó en ' + whenEs(lastChange + 1) + ': ' + playEs(rt) + ', y los ' + tn + ' se pusieron ' + scoreSay(rt.post.score) + ' y ya no fueron por detrás.'
+        : lastChange === first ? 'Los ' + tn + ' nunca fueron por detrás.'
+          : 'Los ' + tn + ' se adelantaron en ' + whenEs(lastChange + 1) + ' (' + playEs(rt) + ') y ya no fueron por detrás.');
+    } else if (finalLead < 0) out.paras.push('Ningún equipo logró escaparse, y terminó en empate.');
+    var longest = null;
+    m.drives.forEach(function (dv) { if (dv.plays.length && (!longest || dv.plays.length > longest.plays.length)) longest = dv; });
+    if (longest) {
+      var yds = longest.plays[longest.plays.length - 1].to - longest.start;
+      out.paras[out.paras.length - 1] += ' La serie más larga fue de los ' + TEAMS[longest.team].name + ': ' + longest.plays.length + ' jugadas y ' +
+        yds + (Math.abs(yds) === 1 ? ' yarda' : ' yardas') + (END_ES[longest.end] ? ', terminada en ' + END_ES[longest.end] : '') + '.';
+    }
+    var best = [0, 1].map(function (t) {
+      var bb = null;
+      SLOTS.forEach(function (sl) { var v = playerPts(t, sl.role); if (!bb || v > bb.pts) bb = { role: sl.role, pts: v }; });
+      return bb;
+    });
+    out.paras.push('En ' + TEAMS[0].full + ', ' + fullName(0, best[0].role) + ' lideró con ' + f1(best[0].pts) + ' puntos de fantasía. En ' +
+      TEAMS[1].full + ', ' + fullName(1, best[1].role) + ' lideró con ' + f1(best[1].pts) + '.');
+    out.paras.push('Final en el campo: ' + scoreSay(fin) + '. En puntos de fantasía, ' +
+      (fw < 0 ? 'empate a ' + f1(total(0)) + '.' : TEAMS[fw].full + ' gana el enfrentamiento, ' + f1(total(fw)) + ' a ' + f1(total(1 - fw)) + '.'));
+    // Noah's big calls are English for now, so the top plays use the play sentence and the score.
+    out.top = topPlaysLocal(3).map(function (x) {
+      var res = R[x.index - 1];
+      return { index: x.index, when: 'C' + x.quarter + ' ' + x.clock,
+        text: res ? playEs(res) + '. Marcador: ' + scoreSay(res.post.score) + '.' : tr(x.text), points: x.points };
+    });
+    return out;
+  }
+
+  function storyPanel() {
+    if (masked() || m.status !== 'final') return '';
+    var st = storyOf();
+    if (!st) return '';
+    return '<div class="panel story"><div class="panel-head"><h2>The story of the game</h2></div>' +
+      '<div class="story-body"><h3 class="story-head">' + esc(st.headline) + '</h3>' +
+      st.paras.map(function (t) { return '<p>' + esc(t) + '</p>'; }).join('') +
+      '<h4 class="story-sub">The plays that mattered</h4><ol class="story-top" role="list">' +
+      st.top.map(function (x) {
+        return '<li><p><span class="eyebrow">' + esc(x.when) + ', ' + f1(x.points) + ' pts</span> ' + esc(x.text) + '</p>' +
+          '<button type="button" class="cta ghost" data-act="seek" data-i="' + x.index + '">Watch this play</button></li>';
+      }).join('') + '</ol></div></div>';
   }
 
   function winnerHero() {
@@ -836,7 +1057,7 @@
       if (me === 1) { var z = x; x = y; y = z; }
       return '<tr><td>' + x + '</td><td>' + label + '</td><td>' + y + '</td></tr>';
     }
-    return winnerHero() +
+    return winnerHero() + '<div class="grid">' + storyPanel() + '</div>' +
       '<div class="grid two">' +
         '<div class="panel"><div class="panel-head"><h2>Top performers</h2></div>' +
           top.map(function (p, i) { return playerRow(p.t, p.role, i + 1); }).join('') + '</div>' +
@@ -959,7 +1180,8 @@
     if (weekSel === L.week) {
       var others = L.matchups.filter(function (x) { return !x.ours; });
       body = oursCard() + others.map(otherCard).join('') +
-        '<a class="cta ghost lg-top-link" href="#week">This week\'s biggest plays</a>';
+        '<a class="cta ghost lg-top-link" href="#week">This week\'s biggest plays</a>' +
+        '<button type="button" class="cta ghost lg-top-link" data-act="party-join">Join a watch party</button>';
       count = (1 + others.length) + ' matchups, 4 teams';
     } else {
       var wk = pastWeeks().filter(function (w) { return w.week === weekSel; })[0];
@@ -979,7 +1201,7 @@
   // The biggest plays of each matchup this week. Same list as Ricky's server/top-plays.js
   // (replayed as in server/replay.js, ranked by points, then highlight, then the earlier
   // play), worked out here from the game the app plays, so it needs no service.
-  var topCache = null;
+  var topCache = null, playClock = {};
   function topPlaysLocal(n) {
     if (topCache) return topCache.slice(0, n);
     var list = [], half = 1;
@@ -999,6 +1221,7 @@
       var inQ = list.filter(function (x) { return x.quarter === q; });
       inQ.forEach(function (x, k) { var left = Math.round(900 * (1 - k / inQ.length)); x.clock = Math.floor(left / 60) + ':' + ('0' + (left % 60)).slice(-2); });
     });
+    list.forEach(function (x, i) { playClock[i + 1] = { quarter: x.quarter, clock: x.clock }; });
     topCache = list.map(function (x, i) {
       var fp = x.r.fp || [], main = null, names = [];
       fp.forEach(function (f) {
@@ -1253,6 +1476,7 @@
   liveEl.className = 'sr-only';
   liveEl.setAttribute('aria-live', 'polite');
   liveEl.setAttribute('role', 'status');
+  liveEl.setAttribute('data-i18n-skip', ''); // announcer lines, in the announcer's language
   $('closeGame').parentNode.appendChild(liveEl);
   var livePending = { text: '', score: '', rule: '' }, liveTimer = 0;
   function liveSay(part, value) {
@@ -1385,7 +1609,7 @@
     ruleEl.innerHTML = '<p><b>' + esc(title.charAt(0).toUpperCase() + title.slice(1)) + '.</b> ' + esc(text) + '</p>' +
       '<button type="button" data-rule="close" aria-label="Close the rule card">OK</button>';
     ruleEl.hidden = false;
-    liveSay('rule', 'Rule: ' + text);
+    liveSay('rule', (lang() === 'es' ? 'Regla: ' : 'Rule: ') + tr(text));
     slowFor(true);
     clearTimeout(ruleTimer);
     var fast = window.__ff && window.__ff.speed > 2;
@@ -1609,6 +1833,23 @@
     var bar = document.querySelector('.bar'), mock = bar && bar.querySelector('.mock');
     if (bar) bar.insertBefore(sportEl, mock || null);
   })();
+  // Language switch, next to the sport switch. Its two names stay as they are in both languages.
+  var langEl = document.createElement('div');
+  langEl.className = 'sport lang';
+  langEl.setAttribute('role', 'group');
+  langEl.setAttribute('aria-label', 'Language');
+  langEl.innerHTML = '<button type="button" data-lang="en" lang="en" aria-label="English" data-i18n-skip>EN</button>' +
+    '<button type="button" data-lang="es" lang="es" aria-label="Español" data-i18n-skip>ES</button>';
+  sportEl.parentNode.insertBefore(langEl, sportEl.nextSibling);
+  function markLang() {
+    Array.prototype.forEach.call(langEl.children, function (b) { b.setAttribute('aria-pressed', String(b.getAttribute('data-lang') === lang())); });
+  }
+  markLang();
+  langEl.addEventListener('click', function (ev) {
+    var b = ev.target.closest ? ev.target.closest('[data-lang]') : null;
+    if (b && window.FR_I18N) window.FR_I18N.setLang(b.getAttribute('data-lang'));
+  });
+
   var soccerEl = document.createElement('section');
   soccerEl.className = 'screen'; soccerEl.id = 's-soccer'; soccerEl.setAttribute('aria-label', 'Soccer'); soccerEl.hidden = true;
   soccerEl.innerHTML = '<div class="narrow"><div class="panel soccer-wait">' +
@@ -1680,6 +1921,7 @@
     else if (act === 'optin') { setOptin(el.getAttribute('data-v') === 'in' ? 'in' : 'out'); render(false); }
     else if (act === 'share') { shareResult(el); }
     else if (act === 'share-top') { shareTopPlay(el); }
+    else if (act === 'party-join') { if (window.FR_PARTY) window.FR_PARTY.openJoin(); }
     else if (act === 'seek') { watchPlay(Number(el.getAttribute('data-i')), el); }
     else if (act === 'week') { weekSel = Number(el.getAttribute('data-w')); render(false); }
     else if (act === 'film') {
@@ -1731,7 +1973,7 @@
       applyResult(d.res);
       setTimeout(function () { if (!inGame) render(false); }, 1600); // lets the highlight on new points fade
     }
-    else if (type === 'half') { m.feed.push({ divider: 'Halftime' }); m.now = 'Halftime'; closeDrive('End of half'); }
+    else if (type === 'half') { m.feed.push({ divider: 'Halftime' }); m.now = 'Halftime'; closeDrive('End of half'); m.halfScore = m.field.slice(); }
     else if (type === 'final') { m.status = 'final'; m.now = ''; closeDrive('End of game'); }
     syncFloaters();
     captionFor(type, d);
@@ -1770,6 +2012,9 @@
     topPlayCard: function () { return drawTopPlayCard().toDataURL('image/png'); },
     get live() { return liveEl.textContent; },
     get learn() { return learn; },
+    get lang() { return lang(); },
+    story: function () { return storyOf(); },
+    formFor: function (team, slot) { return formFor(teamByName(team), slot); },
     setOptin: function (v) { setOptin(v === 'in' ? 'in' : 'out'); if (!inGame) render(false); },
     jumpTo: function (n) { return jumpTo(n); },
     get currentPlay() { return currentPlay(); },
@@ -1786,6 +2031,19 @@
 
   // First run walkthrough and the install hint live in their own file. index.html is
   // not ours, so the app loads it.
+  var i18nScript = document.createElement('script');
+  i18nScript.src = 'js/screens/i18n.js';
+  i18nScript.onload = function () {
+    markLang();
+    window.FR_I18N.onchange = function () { markLang(); storyCache = null; if (!inGame) render(false); };
+  };
+  document.body.appendChild(i18nScript);
+
+  // Watch party: ?party=host makes this screen the host; any screen can join as a remote.
+  var partyScript = document.createElement('script');
+  partyScript.src = 'js/screens/party.js';
+  document.body.appendChild(partyScript);
+
   var installScript = document.createElement('script');
   installScript.src = 'js/screens/install.js';
   document.body.appendChild(installScript);

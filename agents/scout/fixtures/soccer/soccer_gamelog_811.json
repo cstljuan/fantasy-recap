@@ -1,0 +1,72 @@
+{
+ "filters": [
+  {
+   "name": "season",
+   "value": "2026"
+  },
+  {
+   "name": "team",
+   "value": "3",
+   "options": [
+    {
+     "value": "3",
+     "displayValue": "Other FC"
+    }
+   ]
+  },
+  {
+   "name": "league",
+   "value": "tst.2"
+  }
+ ],
+ "names": [
+  "cleanSheet",
+  "saves",
+  "goalsConceded",
+  "totalGoals",
+  "goalAssists",
+  "foulsCommitted",
+  "foulsSuffered",
+  "yellowCards",
+  "redCards"
+ ],
+ "seasonTypes": [
+  {
+   "displayName": "x",
+   "categories": [
+    {
+     "events": [
+      {
+       "eventId": "e5",
+       "stats": [
+        "0",
+        "1",
+        "1",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0"
+       ]
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "events": {
+  "e5": {
+   "id": "e5",
+   "gameDate": "2026-11-07T15:00:00.000+00:00",
+   "score": "1-0",
+   "opponent": {
+    "displayName": "Opp"
+   },
+   "team": {
+    "abbreviation": "TTT"
+   },
+   "leagueName": "Test League"
+  }
+ }
+}

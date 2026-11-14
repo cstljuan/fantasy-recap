@@ -1,6 +1,7 @@
 """Fills the profiles from real season numbers WITHOUT a model: the same tools Scout uses, called in a fixed order.
 
     python3 agents/scout/fill_profiles.py
+    python3 agents/scout/fill_profiles.py --roster-files data/rosters/TUR.json,data/rosters/OWL.json
 
 This is not the agent. It is what the agent's tools can do on their own, so the profiles have real numbers
 even when no model key is available. It writes data/profiles/GOB.json, PYT.json and data/rosters/season-<year>.json
@@ -16,10 +17,14 @@ import scout_tools as T  # noqa: E402
 import statlines as S  # noqa: E402
 
 
-def main():
+def main(argv=None):
+    import argparse
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--roster-files", help="comma separated roster files in data/rosters/ instead of js/data.js")
+    a = ap.parse_args(argv)
     log = T.start_run("fill-profiles")
     T.log_step("fill_profiles starts (no model, fixed order). season=%d" % T.season())
-    rosters = S.rosters_from_js()
+    rosters = S.rosters_from_files(a.roster_files.split(",")) if a.roster_files else S.rosters_from_js()
     done = 0
     for team, roster in rosters.items():
         for slot, name in roster.items():
@@ -43,11 +48,11 @@ def main():
                                          "tendencies": t, "season_stats": stats, "notes": note})
             T.log_step("%s: wrote %s" % (name, ", ".join("%s=%s" % (k, v["value"]) for k, v in t.items())))
             done += 1
-    T.log_step("fill_profiles finished: %d of 14 players filled" % done)
+    T.log_step("fill_profiles finished: %d of %d players filled" % (done, sum(len(r) for r in rosters.values())))
     print("log:", log)
     print("filled %d players" % done)
     return 0
 
 
 if __name__ == "__main__":
-    sys.exit(main())
+    sys.exit(main(sys.argv[1:]))

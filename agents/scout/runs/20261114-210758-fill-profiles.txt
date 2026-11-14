@@ -1,0 +1,72 @@
+21:07:58 | fill_profiles starts (no model, fixed order). season=2026
+21:07:58 | starting TUR QB Jayden Daniels: find the player
+21:07:59 | find_player(Jayden Daniels) -> 1 match(es)
+21:08:00 | season_stats(11566) -> 64 stat keys
+21:08:00 | write_profile(TUR QB Jayden Daniels)
+21:08:00 | Jayden Daniels: wrote deep_ball=0.586, short_pass=0.648, scramble=0.157
+21:08:00 | starting TUR RB Jahmyr Gibbs: find the player
+21:08:00 | find_player(Jahmyr Gibbs) -> 1 match(es)
+21:08:00 | season_stats(9221) -> 60 stat keys
+21:08:00 | write_profile(TUR RB Jahmyr Gibbs)
+21:08:00 | Jahmyr Gibbs: wrote run_share=0.797, pass_catching=0.756, red_zone_use=0.243
+21:08:00 | starting TUR WR1 CeeDee Lamb: find the player
+21:08:00 | find_player(CeeDee Lamb) -> 1 match(es)
+21:08:00 | season_stats(6786) -> 59 stat keys
+21:08:00 | write_profile(TUR WR1 CeeDee Lamb)
+21:08:00 | CeeDee Lamb: wrote deep_ball=0.646, catch_rate=0.648, red_zone_use=0.157
+21:08:00 | starting TUR WR2 Garrett Wilson: find the player
+21:08:00 | find_player(Garrett Wilson) -> 1 match(es)
+21:08:00 | season_stats(8146) -> 46 stat keys
+21:08:00 | write_profile(TUR WR2 Garrett Wilson)
+21:08:00 | Garrett Wilson: wrote deep_ball=0.613, catch_rate=0.683, red_zone_use=0.095
+21:08:00 | starting TUR WR3 Drake London: find the player
+21:08:00 | find_player(Drake London) -> 1 match(es)
+21:08:00 | season_stats(8112) -> 58 stat keys
+21:08:00 | write_profile(TUR WR3 Drake London)
+21:08:00 | Drake London: wrote deep_ball=0.786, catch_rate=0.647, red_zone_use=0.059
+21:08:00 | starting TUR TE Brock Bowers: find the player
+21:08:00 | find_player(Brock Bowers) -> 1 match(es)
+21:08:00 | season_stats(11604) -> 51 stat keys
+21:08:00 | write_profile(TUR TE Brock Bowers)
+21:08:00 | Brock Bowers: wrote deep_ball=0.685, catch_rate=0.686, red_zone_use=0.157
+21:08:00 | starting TUR K Cameron Dicker: find the player
+21:08:00 | find_player(Cameron Dicker) -> 1 match(es)
+21:08:01 | season_stats(8259) -> 33 stat keys
+21:08:01 | write_profile(TUR K Cameron Dicker)
+21:08:01 | Cameron Dicker: wrote kicker_range=0.4, accuracy=0.882
+21:08:01 | starting OWL QB Patrick Mahomes: find the player
+21:08:01 | find_player(Patrick Mahomes) -> 1 match(es)
+21:08:01 | season_stats(4046) -> 61 stat keys
+21:08:01 | write_profile(OWL QB Patrick Mahomes)
+21:08:01 | Patrick Mahomes: wrote deep_ball=0.645, short_pass=0.673, scramble=0.04
+21:08:01 | starting OWL RB Derrick Henry: find the player
+21:08:01 | find_player(Derrick Henry) -> 1 match(es)
+21:08:01 | season_stats(3198) -> 72 stat keys
+21:08:01 | write_profile(OWL RB Derrick Henry)
+21:08:01 | Derrick Henry: wrote run_share=0.926, pass_catching=0.857, red_zone_use=0.217
+21:08:01 | starting OWL WR1 Tee Higgins: find the player
+21:08:01 | find_player(Tee Higgins) -> 1 match(es)
+21:08:01 | season_stats(6801) -> 44 stat keys
+21:08:01 | write_profile(OWL WR1 Tee Higgins)
+21:08:01 | Tee Higgins: wrote deep_ball=0.79, catch_rate=0.716, red_zone_use=0.09
+21:08:01 | starting OWL WR2 Jaxon Smith-Njigba: find the player
+21:08:01 | find_player(Jaxon Smith-Njigba) -> 1 match(es)
+21:08:01 | season_stats(9488) -> 70 stat keys
+21:08:01 | write_profile(OWL WR2 Jaxon Smith-Njigba)
+21:08:01 | Jaxon Smith-Njigba: wrote deep_ball=0.73, catch_rate=0.717, red_zone_use=0.131
+21:08:01 | starting OWL WR3 Ladd McConkey: find the player
+21:08:01 | find_player(Ladd McConkey) -> 1 match(es)
+21:08:01 | season_stats(11635) -> 41 stat keys
+21:08:01 | write_profile(OWL WR3 Ladd McConkey)
+21:08:01 | Ladd McConkey: wrote deep_ball=0.841, catch_rate=0.708, red_zone_use=0.083
+21:08:01 | starting OWL TE Tucker Kraft: find the player
+21:08:01 | find_player(Tucker Kraft) -> 1 match(es)
+21:08:01 | season_stats(9484) -> 59 stat keys
+21:08:01 | write_profile(OWL TE Tucker Kraft)
+21:08:01 | Tucker Kraft: wrote deep_ball=0.487, catch_rate=0.692, red_zone_use=0.173
+21:08:01 | starting OWL K Ka'imi Fairbairn: find the player
+21:08:01 | find_player(Ka'imi Fairbairn) -> 1 match(es)
+21:08:02 | season_stats(3451) -> 34 stat keys
+21:08:02 | write_profile(OWL K Ka'imi Fairbairn)
+21:08:02 | Ka'imi Fairbairn: wrote kicker_range=0.611, accuracy=0.947
+21:08:02 | fill_profiles finished: 14 of 14 players filled

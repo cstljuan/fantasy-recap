@@ -1,0 +1,21 @@
+{
+ "items": [
+  {
+   "id": "803",
+   "displayName": "Test Striker",
+   "sport": "soccer",
+   "isActive": true,
+   "position": {
+    "abbreviation": "F"
+   }
+  },
+  {
+   "id": "899",
+   "displayName": "Test Striker",
+   "sport": "football",
+   "position": {
+    "abbreviation": "F"
+   }
+  }
+ ]
+}
