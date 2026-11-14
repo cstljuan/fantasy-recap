@@ -4,6 +4,6 @@
   "private": true,
   "description": "Small service that saves plays to the database and returns them",
   "main": "index.js",
-  "scripts": { "start": "node index.js", "test": "node test.js" },
+  "scripts": { "start": "node index.js", "test": "node test.js && node test-db.js" },
   "dependencies": { "pg": "8.13.1" }
 }

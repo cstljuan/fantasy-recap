@@ -291,8 +291,7 @@ function createServer(db, opts) {
       db.query('SELECT game_id, manager, opted_in_at FROM optins WHERE game_id = $1 ORDER BY opted_in_at, manager', [gameId])
         .then(function (r) { send(res, 200, { game_id: gameId, optins: r.rows }); }, onErr).catch(late);
     } else if (req.method === 'GET' && what === 'plays') {
-      db.query('SELECT game_id, seq, played_at, quarter, team, slot, player, kind, yards, fantasy_points, detail, why ' +
-        'FROM plays WHERE game_id = $1 ORDER BY seq', [gameId])
+      db.query('SELECT * FROM plays WHERE game_id = $1 ORDER BY seq', [gameId])
         .then(function (r) { send(res, 200, { game_id: gameId, plays: r.rows }); }, onErr).catch(late);
     } else if (req.method === 'GET' && what === 'summary') {
       Promise.all([

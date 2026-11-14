@@ -72,6 +72,8 @@ psql "$DATABASE_URL" -f db/migrate-002-soccer.sql
 psql "$DATABASE_URL" -f db/migrate-003-commissioner.sql
 ```
 
+One command does the three `psql` lines above in order and checks the connection: `sh db/migrate.sh` (add `--seed` for the sample game, `--plain` without TimescaleDB). The real-database test is `node server/test-db.js`. Juan's laptop commands are at the top of `db/README.md`.
+
 ## 4. Start the service
 
 ```bash
