@@ -130,7 +130,20 @@ function createServer(db) {
   });
 }
 
-module.exports = { createServer: createServer, loadEnv: loadEnv };
+// Optional certificate check. With DATABASE_CA_FILE set to a certificate file, the server's certificate is
+// verified against it. Without it the connection string is used exactly as given (no change in behavior).
+// The ssl words are taken out of the string handed to pg so that they cannot override this setting.
+function poolConfig(url, caFile) {
+  var cfg = { connectionString: url, max: 5 };
+  if (!caFile) return cfg;
+  var u = new URL(url);
+  ['sslmode', 'ssl', 'uselibpqcompat'].forEach(function (k) { u.searchParams.delete(k); });
+  cfg.connectionString = u.toString();
+  cfg.ssl = { ca: fs.readFileSync(caFile, 'utf8'), rejectUnauthorized: true };
+  return cfg;
+}
+
+module.exports = { createServer: createServer, loadEnv: loadEnv, poolConfig: poolConfig };
 
 if (require.main === module) {
   loadEnv(path.join(__dirname, '..', '.env'));
@@ -140,7 +153,7 @@ if (require.main === module) {
     process.exit(1);
   }
   var Pool = require('pg').Pool;
-  var pool = new Pool({ connectionString: process.env.DATABASE_URL, max: 5 });
+  var pool = new Pool(poolConfig(process.env.DATABASE_URL, process.env.DATABASE_CA_FILE));
   var port = Number(process.env.PORT) || 3001;
   createServer(pool).listen(port, function () { console.log('plays service on http://localhost:' + port); });
 }

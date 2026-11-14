@@ -23,6 +23,10 @@ node server/index.js
 - `GET /games/:id/plays` returns the plays in `seq` order.
 - `GET /games/:id/summary` returns `{ players, quarters }` from the two continuous aggregates: points per player and points per team per quarter. Numbers come back as strings, as PostgreSQL sends them.
 
+## Optional certificate check
+
+Set `DATABASE_CA_FILE` in `.env` to the path of the database's CA certificate file (a certificate is public, not a secret, but the path is still only in `.env`). The service then checks the database's certificate against it and refuses a connection that does not match. If it is not set, nothing changes: the connection string is used as given. With it set, the `sslmode` words in the connection string are ignored.
+
 ## Test
 
 ```bash
