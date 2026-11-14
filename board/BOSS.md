@@ -39,11 +39,11 @@ Run `sh tools/next.sh` to get your next task with its full description. A row is
 | B27 | B | Peypey-ryd | The story of the game: a written recap on the recap screen from drives, momentum, top plays and big calls, with Ricky and Noah | merged |
 | B28 | B | Peypey-ryd | Spanish for the screens, switchable, with Noah | merged |
 | B29 | B | Peypey-ryd | Watch party: a phone is the remote for the game on a laptop, with Ricky | merged |
-| B30 | B | Peypey-ryd | Walk every screen at 320, 375, 768 and 1280 wide and fix what overlaps or is cut | open |
-| B31 | B | Peypey-ryd | League home from the service: real opt-ins and standings when `?api=` is set, with Ricky | open |
-| B32 | B | Peypey-ryd | A browser test of the whole reveal flow that anyone can run with one command | open |
-| B33 | B | Peypey-ryd | Commissioner view: every matchup's opt-in state and a release switch, with Ricky | open |
-| B34 | B | Peypey-ryd | A stadium full of fans around the field that jump, cheer, boo and chant with every play, and a louder crowd (asked by Ricky) | open |
+| B30 | B | Peypey-ryd | Walk every screen at 320, 375, 768 and 1280 wide and fix what overlaps or is cut | merged |
+| B31 | B | Peypey-ryd | League home from the service: real opt-ins and standings when `?api=` is set, with Ricky | merged |
+| B32 | B | Peypey-ryd | A browser test of the whole reveal flow that anyone can run with one command | merged |
+| B33 | B | Peypey-ryd | Commissioner view: every matchup's opt-in state and a release switch, with Ricky | merged |
+| B34 | B | Peypey-ryd | A stadium full of fans around the field that jump, cheer, boo and chant with every play, and a louder crowd (asked by Ricky) | merged |
 | C1 | C | nexodv | Announcer lines, two styles | merged |
 | C2 | C | nexodv | Crowd and whistle | merged |
 | C3 | C | nexodv | Captions: every spoken line is also available as text | merged |
@@ -71,19 +71,19 @@ Run `sh tools/next.sh` to get your next task with its full description. A row is
 | D27 | D | Rickstar-App | Soccer numbers that are real: profiles and one real match's lines for the soccer rosters, with sources | merged |
 | D28 | D | Rickstar-App | The service under load and bad input: a test that pushes both sports, bad bodies and 200 quick requests | merged |
 | C23 | C | nexodv | The pre-game show: a short preview of each matchup from form, profiles and standings, with Ricky and Peyton | merged |
-| C24 | C | nexodv | Spanish broadcast: every line kind in Spanish, switchable, with Peyton | open |
+| C24 | C | nexodv | Spanish broadcast: every line kind in Spanish, switchable, with Peyton | merged |
 | D29 | D | Rickstar-App | Proof that each game file reproduces its stat lines exactly, as a check | merged |
 | D30 | D | Rickstar-App | Story data: one call that gives the turning points of a game, from the service and from a file, with Peyton | merged |
-| C25 | C | nexodv | Voice render dry run: the exact list, character count and size estimate before any credit is spent | open |
-| C26 | C | nexodv | The spoken recap: the story of the game read by the announcer after the reveal, with Ricky and Peyton | open |
-| C27 | C | nexodv | Say it right: how the voice reads names, downs, scores and numbers, with a check | open |
+| C25 | C | nexodv | Voice render dry run: the exact list, character count and size estimate before any credit is spent | merged |
+| C26 | C | nexodv | The spoken recap: the story of the game read by the announcer after the reveal, with Ricky and Peyton | merged |
+| C27 | C | nexodv | Say it right: how the voice reads names, downs, scores and numbers, with a check | merged |
 | D31 | D | Rickstar-App | Watch party relay in the service: a room code, the remote's commands, the screen's state, with Peyton | merged |
 | D32 | D | Rickstar-App | Honesty pass two: README, every file in `pitch/` and the screens' own labels against main as it is tonight | merged |
 | D33 | D | Rickstar-App | The league from the service: standings, who has opted in, and each week's results, with Peyton | merged |
 | D34 | D | Rickstar-App | A third and fourth matchup that are real: Turtles and Owls rosters, profiles and a week of lines, so the league home has two full games | merged |
-| D35 | D | Rickstar-App | Commissioner routes in the service: release a week, see every opt-in, with Peyton | open |
-| D36 | D | Rickstar-App | Scout's notes as pages: one sourced page per player from the profiles, form and the cross-check | open |
-| D37 | D | Rickstar-App | Setup guide a stranger can follow: database, service, seed, checks, from a clean clone | open |
+| D35 | D | Rickstar-App | Commissioner routes in the service: release a week, see every opt-in, with Peyton | merged |
+| D36 | D | Rickstar-App | Scout's notes as pages: one sourced page per player from the profiles, form and the cross-check | merged |
+| D37 | D | Rickstar-App | Setup guide a stranger can follow: database, service, seed, checks, from a clean clone | merged |
 | D1 | D | Rickstar-App | Real rosters and profile files | merged |
 | D2 | D | Rickstar-App | Database schema | merged |
 | D4 | D | Rickstar-App | A week of stat lines for both rosters | merged |
@@ -245,6 +245,7 @@ The boss reviews every DONE before it reaches main: the authors check, the lane 
 - Ricky's boss round (16:50 Eastern): merged B28, D31, D32. Checks and the three full-game runs passed. Boss changes: canvas words go through the language table, the announcer gets the profiles, three README corrections from Ricky's honesty pass. Not looked at by the boss: Spanish on screen.
 - Merged after review: B29, D33, D34. All checks and the three full-game runs passed
 - Ricky's boss round (17:00 Eastern): merged B29, D33, D34. Checks and the three full-game runs passed. Not looked at by the boss: the watch party with two pages. Noah's worker has posted nothing since 15:48 Eastern; his four tasks stay open.
+- Merged after review: B30, B31, B32, B33, B34, C24, C25, C26, C27, D35, D36, D37. All checks and the three full-game runs passed
 - D1 real rosters and profile files, D2 database schema (Ricky) are on main; `data/games/sample-football.json` now has the real rosters
 
 ## Decisions
