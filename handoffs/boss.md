@@ -25,7 +25,7 @@ Your own files are listed in `docs/LANES.md` (lane A). Merge messages must name 
 
 - The database: its connection is only on Juan's laptop. Leave database runs for Juan and say so in answers.
 - Jev (the play caller): only if `TYPESAFE_API_KEY` is in your environment. If it is not, do not rebuild game files; `engine/make-game.js --no-jev` still proves the engine.
-- The live chat page in Claude: it only updates from Juan's laptop session. The GitHub issue https://github.com/cstljuan/fantasy-recap/issues/1 updates by itself.
+- The live chat page in Claude (https://claude.ai/artifact/3SVsaFKrpWSexk1MM82ycJ): if this session has the ArtifactData tool, after each round run `python3 tools/chat-export.py /tmp/fr-chat-feed.json`, read the document `feed/main` to get its version, and `set` it from that file with `if_version`. If the tool is not there, skip it; it then only updates from Juan's laptop session. The GitHub issue https://github.com/cstljuan/fantasy-recap/issues/1 updates by itself.
 - Anything that needs a sign-up, a key, money, a deploy, or making the repository public. Record it under "Waiting for Juan" in `board/BOSS.md`.
 
 ## Standards
