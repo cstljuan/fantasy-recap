@@ -170,3 +170,15 @@ One call that gives a game's turning points, for Peyton's written recap (B27): `
 ## Task D31: watch party relay (with Peyton)
 
 The smallest relay that lets a phone be the remote for a game on another screen, for Peyton's B29. In the service, in memory only, no database: `POST /party` makes a room and returns a four letter code; `POST /party/:code/command` takes `{ cmd: 'start' | 'hold' | 'release' | 'seek' | 'speed', value }` from a remote; `GET /party/:code/commands?after=<n>` gives the host the commands since n (plain polling is fine, long polling if it is simple); `POST /party/:code/state` and `GET /party/:code/state` carry the host's play index, mode and speed back to the remotes. Rooms end after two hours. Limit body size and the number of rooms, validate every field, same CORS rule as the rest. Add it to the service test and the stress test. Post `NOTE "peyton: ..."` with the routes and shapes.
+
+## Task D32: honesty pass two
+
+Much was added tonight. Read `README.md`, every file in `pitch/` and the words the app itself shows (footer, tags, share card, demo mode, the story, form marks) against main as it is now. For every sentence that says more than the code does, or less (a finished feature that is missing from the text), fix it when the file is yours or in `pitch/`, and post one `NOTE "<owner>: <file>: '<quote>' is not true because <what the code does>"` per finding for files that are not yours (`README.md` is the boss's). Update `pitch/REAL-AND-SIMULATED.md`: recent form and the season tendencies are real, the Sleeper against ESPN report exists, the game is built, nothing has been rendered by ElevenLabs, the database has not seen soccer. Keep `pitch/DEVPOST.md` within its length.
+
+## Task D33: the league from the service (with Peyton)
+
+`GET /league` from the service: the standings worked out from the games it holds, each week's results, and for the current week who has opted in (never anyone's hidden points before the final). The same function from `data/league.json` plus the game files when there is no database, usable in the browser. Peyton's league home can then show real opt-ins when `?api=` is set: post `NOTE "peyton: ..."` with the route, the shape and the script tag. Add it to the service test, the stress test and `data/checks/all.js`.
+
+## Task D34: the other matchup, for real
+
+The league home lists Turbo Turtles against Midnight Owls but only Goblins against Pythons can be played. Give the second matchup what the first has: rosters of real players in `data/rosters/` (no player already on the Goblins or Pythons), profiles filled by `fill_profiles.py` with sources, recent form, and a consistent invented week 11 of stat lines in the same shape as `week11.json` with its check. Building the game file from them is the boss's (the game maker, task A5): post `NOTE "boss: ..."` with the exact command you expect to work and what the game maker must read. Add the new files to the checks.

@@ -96,7 +96,8 @@
       pts: [{}, {}], st: [{}, {}],
       team: [{ pass: 0, rush: 0, to: 0, pens: 0, penYds: 0 }, { pass: 0, rush: 0, to: 0, pens: 0, penYds: 0 }],
       field: [0, 0], feed: [], done: 0, now: '', flash: {},
-      drives: []               // the film room: one entry per drive, built as the plays come in
+      drives: [],              // the film room: one entry per drive, built as the plays come in
+      results: [], halfScore: null  // the story of the game
     };
     SLOTS.forEach(function (s) { for (var t = 0; t < 2; t++) { o.pts[t][s.role] = 0; o.st[t][s.role] = {}; } });
     return o;
@@ -238,6 +239,7 @@
       fp: before ? filePointsDelta(before) : res.fp.map(function (f) { return { pts: f.pts, who: shortName(f.team, f.role), team: f.team }; })
     });
     filmRecord(res);
+    m.results.push(res);
   }
 
   // ------------------------------------------------------------- film room
@@ -839,6 +841,104 @@
     sharePicture(drawTopPlayCard(), 'fantasy-recap-' + WEEK.toLowerCase().replace(/\s+/g, '-') + '-top-play.png', 'Top play, ' + WEEK, btn);
   }
 
+  // ------------------------------------------------------- story of the game
+  // A short written recap after the reveal. Every sentence is filled from numbers the game
+  // produced: scores before and after each play, the drives, each player's points, and the
+  // quarter and clock worked out as in server/replay.js. Noah's bigCall gives the top plays' text.
+  var QWORD = ['', 'first', 'second', 'third', 'fourth'];
+  function whenOf(index) { topPlaysLocal(1); var c = playClock[index]; return c ? 'the ' + QWORD[c.quarter] + ' quarter' : ''; }
+  function scoreSay(sc) { return TEAMS[0].name + ' ' + sc[0] + ', ' + TEAMS[1].name + ' ' + sc[1]; }
+  function playSay(res) { return describe(res).replace(/ First down\.$/, '').replace(/\.$/, ''); }
+  var storyCache = null;
+  function storyOf() {
+    var R = m.results, n = R.length;
+    if (!n) return null;
+    // One story per finished game, so the announcer's wording does not change on every redraw.
+    if (storyCache && storyCache.results === R && storyCache.n === n && storyCache.me === me) return storyCache.story;
+    var story = buildStory(R, n);
+    storyCache = { results: R, n: n, me: me, story: story };
+    return story;
+  }
+  function buildStory(R, n) {
+    var fin = R[n - 1].post.score, f0 = Number(f1(total(0))), f1v = Number(f1(total(1)));
+    var fw = f0 === f1v ? -1 : f0 > f1v ? 0 : 1;
+    var out = { paras: [] };
+    out.headline = fw < 0 ? TEAMS[0].full + ' and ' + TEAMS[1].full + ' tie at ' + f1(total(0))
+      : TEAMS[fw].full + ' beat ' + TEAMS[1 - fw].full + ', ' + f1(total(fw)) + ' to ' + f1(total(1 - fw));
+    // How it started: the first score, and the score at the half.
+    var first = -1;
+    for (var i = 0; i < n; i++) { var a = R[i].pre.score, b = R[i].post.score; if (a[0] !== b[0] || a[1] !== b[1]) { first = i; break; } }
+    if (first >= 0) {
+      var r1 = R[first], who = r1.post.score[0] > r1.pre.score[0] ? 0 : 1;
+      var start = 'The ' + TEAMS[who].name + ' scored first, in ' + whenOf(first + 1) + ': ' + playSay(r1) + '.';
+      if (m.halfScore) start += ' At the half it was ' + scoreSay(m.halfScore) + '.';
+      out.paras.push(start);
+    } else out.paras.push('Neither team scored.');
+    // The turning point: the last time the lead changed hands, or a lead kept all game.
+    var lead = 0, lastChange = -1, changes = 0;
+    for (var j = 0; j < n; j++) {
+      var d = R[j].post.score[0] - R[j].post.score[1], l = d > 0 ? 1 : d < 0 ? -1 : 0;
+      if (l !== 0 && l !== lead) { if (lead !== 0) changes += 1; lastChange = j; }
+      if (l !== 0) lead = l;
+    }
+    var finalLead = fin[0] > fin[1] ? 0 : fin[1] > fin[0] ? 1 : -1;
+    if (finalLead >= 0 && lastChange >= 0) {
+      var rt = R[lastChange];
+      out.paras.push(changes
+        ? 'The lead changed hands ' + changes + (changes === 1 ? ' time' : ' times') + '. The turning point came in ' + whenOf(lastChange + 1) + ': ' + playSay(rt) + ', and the ' + TEAMS[finalLead].name + ' led ' + scoreSay(rt.post.score) + ' and never trailed again.'
+        : lastChange === first
+          ? 'The ' + TEAMS[finalLead].name + ' never trailed.'
+          : 'The ' + TEAMS[finalLead].name + ' went ahead in ' + whenOf(lastChange + 1) + ' (' + playSay(rt) + ') and never trailed after that.');
+      out.turn = lastChange + 1;
+    } else if (finalLead < 0) out.paras.push('Neither team could pull away, and it ended level.');
+    var longest = null;
+    m.drives.forEach(function (dv) { if (dv.plays.length && (!longest || dv.plays.length > longest.plays.length)) longest = dv; });
+    if (longest) {
+      var yds = longest.plays[longest.plays.length - 1].to - longest.start;
+      var nm = TEAMS[longest.team].name, poss = /s$/.test(nm) ? nm + '\'' : nm + '\'s';
+      out.paras[out.paras.length - 1] += ' The longest drive was the ' + poss + ' ' + longest.plays.length + ' plays and ' +
+        yds + (Math.abs(yds) === 1 ? ' yard' : ' yards') + (longest.end ? ', ending in ' + (longest.end === 'Touchdown' ? 'a touchdown' : longest.end === 'Field goal' ? 'a field goal' : longest.end.toLowerCase()) : '') + '.';
+    }
+    // Who won it for which fantasy team.
+    var best = [0, 1].map(function (t) {
+      var b = null;
+      SLOTS.forEach(function (sl) { var v = playerPts(t, sl.role); if (!b || v > b.pts) b = { role: sl.role, pts: v }; });
+      return b;
+    });
+    out.paras.push('For ' + TEAMS[0].full + ', ' + fullName(0, best[0].role) + ' led with ' + f1(best[0].pts) + ' fantasy points. For ' +
+      TEAMS[1].full + ', ' + fullName(1, best[1].role) + ' led with ' + f1(best[1].pts) + '.');
+    // The final.
+    out.paras.push('Final on the field: ' + scoreSay(fin) + '. In fantasy points, ' +
+      (fw < 0 ? 'a tie at ' + f1(total(0)) + '.' : TEAMS[fw].full + ' win the matchup, ' + f1(total(fw)) + ' to ' + f1(total(1 - fw)) + '.'));
+    // The three top plays, with the announcer's big call when it has one.
+    var A = window.FF_ANNOUNCER;
+    out.top = topPlaysLocal(3).map(function (x) {
+      var res = R[x.index - 1], call = '';
+      if (res && A && typeof A.bigCall === 'function') {
+        try { call = A.bigCall(res, { teams: TEAMS, score: res.post.score, style: A.style, hidden: false }) || ''; } catch (err) { call = ''; }
+        // The third sentence is a fact from the announcer's memory, which after the final holds the
+        // whole game, not the game up to this play. Keep the call and what it did to the score.
+        var cut = /(That makes it|That ties it|The [A-Z][a-z]+ take over|That puts the|That flips the field)[^.]*\./.exec(call);
+        if (cut) call = call.slice(0, cut.index + cut[0].length);
+      }
+      return { index: x.index, when: 'Q' + x.quarter + ' ' + x.clock, text: call || (res ? playSay(res) + '.' : x.text), points: x.points };
+    });
+    return out;
+  }
+  function storyPanel() {
+    if (masked() || m.status !== 'final') return '';
+    var st = storyOf();
+    if (!st) return '';
+    return '<div class="panel story"><div class="panel-head"><h2>The story of the game</h2></div>' +
+      '<div class="story-body"><h3 class="story-head">' + esc(st.headline) + '</h3>' +
+      st.paras.map(function (t) { return '<p>' + esc(t) + '</p>'; }).join('') +
+      '<h4 class="story-sub">The plays that mattered</h4><ol class="story-top" role="list">' +
+      st.top.map(function (x) {
+        return '<li><p><span class="eyebrow">' + esc(x.when) + ', ' + f1(x.points) + ' pts</span> ' + esc(x.text) + '</p>' +
+          '<button type="button" class="cta ghost" data-act="seek" data-i="' + x.index + '">Watch this play</button></li>';
+      }).join('') + '</ol></div></div>';
+  }
+
   function winnerHero() {
     var p0 = Number(f1(total(0))), p1 = Number(f1(total(1)));
     var w = p0 === p1 ? -1 : p0 > p1 ? 0 : 1;
@@ -884,7 +984,7 @@
       if (me === 1) { var z = x; x = y; y = z; }
       return '<tr><td>' + x + '</td><td>' + label + '</td><td>' + y + '</td></tr>';
     }
-    return winnerHero() +
+    return winnerHero() + '<div class="grid">' + storyPanel() + '</div>' +
       '<div class="grid two">' +
         '<div class="panel"><div class="panel-head"><h2>Top performers</h2></div>' +
           top.map(function (p, i) { return playerRow(p.t, p.role, i + 1); }).join('') + '</div>' +
@@ -1027,7 +1127,7 @@
   // The biggest plays of each matchup this week. Same list as Ricky's server/top-plays.js
   // (replayed as in server/replay.js, ranked by points, then highlight, then the earlier
   // play), worked out here from the game the app plays, so it needs no service.
-  var topCache = null;
+  var topCache = null, playClock = {};
   function topPlaysLocal(n) {
     if (topCache) return topCache.slice(0, n);
     var list = [], half = 1;
@@ -1047,6 +1147,7 @@
       var inQ = list.filter(function (x) { return x.quarter === q; });
       inQ.forEach(function (x, k) { var left = Math.round(900 * (1 - k / inQ.length)); x.clock = Math.floor(left / 60) + ':' + ('0' + (left % 60)).slice(-2); });
     });
+    list.forEach(function (x, i) { playClock[i + 1] = { quarter: x.quarter, clock: x.clock }; });
     topCache = list.map(function (x, i) {
       var fp = x.r.fp || [], main = null, names = [];
       fp.forEach(function (f) {
@@ -1779,7 +1880,7 @@
       applyResult(d.res);
       setTimeout(function () { if (!inGame) render(false); }, 1600); // lets the highlight on new points fade
     }
-    else if (type === 'half') { m.feed.push({ divider: 'Halftime' }); m.now = 'Halftime'; closeDrive('End of half'); }
+    else if (type === 'half') { m.feed.push({ divider: 'Halftime' }); m.now = 'Halftime'; closeDrive('End of half'); m.halfScore = m.field.slice(); }
     else if (type === 'final') { m.status = 'final'; m.now = ''; closeDrive('End of game'); }
     syncFloaters();
     captionFor(type, d);
@@ -1818,6 +1919,7 @@
     topPlayCard: function () { return drawTopPlayCard().toDataURL('image/png'); },
     get live() { return liveEl.textContent; },
     get learn() { return learn; },
+    story: function () { return storyOf(); },
     formFor: function (team, slot) { return formFor(teamByName(team), slot); },
     setOptin: function (v) { setOptin(v === 'in' ? 'in' : 'out'); if (!inGame) render(false); },
     jumpTo: function (n) { return jumpTo(n); },
