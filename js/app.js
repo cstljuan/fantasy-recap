@@ -2104,6 +2104,11 @@
     document.body.appendChild(commishScript);
   }
 
+  // The stadium: fans around the field and a louder crowd (js/screens/crowd.js).
+  var crowdScript = document.createElement('script');
+  crowdScript.src = 'js/screens/crowd.js';
+  document.body.appendChild(crowdScript);
+
   // Watch party: ?party=host makes this screen the host; any screen can join as a remote.
   var partyScript = document.createElement('script');
   partyScript.src = 'js/screens/party.js';

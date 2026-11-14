@@ -581,6 +581,11 @@ body.in-game .a2hs { display: none; }
             padding: 2px var(--sp-1); background: var(--amber); color: var(--ink); pointer-events: none;
             font: 700 var(--fs-micro)/1.2 var(--body); letter-spacing: 0.12em; text-transform: uppercase; }
 
+/* --------------------------------------------------------------- stadium */
+/* The crowd layer sits over the field canvas but under every control in the game view. */
+.crowd-layer { position: absolute; left: 0; top: 0; z-index: 1; pointer-events: none; image-rendering: pixelated; image-rendering: crisp-edges; }
+#gameView .stage > :not(canvas) { z-index: 2; }
+
 /* ---------------------------------------------------------- commissioner */
 
 .commish-note { margin: 0 0 var(--sp-3); color: var(--dim); font-size: var(--fs-small); }
