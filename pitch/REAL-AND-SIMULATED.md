@@ -22,6 +22,10 @@ Rewritten 2026-11-14 (evening) from the code on `main` and the DONE posts on the
 - The database schema (`db/schema.sql`) was run on a real Tiger Data database by the boss: 10 statements, no failures, `plays` is a hypertable, both aggregates exist. The plays service (`server/`) saved and read plays there once.
 - The service's tests and stress test pass against a stand-in database: every route, both sports, bad input on every route, 200 requests at once (`node server/test.js`, `node server/stress.js`). `node data/checks/all.js` runs every offline check in one go.
 
+- Real plays: `data/rosters/plays-2026.json` holds 3,177 real snaps of the 28 football roster players from ESPN's play-by-play (weeks 1 to 10, 116 games), each with down, distance, field position, depth, direction or run gap, yards and the game's address. 1,080 of 1,100 game lines equal ESPN's own box scores and 156 of 172 season totals equal Sleeper's; every difference is listed in the file.
+- Tendencies from real plays (`play_tendencies` in each football profile, with sample sizes) and a scouting report per player in `data/profiles/notes/` where every claim links to the plays behind it. The reports were written by rules (`research.py`), not a model, and say so.
+- Two week 9 games (`data/games/week09-gob-tur.json`, `week09-pyt-owl.json`) were built from real plays: every catch and run in them is a rostered player's real week 9 play with the same yards (checked by `node data/checks/game-vs-lines.js`). Drive starts, incompletions and penalties are filler, and the quarterback's passing is only the catches by our own receivers. Both play to the final in the app. The league's week 9 scores and the standings come from these games. The app still opens on the week 11 game.
+
 ## Simulated
 
 - Every play of both games. The football game is built from the stat lines of the invented sample game in `js/data.js` (the game maker ran with `--from-sample`), not from a real week. The soccer match is built from invented lines. No play happened in a real game, and neither score matches a real result.
@@ -38,6 +42,6 @@ Rewritten 2026-11-14 (evening) from the code on `main` and the DONE posts on the
 - The announcer can remark on a player's tendencies and on hot or cold form, but the game view does not pass the profiles to it, so the app never says those remarks. `pitch/BROADCAST.md` is written by a script that does pass them.
 - The football game was built before the profiles were filled, so its plays were not shaped by any real player tendency. No game has been rebuilt with them, or from a real week.
 - The real soccer lines cannot become a match as they are: the players come from different clubs, so real keeper saves do not equal the other team's saved shots, and the soccer match maker refuses them.
-- The Scout agent (deepagents) has not run with a model: no model key. Its tools ran live, without a model, through fixed scripts (`fill_profiles.py`, `form.py`, `statlines.py`, `crosscheck.py`, `fill_soccer.py`).
+- The Scout agent (deepagents) has not run with a model: no model key. It is now a team (a main agent with stats, film-room and fact-checker subagents) that runs end to end on a scripted stand-in model in `agents/scout/check_agent_team.py`, and its report writer refuses any cited play that is not real. Its tools ran live, without a model, through fixed scripts (`fill_profiles.py`, `form.py`, `statlines.py`, `crosscheck.py`, `fill_soccer.py`).
 - ElevenLabs: the voices are chosen and the script to render the lines exists, but nothing has been rendered (no `assets/voice/` folder), so every line is spoken by the browser's voice.
 - Current team and roster status of every real player was not checked beyond what Sleeper and ESPN report.
