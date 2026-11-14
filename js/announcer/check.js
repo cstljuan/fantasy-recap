@@ -199,6 +199,45 @@ STYLES.forEach(function (style) {
   delete globalThis.speechSynthesis; delete globalThis.SpeechSynthesisUtterance; delete globalThis.__ff;
 })();
 
+// Tendency remarks: nothing from the real profiles while their numbers are null, and the
+// right remark from numbers made up here for the test only (never written to data/).
+(function () {
+  var fs = require('fs'), path = require('path');
+  var teams = data.TEAMS, real = {};
+  teams.forEach(function (t) {
+    var f = path.join(__dirname, '../../data/profiles/' + t.id + '.json');
+    if (fs.existsSync(f)) real[t.id] = JSON.parse(fs.readFileSync(f, 'utf8'));
+  });
+  function run(profiles) {
+    A.reset();
+    var st = Rules.create(teams), lines = [];
+    Rules.flatten(data.SAMPLE_GAME, teams).forEach(function (x) {
+      if (x.kind === 'half') { Rules.startHalf(st); return; }
+      if (x.kind !== 'play') return;
+      lines.push(A.line(Rules.apply(st, x.e, x.team), { teams: teams, profiles: profiles }));
+    });
+    return lines;
+  }
+  var plain = run(null), withReal = run(real);
+  // Lines are picked from shuffled decks, so compare lengths: a remark makes a line longer.
+  var longer = withReal.filter(function (t, i) { return t.split('. ').length > plain[i].split('. ').length + 1; }).length;
+  if (Object.keys(real).length && longer) problems.push('real profiles have null tendencies but ' + longer + ' remarks were added');
+
+  var fake = {};
+  fake[teams[0].id] = { team: teams[0].id, players: {
+    QB: { name: teams[0].roster.QB, tendencies: { deep_ball: 0.9, short_pass: 0.2, scramble: null } },
+    RB: { name: teams[0].roster.RB, tendencies: { run_share: 0.85 } },
+    WR1: { name: teams[0].roster.WR1, tendencies: { target_share: 0.1 } }
+  } };
+  var TEN = ['loves the deep ball', 'does best, take the top', 'Classic', 'not the usual', 'Not often', 'settles for that', 'check it down',
+    'Quick and short', 'easy completion', 'Bread and butter', 'runs through', 'Feed', 'engine of this ground game', 'A rare target',
+    'does not see many', 'Not often the ball goes to'];
+  var noted = run([fake[teams[0].id]]).filter(function (t) { return TEN.some(function (k) { return t.indexOf(k) >= 0; }); });
+  if (!noted.length) problems.push('made-up tendencies produced no remark');
+  noted.forEach(function (t) { if (/\b(he|him|his|she|her)\b/i.test(t)) problems.push('pronoun in a tendency remark: ' + t); });
+  console.log('\nTendencies: real profiles added ' + longer + ' remarks; test numbers added ' + noted.length + ', e.g. "' + (noted[0] || '') + '"');
+})();
+
 console.log('\nStyle switch: ' + A.setStyle('fun') + ', ' + A.setStyle('nonsense') + ', ' + A.setStyle('straight'));
 console.log('speak() without a speech voice does nothing: ' + (A.speak('test') === undefined ? 'ok' : 'unexpected'));
 console.log('line() with no teams is quiet: ' + (A.line({}, {}) === '' ? 'ok' : 'unexpected'));
