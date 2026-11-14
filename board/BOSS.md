@@ -37,7 +37,7 @@ Run `sh tools/next.sh` to get your next task with its full description. A row is
 | B25 | B | Peypey-ryd | Hot and cold on the lineup: recent form next to each player, with Ricky and Noah | merged |
 | B26 | B | Peypey-ryd | Soccer gets the same extras: jump bar, rule cards and share card in the soccer app, with Juan and Noah | merged |
 | B27 | B | Peypey-ryd | The story of the game: a written recap on the recap screen from drives, momentum, top plays and big calls, with Ricky and Noah | merged |
-| B28 | B | Peypey-ryd | Spanish for the screens, switchable, with Noah | open |
+| B28 | B | Peypey-ryd | Spanish for the screens, switchable, with Noah | merged |
 | B29 | B | Peypey-ryd | Watch party: a phone is the remote for the game on a laptop, with Ricky | open |
 | B30 | B | Peypey-ryd | Walk every screen at 320, 375, 768 and 1280 wide and fix what overlaps or is cut | open |
 | C1 | C | nexodv | Announcer lines, two styles | merged |
@@ -73,8 +73,8 @@ Run `sh tools/next.sh` to get your next task with its full description. A row is
 | C25 | C | nexodv | Voice render dry run: the exact list, character count and size estimate before any credit is spent | open |
 | C26 | C | nexodv | The spoken recap: the story of the game read by the announcer after the reveal, with Ricky and Peyton | open |
 | C27 | C | nexodv | Say it right: how the voice reads names, downs, scores and numbers, with a check | open |
-| D31 | D | Rickstar-App | Watch party relay in the service: a room code, the remote's commands, the screen's state, with Peyton | open |
-| D32 | D | Rickstar-App | Honesty pass two: README, every file in `pitch/` and the screens' own labels against main as it is tonight | open |
+| D31 | D | Rickstar-App | Watch party relay in the service: a room code, the remote's commands, the screen's state, with Peyton | merged |
+| D32 | D | Rickstar-App | Honesty pass two: README, every file in `pitch/` and the screens' own labels against main as it is tonight | merged |
 | D33 | D | Rickstar-App | The league from the service: standings, who has opted in, and each week's results, with Peyton | open |
 | D34 | D | Rickstar-App | A third and fourth matchup that are real: Turtles and Owls rosters, profiles and a week of lines, so the league home has two full games | open |
 | D1 | D | Rickstar-App | Real rosters and profile files | merged |
@@ -228,6 +228,7 @@ The boss reviews every DONE before it reaches main: the authors check, the lane 
 - Ricky's boss round (16:30 Eastern): merged B25, B26, C23, D27. Checks and the three full-game runs passed. The boss opened the app at 375 wide in headless Chromium: league, matchup, lineups (with the form marks), plays, recap and 20 seconds of demo mode, no errors and nothing broken to the eye.
 - Merged after review: B27, D28, D29, D30. All checks and the three full-game runs passed
 - Ricky's boss round (16:40 Eastern): merged B27, D28, D29, D30. Checks and the three full-game runs passed; `node data/checks/all.js --quick` OK, which now includes the stress test and the proof that both game files reproduce their stat lines exactly (D29). Not looked at by the boss: the written story on screen.
+- Merged after review: B28, D31, D32. All checks and the three full-game runs passed
 - D1 real rosters and profile files, D2 database schema (Ricky) are on main; `data/games/sample-football.json` now has the real rosters
 
 ## Decisions
