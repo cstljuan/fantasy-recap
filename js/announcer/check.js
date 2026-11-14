@@ -139,6 +139,105 @@ STYLES.forEach(function (style) {
   if (A.intro({}) !== '' || A.wrap({ teams: teams, score: [3, 0] }) !== '') problems.push('intro or wrap without data should be quiet');
 })();
 
+// Voice choice and the speech queue, with a stand-in for the browser's speech engine.
+(function () {
+  var spoken = [], cancels = 0, current = null;
+  var voiceList = [
+    { name: 'Zarvox', lang: 'en-US', localService: true },
+    { name: 'Thomas', lang: 'fr-FR', localService: true },
+    { name: 'Samantha', lang: 'en-US', localService: true },
+    { name: 'Microsoft Guy Online (Natural)', lang: 'en-US', localService: false },
+    { name: 'Daniel', lang: 'en-GB', localService: true }
+  ];
+  globalThis.SpeechSynthesisUtterance = function (t) { this.text = t; };
+  globalThis.speechSynthesis = {
+    getVoices: function () { return voiceList; },
+    speak: function (u) { spoken.push(u); current = u; },
+    cancel: function () { cancels++; current = null; }
+  };
+  function end() { var u = current; current = null; if (u && u.onend) u.onend(); }
+  var teams = data.TEAMS, st = Rules.create(teams), plays = [];
+  Rules.flatten(data.SAMPLE_GAME, teams).forEach(function (x) { if (x.kind === 'play') plays.push(x); });
+  function play(i) { return A.line(Rules.apply(st, plays[i].e, plays[i].team), { teams: teams }); }
+
+  A.reset(); spoken.length = 0; cancels = 0;
+  var v = A.voices();
+  if (v.straight.name !== 'Microsoft Guy Online (Natural)') problems.push('straight voice should be the natural English one, got ' + v.straight.name);
+  if (v.fun.name === v.straight.name || !/^en/.test(v.fun.lang)) problems.push('fun should get a different English voice, got ' + v.fun.name);
+  if (v.fun.rate <= v.straight.rate || v.fun.pitch <= v.straight.pitch) problems.push('fun should be faster and higher');
+
+  // Three lines in a row: one at a time, nothing cut off.
+  A.speak('one'); A.speak('two'); A.speak('three');
+  if (spoken.length !== 1 || cancels !== 0) problems.push('a new line cut off or skipped the queue');
+  end(); end(); end();
+  if (spoken.map(function (u) { return u.text; }).join() !== 'one,two,three') problems.push('queue order wrong: ' + spoken.map(function (u) { return u.text; }).join());
+
+  // A line that waits more than two plays is dropped; one that waits two is kept.
+  spoken.length = 0;
+  A.speak('long line'); A.speak('stale'); play(0);
+  A.speak('fresh'); play(1); play(2);
+  end();
+  var said = spoken.map(function (u) { return u.text; });
+  if (said.indexOf('stale') >= 0) problems.push('a line three plays old was still spoken');
+  if (said.indexOf('fresh') < 0) problems.push('a line two plays old was dropped');
+  end();
+
+  // Above speed 2 it stays silent and empties the queue.
+  spoken.length = 0; globalThis.__ff = { speed: 4 };
+  A.speak('too fast');
+  if (spoken.length) problems.push('spoke at speed 4');
+  globalThis.__ff = { speed: 1 };
+
+  // Game view closed: the game cancels speech, the queue must not carry on.
+  spoken.length = 0; globalThis.FF_GAME = { active: true };
+  A.speak('on screen'); A.speak('queued');
+  globalThis.FF_GAME.active = false; end();
+  if (spoken.length !== 1) problems.push('kept speaking after the game view closed');
+  delete globalThis.FF_GAME;
+  A.hush();
+  console.log('\nVoices: straight ' + v.straight.name + ' (rate ' + v.straight.rate + '), fun ' + v.fun.name + ' (rate ' + v.fun.rate + '), queue and age checks run');
+  delete globalThis.speechSynthesis; delete globalThis.SpeechSynthesisUtterance; delete globalThis.__ff;
+})();
+
+// Tendency remarks: nothing from the real profiles while their numbers are null, and the
+// right remark from numbers made up here for the test only (never written to data/).
+(function () {
+  var fs = require('fs'), path = require('path');
+  var teams = data.TEAMS, real = {};
+  teams.forEach(function (t) {
+    var f = path.join(__dirname, '../../data/profiles/' + t.id + '.json');
+    if (fs.existsSync(f)) real[t.id] = JSON.parse(fs.readFileSync(f, 'utf8'));
+  });
+  function run(profiles) {
+    A.reset();
+    var st = Rules.create(teams), lines = [];
+    Rules.flatten(data.SAMPLE_GAME, teams).forEach(function (x) {
+      if (x.kind === 'half') { Rules.startHalf(st); return; }
+      if (x.kind !== 'play') return;
+      lines.push(A.line(Rules.apply(st, x.e, x.team), { teams: teams, profiles: profiles }));
+    });
+    return lines;
+  }
+  var plain = run(null), withReal = run(real);
+  // Lines are picked from shuffled decks, so compare lengths: a remark makes a line longer.
+  var longer = withReal.filter(function (t, i) { return t.split('. ').length > plain[i].split('. ').length + 1; }).length;
+  if (Object.keys(real).length && longer) problems.push('real profiles have null tendencies but ' + longer + ' remarks were added');
+
+  var fake = {};
+  fake[teams[0].id] = { team: teams[0].id, players: {
+    QB: { name: teams[0].roster.QB, tendencies: { deep_ball: 0.9, short_pass: 0.2, scramble: null } },
+    RB: { name: teams[0].roster.RB, tendencies: { run_share: 0.85 } },
+    WR1: { name: teams[0].roster.WR1, tendencies: { target_share: 0.1 } }
+  } };
+  var TEN = ['loves the deep ball', 'does best, take the top', 'Classic', 'not the usual', 'Not often', 'settles for that', 'check it down',
+    'Quick and short', 'easy completion', 'Bread and butter', 'runs through', 'Feed', 'engine of this ground game', 'A rare target',
+    'does not see many', 'Not often the ball goes to'];
+  var noted = run([fake[teams[0].id]]).filter(function (t) { return TEN.some(function (k) { return t.indexOf(k) >= 0; }); });
+  if (!noted.length) problems.push('made-up tendencies produced no remark');
+  noted.forEach(function (t) { if (/\b(he|him|his|she|her)\b/i.test(t)) problems.push('pronoun in a tendency remark: ' + t); });
+  console.log('\nTendencies: real profiles added ' + longer + ' remarks; test numbers added ' + noted.length + ', e.g. "' + (noted[0] || '') + '"');
+})();
+
 console.log('\nStyle switch: ' + A.setStyle('fun') + ', ' + A.setStyle('nonsense') + ', ' + A.setStyle('straight'));
 console.log('speak() without a speech voice does nothing: ' + (A.speak('test') === undefined ? 'ok' : 'unexpected'));
 console.log('line() with no teams is quiet: ' + (A.line({}, {}) === '' ? 'ok' : 'unexpected'));
