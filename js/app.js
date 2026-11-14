@@ -82,7 +82,9 @@
 
   // True while every fantasy number and stat line must stay masked.
   function masked() { return optin === 'in' && m.status !== 'final'; }
-  function pts1(n) { return masked() ? MASK : f1(n); }
+  // Masked points look like --.- and are read as "hidden" by screen readers.
+  var MASK_HTML = '<span aria-hidden="true">' + MASK + '</span><span class="sr-only">hidden</span>';
+  function pts1(n) { return masked() ? MASK_HTML : f1(n); }
   // The point numbers that float up on the field follow the same rule.
   function syncFloaters() { if (G.setFloaters) G.setFloaters(!masked()); }
   // The game only advances while its view is open, unless it was told to run in the background.
@@ -331,7 +333,7 @@
     var sit = m.status === 'pre' ? 'Kicks off when you start watching' : m.status === 'final' ? 'Full time'
             : paused() ? 'Paused' + (m.now ? ', ' + esc(m.now) : '') : esc(m.now);
     return '<div class="board">' +
-      '<div class="board-top"><span class="eyebrow">' + esc(label) + '</span>' + statusChip() + '</div>' +
+      '<div class="board-top"><h2 class="eyebrow">' + esc(label) + '</h2>' + statusChip() + '</div>' +
       '<div class="sides">' + ord().map(function (t) { return side(t, m.status === 'final'); }).join('') + '</div>' +
       '<div class="field"><span class="eyebrow">On the field</span>' + fieldScore() +
         '<span class="sit">' + sit + '</span></div>' +
@@ -406,7 +408,7 @@
     if (!p.why) return '';
     var body = p.why.map(function (w) {
       return '<div class="why-q">' + esc(WHY_QUESTIONS[w.q] || humanize(w.q)) + '?</div>' +
-        '<ul class="why-bars">' + w.opts.map(function (o) {
+        '<ul class="why-bars" role="list">' + w.opts.map(function (o) {
           var pct = Math.round(o.p * 100), on = o.k === w.chosen;
           return '<li' + (on ? ' class="is-chosen"' : '') + '>' +
             '<span class="why-name"><span>' + esc(optionName(o.k, w.team)) + '</span>' + (on ? '<b>Called</b>' : '') + '</span>' +
@@ -425,7 +427,7 @@
     var fp = p.fp.map(function (f) {
       var cls = (f.team === me ? ' mine' : '') + (!masked() && f.pts < 0 ? ' neg' : '');
       var open = cls ? '<div class="' + cls.slice(1) + '">' : '<div>';
-      if (masked()) return open + '<b>' + MASK + '</b> ' + esc(f.who) + '</div>';
+      if (masked()) return open + '<b>' + MASK_HTML + '</b> ' + esc(f.who) + '</div>';
       return open + '<b>' + (f.pts > 0 ? '+' : '') + f1(f.pts) + '</b> ' + esc(f.who) + '</div>';
     }).join('');
     return '<li class="play' + (isNew ? ' is-new' : '') + (p.team === me ? ' is-mine' : '') + '" style="--c: var(--t' + p.team + ')">' +
@@ -531,7 +533,7 @@
     return optinCard() + board(actions, WEEK + ' matchup') + meCard() +
       '<div class="grid two">' +
         '<div class="panel"><div class="panel-head"><h2>Latest plays</h2><a href="#plays">All plays</a></div>' +
-          (plays.length ? '<ul class="feed">' + plays.map(function (p, i) { return playItem(p, fresh && i === 0); }).join('') + '</ul>'
+          (plays.length ? '<ul class="feed" role="list">' + plays.map(function (p, i) { return playItem(p, fresh && i === 0); }).join('') + '</ul>'
                         : '<div class="empty">Plays show up here once the game kicks off.</div>') + '</div>' +
         '<div class="panel"><div class="panel-head"><h2>Leaders</h2><a href="#lineups">Lineups</a></div>' +
           (top.length ? top.map(function (p, i) { return playerRow(p.t, p.role, i + 1); }).join('')
@@ -543,7 +545,7 @@
     function team(t) {
       return '<div class="panel">' +
         '<div class="lineup-head" style="--c: var(--t' + t + ')"><img class="sprite" src="' + marks[t] + '" alt="">' +
-        '<div class="team-name">' + esc(TEAMS[t].full) + '</div><span class="num">' + pts1(total(t)) + '</span></div>' +
+        '<h2 class="team-name">' + esc(TEAMS[t].full) + '</h2><span class="num">' + pts1(total(t)) + '</span></div>' +
         SLOTS.map(function (s) { return playerRow(t, s.role, 0); }).join('') +
         '</div>';
     }
@@ -566,7 +568,7 @@
       '<div class="filters">' + btn('all', 'All') + btn('scoring', 'Scoring') + btn('flags', 'Penalties') +
         '<span class="count">' + m.done + ' of ' + G.plays + ' plays</span></div>' +
       '<div class="panel">' +
-        (list.length ? '<ul class="feed">' + list.map(function (p, i) { return playItem(p, fresh && i === 0 && filter === 'all'); }).join('') + '</ul>'
+        (list.length ? '<ul class="feed" role="list">' + list.map(function (p, i) { return playItem(p, fresh && i === 0 && filter === 'all'); }).join('') + '</ul>'
                      : '<div class="empty">' + none + '</div>') +
       '</div></div>';
   }
@@ -710,9 +712,9 @@
     var p0 = Number(f1(total(0))), p1 = Number(f1(total(1)));
     var w = p0 === p1 ? -1 : p0 > p1 ? 0 : 1;
     var head = w < 0
-      ? '<div class="hero-id"><div class="hero-name">It is a tie</div></div>'
+      ? '<div class="hero-id"><h2 class="hero-name">It is a tie</h2></div>'
       : '<div class="hero-id"><img class="sprite" src="' + marks[w] + '" alt="">' +
-          '<div class="hero-name">' + esc(TEAMS[w].full) + '<span>win</span></div></div>';
+          '<h2 class="hero-name">' + esc(TEAMS[w].full) + ' <span>win</span></h2></div>';
     var keep = optin === 'in' ? '<p class="hero-keep">Your score stays hidden again on the replay.</p>' : '';
     return '<div class="board hero" style="--c: var(--t' + (w < 0 ? 0 : w) + ')">' +
       '<div class="board-top"><span class="eyebrow">' + esc(WEEK) + ' result</span>' + statusChip() + '</div>' +
@@ -755,7 +757,7 @@
         '<div class="panel"><div class="panel-head"><h2>Top performers</h2></div>' +
           top.map(function (p, i) { return playerRow(p.t, p.role, i + 1); }).join('') + '</div>' +
         '<div class="panel"><div class="panel-head"><h2>Scoring plays</h2><a href="#plays">All plays</a></div>' +
-          '<ul class="feed">' + scores.map(function (p) { return playItem(p, false); }).join('') + '</ul></div>' +
+          '<ul class="feed" role="list">' + scores.map(function (p) { return playItem(p, false); }).join('') + '</ul></div>' +
       '</div>' +
       '<div class="grid"><div class="panel"><div class="panel-head"><h2>' + TEAMS[ord()[0]].name + ' against ' + TEAMS[ord()[1]].name + '</h2></div>' +
         '<table class="compare">' +
@@ -970,7 +972,7 @@
   function hiddenCard(i) {
     return '<li class="panel top-play is-hidden"><div class="top-meta"><span class="eyebrow">Play ' + i + '</span></div>' +
       '<p class="top-text">Hidden until the final.</p>' +
-      '<div class="top-foot"><span class="top-who"></span><span class="num">' + MASK + '</span><span class="unit">pts</span></div></li>';
+      '<div class="top-foot"><span class="top-who"></span><span class="num">' + MASK_HTML + '</span><span class="unit">pts</span></div></li>';
   }
 
   function renderWeek() {
@@ -982,7 +984,7 @@
         return '<section class="top-group" aria-label="' + esc(title) + '"><h3 class="top-title">' + esc(title) + '</h3>' +
           (hide ? '<p class="top-why">Your score is hidden, so this game\'s biggest plays stay hidden until the final. ' +
                   'Watch the game to see them.</p><div class="actions top-actions">' + watchButton() + '</div>' : '') +
-          '<ol class="top-list">' + cards + '</ol></section>';
+          '<ol class="top-list" role="list">' + cards + '</ol></section>';
       }
       var t2 = x.teams[0].full + ' against ' + x.teams[1].full;
       return '<section class="top-group" aria-label="' + esc(t2) + '"><h3 class="top-title">' + esc(t2) + '</h3>' +
@@ -1027,7 +1029,7 @@
       '<button type="button" data-act="film" data-n="' + (i > 0 ? plays[i - 1].n : p.n) + '"' + (i > 0 ? '' : ' disabled') + '>Previous play</button>' +
       '<span>Play ' + p.n + ' of ' + plays.length + '</span>' +
       '<button type="button" data-act="film" data-n="' + (i < plays.length - 1 ? plays[i + 1].n : p.n) + '"' + (i < plays.length - 1 ? '' : ' disabled') + '>Next play</button></div>';
-    return nav + '<ul class="feed">' + playItem(p, false).replace(/<details class="why"[\s\S]*<\/details>/, '') + '</ul>' +
+    return nav + '<ul class="feed" role="list">' + playItem(p, false).replace(/<details class="why"[\s\S]*<\/details>/, '') + '</ul>' +
       (p.why ? '<div class="film-why">' + whyCard(p, true) + '</div>'
              : '<p class="film-none">No play caller odds for this play. The game decided it by itself (kicks, penalties, sacks, turnovers and forced plays).</p>');
   }
@@ -1067,7 +1069,7 @@
     return '<div class="film">' +
       '<div class="panel"><div class="panel-head"><h2>Drive chart</h2><a href="#recap">Recap</a></div>' +
         '<div class="film-key"><span>' + esc(TEAMS[0].name) + ' attack this way &#8594;</span><span>&#8592; ' + esc(TEAMS[1].name) + '</span></div>' +
-        '<ol class="drives">' + rows + '</ol>' +
+        '<ol class="drives" role="list">' + rows + '</ol>' +
         '<p class="film-legend"><i class="k-score"></i>Score <i class="k-to"></i>Turnover <i class="k-flag"></i>Penalty <i class="k-loss"></i>Lost yards</p></div>' +
       '<div class="grid two">' +
         '<div class="panel"><div class="panel-head"><h2>The play caller</h2></div>' + caller + '</div>' +
@@ -1077,9 +1079,10 @@
 
   var RENDER = { week: renderWeek, film: renderFilm, league: renderLeague, matchup: renderMatchup, lineups: renderLineups, plays: renderPlays, recap: renderRecap };
 
+  var SCREEN_TITLES = { league: 'League', matchup: 'Matchup', lineups: 'Lineups', plays: 'Play by play', recap: 'Recap', film: 'Film room', week: 'This week in the league' };
   function render(isFresh) {
     fresh = !!isFresh;
-    $('s-' + tab).innerHTML = RENDER[tab]();
+    $('s-' + tab).innerHTML = '<h1 class="sr-only">' + SCREEN_TITLES[tab] + '</h1>' + RENDER[tab]();
     prevTotals = [pts1(total(0)), pts1(total(1))];
     fresh = false;
   }
@@ -1161,7 +1164,22 @@
   // It sits in the band past the end line, so it stays clear of the players and their names.
   var capEl = document.createElement('div');
   capEl.className = 'captions';
-  capEl.setAttribute('aria-live', 'polite');
+  capEl.setAttribute('aria-hidden', 'true'); // seen here, read from the live region below
+  var liveEl = document.createElement('div');
+  liveEl.className = 'sr-only';
+  liveEl.setAttribute('aria-live', 'polite');
+  liveEl.setAttribute('role', 'status');
+  $('closeGame').parentNode.appendChild(liveEl);
+  var livePending = { text: '', score: '' }, liveTimer = 0;
+  function liveSay(part, value) {
+    livePending[part] = value;
+    clearTimeout(liveTimer);
+    liveTimer = setTimeout(function () {
+      var t = [livePending.text, livePending.score].filter(Boolean).join(' ');
+      livePending = { text: '', score: '' };
+      if (t && inGame) liveEl.textContent = t;
+    }, 60);
+  }
   capEl.hidden = true;
   $('closeGame').parentNode.appendChild(capEl);
   function showCaption(text) {
@@ -1173,6 +1191,7 @@
     capEl.appendChild(span);
     capEl.title = span.textContent;
     capEl.hidden = false;
+    liveSay('text', span.textContent);
     // A line longer than the strip scrolls sideways once so it can be read to the end.
     var over = span.scrollWidth - (capEl.clientWidth - 20);
     if (over > 0) {
@@ -1251,6 +1270,35 @@
     if (brand) brand.setAttribute('href', '#league');
   })();
 
+  // The tab bar is a tablist: one tab in the Tab order, arrow keys, Home and End move between
+  // tabs and open them. Screens without a tab (film room, this week) leave every tab reachable.
+  function tabInList() { return Array.prototype.some.call($('tabs').children, function (a) { return a.getAttribute('data-tab') === tab; }); }
+  (function tablist() {
+    var bar = $('tabs');
+    bar.setAttribute('role', 'tablist');
+    bar.setAttribute('aria-label', 'Screens');
+    Array.prototype.forEach.call(bar.children, function (a) {
+      var name = a.getAttribute('data-tab');
+      a.setAttribute('role', 'tab');
+      a.id = 'tab-' + name;
+      a.setAttribute('aria-controls', 's-' + name);
+      var panel = $('s-' + name);
+      if (panel) { panel.setAttribute('role', 'tabpanel'); panel.setAttribute('aria-labelledby', 'tab-' + name); panel.removeAttribute('aria-label'); }
+    });
+    bar.addEventListener('keydown', function (ev) {
+      var tabs = Array.prototype.slice.call(bar.children), i = tabs.indexOf(document.activeElement), j = -1;
+      if (i < 0) return;
+      if (ev.key === 'ArrowRight') j = (i + 1) % tabs.length;
+      else if (ev.key === 'ArrowLeft') j = (i - 1 + tabs.length) % tabs.length;
+      else if (ev.key === 'Home') j = 0;
+      else if (ev.key === 'End') j = tabs.length - 1;
+      if (j < 0) return;
+      ev.preventDefault();
+      tabs[j].focus();
+      location.hash = tabs[j].getAttribute('data-tab');
+    });
+  })();
+
   // Sport switch in the header: Football or Soccer, saved under fr.sport. It calls
   // window.FR_SPORT_CHANGE(name) when the boss has connected soccer; until then
   // Soccer shows a plain panel with a link to the soccer game on its own.
@@ -1311,7 +1359,10 @@
     tab = h;
     TABS.forEach(function (t) { $('s-' + t).hidden = t !== tab; });
     Array.prototype.forEach.call($('tabs').children, function (a) {
-      if (a.getAttribute('data-tab') === tab) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current');
+      var on = a.getAttribute('data-tab') === tab;
+      if (on) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current');
+      a.setAttribute('aria-selected', String(on));
+      a.tabIndex = on || !tabInList() ? 0 : -1;
     });
     render(false);
     markSport();
@@ -1381,6 +1432,10 @@
     else if (type === 'final') { m.status = 'final'; m.now = ''; closeDrive('End of game'); }
     syncFloaters();
     captionFor(type, d);
+    if (type === 'result' && !masked()) {
+      var sc = d.res.post.score, pr = d.res.pre.score;
+      if (sc[0] !== pr[0] || sc[1] !== pr[1]) liveSay('score', TEAMS[0].name + ' ' + sc[0] + ', ' + TEAMS[1].name + ' ' + sc[1] + '.');
+    }
     if (!inGame) render(type === 'result');
   });
 
@@ -1408,6 +1463,7 @@
       return out;
     },
     resultCard: function () { return drawResultCard().toDataURL('image/png'); },
+    get live() { return liveEl.textContent; },
     get caption() { return capEl.hidden ? '' : capEl.textContent; },
     totals: function () { return [f1(total(0)), f1(total(1))]; }
   };
