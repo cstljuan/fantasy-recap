@@ -1,0 +1,4 @@
+Peypey-ryd js/app.js js/screens/ css/ board/Peypey-ryd.md
+nexodv js/audio.js js/announcer/ board/nexodv.md
+Rickstar-App js/data.js data/rosters/ data/profiles/ data/statlines/ data/scoring.json agents/scout/ db/ server/ pitch/ board/Rickstar-App.md
+cstljuan .

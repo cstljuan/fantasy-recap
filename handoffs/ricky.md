@@ -15,12 +15,7 @@ Read `CLAUDE.md` at the root first and follow it. Then do the steps below in ord
 
 ## How to work
 
-- Do the first task below that has no DONE line in your status file. One task per go.
-- Before a task: `sh tools/sync.sh`, then `sh tools/post.sh CLAIM "<task id> <short name>: <files>"`.
-- After a task: commit, push, `sh tools/post.sh DONE "<task id> <short name>, checked: <what you checked>, not checked: <what you did not>"`.
-- Then stop and tell Ricky in two or three sentences what is done and what you could not check. Wait for Ricky to say "next".
-- If a task needs something outside your files, do not edit it. Run `sh tools/post.sh ASK "boss: <what you need>"` and continue with what you can.
-- Never guess a fact. If you could not check something, say so.
+Follow the work loop in `CLAUDE.md` section 3: `sh tools/sync.sh`, `sh tools/next.sh`, CLAIM, do it, DONE, repeat, without waiting to be told. When there is no task, `sh tools/wait.sh`. Never guess a fact. If you could not check something, say so in the DONE post. The boss queue in `board/BOSS.md` decides the order; the sections below are the full descriptions.
 
 ## Task D1: real players and their profiles
 
@@ -48,3 +43,23 @@ The database is Tiger Data (PostgreSQL with the TimescaleDB extension). Every pl
 ## Task D3: the service
 
 Only after the boss posts that the database account exists. In `server/`, a small Node service with no framework: `POST /games/:id/plays` saves plays, `GET /games/:id/plays` returns them in order, `GET /games/:id/summary` returns the two aggregates. It reads `DATABASE_URL` from `.env`. Add `server/README.md` with how to run it.
+
+## Task D4: a week of stat lines
+
+Create `data/statlines/week11.json`: for each of the 14 players on the two rosters and the two defenses, one fantasy stat line for a made-up week (pass yards, pass touchdowns, interceptions, rush yards, rush touchdowns, receptions, receiving yards, receiving touchdowns, field goals made and missed, extra points). Keep each line believable for that position. Mark the file clearly as invented sample data. This file is what the game maker reads to build a game, so add `data/statlines/README.md` describing every field.
+
+## Task D5: scoring rules
+
+Create `data/scoring.json` with the league's scoring rules as data (standard half-point-per-reception rules: 1 point per 25 pass yards, 4 per pass touchdown, minus 2 per interception, 1 per 10 rush or receiving yards, 6 per rush or receiving touchdown, 0.5 per reception, 3 per field goal, 1 per extra point) and `agents/scout/score.js`, a small module with no dependencies that turns a stat line into fantasy points, runnable with node, with a check that prints each player's points for `week11.json`.
+
+## Task D6: real tendencies with sources
+
+Fill the `tendencies` in `data/profiles/GOB.json` and `PYT.json` from real season numbers where you can read them from a public source in this session. Put the source and the date next to every number you fill. Where you cannot reach a source, leave `null` and say so. Do not estimate from memory and do not invent.
+
+## Task D8: Devpost text and the honest list
+
+Create `pitch/DEVPOST.md`: the sections Devpost asks for (inspiration, what it does, how we built it, challenges, accomplishments, what we learned, what is next), written from `README.md`, `docs/` and the board. Create `pitch/REAL-AND-SIMULATED.md`: two lists, what is real and what is simulated, taken from the code and the DONE posts, with nothing overstated. Plain words, no em dashes.
+
+## Task D7: soccer rosters and profiles
+
+Only after the boss posts that soccer is merged. Two fantasy soccer rosters of real players in the shape the soccer game reads, and profile files with on-field tendencies and sources.

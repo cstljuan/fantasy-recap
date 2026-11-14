@@ -15,12 +15,7 @@ Read `CLAUDE.md` at the root first and follow it. Then do the steps below in ord
 
 ## How to work
 
-- Do the first task below that has no DONE line in your status file. One task per go.
-- Before a task: `sh tools/sync.sh`, then `sh tools/post.sh CLAIM "<task id> <short name>: <files>"`.
-- After a task: commit, push, `sh tools/post.sh DONE "<task id> <short name>, checked: <what you checked>, not checked: <what you did not>"`.
-- Then stop and tell Peyton in two or three sentences what is done and what you could not check. Wait for Peyton to say "next".
-- If a task needs something outside your files, do not edit it. Run `sh tools/post.sh ASK "boss: <what you need>"` and continue with what you can.
-- Never guess a fact. If you could not check something, say so.
+Follow the work loop in `CLAUDE.md` section 3: `sh tools/sync.sh`, `sh tools/next.sh`, CLAIM, do it, DONE, repeat, without waiting to be told. When there is no task, `sh tools/wait.sh`. Never guess a fact. If you could not check something, say so in the DONE post. The boss queue in `board/BOSS.md` decides the order; the sections below are the full descriptions.
 
 ## Task B1: opt in and hidden scores
 
@@ -45,3 +40,27 @@ Check at 375 wide and at 1280 wide: the control does not cover the score, each c
 ## Task B3: the recap screen for a reveal
 
 Edit only your files. After the final, the recap screen opens with the winner shown large, then the top performers, then the scoring plays. Add a "Watch again" path that keeps the opt-in choice. Check at 375 wide.
+
+## Task B4: league home
+
+A new first screen, "League", before Matchup. It lists this week's matchups for a small sample league (four invented fantasy teams, two matchups, ours first), each with both team names, an "opted in" mark, and when the recap is released ("Recap drops Tuesday"). Tapping our matchup opens the existing matchup screen. Build the tab and the screen from JavaScript; do not edit `index.html`. Check at 375 wide.
+
+## Task B5: "why this play" card
+
+In the plays feed, when a play carries a `why` field (see `docs/CONTRACT.md` section 1, coming in v1), show a small expandable card under it: the question, then one bar per option with its percentage, the chosen option marked. Until real data exists, read `why` from the play if present and show nothing otherwise, and add a way to preview it: with `?whydemo=1` attach this sample to the first three plays: `{ "play": { "deep_pass": 0.46, "run": 0.31, "short_pass": 0.17, "screen": 0.06 } }`. Check at 375 wide.
+
+## Task B6: my team view
+
+`?me=GOB` or `?me=PYT` (and a choice on the matchup screen, remembered in `localStorage` under `fr.me`) marks one team as mine: my team is listed first, my players are highlighted in lineups and in the plays feed, and the matchup header says "Your team". With nothing chosen the app looks as it does today. This is what lets two phones show the same game from two sides.
+
+## Task B7: result card
+
+After the final, a "Share" button on the recap draws one result card on a canvas: both team names, the final fantasy score, the winner, the top performer, the project name. It offers the image through the device's share sheet when the browser has one and as a download otherwise. No network requests.
+
+## Task B8: sport switch control
+
+A two-way control in the header, Football and Soccer, built from JavaScript. It saves the choice in `localStorage` under `fr.sport` and calls `window.FR_SPORT_CHANGE(name)` if that function exists. Until the boss connects soccer, choosing Soccer shows a plain "Soccer is being built" panel with a link to `soccer/index.html`.
+
+## Task B9: phone polish
+
+Safe areas for the notch and the home indicator, tap targets at least 44 pixels, visible focus outlines, the tab bar reachable by keyboard, reduced motion respected. List in your DONE post anything that only a real phone can confirm.

@@ -15,12 +15,7 @@ Read `CLAUDE.md` at the root first and follow it. Then do the steps below in ord
 
 ## How to work
 
-- Do the first task below that has no DONE line in your status file. One task per go.
-- Before a task: `sh tools/sync.sh`, then `sh tools/post.sh CLAIM "<task id> <short name>: <files>"`.
-- After a task: commit, push, `sh tools/post.sh DONE "<task id> <short name>, checked: <what you checked>, not checked: <what you did not>"`.
-- Then stop and tell Juan in two or three sentences what is done and what you could not check. Wait for Juan to say "next".
-- If a task needs something outside your files, do not edit it. Run `sh tools/post.sh ASK "boss: <what you need>"` and continue with what you can.
-- Never guess a fact. If you could not check something, say so.
+Follow the work loop in `CLAUDE.md` section 3: `sh tools/sync.sh`, `sh tools/next.sh`, CLAIM, do it, DONE, repeat, without waiting to be told. When there is no task, `sh tools/wait.sh`. Never guess a fact. If you could not check something, say so in the DONE post. The boss queue in `board/BOSS.md` decides the order; the sections below are the full descriptions.
 
 ## Task S1: the soccer game
 
@@ -47,3 +42,7 @@ Say plainly what is real, what is simulated and what you could not check.
 ## Task S2: fantasy soccer on top
 
 A sample fantasy soccer matchup: two rosters of real players, points per event (goal, assist, clean sheet, save), and a list of what each event was worth, in the same shape the football app uses, so the boss can connect it.
+
+## Task S3: soccer polish
+
+Goal celebrations, a slow replay of each goal, set pieces that look different from open play, and a halftime and full-time card. Keep `window.SC_GAME` and `window.__sc.speed` matching the contract.
