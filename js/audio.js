@@ -9,6 +9,8 @@
 //   crowd_groan   a falling groan, for a turnover
 //   crowd_stop    fades the murmur out now (halftime, final, pause)
 //   whistle_long  one long blast, for halftime and the final
+//   jingle_kickoff  a short brass and drum fanfare, about 3 seconds, before the kickoff
+//   jingle_final    a fuller theme that ends on a held chord, about 4 seconds, at full time
 // Big plays build on each other: every swell and roar makes the murmur a little
 // louder for a while, and that excitement fades again over about 30 seconds.
 // crowdFor(res) returns the crowd sound name for a play result, or ''.
@@ -215,6 +217,57 @@
     }
   };
   Object.keys(CROWD).forEach(function (k) { SOUNDS[k] = CROWD[k]; });
+
+  // ---- Jingles ----
+  // A brass-like note: two slightly detuned sawtooth waves through a filter that opens
+  // on the attack, the way a horn gets brighter as it is blown.
+  function brass(f, t, dur, vol) {
+    var g = ac.createGain(), lp = ac.createBiquadFilter();
+    lp.type = 'lowpass'; lp.Q.value = 2;
+    lp.frequency.setValueAtTime(f * 1.5, t);
+    lp.frequency.linearRampToValueAtTime(f * 6, t + 0.06);
+    lp.frequency.exponentialRampToValueAtTime(f * 3, t + dur);
+    g.gain.setValueAtTime(0.0001, t);
+    g.gain.linearRampToValueAtTime(vol, t + 0.03);
+    g.gain.setValueAtTime(vol * 0.85, t + Math.max(0.04, dur - 0.08));
+    g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+    [-6, 6].forEach(function (cents) {
+      var o = ac.createOscillator();
+      o.type = 'sawtooth'; o.frequency.value = f; o.detune.value = cents;
+      o.connect(lp); o.start(t); o.stop(t + dur + 0.05);
+    });
+    lp.connect(g); g.connect(master);
+  }
+  function drum(t, vol) { tone('sine', 140, 45, t, 0.22, vol); noise(t, 0.08, vol * 0.3, 1500); }
+  function snare(t, vol) { noise(t, 0.14, vol, 2500); tone('triangle', 220, 160, t, 0.08, vol * 0.4); }
+  function cymbal(t, dur, vol) { noise(t, dur, vol, 7000, 'highpass'); }
+  // Note names to frequencies, so the tunes below read like music.
+  var N = { G3: 196, A3: 220, B3: 246.9, C4: 261.6, D4: 293.7, E4: 329.6, F4: 349.2, G4: 392, A4: 440, B4: 493.9, C5: 523.3, D5: 587.3, E5: 659.3, G5: 784 };
+  function chord(names, t, dur, vol) { names.forEach(function (n) { brass(N[n], t, dur, vol / names.length * 1.6); }); }
+
+  SOUNDS.jingle_kickoff = function (t) {
+    var b = 0.16;   // one eighth note
+    // Pickup, rising call, then a big chord with a drum roll into it.
+    [['G3', 0], ['C4', 1], ['E4', 2], ['G4', 3], ['E4', 5], ['G4', 6]].forEach(function (x) { brass(N[x[0]], t + x[1] * b, b * 1.2, 0.14); });
+    for (var i = 0; i < 6; i++) snare(t + (8 + i * 0.5) * b, 0.06 + i * 0.015);
+    chord(['C4', 'E4', 'G4', 'C5'], t + 11 * b, 1.1, 0.2);
+    drum(t + 11 * b, 0.5); cymbal(t + 11 * b, 1.2, 0.08);
+    drum(t + 15 * b, 0.4); chord(['C4', 'G4', 'C5', 'E5'], t + 15 * b, 1.0, 0.2);
+  };
+
+  SOUNDS.jingle_final = function (t) {
+    var b = 0.2;
+    // A march figure, then IV, V and a long tonic chord with the crowd-style cymbal.
+    [['C4', 0], ['E4', 1], ['G4', 2], ['C5', 3], ['B4', 4], ['G4', 5], ['A4', 6], ['B4', 7]].forEach(function (x, i) {
+      brass(N[x[0]], t + x[1] * b, b * 1.1, 0.13);
+      if (i % 2 === 0) drum(t + x[1] * b, 0.3); else snare(t + x[1] * b, 0.05);
+    });
+    chord(['F4', 'A4', 'C5'], t + 8 * b, b * 2, 0.18); drum(t + 8 * b, 0.4);
+    chord(['G4', 'B4', 'D5'], t + 10 * b, b * 2, 0.18); drum(t + 10 * b, 0.4);
+    for (var i = 0; i < 4; i++) snare(t + (11 + i * 0.25) * b, 0.05 + i * 0.02);
+    chord(['C4', 'E4', 'G4', 'C5', 'E5'], t + 12 * b, 1.6, 0.24);
+    drum(t + 12 * b, 0.6); cymbal(t + 12 * b, 1.8, 0.1);
+  };
 
   // Which crowd sound fits a play result from js/rules.js ('' for none).
   function crowdFor(res) {

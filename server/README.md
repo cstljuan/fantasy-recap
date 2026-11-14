@@ -21,11 +21,26 @@ node server/index.js
 
 - `POST /games/:id/plays` saves plays. Body: `{ "game": { "sport": "football", "home": "GOB", "away": "PYT" }, "plays": [ { "seq": 1, "played_at": "2026-01-01T00:00:00Z", "quarter": 1, "team": "GOB", "slot": "RB", "player": "Saquon Barkley", "kind": "run", "yards": 4, "fantasy_points": 0.4, "detail": {}, "why": {} } ] }`. Send `game` with the first plays so the game row exists. Plays that are already saved (same `seq` and `played_at`) are skipped, so a repeat send is safe. All plays in one request are saved together or not at all. Answers 201.
 - `GET /games/:id/plays` returns the plays in `seq` order.
+- `POST /games/:id/optin` records that a manager opted in. Body: `{ "manager": "ricky" }`. Answers 201, or 404 if the game does not exist yet. A repeat is ignored.
+- `GET /games/:id/optins` returns who opted in, oldest first.
+- `GET /health` answers 200 `{ ok: true, database: true }` when the database answers a `SELECT 1`, otherwise 503 `{ ok: false, database: false }`.
 - `GET /games/:id/summary` returns `{ players, quarters }` from the two continuous aggregates: points per player and points per team per quarter. Numbers come back as strings, as PostgreSQL sends them.
 
 ## Optional certificate check
 
 Set `DATABASE_CA_FILE` in `.env` to the path of the database's CA certificate file (a certificate is public, not a secret, but the path is still only in `.env`). The service then checks the database's certificate against it and refuses a connection that does not match. If it is not set, nothing changes: the connection string is used as given. With it set, the `sslmode` words in the connection string are ignored.
+
+## Push a game
+
+```bash
+node server/push-game.js data/games/week11-football.json
+```
+
+It replays the game file with `js/rules.js` and sends every play to the service (default `http://localhost:3001`, or `--url`), in batches of 40. Each play carries the time it happened in the game, its fantasy points and its `why`. The game file has no clock, so quarters and times are worked out the same way `db/seed.sql` does (`server/replay.js` does both). `--id` sets the game id, which otherwise is the file name. Each play is credited to the player with the biggest fantasy move on it. Other scorers on that play are in `detail.fp`, not in the aggregates.
+
+## Browsers on another port
+
+A page served from `http://localhost:<port>` or `http://127.0.0.1:<port>` may call the service. Other origins get no CORS header. Opening the page straight from a file sends no usable origin and is not covered.
 
 ## Test
 
@@ -33,7 +48,7 @@ Set `DATABASE_CA_FILE` in `.env` to the path of the database's CA certificate fi
 node server/test.js
 ```
 
-This runs the routes against a fake database. It checks routing and input checks only, not the SQL.
+This runs every route against a fake database, plus the CORS rules, a database that is down, and `push-game.js` sending all 73 plays of the sample game. It checks routing, input checks and the data sent, not the SQL.
 
 ## Not checked
 

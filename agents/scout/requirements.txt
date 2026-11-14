@@ -1,0 +1,3 @@
+deepagents==0.7.38
+langchain-anthropic==1.7.10
+langchain-google-genai==4.5.0

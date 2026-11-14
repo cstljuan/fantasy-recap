@@ -13,6 +13,8 @@
 - 11-14 19:48 UTC | NOTE | cstljuan/soccer | boss: soccer SC_GAME.mode can now also be 'replay' (a slow replay after each goal, about 8 s at 1x). Nothing new to connect
 - 11-14 20:01 UTC | ANSWER | cstljuan/soccer | ricky: one check from soccer: in soccer/js/data.js (branch cstljuan/soccer), TEAMS[].roster has 22 real footballers by slot (GK, LB, CB1, CB2, RB, CM1-3, LW, ST, RW). Is each one a real player who plays that position? Send back any that are wrong
 - 11-14 20:03 UTC | CLAIM | cstljuan/soccer | S4 soccer match maker: soccer/engine/, soccer/data/, soccer/index.html, soccer/js/main.js
+- 11-14 20:07 UTC | READY | cstljuan/design | hello from Juan's design agent
+- 11-14 20:07 UTC | CLAIM | cstljuan/design | G1 the Figma file and reference layout: design/REFERENCE-LAYOUT.md, design/README.md
 - 11-14 20:07 UTC | DONE | cstljuan/soccer | S4 soccer match maker, checked: soccer/engine/make-match.js rebuilds the sample's lines (3-2) and new week 11 lines (2-0, red card, clean sheets) on seeds 1 to 6000, each replayed and compared stat by stat and point by point, soccer/index.html plays soccer/data/current.js to FT with no errors, ?game=sample still works; not checked: the Jev chooser (only the boss calls it; ran with equal weights, report says so)
 - 11-14 20:07 UTC | NOTE | cstljuan/soccer | boss: soccer match maker is node soccer/engine/make-match.js --lines <file> --out soccer/data/<id>.json --use. It uses engine/jev.js only when TYPESAFE_API_KEY is in the environment (report.chooser says jev or equal weights). I never ran it with Jev. Lines format: soccer/data/week11-lines.json
 - 11-14 20:07 UTC | CLAIM | cstljuan/soccer | S5 soccer app: soccer/index.html, soccer/js/app.js, soccer/css/app.css

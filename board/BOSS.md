@@ -21,7 +21,7 @@ Run `sh tools/next.sh` to get your next task with its full description. A row is
 | B8 | B | Peypey-ryd | Sport switch control: football and soccer | merged |
 | B9 | B | Peypey-ryd | Phone polish and keyboard use | merged |
 | B12 | B | Peypey-ryd | Lineup points from the scoring rules, with Ricky | merged |
-| Q1 | B | Peypey-ryd | Listen-through: read every announcer line and send Noah the ones to fix | open |
+| Q1 | B | Peypey-ryd | Listen-through: read every announcer line and send Noah the ones to fix | merged |
 | P1 | B | Peypey-ryd | The two-minute demo script with timings | open |
 | B14 | B | Peypey-ryd | The film room: drive chart and the play caller panel | open |
 | B15 | B | Peypey-ryd | First run walkthrough and install | open |
@@ -33,8 +33,8 @@ Run `sh tools/next.sh` to get your next task with its full description. A row is
 | C4 | C | nexodv | Pre-game intro, halftime report, full-time wrap | merged |
 | C5 | C | nexodv | Voice choice, pace and a queue so lines never cut each other off | merged |
 | C6 | C | nexodv | Tendency lines from the player profiles | merged |
-| C7 | C | nexodv | Kickoff and final jingles made in code | open |
-| C9 | C | nexodv | Fit lines to the captions strip, with Peyton | open |
+| C7 | C | nexodv | Kickoff and final jingles made in code | merged |
+| C9 | C | nexodv | Fit lines to the captions strip, with Peyton | merged |
 | Q2 | C | nexodv | Walk the reveal flow at phone width and send Peyton what breaks | open |
 | P2 | C | nexodv | Shot list for the demo video | open |
 | C11 | C | nexodv | Commentary that remembers the game | open |
@@ -53,23 +53,26 @@ Run `sh tools/next.sh` to get your next task with its full description. A row is
 | D9 | D | Rickstar-App | Sample league file for the League screen, with Peyton | merged |
 | D10 | D | Rickstar-App | Seed file: the sample game as database rows | merged |
 | Q3 | D | Rickstar-App | Check the README and Devpost text against the code and send each owner what is overstated | merged |
-| D12 | D | Rickstar-App | Scout, the deep agent: real player research with LangChain deepagents | open |
-| D13 | D | Rickstar-App | A real week of stat lines from a public source | open |
-| D15 | D | Rickstar-App | Make `data/scoring.json` describe exactly what `js/rules.js` scores, with Peyton | open |
-| D14 | D | Rickstar-App | The service, finished: opt-ins, push a game, health | open |
+| D12 | D | Rickstar-App | Scout, the deep agent: real player research with LangChain deepagents | merged |
+| D13 | D | Rickstar-App | A real week of stat lines from a public source | merged |
+| D15 | D | Rickstar-App | Make `data/scoring.json` describe exactly what `js/rules.js` scores, with Peyton | merged |
+| D14 | D | Rickstar-App | The service, finished: opt-ins, push a game, health | merged |
+| D16 | D | Rickstar-App | Two finished past weeks and standings in `data/league.json`, with Peyton | open |
+| D17 | D | Rickstar-App | Judges' questions with honest answers: `pitch/QUESTIONS.md` | open |
+| D18 | D | Rickstar-App | Top plays of a game and of a week, from the service and from a game file, with Peyton | open |
 | D7 | D | Rickstar-App | Soccer rosters and profiles | merged |
 | S1 | S | cstljuan | The soccer game | merged |
 | S2 | S | cstljuan | Fantasy soccer on top | merged |
 | S3 | S | cstljuan | Soccer polish: celebrations, replays of goals, set pieces | merged |
-| S4 | S | cstljuan | The soccer match maker | open |
-| S5 | S | cstljuan | The soccer app: lineups, feed, recap, hidden scores | open |
-| S6 | S | cstljuan | Soccer voice and captions, with Noah | open |
-| G1 | G | cstljuan | The Figma file, laid out like Juan's earlier projects | open |
-| G2 | G | cstljuan | Brand guide, wordmark, mascot | open |
-| G3 | G | cstljuan | Every screen at phone and laptop size | open |
-| G4 | G | cstljuan | Motion page and motion specs | open |
-| G5 | G | cstljuan | Devpost thumbnail, gallery, video title card, architecture picture | open |
-| G6 | G | cstljuan | DESIGN.md and tokens for the builders | open |
+| S4 | S | cstljuan | The soccer match maker | merged |
+| S5 | S | cstljuan | The soccer app: lineups, feed, recap, hidden scores | waiting: light duty, Juan restarts this after 9:30 PM Eastern |
+| S6 | S | cstljuan | Soccer voice and captions, with Noah | waiting: light duty, Juan restarts this after 9:30 PM Eastern |
+| G1 | G | cstljuan | The Figma file with its pages set up (structure only for now) | open |
+| G2 | G | cstljuan | Brand guide, wordmark, mascot | waiting: light duty, Juan restarts this after 9:30 PM Eastern |
+| G3 | G | cstljuan | Every screen at phone and laptop size | waiting: light duty, Juan restarts this after 9:30 PM Eastern |
+| G4 | G | cstljuan | Motion page and motion specs | waiting: light duty, Juan restarts this after 9:30 PM Eastern |
+| G5 | G | cstljuan | Devpost thumbnail, gallery, video title card, architecture picture | waiting: light duty, Juan restarts this after 9:30 PM Eastern |
+| G6 | G | cstljuan | DESIGN.md and tokens for the builders | waiting: light duty, Juan restarts this after 9:30 PM Eastern |
 | A1 | A | cstljuan | Load the game from `data/games/<id>.json`; contract v1 | merged |
 | A2 | A | cstljuan | The football game maker with the play caller | merged |
 | A3 | A | cstljuan | Connect the announcer, crowd, captions and the floaters switch | merged |
@@ -110,10 +113,17 @@ Newest at the bottom. The boss answers every ASK here. If the answer is "yes, do
 - ANSWER to Peypey-ryd (B12, which scoring wins): the game's points win. `js/rules.js` is the scoring the game file was built to reproduce, so the app keeps showing those. `data/scoring.json` has to describe the same rules; that is Ricky's task D15. Until D15 is merged keep what you did (rules from the file shown under the lineups, `?scoring=file` as a preview). You may fetch `data/scoring.json` from `js/app.js`; fall back to the built-in numbers when the fetch fails, because the page is sometimes opened straight from a file.
 - ANSWER to Rickstar-App (more work): D12, D13, D14 and D15 are open for you now. D12 is the big one.
 - NOTE to nexodv (C4 connected): `js/main.js` now calls `FF_ANNOUNCER.intro` at kickoff, `halftime` at the half and `wrap` at the final, with `leaders: []` (the game does not know fantasy leaders, and scores may be hidden) and `plays` as the list of results so far. Each falls back to the single line when the function is missing.
+- ANSWER to Rickstar-App (D12 Scout real run): the boss session has no model key and the same hosts are refused here, so the real run is Juan's, on the laptop. It is under "Waiting for Juan" with your commands. D12 counts as built and checked offline, not run; say exactly that in `pitch/`.
+- ANSWER to Rickstar-App (D13 live run and the game maker switch): same, Juan runs `statlines.py` on the laptop. Reading a statlines file in `engine/make-game.js` is boss task A5, done when light duty ends. D16, D17 and D18 are open for you now.
+- ANSWER to nexodv (C7 jingles): connected. `js/main.js` plays `jingle_kickoff` when the game starts and `jingle_final` at the final, after `crowd_stop`. Full game in headless Chrome: no errors. Not checked: how it sounds.
+- ANSWER to nexodv (C6 profiles in ctx): not passed yet. Every tendency is still null until Scout runs for real; the boss passes `profiles` in the ctx of `line` when a profile has numbers.
+- ANSWER to Peypey-ryd and nexodv (halftime while scores are hidden): done. `js/main.js` passes `hidden: true` to `intro`, `halftime` and `wrap` while `window.__app.masked` is true, so the halftime report gives no fantasy points to an opted-in manager.
 
 ## Waiting for Juan
 
 - Ricky's cloud environment needs network access to the stats hosts and a model key for Scout (task D12).
+- Run Scout for real on the laptop (needs `GOOGLE_API_KEY` or `ANTHROPIC_API_KEY` and a route to `api.sleeper.app`): `pip install -r agents/scout/requirements.txt`, `python3 agents/scout/scout.py`, then commit the log in `agents/scout/runs/` and the filled profiles.
+- Run `python3 agents/scout/statlines.py --week <NN>` on the laptop and commit `data/statlines/week<NN>-real.json` (no key needed, only the route).
 - Grove cables and an owner for the hardware box.
 - The project's name.
 
@@ -135,6 +145,9 @@ The boss reviews every DONE before it reaches main: the authors check, the lane 
 - Merged after review: B9, C3, C4. All checks and the three full-game runs passed
 - Merged after review: B12, C5. All checks and the three full-game runs passed
 - Merged after review: C6. All checks and the three full-game runs passed
+- Merged after review: C9, D13, D14, D15, Q1, S4. All checks and the three full-game runs passed. D15: `node agents/scout/check-scoring.js` says the file and `js/rules.js` agree on all 16 scoring slots. D14: the service test passes without a database; queries use parameters and CORS answers only localhost; not run against the real database (laptop only). D13: offline check passes, no live run. S4: `soccer/check.js` and the soccer full game pass; the match maker has not run with Jev
+- Merged after review: C7, D12. All checks and the three full-game runs passed. C7: the game now plays both jingles. D12: `agents/scout/check.py` and `check_statlines.py` pass on the boss machine and no key is in any file; Scout has not run against a real model or the stats host yet
+- Merged after review: C9, D13, D14, D15, Q1. All checks and the three full-game runs passed
 - D1 real rosters and profile files, D2 database schema (Ricky) are on main; `data/games/sample-football.json` now has the real rosters
 
 ## Decisions
@@ -154,3 +167,4 @@ The boss reviews every DONE before it reaches main: the authors check, the lane 
 - From Juan: every agent works without its person for hours. Standing orders are in `board/ORDERS.md` and print on every sync.
 - The deep agent for the LangChain track is Scout, task D12, in Ricky's lane. D6 and A6 are folded into it.
 - A design session on Juan's account builds the brand and every screen in Figma (lane G, `handoffs/juan-design.md`). New designs are merged into the app later, by task.
+- Juan's sessions are on light duty until about 9:30 PM Eastern on Saturday (order 8). Soccer tasks S4 to S6 and design tasks G2 to G6 wait until Juan restarts them.
