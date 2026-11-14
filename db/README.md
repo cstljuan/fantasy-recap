@@ -19,6 +19,14 @@ psql "$DATABASE_URL" -f db/schema.sql
 
 The file can be run again safely: every statement skips what already exists.
 
+For soccer matches, apply the migration after the schema (also safe to run again):
+
+```bash
+psql "$DATABASE_URL" -f db/migrate-002-soccer.sql
+```
+
+It adds a `minute` column to `plays` (the match minute, empty for football) and a view `plays_with_sport` that joins each play to its game's sport. `schema.sql` itself is not changed. For soccer rows `quarter` holds the half, `kind` is `goal` for a goal and `full_time` for the clean sheet row, and `yards` is empty. The football service keeps working before the migration: the minute is only written for rows that have one.
+
 ## Notes
 
 - The app must keep working from the game file alone when the database cannot be reached (`docs/CONTRACT.md` section 5).

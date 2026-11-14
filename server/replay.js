@@ -23,6 +23,7 @@ function ballOf(p) {
 
 function buildPlays(file) {
   var g = JSON.parse(fs.readFileSync(file, 'utf8'));
+  if (g.sport === 'soccer') return buildSoccerPlays(g, file);
   var teams = g.teams;
   var steps = Rules.flatten(g.game, teams);
   var state = Rules.create(teams);
@@ -77,4 +78,67 @@ function buildPlays(file) {
     final: state.score.slice(), started_at: new Date(START).toISOString(), plays: plays };
 }
 
-module.exports = { buildPlays: buildPlays };
+// A soccer match file (soccer/data/*.json, sport "soccer"), replayed with soccer/js/rules.js. One row per event,
+// plus one 'full_time' row for the clean sheets. A shot or penalty that goes in is stored with kind 'goal' (the
+// event type stays in detail.event.t). `quarter` holds the half (1 or 2) and `minute` the match minute.
+// played_at: the match minute from kickoff, with a 15 minute break after the half, and events inside the same
+// minute spread evenly over it. A goal row is the scorer's (team, slot, player and the goal's points). Any other
+// row, like football, takes slot, player, team and fantasy_points from the biggest award of the event. Every
+// award is in detail.fp, and by_team is the team that made the event.
+function buildSoccerPlays(g, file) {
+  var SR = require(path.join(root, 'soccer', 'js', 'rules.js'));
+  var SF = require(path.join(root, 'soccer', 'js', 'fantasy.js'));
+  var teams = g.teams;
+  var s = SR.create(teams);
+  var list = [];
+  SR.flatten(g.game, teams).forEach(function (st) {
+    if (st.kind === 'half') { SR.startHalf(s); return; }
+    if (st.kind === 'final') {
+      list.push({ final: true, team: null, min: 90, half: 2, fp: SF.fullTime(s.score), score: s.score.slice() });
+      return;
+    }
+    var r = SR.apply(s, st.e, st.team);
+    list.push({ e: st.e, r: r, team: st.team, min: st.e.min, half: r.half, fp: r.fp, score: s.score.slice() });
+  });
+  if (s.half !== 2) throw new Error('The match never reached the second half');
+  var perMin = {};
+  list.forEach(function (p) { var k = p.half + ':' + p.min; perMin[k] = (perMin[k] || 0) + 1; });
+  var seen = {};
+  function name(t, slot) { return teams[t].roster[slot] || null; }
+  var plays = list.map(function (p, i) {
+    var k = p.half + ':' + p.min, n = seen[k] = (seen[k] || 0) + 1;
+    var secs = p.min * 60 + (p.half === 2 ? 15 * 60 : 0) + Math.floor((n - 1) * 60 / perMin[k]);
+    var main = null;
+    p.fp.forEach(function (f) { if (!main || Math.abs(f.pts) > Math.abs(main.pts)) main = f; });
+    var team, slot = null, player = null, pts = 0, kind;
+    if (p.final) {
+      kind = 'full_time';
+      team = main ? teams[main.team].id : teams[0].id;
+    } else {
+      kind = p.r.goal ? 'goal' : p.e.t;
+      team = teams[p.team].id;
+      slot = p.r.goal ? p.r.scorer : (typeof p.e.by === 'string' ? p.e.by : null);
+      player = slot ? name(p.team, slot) : null;
+    }
+    if (p.r && p.r.goal) {
+      // a goal row is always the scorer's, even when the scorer is not in a fantasy lineup and only the assist scored
+      p.fp.forEach(function (f) { if (f.team === p.team && f.role === p.r.scorer && f.why !== 'assist') pts = f.pts; });
+    } else if (main) { team = teams[main.team].id; slot = main.role; player = name(main.team, main.role); pts = main.pts; }
+    return {
+      seq: i + 1,
+      played_at: new Date(START + secs * 1000).toISOString(),
+      quarter: p.half, minute: p.min, team: team, slot: slot, player: player, kind: kind,
+      yards: null,
+      fantasy_points: pts,
+      detail: { sport: 'soccer', event: p.e || { t: 'ft' }, by_team: p.final ? null : teams[p.team].id, text: p.final ? 'Full time' : p.r.text, score_after: p.score,
+        half: p.half, min: p.min, goal: !!(p.r && p.r.goal),
+        scorer: p.r && p.r.goal ? name(p.team, p.r.scorer) : null, assist: p.r && p.r.assist ? name(p.team, p.r.assist) : null,
+        fp: p.fp.map(function (f) { return { team: teams[f.team].id, slot: f.role, name: name(f.team, f.role), pts: f.pts, why: f.why }; }) },
+      why: (p.e && p.e.why) || {}
+    };
+  });
+  return { id: path.basename(file).replace(/\.json$/, ''), sport: 'soccer', home: teams[0].id, away: teams[1].id,
+    final: s.score.slice(), started_at: new Date(START).toISOString(), plays: plays };
+}
+
+module.exports = { buildPlays: buildPlays, buildSoccerPlays: buildSoccerPlays };
