@@ -23,3 +23,4 @@
 - 11-14 19:54 UTC | CLAIM | claude/ricky-handoff-setup-ypc3q5 | D11 optional certificate check: server/index.js, server/test.js, server/README.md
 - 11-14 19:54 UTC | CLAIM | claude/ricky-handoff-setup-ypc3q5 | D11 optional certificate check: server/index.js, server/test.js, server/README.md
 - 11-14 19:54 UTC | DONE | claude/ricky-handoff-setup-ypc3q5 | D11 optional certificate check, checked: node server/test.js passes (unset leaves URL unchanged, set gives verifying ssl with the file and strips sslmode), not checked: a real connection with a real CA file, that the right CA file for Tiger Data is the one supplied
+- 11-14 19:54 UTC | CLAIM | claude/ricky-handoff-setup-ypc3q5 | D9 sample league file: data/league.json
