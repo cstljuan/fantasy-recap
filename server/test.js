@@ -156,6 +156,32 @@ var srv = createServer(fake).listen(0, function () {
         .then(function () { return call('GET', '/games/nope/drives', undefined, undefined, noDb.address().port); })
         .then(function (r) { assert.equal(r.status, 404); withDb.close(); oldDb.close(); noDb.close(); });
     })
+    // momentum: totals at the last bucket equal the final score and the game's fantasy points
+    .then(function () {
+      var mo = require('./momentum.js'), rp = require('./replay.js');
+      var file = require('path').join(__dirname, '..', 'data', 'games', 'week11-football.json');
+      var game = rp.buildPlays(file), m = mo.momentum(file, 120), last = m.buckets[m.buckets.length - 1];
+      assert.equal(m.bucketSeconds, 120);
+      ['start', 'quarter', 'fp', 'score', 'fpTotal', 'scoreTotal'].forEach(function (k) { assert.ok(k in m.buckets[0], 'field ' + k); });
+      assert.deepEqual(last.scoreTotal, game.final, 'last bucket score equals the final score');
+      var fpAll = [0, 0];
+      game.plays.forEach(function (p) { p.detail.fp.forEach(function (f) { fpAll[f.team === game.home ? 0 : 1] += f.pts; }); });
+      assert.ok(Math.abs(last.fpTotal[0] - fpAll[0]) < 0.06 && Math.abs(last.fpTotal[1] - fpAll[1]) < 0.06, 'last bucket fantasy points equal the game total');
+      m.buckets.forEach(function (b, i) { assert.equal(b.start, i * 120, 'no gaps in the buckets'); });
+      assert.equal(mo.momentum(file, 900).buckets.length, 12);
+      var rows = game.plays.map(function (p) { return { seq: p.seq, quarter: p.quarter, played_at: p.played_at, detail: p.detail }; });
+      var db1 = { query: function (t) { return Promise.resolve({ rows: /FROM games/.test(t) ? [{ home: game.home, away: game.away }] : rows }); } };
+      var withDb = createServer(db1).listen(0);
+      var noDb = createServer({ query: function () { return Promise.reject(new Error('down')); } }).listen(0);
+      return call('GET', '/games/week11-football/momentum?bucket=120', undefined, undefined, withDb.address().port)
+        .then(function (r) { assert.equal(r.status, 200); assert.equal(r.body.source, 'database'); assert.deepEqual(r.body.buckets, m.buckets); })
+        .then(function () { return call('GET', '/games/week11-football/momentum', undefined, undefined, noDb.address().port); })
+        .then(function (r) { assert.equal(r.body.source, 'file'); assert.deepEqual(r.body.buckets, m.buckets); })
+        .then(function () { return call('GET', '/games/week11-football/momentum?bucket=5', undefined, undefined, noDb.address().port); })
+        .then(function (r) { assert.equal(r.status, 400); })
+        .then(function () { return call('GET', '/games/nope/momentum', undefined, undefined, noDb.address().port); })
+        .then(function (r) { assert.equal(r.status, 404); withDb.close(); noDb.close(); });
+    })
     .then(function () { console.log('OK'); srv.close(); })
     .catch(function (e) { console.error('FAIL', e.message); process.exit(1); });
 });

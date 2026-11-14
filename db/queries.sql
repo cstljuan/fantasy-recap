@@ -54,3 +54,23 @@ SELECT
 FROM per_drive d
 LEFT JOIN ends e USING (index)
 ORDER BY d.index;
+
+-- Momentum: fantasy points and real points per team per bucket of play time. $2 is the bucket in seconds.
+-- Not run on any database. server/momentum.js gives the same buckets in JavaScript (and also lists empty buckets).
+WITH g AS (SELECT home, away FROM games WHERE id = $1),
+t0 AS (SELECT min(played_at) AS t FROM plays WHERE game_id = $1),
+fp AS (
+  SELECT time_bucket(make_interval(secs => $2), p.played_at, (SELECT t FROM t0)) AS bucket,
+         sum(CASE WHEN f ->> 'team' = (SELECT home FROM g) THEN (f ->> 'pts')::numeric ELSE 0 END) AS fp_home,
+         sum(CASE WHEN f ->> 'team' = (SELECT away FROM g) THEN (f ->> 'pts')::numeric ELSE 0 END) AS fp_away,
+         max((p.detail #>> '{score_after,0}')::int) AS home_score,
+         max((p.detail #>> '{score_after,1}')::int) AS away_score
+  FROM plays p LEFT JOIN LATERAL jsonb_array_elements(p.detail -> 'fp') f ON true
+  WHERE p.game_id = $1
+  GROUP BY 1
+)
+SELECT extract(epoch FROM bucket - (SELECT t FROM t0))::int AS start,
+       fp_home, fp_away,
+       sum(fp_home) OVER (ORDER BY bucket) AS fp_home_total, sum(fp_away) OVER (ORDER BY bucket) AS fp_away_total,
+       home_score AS score_home_total, away_score AS score_away_total
+FROM fp ORDER BY bucket;
