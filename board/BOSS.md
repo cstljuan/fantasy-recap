@@ -8,13 +8,13 @@ Do the tasks of your lane in order, one at a time. `T0` comes first for everyone
 
 | Id | Lane | Person | Task | Status |
 |---|---|---|---|---|
-| T0 | all | everyone | Run `sh tools/setup.sh`, make your branch `<username>/start`, run `sh tools/post.sh READY "hello from <name>"` | open |
-| B1 | B | Peyton | Hidden scores and opt in: a start screen where the manager opts in, and every fantasy number masked until the final | open |
-| B2 | B | Peyton | Speed control on the game view: 0.5x, 1x, 2x, 4x, using `window.__ff.speed` | open |
-| C1 | C | Noah | `js/announcer/`: `FF_ANNOUNCER` from `docs/CONTRACT.md` section 3, with a straight voice and a fun voice | open |
-| C2 | C | Noah | Crowd and whistle sounds in `js/audio.js` that build on big plays | open |
-| D1 | D | Ricky | Two rosters of real players in `js/data.js`, and `data/profiles/<team>.json` with on-field tendencies and the source | open |
-| D2 | D | Ricky | `db/schema.sql`: plays as rows over game time, plus per-quarter and per-player totals | open |
+| T0 | all | everyone | Identity check and READY post | done by all four |
+| B1 | B | Peyton | Hidden scores and opt in: a start screen where the manager opts in, and every fantasy number masked until the final | merged |
+| B2 | B | Peyton | Speed control on the game view: 0.5x, 1x, 2x, 4x, using `window.__ff.speed` | merged |
+| C1 | C | Noah | `js/announcer/`: `FF_ANNOUNCER` from `docs/CONTRACT.md` section 3, with a straight voice and a fun voice | merged |
+| C2 | C | Noah | Crowd and whistle sounds in `js/audio.js` that build on big plays | merged |
+| D1 | D | Ricky | Two rosters of real players in `js/data.js`, and `data/profiles/<team>.json` with on-field tendencies and the source | merged |
+| D2 | D | Ricky | `db/schema.sql`: plays as rows over game time, plus per-quarter and per-player totals | merged |
 | D3 | D | Ricky | `server/`: a small service that saves plays to the database and returns them, reading its connection from `.env` | open, needs Juan's database account |
 | S1 | S | Juan | `soccer/`: the pitch from above, 11 against 11 in the same pixel style, one sample match that plays start to finish | open |
 | S2 | S | Juan | Soccer rules and a play library: build-up, shot, save, goal, corner, free kick, foul, offside | open |
@@ -24,7 +24,9 @@ Do the tasks of your lane in order, one at a time. `T0` comes first for everyone
 
 ## Merged
 
-Nothing yet.
+- B1 hidden scores and opt in, B2 speed control, B3 recap reveal (Peyton) are on main
+- C1 announcer `FF_ANNOUNCER`, C2 crowd sounds (Noah) are on main; the boss still has to connect them in `index.html` and `js/main.js`
+- D1 real rosters and profile files, D2 database schema (Ricky) are on main; `data/games/sample-football.json` now has the real rosters
 
 ## Decisions
 
