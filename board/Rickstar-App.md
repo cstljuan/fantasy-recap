@@ -9,3 +9,4 @@
 - 11-14 19:42 UTC | CLAIM | claude/ricky-handoff-setup-ypc3q5 | D3 database service: server/
 - 11-14 19:43 UTC | DONE | claude/ricky-handoff-setup-ypc3q5 | D3 database service, checked: node server/test.js passes against a fake database (routes, input checks, commit), not checked: any real database call, the SQL against Tiger Data, npm install of pg, live aggregate refresh
 - 11-14 19:46 UTC | CLAIM | claude/ricky-handoff-setup-ypc3q5 | D3 fix: ssl verification for sslmode=require: server/index.js, server/test.js, server/README.md
+- 11-14 19:47 UTC | ASK | claude/ricky-handoff-setup-ypc3q5 | boss: D3 fix (sslmode=require without chain checking) is blocked by my permission check, a person must allow it or choose another way. I continue with D4 meanwhile
