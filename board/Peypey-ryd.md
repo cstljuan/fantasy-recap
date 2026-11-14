@@ -17,3 +17,4 @@
 - 11-14 19:46 UTC | CLAIM | Peypey-ryd/work | B4 league home: js/app.js, css/app.css
 - 11-14 19:47 UTC | DONE | Peypey-ryd/work | B4 league home, checked: headless Chromium at 375 and 1280 wide, League is the first screen and tab, two matchups with ours first, opted in mark follows fr.optin, tap opens the matchup screen, five tabs fit with no clipping, no sideways scroll, no console errors, not checked: real phone; the second matchup's teams and opt in are invented sample data
 - 11-14 19:47 UTC | CLAIM | Peypey-ryd/work | B5 why this play card: js/app.js, css/app.css
+- 11-14 19:48 UTC | ASK | Peypey-ryd/work | boss: for B5, how will a v1 event say which why option was chosen? I read e.chosen as { play: 'deep_pass' } if present, else infer it from the event (run, short or deep pass by yards). Option names beyond deep_pass, run, short_pass, screen?
