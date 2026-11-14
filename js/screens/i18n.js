@@ -125,6 +125,17 @@
     ['A player broke a rule. The referee throws a yellow flag, and the ball moves back or forward, usually 5 to 15 yards.', 'Un jugador rompió una regla. El árbitro lanza un pañuelo amarillo y el balón se mueve atrás o adelante, por lo general de 5 a 15 yardas.'],
     ['Each half starts with a kickoff, and so does play after every score: one team kicks the ball deep to the other.', 'Cada mitad empieza con un saque, y también el juego tras cada anotación: un equipo patea el balón lejos hacia el otro.'],
     ['A game has two halves. At halftime the teams rest, and the team that received the first kickoff kicks off to start the second.', 'Un partido tiene dos mitades. En el medio tiempo los equipos descansan, y el que recibió el primer saque patea para empezar la segunda.'],
+    // watch party
+    ['Watch party', 'Fiesta para ver'], ['Join a watch party', 'Unirse a una fiesta para ver'], ['Room code', 'Código de sala'], ['Join', 'Unirse'],
+    ['Play', 'Jugar'], ['Hold', 'Pausar'], ['Release', 'Seguir'], ['Not started', 'Sin empezar'], ['Playing', 'Jugando'], ['Between plays', 'Entre jugadas'],
+    ['Held', 'En pausa'], ['A room code is four letters.', 'Un código de sala tiene cuatro letras.'],
+    ['No room with that code. Check it on the big screen.', 'No hay ninguna sala con ese código. Revísalo en la pantalla grande.'],
+    ['The service does not answer.', 'El servicio no responde.'], ['This browser cannot join without the service.', 'Este navegador no puede unirse sin el servicio.'],
+    ['Looking for the room on this computer. Phones need the service (?api=).', 'Buscando la sala en esta computadora. Los teléfonos necesitan el servicio (?api=).'],
+    ['Tabs on this computer only. Phones need the service (?api=).', 'Solo pestañas de esta computadora. Los teléfonos necesitan el servicio (?api=).'],
+    ['Open the app on a phone and join with this code.', 'Abre la app en un teléfono y únete con este código.'],
+    ['No relay: this browser cannot link tabs, and there is no service.', 'Sin enlace: este navegador no puede unir pestañas y no hay servicio.'],
+    ['Fantasy points so far, on this phone only.', 'Puntos de fantasía hasta ahora, solo en este teléfono.'],
     // share cards (drawn on a canvas)
     ['ON THE FIELD', 'EN EL CAMPO'], ['TOP PERFORMER', 'MEJOR JUGADOR'], ['WIN', 'GANAN'], ['FINAL', 'FINAL'], ['FANTASY POINTS', 'PUNTOS DE FANTASÍA'],
     ['TOP PLAY', 'MEJOR JUGADA'], ['Sample league with mock data. Made with Fantasy Recap.', 'Liga de muestra con datos inventados. Hecho con Fantasy Recap.'],
@@ -250,7 +261,8 @@
       if (!TENDENCY[m[1]]) return null;
       return TENDENCY[m[1]] + ' ' + m[2] + ' en ' + (m[3] === 'recent weeks' ? 'las últimas semanas' : m[3].replace('weeks', 'las semanas')) + ', ' + m[4] + ' en la temporada';
     }],
-    [/^Rule: (.+)$/, function (m) { return 'Regla: ' + tr(m[1]); }]
+    [/^Rule: (.+)$/, function (m) { return 'Regla: ' + tr(m[1]); }],
+    [/^Connected to room ([A-Z]{4})( on this computer)?\.$/, function (m) { return 'Conectado a la sala ' + m[1] + (m[2] ? ' en esta computadora' : '') + '.'; }]
   ];
 
   var ES = {};

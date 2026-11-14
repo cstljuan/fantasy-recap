@@ -580,6 +580,41 @@ body.in-game .a2hs { display: none; }
             padding: 2px var(--sp-1); background: var(--amber); color: var(--ink); pointer-events: none;
             font: 700 var(--fs-micro)/1.2 var(--body); letter-spacing: 0.12em; text-transform: uppercase; }
 
+/* ------------------------------------------------------------ watch party */
+
+.party-chip { position: fixed; z-index: 45; left: 50%; transform: translateX(-50%); top: calc(4px + env(safe-area-inset-top, 0px));
+              max-width: calc(100% - 140px); padding: var(--sp-1) var(--sp-2); background: var(--overlay); color: var(--on-field);
+              border: 1px solid var(--amber); font: 600 var(--fs-meta)/1.3 var(--body); text-align: center; }
+@media (max-width: 759px) { .party-chip { left: 112px; right: 80px; transform: none; max-width: none; } }
+body.in-game .party-note { display: none; }
+.party-chip b { color: var(--amber); text-transform: uppercase; letter-spacing: 0.1em; font-size: var(--fs-micro); }
+.party-code { font: 700 var(--fs-title)/1 var(--mono); letter-spacing: 0.2em; margin-left: var(--sp-1); }
+.party-note { display: block; color: var(--dim); font-size: var(--fs-micro); }
+.party-panel { position: fixed; inset: 0; z-index: 40; display: flex; align-items: flex-start; justify-content: center; overflow-y: auto;
+               padding: max(16px, env(safe-area-inset-top, 0px)) 16px 16px; background: var(--scrim); }
+.party-card { width: 100%; max-width: 420px; background: var(--panel); border: 1px solid var(--rule); border-top: var(--edge) solid var(--amber); padding: var(--sp-3) var(--sp-4) var(--sp-4); }
+.party-top { display: flex; align-items: center; justify-content: space-between; }
+.party-top h2 { color: var(--text); font: 700 var(--fs-lead)/1.1 var(--display); letter-spacing: 0.04em; text-transform: uppercase; }
+.party-x, .party-grid button:not(.cta), .party-speed button { min-height: 44px; padding: 0 var(--sp-3); background: transparent; border: 1px solid var(--rule); border-radius: var(--radius);
+                  cursor: pointer; color: var(--text); font: 700 var(--fs-label)/1 var(--body); letter-spacing: 0.1em; text-transform: uppercase; }
+.party-join { display: flex; flex-wrap: wrap; align-items: center; gap: var(--sp-2); margin-top: var(--sp-3); }
+.party-join label { width: 100%; color: var(--dim); font: 700 var(--fs-label)/1 var(--body); letter-spacing: 0.12em; text-transform: uppercase; }
+.party-join input { flex: 1; min-width: 0; min-height: 50px; padding: 0 var(--sp-3); background: var(--inset); color: var(--text); border: 1px solid var(--rule);
+                    font: 700 var(--fs-num)/1 var(--mono); letter-spacing: 0.3em; text-transform: uppercase; }
+.party-join .cta { flex: none; }
+.party-msg { min-height: 1.4em; margin: var(--sp-2) 0 0; color: var(--dim); font-size: var(--fs-small); }
+.party-now { margin: var(--sp-3) 0; color: var(--text); font: 700 var(--fs-lead)/1.2 var(--display); text-transform: uppercase; letter-spacing: 0.03em; }
+.party-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-2); }
+.party-grid [data-party=moment] { grid-column: 1 / -1; }
+.party-speed { display: flex; gap: var(--sp-2); margin-top: var(--sp-3); }
+.party-speed button { flex: 1; }
+.party-speed button[aria-pressed="true"] { background: var(--text); color: var(--ink); border-color: var(--text); }
+.party-mine { margin-top: var(--sp-4); padding-top: var(--sp-3); border-top: 1px solid var(--rule); }
+.party-mine p { margin: 0; }
+.party-pts { display: flex; justify-content: space-between; gap: var(--sp-3); font-size: var(--fs-body); }
+.party-pts b { font-size: var(--fs-num); margin-left: var(--sp-1); }
+.party-small { margin-top: var(--sp-1) !important; color: var(--dim); font-size: var(--fs-meta); }
+
 /* --------------------------------------------------------- phone polish */
 /* Safe areas for the notch and the home indicator, and tap targets of at least 44 pixels. */
 
