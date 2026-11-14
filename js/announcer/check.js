@@ -564,6 +564,67 @@ console.log('line() with no teams is quiet: ' + (A.line({}, {}) === '' ? 'ok' : 
   console.log('  e.g. explain(first_down): ' + A.explain('first_down'));
 })();
 
+// C27: say it right. Every line a game can produce, in both languages, read through spoken():
+// nothing a voice would spell out or read as a symbol may be left.
+(function () {
+  var fs = require('fs'), path = require('path');
+  // Plain ordinals ("the 14th minute") are left alone: voices read them right.
+  var LEFT = /[&#@*_~^|<>\[\]{}"()\/]|\b[A-Z]{2,}\b|\bQ[1-4]\b|\b[1-4](st|nd|rd|th) (and|y) |\d+-\d+|\d+'|\d:\d|\b(TDs?|FGs?|GC|pts|XP|DST)\b|\bSt\.|[A-Za-z]'[A-Z]/;
+  var bad = [], n = 0;
+  function test(text, where, lang, S) {
+    if (!text) return;
+    n++;
+    var t = (S || A).spoken(text, lang);
+    if (LEFT.test(t) && bad.length < 12) bad.push(where + ': "' + text + '" is read as "' + t + '"');
+  }
+  var Sstory = null;
+  try { Sstory = require(path.join(__dirname, '../../server/story.js')); } catch (err) { /* optional */ }
+  var league = JSON.parse(fs.readFileSync(path.join(__dirname, '../../data/league.json'), 'utf8')), profiles = {};
+  ['GOB', 'PYT'].forEach(function (id) { profiles[id] = JSON.parse(fs.readFileSync(path.join(__dirname, '../../data/profiles/' + id + '.json'), 'utf8')); });
+  ['week11-football', 'sample-football'].forEach(function (id) {
+    var g = JSON.parse(fs.readFileSync(path.join(__dirname, '../../data/games/' + id + '.json'), 'utf8')), teams = g.teams;
+    ['en', 'es'].forEach(function (lang) {
+      STYLES.forEach(function (style) {
+        A.lang = lang; A.reset(); A.setStyle(style);
+        var st = Rules.create(teams), results = [];
+        test(A.intro({ teams: teams, leaders: [] }), id + ' intro', lang);
+        Rules.flatten(g.game, teams).forEach(function (x) {
+          if (x.kind === 'half') { Rules.startHalf(st); test(A.line({ kind: 'half' }, { teams: teams, score: st.score.slice() }), id + ' half', lang); return; }
+          if (x.kind === 'final') { test(A.line({ kind: 'final' }, { teams: teams, score: st.score.slice() }), id + ' final', lang); return; }
+          var r = Rules.apply(st, x.e, x.team); results.push(r);
+          test(A.line(r, { teams: teams, profiles: profiles }), id + ' ' + lang + ' ' + style + ' play', lang);
+          test(A.bigCall(r, { teams: teams }), id + ' big call', lang);
+        });
+        test(A.wrap({ teams: teams, score: st.score.slice(), leaders: [{ name: teams[0].roster.WR1, points: 12.5 }], plays: results }), id + ' wrap', lang);
+        A.reset(); test(A.catchUp(results.slice(0, 30), { teams: teams }), id + ' catch-up', lang);
+        if (Sstory) test(A.recap(Sstory.fromGame(g, id), { teams: teams }), id + ' recap', lang);
+        A.explainKinds.forEach(function (k) { test(A.explain(k), 'explain ' + k, lang); });
+        league.matchups.forEach(function (m) { test(A.preview(m, { league: league, profiles: profiles }), 'preview', lang); });
+      });
+    });
+  });
+  A.lang = 'en'; A.reset();
+  // Soccer, with its own spoken().
+  var SC = require('./soccer/index.js'), sdata = require('../../soccer/js/data.js'), SR = require('../../soccer/js/rules.js');
+  SC.reset();
+  var ss = SR.create(sdata.TEAMS), sres = [];
+  SR.flatten(sdata.SAMPLE_GAME, sdata.TEAMS).forEach(function (x) {
+    if (x.kind === 'half') { SR.startHalf(ss); return; }
+    if (x.kind !== 'play') return;
+    var r = SR.apply(ss, x.e, x.team); sres.push(r);
+    test(SC.line(r, { teams: sdata.TEAMS }), 'soccer play', 'en', SC);
+    test(SC.bigCall(r, { teams: sdata.TEAMS }), 'soccer big call', 'en', SC);
+  });
+  SC.reset(); test(SC.catchUp(sres.slice(0, 20), { teams: sdata.TEAMS }), 'soccer catch-up', 'en', SC);
+  // Every player on both football and both soccer rosters, full name and last name.
+  var g11 = JSON.parse(fs.readFileSync(path.join(__dirname, '../../data/games/week11-football.json'), 'utf8'));
+  data.TEAMS.concat(g11.teams).forEach(function (t) { Object.keys(t.roster).forEach(function (k) { test(t.roster[k], 'name', 'en'); test(t.roster[k], 'name', 'es'); }); });
+  sdata.TEAMS.forEach(function (t) { Object.keys(t.roster).forEach(function (k) { test(t.roster[k], 'soccer name', 'en', SC); }); });
+  bad.forEach(function (b) { problems.push('spoken form: ' + b); });
+  console.log('\nSay it right: ' + n + ' lines and names read through spoken(), ' + bad.length + ' with something a voice would spell out; e.g. "' +
+    A.spoken('Q2 12:00, 3rd & 7 at the GOB 45, 17-14. TOUCHDOWN!') + '"');
+})();
+
 // C26: the spoken recap, from Ricky's story data only.
 (function () {
   var fs = require('fs'), path = require('path'), S;

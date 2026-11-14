@@ -60,6 +60,11 @@
 //                   ahead for good, the lead changes, the longest drive, the biggest fantasy swing and
 //                   each team's best fantasy player. ctx is { teams, style, hidden }; '' while hidden
 //                   or without a story. Goes to onLine (kind 'recap') like every line.
+//   spoken(text, lang)
+//                   the form of a line a voice reads (C27): team codes and yard lines as words ("the
+//                   Pythons 21"), downs ("second and ten"), scores ("17 to 14"), clock times, Q1, TD,
+//                   FG, pts, ordinals, names (St., Ja'Marr, initials) and shouting capitals turned
+//                   into plain words. speak() uses it; captions keep the written line.
 //   explain(kind)   one or two plain sentences on a football rule for someone who has never
 //                   watched, for the app's rule cards; '' for an unknown kind. explainKinds lists
 //                   the kinds; explainFor(res) gives the kinds a finished play shows.
@@ -193,7 +198,7 @@
     if (!item) return;
     if (!chosen.straight) chooseVoices();
     try {
-      var u = new root.SpeechSynthesisUtterance(item.text), set = VOICE_SET[item.style] || VOICE_SET.straight;
+      var u = new root.SpeechSynthesisUtterance(spoken(item.text, item.lang)), set = VOICE_SET[item.style] || VOICE_SET.straight;
       var vk = item.lang === 'es' ? 'es|' + item.style : item.style;
       if (chosen[vk]) { u.voice = chosen[vk]; u.lang = chosen[vk].lang; }
       else if (item.lang === 'es') u.lang = 'es-MX';   // no Spanish voice found: let the browser pick one
@@ -747,6 +752,53 @@
     }
   }
 
+  // ---- C27: say it right ----
+  // Team codes a line can contain, with the names to say. Teams passed to line() are added.
+  var TEAM_NAMES = { GOB: 'Goblins', PYT: 'Pythons', IRN: 'Ironside', RHB: 'Red Harbour', TUR: 'Turtles', OWL: 'Owls' };
+  var ORD = { en: { 1: 'first', 2: 'second', 3: 'third', 4: 'fourth' }, es: { 1: 'primera', 2: 'segunda', 3: 'tercera', 4: 'cuarta' } };
+  var ACRONYM_SAY = { en: { TD: 'touchdown', TDs: 'touchdowns', FG: 'field goal', FGs: 'field goals', XP: 'extra point', pts: 'points', MVP: 'M V P', NFL: 'N F L', DST: 'defense' },
+                      es: { TD: 'touchdown', GC: 'gol de campo', pts: 'puntos', MVP: 'M V P', NFL: 'N F L' } };
+  function learnTeams(teams) { (teams || []).forEach(function (t) { if (t && t.id && t.name) TEAM_NAMES[t.id] = t.name; }); }
+
+  function spoken(text, lang) {
+    if (!text) return '';
+    lang = lang || (isEs() ? 'es' : 'en');
+    var es = lang === 'es', t = String(text), ids = Object.keys(TEAM_NAMES).join('|');
+    // Names: Saint, apostrophes and hyphens inside names, initials.
+    t = t.replace(/\bSt\.\s/g, 'Saint ').replace(/([A-Za-z])'([A-Z])/g, '$1$2').replace(/\b([A-Z])\.([A-Z])\./g, '$1 $2');
+    t = t.replace(/([A-Za-z])-([A-Z][a-z])/g, '$1 $2');
+    // Yard lines: "the GOB 27" / "la PYT 21".
+    t = t.replace(new RegExp('\\b(?:(the|la|el) )?(' + ids + ') (\\d{1,2})\\b', 'g'), function (m, art, id, n) {
+      return es ? 'la ' + n + ' de los ' + TEAM_NAMES[id] : 'the ' + TEAM_NAMES[id] + ' ' + n;
+    });
+    // Any team code left on its own.
+    t = t.replace(new RegExp('\\b(' + ids + ')\\b', 'g'), function (m, id) { return TEAM_NAMES[id]; });
+    // Downs and ordinals: "2nd & 10", "1st and goal", "3rd".
+    t = t.replace(/\b([1-4])(?:st|nd|rd|th)\s*(?:&|and)\s*(\d+|goal)\b/gi, function (m, d, togo) {
+      return (es ? ORD.es[d] + ' y ' : ORD.en[d] + ' and ') + (/goal/i.test(togo) ? (es ? 'gol' : 'goal') : togo);
+    });
+    t = t.replace(/\b(\d+)(st|nd|rd|th)\b/g, function (m, n) { return es ? n : n + (n.slice(-2) >= 11 && n.slice(-2) <= 13 ? 'th' : ({ 1: 'st', 2: 'nd', 3: 'rd' })[n.slice(-1)] || 'th'); });
+    t = t.replace(/\bQ([1-4])\b/g, function (m, q) { return es ? ORD.es[q].replace(/a$/, 'o') + ' cuarto' : ORD.en[q] + ' quarter'; });
+    // Clock times: "7:30", "12:00", "0:35".
+    t = t.replace(/\b(\d{1,2}):(\d{2})\b/g, function (m, mm, ss) {
+      if (+mm === 0) return +ss + (es ? ' segundos' : ' seconds');
+      if (ss === '00') return +mm + (es ? ' minutos' : ' minutes');
+      return +mm + ' ' + (ss.charAt(0) === '0' ? (es ? 'cero ' : 'oh ') + ss.charAt(1) : ss);
+    });
+    // Records before scores: "(1-1, third)" is one win and one loss, "17-14" a score.
+    t = t.replace(/\b(\d+)-(\d+), (first|second|third|fourth|fifth|sixth|[a-z]+th)\b/g, es ? '$1 y $2, $3' : '$1 and $2, $3');
+    t = t.replace(/\b(\d+)-(\d+)\b/g, es ? '$1 a $2' : '$1 to $2');
+    t = t.replace(/\s*\(\s*/g, ', ').replace(/\s*\)/g, ',').replace(/,\s*([,.!?])/g, '$1').replace(/^,\s*/, '');
+    t = t.replace(/&/g, es ? ' y ' : ' and ');
+    // Short forms and shouting capitals.
+    var A = ACRONYM_SAY[es ? 'es' : 'en'];
+    t = t.replace(/\b(TDs?|FGs?|XP|GC|pts|MVP|NFL|DST)\b/g, function (m) { return A[m] || m; });
+    t = t.replace(/\b([A-ZÁÉÍÓÚÑ]{2,})\b/g, function (m) { return m.charAt(0) + m.slice(1).toLowerCase(); });
+    // Leftover symbols a voice would read out.
+    t = t.replace(/[#@*_~^|<>\[\]{}"]/g, ' ').replace(/\s+([,.!?])/g, '$1').replace(/ {2,}/g, ' ').trim();
+    return t;
+  }
+
   // ---- C26: the spoken recap ----
   var RECAP = {
     final: { straight: ['Final: the {winner} {w}, the {loser} {l}.', 'The {winner} beat the {loser}, {w} to {l}.', 'It finished {winner} {w}, {loser} {l}.'],
@@ -1111,6 +1163,7 @@
         ctx = ctx || {};
         var teams = ctx.teams;
         if (!res || !teams || teams.length < 2) return '';
+        learnTeams(teams);
         var score = ctx.score || (res.post && res.post.score) || [0, 0];
         var style = STYLES.indexOf(ctx.style) >= 0 ? ctx.style : api.style;
         var c = classify(res, teams, score);
@@ -1160,6 +1213,7 @@
     bigCall: bigCall,
     preview: preview,
     recap: recap,
+    spoken: spoken,
     _recapLines: RECAP,
     bigCallMaxLength: 200,   // the longest names in the data give 195; check.js tests it
     _bigLines: BIG,

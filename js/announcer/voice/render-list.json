@@ -13,7 +13,7 @@
    "voice": "Ninja - Hype Gaming Commentary",
    "voice_id": "DcLiO3XaUWTu3gyon6hW",
    "lines": 280,
-   "characters": 11785,
+   "characters": 11865,
    "bytes": 3714169
   },
   {
@@ -28,7 +28,7 @@
  ],
  "total": {
   "lines": 366,
-  "characters": 14979,
+  "characters": 15059,
   "bytes": 4685612,
   "cap": 15728640
  },
@@ -45,8 +45,8 @@
    "sport": "football",
    "kind": "kickoff",
    "text": "Here's the kick. Collins brings it out to the PYT 21.",
-   "spoken": "Here's the kick. Collins brings it out to the PYT 21.",
-   "chars": 53,
+   "spoken": "Here's the kick. Collins brings it out to the Pythons 21.",
+   "chars": 57,
    "file": "a2e67c31d7a745b8.mp3"
   },
   {
@@ -237,8 +237,8 @@
    "sport": "football",
    "kind": "kickoff",
    "text": "High and deep. Brown back to the GOB 22.",
-   "spoken": "High and deep. Brown back to the GOB 22.",
-   "chars": 40,
+   "spoken": "High and deep. Brown back to the Goblins 22.",
+   "chars": 44,
    "file": "2841867990a311cd.mp3"
   },
   {
@@ -309,8 +309,8 @@
    "sport": "football",
    "kind": "memory_need_answer",
    "text": "The Pythons need an answer. Collins to the GOB 43.",
-   "spoken": "The Pythons need an answer. Collins to the GOB 43.",
-   "chars": 50,
+   "spoken": "The Pythons need an answer. Collins to the Goblins 43.",
+   "chars": 54,
    "file": "4c46d056706f3a27.mp3"
   },
   {
@@ -341,7 +341,7 @@
    "sport": "football",
    "kind": "sack",
    "text": "Nowhere to go, and Jackson is SACKED! Lost 4.",
-   "spoken": "Nowhere to go, and Jackson is SACKED! Lost 4.",
+   "spoken": "Nowhere to go, and Jackson is Sacked! Lost 4.",
    "chars": 45,
    "file": "a1521854465a5975.mp3"
   },
@@ -445,7 +445,7 @@
    "sport": "football",
    "kind": "fg_good",
    "text": "Aubrey from 43... it's GOOD! Goblins 17, Pythons 7.",
-   "spoken": "[excited] Aubrey from 43... it's GOOD! Goblins 17, Pythons 7.",
+   "spoken": "[excited] Aubrey from 43... it's Good! Goblins 17, Pythons 7.",
    "chars": 61,
    "file": "1dd587a799413aa5.mp3"
   },
@@ -461,8 +461,8 @@
    "sport": "football",
    "kind": "kickoff",
    "text": "Kick is away. Brown returns it to the GOB 36.",
-   "spoken": "Kick is away. Brown returns it to the GOB 36.",
-   "chars": 45,
+   "spoken": "Kick is away. Brown returns it to the Goblins 36.",
+   "chars": 49,
    "file": "26f2360f027aee78.mp3"
   },
   {
@@ -589,8 +589,8 @@
    "sport": "football",
    "kind": "kickoff",
    "text": "Here's the kick. Brown brings it out to the GOB 38.",
-   "spoken": "Here's the kick. Brown brings it out to the GOB 38.",
-   "chars": 51,
+   "spoken": "Here's the kick. Brown brings it out to the Goblins 38.",
+   "chars": 55,
    "file": "79da2d8794817bf9.mp3"
   },
   {
@@ -645,7 +645,7 @@
    "sport": "football",
    "kind": "fumble",
    "text": "Robinson fights for more... FUMBLE! Goblins ball!",
-   "spoken": "[excited] Robinson fights for more... FUMBLE! Goblins ball!",
+   "spoken": "[excited] Robinson fights for more... Fumble! Goblins ball!",
    "chars": 59,
    "file": "23032dfb967fe877.mp3"
   },
@@ -717,8 +717,8 @@
    "sport": "football",
    "kind": "kickoff",
    "text": "Boot is away! Collins back to the PYT 21.",
-   "spoken": "Boot is away! Collins back to the PYT 21.",
-   "chars": 41,
+   "spoken": "Boot is away! Collins back to the Pythons 21.",
+   "chars": 45,
    "file": "dbb2bbfb550eef59.mp3"
   },
   {
@@ -901,8 +901,8 @@
    "sport": "football",
    "kind": "kickoff",
    "text": "Brown takes the kick and scoots to the GOB 22!",
-   "spoken": "Brown takes the kick and scoots to the GOB 22!",
-   "chars": 46,
+   "spoken": "Brown takes the kick and scoots to the Goblins 22!",
+   "chars": 50,
    "file": "8e5fcbcb89191e21.mp3"
   },
   {
@@ -973,8 +973,8 @@
    "sport": "football",
    "kind": "memory_need_answer",
    "text": "Time to answer, Pythons! Collins to the GOB 43!",
-   "spoken": "Time to answer, Pythons! Collins to the GOB 43!",
-   "chars": 47,
+   "spoken": "Time to answer, Pythons! Collins to the Goblins 43!",
+   "chars": 51,
    "file": "de32fd23cfa16f4c.mp3"
   },
   {
@@ -1021,7 +1021,7 @@
    "sport": "football",
    "kind": "sack",
    "text": "Jackson goes DOWN! The Goblins pass rush gets home!",
-   "spoken": "Jackson goes DOWN! The Goblins pass rush gets home!",
+   "spoken": "Jackson goes Down! The Goblins pass rush gets home!",
    "chars": 51,
    "file": "b645a4ab2c0e5a0b.mp3"
   },
@@ -1117,8 +1117,8 @@
    "sport": "football",
    "kind": "kickoff",
    "text": "Up it goes! Brown brings it to the GOB 36.",
-   "spoken": "Up it goes! Brown brings it to the GOB 36.",
-   "chars": 42,
+   "spoken": "Up it goes! Brown brings it to the Goblins 36.",
+   "chars": 46,
    "file": "1396b53efa01e4f2.mp3"
   },
   {
@@ -1229,8 +1229,8 @@
    "sport": "football",
    "kind": "kickoff",
    "text": "Brown takes the kick and scoots to the GOB 38!",
-   "spoken": "Brown takes the kick and scoots to the GOB 38!",
-   "chars": 46,
+   "spoken": "Brown takes the kick and scoots to the Goblins 38!",
+   "chars": 50,
    "file": "980a626d31bc5129.mp3"
   },
   {
@@ -1269,7 +1269,7 @@
    "sport": "football",
    "kind": "fumble",
    "text": "The ball is LOOSE! And the Goblins fall on it!",
-   "spoken": "[excited] The ball is LOOSE! And the Goblins fall on it!",
+   "spoken": "[excited] The ball is Loose! And the Goblins fall on it!",
    "chars": 56,
    "file": "d25cb9be069a7239.mp3"
   },
@@ -1309,8 +1309,8 @@
    "sport": "football",
    "kind": "kickoff",
    "text": "Here's the kick. Brown brings it out to the GOB 27.",
-   "spoken": "Here's the kick. Brown brings it out to the GOB 27.",
-   "chars": 51,
+   "spoken": "Here's the kick. Brown brings it out to the Goblins 27.",
+   "chars": 55,
    "file": "3f176b5d64e21969.mp3"
   },
   {
@@ -1397,7 +1397,7 @@
    "sport": "football",
    "kind": "sack",
    "text": "Nowhere to go, and Jackson is SACKED! Lost 6.",
-   "spoken": "Nowhere to go, and Jackson is SACKED! Lost 6.",
+   "spoken": "Nowhere to go, and Jackson is Sacked! Lost 6.",
    "chars": 45,
    "file": "837431e82059eec9.mp3"
   },
@@ -1461,7 +1461,7 @@
    "sport": "football",
    "kind": "fg_good",
    "text": "Aubrey from 47... it's GOOD! Goblins 10, Pythons 0.",
-   "spoken": "[excited] Aubrey from 47... it's GOOD! Goblins 10, Pythons 0.",
+   "spoken": "[excited] Aubrey from 47... it's Good! Goblins 10, Pythons 0.",
    "chars": 61,
    "file": "887a6a0e2567197b.mp3"
   },
@@ -1469,8 +1469,8 @@
    "sport": "football",
    "kind": "memory_need_answer",
    "text": "The Pythons need an answer. Collins to the PYT 30.",
-   "spoken": "The Pythons need an answer. Collins to the PYT 30.",
-   "chars": 50,
+   "spoken": "The Pythons need an answer. Collins to the Pythons 30.",
+   "chars": 54,
    "file": "20cde9469c2bac32.mp3"
   },
   {
@@ -1549,8 +1549,8 @@
    "sport": "football",
    "kind": "kickoff",
    "text": "High and deep. Brown back to the GOB 25.",
-   "spoken": "High and deep. Brown back to the GOB 25.",
-   "chars": 40,
+   "spoken": "High and deep. Brown back to the Goblins 25.",
+   "chars": 44,
    "file": "116f71f119748c55.mp3"
   },
   {
@@ -1613,8 +1613,8 @@
    "sport": "football",
    "kind": "kickoff",
    "text": "Kick is away. Collins returns it to the PYT 28.",
-   "spoken": "Kick is away. Collins returns it to the PYT 28.",
-   "chars": 47,
+   "spoken": "Kick is away. Collins returns it to the Pythons 28.",
+   "chars": 51,
    "file": "640412a465ae2223.mp3"
   },
   {
@@ -1741,8 +1741,8 @@
    "sport": "football",
    "kind": "kickoff",
    "text": "Here's the kick. Brown brings it out to the GOB 24.",
-   "spoken": "Here's the kick. Brown brings it out to the GOB 24.",
-   "chars": 51,
+   "spoken": "Here's the kick. Brown brings it out to the Goblins 24.",
+   "chars": 55,
    "file": "2a59f3da9beea3c0.mp3"
   },
   {
@@ -1813,8 +1813,8 @@
    "sport": "football",
    "kind": "kickoff",
    "text": "Boot is away! Brown back to the GOB 27.",
-   "spoken": "Boot is away! Brown back to the GOB 27.",
-   "chars": 39,
+   "spoken": "Boot is away! Brown back to the Goblins 27.",
+   "chars": 43,
    "file": "96e1d4d99087bbac.mp3"
   },
   {
@@ -1957,8 +1957,8 @@
    "sport": "football",
    "kind": "memory_need_answer",
    "text": "Time to answer, Pythons! Collins to the PYT 30!",
-   "spoken": "Time to answer, Pythons! Collins to the PYT 30!",
-   "chars": 47,
+   "spoken": "Time to answer, Pythons! Collins to the Pythons 30!",
+   "chars": 51,
    "file": "f2ad27c1fa9bc179.mp3"
   },
   {
@@ -2029,8 +2029,8 @@
    "sport": "football",
    "kind": "kickoff",
    "text": "Brown takes the kick and scoots to the GOB 25!",
-   "spoken": "Brown takes the kick and scoots to the GOB 25!",
-   "chars": 46,
+   "spoken": "Brown takes the kick and scoots to the Goblins 25!",
+   "chars": 50,
    "file": "985b5eb7c2de1cc1.mp3"
   },
   {
@@ -2093,8 +2093,8 @@
    "sport": "football",
    "kind": "kickoff",
    "text": "Up it goes! Collins brings it to the PYT 28.",
-   "spoken": "Up it goes! Collins brings it to the PYT 28.",
-   "chars": 44,
+   "spoken": "Up it goes! Collins brings it to the Pythons 28.",
+   "chars": 48,
    "file": "85f15ea43dbb6f5b.mp3"
   },
   {
@@ -2197,8 +2197,8 @@
    "sport": "football",
    "kind": "kickoff",
    "text": "Brown takes the kick and scoots to the GOB 24!",
-   "spoken": "Brown takes the kick and scoots to the GOB 24!",
-   "chars": 46,
+   "spoken": "Brown takes the kick and scoots to the Goblins 24!",
+   "chars": 50,
    "file": "74cce58b374ecf4f.mp3"
   },
   {
@@ -2261,7 +2261,7 @@
    "sport": "football",
    "kind": "downs",
    "text": "They went for it and... NO! Goblins ball!",
-   "spoken": "[excited] They went for it and... NO! Goblins ball!",
+   "spoken": "[excited] They went for it and... No! Goblins ball!",
    "chars": 51,
    "file": "2f2f31c268eefde2.mp3"
   },
@@ -2349,7 +2349,7 @@
    "sport": "soccer",
    "kind": "goal_head",
    "text": "Haaland rises... and heads it in! GOAL!",
-   "spoken": "[excited] Haaland rises... and heads it in! GOAL!",
+   "spoken": "[excited] Haaland rises... and heads it in! Goal!",
    "chars": 49,
    "file": "b4ae688d6930b64b.mp3"
   },
@@ -2749,7 +2749,7 @@
    "sport": "soccer",
    "kind": "penalty_given",
    "text": "PENALTY! Dias takes out Salah!",
-   "spoken": "[excited] PENALTY! Dias takes out Salah!",
+   "spoken": "[excited] Penalty! Dias takes out Salah!",
    "chars": 40,
    "file": "10bd8b4824ddfc2a.mp3"
   },
@@ -2877,7 +2877,7 @@
    "sport": "soccer",
    "kind": "goal_head",
    "text": "Gvardiol gets up highest... and it's IN!",
-   "spoken": "[excited] Gvardiol gets up highest... and it's IN!",
+   "spoken": "[excited] Gvardiol gets up highest... and it's In!",
    "chars": 50,
    "file": "0315d82fce48ba3d.mp3"
   },

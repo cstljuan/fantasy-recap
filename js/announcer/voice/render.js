@@ -54,7 +54,12 @@ function estBytes(text) { return Math.round((text.split(/\s+/).length / 2.6 + 0.
 // ElevenLabs audio tags for the big moments. The tag is sent to ElevenLabs only; the text
 // in the index (and on screen) stays without it.
 var EXCITED = /^(touchdown|goal|memory_(lead_change|go_ahead|answer|hundred|hat_trick|late_|brace|equaliser)|big_gain|fg_good|final$|save_pen|interception|fumble|downs|penalty_given|foul_red)/;
-function spoken(text, kind) { return (EXCITED.test(kind || '') ? '[excited] ' : '') + text; }
+// ElevenLabs gets the spoken form (C27: team codes, downs, scores and capitals as words), with
+// the tag for big moments; the index keeps the written line, which is what speak() is given.
+function spoken(text, kind, sp) {
+  var A = (sp || sport) === 'soccer' ? require(path.join(ROOT, 'js/announcer/soccer/index.js')) : require(path.join(ROOT, 'js/announcer/index.js'));
+  return (EXCITED.test(kind || '') ? '[excited] ' : '') + (A.spoken ? A.spoken(text) : text);
+}
 
 function readGameFile(file) {
   var src = fs.readFileSync(file, 'utf8');
@@ -136,7 +141,7 @@ function plan(sp) {
     seen[l.text] = true;
     var f = index.lines[l.text];
     if (f && fs.existsSync(path.join(outDir, f)) && index.voice_id === v.voice_id && index.model === voices.model) { have++; return; }
-    var said = spoken(l.text, l.kind);
+    var said = spoken(l.text, l.kind, sp);
     todo.push({ sport: sp, text: l.text, kind: l.kind, spoken: said, chars: said.length, bytes: estBytes(said), file: idFor(l.text, v) + '.mp3' });
   });
   return { sport: sp, id: c.id, said: c.lines.length, different: Object.keys(seen).length, have: have, todo: todo, voice: v };
