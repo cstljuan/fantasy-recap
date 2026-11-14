@@ -16,8 +16,8 @@ Run `sh tools/next.sh` to get your next task with its full description. A row is
 | B13 | B | Peypey-ryd | Why card from the real game file: read `e.why.picked`, name options by player | open |
 | B4 | B | Peypey-ryd | League home: this week's matchups and the Tuesday release | merged |
 | B5 | B | Peypey-ryd | "Why this play" card with probability bars | merged |
-| B6 | B | Peypey-ryd | My team view: `?me=<team id>` | open |
-| B7 | B | Peypey-ryd | Result card to share | open |
+| B6 | B | Peypey-ryd | My team view: `?me=<team id>` | merged |
+| B7 | B | Peypey-ryd | Result card to share | merged |
 | B8 | B | Peypey-ryd | Sport switch control: football and soccer | open |
 | B9 | B | Peypey-ryd | Phone polish and keyboard use | open |
 | B12 | B | Peypey-ryd | Lineup points from the scoring rules, with Ricky | open |
@@ -85,6 +85,7 @@ The boss reviews every DONE before it reaches main: the authors check, the lane 
 - B10 floaters off while opted in, and the screens say Paused while the game view is closed (Peyton) is on main. Boss check: floaters off and scores masked while opted in, no errors; the reveal at the final rests on Peyton's own run
 - S1 the soccer game and S2 fantasy soccer (Juan) are on main in `soccer/`. Boss check: `node soccer/check.js` OK, all files parse; not run in a browser by the boss. Open `soccer/index.html` to see it. C8 soccer lines and D7 soccer rosters are now open
 - Merged in this round: B11, B4, B5, D3, D4, S3. Checks: every file parses, football rules OK, announcer check OK, soccer check OK, service test OK, three full games in headless Chrome with no errors
+- Merged after review: B6, B7. All checks and the three full-game runs passed
 - D1 real rosters and profile files, D2 database schema (Ricky) are on main; `data/games/sample-football.json` now has the real rosters
 
 ## Decisions
