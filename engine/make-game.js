@@ -14,6 +14,11 @@
 //
 //   node engine/make-game.js --from-sample --seed 7 --out data/games/week11-football.json
 //   node engine/make-game.js --from-sample --no-jev          (no network, same checks)
+//   node engine/make-game.js --plays data/rosters/plays-2026.json --week 9 [--teams GOB,PYT] --out data/games/<id>.json
+//     builds the game from a real week: every catch and run our players really made that week, with its real yards
+//     and touchdown, their real field goals (distance band and result), sacks, interceptions and lost fumbles.
+//     Drive starts, incompletions and penalties are the filler that makes the drives fit. The quarterback's passing
+//     is the catches by our own receivers, not every real throw of that week.
 'use strict';
 const fs = require('fs');
 const path = require('path');
@@ -58,13 +63,14 @@ function sameLines(a, b) {
   const diffs = [];
   a.forEach(function (ta, i) {
     const tb = b[i];
-    const roles = Object.keys(Object.assign({}, ta.points, tb.points));
+    const roles = ta.points ? Object.keys(Object.assign({}, ta.points, tb.points)) : [];   // real-week targets have no points yet
     roles.forEach(function (role) { if (round1(ta.points[role] || 0) !== round1(tb.points[role] || 0)) diffs.push('team ' + i + ' ' + role + ' points ' + (ta.points[role] || 0) + ' vs ' + (tb.points[role] || 0)); });
     Object.keys(Object.assign({}, ta.players, tb.players)).forEach(function (slot) {
       const x = ta.players[slot] || {}, y = tb.players[slot] || {};
       ['rec', 'recYds', 'recTD', 'rush', 'rushYds', 'rushTD'].forEach(function (k) { if ((x[k] || 0) !== (y[k] || 0)) diffs.push('team ' + i + ' ' + slot + ' ' + k + ' ' + (x[k] || 0) + ' vs ' + (y[k] || 0)); });
     });
-    if (ta.score !== tb.score) diffs.push('team ' + i + ' score ' + ta.score + ' vs ' + tb.score);
+    if (ta.score !== null && ta.score !== tb.score) diffs.push('team ' + i + ' score ' + ta.score + ' vs ' + tb.score);
+    if (ta.fgCount !== undefined && tb.fg.filter(function (k) { return k.good; }).length !== ta.fgCount) diffs.push('team ' + i + ' field goals made differ');
   });
   return diffs;
 }
@@ -74,6 +80,10 @@ function budgetFor(line) {
   const touches = [];
   Object.keys(line.players).forEach(function (slot) {
     const p = line.players[slot];
+    if (p.touches) {   // a real week: each touch keeps its real yards and touchdown
+      p.touches.forEach(function (t) { touches.push({ slot: slot, kind: t.kind, td: !!t.td, yds: t.yds, fixed: true, real: t.ref || null }); });
+      return;
+    }
     for (let i = 0; i < p.rec; i++) touches.push({ slot: slot, kind: 'pass', td: i < p.recTD });
     for (let i = 0; i < p.rush; i++) touches.push({ slot: slot, kind: 'run', td: i < p.rushTD });
   });
@@ -83,7 +93,8 @@ function budgetFor(line) {
     left[slot + ':pass'] = { n: p.rec, yds: p.recYds };
     left[slot + ':run'] = { n: p.rush, yds: p.rushYds };
   });
-  return { touches: touches, left: left, fg: line.fg.slice(), xp: [], ints: line.ints, sacks: line.sacks, fumbles: line.fumbles.slice(), xpGood: line.xpGood, xpMiss: line.xpMiss };
+  return { touches: touches, left: left, fg: line.fg.slice(), xp: [], ints: line.ints, sacks: line.sacks, fumbles: line.fumbles.slice(), xpGood: line.xpGood, xpMiss: line.xpMiss,
+    sackYds: line.sackYds ? line.sackYds.slice() : null };
 }
 
 // Deal a team's budget into `count` drives.
@@ -108,6 +119,7 @@ function planDrives(r, b, count) {
   const sackDrives = order.filter(function (d) { return d.end !== 'td'; });
   order.forEach(function (d) { d.sacks = 0; });
   for (let i = 0; i < b.sacks; i++) pick(r, sackDrives.length ? sackDrives : order).sacks++;
+  if (b.sackYds) { const pool = shuffle(r, b.sackYds); order.forEach(function (d) { d.sackYds = pool.splice(0, d.sacks); }); }
   const xps = shuffle(r, Array(b.xpGood).fill(true).concat(Array(b.xpMiss).fill(false)));
   order.filter(function (d) { return d.end === 'td'; }).forEach(function (d, i) { d.xp = xps[i] !== undefined ? xps[i] : true; });
   return order;
@@ -123,6 +135,10 @@ function specFor(r, d, b, start, freeStart) {
   all.forEach(function (t) { const k = t.slot + ':' + t.kind; (groups[k] = groups[k] || []).push(t); });
   let lo = 0, hi = 0; const ranges = {};
   for (const k in groups) {
+    if (groups[k].every(function (t) { return t.fixed; })) {
+      const sum = groups[k].reduce(function (a, t) { return a + t.yds; }, 0);
+      ranges[k] = { lo: sum, hi: sum }; lo += sum; hi += sum; continue;
+    }
     const L = b.left[k], m = groups[k].length, future = L.n - m, kind = k.split(':')[1];
     if (future < 0) return null;
     const minFuture = L.yds >= L.n ? future : 0;
@@ -132,7 +148,7 @@ function specFor(r, d, b, start, freeStart) {
     if (a > z) return null;
     ranges[k] = { lo: future === 0 ? L.yds : a, hi: future === 0 ? L.yds : z }; lo += ranges[k].lo; hi += ranges[k].hi;
   }
-  const sackYds = []; for (let i = 0; i < d.sacks; i++) sackYds.push(-int(r, 2, 9));
+  const sackYds = []; for (let i = 0; i < d.sacks; i++) sackYds.push(d.sackYds && d.sackYds[i] !== undefined ? d.sackYds[i] : -int(r, 2, 9));
   const sackSum = sackYds.reduce(function (a, y) { return a + y; }, 0);
   const fumbleYds = d.fumble ? d.fumble.yds : 0;
   let want, s = start, pen = 0;
@@ -159,7 +175,12 @@ function specFor(r, d, b, start, freeStart) {
   if (extra > 0) return null;
   const items = [];
   keys.forEach(function (k) {
-    const ts = groups[k], kind = k.split(':')[1]; let left = share[k]; const base = left >= ts.length ? 1 : 0;
+    const ts = groups[k], kind = k.split(':')[1];
+    if (ts.every(function (t) { return t.fixed; })) {
+      ts.forEach(function (t) { items.push({ type: 'touch', slot: t.slot, kind: t.kind, yds: t.yds, td: t === d.last, real: t.real }); });
+      return;
+    }
+    let left = share[k]; const base = left >= ts.length ? 1 : 0;
     const y = ts.map(function () { return base; }); left -= base * ts.length; let g = 0;
     while (left > 0 && g++ < 5000) { const i = Math.floor(r() * ts.length); if (y[i] < cap[kind]) { const add = Math.min(left, int(r, 1, 6)); y[i] += Math.min(add, cap[kind] - y[i]); left -= Math.min(add, cap[kind] - (y[i] - Math.min(add, cap[kind] - y[i]))) > 0 ? Math.min(add, left) : 0; } }
     const sum = y.reduce(function (a, v) { return a + v; }, 0);
@@ -356,13 +377,65 @@ function tendencyText(file) {
   } catch (err) { return null; }
 }
 
+// ---------------------------------------------------------------- a real week
+// Target lines from data/rosters/plays-2026.json (agents/scout/plays.py) for one week: each roster player's real
+// catches and runs with their yards, kicks, sacks, interceptions and lost fumbles. Plays wiped out by a penalty and
+// accepted pass interference are left out. Points and score are not known before the game is built.
+function linesFromPlays(doc, week, teams) {
+  return teams.map(function (T) {
+    const out = { players: {}, fg: [], xpGood: 0, xpMiss: 0, ints: 0, sacks: 0, sackYds: [], fumbles: [], points: null, score: null, used: [] };
+    Object.keys(T.roster).forEach(function (slot) {
+      const pl = doc.players[T.id + '.' + slot];
+      const p = out.players[slot] = { rec: 0, recYds: 0, recTD: 0, rush: 0, rushYds: 0, rushTD: 0, touches: [] };
+      if (!pl || pl.name !== T.roster[slot]) return;
+      pl.plays.forEach(function (x) {
+        if (x.wk !== week || x.nullified || (x.dpi && x.kind === 'inc')) return;
+        const ref = { event: x.ev, q: x.q, clock: x.clk, text: (x.text || '').slice(0, 140) };
+        const use = function () { out.used.push(Object.assign({ slot: slot }, ref)); };
+        if (x.role === 'target' && x.kind === 'pass' && typeof x.yds === 'number') {
+          p.rec++; p.recYds += x.yds; if (x.td) p.recTD++; p.touches.push({ kind: 'pass', yds: x.yds, td: !!x.td, ref: ref }); use();
+        } else if (x.role === 'rusher' && (x.kind === 'run' || x.kind === 'scramble') && typeof x.yds === 'number') {
+          p.rush++; p.rushYds += x.yds; if (x.td) p.rushTD++; p.touches.push({ kind: 'run', yds: x.yds, td: !!x.td, ref: ref }); use();
+        } else if (x.role === 'passer' && x.kind === 'int') { out.ints++; use(); }
+        else if (x.role === 'passer' && x.kind === 'sack') { out.sacks++; out.sackYds.push(Math.min(-1, Math.max(-15, x.yds || -5))); use(); }
+        else if (x.role === 'kicker' && x.kind === 'fg' && typeof x.dist_fg === 'number') { out.fg.push({ good: !!x.good, dist: x.dist_fg }); use(); }
+      });
+    });
+    out.fgCount = out.fg.filter(function (k) { return k.good; }).length;
+    // extra points follow the touchdowns of this game, not the kicker's real team
+    out.xpGood = Object.keys(out.players).reduce(function (n, s) { return n + out.players[s].recTD + out.players[s].rushTD; }, 0);
+    return out;
+  });
+}
+
+function teamsFor(ids) {
+  return ids.map(function (id) {
+    const t = Data.TEAMS.filter(function (x) { return x.id === id; })[0];
+    if (t) return t;
+    const d = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'rosters', id + '.json'), 'utf8'));
+    return { id: d.team, name: d.name, full: d.full, colors: d.colors, roster: d.roster };
+  });
+}
+
 async function main() {
   const a = process.argv.slice(2);
   function arg(name, dflt) { const i = a.indexOf(name); return i >= 0 && a[i + 1] ? a[i + 1] : dflt; }
-  const teams = Data.TEAMS;
-  let targets;
+  let teams = Data.TEAMS;
+  let targets, source = { from: 'sample', note: 'the scripted sample game in js/data.js' };
   if (a.indexOf('--from-sample') >= 0) targets = statlines(teams, Data.SAMPLE_GAME);
-  else { console.error('Give the stat lines: --from-sample (uses the sample game in js/data.js)'); process.exit(2); }
+  else if (arg('--plays', '')) {
+    const week = parseInt(arg('--week', ''), 10);
+    if (!(week >= 1)) { console.error('Give the week: --week <n>'); process.exit(2); }
+    teams = teamsFor(arg('--teams', 'GOB,PYT').split(','));
+    const doc = JSON.parse(fs.readFileSync(arg('--plays'), 'utf8'));
+    targets = linesFromPlays(doc, week, teams);
+    source = { from: 'plays', file: arg('--plays'), week: week, season: doc.season,
+      note: 'every catch and run our players really made in week ' + week + ' (ESPN play-by-play), with real yards and touchdowns; field goals keep their real distance band and result; sacks and interceptions are real; drive starts, incompletions and penalties are filler; the quarterback\'s passing is the catches by our own receivers; extra points follow this game\'s touchdowns',
+      used: targets.map(function (t, i) { return { team: teams[i].id, plays: t.used }; }) };
+    targets.forEach(function (t) { delete t.used; });
+  }
+  else { console.error('Give the stat lines: --from-sample (uses the sample game in js/data.js), or --plays <file> --week <n>'); process.exit(2); }
+
   const useJev = a.indexOf('--no-jev') < 0 && jev.hasKey();
   const profiles = {}; teams.forEach(function (t) { const x = tendencyText(path.join(__dirname, '..', 'data', 'profiles', t.id + '.json')); if (x) profiles[t.id] = x; });
   const seed0 = parseInt(arg('--seed', '1'), 10);
@@ -377,7 +450,7 @@ async function main() {
   const plays = result.game.drives.reduce(function (n, d) { return n + d.plays.length; }, 0);
   const called = result.game.drives.reduce(function (n, d) { return n + d.plays.filter(function (e) { return e.why; }).length; }, 0);
   const file = { version: 1, sport: 'football', teams: teams, game: result.game,
-    report: { seedTried: tries, plays: plays, playsChosenByJev: called, model: result.model || null, jev: jev.usage(), score: result.made.map(function (m) { return m.score; }), points: result.made.map(function (m) { return m.points; }), matchesTargets: true } };
+    report: { seedTried: tries, plays: plays, playsChosenByJev: called, model: result.model || null, jev: jev.usage(), score: result.made.map(function (m) { return m.score; }), points: result.made.map(function (m) { return m.points; }), matchesTargets: true, source: source } };
   const outFile = arg('--out', '');
   if (outFile) fs.writeFileSync(outFile, JSON.stringify(file, null, 1));
   console.log('OK: a legal game that reproduces every stat line.');
