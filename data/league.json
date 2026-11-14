@@ -1,0 +1,32 @@
+{
+  "invented": true,
+  "note": "INVENTED SAMPLE LEAGUE. The league, the two other teams and who opted in are made up for the demo. Only the first matchup uses the real rosters in js/data.js.",
+  "name": "Sample League",
+  "week": 11,
+  "release": { "day": "Tuesday", "text": "Recap drops Tuesday" },
+  "matchups": [
+    {
+      "ours": true,
+      "teams": [
+        { "id": "GOB", "full": "Gridiron Goblins", "tile": "#5b34b8" },
+        { "id": "PYT", "full": "Pixel Pythons", "tile": "#c96a10" }
+      ],
+      "optedIn": [ "GOB", "PYT" ]
+    },
+    {
+      "ours": false,
+      "teams": [
+        { "id": "TUR", "full": "Turbo Turtles", "tile": "#2f8f6b" },
+        { "id": "OWL", "full": "Midnight Owls", "tile": "#4a5bd0" }
+      ],
+      "optedIn": [ "TUR", "OWL" ]
+    }
+  ],
+  "fields": {
+    "week": "week number, whole number",
+    "release": "when the recap opens: day name and the text to show",
+    "matchups": "this week's two games, our game first (ours is true)",
+    "teams": "id, full name and the tile color of each team",
+    "optedIn": "ids of the teams whose manager opted in to the recap; the others watch nothing hidden"
+  }
+}

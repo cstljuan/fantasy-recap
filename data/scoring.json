@@ -1,0 +1,17 @@
+{
+  "name": "Standard, half point per reception",
+  "per": {
+    "pass_yards": 0.04,
+    "pass_td": 4,
+    "interceptions": -2,
+    "rush_yards": 0.1,
+    "rush_td": 6,
+    "receptions": 0.5,
+    "rec_yards": 0.1,
+    "rec_td": 6,
+    "fg_made": 3,
+    "fg_missed": 0,
+    "xp_made": 1
+  },
+  "notes": "Every value is points per one unit of the stat. 0.04 per pass yard is 1 point per 25 yards. 0.1 per rush or receiving yard is 1 point per 10. Yards count fractionally, there is no rounding down. Defense is not scored."
+}
