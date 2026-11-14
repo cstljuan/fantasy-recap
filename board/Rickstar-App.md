@@ -11,3 +11,4 @@
 - 11-14 19:46 UTC | CLAIM | claude/ricky-handoff-setup-ypc3q5 | D3 fix: ssl verification for sslmode=require: server/index.js, server/test.js, server/README.md
 - 11-14 19:47 UTC | ASK | claude/ricky-handoff-setup-ypc3q5 | boss: D3 fix (sslmode=require without chain checking) is blocked by my permission check, a person must allow it or choose another way. I continue with D4 meanwhile
 - 11-14 19:47 UTC | CLAIM | claude/ricky-handoff-setup-ypc3q5 | D4 week of stat lines: data/statlines/week11.json, data/statlines/README.md
+- 11-14 19:47 UTC | DONE | claude/ricky-handoff-setup-ypc3q5 | D4 week of stat lines, checked: JSON parses, 14 players and 2 defenses, fields documented, file marked invented, not checked: that the game maker reads this shape, whether the numbers are believable beyond my own judgment
