@@ -51,6 +51,8 @@ It is connected: `js/main.js` calls `line` for every play result, for halftime w
 
 `data/profiles/<team id>.json`: `{ "team": "<id>", "source": "<where the numbers came from>", "players": { "<slot>": { "name", "position", "tendencies": { ... numbers from 0 to 1 ... }, "notes" } } }`. On-field tendencies only. Nothing about anyone's private life.
 
+Optional recent form (task D24), old fields unchanged: `players.<slot>.form = { "tendencies": { same keys as tendencies, 0 to 1 or null }, "tendency_sources": { "<key>": { source, date, how, weeks } }, "weeks": [the three weeks used, oldest first], "skipped_weeks": [...], "source", "date", "notes" }`. Written by `python3 agents/scout/form.py`; raw sums in `data/rosters/form-2026.json`. A reader must work when `form` is missing or a value is null.
+
 ## 5. Database (lane D)
 
 Every play is stored as one row with the time it happened in the game. The schema is in `db/schema.sql`. The app must keep working from the game file alone when the database cannot be reached.
