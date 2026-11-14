@@ -90,3 +90,8 @@ Give the announcer a memory. Keep a running record of the game inside `js/announ
 ## Task C13: the mix
 
 In `js/audio.js`: one master volume and a mute, a separate level for crowd and for effects, the crowd ducking under the announcer while a line is being spoken, and everything silent when the page is hidden. `FF_AUDIO.setVolume(kind, 0 to 1)`, `FF_AUDIO.mute(true or false)`, remembered in `localStorage`. Post a NOTE to peyton with the calls so she can put a sound control in the game view.
+
+## Task C14: rule explainers and the transcript (with Peyton)
+
+Two things. First, `FF_ANNOUNCER.explain(kind)` returns one or two plain sentences that explain a football rule to someone who has never watched: kinds `first_down`, `downs`, `touchdown`, `extra_point`, `field_goal`, `punt`, `interception`, `fumble`, `sack`, `penalty`, `kickoff`, `halftime`; an unknown kind returns an empty string. `FF_ANNOUNCER.explainKinds` lists them, and `explainFor(res)` returns the kinds a finished play shows. Each explanation fits Peyton's rule card (B21): ask Peyton for the size, and post `NOTE "peyton: ..."` when it is on your branch. Do the same for soccer (`offside`, `corner`, `free_kick`, `penalty_kick`, `yellow`, `red`, `throw_in`, `goal_kick`, `extra_time`) if C8 is done. Second, `FF_ANNOUNCER.transcript()` returns every line said so far in this game as `[ { t, text, kind } ]`, emptied on restart, so the app can offer the broadcast as text. Extend `js/announcer/check.js` for both.
+

@@ -1,10 +1,10 @@
 name: main-follows-boss
-# A cloud session can only push its own branch. When the boss works from the cloud it pushes
-# cstljuan/boss, and this moves main forward to the same commit. It never creates a commit
+# A cloud session can only push its own branch. When a boss works from the cloud it pushes
+# its own boss branch (cstljuan/boss or Rickstar-App/boss), and this moves main forward to the same commit. It never creates a commit
 # (fast-forward only), so every commit on main is still authored and committed by a person.
 on:
   push:
-    branches: ["cstljuan/boss"]
+    branches: ["cstljuan/boss", "Rickstar-App/boss"]
 permissions:
   contents: write
 jobs:
