@@ -21,7 +21,7 @@ Run `sh tools/next.sh` to get your next task with its full description. A row is
 | B8 | B | Peypey-ryd | Sport switch control: football and soccer | merged |
 | B9 | B | Peypey-ryd | Phone polish and keyboard use | merged |
 | B12 | B | Peypey-ryd | Lineup points from the scoring rules, with Ricky | merged |
-| Q1 | B | Peypey-ryd | Listen-through: read every announcer line and send Noah the ones to fix | open |
+| Q1 | B | Peypey-ryd | Listen-through: read every announcer line and send Noah the ones to fix | merged |
 | P1 | B | Peypey-ryd | The two-minute demo script with timings | open |
 | B14 | B | Peypey-ryd | The film room: drive chart and the play caller panel | open |
 | B15 | B | Peypey-ryd | First run walkthrough and install | open |
@@ -34,7 +34,7 @@ Run `sh tools/next.sh` to get your next task with its full description. A row is
 | C5 | C | nexodv | Voice choice, pace and a queue so lines never cut each other off | merged |
 | C6 | C | nexodv | Tendency lines from the player profiles | merged |
 | C7 | C | nexodv | Kickoff and final jingles made in code | merged |
-| C9 | C | nexodv | Fit lines to the captions strip, with Peyton | open |
+| C9 | C | nexodv | Fit lines to the captions strip, with Peyton | merged |
 | Q2 | C | nexodv | Walk the reveal flow at phone width and send Peyton what breaks | open |
 | P2 | C | nexodv | Shot list for the demo video | open |
 | C11 | C | nexodv | Commentary that remembers the game | open |
@@ -54,9 +54,12 @@ Run `sh tools/next.sh` to get your next task with its full description. A row is
 | D10 | D | Rickstar-App | Seed file: the sample game as database rows | merged |
 | Q3 | D | Rickstar-App | Check the README and Devpost text against the code and send each owner what is overstated | merged |
 | D12 | D | Rickstar-App | Scout, the deep agent: real player research with LangChain deepagents | merged |
-| D13 | D | Rickstar-App | A real week of stat lines from a public source | open |
-| D15 | D | Rickstar-App | Make `data/scoring.json` describe exactly what `js/rules.js` scores, with Peyton | open |
-| D14 | D | Rickstar-App | The service, finished: opt-ins, push a game, health | open |
+| D13 | D | Rickstar-App | A real week of stat lines from a public source | merged |
+| D15 | D | Rickstar-App | Make `data/scoring.json` describe exactly what `js/rules.js` scores, with Peyton | merged |
+| D14 | D | Rickstar-App | The service, finished: opt-ins, push a game, health | merged |
+| D16 | D | Rickstar-App | Two finished past weeks and standings in `data/league.json`, with Peyton | open |
+| D17 | D | Rickstar-App | Judges' questions with honest answers: `pitch/QUESTIONS.md` | open |
+| D18 | D | Rickstar-App | Top plays of a game and of a week, from the service and from a game file, with Peyton | open |
 | D7 | D | Rickstar-App | Soccer rosters and profiles | merged |
 | S1 | S | cstljuan | The soccer game | merged |
 | S2 | S | cstljuan | Fantasy soccer on top | merged |
@@ -110,10 +113,16 @@ Newest at the bottom. The boss answers every ASK here. If the answer is "yes, do
 - ANSWER to Peypey-ryd (B12, which scoring wins): the game's points win. `js/rules.js` is the scoring the game file was built to reproduce, so the app keeps showing those. `data/scoring.json` has to describe the same rules; that is Ricky's task D15. Until D15 is merged keep what you did (rules from the file shown under the lineups, `?scoring=file` as a preview). You may fetch `data/scoring.json` from `js/app.js`; fall back to the built-in numbers when the fetch fails, because the page is sometimes opened straight from a file.
 - ANSWER to Rickstar-App (more work): D12, D13, D14 and D15 are open for you now. D12 is the big one.
 - NOTE to nexodv (C4 connected): `js/main.js` now calls `FF_ANNOUNCER.intro` at kickoff, `halftime` at the half and `wrap` at the final, with `leaders: []` (the game does not know fantasy leaders, and scores may be hidden) and `plays` as the list of results so far. Each falls back to the single line when the function is missing.
+- ANSWER to Rickstar-App (D12 Scout real run): the boss session has no model key and the same hosts are refused here, so the real run is Juan's, on the laptop. It is under "Waiting for Juan" with your commands. D12 counts as built and checked offline, not run; say exactly that in `pitch/`.
+- ANSWER to Rickstar-App (D13 live run and the game maker switch): same, Juan runs `statlines.py` on the laptop. Reading a statlines file in `engine/make-game.js` is boss task A5, done when light duty ends. D16, D17 and D18 are open for you now.
+- ANSWER to nexodv (C7 jingles): connected. `js/main.js` plays `jingle_kickoff` when the game starts and `jingle_final` at the final, after `crowd_stop`. Full game in headless Chrome: no errors. Not checked: how it sounds.
+- ANSWER to nexodv (C6 profiles in ctx): not passed yet. Every tendency is still null until Scout runs for real; the boss passes `profiles` in the ctx of `line` when a profile has numbers.
 
 ## Waiting for Juan
 
 - Ricky's cloud environment needs network access to the stats hosts and a model key for Scout (task D12).
+- Run Scout for real on the laptop (needs `GOOGLE_API_KEY` or `ANTHROPIC_API_KEY` and a route to `api.sleeper.app`): `pip install -r agents/scout/requirements.txt`, `python3 agents/scout/scout.py`, then commit the log in `agents/scout/runs/` and the filled profiles.
+- Run `python3 agents/scout/statlines.py --week <NN>` on the laptop and commit `data/statlines/week<NN>-real.json` (no key needed, only the route).
 - Grove cables and an owner for the hardware box.
 - The project's name.
 
@@ -135,7 +144,8 @@ The boss reviews every DONE before it reaches main: the authors check, the lane 
 - Merged after review: B9, C3, C4. All checks and the three full-game runs passed
 - Merged after review: B12, C5. All checks and the three full-game runs passed
 - Merged after review: C6. All checks and the three full-game runs passed
-- Merged after review: C7, D12. All checks and the three full-game runs passed
+- Merged after review: C7, D12. All checks and the three full-game runs passed. C7: the game now plays both jingles. D12: `agents/scout/check.py` and `check_statlines.py` pass on the boss machine and no key is in any file; Scout has not run against a real model or the stats host yet
+- Merged after review: C9, D13, D14, D15, Q1. All checks and the three full-game runs passed
 - D1 real rosters and profile files, D2 database schema (Ricky) are on main; `data/games/sample-football.json` now has the real rosters
 
 ## Decisions

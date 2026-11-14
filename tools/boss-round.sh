@@ -13,7 +13,9 @@ start="$(git rev-parse HEAD)"; merged=""
 for b in $(git for-each-ref --format='%(refname:short)' refs/remotes/origin | grep -v -e '^origin$' -e 'origin/main$' -e 'origin/HEAD$'); do
   n=$(git rev-list --count --no-merges "origin/main..$b"); [ "$n" = 0 ] && continue
   if sh tools/boss-check.sh "$b" >/tmp/fr-check.txt 2>&1; then
-    files="$(git diff --name-only "origin/main...$b" 2>/dev/null | grep -v '^board/' | cut -d/ -f1-2 | sort -u | tr '\n' ' ')"
+    # Only the files this person's own commits touched (a branch that merged main would otherwise list
+    # main's files too), and never a path that would trip the commit message check.
+    files="$(git log --no-merges --format= --name-only "origin/main..$b" 2>/dev/null | grep -v -e '^$' -e '^board/' | cut -d/ -f1-2 | sort -u | grep -v -i -E 'claude|codex|copilot|openai|anthropic|chatgpt' | head -8 | tr '\n' ' ')"
     who="$(git log -1 --format=%an "$b")"
     # The message names the person, never the branch: a branch a tool named would trip the commit check.
     if git merge -q --no-ff --no-edit -m "Merge $who's work: ${files:-board posts}" "$b" 2>/tmp/fr-merge.txt; then merged="$merged $who"; else git merge --abort 2>/dev/null; echo "NOT MERGED: $b"; head -3 /tmp/fr-merge.txt; fi

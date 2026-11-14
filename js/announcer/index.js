@@ -19,8 +19,12 @@
 //                   or goes against it (0.3 or less), line() adds one short sentence. Only
 //                   tendencies with a real number count; null is never guessed. The same
 //                   player and tendency is mentioned at most once every 6 plays.
+//   maxLength       the longest a play line may be (characters): what fits on one line of the
+//                   captions strip at 375 pixels wide. Tendency remarks are only added when the
+//                   whole line still fits. intro, halftime and wrap are longer on purpose.
 //   intro(ctx), halftime(ctx), wrap(ctx)
-//                   two or three sentences each, built from numbers only. ctx is what
+//                   two or three sentences each, built from numbers only. ctx.hidden = true
+//                   (the manager opted in to hidden scores) keeps fantasy points out of halftime. ctx is what
 //                   line() takes plus leaders ([{ name, points }], best first or not) and
 //                   plays (the play results so far, as the result event carries them).
 //   caption()       the last line: { text, kind, style, at } (at is Date.now() when it was made),
@@ -231,6 +235,18 @@
         "Game day! {t0} against {t1}. {w0} and {w1}, the stage is yours!"
       ]
     },
+    halftime_hidden: {
+      straight: [
+        "That's halftime, and it's {score}. {leader} has been everywhere.",
+        "Halftime here, {score}. {lead}",
+        "We're at the half, {score}. Keep an eye on {leader}."
+      ],
+      fun: [
+        "Halftime! It's {score}, and {leader} is putting on a show!",
+        "Two quarters down! {score}. {leader} has been busy!",
+        "Grab a snack! {score} at the break. {lead}"
+      ]
+    },
     halftime: {
       straight: [
         "That's halftime, and it's {score}. In fantasy points {leader} leads the way with {lpts}.",
@@ -324,6 +340,7 @@
     var slot = e.by || e.to;
     v.player = slot && R[slot] ? lastName(R[slot]) : v.qb;
     v.yds = Math.abs(res.yds || e.yds || 0);
+    v.yards = v.yds + (v.yds === 1 ? ' yard' : ' yards');
 
     switch (e.t) {
       case 'kickoff':
@@ -405,6 +422,7 @@
       } else {
         if (!top) return '';
         if (kind === 'halftime') {
+          if (ctx.hidden) k = 'halftime_hidden';
           v.lead = score[0] === score[1] ? 'All square at the break.' :
             'The ' + teams[score[0] > score[1] ? 0 : 1].name + ' lead by ' + Math.abs(score[0] - score[1]) + '.';
         }
@@ -426,6 +444,9 @@
   }
 
   var api = {
+    // 337 pixels of text at 600 13px in the captions strip, about 5.9 pixels a character.
+    maxLength: 56,
+
     intro: function (ctx) { return story('intro', ctx); },
     halftime: function (ctx) { return story('halftime', ctx); },
     wrap: function (ctx) { return story('wrap', ctx); },
@@ -444,7 +465,7 @@
         if (!c.kind) return '';
         var text = fill(pick(c.kind, style), c.v);
         var note = ctx.profiles ? tendencyNote(res, teams, ctx.profiles) : '';
-        if (text && note) text += ' ' + note;
+        if (text && note && text.length + 1 + note.length <= api.maxLength) text += ' ' + note;
         if (text) announce(text, c.kind, style);
         return text;
       } catch (err) {
