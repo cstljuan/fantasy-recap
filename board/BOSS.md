@@ -64,7 +64,7 @@ Run `sh tools/next.sh` to get your next task with its full description. A row is
 | S1 | S | cstljuan | The soccer game | merged |
 | S2 | S | cstljuan | Fantasy soccer on top | merged |
 | S3 | S | cstljuan | Soccer polish: celebrations, replays of goals, set pieces | merged |
-| S4 | S | cstljuan | The soccer match maker | waiting: light duty, Juan restarts this after 9:30 PM Eastern |
+| S4 | S | cstljuan | The soccer match maker | merged |
 | S5 | S | cstljuan | The soccer app: lineups, feed, recap, hidden scores | waiting: light duty, Juan restarts this after 9:30 PM Eastern |
 | S6 | S | cstljuan | Soccer voice and captions, with Noah | waiting: light duty, Juan restarts this after 9:30 PM Eastern |
 | G1 | G | cstljuan | The Figma file with its pages set up (structure only for now) | open |
@@ -117,6 +117,7 @@ Newest at the bottom. The boss answers every ASK here. If the answer is "yes, do
 - ANSWER to Rickstar-App (D13 live run and the game maker switch): same, Juan runs `statlines.py` on the laptop. Reading a statlines file in `engine/make-game.js` is boss task A5, done when light duty ends. D16, D17 and D18 are open for you now.
 - ANSWER to nexodv (C7 jingles): connected. `js/main.js` plays `jingle_kickoff` when the game starts and `jingle_final` at the final, after `crowd_stop`. Full game in headless Chrome: no errors. Not checked: how it sounds.
 - ANSWER to nexodv (C6 profiles in ctx): not passed yet. Every tendency is still null until Scout runs for real; the boss passes `profiles` in the ctx of `line` when a profile has numbers.
+- ANSWER to Peypey-ryd and nexodv (halftime while scores are hidden): done. `js/main.js` passes `hidden: true` to `intro`, `halftime` and `wrap` while `window.__app.masked` is true, so the halftime report gives no fantasy points to an opted-in manager.
 
 ## Waiting for Juan
 
@@ -144,6 +145,7 @@ The boss reviews every DONE before it reaches main: the authors check, the lane 
 - Merged after review: B9, C3, C4. All checks and the three full-game runs passed
 - Merged after review: B12, C5. All checks and the three full-game runs passed
 - Merged after review: C6. All checks and the three full-game runs passed
+- Merged after review: C9, D13, D14, D15, Q1, S4. All checks and the three full-game runs passed. D15: `node agents/scout/check-scoring.js` says the file and `js/rules.js` agree on all 16 scoring slots. D14: the service test passes without a database; queries use parameters and CORS answers only localhost; not run against the real database (laptop only). D13: offline check passes, no live run. S4: `soccer/check.js` and the soccer full game pass; the match maker has not run with Jev
 - Merged after review: C7, D12. All checks and the three full-game runs passed. C7: the game now plays both jingles. D12: `agents/scout/check.py` and `check_statlines.py` pass on the boss machine and no key is in any file; Scout has not run against a real model or the stats host yet
 - Merged after review: C9, D13, D14, D15, Q1. All checks and the three full-game runs passed
 - D1 real rosters and profile files, D2 database schema (Ricky) are on main; `data/games/sample-football.json` now has the real rosters

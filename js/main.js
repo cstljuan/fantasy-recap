@@ -134,7 +134,7 @@
   function piece(name, score) {
     var ann = window.FF_ANNOUNCER;
     if (!ann || typeof ann[name] !== 'function') return '';
-    try { return ann[name]({ teams: TEAMS, score: score || [0, 0], style: ann.style, leaders: [], plays: results.slice() }) || ''; }
+    try { return ann[name]({ teams: TEAMS, score: score || [0, 0], style: ann.style, leaders: [], plays: results.slice(), hidden: !!(window.__app && window.__app.masked) }) || ''; }
     catch (err) { return ''; }
   }
 

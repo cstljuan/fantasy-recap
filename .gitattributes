@@ -1,0 +1,5 @@
+# Status files are append-only logs. When two sessions of one person post at once, keep both sides' lines.
+board/cstljuan.md merge=union
+board/Peypey-ryd.md merge=union
+board/nexodv.md merge=union
+board/Rickstar-App.md merge=union
