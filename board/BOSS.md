@@ -28,9 +28,12 @@ Run `sh tools/next.sh` to get your next task with its full description. A row is
 | B16 | B | Peypey-ryd | The season: standings and past weeks, with Ricky | merged |
 | B17 | B | Peypey-ryd | One look for the whole app | merged |
 | B18 | B | Peypey-ryd | This week in the league: every matchup's biggest plays, with Ricky | merged |
-| B19 | B | Peypey-ryd | Save the opt-in to the service when it answers, with Ricky | open |
-| B20 | B | Peypey-ryd | Screen reader and reduced motion pass | open |
+| B19 | B | Peypey-ryd | Save the opt-in to the service when it answers, with Ricky | merged |
+| B20 | B | Peypey-ryd | Screen reader and reduced motion pass | merged |
 | B21 | B | Peypey-ryd | Rule cards: explain each football rule the first time it comes up, with Noah | open |
+| B22 | B | Peypey-ryd | Jump bar in the game view: next score, previous play, any play, on `FF_GAME.seek` and `hold`, with Noah | open |
+| B23 | B | Peypey-ryd | Top play card as a picture to save or share, with Ricky | open |
+| B24 | B | Peypey-ryd | Demo mode: `?demo=1` walks the two-minute demo script by itself | open |
 | C1 | C | nexodv | Announcer lines, two styles | merged |
 | C2 | C | nexodv | Crowd and whistle | merged |
 | C3 | C | nexodv | Captions: every spoken line is also available as text | merged |
@@ -46,10 +49,12 @@ Run `sh tools/next.sh` to get your next task with its full description. A row is
 | C13 | C | nexodv | The mix: volumes, mute, crowd ducking under the voice | merged |
 | C10 | C | nexodv | ElevenLabs voice: playback, the render script, and audio for the current games | merged |
 | C8 | C | nexodv | Soccer lines | merged |
-| C14 | C | nexodv | Rule explainer lines for Peyton's rule cards, and a full broadcast transcript | open |
-| C15 | C | nexodv | Catch-up line after a jump: one sentence for the plays FF_GAME.seek skipped, with Peyton | open |
+| C14 | C | nexodv | Rule explainer lines for Peyton's rule cards, and a full broadcast transcript | merged |
+| C15 | C | nexodv | Catch-up line after a jump: one sentence for the plays FF_GAME.seek skipped, with Peyton | merged |
 | C16 | C | nexodv | Hot and cold: lines from each player's recent form against the season, with Ricky | open |
 | C17 | C | nexodv | Sound captions: every crowd, whistle and jingle as caption text, with Peyton | open |
+| C18 | C | nexodv | The big call: a longer, louder call for a game's top plays, with Ricky and Peyton | open |
+| C19 | C | nexodv | Line audit: every line both game files can produce, checked for length, blanks and recordings | open |
 | D1 | D | Rickstar-App | Real rosters and profile files | merged |
 | D2 | D | Rickstar-App | Database schema | merged |
 | D4 | D | Rickstar-App | A week of stat lines for both rosters | merged |
@@ -136,6 +141,11 @@ Newest at the bottom. The boss answers every ASK here. If the answer is "yes, do
 - ANSWER to Peypey-ryd and nexodv (halftime while scores are hidden): done. `js/main.js` passes `hidden: true` to `intro`, `halftime` and `wrap` while `window.__app.masked` is true, so the halftime report gives no fantasy points to an opted-in manager.
 - ANSWER to nexodv (Q2, the final box and the mock data text): the text is fixed: the score box says "SAMPLE GAME, MADE-UP STATS" and the final box "Sample game. Real names, made-up stats." The canvas already draws the final box after the name labels, so if badges still cover it on main, post which element they are.
 - ANSWER to Peypey-ryd (manifest): done. `manifest.webmanifest` is at the root with exactly your JSON, and `index.html` has the manifest link and the apple-touch-icon link in its head. Your install.js can stop adding the icon link itself. `?intro=0` noted for the smoke runs.
+- ANSWER to Peypey-ryd (B17 design rules): already done on main: `docs/DESIGN.md` holds your comment as written and `docs/LANES.md` links it.
+- ANSWER to Peypey-ryd (B18 seek): on main: `FF_GAME.seek(index)`, see `docs/CONTRACT.md` section on `FF_GAME`.
+- ANSWER to Peypey-ryd (B20 reduced motion on the canvas): done as you suggested. With reduced motion on (or `?calm=1`) the camera jumps, the point floaters appear in place without rising or fading, the players still move. `FF_GAME.calm` reads it. Checked in headless Chromium: full run with `?calm=1`, no errors. Not checked: on a real phone with the setting on.
+- ANSWER to Peypey-ryd (B21 hold): done. `FF_GAME.hold(true)` stops the clock with the view open and the voice running, `hold(false)` releases it, `FF_GAME.held` reads it. Checked: clock moved 0 in one second held, moves again after release. Use it in place of the 0.25x speed.
+- ANSWER to nexodv (C15 catch-up in seek): done. `seek()` in `js/main.js` now says `FF_ANNOUNCER.catchUp(results, {teams, score, style, leaders: [], hidden})` itself after the jump (reset comes first, inside seek). Checked: seek(30) said "We pick it up 29 plays later: ..." and the game played on with no errors. Peyton: do not call catchUp after your button.
 
 ## Waiting for Juan
 
@@ -174,6 +184,8 @@ The boss reviews every DONE before it reaches main: the authors check, the lane 
 - Merged after review: B17. All checks and the three full-game runs passed
 - Merged after review: B18. All checks and the three full-game runs passed
 - Merged after review: C10, C8. All checks and the three full-game runs passed
+- Merged after review: B19, B20, C14, C15. All checks and the three full-game runs passed
+- Ricky's boss round (15:35 Eastern): merged Peyton (B19, B20), Noah (C14, C15) and Ricky's board posts. Checks and the three full-game runs passed. Not read line by line: the B20 and C14 diffs. Added to `js/main.js`: `hold`, reduced motion, catch-up inside `seek`; checked in headless Chromium.
 - D1 real rosters and profile files, D2 database schema (Ricky) are on main; `data/games/sample-football.json` now has the real rosters
 
 ## Decisions

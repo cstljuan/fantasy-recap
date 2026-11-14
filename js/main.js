@@ -129,6 +129,19 @@
   // The game stops while its view is closed, so nobody misses a play. setBackground(true)
   // lets it keep running behind the app screens.
   var BACKGROUND = q.get('bg') === '1';
+  // hold(true) stops the clock while the view stays open and the voice keeps going (the app's rule cards).
+  var HOLD = false;
+  // With "reduce motion" on in the system settings the camera jumps instead of gliding and the point
+  // floaters appear in place without rising or fading. The players still move: that is the game.
+  var CALM = false;
+  try {
+    var calmQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+    CALM = calmQuery.matches;
+    var calmChange = function (ev) { CALM = !!ev.matches; };
+    if (calmQuery.addEventListener) calmQuery.addEventListener('change', calmChange);
+    else if (calmQuery.addListener) calmQuery.addListener(calmChange);
+  } catch (err) { /* no matchMedia: full motion */ }
+  if (q.get('calm') === '1') CALM = true;
 
   // Every finished play of this game so far, for the announcer's longer pieces.
   var results = [];
@@ -264,7 +277,7 @@
     var b = Plays.ballAt(play, pt);
     var target = (b.y + 10) * PXY + PAD - H * (play.dir > 0 ? 0.42 : 0.58);
     target = clamp(target, 0, Math.max(0, 120 * PXY + 2 * PAD - H));
-    if (!camSet) { cam = target; camSet = true; }
+    if (!camSet || CALM) { cam = target; camSet = true; }
     else cam += (target - cam) * (1 - Math.exp(-realDt * 5 * Math.max(1, SPEED)));
   }
 
@@ -430,8 +443,8 @@
     disp.floaters.forEach(function (f) {
       var age = clock - f.t0;
       if (age < 0) return;
-      var x = sx(f.x), y = sy(f.y) - 46 - age * 16;
-      g.globalAlpha = clamp(1.7 - age, 0, 1);
+      var x = sx(f.x), y = sy(f.y) - 46 - (CALM ? 0 : age * 16);
+      g.globalAlpha = CALM ? 1 : clamp(1.7 - age, 0, 1);
       g.lineWidth = 3; g.strokeStyle = 'rgba(0,0,0,0.85)'; g.strokeText(f.text, x, y);
       g.fillStyle = f.good ? '#8dff6e' : '#ff7b6e'; g.fillText(f.text, x, y);
       g.globalAlpha = 1;
@@ -518,7 +531,7 @@
     var real = Math.min(0.05, Math.max(0, (now - lastNow) / 1000));
     lastNow = now;
     try {
-      update(mode === 'ready' || (!active && !BACKGROUND) ? 0 : real * SPEED);
+      update(mode === 'ready' || HOLD || (!active && !BACKGROUND) ? 0 : real * SPEED);
       // The game is only drawn when visible, and only advances then unless setBackground(true).
       if (active) { updateCamera(real); draw(); }
     } catch (err) {
@@ -583,11 +596,22 @@
         }
       } finally { seeking = false; }
       disp.banner = null; disp.floaters = []; camSet = false;
+      // One sentence from the announcer on what the jump skipped. It also fills the announcer's memory.
+      var ann = window.FF_ANNOUNCER;
+      if (ann && typeof ann.catchUp === 'function' && results.length) {
+        try {
+          say(ann.catchUp(results.slice(), { teams: TEAMS, score: disp.score.slice(), style: ann.style, leaders: [], hidden: !!(window.__app && window.__app.masked) }) || '');
+        } catch (err) { /* optional */ }
+      }
       if (si === target && steps[si] && (mode !== 'play' || log.length === 0 || log[log.length - 1].step !== si)) startStep();
       return true;
     },
     setFloaters: function (on) { FLOATERS = !!on; if (!FLOATERS) disp.floaters = []; },
     setBackground: function (on) { BACKGROUND = !!on; },
+    // Stop (true) or release (false) the clock. The view stays open and the announcer finishes its line.
+    hold: function (on) { HOLD = !!on; },
+    get held() { return HOLD; },
+    get calm() { return CALM; },
     get floaters() { return FLOATERS; },
     get background() { return BACKGROUND; },
     get mode() { return mode; },

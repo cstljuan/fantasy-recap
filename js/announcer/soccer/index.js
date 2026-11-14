@@ -14,6 +14,9 @@
 //                   line() uses it for a brace, a hat-trick, an equaliser, a late equaliser, a
 //                   late winner and a keeper's third save. Goals are always called; other
 //                   remarks wait at least 2 events after the last one.
+//   explain(kind)   one or two plain sentences on a soccer rule for the rule cards; '' for an
+//                   unknown kind. explainKinds lists them; explainFor(res) gives a result's kinds.
+//   transcript()    every line said in this match: [ { t, text, kind, event } ]. reset() empties it.
 //   maxLength       56, one line of the captions strip at 375 pixels wide.
 //   reset()         a new match.
 // Needs js/announcer/soccer/lines.js loaded first (in Node it is required directly).
@@ -76,8 +79,11 @@
 
   function scoreText(teams, score) { return teams[0].name + ' ' + score[0] + ', ' + teams[1].name + ' ' + score[1]; }
 
+  var said = [];
+
   function announce(text, kind, style) {
     last = { text: text, kind: kind, style: style, at: Date.now() };
+    said.push({ t: last.at, text: text, kind: kind, event: eventNo });
     for (var i = 0; i < listeners.length; i++) { try { listeners[i](text, kind, style); } catch (err) { /* never stop the match */ } }
   }
 
@@ -138,6 +144,34 @@
         return { kind: 'offside', v: v };
     }
     return { kind: '', v: v };   // 'ft' (clean sheets) and anything new stays quiet
+  }
+
+  // ---- Rule explainers ----
+  var EXPLAIN = {
+    offside: "An attacker is offside when the ball is played to them while they are past the last defender. The goal or chance does not count.",
+    corner: "When a defender sends the ball out over their own goal line, the attackers take a corner kick from the corner flag.",
+    free_kick: "After a foul, the fouled team restarts with a free kick from where it happened. Close to goal, the taker can shoot.",
+    penalty_kick: "A foul inside the big box in front of goal gives a penalty: one shot from 11 meters with only the keeper to beat.",
+    yellow: "A yellow card is a warning for a bad foul or bad behavior. A second yellow in the same match means a red card.",
+    red: "A red card sends a player off for the rest of the match, and the team cannot replace them. They play with ten.",
+    throw_in: "When the ball goes out over the side line, the other team throws it back in with both hands from over the head.",
+    goal_kick: "When an attacker sends the ball out over the goal line, the defending team restarts with a kick from its own box.",
+    extra_time: "A few minutes are added at the end of each half for time lost to stoppages. Tied knockout games can also play 30 more minutes."
+  };
+
+  function explainFor(res) {
+    if (!res) return [];
+    var e = res.e || {}, k = [];
+    if (e.t === 'offside' || res.disallowed) k.push('offside');
+    if (e.t === 'corner') k.push('corner');
+    if (e.t === 'freekick') k.push('free_kick');
+    if (e.t === 'pen' || (e.t === 'foul' && e.box)) k.push('penalty_kick');
+    if (res.card === 'yellow') k.push('yellow');
+    if (res.card === 'red') k.push('red');
+    if (e.t === 'shot' && e.out === 'wide') k.push('goal_kick');
+    if (e.t === 'throwin') k.push('throw_in');
+    if (e.min > 90 || (e.min > 45 && res.half === 1)) k.push('extra_time');
+    return k;
   }
 
   // ---- Memory: the match so far ----
@@ -310,7 +344,14 @@
       };
     },
 
+    explain: function (kind) { return Object.prototype.hasOwnProperty.call(EXPLAIN, kind) ? EXPLAIN[kind] : ''; },
+    explainKinds: Object.keys(EXPLAIN),
+    explainFor: explainFor,
+    explainMaxLength: 160,
+    transcript: function () { return said.map(function (x) { return { t: x.t, text: x.text, kind: x.kind, event: x.event }; }); },
+
     reset: function () {
+      said = [];
       decks = {}; lastUsed = {}; rounds = {}; last = null; eventNo = 0; secondHalfStarted = false; mem = freshMemory(); api.hush();
     },
 

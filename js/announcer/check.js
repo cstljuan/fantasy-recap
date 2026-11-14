@@ -350,6 +350,70 @@ console.log('\nStyle switch: ' + A.setStyle('fun') + ', ' + A.setStyle('nonsense
 console.log('speak() without a speech voice does nothing: ' + (A.speak('test') === undefined ? 'ok' : 'unexpected'));
 console.log('line() with no teams is quiet: ' + (A.line({}, {}) === '' ? 'ok' : 'unexpected'));
 
+// C15: catch-up after a jump (FF_GAME.seek).
+(function () {
+  var teams = data.TEAMS, st = Rules.create(teams), res = [];
+  Rules.flatten(data.SAMPLE_GAME, teams).forEach(function (x) {
+    if (x.kind === 'half') { Rules.startHalf(st); return; }
+    if (x.kind === 'play') res.push(Rules.apply(st, x.e, x.team));
+  });
+  var tdAt = -1, toAt = -1;
+  res.forEach(function (r, i) { if (tdAt < 0 && r.td) tdAt = i; if (toAt < 0 && (r.e.t === 'int' || r.e.t === 'fumble')) toAt = i; });
+  var leaders = [{ name: teams[0].roster.WR1, points: 9.5 }];
+  function sentences(t) { return (t.match(/[.!?](\s|$)/g) || []).length; }
+  var cases = [
+    ['no skipped plays', [], {}, function (t) { return t === ''; }],
+    ['a touchdown', res.slice(0, tdAt + 1), {}, function (t) { return /touchdown/i.test(t) && t.indexOf(teams[0].name) >= 0; }],
+    ['a turnover', res.slice(toAt - 2, toAt + 1), {}, function (t) { return /interception|fumble|downs/i.test(t); }],
+    ['nothing scored, leader shown', res.slice(1, 4), { leaders: leaders }, function (t) { return /still|no change/i.test(t) && /9\.5/.test(t); }],
+    ['hidden scores', res.slice(1, 4), { leaders: leaders, hidden: true }, function (t) { return !/fantasy|9\.5|points/i.test(t) && t.length > 0; }],
+    ['fun style, long jump', res.slice(0, 45), { style: 'fun' }, function (t) { return /touchdown/i.test(t); }]
+  ];
+  console.log('\n== Catch-up after a jump ==');
+  cases.forEach(function (c) {
+    A.reset();
+    var t = A.catchUp(c[1], Object.assign({ teams: teams }, c[2]));
+    if (!c[3](t)) problems.push('catchUp, ' + c[0] + ': ' + JSON.stringify(t));
+    if (t && (sentences(t) < 1 || sentences(t) > 2)) problems.push('catchUp, ' + c[0] + ' has ' + sentences(t) + ' sentences: ' + t);
+    if (/\{\w+\}|undefined|NaN/.test(t)) problems.push('catchUp, ' + c[0] + ' left a gap: ' + t);
+    console.log('  ' + pad(c[0], 30) + (t || '(quiet)'));
+  });
+  // The skipped plays go into the memory.
+  A.reset(); A.catchUp(res.slice(0, 20), { teams: teams });
+  if (A.memory().log.length !== 20) problems.push('catchUp should add the 20 skipped plays to memory, it has ' + A.memory().log.length);
+})();
+
+// C14: rule explainers and the transcript.
+(function () {
+  var want = ['first_down', 'downs', 'touchdown', 'extra_point', 'field_goal', 'punt', 'interception', 'fumble', 'sack', 'penalty', 'kickoff', 'halftime'];
+  want.forEach(function (k) {
+    var t = A.explain(k), n = (t.match(/[.!?](\s|$)/g) || []).length;
+    if (!t) problems.push('explain(' + k + ') is empty');
+    if (t.length > A.explainMaxLength) problems.push('explain(' + k + ') is ' + t.length + ' characters, over ' + A.explainMaxLength);
+    if (n < 1 || n > 2) problems.push('explain(' + k + ') has ' + n + ' sentences');
+    if (/\u2014|\b(he|him|his|she|her)\b/i.test(t)) problems.push('explain(' + k + ') has an em dash or a pronoun');
+  });
+  if (A.explain('no_such_rule') !== '') problems.push('explain() of an unknown kind should be empty');
+  if (A.explainKinds.join() !== want.join()) problems.push('explainKinds is ' + A.explainKinds.join());
+  // Which rules the sample game shows, and the transcript of it.
+  A.reset();
+  var teams = data.TEAMS, st = Rules.create(teams), shown = {}, made = 0;
+  Rules.flatten(data.SAMPLE_GAME, teams).forEach(function (x) {
+    if (x.kind === 'half') { Rules.startHalf(st); A.explainFor({ kind: 'half' }).forEach(function (k) { shown[k] = 1; }); if (A.line({ kind: 'half' }, { teams: teams, score: st.score.slice() })) made++; return; }
+    if (x.kind !== 'play') return;
+    var res = Rules.apply(st, x.e, x.team);
+    A.explainFor(res).forEach(function (k) { shown[k] = (shown[k] || 0) + 1; if (!A.explain(k)) problems.push('explainFor gave a kind with no text: ' + k); });
+    if (A.line(res, { teams: teams })) made++;
+  });
+  var tr = A.transcript();
+  if (tr.length !== made) problems.push('transcript has ' + tr.length + ' lines, ' + made + ' were said');
+  if (tr.some(function (x) { return typeof x.t !== 'number' || !x.text || !x.kind; })) problems.push('transcript entries need t, text and kind');
+  A.reset();
+  if (A.transcript().length) problems.push('reset() should empty the transcript');
+  console.log('\nRules shown in the sample game: ' + Object.keys(shown).join(', ') + '; transcript held ' + tr.length + ' lines');
+  console.log('  e.g. explain(first_down): ' + A.explain('first_down'));
+})();
+
 // The soccer announcer (js/announcer/soccer/) has its own check; run it here too so one
 // command covers both sports.
 (function () {
