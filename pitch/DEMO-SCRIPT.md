@@ -10,9 +10,9 @@ The game pauses whenever its view is closed, so two tabs can be parked just befo
 
 | Tab | Address | How to park it |
 |---|---|---|
-| 1 | Private window, `http://<laptop>:8000/` | Nothing. A private window has no saved opt-in, so the opt-in card shows. |
-| 2 | `http://<laptop>:8000/?speed=2#matchup` | Opt in, Watch the game, then press Escape (or tap and Close) during Barkley's runs on the Goblins' first drive. The Plays tab must say **12 of 84 plays** (11 is fine). If fewer, Keep watching for a moment and close again. From play 12, the touchdown comes in about 10 seconds at 2x. |
-| 3 | `http://<laptop>:8000/?speed=4#matchup` | Opted in (it shares the saved choice with tab 2). Watch, and close the view late in the game so the Plays tab says **81 of 84 plays**. From there the final comes in about 5 seconds at 4x. |
+| 1 | Private window, `http://<laptop>:8000/?intro=0` | Nothing. A private window has no saved opt-in, so the opt-in card shows. `?intro=0` keeps the first-run walkthrough out of the way. |
+| 2 | `http://<laptop>:8000/?speed=2&intro=0#matchup` | Opt in, Watch the game, then press Escape (or tap and Close) during Barkley's runs on the Goblins' first drive. The Plays tab must say **12 of 84 plays** (11 is fine). If fewer, Keep watching for a moment and close again. From play 12, the touchdown comes in about 10 seconds at 2x. |
+| 3 | `http://<laptop>:8000/?speed=4&intro=0#matchup` | Opted in (it shares the saved choice with tab 2). Watch, and close the view late in the game so the Plays tab says **81 of 84 plays**. From there the final comes in about 5 seconds at 4x. |
 
 Notes: the voice only speaks at 2x or slower (it is quiet at 4x), which is why tab 2 is at 2x. Turn the laptop volume up. Phone or laptop both work; at phone width the tabs are at the bottom.
 

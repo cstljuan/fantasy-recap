@@ -7,7 +7,7 @@
   var G = window.FF_GAME, D = window.FF_DATA, Rules = window.FF_RULES, Spr = window.FF_SPRITES;
   var TEAMS = D.TEAMS;
   var WEEK = 'Week 11';
-  var TABS = ['league', 'matchup', 'lineups', 'plays', 'recap'];
+  var TABS = ['league', 'matchup', 'lineups', 'plays', 'recap', 'film'];
   var SLOTS = [
     { role: 'QB', pos: 'QB' }, { role: 'RB', pos: 'RB' }, { role: 'WR1', pos: 'WR' }, { role: 'WR2', pos: 'WR' },
     { role: 'WR3', pos: 'FLEX' }, { role: 'TE', pos: 'TE' }, { role: 'K', pos: 'K' }, { role: 'DST', pos: 'D/ST' }
@@ -92,7 +92,8 @@
       status: 'pre',           // pre | live | final
       pts: [{}, {}], st: [{}, {}],
       team: [{ pass: 0, rush: 0, to: 0, pens: 0, penYds: 0 }, { pass: 0, rush: 0, to: 0, pens: 0, penYds: 0 }],
-      field: [0, 0], feed: [], done: 0, now: '', flash: {}
+      field: [0, 0], feed: [], done: 0, now: '', flash: {},
+      drives: []               // the film room: one entry per drive, built as the plays come in
     };
     SLOTS.forEach(function (s) { for (var t = 0; t < 2; t++) { o.pts[t][s.role] = 0; o.st[t][s.role] = {}; } });
     return o;
@@ -233,7 +234,36 @@
       scoring: changed, flag: e.t === 'pen', score: res.post.score.slice(),
       fp: before ? filePointsDelta(before) : res.fp.map(function (f) { return { pts: f.pts, who: shortName(f.team, f.role), team: f.team }; })
     });
+    filmRecord(res);
   }
+
+  // ------------------------------------------------------------- film room
+  // Drives from the plays as they happened. Field positions are yards from the
+  // offense's own goal line (ballOn, 0 to 100), as js/rules.js keeps them.
+  function openDrive() { var d = m.drives[m.drives.length - 1]; return d && !d.end ? d : null; }
+  function closeDrive(end) { var d = openDrive(); if (d) d.end = end; }
+  function filmRecord(res) {
+    var e = res.e, off = res.pre.poss;
+    if (e.t === 'xp') return;
+    if (e.t === 'kickoff') {
+      closeDrive('');
+      m.drives.push({ team: off, start: res.post.ballOn, plays: [], end: '' });
+      return;
+    }
+    var d = openDrive();
+    if (!d || d.team !== off) { closeDrive(''); d = { team: off, start: res.pre.ballOn, plays: [], end: '' }; m.drives.push(d); }
+    var from = res.pre.ballOn, to;
+    if (res.td) to = 100;
+    else if (res.post.poss === off) to = res.post.ballOn;
+    else to = Math.max(0, Math.min(100, from + (res.yds || 0)));
+    d.plays.push({ n: m.done, from: from, to: to, flag: e.t === 'pen', why: !!(m.feed[m.feed.length - 1] || {}).why });
+    if (res.td) d.end = 'Touchdown';
+    else if (e.t === 'fg') d.end = e.good ? 'Field goal' : 'Missed field goal';
+    else if (e.t === 'punt') d.end = 'Punt';
+    else if (e.t === 'int' || e.t === 'fumble') d.end = 'Turnover';
+    else if (res.downs) d.end = 'Downs';
+  }
+
 
   function statLine(t, role) {
     var s = m.st[t][role], out = [];
@@ -371,7 +401,7 @@
     if (!name) return humanize(k);
     return (mm[1] === 'pass' ? 'Pass to ' : 'Run by ') + Rules.lastName(name);
   }
-  function whyCard(p) {
+  function whyCard(p, forceOpen) {
     if (!p.why) return '';
     var body = p.why.map(function (w) {
       return '<div class="why-q">' + esc(WHY_QUESTIONS[w.q] || humanize(w.q)) + '?</div>' +
@@ -383,7 +413,7 @@
             '<span class="why-pct">' + pct + '%</span></li>';
         }).join('') + '</ul>';
     }).join('');
-    return '<details class="why" data-n="' + p.n + '"' + (whyOpen[p.n] ? ' open' : '') + '>' +
+    return '<details class="why" data-n="' + p.n + '"' + (forceOpen || whyOpen[p.n] ? ' open' : '') + '>' +
       '<summary>Why this play</summary>' + body + '<p class="why-note">Chosen by the play caller from these odds</p></details>';
   }
 
@@ -635,7 +665,8 @@
       '<div class="field"><span class="eyebrow">On the field</span>' +
         fieldScore() +
         '<span class="sit">Full time</span></div>' +
-      '<div class="actions">' + watchButton() + '<button type="button" class="cta ghost" data-act="share">Share result</button>' + keep + '</div>' +
+      '<div class="actions">' + watchButton() + '<button type="button" class="cta ghost" data-act="share">Share result</button>' +
+        '<a class="cta ghost" href="#film">Film room</a>' + keep + '</div>' +
       '</div>';
   }
 
@@ -679,41 +710,204 @@
 
   // League home: this week's matchups in a small sample league, ours first.
   // The other teams are invented for the demo; only our matchup has a game to watch.
-  var RELEASE = 'Recap drops Tuesday';
-  var OTHER_MATCHUPS = [
-    { teams: [{ full: 'Turbo Turtles', tile: '#2f8f6b' }, { full: 'Midnight Owls', tile: '#4a5bd0' }], optedIn: true }
-  ];
+  // League home and the season. data/league.json (Ricky) has the sample league: this
+  // week's matchups, finished past weeks and the standings. Without it (opened from a
+  // file, or the fetch fails) the screen shows this week from the built-in sample.
+  var leagueData = null, weekSel = 0;
+  var FALLBACK_LEAGUE = {
+    week: 11, release: { text: 'Recap drops Tuesday' },
+    matchups: [
+      { ours: true },
+      { ours: false, teams: [{ id: 'TUR', full: 'Turbo Turtles', tile: '#2f8f6b' }, { id: 'OWL', full: 'Midnight Owls', tile: '#4a5bd0' }], optedIn: ['TUR', 'OWL'] }
+    ]
+  };
+  function validLeague(d) {
+    return !!(d && typeof d.week === 'number' && Array.isArray(d.matchups) && d.matchups.every(function (x) { return x.ours || (Array.isArray(x.teams) && x.teams.length === 2); }));
+  }
+  if (window.fetch) {
+    fetch('data/league.json').then(function (r) { return r.ok ? r.json() : null; }).then(function (d) {
+      if (!validLeague(d)) return;
+      leagueData = d;
+      if (tab === 'league' && !inGame) render(false);
+    }).catch(function () { /* the built-in sample stays */ });
+  }
+  function league() { return leagueData || FALLBACK_LEAGUE; }
+  function releaseText() { var L = league(); return (L.release && L.release.text) || 'Recap drops Tuesday'; }
+  function pastWeeks() {
+    return ((leagueData && leagueData.weeks) || []).filter(function (w) { return w.finished && Array.isArray(w.matchups); });
+  }
 
   function leagueTeam(name, tile, sprite) {
     return '<div class="lg-team">' +
-      (sprite ? '<img class="sprite" src="' + sprite + '" alt="">' : '<span class="tile" style="--c: ' + tile + '">' + esc(name.charAt(0)) + '</span>') +
+      (sprite ? '<img class="sprite" src="' + sprite + '" alt="">' : '<span class="tile" style="--c: ' + esc(tile || '#444') + '">' + esc(String(name).charAt(0)) + '</span>') +
       '<span class="team-name">' + esc(name) + '</span></div>';
   }
   function optMark(on) {
     return on ? '<span class="lg-mark is-on">Opted in</span>' : '<span class="lg-mark">Not opted in</span>';
   }
+  function myLeagueId() { return me >= 0 ? TEAMS[me].id : ''; }
 
-  function renderLeague() {
-    var ours = '<a class="panel lg-match is-ours" href="#matchup">' +
+  function oursCard() {
+    return '<a class="panel lg-match is-ours" href="#matchup">' +
       '<div class="lg-top"><span class="eyebrow">Your matchup</span>' + statusChip() + '</div>' +
       '<div class="lg-teams">' + ord().map(function (t) { return leagueTeam(TEAMS[t].full + (t === me ? ' (you)' : ''), '', marks[t]); }).join('<span class="lg-vs">vs</span>') + '</div>' +
-      '<div class="lg-foot">' + optMark(optin === 'in') + '<span class="lg-drop">' + RELEASE + '</span><span class="lg-go">Open</span></div>' +
+      '<div class="lg-foot">' + optMark(optin === 'in') + '<span class="lg-drop">' + esc(releaseText()) + '</span><span class="lg-go">Open</span></div>' +
       '</a>';
-    var others = OTHER_MATCHUPS.map(function (x) {
-      return '<div class="panel lg-match">' +
-        '<div class="lg-teams">' + leagueTeam(x.teams[0].full, x.teams[0].tile) + '<span class="lg-vs">vs</span>' + leagueTeam(x.teams[1].full, x.teams[1].tile) + '</div>' +
-        '<div class="lg-foot">' + optMark(x.optedIn) + '<span class="lg-drop">' + RELEASE + '</span></div>' +
-        '</div>';
+  }
+  function otherCard(x) {
+    var all = Array.isArray(x.optedIn) && x.teams.every(function (t) { return x.optedIn.indexOf(t.id) >= 0; });
+    return '<div class="panel lg-match">' +
+      '<div class="lg-teams">' + leagueTeam(x.teams[0].full, x.teams[0].tile) + '<span class="lg-vs">vs</span>' + leagueTeam(x.teams[1].full, x.teams[1].tile) + '</div>' +
+      '<div class="lg-foot">' + optMark(all) + '<span class="lg-drop">' + esc(releaseText()) + '</span></div>' +
+      '</div>';
+  }
+  // A finished week: final scores, the winner, and Watch the recap when there is a game for it.
+  function finishedCard(x, wk) {
+    var f = Array.isArray(x.final) ? x.final : null;
+    var win = f ? (f[0] === f[1] ? -1 : f[0] > f[1] ? 0 : 1) : -1;
+    var mine = myLeagueId();
+    var rows = x.teams.map(function (t, i) {
+      return '<div class="lg-final' + (i === win ? ' is-win' : '') + (t.id === mine ? ' is-mine' : '') + '">' +
+        leagueTeam(t.full, t.tile) +
+        '<span class="num">' + (f ? f1(f[i]) : '--') + '</span>' + (i === win ? '<span class="won">Win</span>' : '') + '</div>';
     }).join('');
+    var playable = x.gameFile && /week11-football\.json$/.test(x.gameFile);
+    var why = x.gameFile ? 'The app plays one game file at a time, and it is not this one.' : 'No game file for week ' + wk + '. Only the final scores were kept.';
+    var btn = playable
+      ? '<a class="cta ghost" href="#recap">Watch the recap</a>'
+      : '<button type="button" class="cta ghost" disabled aria-describedby="why-' + wk + '-' + esc(x.teams[0].id) + '">Watch the recap</button>' +
+        '<p class="lg-why" id="why-' + wk + '-' + esc(x.teams[0].id) + '">' + esc(why) + '</p>';
+    return '<div class="panel lg-match is-final">' +
+      '<div class="lg-top"><span class="eyebrow">Week ' + wk + ', final</span></div>' +
+      '<div class="lg-finals">' + rows + '</div>' +
+      '<div class="lg-foot lg-watch">' + btn + '</div></div>';
+  }
+
+  function standingsTable() {
+    var rows = (leagueData && leagueData.standings) || [];
+    if (!rows.length) return '';
+    var mine = myLeagueId();
+    return '<div class="panel lg-standings"><div class="panel-head"><h2>Standings</h2><span class="lg-count">after ' + pastWeeks().length + ' weeks</span></div>' +
+      '<table class="standings"><thead><tr><th scope="col">Team</th><th scope="col">W</th><th scope="col">L</th><th scope="col">Points for</th></tr></thead><tbody>' +
+      rows.map(function (r, i) {
+        return '<tr' + (r.id === mine ? ' class="is-mine"' : '') + '><th scope="row"><span class="rank">' + (i + 1) + '</span>' + esc(r.full) + (r.id === mine ? ' (you)' : '') + '</th>' +
+          '<td class="num">' + r.wins + '</td><td class="num">' + r.losses + '</td><td class="num">' + f1(r.pointsFor) + '</td></tr>';
+      }).join('') + '</tbody></table></div>';
+  }
+
+  function weekPicker() {
+    var weeks = pastWeeks().map(function (w) { return w.week; });
+    var cur = league().week;
+    if (weeks.indexOf(cur) < 0) weeks.push(cur);
+    if (weeks.length < 2) return '';
+    return '<div class="lg-weeks" role="group" aria-label="Week">' + weeks.map(function (n) {
+      return '<button type="button" data-act="week" data-w="' + n + '" aria-pressed="' + (n === weekSel) + '">Week ' + n + (n === cur ? ', now' : '') + '</button>';
+    }).join('') + '</div>';
+  }
+
+  function renderLeague() {
+    var L = league();
+    if (!weekSel) weekSel = L.week;
+    var body, count;
+    if (weekSel === L.week) {
+      var others = L.matchups.filter(function (x) { return !x.ours; });
+      body = oursCard() + others.map(otherCard).join('');
+      count = (1 + others.length) + ' matchups, 4 teams';
+    } else {
+      var wk = pastWeeks().filter(function (w) { return w.week === weekSel; })[0];
+      body = wk ? wk.matchups.map(function (x) { return finishedCard(x, wk.week); }).join('') : '<div class="empty">Nothing for this week.</div>';
+      count = 'Finished';
+    }
     return '<div class="narrow">' +
-      '<div class="lg-head"><h2>' + esc(WEEK) + ' matchups</h2><span class="lg-count">' + (1 + OTHER_MATCHUPS.length) + ' matchups, 4 teams</span></div>' +
-      ours + others +
-      '<p class="note" style="border:0;margin-top:14px">Sample league. Each recap is released on Tuesday, after the week is over. ' +
-      'Only your matchup has a game to watch in this demo.</p>' +
+      weekPicker() +
+      '<div class="lg-head"><h2>Week ' + weekSel + ' matchups</h2><span class="lg-count">' + count + '</span></div>' +
+      body + standingsTable() +
+      '<p class="note" style="border:0;margin-top:14px">Sample league, made up for the demo: the other teams, past scores and standings are invented. ' +
+      'Each recap is released on Tuesday, after the week is over. Only your week ' + L.week + ' matchup has a game to watch.</p>' +
       '</div>';
   }
 
-  var RENDER = { league: renderLeague, matchup: renderMatchup, lineups: renderLineups, plays: renderPlays, recap: renderRecap };
+  var filmSel = 0; // the play number open in the film room
+
+  var END_MARK = { 'Touchdown': 'TD', 'Field goal': 'FG', 'Missed field goal': 'FG miss', 'Punt': 'Punt', 'Turnover': 'TO', 'Downs': 'Downs', 'End of half': 'Half', 'End of game': 'End' };
+  // Field position across the page: the Goblins attack to the right, the Pythons to the left.
+  function absX(team, ballOn) { return team === 0 ? ballOn : 100 - ballOn; }
+
+  function filmStats() {
+    var picked = [];
+    m.feed.forEach(function (p) {
+      if (!p.why) return;
+      p.why.forEach(function (w) {
+        if (!w.chosen) return;
+        var o = w.opts.filter(function (x) { return x.k === w.chosen; })[0];
+        if (o) picked.push({ p: p, team: w.team, k: o.k, pr: o.p });
+      });
+    });
+    if (!picked.length) return null;
+    var best = picked[0], worst = picked[0], sum = 0;
+    picked.forEach(function (x) { if (x.pr > best.pr) best = x; if (x.pr < worst.pr) worst = x; sum += x.pr; });
+    return { count: picked.length, best: best, worst: worst, avg: sum / picked.length };
+  }
+
+  function filmPlayDetail() {
+    var plays = m.feed.filter(function (p) { return !p.divider; });
+    var i = -1;
+    for (var k = 0; k < plays.length; k++) if (plays[k].n === filmSel) i = k;
+    if (i < 0) return '<div class="empty">Tap a play in the chart to see it here, with the play caller\'s odds when it chose the play.</div>';
+    var p = plays[i];
+    var nav = '<div class="film-nav">' +
+      '<button type="button" data-act="film" data-n="' + (i > 0 ? plays[i - 1].n : p.n) + '"' + (i > 0 ? '' : ' disabled') + '>Previous play</button>' +
+      '<span>Play ' + p.n + ' of ' + plays.length + '</span>' +
+      '<button type="button" data-act="film" data-n="' + (i < plays.length - 1 ? plays[i + 1].n : p.n) + '"' + (i < plays.length - 1 ? '' : ' disabled') + '>Next play</button></div>';
+    return nav + '<ul class="feed">' + playItem(p, false).replace(/<details class="why"[\s\S]*<\/details>/, '') + '</ul>' +
+      (p.why ? '<div class="film-why">' + whyCard(p, true) + '</div>'
+             : '<p class="film-none">No play caller odds for this play. The game decided it by itself (kicks, penalties, sacks, turnovers and forced plays).</p>');
+  }
+
+  function renderFilm() {
+    if (m.status !== 'final') {
+      return '<div class="narrow"><div class="panel"><div class="panel-head"><h2>Film room</h2>' + statusChip() + '</div>' +
+        '<div class="empty">The film room opens after the final: every drive on the field and what the play caller chose.</div>' +
+        '<div class="actions">' + watchButton() + '</div></div></div>';
+    }
+    var rows = m.drives.filter(function (d) { return d.plays.length; }).map(function (d, i) {
+      var segs = d.plays.map(function (pl) {
+        var a = absX(d.team, pl.from), b = absX(d.team, pl.to), lo = Math.min(a, b), w = Math.abs(b - a);
+        return '<button type="button" class="seg' + (pl.flag ? ' is-flag' : '') + (b < a === (d.team === 0) && w ? ' is-loss' : '') +
+          (pl.n === filmSel ? ' is-on' : '') + '" data-act="film" data-n="' + pl.n + '" style="left:' + lo + '%;width:' + Math.max(w, 1.2) + '%"' +
+          ' aria-label="Play ' + pl.n + (pl.why ? ', play caller odds' : '') + '"><i></i></button>';
+      }).join('');
+      var endAt = absX(d.team, d.plays[d.plays.length - 1].to);
+      var mark = END_MARK[d.end] || '';
+      return '<li class="drive" style="--c: var(--t' + d.team + ')">' +
+        '<span class="drive-id">' + TEAMS[d.team].id + '<b>' + (i + 1) + '</b></span>' +
+        '<div class="drive-field">' + segs +
+          (mark ? '<span class="drive-end' + (d.end === 'Touchdown' || d.end === 'Field goal' ? ' is-score' : d.end === 'Turnover' || d.end === 'Downs' ? ' is-to' : '') +
+            '" style="left:' + endAt + '%"></span>' : '') + '</div>' +
+        '<span class="drive-res">' + esc(mark) + '</span></li>';
+    }).join('');
+    var st = filmStats();
+    function pct(x) { return Math.round(x * 100) + '%'; }
+    var caller = st
+      ? '<dl class="caller">' +
+          '<div><dt>Plays it chose</dt><dd class="num">' + st.count + '</dd><span>of ' + m.feed.filter(function (p) { return !p.divider; }).length + ' plays</span></div>' +
+          '<div><dt>Average odds of its pick</dt><dd class="num">' + pct(st.avg) + '</dd></div>' +
+          '<div><dt>Most confident call</dt><dd><button type="button" data-act="film" data-n="' + st.best.p.n + '">' + esc(optionName(st.best.k, st.best.team)) + ', ' + pct(st.best.pr) + '</button></dd><span>' + esc(st.best.p.desc) + '</span></div>' +
+          '<div><dt>Biggest surprise</dt><dd><button type="button" data-act="film" data-n="' + st.worst.p.n + '">' + esc(optionName(st.worst.k, st.worst.team)) + ', ' + pct(st.worst.pr) + '</button></dd><span>' + esc(st.worst.p.desc) + '</span></div>' +
+        '</dl>'
+      : '<div class="empty">No play in this game carries the play caller\'s odds.</div>';
+    return '<div class="film">' +
+      '<div class="panel"><div class="panel-head"><h2>Drive chart</h2><a href="#recap">Recap</a></div>' +
+        '<div class="film-key"><span>' + esc(TEAMS[0].name) + ' attack this way &#8594;</span><span>&#8592; ' + esc(TEAMS[1].name) + '</span></div>' +
+        '<ol class="drives">' + rows + '</ol>' +
+        '<p class="film-legend"><i class="k-score"></i>Score <i class="k-to"></i>Turnover <i class="k-flag"></i>Penalty <i class="k-loss"></i>Lost yards</p></div>' +
+      '<div class="grid two">' +
+        '<div class="panel"><div class="panel-head"><h2>The play caller</h2></div>' + caller + '</div>' +
+        '<div class="panel film-detail" id="filmDetail"><div class="panel-head"><h2>The play</h2></div>' + filmPlayDetail() + '</div>' +
+      '</div></div>';
+  }
+
+  var RENDER = { film: renderFilm, league: renderLeague, matchup: renderMatchup, lineups: renderLineups, plays: renderPlays, recap: renderRecap };
 
   function render(isFresh) {
     fresh = !!isFresh;
@@ -878,6 +1072,10 @@
     sec.className = 'screen'; sec.id = 's-league'; sec.setAttribute('aria-label', 'League'); sec.hidden = true;
     var first = $('s-matchup');
     first.parentNode.insertBefore(sec, first);
+    // The film room has no tab: it is reached from the recap after the final.
+    var film = document.createElement('section');
+    film.className = 'screen'; film.id = 's-film'; film.setAttribute('aria-label', 'Film room'); film.hidden = true;
+    $('s-recap').parentNode.insertBefore(film, $('s-recap').nextSibling);
     var brand = document.querySelector('.brand');
     if (brand) brand.setAttribute('href', '#league');
   })();
@@ -964,6 +1162,15 @@
     else if (act === 'filter') { filter = el.getAttribute('data-f'); render(false); }
     else if (act === 'optin') { setOptin(el.getAttribute('data-v') === 'in' ? 'in' : 'out'); render(false); }
     else if (act === 'share') { shareResult(el); }
+    else if (act === 'week') { weekSel = Number(el.getAttribute('data-w')); render(false); }
+    else if (act === 'film') {
+      filmSel = Number(el.getAttribute('data-n'));
+      render(false);
+      var det = $('filmDetail');
+      if (det && det.getBoundingClientRect().top > window.innerHeight - 120) det.scrollIntoView({ block: 'start' });
+      var again = document.querySelector('#s-film [data-act=film][data-n="' + filmSel + '"].seg');
+      if (el.classList.contains('seg') && again) again.focus();
+    }
     else if (act === 'me') { setMe(Number(el.getAttribute('data-v'))); render(false); }
   });
 
@@ -991,15 +1198,15 @@
   };
 
   G.on(function (type, d) {
-    if (type === 'reset') { m = blank(); whyDemoUsed = 0; whyOpen = {}; }
+    if (type === 'reset') { m = blank(); whyDemoUsed = 0; whyOpen = {}; filmSel = 0; }
     else if (type === 'start') m.status = 'live';
     else if (type === 'snap') m.now = d.res.e.t === 'kickoff' ? 'Kickoff' : d.res.e.t === 'xp' ? 'Extra point try' : d.res.where;
     else if (type === 'result') {
       applyResult(d.res);
       setTimeout(function () { if (!inGame) render(false); }, 1600); // lets the highlight on new points fade
     }
-    else if (type === 'half') { m.feed.push({ divider: 'Halftime' }); m.now = 'Halftime'; }
-    else if (type === 'final') { m.status = 'final'; m.now = ''; }
+    else if (type === 'half') { m.feed.push({ divider: 'Halftime' }); m.now = 'Halftime'; closeDrive('End of half'); }
+    else if (type === 'final') { m.status = 'final'; m.now = ''; closeDrive('End of game'); }
     syncFloaters();
     captionFor(type, d);
     if (!inGame) render(type === 'result');
@@ -1015,6 +1222,7 @@
     get paused() { return paused(); },
     get me() { return me; },
     get sport() { return sport; },
+    get drives() { return m.drives; },
     get scoringFromFile() { return useFile(); },
     // Each player's points from the game and, when the file is loaded, from data/scoring.json.
     comparePoints: function () {
@@ -1034,4 +1242,10 @@
   if (sport === 'soccer' && soccerConnected()) { try { window.FR_SPORT_CHANGE(sport); } catch (err) { console.error(err); } }
   if (location.hash === '#game') location.replace('#matchup');
   route();
+
+  // First run walkthrough and the install hint live in their own file. index.html is
+  // not ours, so the app loads it.
+  var installScript = document.createElement('script');
+  installScript.src = 'js/screens/install.js';
+  document.body.appendChild(installScript);
 })();
