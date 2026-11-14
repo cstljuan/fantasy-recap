@@ -1180,7 +1180,8 @@
     if (weekSel === L.week) {
       var others = L.matchups.filter(function (x) { return !x.ours; });
       body = oursCard() + others.map(otherCard).join('') +
-        '<a class="cta ghost lg-top-link" href="#week">This week\'s biggest plays</a>';
+        '<a class="cta ghost lg-top-link" href="#week">This week\'s biggest plays</a>' +
+        '<button type="button" class="cta ghost lg-top-link" data-act="party-join">Join a watch party</button>';
       count = (1 + others.length) + ' matchups, 4 teams';
     } else {
       var wk = pastWeeks().filter(function (w) { return w.week === weekSel; })[0];
@@ -1920,6 +1921,7 @@
     else if (act === 'optin') { setOptin(el.getAttribute('data-v') === 'in' ? 'in' : 'out'); render(false); }
     else if (act === 'share') { shareResult(el); }
     else if (act === 'share-top') { shareTopPlay(el); }
+    else if (act === 'party-join') { if (window.FR_PARTY) window.FR_PARTY.openJoin(); }
     else if (act === 'seek') { watchPlay(Number(el.getAttribute('data-i')), el); }
     else if (act === 'week') { weekSel = Number(el.getAttribute('data-w')); render(false); }
     else if (act === 'film') {
@@ -2036,6 +2038,11 @@
     window.FR_I18N.onchange = function () { markLang(); storyCache = null; if (!inGame) render(false); };
   };
   document.body.appendChild(i18nScript);
+
+  // Watch party: ?party=host makes this screen the host; any screen can join as a remote.
+  var partyScript = document.createElement('script');
+  partyScript.src = 'js/screens/party.js';
+  document.body.appendChild(partyScript);
 
   var installScript = document.createElement('script');
   installScript.src = 'js/screens/install.js';
