@@ -211,3 +211,15 @@ Give the deepagents agent tools over the plays (`player_plays(player, filters)`,
 
 `engine/make-game.js --plays data/rosters/plays-2026.json --week <n>`: build a legal game in which our players' plays are their real plays of that week (the same catches with the same yards, the same runs, kicks and touchdowns), ordered and stitched into drives the rules engine accepts, with the other snaps filled as today. The report names the week and every real play used. `node data/checks/game-vs-lines.js` gets the real lines of that week as its source. No Jev without a key: the filler choices use equal weights and the report says so.
 
+
+## Task D41: deep agents finished
+
+Scout (`agents/scout/`) is a deepagents main agent with stats, film-room and fact-checker subagents. Make it ready for a real run: one command, clear errors when the model key or network is missing, every claim tied to a source, an offline test proving the subagents and the made-up-evidence guard work. If you need a model key ask your person in your session chat, never in a file. Write what ran for real and what did not in `agents/scout/README.md`.
+
+## Task D42: Tiger Data finished
+
+Make `db/` and `server/` complete and runnable from a clean clone with only `DATABASE_URL` set: schema and migrations in order (including `db/migrate-002-soccer.sql`), the seed, every route the app uses (opt-ins, push a game, plays, summary, league, commissioner, watch party relay), and a test that runs against a real database when `DATABASE_URL` is set and skips cleanly when not. Never commit the connection string. List the exact commands Juan runs on the laptop in `db/README.md` or `server/README.md`.
+
+## Task D43: bugs from the test lead
+
+Fix every bug Noah's test lead (C28) sends you, one by one, and post DONE with the list.

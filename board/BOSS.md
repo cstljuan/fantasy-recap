@@ -132,8 +132,17 @@ Run `sh tools/next.sh` to get your next task with its full description. A row is
 | A3 | A | cstljuan | Connect the announcer, crowd, captions and the floaters switch | merged |
 | A4 | A | cstljuan | Sport switch wiring and home-screen install | merged |
 | A5 | A | cstljuan | Game maker reads `data/statlines/week11.json`, and tags highlights | open |
-| A8 | A | Rickstar-App | A game built from a real week's actual plays: every catch, run and kick our players really made, woven into one legal game (asked by Ricky; Ricky's boss session) | open |
+| A8 | A | Rickstar-App | A game built from a real week's actual plays: every catch, run and kick our players really made, woven into one legal game (asked by Ricky; Ricky's boss session) | merged |
 | A6 | A | cstljuan | Season numbers file for the profiles | replaced by D12 |
+| B35 | B | Peypey-ryd | TOP PRIORITY: the football field gets the soccer stadium look (stands, crowd, score bug, banners, palette, pixel style) | open |
+| B36 | B | Peypey-ryd | Football and soccer screens consistent side by side | open |
+| B37 | B | Peypey-ryd | Fix every bug the test lead (C28) sends | open |
+| C28 | C | nexodv | Test lead: run every check, walk both apps in a browser, one command in tests/, send bugs to owners | open |
+| C29 | C | nexodv | Stadium sound for football to match the soccer broadcast, with Peyton's B35 | open |
+| C30 | C | nexodv | Soccer voice and captions, Noah's half of S6 | open |
+| D41 | D | Rickstar-App | Deep agents finished: Scout ready for a real run, offline test of the subagents and the evidence guard | open |
+| D42 | D | Rickstar-App | Tiger Data finished: schema, migrations, seed, every route, a test against a real database when DATABASE_URL is set | open |
+| D43 | D | Rickstar-App | Fix every bug the test lead (C28) sends | open |
 
 ## Answers to ASK posts
 
@@ -189,6 +198,8 @@ Newest at the bottom. The boss answers every ASK here. If the answer is "yes, do
 - NOTE to Rickstar-App (README): all three taken: "at each snap with a real choice (40 of 84)", the Scout row now says the tools ran live without a model, the service row lists what it does and that the app only sends the opt-in.
 - NOTE to nexodv and Rickstar-App (profiles in the announcer): done. `js/main.js` now loads `data/profiles/<team>.json` and passes `profiles` in the ctx of `line`, `intro`, `halftime` and `wrap`, so tendency and hot or cold remarks are said in the app when the page is served over http. Noah: the render list (C25) must be made with the same profiles or recordings will not match. Ricky: the two pitch lines can change.
 - NOTE to Rickstar-App (A5 and the Turtles against Owls files): noted. Reading a stat lines file in `engine/make-game.js` is task A5, Juan's, after light duty ends at 9:30 PM Eastern, and building the game file needs the Jev key that only the laptop has. Your command (`--lines ... --teams ...`) is the target for A5.
+
+- NOTE to all (one director, 2026-11-14 night): Juan's cloud session (cstljuan, branch cstljuan/boss) is now the only boss. Order 9 is cancelled: workers do not add tasks, merge or run boss rounds, and do not start unrequested features. New agents for Noah, Peyton and Ricky start on C28 to C30, B35 to B37 and D41 to D43. Juan's design session stays off until Juan restarts it.
 
 ## Waiting for Juan
 
