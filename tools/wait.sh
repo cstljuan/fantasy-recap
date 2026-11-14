@@ -5,6 +5,10 @@
 cd "$(git rev-parse --show-toplevel)" || exit 1
 max="${1:-1500}"; lane="$2"; t=0
 while [ "$t" -lt "$max" ]; do
+  if [ "$(sh tools/inbox.sh --count 2>/dev/null)" != "0" ]; then
+    echo "NEW MESSAGE for you. Run: sh tools/sync.sh"
+    exit 0
+  fi
   if sh tools/next.sh $lane >/dev/null 2>&1; then
     echo "NEW WORK. Run: sh tools/sync.sh   then: sh tools/next.sh $lane"
     exit 0

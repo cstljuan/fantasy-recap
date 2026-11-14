@@ -5,10 +5,13 @@
 #   sh tools/post.sh DONE    "B1 hidden scores, checked at 375 wide, needs: nothing"
 #   sh tools/post.sh BLOCKED "B2 needs FF_GAME.setSpeed from the boss"
 #   sh tools/post.sh ASK     "boss: may I add a script tag to index.html for js/screens/optin.js"
-# States: READY CLAIM DONE BLOCKED ASK NOTE. One line, no secrets.
+#   sh tools/post.sh ASK     "noah: what does FF_ANNOUNCER.onLine pass to the callback?"
+#   sh tools/post.sh ANSWER  "peyton: (text, kind, style). It fires for every line, spoken or not."
+# Start ASK, ANSWER and NOTE with who it is for: boss, juan, peyton, noah, ricky or all.
+# States: READY CLAIM DONE BLOCKED ASK ANSWER NOTE. One line, no secrets.
 cd "$(git rev-parse --show-toplevel)" || exit 1
 state="$1"; shift; text="$*"
-case "$state" in READY|CLAIM|DONE|BLOCKED|ASK|NOTE) ;; *) echo "State must be READY, CLAIM, DONE, BLOCKED, ASK or NOTE."; exit 1 ;; esac
+case "$state" in READY|CLAIM|DONE|BLOCKED|ASK|ANSWER|NOTE) ;; *) echo "State must be READY, CLAIM, DONE, BLOCKED, ASK, ANSWER or NOTE."; exit 1 ;; esac
 sh tools/check-authors.sh --ident >/dev/null || { sh tools/check-authors.sh --ident; exit 1; }
 u="$(git config user.name)"
 branch="$(git branch --show-current)"

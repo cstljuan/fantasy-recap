@@ -68,3 +68,19 @@ Safe areas for the notch and the home indicator, tap targets at least 44 pixels,
 ## Task B10: floaters and the paused game
 
 Two changes on the game side are now on main (see `docs/CONTRACT.md` section 2). In `js/app.js`: call `window.FF_GAME.setFloaters(false)` whenever the manager is opted in and the game has not reached the final, and `setFloaters(true)` at the final and for "No thanks". The game now pauses while its view is closed, so anything on the app screens that said or assumed the game keeps playing in the background must be made true again (wording, the "latest plays" list, the progress on the recap screen). Check at 375 wide: opt in, watch at `?speed=20`, no point numbers on the field before the final.
+
+## Task B11: captions strip and the announcer switch (with Noah)
+
+In the game view, a one-line captions strip at the bottom showing what the announcer just said, and a two-way switch, Straight and Fun, next to the speed control. Build both from JavaScript in your files. The text comes from `FF_ANNOUNCER.onLine` (Noah's task C3) and the switch calls `FF_ANNOUNCER.setStyle`. Before you build, ask Noah what `onLine` passes and how long a line can be: `sh tools/post.sh ASK "noah: ..."`. If C3 is not on main yet, build against `FF_ANNOUNCER.line` and say so. Check at 375 wide that the strip never covers the score or the ball carrier's name.
+
+## Task B12: lineup points from the scoring rules (with Ricky)
+
+The lineups screen computes fantasy points itself today. When Ricky's `data/scoring.json` (task D5) is on main, read the rules from it instead of hard-coded numbers, and show the scoring rules under the lineups from the same file. Ask Ricky for the exact shape first: `sh tools/post.sh ASK "ricky: ..."`. Points must not change for the sample game; say in your DONE post whether they did.
+
+## Task Q1: listen-through for Noah
+
+Run `node js/announcer/check.js` and read every line in both styles. Send Noah, in one or two NOTE posts, the lines that sound wrong, repeat too often, are too long for a phone, or say something the game did not do: `sh tools/post.sh NOTE "noah: <kind>, <style>: <what is wrong and a better line>"`. You do not edit his files.
+
+## Task P1: the two-minute demo script
+
+Create `pitch/DEMO-SCRIPT.md`: what is said and what is on screen, second by second, for exactly two minutes. 15 seconds for the problem, 60 for the demo (opt in, hidden scores, the game, the announcer, a touchdown, the reveal), 25 for how it works (profiles, the play caller choosing each play with real probabilities, the rules engine), 20 for what is next. Only claim what `README.md` and the board say is built. Mark anything not built yet as "if ready".

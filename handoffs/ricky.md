@@ -63,3 +63,15 @@ Create `pitch/DEVPOST.md`: the sections Devpost asks for (inspiration, what it d
 ## Task D7: soccer rosters and profiles
 
 Only after the boss posts that soccer is merged. Two fantasy soccer rosters of real players in the shape the soccer game reads, and profile files with on-field tendencies and sources.
+
+## Task D9: sample league file (with Peyton)
+
+Peyton is building a League screen (task B4). Create `data/league.json`: a small invented league with four fantasy teams, this week's two matchups (ours first, using the two rosters in `js/data.js`), who opted in, and the recap release day. Ask Peyton which fields her screen needs before you finish: `sh tools/post.sh ASK "peyton: ..."`. Mark the league as invented. Post a NOTE to her with the final shape.
+
+## Task D10: seed file
+
+Create `db/seed.sql`: `INSERT` statements that put the sample game from `data/games/sample-football.json` into the `games` and `plays` tables of `db/schema.sql`, one row per play, with `played_at` spaced over a three-hour game. Add `db/make-seed.js`, runnable with node and no packages, that regenerates the file from the game file. You cannot run it against the database; the boss will.
+
+## Task Q3: honesty check
+
+Read `README.md`, `pitch/` and the DONE posts on the board, and compare them with the code on main. Send each owner a NOTE for anything that says more than the code does: `sh tools/post.sh NOTE "<name>: <file>: <the sentence> is not true because <what the code does>"`. Send the boss the same for `README.md`. The Devpost rules disqualify projects that overstate, so be strict.
