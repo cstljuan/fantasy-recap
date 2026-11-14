@@ -7,7 +7,7 @@
 //   speak(text)     says it with the browser's voice, British English when there is one. Lines
 //                   wait their turn, a line more than two events old is dropped, silent when
 //                   window.__sc.speed is above 2 or the soccer view is closed. hush() stops it.
-//   setStyle(name)  'straight' or 'fun'. style holds the current one.
+//   setStyle(name)  kept for the code that calls it; there is one style, 'straight'.
 //   onLine(fn)      fn(text, kind, style) for every line produced; returns a remover.
 //   caption()       the last line: { text, kind, style, at }, or null.
 //   memory()        what the announcer remembers: goals per player, saves per keeper, the score.
@@ -35,7 +35,7 @@
 
   var LINES = root.SC_ANNOUNCER_LINES ||
     (typeof require === 'function' ? require('./lines.js') : null) || {};
-  var STYLES = ['straight', 'fun'];
+  var STYLES = ['straight'];   // one style; the 'fun' style was removed (Noah's call)
   var decks = {}, lastUsed = {}, rand = null, rounds = {}, seedBase = 1;
   var listeners = [], last = null, eventNo = 0;
 
@@ -190,28 +190,22 @@
   // ---- Memory: the match so far ----
   var MEMORY = {
     hat_trick: {
-      straight: ['HAT-TRICK! {player} has three!', '{player} completes the hat-trick!', 'Three for {player}! A hat-trick!'],
-      fun: ['HAT-TRICK! Somebody get {player} the ball!', 'Three! {player} takes the match ball home!', '{player}! Hat-trick hero!']
+      straight: ['HAT-TRICK! {player} has three!', '{player} completes the hat-trick!', 'Three for {player}! A hat-trick!']
     },
     late_winner: {
-      straight: ['{player} in the {minth} minute! Surely the winner!', 'Late drama! {player} puts {team} ahead!', '{min} minutes gone, and {player} scores!'],
-      fun: ['LATE, LATE WINNER! {player}!', 'Scenes! {player} at the death!', 'Never in doubt! {player} wins it late!']
+      straight: ['{player} in the {minth} minute! Surely the winner!', 'Late drama! {player} puts {team} ahead!', '{min} minutes gone, and {player} scores!']
     },
     late_equaliser: {
-      straight: ['{player} levels it in the {minth} minute!', 'A late equaliser! {player}!', 'Right at the end, {player} pulls {team} level!'],
-      fun: ['LATE EQUALISER! {player}!', 'Never say die! {player} levels it!', '{player} rescues a point! Unbelievable!']
+      straight: ['{player} levels it in the {minth} minute!', 'A late equaliser! {player}!', 'Right at the end, {player} pulls {team} level!']
     },
     brace: {
-      straight: ['{player} again! That\'s two for {player}.', 'A brace for {player}! {score}.', 'Second of the game for {player}!'],
-      fun: ['{player} again! Two goals! Hat-trick on?', 'Double trouble! {player} has two!', '{player} is on fire! That\'s a brace!']
+      straight: ['{player} again! That\'s two for {player}.', 'A brace for {player}! {score}.', 'Second of the game for {player}!']
     },
     equaliser: {
-      straight: ['{player} levels it! {score}.', 'And {team} are level! {player} scores!', 'The equaliser! {player}! All square.'],
-      fun: ['Game on! {player} levels it!', 'All square! {player} with the equaliser!', 'Back in it! {player} equalises!']
+      straight: ['{player} levels it! {score}.', 'And {team} are level! {player} scores!', 'The equaliser! {player}! All square.']
     },
     keeper_third: {
-      straight: ['Another save from {keeper}. That\'s three now.', '{keeper} again! A busy day for {keeper}.', 'Third save of the match for {keeper}.'],
-      fun: ['{keeper} is a wall today!', 'Brick wall! {keeper} denies {player}!', '{keeper} again! Give the keeper a raise!']
+      straight: ['Another save from {keeper}. That\'s three now.', '{keeper} again! A busy day for {keeper}.', 'Third save of the match for {keeper}.']
     }
   };
   var GOAL_MEMORY = ['hat_trick', 'late_winner', 'late_equaliser', 'brace', 'equaliser'];
@@ -264,7 +258,7 @@
       ctx = ctx || {};
       var teams = ctx.teams, evs = (results || []).filter(function (r) { return r && r.e && r.pre && r.post && (r.team === 0 || r.team === 1); });
       if (!teams || teams.length < 2 || !evs.length) return '';
-      var style = STYLES.indexOf(ctx.style) >= 0 ? ctx.style : api.style, fun = style === 'fun';
+      var style = 'straight';
       evs.forEach(function (r) { eventNo++; remember(r); });
       var first = evs[0].pre.score, end = evs[evs.length - 1].post.score, score = ctx.score || end;
       var goals = [], extra = '', saves = [0, 0];
@@ -279,7 +273,7 @@
         var k = saves[0] >= saves[1] ? 0 : 1;
         if (saves[k] >= 2) extra = lastName((teams[k].roster || {}).GK) + ' made ' + saves[k] + ' saves';
       }
-      var end1 = fun ? '!' : '.', sc = score[0] + ' to ' + score[1], at = evs[evs.length - 1].e.min + "'";
+      var end1 = '.', sc = score[0] + ' to ' + score[1], at = evs[evs.length - 1].e.min + "'";
       var s2 = extra ? extra.charAt(0).toUpperCase() + extra.slice(1) + end1 : '';
       if (!s2 && !ctx.hidden && ctx.leaders && ctx.leaders.length) {
         var top = ctx.leaders.reduce(function (a, l) { return !a || (+l.points || 0) > (+a.points || 0) ? l : a; }, null);
@@ -303,20 +297,16 @@
   // ---- The big call ----
   var BIG = {
     goal: {
-      straight: ['{min} minutes, {player} shoots, and it\'s in! A goal for {team}!', '{player} finds the net in the {minth} minute! Goal, {team}!', 'GOAL! {player} scores for {team} in the {minth} minute!'],
-      fun: ['{player}! In the {minth} minute! Get in!', 'Oh, {player}, you beauty! {min} minutes, GOAL!', 'Back of the net! {player} in the {minth} minute!']
+      straight: ['{min} minutes, {player} shoots, and it\'s in! A goal for {team}!', '{player} finds the net in the {minth} minute! Goal, {team}!', 'GOAL! {player} scores for {team} in the {minth} minute!']
     },
     goal_pen: {
-      straight: ['{player} steps up in the {minth} minute and scores the penalty!', 'Penalty, {player}, and it\'s in! {minth} minute.', '{player} sends {keeper} the wrong way from the spot!'],
-      fun: ['Ice cold! {player} buries the penalty!', '{player} from the spot... GET IN!', 'No nerves at all from {player}! Penalty scored!']
+      straight: ['{player} steps up in the {minth} minute and scores the penalty!', 'Penalty, {player}, and it\'s in! {minth} minute.', '{player} sends {keeper} the wrong way from the spot!']
     },
     red: {
-      straight: ['Red card! {player} is sent off in the {minth} minute!', '{player} is off! {team} are down to ten.', 'The referee shows red to {player}!'],
-      fun: ['RED! {player} takes an early bath!', 'Off you go, {player}! {team} down to ten!', 'Straight red for {player}! Huge moment!']
+      straight: ['Red card! {player} is sent off in the {minth} minute!', '{player} is off! {team} are down to ten.', 'The referee shows red to {player}!']
     },
     pen_save: {
-      straight: ['{keeper} saves the penalty from {player}!', 'Penalty saved! {keeper} guesses right against {player}!', '{player} steps up, and {keeper} keeps it out!'],
-      fun: ['{keeper} the hero! The penalty is SAVED!', 'What a stop! {keeper} denies {player} from the spot!', 'No way past {keeper}! Penalty saved!']
+      straight: ['{keeper} saves the penalty from {player}!', 'Penalty saved! {keeper} guesses right against {player}!', '{player} steps up, and {keeper} keeps it out!']
     }
   };
 
@@ -373,8 +363,8 @@
   }
 
   // ---- Speech: British English first, one line at a time ----
-  var queue = [], speaking = null, speakTimer = 0, chosen = { straight: null, fun: null };
-  var VOICE_SET = { straight: { rate: 1.05, pitch: 1.0 }, fun: { rate: 1.15, pitch: 1.1 } };
+  var queue = [], speaking = null, speakTimer = 0, chosen = { straight: null };
+  var VOICE_SET = { straight: { rate: 1.05, pitch: 1.0 } };
   function synth() { return root.speechSynthesis && root.SpeechSynthesisUtterance ? root.speechSynthesis : null; }
   function voiceScore(v) {
     var lang = String(v.lang || '').toLowerCase().replace('_', '-'), name = String(v.name || '');
@@ -390,7 +380,7 @@
     try { list = sy && sy.getVoices ? sy.getVoices() || [] : []; } catch (err) { list = []; }
     var best = null, bs = -1;
     list.forEach(function (v) { var s = voiceScore(v); if (s > bs) { best = v; bs = s; } });
-    chosen.straight = chosen.fun = best;
+    chosen.straight = best;
     return list.length;
   }
   function tooFast() { var sc = root.__sc; return !!(sc && +sc.speed > 2); }

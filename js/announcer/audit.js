@@ -15,7 +15,7 @@ var Rules = require('../rules.js');
 
 var ROOT = path.join(__dirname, '../..');
 var GAMES = ['data/games/week11-football.json', 'data/games/sample-football.json'];
-var STYLES = ['straight', 'fun'];
+var STYLES = ['straight'];
 var LANGS = ['en'];
 var LONG_KINDS = { intro: 1, halftime: 1, wrap: 1, catch_up: 1 };   // longer by design
 var problems = [], said = {}, total = 0, lang = 'en';
@@ -100,6 +100,6 @@ if (problems.length) {
   problems.forEach(function (p) { console.log('  ' + p); });
   process.exit(1);
 }
-console.log('OK: ' + total + ' lines from ' + GAMES.length + ' games in ' + STYLES.length + ' styles, ' + Object.keys(said).length +
+console.log('OK: ' + total + ' lines from ' + GAMES.length + ' games, ' + Object.keys(said).length +
   ' different, every play has a line, none too long, no gaps, none said more than 3 times' +
   (recorded ? ', all ' + recorded + ' recordings match.' : '; no recordings yet (assets/voice/football/index.js), so that part was skipped.'));

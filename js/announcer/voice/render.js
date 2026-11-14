@@ -11,7 +11,7 @@
 // and writes that list to js/announcer/voice/render-list.json. A real run then renders exactly
 // the lines in that list for its sport (skipping files that exist); pass --fresh to collect the
 // lines again instead.
-// Options: --game <file.json>  --styles straight,fun  --max-chars 20000  --dry-run  --json (print the lines)
+// Options: --game <file.json>  --max-chars 20000  --dry-run  --json (print the lines)
 //
 // What it does: replays the game the same way js/main.js does (intro at kickoff, a line for
 // every play result, the half time and final lines) in each style, collects every line the
@@ -41,7 +41,7 @@ function arg(name, dflt) {
 var sportArg = arg('sport', null);
 var sport = sportArg || 'football';
 var dry = !!arg('dry-run', false);
-var styles = String(arg('styles', 'straight,fun')).split(',');
+var styles = ['straight'];   // one style
 var maxChars = +arg('max-chars', 20000);
 var voices = require(path.join(ROOT, 'js/announcer/voices.js'));
 var voice = voices[sport];

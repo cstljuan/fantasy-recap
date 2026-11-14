@@ -8,7 +8,7 @@ var data = require(path.join(__dirname, '../../../soccer/js/data.js'));
 try { require(path.join(__dirname, '../../../soccer/js/fantasy.js')); } catch (err) { /* fantasy points are not needed here */ }
 var Rules = require(path.join(__dirname, '../../../soccer/js/rules.js'));
 
-var STYLES = ['straight', 'fun'];
+var STYLES = ['straight'];
 var problems = [];
 var seed = 11;
 A._setRandom(function () { seed = (seed * 16807) % 2147483647; return (seed - 1) / 2147483646; });
@@ -42,7 +42,7 @@ function checkTable(table, label) {
 checkTable(LINES, '');
 checkTable(A._memoryLines, 'memory ');
 
-console.log('== Every kind, straight and fun ==');
+console.log('== Every kind ==');
 Object.keys(LINES).forEach(function (kind) {
   STYLES.forEach(function (style) {
     console.log(pad(kind, 16) + pad(style, 9) + fill(LINES[kind][style][0], { team: 'Ironside', def: 'Red Harbour',
@@ -207,4 +207,4 @@ if (problems.length) {
   problems.forEach(function (p) { console.log('  ' + p); });
   process.exit(1);
 }
-console.log('\nOK: ' + Object.keys(LINES).length + ' soccer kinds and ' + Object.keys(A._memoryLines).length + ' memory kinds, 2 styles, every line fits ' + A.maxLength + ' characters.');
+console.log('\nOK: ' + Object.keys(LINES).length + ' soccer kinds and ' + Object.keys(A._memoryLines).length + ' memory kinds, one style, every line fits ' + A.maxLength + ' characters.');
