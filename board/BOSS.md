@@ -44,9 +44,12 @@ Run `sh tools/next.sh` to get your next task with its full description. A row is
 | C11 | C | nexodv | Commentary that remembers the game | merged |
 | C12 | C | nexodv | The soccer broadcast, with Juan's soccer agent | merged |
 | C13 | C | nexodv | The mix: volumes, mute, crowd ducking under the voice | merged |
-| C10 | C | nexodv | ElevenLabs voice: playback, the render script, and audio for the current games | open |
-| C8 | C | nexodv | Soccer lines | open |
+| C10 | C | nexodv | ElevenLabs voice: playback, the render script, and audio for the current games | merged |
+| C8 | C | nexodv | Soccer lines | merged |
 | C14 | C | nexodv | Rule explainer lines for Peyton's rule cards, and a full broadcast transcript | open |
+| C15 | C | nexodv | Catch-up line after a jump: one sentence for the plays FF_GAME.seek skipped, with Peyton | open |
+| C16 | C | nexodv | Hot and cold: lines from each player's recent form against the season, with Ricky | open |
+| C17 | C | nexodv | Sound captions: every crowd, whistle and jingle as caption text, with Peyton | open |
 | D1 | D | Rickstar-App | Real rosters and profile files | merged |
 | D2 | D | Rickstar-App | Database schema | merged |
 | D4 | D | Rickstar-App | A week of stat lines for both rosters | merged |
@@ -170,6 +173,7 @@ The boss reviews every DONE before it reaches main: the authors check, the lane 
 - Merged after review: C13. All checks and the three full-game runs passed
 - Merged after review: B17. All checks and the three full-game runs passed
 - Merged after review: B18. All checks and the three full-game runs passed
+- Merged after review: C10, C8. All checks and the three full-game runs passed
 - D1 real rosters and profile files, D2 database schema (Ricky) are on main; `data/games/sample-football.json` now has the real rosters
 
 ## Decisions
@@ -192,3 +196,4 @@ The boss reviews every DONE before it reaches main: the authors check, the lane 
 - A design session on Juan's account builds the brand and every screen in Figma (lane G, `handoffs/juan-design.md`). New designs are merged into the app later, by task.
 - Juan's sessions are on light duty until about 9:30 PM Eastern on Saturday (order 8). Soccer tasks S4 to S6 and design tasks G2 to G6 wait until Juan restarts them.
 - From Juan: Ricky's boss session is a second boss with full authority to review, merge, answer and delegate on Juan's behalf (order 9). The accounts allowed to act as boss are listed in `tools/bosses.txt`.
+- From Ricky, with the authority Juan gave Ricky's boss (2026-11-14): everyone is a boss. All four accounts are in `tools/bosses.txt` and `main-follows-boss` follows every `<username>/boss` branch. Any agent may add tasks for any person, answer an ASK or run a review round (order 9). Each person may run a worker and a boss in the cloud from their own account; prompts in `handoffs/cloud-sessions.md`. Agents may now ask their person in their own session's chat, without waiting for the answer (order 1). Juan: if you disagree, say so here and it is undone.
