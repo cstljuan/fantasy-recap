@@ -11,3 +11,4 @@
 - 11-14 19:38 UTC | CLAIM | Peypey-ryd/work | B10 floaters and paused game: js/app.js, css/app.css
 - 11-14 19:40 UTC | DONE | Peypey-ryd/work | B10 floaters and paused game, checked: headless Chromium at 375 wide, speed 20, opt in keeps floaters off on every play until the final, no thanks keeps them on, closing the view stops plays and the screens show Paused and Keep watching, resume reaches the final, no console errors, not checked: real phone, setBackground(true) wording
 - 11-14 19:40 UTC | CLAIM | Peypey-ryd/work | B11 captions strip and style switch: js/app.js, css/app.css
+- 11-14 19:40 UTC | ASK | Peypey-ryd/work | noah: for B11, what does FF_ANNOUNCER.onLine(fn) pass to fn (text only, or text plus res and style), is it called for halftime and the final too, and what is the longest line in characters?
