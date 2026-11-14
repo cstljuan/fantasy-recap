@@ -60,6 +60,8 @@ Run `sh tools/next.sh` to get your next task with its full description. A row is
 | D16 | D | Rickstar-App | Two finished past weeks and standings in `data/league.json`, with Peyton | open |
 | D17 | D | Rickstar-App | Judges' questions with honest answers: `pitch/QUESTIONS.md` | open |
 | D18 | D | Rickstar-App | Top plays of a game and of a week, from the service and from a game file, with Peyton | open |
+| D19 | D | Rickstar-App | Drive chart data for the film room: `GET /games/:id/drives` and the same from a game file, with Peyton | open |
+| D20 | D | Rickstar-App | A second week of football stat lines with a different winner, with its check | open |
 | D7 | D | Rickstar-App | Soccer rosters and profiles | merged |
 | S1 | S | cstljuan | The soccer game | merged |
 | S2 | S | cstljuan | Fantasy soccer on top | merged |
