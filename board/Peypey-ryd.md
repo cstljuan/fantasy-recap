@@ -24,3 +24,4 @@
 - 11-14 19:52 UTC | CLAIM | Peypey-ryd/work | B7 result card: js/app.js, css/app.css
 - 11-14 19:53 UTC | DONE | Peypey-ryd/work | B7 result card, checked: headless Chromium at 375 wide, Share result after the final, download path gives fantasy-recap-week-11.png (1080x1350), share path with a stand-in share function gets one PNG file, no network requests while sharing, card read by eye, no console errors, not checked: a real share sheet on a phone
 - 11-14 19:53 UTC | CLAIM | Peypey-ryd/work | B13 why card from the game file: js/app.js, css/app.css
+- 11-14 19:56 UTC | DONE | Peypey-ryd/work | B13 why card from the game file, checked: headless Chromium at 375 wide with the default game, all 40 why plays show a card, each with exactly one Called option from why.picked, options named by roster player, bars highest first, the play caller line, no clipped names, ?game=sample&whydemo=1 still shows 3 cards, no sideways scroll, no console errors, not checked: real phone
