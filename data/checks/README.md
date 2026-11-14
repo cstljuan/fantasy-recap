@@ -19,6 +19,7 @@ It prints one line per check (OK, FAILED or SKIPPED with the reason) and a final
 | service under load | `node server/stress.js` | both sports pushed and read back, bad input on every route, 200 requests at once: no 500, crash, hang, slow answer or missing CORS header |
 | league file | `node data/checks/league.js` | `data/league.json` parses, team ids exist, standings follow from the finished weeks |
 | stat line sums | `node data/checks/statlines.js` | invented stat line files add up (passing equals receiving, extra points equal touchdowns, points allowed) |
+| game vs lines | `node data/checks/game-vs-lines.js` | every football file in `data/games/` replayed through `js/rules.js` gives each player's catches, yards, touchdowns, passing, interceptions, fumbles, kicks by distance, extra points, both defenses' sacks and takeaways, fantasy points and the score exactly as the source lines (the sample game in `js/data.js`, the only source `engine/make-game.js` builds from) and the file's own report; tallied independently of the engine |
 | scoring file | `node agents/scout/check-scoring.js` | `data/scoring.json` says the same as `js/rules.js` and the sample game's points match |
 | Scout tools | `python3 agents/scout/check.py` | Scout's tools on saved samples in `agents/scout/fixtures/` |
 | real week stat lines | `python3 agents/scout/check_statlines.py` | `statlines.py` writes the shape of `week11.json` from samples |
