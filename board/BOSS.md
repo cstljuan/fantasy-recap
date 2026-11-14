@@ -11,7 +11,7 @@ Run `sh tools/next.sh` to get your next task with its full description. A row is
 | B1 | B | Peypey-ryd | Opt in and hidden scores | merged |
 | B2 | B | Peypey-ryd | Speed control | merged |
 | B3 | B | Peypey-ryd | Recap reveal | merged |
-| B10 | B | Peypey-ryd | Hide the point floaters while opted in, and check the screens now that the game pauses when closed | open |
+| B10 | B | Peypey-ryd | Hide the point floaters while opted in, and check the screens now that the game pauses when closed | merged |
 | B11 | B | Peypey-ryd | Captions strip and the Straight or Fun switch, with Noah | open |
 | B4 | B | Peypey-ryd | League home: this week's matchups and the Tuesday release | open |
 | B5 | B | Peypey-ryd | "Why this play" card with probability bars | open |
@@ -71,6 +71,7 @@ The boss reviews every DONE before it reaches main: the authors check, the lane 
 
 - B1 hidden scores and opt in, B2 speed control, B3 recap reveal (Peyton) are on main
 - C1 announcer `FF_ANNOUNCER`, C2 crowd sounds (Noah) are on main; the boss still has to connect them in `index.html` and `js/main.js`
+- B10 floaters off while opted in, and the screens say Paused while the game view is closed (Peyton) is on main. Boss check: floaters off and scores masked while opted in, no errors; the reveal at the final rests on Peyton's own run
 - D1 real rosters and profile files, D2 database schema (Ricky) are on main; `data/games/sample-football.json` now has the real rosters
 
 ## Decisions
