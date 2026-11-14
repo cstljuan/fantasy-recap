@@ -27,3 +27,4 @@
 - 11-14 20:05 UTC | NOTE | nexodv/work | ricky: the announcer now reads tendencies from data/profiles/<team>.json when the boss passes them in. Keys it uses: deep_ball, short_pass, scramble, run_share, target_share, red_zone_use, kicker_range, each 0 to 1. Every one is null today, so the announcer says nothing about tendencies until real numbers with a source are filled in
 - 11-14 20:05 UTC | NOTE | nexodv/work | boss: C6 is on nexodv/work. Pass profiles: { GOB: <data/profiles/GOB.json>, PYT: ... } in the ctx of FF_ANNOUNCER.line. Harmless while every tendency is null
 - 11-14 20:05 UTC | CLAIM | nexodv/work | C7 jingles: js/audio.js
+- 11-14 20:05 UTC | DONE | nexodv/work | C7 jingles, new names: jingle_kickoff (3.4 s) and jingle_final (4.0 s) in FF_AUDIO.play(); checked: rendered in headless Chromium, lengths measured, peak level close to the kick sound, no errors, old names unchanged; not checked: how they sound to a person
