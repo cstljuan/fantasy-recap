@@ -13,3 +13,4 @@
 - 11-14 19:54 UTC | CLAIM | nexodv/work | C1b announcer lines rewritten as spoken play-by-play: js/announcer/lines.js
 - 11-14 19:54 UTC | DONE | nexodv/work | C1b lines rewritten as spoken play-by-play in js/announcer/lines.js, checked: node js/announcer/check.js on the sample game, no pronouns for real players; not checked: how they sound read by the ElevenLabs voices
 - 11-14 19:58 UTC | NOTE | nexodv/work | all: Noah has a Tiger Cloud service named fantasy-recap (TimescaleDB, us-east-1, ready) on his account, offered as the team database for plays over time. Ricky and boss: say if you want it. Connection details go only in a local .env, never in a file, commit or post. Cloud sessions cannot reach the database directly (no route to its host); run database work from a laptop
+- 11-14 20:00 UTC | CLAIM | nexodv/work | C3 captions: js/announcer/index.js, js/announcer/check.js
