@@ -59,7 +59,10 @@ var CHECKS = [
   { name: 'Scout agent graph with a stand-in model', cmd: 'python3', args: ['agents/scout/check_agent.py'],
     skip: !python ? 'python3 is not installed' : deepagents ? null : 'deepagents is not installed (pip install -r agents/scout/requirements.txt)' },
   { name: 'every commit authored by a team account', cmd: 'sh', args: ['tools/check-authors.sh'] },
-  smoke(''), smoke('game=sample'), smoke('page=soccer/index.html')
+  { name: 'reveal flow in a browser (Peyton)', cmd: 'node', args: ['js/screens/flow-test.js'],
+    skip: quick ? 'left out with --quick' : fs.existsSync(path.join(ROOT, 'js', 'screens', 'flow-test.js')) ? null : 'js/screens/flow-test.js is not on this branch yet',
+    judge: function (r) { return r.status === 2 ? { skip: 'no Chrome or Chromium on this machine' } : { ok: r.status === 0 }; } },
+    smoke(''), smoke('game=sample'), smoke('page=soccer/index.html')
 ];
 
 // Files named like a check that are not in the list above, so a new one is not forgotten.
