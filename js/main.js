@@ -229,6 +229,7 @@
     si = 0; clock = 0; camSet = false;
     disp.score = [0, 0]; disp.poss = -1; disp.banner = null; disp.lines = null; disp.floaters = [];
     log.length = 0; results.length = 0;
+    if (window.FF_ANNOUNCER && window.FF_ANNOUNCER.reset) { try { window.FF_ANNOUNCER.reset(); } catch (err) { /* optional */ } }
     all.forEach(function (a) { a.onField = false; });
     emit('reset');
     startStep();
