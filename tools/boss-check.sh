@@ -7,6 +7,8 @@ sh tools/check-authors.sh "origin/main..$b" >/dev/null || { sh tools/check-autho
 for c in $(git rev-list --no-merges "origin/main..$b"); do
   who="$(git log -1 --format=%an "$c")"
   allowed="$(grep "^$who " tools/lanes.txt | cut -d' ' -f2-)"
+  # A boss (tools/bosses.txt) may change any file.
+  grep -q -x -F "$who" tools/bosses.txt 2>/dev/null && allowed="."
   for f in $(git diff-tree --no-commit-id --name-only -r "$c"); do
     ok=0; for a in $allowed; do case "$f" in "$a"*) ok=1;; esac; [ "$a" = "." ] && ok=1; done
     [ "$ok" = 1 ] || { echo "OUT OF LANE  $(git log -1 --format=%h "$c")  $who  $f"; fail=1; }

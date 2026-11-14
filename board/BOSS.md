@@ -1,6 +1,6 @@
 # Boss board
 
-Written only by the boss: Juan's lead session, account `cstljuan`. Read it with `sh tools/board.sh`.
+Written only by the two bosses: Juan's lead session (`cstljuan`) and Ricky's boss session (`Rickstar-App`), which decides on Juan's behalf. Read it with `sh tools/board.sh`.
 
 ## Task queue
 
@@ -22,11 +22,15 @@ Run `sh tools/next.sh` to get your next task with its full description. A row is
 | B9 | B | Peypey-ryd | Phone polish and keyboard use | merged |
 | B12 | B | Peypey-ryd | Lineup points from the scoring rules, with Ricky | merged |
 | Q1 | B | Peypey-ryd | Listen-through: read every announcer line and send Noah the ones to fix | merged |
-| P1 | B | Peypey-ryd | The two-minute demo script with timings | open |
+| P1 | B | Peypey-ryd | The two-minute demo script with timings | merged |
 | B14 | B | Peypey-ryd | The film room: drive chart and the play caller panel | open |
 | B15 | B | Peypey-ryd | First run walkthrough and install | open |
 | B16 | B | Peypey-ryd | The season: standings and past weeks, with Ricky | open |
 | B17 | B | Peypey-ryd | One look for the whole app | open |
+| B18 | B | Peypey-ryd | This week in the league: every matchup's biggest plays, with Ricky | open |
+| B19 | B | Peypey-ryd | Save the opt-in to the service when it answers, with Ricky | open |
+| B20 | B | Peypey-ryd | Screen reader and reduced motion pass | open |
+| B21 | B | Peypey-ryd | Rule cards: explain each football rule the first time it comes up, with Noah | open |
 | C1 | C | nexodv | Announcer lines, two styles | merged |
 | C2 | C | nexodv | Crowd and whistle | merged |
 | C3 | C | nexodv | Captions: every spoken line is also available as text | merged |
@@ -35,13 +39,14 @@ Run `sh tools/next.sh` to get your next task with its full description. A row is
 | C6 | C | nexodv | Tendency lines from the player profiles | merged |
 | C7 | C | nexodv | Kickoff and final jingles made in code | merged |
 | C9 | C | nexodv | Fit lines to the captions strip, with Peyton | merged |
-| Q2 | C | nexodv | Walk the reveal flow at phone width and send Peyton what breaks | open |
+| Q2 | C | nexodv | Walk the reveal flow at phone width and send Peyton what breaks | merged |
 | P2 | C | nexodv | Shot list for the demo video | open |
 | C11 | C | nexodv | Commentary that remembers the game | open |
 | C12 | C | nexodv | The soccer broadcast, with Juan's soccer agent | open |
 | C13 | C | nexodv | The mix: volumes, mute, crowd ducking under the voice | open |
 | C10 | C | nexodv | ElevenLabs voice: playback, the render script, and audio for the current games | open |
 | C8 | C | nexodv | Soccer lines | open |
+| C14 | C | nexodv | Rule explainer lines for Peyton's rule cards, and a full broadcast transcript | open |
 | D1 | D | Rickstar-App | Real rosters and profile files | merged |
 | D2 | D | Rickstar-App | Database schema | merged |
 | D4 | D | Rickstar-App | A week of stat lines for both rosters | merged |
@@ -57,17 +62,20 @@ Run `sh tools/next.sh` to get your next task with its full description. A row is
 | D13 | D | Rickstar-App | A real week of stat lines from a public source | merged |
 | D15 | D | Rickstar-App | Make `data/scoring.json` describe exactly what `js/rules.js` scores, with Peyton | merged |
 | D14 | D | Rickstar-App | The service, finished: opt-ins, push a game, health | merged |
-| D16 | D | Rickstar-App | Two finished past weeks and standings in `data/league.json`, with Peyton | open |
-| D17 | D | Rickstar-App | Judges' questions with honest answers: `pitch/QUESTIONS.md` | open |
+| D16 | D | Rickstar-App | Two finished past weeks and standings in `data/league.json`, with Peyton | merged |
+| D17 | D | Rickstar-App | Judges' questions with honest answers: `pitch/QUESTIONS.md` | merged |
 | D18 | D | Rickstar-App | Top plays of a game and of a week, from the service and from a game file, with Peyton | open |
 | D19 | D | Rickstar-App | Drive chart data for the film room: `GET /games/:id/drives` and the same from a game file, with Peyton | open |
 | D20 | D | Rickstar-App | A second week of football stat lines with a different winner, with its check | open |
+| D21 | D | Rickstar-App | Momentum: points per team over game time, from the database and from a game file, with Peyton | open |
+| D22 | D | Rickstar-App | Soccer in the service: push a soccer match and read it back | open |
+| D23 | D | Rickstar-App | Devpost text, refreshed against main, with one honest paragraph per sponsor track | open |
 | D7 | D | Rickstar-App | Soccer rosters and profiles | merged |
 | S1 | S | cstljuan | The soccer game | merged |
 | S2 | S | cstljuan | Fantasy soccer on top | merged |
 | S3 | S | cstljuan | Soccer polish: celebrations, replays of goals, set pieces | merged |
 | S4 | S | cstljuan | The soccer match maker | merged |
-| S5 | S | cstljuan | The soccer app: lineups, feed, recap, hidden scores | waiting: light duty, Juan restarts this after 9:30 PM Eastern |
+| S5 | S | cstljuan | The soccer app: lineups, feed, recap, hidden scores | merged |
 | S6 | S | cstljuan | Soccer voice and captions, with Noah | waiting: light duty, Juan restarts this after 9:30 PM Eastern |
 | G1 | G | cstljuan | The Figma file with its pages set up (structure only for now) | open |
 | G2 | G | cstljuan | Brand guide, wordmark, mascot | waiting: light duty, Juan restarts this after 9:30 PM Eastern |
@@ -120,6 +128,7 @@ Newest at the bottom. The boss answers every ASK here. If the answer is "yes, do
 - ANSWER to nexodv (C7 jingles): connected. `js/main.js` plays `jingle_kickoff` when the game starts and `jingle_final` at the final, after `crowd_stop`. Full game in headless Chrome: no errors. Not checked: how it sounds.
 - ANSWER to nexodv (C6 profiles in ctx): not passed yet. Every tendency is still null until Scout runs for real; the boss passes `profiles` in the ctx of `line` when a profile has numbers.
 - ANSWER to Peypey-ryd and nexodv (halftime while scores are hidden): done. `js/main.js` passes `hidden: true` to `intro`, `halftime` and `wrap` while `window.__app.masked` is true, so the halftime report gives no fantasy points to an opted-in manager.
+- ANSWER to nexodv (Q2, the final box and the mock data text): the text is fixed: the score box says "SAMPLE GAME, MADE-UP STATS" and the final box "Sample game. Real names, made-up stats." The canvas already draws the final box after the name labels, so if badges still cover it on main, post which element they are.
 
 ## Waiting for Juan
 
@@ -147,9 +156,11 @@ The boss reviews every DONE before it reaches main: the authors check, the lane 
 - Merged after review: B9, C3, C4. All checks and the three full-game runs passed
 - Merged after review: B12, C5. All checks and the three full-game runs passed
 - Merged after review: C6. All checks and the three full-game runs passed
+- Merged after review: D16, D17, P1, Q2, S5. All checks and the three full-game runs passed; the soccer page now plays its week 11 match to a 2 to 0 final with no errors. Not read line by line: `pitch/QUESTIONS.md`, the demo script
 - Merged after review: C9, D13, D14, D15, Q1, S4. All checks and the three full-game runs passed. D15: `node agents/scout/check-scoring.js` says the file and `js/rules.js` agree on all 16 scoring slots. D14: the service test passes without a database; queries use parameters and CORS answers only localhost; not run against the real database (laptop only). D13: offline check passes, no live run. S4: `soccer/check.js` and the soccer full game pass; the match maker has not run with Jev
 - Merged after review: C7, D12. All checks and the three full-game runs passed. C7: the game now plays both jingles. D12: `agents/scout/check.py` and `check_statlines.py` pass on the boss machine and no key is in any file; Scout has not run against a real model or the stats host yet
 - Merged after review: C9, D13, D14, D15, Q1. All checks and the three full-game runs passed
+- Merged after review: D16, D17, P1, Q2. All checks and the three full-game runs passed
 - D1 real rosters and profile files, D2 database schema (Ricky) are on main; `data/games/sample-football.json` now has the real rosters
 
 ## Decisions
@@ -168,5 +179,7 @@ The boss reviews every DONE before it reaches main: the authors check, the lane 
 - The app plays the game file chosen with `node tools/use-game.js <file>`. Today that is the Jev-built `data/games/week11-football.json`.
 - From Juan: every agent works without its person for hours. Standing orders are in `board/ORDERS.md` and print on every sync.
 - The deep agent for the LangChain track is Scout, task D12, in Ricky's lane. D6 and A6 are folded into it.
+- While Juan's sessions are on light duty the boss runs one review round about every nine minutes. Queues are kept deep so nobody runs out between rounds: when you finish a task take the next one, your merged work reaches main on the next round.
 - A design session on Juan's account builds the brand and every screen in Figma (lane G, `handoffs/juan-design.md`). New designs are merged into the app later, by task.
 - Juan's sessions are on light duty until about 9:30 PM Eastern on Saturday (order 8). Soccer tasks S4 to S6 and design tasks G2 to G6 wait until Juan restarts them.
+- From Juan: Ricky's boss session is a second boss with full authority to review, merge, answer and delegate on Juan's behalf (order 9). The accounts allowed to act as boss are listed in `tools/bosses.txt`.

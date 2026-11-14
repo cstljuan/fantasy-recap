@@ -104,3 +104,20 @@ Using `data/league.json`: a standings table for the sample league (wins, losses,
 ## Task B17: one look for the whole app
 
 Write the app's design rules into `docs/` through an ASK to the boss (colors, type scale, spacing, the three button kinds, the two card kinds), then make every screen follow them: the same spacing steps, the same heading sizes, the same card edges, no one-off colors. The look is a dark scoreboard: modern, tough, not cute. List every screen you changed in your DONE post.
+
+## Task B18: this week in the league (with Ricky)
+
+A screen reached from the League home: for each matchup of the week that has a game file, its three biggest plays as cards (quarter and clock, the sentence for the play, the players, the points), each with a "Watch this play" button that opens the game view at that play. Ricky's task D18 gives the list: `topPlays(gameFile, n)` in `server/top-plays.js` and `GET /games/:id/top-plays`; ask him for the exact shape and for a way to get it in the browser without the service (`sh tools/post.sh ASK "ricky: ..."`). While the manager is opted in and the game is not final, the cards stay masked like every other score, with one line that says why. Matchups without a game file show a card that says so. Check at 375 wide and with the keyboard.
+
+## Task B19: the opt-in reaches the service (with Ricky)
+
+Today the opt-in lives only in `localStorage`. When the page is opened with `?api=http://localhost:<port>`, call the service: `GET /health` once at start, `POST /games/:id/optin` when the manager opts in, `GET /games/:id/optins` to show who opted in. Ricky's D14 built those routes: ask him for the request and reply bodies. Without `?api`, or when the service or the database does not answer, everything works exactly as now, and a small line under the opt-in says which is true: "Saved on this device" or "Saved to the league". Never block the screen on the network: two second timeout, then fall back. Check both ways with `node server/index.js` running without a database (it answers 503) and not running at all.
+
+## Task B20: screen reader and reduced motion
+
+Every screen: headings in order, every control with a name, the tab bar as tabs, the plays feed as a list, masked points read as "hidden" and not as dashes. In the game view: one polite live region that receives each play's caption text (the captions strip may already be it: then make sure it is announced once and not twice), and the score when it changes and scores are not hidden. Honor `prefers-reduced-motion`: no sliding or pulsing in the screens, and ask the boss (`ASK "boss: ..."`) for what the canvas should do. Check by reading the accessibility tree in headless Chromium for each screen and list what you verified in DONE.
+
+## Task B21: rule cards (with Noah)
+
+A "Learn the game" switch in the game view, off by default. When on, the first time each rule comes up in the game (first down, turnover on downs, touchdown, extra point, field goal, punt, interception, fumble, sack, penalty, kickoff, halftime) a small card shows the rule in one or two plain sentences, for a few seconds or until tapped, without pausing the game above 2x speed. Each rule shows once per game. Noah's task C14 writes the sentences and gives you `FF_ANNOUNCER.explain(kind)`: ask him for the list of kinds; until it is on main, use your own short text behind the same function name. The switch is remembered in `localStorage` as `fr.learn`.
+

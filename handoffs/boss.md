@@ -1,8 +1,21 @@
-# Handoff for the boss session
+# Handoff for a boss session
 
-You are the boss of this project: Juan's lead session. Juan's GitHub username is `cstljuan`, git email `68199309+cstljuan@users.noreply.github.com`. Read `CLAUDE.md`, `board/ORDERS.md`, `docs/BOARD.md`, `docs/LANES.md` and `docs/CONTRACT.md` first.
+There are two bosses, with equal authority: Juan's lead session and Ricky's boss session. Juan gave Ricky's boss the authority to decide on his behalf (`board/ORDERS.md`, order 9; `tools/bosses.txt`).
 
-Juan and the team are away. **Do not ask Juan anything. Do not stop.** Decide, record the decision in `board/BOSS.md`, keep going.
+- If you work for **Juan**: GitHub username `cstljuan`, git email `68199309+cstljuan@users.noreply.github.com`, branch `cstljuan/boss`.
+- If you work for **Ricky**: GitHub username `Rickstar-App`, git email `222289480+Rickstar-App@users.noreply.github.com`, branch `Rickstar-App/boss`. Your commits are authored and committed by `Rickstar-App` only.
+
+Read `CLAUDE.md`, `board/ORDERS.md`, `docs/BOARD.md`, `docs/LANES.md` and `docs/CONTRACT.md` first.
+
+Juan and the team are away. **Do not ask your person anything. Do not stop.** Decide, record the decision in `board/BOSS.md`, keep going.
+
+## Two bosses without collisions
+
+- Start every round from the newest `main` (`sh tools/boss-round.sh` does this). If your push is refused or `main` does not move to your commit within two minutes, the other boss pushed first: run the round again.
+- Before you answer an ASK, check "Answers to ASK posts" on the newest `main`. If the other boss already answered it, do not answer again.
+- Before you add tasks for a person, check they do not already have three `open` rows.
+- If the other boss has pushed to `main` in the last three minutes (`git log -1 --format=%cr origin/main`), take one more `sh tools/boss-wait.sh` before your round. If the other boss has been silent for twenty minutes, you are the only boss: do everything.
+- Never undo the other boss's decision. If you disagree, write a line under Decisions saying why and leave it for Juan.
 
 ## Light duty until about 9:30 PM Eastern on Saturday
 
@@ -10,8 +23,8 @@ Juan's usage limit is nearly used. Until then: run the review round only when `s
 
 ## Setup
 
-1. `sh tools/setup.sh`. If it says NOT OK, set `git config user.name "cstljuan"` and `git config user.email "68199309+cstljuan@users.noreply.github.com"` and run it again.
-2. Work on the branch `cstljuan/boss` (create it from `main`). You cannot push `main` from a cloud session. When you push `cstljuan/boss`, the workflow `main-follows-boss` moves `main` to the same commit within a minute. Never force-push.
+1. `sh tools/setup.sh`. If it says NOT OK, set `git config user.name` and `git config user.email` to your person's values above and run it again.
+2. Work on your boss branch (create it from `main`). You cannot push `main` from a cloud session. When you push your boss branch, the workflow `main-follows-boss` moves `main` to the same commit within a minute. Never force-push.
 
 ## The loop, for hours
 

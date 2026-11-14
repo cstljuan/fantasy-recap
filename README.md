@@ -14,7 +14,7 @@ No install and no build for the app.
 python3 -m http.server 8000
 ```
 
-Then open `http://localhost:8000`. On a phone, open `http://<laptop-ip>:8000` on the same Wi-Fi. Soccer is a separate page for now: `http://localhost:8000/soccer/`.
+Then open `http://localhost:8000`. On a phone, open `http://<laptop-ip>:8000` on the same Wi-Fi. Soccer: choose it with the sport switch in the app, which shows the soccer app in a frame, or open `http://localhost:8000/soccer/` by itself.
 
 Check the football game against the rules (needs Node, no packages):
 
@@ -38,7 +38,8 @@ The game in the app (`data/games/week11-football.json`) has 84 plays, 40 of them
 | `js/data.js`, `data/` | Rosters, profiles, stat lines, scoring rules, game files |
 | `js/audio.js`, `js/announcer/` | Sound and the announcer |
 | `engine/` | The game maker and its link to Jev |
-| `soccer/` | The soccer game, a separate page, not yet connected to the app |
+| `soccer/` | The soccer game and its own small app (matchup, lineups, plays, recap). The sport switch shows it in a frame; it shares the opt-in and the speed with football and nothing else |
+| `agents/scout/` | Scout, a research agent built with LangChain deepagents, and a script that reads a real week of stat lines. Both pass their offline checks. Neither has run against a real model or the stats host yet |
 | `db/`, `server/` | A Tiger Data (PostgreSQL) schema and a small service that saves and returns plays. The app does not use them yet |
 | `docs/` | The contract between parts, who owns what, how the team coordinates |
 

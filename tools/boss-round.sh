@@ -10,7 +10,7 @@ me="$(git branch --show-current)"
 # the boss pushes its own branch and .github/workflows/main-follows-boss.yml moves main to it.
 if [ "$me" = "main" ]; then git pull -q --ff-only origin main || exit 1; else git merge -q --ff-only origin/main 2>/dev/null || git merge -q --no-edit origin/main || exit 1; fi
 start="$(git rev-parse HEAD)"; merged=""
-for b in $(git for-each-ref --format='%(refname:short)' refs/remotes/origin | grep -v -e '^origin$' -e 'origin/main$' -e 'origin/HEAD$'); do
+for b in $(git for-each-ref --format='%(refname:short)' refs/remotes/origin | grep -v -e '^origin$' -e 'origin/main$' -e 'origin/HEAD$' -e '/boss$'); do
   n=$(git rev-list --count --no-merges "origin/main..$b"); [ "$n" = 0 ] && continue
   if sh tools/boss-check.sh "$b" >/tmp/fr-check.txt 2>&1; then
     # Only the files this person's own commits touched (a branch that merged main would otherwise list
