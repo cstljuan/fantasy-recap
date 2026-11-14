@@ -1170,13 +1170,13 @@
   liveEl.setAttribute('aria-live', 'polite');
   liveEl.setAttribute('role', 'status');
   $('closeGame').parentNode.appendChild(liveEl);
-  var livePending = { text: '', score: '' }, liveTimer = 0;
+  var livePending = { text: '', score: '', rule: '' }, liveTimer = 0;
   function liveSay(part, value) {
     livePending[part] = value;
     clearTimeout(liveTimer);
     liveTimer = setTimeout(function () {
-      var t = [livePending.text, livePending.score].filter(Boolean).join(' ');
-      livePending = { text: '', score: '' };
+      var t = [livePending.text, livePending.score, livePending.rule].filter(Boolean).join(' ');
+      livePending = { text: '', score: '', rule: '' };
       if (t && inGame) liveEl.textContent = t;
     }, 60);
   }
@@ -1214,9 +1214,219 @@
     } catch (err) { /* captions are optional */ }
   }
 
+  // ------------------------------------------------------------ rule cards
+  // "Learn the game": the first time each rule comes up in a game, a small card explains
+  // it. Off by default, saved under fr.learn. The text comes from FF_ANNOUNCER.explain
+  // (Noah, C14) when it is there, otherwise from the short text below, by the same kinds.
+  var LEARN_KEY = 'fr.learn', learn = false;
+  try { learn = window.localStorage.getItem(LEARN_KEY) === '1'; } catch (err) { learn = false; }
+  var RULES_TEXT = {
+    kickoff: 'Play starts with a kickoff: one team kicks the ball deep and the other runs it back.',
+    first_down: 'The offense has four tries, called downs, to gain 10 yards. Make it and they get four new tries.',
+    downs: 'Four tries and no 10 yards: the other team takes the ball where it stopped. A turnover on downs.',
+    touchdown: 'Get the ball into the other end zone: 6 points, then a try for 1 more.',
+    extra_point: 'After a touchdown, a short kick through the posts adds 1 point.',
+    field_goal: 'A kick through the posts from the field is worth 3 points.',
+    punt: 'On fourth down far from the goal, teams kick the ball away so the other team starts far back.',
+    interception: 'A defender catches the pass, and the defense takes the ball.',
+    fumble: 'The ball carrier drops the ball. Whoever falls on it keeps it.',
+    sack: 'The quarterback is tackled before he can throw. The offense loses yards and a down.',
+    penalty: 'A player broke a rule. A yellow flag, and the ball moves 5 to 15 yards.',
+    halftime: 'The game has two halves. At halftime the teams switch who kicks off.'
+  };
+  function explainText(kind) {
+    var A = window.FF_ANNOUNCER, t = '';
+    if (A && typeof A.explain === 'function') { try { t = A.explain(kind) || ''; } catch (err) { t = ''; } }
+    return t || RULES_TEXT[kind] || '';
+  }
+  function kindsFor(res) {
+    var A = window.FF_ANNOUNCER;
+    if (A && typeof A.explainFor === 'function') { try { var k = A.explainFor(res); if (Array.isArray(k)) return k; } catch (err) { /* own list below */ } }
+    if (res.kind === 'half') return ['halftime'];
+    var e = res.e || {}, out = [];
+    if (e.t === 'kickoff') out.push('kickoff');
+    if (res.td) out.push('touchdown');
+    if (e.t === 'xp') out.push('extra_point');
+    if (e.t === 'fg') out.push('field_goal');
+    if (e.t === 'punt') out.push('punt');
+    if (e.t === 'int') out.push('interception');
+    if (e.t === 'fumble') out.push('fumble');
+    if (e.t === 'sack') out.push('sack');
+    if (e.t === 'pen') out.push('penalty');
+    if (res.downs) out.push('downs');
+    if (res.first && !res.td) out.push('first_down');
+    return out;
+  }
+  var ruleSeen = {}, ruleQueue = [], ruleTimer = 0, ruleSlowed = null;
+  var learnEl = document.createElement('div');
+  learnEl.className = 'speed learn';
+  learnEl.hidden = true;
+  learnEl.innerHTML = '<button type="button" data-learn="1" aria-pressed="false">Learn the game</button>';
+  $('closeGame').parentNode.appendChild(learnEl);
+  var ruleEl = document.createElement('div');
+  ruleEl.className = 'rule-card';
+  ruleEl.hidden = true;
+  $('closeGame').parentNode.appendChild(ruleEl);
+  function markLearn() { learnEl.firstChild.setAttribute('aria-pressed', String(learn)); }
+  markLearn();
+  learnEl.addEventListener('click', function () {
+    learn = !learn;
+    try { window.localStorage.setItem(LEARN_KEY, learn ? '1' : '0'); } catch (err) { /* storage may be off */ }
+    markLearn();
+    if (!learn) hideRule(true);
+    revealClose();
+  });
+  // At 2x or slower the game nearly stops while a card is up (0.25x, the slowest it goes),
+  // so there is time to read; faster than 2x it keeps going. FF_GAME.hold is used if it appears.
+  function slowFor(on) {
+    var ff = window.__ff;
+    if (G.hold) {
+      try {
+        if (on && ruleSlowed === null && (!ff || ff.speed <= 2)) { G.hold(true); ruleSlowed = 'hold'; }
+        else if (!on && ruleSlowed === 'hold') { G.hold(false); ruleSlowed = null; }
+        return;
+      } catch (err) { /* slow down instead */ }
+    }
+    if (!ff) return;
+    if (on && ruleSlowed === null && ff.speed <= 2) { ruleSlowed = ff.speed; ff.speed = 0.25; }
+    else if (!on && ruleSlowed !== null) { ff.speed = ruleSlowed; ruleSlowed = null; }
+  }
+  function showNextRule() {
+    var kind = ruleQueue.shift();
+    if (!kind) return;
+    var text = explainText(kind);
+    if (!text || ruleSeen[kind]) { showNextRule(); return; }
+    ruleSeen[kind] = true;
+    var title = kind.replace(/_/g, ' ');
+    ruleEl.innerHTML = '<p><b>' + esc(title.charAt(0).toUpperCase() + title.slice(1)) + '.</b> ' + esc(text) + '</p>' +
+      '<button type="button" data-rule="close" aria-label="Close the rule card">OK</button>';
+    ruleEl.hidden = false;
+    liveSay('rule', 'Rule: ' + text);
+    slowFor(true);
+    clearTimeout(ruleTimer);
+    var fast = window.__ff && window.__ff.speed > 2;
+    ruleTimer = setTimeout(function () { hideRule(false); }, fast ? 4000 : 7000);
+  }
+  function hideRule(all) {
+    clearTimeout(ruleTimer);
+    ruleEl.hidden = true;
+    if (all) ruleQueue = [];
+    if (ruleQueue.length) showNextRule(); else slowFor(false);
+  }
+  ruleEl.addEventListener('click', function (ev) { ev.stopPropagation(); hideRule(false); });
+  ruleEl.addEventListener('pointerdown', function (ev) { ev.stopPropagation(); });
+  function ruleFor(type, d) {
+    if (type === 'reset') { ruleSeen = {}; hideRule(true); return; }
+    if (!learn || !inGame || jumping) return;
+    var res = type === 'half' ? { kind: 'half' } : type === 'result' ? d.res : null;
+    if (!res) return;
+    kindsFor(res).forEach(function (k) {
+      if (ruleSeen[k] || ruleQueue.indexOf(k) >= 0 || !explainText(k)) return;
+      ruleQueue.push(k);
+    });
+    if (ruleEl.hidden && ruleQueue.length) showNextRule();
+  }
+
+  // -------------------------------------------------------------- jump bar
+  // Previous play, next play, next score and any play, on FF_GAME.seek (from 1) and hold.
+  // While opted in, "next score" would give away that a score is coming, so it becomes
+  // "next big moment" (the next play tagged highlight) and is hidden when there is none.
+  var jumping = false, gameInfo = null;
+  function playsInfo() {
+    if (gameInfo) return gameInfo;
+    var list = [];
+    try {
+      var state = Rules.create(TEAMS);
+      Rules.flatten(D.SAMPLE_GAME, TEAMS).forEach(function (st) {
+        if (st.kind === 'half') { Rules.startHalf(state); return; }
+        if (st.kind !== 'play') return;
+        var pre = state.score.slice(), r = Rules.apply(state, st.e, st.team);
+        list.push({ index: list.length + 1, scored: state.score[0] !== pre[0] || state.score[1] !== pre[1],
+          tagged: Array.isArray(st.e.tags) && st.e.tags.indexOf('highlight') >= 0, text: String(r.text || '') });
+      });
+    } catch (err) { list = []; }
+    gameInfo = list;
+    return list;
+  }
+  function currentPlay() { return Math.min(m.done + 1, G.plays); }
+  function nextWhere(test) {
+    var info = playsInfo(), from = m.done + 1;
+    for (var i = from; i < info.length; i++) if (test(info[i])) return info[i].index;
+    return 0;
+  }
+  function nextMoment() { return masked() ? nextWhere(function (x) { return x.tagged; }) : nextWhere(function (x) { return x.scored; }); }
+  function jumpTo(index) {
+    index = Math.max(1, Math.min(G.plays, index));
+    if (!G.seek) return false;
+    jumping = true;
+    var ok = false;
+    try { ok = G.seek(index) !== false; } finally { jumping = false; }
+    markJump();
+    revealClose();
+    return ok;
+  }
+  var jumpEl = document.createElement('div');
+  jumpEl.className = 'jump';
+  jumpEl.setAttribute('role', 'group');
+  jumpEl.setAttribute('aria-label', 'Move around the game');
+  jumpEl.hidden = true;
+  jumpEl.innerHTML =
+    '<div class="jump-row">' +
+      '<button type="button" data-jump="prev">Previous play</button>' +
+      '<button type="button" data-jump="next">Next play</button>' +
+      '<button type="button" data-jump="moment"></button>' +
+    '</div>' +
+    '<label class="jump-slide"><span class="jump-at"></span>' +
+      '<input type="range" min="1" step="1" aria-label="Jump to any play"></label>';
+  $('closeGame').parentNode.appendChild(jumpEl);
+  var slider = jumpEl.querySelector('input'), atEl = jumpEl.querySelector('.jump-at'), momentBtn = jumpEl.querySelector('[data-jump=moment]');
+  function playLabel(n) {
+    var info = playsInfo()[n - 1];
+    // A play's text tells what happens, so it is left out while the score is hidden.
+    return 'Play ' + n + ' of ' + G.plays + (info && !masked() && n <= m.done + 1 ? ': ' + info.text : '');
+  }
+  function markJump() {
+    var cur = currentPlay();
+    slider.max = String(G.plays);
+    if (!jumpEl.contains(document.activeElement) || document.activeElement !== slider) slider.value = String(cur);
+    slider.setAttribute('aria-valuetext', playLabel(Number(slider.value)));
+    atEl.textContent = 'Play ' + slider.value + ' of ' + G.plays;
+    jumpEl.querySelector('[data-jump=prev]').disabled = cur <= 1;
+    jumpEl.querySelector('[data-jump=next]').disabled = cur >= G.plays;
+    var nm = nextMoment();
+    momentBtn.textContent = masked() ? 'Next big moment' : 'Next score';
+    momentBtn.hidden = !nm;
+    momentBtn.setAttribute('data-to', String(nm || ''));
+  }
+  jumpEl.addEventListener('click', function (ev) {
+    var b = ev.target.closest ? ev.target.closest('[data-jump]') : null;
+    if (!b || b.disabled) return;
+    var a = b.getAttribute('data-jump'), cur = currentPlay();
+    if (a === 'prev') jumpTo(cur - 1);
+    else if (a === 'next') jumpTo(cur + 1);
+    else if (a === 'moment') { var to = Number(b.getAttribute('data-to')); if (to) jumpTo(to); }
+  });
+  // Dragging holds the game; letting go jumps and releases it.
+  var dragging = false;
+  slider.addEventListener('input', function () {
+    if (!dragging && G.hold) { G.hold(true); dragging = true; }
+    atEl.textContent = 'Play ' + slider.value + ' of ' + G.plays;
+    slider.setAttribute('aria-valuetext', playLabel(Number(slider.value)));
+    revealClose();
+  });
+  slider.addEventListener('change', function () {
+    jumpTo(Number(slider.value));
+    if (dragging && G.hold) { G.hold(false); }
+    dragging = false;
+  });
+
   function setControls(on) {
     $('closeGame').hidden = !on;
+    jumpEl.hidden = !on || !G.seek;
+    $('closeGame').parentNode.classList.toggle('show-controls', on && !!G.seek);
+    if (on) markJump();
     speedEl.hidden = !on;
+    learnEl.hidden = !on;
     if (styleEl) styleEl.hidden = !on;
     markStyle();
   }
@@ -1226,6 +1436,7 @@
     inGame = on;
     $('gameView').hidden = !on;
     setControls(false);
+    if (!on && typeof hideRule === 'function') hideRule(true);
     document.body.classList.toggle('in-game', on);
     // The screens behind the game view take no focus or taps while it is open.
     $('app').inert = on;
@@ -1402,12 +1613,17 @@
   window.addEventListener('keydown', function (ev) {
     if (!inGame) return;
     if (ev.key === 'Escape') { leaveGame(tab); return; }
+    if ((ev.key === 'ArrowLeft' || ev.key === 'ArrowRight') && G.seek && document.activeElement !== slider) {
+      ev.preventDefault();
+      jumpTo(currentPlay() + (ev.key === 'ArrowLeft' ? -1 : 1));
+      return;
+    }
     // Tab in the game view shows the controls and starts on Close.
     if (ev.key === 'Tab') {
       if (!focusInControls()) { ev.preventDefault(); revealClose(); $('closeGame').focus(); return; }
       revealClose();
       // Keep the keyboard inside the game view: wrap from the last control to the first.
-      var list = Array.prototype.filter.call($('closeGame').parentNode.querySelectorAll('button'), function (x) { return !x.closest('[hidden]'); });
+      var list = Array.prototype.filter.call($('closeGame').parentNode.querySelectorAll('button, input'), function (x) { return !x.closest('[hidden]') && !x.hidden; });
       var i = list.indexOf(document.activeElement);
       if (!ev.shiftKey && i === list.length - 1) { ev.preventDefault(); list[0].focus(); }
       else if (ev.shiftKey && i === 0) { ev.preventDefault(); list[list.length - 1].focus(); }
@@ -1432,6 +1648,7 @@
     else if (type === 'final') { m.status = 'final'; m.now = ''; closeDrive('End of game'); }
     syncFloaters();
     captionFor(type, d);
+    ruleFor(type, d);
     if (type === 'result' && !masked()) {
       var sc = d.res.post.score, pr = d.res.pre.score;
       if (sc[0] !== pr[0] || sc[1] !== pr[1]) liveSay('score', TEAMS[0].name + ' ' + sc[0] + ', ' + TEAMS[1].name + ' ' + sc[1] + '.');
@@ -1464,6 +1681,10 @@
     },
     resultCard: function () { return drawResultCard().toDataURL('image/png'); },
     get live() { return liveEl.textContent; },
+    get learn() { return learn; },
+    jumpTo: function (n) { return jumpTo(n); },
+    get currentPlay() { return currentPlay(); },
+    get rule() { return ruleEl.hidden ? '' : ruleEl.textContent; },
     get caption() { return capEl.hidden ? '' : capEl.textContent; },
     totals: function () { return [f1(total(0)), f1(total(1))]; }
   };

@@ -30,8 +30,8 @@ Run `sh tools/next.sh` to get your next task with its full description. A row is
 | B18 | B | Peypey-ryd | This week in the league: every matchup's biggest plays, with Ricky | merged |
 | B19 | B | Peypey-ryd | Save the opt-in to the service when it answers, with Ricky | merged |
 | B20 | B | Peypey-ryd | Screen reader and reduced motion pass | merged |
-| B21 | B | Peypey-ryd | Rule cards: explain each football rule the first time it comes up, with Noah | open |
-| B22 | B | Peypey-ryd | Jump bar in the game view: next score, previous play, any play, on `FF_GAME.seek` and `hold`, with Noah | open |
+| B21 | B | Peypey-ryd | Rule cards: explain each football rule the first time it comes up, with Noah | merged |
+| B22 | B | Peypey-ryd | Jump bar in the game view: next score, previous play, any play, on `FF_GAME.seek` and `hold`, with Noah | merged |
 | B23 | B | Peypey-ryd | Top play card as a picture to save or share, with Ricky | open |
 | B24 | B | Peypey-ryd | Demo mode: `?demo=1` walks the two-minute demo script by itself | open |
 | C1 | C | nexodv | Announcer lines, two styles | merged |
@@ -53,8 +53,8 @@ Run `sh tools/next.sh` to get your next task with its full description. A row is
 | C15 | C | nexodv | Catch-up line after a jump: one sentence for the plays FF_GAME.seek skipped, with Peyton | merged |
 | C16 | C | nexodv | Hot and cold: lines from each player's recent form against the season, with Ricky | merged |
 | C17 | C | nexodv | Sound captions: every crowd, whistle and jingle as caption text, with Peyton | merged |
-| C18 | C | nexodv | The big call: a longer, louder call for a game's top plays, with Ricky and Peyton | open |
-| C19 | C | nexodv | Line audit: every line both game files can produce, checked for length, blanks and recordings | open |
+| C18 | C | nexodv | The big call: a longer, louder call for a game's top plays, with Ricky and Peyton | merged |
+| C19 | C | nexodv | Line audit: every line both game files can produce, checked for length, blanks and recordings | merged |
 | C20 | C | nexodv | Soccer, same depth as football: rule explainers, the catch-up line and the big call for soccer | open |
 | D1 | D | Rickstar-App | Real rosters and profile files | merged |
 | D2 | D | Rickstar-App | Database schema | merged |
@@ -79,7 +79,7 @@ Run `sh tools/next.sh` to get your next task with its full description. A row is
 | D21 | D | Rickstar-App | Momentum: points per team over game time, from the database and from a game file, with Peyton | merged |
 | D22 | D | Rickstar-App | Soccer in the service: push a soccer match and read it back | merged |
 | D23 | D | Rickstar-App | Devpost text, refreshed against main, with one honest paragraph per sponsor track | merged |
-| D24 | D | Rickstar-App | Recent form: last three weeks of tendencies next to the season, live from Sleeper | open |
+| D24 | D | Rickstar-App | Recent form: last three weeks of tendencies next to the season, live from Sleeper | merged |
 | D25 | D | Rickstar-App | One command that runs every check in Ricky's lane and the whole repository | open |
 | D26 | D | Rickstar-App | Cross-check Sleeper against ESPN for the 14 players and report every disagreement | open |
 | D7 | D | Rickstar-App | Soccer rosters and profiles | merged |
@@ -190,6 +190,8 @@ The boss reviews every DONE before it reaches main: the authors check, the lane 
 - Ricky's boss round (15:35 Eastern): merged Peyton (B19, B20), Noah (C14, C15) and Ricky's board posts. Checks and the three full-game runs passed. Not read line by line: the B20 and C14 diffs. Added to `js/main.js`: `hold`, reduced motion, catch-up inside `seek`; checked in headless Chromium.
 - Merged after review: C16, C17, D22, D23. All checks and the three full-game runs passed
 - Ricky's boss round (15:45 Eastern): merged C16, C17, D22, D23. Checks and the three full-game runs passed; `node server/test.js` OK, announcer check OK (25 kinds). Not read line by line: `pitch/DEVPOST.md`. Not run: the soccer migration on the real database.
+- Merged after review: B21. All checks and the three full-game runs passed
+- Merged after review: B22, C18, C19, D24. All checks and the three full-game runs passed
 - D1 real rosters and profile files, D2 database schema (Ricky) are on main; `data/games/sample-football.json` now has the real rosters
 
 ## Decisions
