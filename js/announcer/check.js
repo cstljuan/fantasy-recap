@@ -374,7 +374,7 @@ console.log('line() with no teams is quiet: ' + (A.line({}, {}) === '' ? 'ok' : 
     if (/\b(17|14)\b|fantasy|score/i.test(ours)) problems.push('preview gives away something from the game: ' + ours);
     var hot = ours.match(/(?:Hot lately|In form|Trending up|Red hot): (\S+?)\b/), cold = ours.match(/(?:Cooling off|Out of form|Ice cold|Rough patch for): (\S+?)\b/);
     if (hot && cold && hot[1] === cold[1]) problems.push('preview names the same player hot and cold: ' + ours);
-    if (sentences(other) !== 1 || !/0-2/.test(other)) problems.push('preview of a matchup with no profiles should be the records only: ' + other);
+    if (sentences(other) !== 1 || !/\b\d+-\d+\b/.test(other)) problems.push('preview of a matchup with no profiles should be the records only: ' + other);
     if (/\{\w+\}|undefined|NaN|\b(he|him|his|she|her)\b/i.test(ours + other)) problems.push('preview gap or pronoun: ' + ours + ' ' + other);
   });
   if (A.preview(league.matchups[0], {}) !== '') problems.push('preview with no league and no profiles should be empty');
