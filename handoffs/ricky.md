@@ -150,3 +150,11 @@ Extend `agents/scout/fill_profiles.py` (or a new `agents/scout/form.py` that reu
 
 `agents/scout/crosscheck.py`: for the 14 roster players read the same season totals from ESPN's public JSON (hosts `site.api.espn.com` and `sports.core.api.espn.com` are allowed; read the real responses first, do not write the addresses from memory) and compare passing, rushing and receiving yards and touchdowns, receptions and field goals made with Sleeper's numbers in `data/rosters/season-2026.json`. Write `data/rosters/crosscheck-2026.json` with both numbers, the difference and the source address and date for each, and list every disagreement larger than 2 percent or 5 units. Do not change the profiles. Add fixtures and an offline check. In the DONE post say how many of the 14 players matched and which did not, with your best explanation for each from the data, not a guess. If ESPN does not give a stat, write null and say so.
 
+
+## Task D27: soccer numbers that are real
+
+The soccer rosters (D7) have real names but their profiles have no real numbers. Do for soccer what `fill_profiles.py` did for football: find a public source this environment can reach (ESPN's soccer endpoints on `site.api.espn.com` are allowed; anything refused goes to `ASK "boss: ..."`, do not work around it), write `agents/scout/fill_soccer.py` that fills tendencies with a source and date per number, and one real match's lines in the shape of `soccer/data/week11-lines.json` saved under `data/statlines/` (your folder, not `soccer/`). Add an offline check with fixtures. Post `NOTE "juan: ..."` with the file and the command to build a match from it. If no reachable source has the numbers, say exactly what was tried and leave the fields null.
+
+## Task D28: the service under load and bad input
+
+`server/stress.js` (node, no database needed, same fake database as `server/test.js`): pushes a football game and a soccer match, reads every route back, then sends bad input to every route (wrong types, huge bodies, missing fields, odd ids, SQL in strings, unknown sport) and 200 quick requests at once. It reports any 500, any crash, any answer over one second, and any route that answers without the CORS rule. Fix what it finds in `server/`. Add it to your one command (D25).

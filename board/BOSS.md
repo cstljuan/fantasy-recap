@@ -34,6 +34,8 @@ Run `sh tools/next.sh` to get your next task with its full description. A row is
 | B22 | B | Peypey-ryd | Jump bar in the game view: next score, previous play, any play, on `FF_GAME.seek` and `hold`, with Noah | merged |
 | B23 | B | Peypey-ryd | Top play card as a picture to save or share, with Ricky | open |
 | B24 | B | Peypey-ryd | Demo mode: `?demo=1` walks the two-minute demo script by itself | open |
+| B25 | B | Peypey-ryd | Hot and cold on the lineup: recent form next to each player, with Ricky and Noah | open |
+| B26 | B | Peypey-ryd | Soccer gets the same extras: jump bar, rule cards and share card in the soccer app, with Juan and Noah | open |
 | C1 | C | nexodv | Announcer lines, two styles | merged |
 | C2 | C | nexodv | Crowd and whistle | merged |
 | C3 | C | nexodv | Captions: every spoken line is also available as text | merged |
@@ -56,6 +58,10 @@ Run `sh tools/next.sh` to get your next task with its full description. A row is
 | C18 | C | nexodv | The big call: a longer, louder call for a game's top plays, with Ricky and Peyton | merged |
 | C19 | C | nexodv | Line audit: every line both game files can produce, checked for length, blanks and recordings | merged |
 | C20 | C | nexodv | Soccer, same depth as football: rule explainers, the catch-up line and the big call for soccer | open |
+| C21 | C | nexodv | The broadcast as a page: `pitch/BROADCAST.md`, the full transcript of the week 11 game in both styles | open |
+| C22 | C | nexodv | Sound check without ears: a node test of the mix (levels, ducking, mute, no clipping, no overlap of voice lines) | open |
+| D27 | D | Rickstar-App | Soccer numbers that are real: profiles and one real match's lines for the soccer rosters, with sources | open |
+| D28 | D | Rickstar-App | The service under load and bad input: a test that pushes both sports, bad bodies and 200 quick requests | open |
 | D1 | D | Rickstar-App | Real rosters and profile files | merged |
 | D2 | D | Rickstar-App | Database schema | merged |
 | D4 | D | Rickstar-App | A week of stat lines for both rosters | merged |
@@ -147,6 +153,8 @@ Newest at the bottom. The boss answers every ASK here. If the answer is "yes, do
 - ANSWER to Peypey-ryd (B20 reduced motion on the canvas): done as you suggested. With reduced motion on (or `?calm=1`) the camera jumps, the point floaters appear in place without rising or fading, the players still move. `FF_GAME.calm` reads it. Checked in headless Chromium: full run with `?calm=1`, no errors. Not checked: on a real phone with the setting on.
 - ANSWER to Peypey-ryd (B21 hold): done. `FF_GAME.hold(true)` stops the clock with the view open and the voice running, `hold(false)` releases it, `FF_GAME.held` reads it. Checked: clock moved 0 in one second held, moves again after release. Use it in place of the 0.25x speed.
 - ANSWER to nexodv (C15 catch-up in seek): done. `seek()` in `js/main.js` now says `FF_ANNOUNCER.catchUp(results, {teams, score, style, leaders: [], hidden})` itself after the jump (reset comes first, inside seek). Checked: seek(30) said "We pick it up 29 plays later: ..." and the game played on with no errors. Peyton: do not call catchUp after your button.
+- ANSWER to Rickstar-App (D24 form field): done. `docs/CONTRACT.md` section 4 now has the optional `form` field as in your NOTE.
+- ANSWER to nexodv (C19 audit): `node js/announcer/audit.js` is now part of every review round (`tools/boss-round.sh`). Today it prints OK, 326 lines.
 
 ## Waiting for Juan
 
@@ -192,6 +200,7 @@ The boss reviews every DONE before it reaches main: the authors check, the lane 
 - Ricky's boss round (15:45 Eastern): merged C16, C17, D22, D23. Checks and the three full-game runs passed; `node server/test.js` OK, announcer check OK (25 kinds). Not read line by line: `pitch/DEVPOST.md`. Not run: the soccer migration on the real database.
 - Merged after review: B21. All checks and the three full-game runs passed
 - Merged after review: B22, C18, C19, D24. All checks and the three full-game runs passed
+- Ricky's boss rounds (to 16:00 Eastern): merged B21, B22, C18, C19, D24. Checks and the three full-game runs passed each time; the line audit and `python3 agents/scout/check_form.py` print OK. Not looked at in a browser by the boss: the rule cards and the jump bar.
 - D1 real rosters and profile files, D2 database schema (Ricky) are on main; `data/games/sample-football.json` now has the real rosters
 
 ## Decisions
