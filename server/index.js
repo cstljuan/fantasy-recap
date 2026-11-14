@@ -25,14 +25,20 @@ var INSERT_PLAY =
   'INSERT INTO plays (game_id, seq, played_at, quarter, team, slot, player, kind, yards, fantasy_points, detail, why) ' +
   'VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12) ON CONFLICT DO NOTHING';
 
+// A browser page on another port may call the service only from http://localhost:<port> or http://127.0.0.1:<port>.
+var LOCAL_ORIGIN = /^http:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/;
+
 function send(res, status, body) {
   var text = JSON.stringify(body);
-  res.writeHead(status, {
+  var headers = {
     'Content-Type': 'application/json',
-    'Access-Control-Allow-Origin': '*',
+    'Vary': 'Origin',
     'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
     'Access-Control-Allow-Headers': 'Content-Type'
-  });
+  };
+  var origin = res.originHeader;
+  if (origin && LOCAL_ORIGIN.test(origin)) headers['Access-Control-Allow-Origin'] = origin;
+  res.writeHead(status, headers);
   res.end(text);
 }
 
@@ -66,15 +72,34 @@ function checkPlay(p, i) {
 function createServer(db) {
   return http.createServer(function (req, res) {
     var url = new URL(req.url, 'http://localhost');
-    var m = url.pathname.match(/^\/games\/([^\/]+)\/(plays|summary)$/);
+    res.originHeader = req.headers.origin;
     if (req.method === 'OPTIONS') return send(res, 204, {});
+    if (req.method === 'GET' && url.pathname === '/health') {
+      return db.query('SELECT 1 AS ok').then(function () { send(res, 200, { ok: true, database: true }); },
+        function (e) { console.error('health: database does not answer:', e.message); send(res, 503, { ok: false, database: false }); });
+    }
+    var m = url.pathname.match(/^\/games\/([^\/]+)\/(plays|summary|optin|optins)$/);
     if (!m) return send(res, 404, { error: 'not found' });
     var gameId = decodeURIComponent(m[1]);
     var what = m[2];
 
     function onErr(e) { console.error('database error:', e.message); send(res, 500, { error: 'database error' }); }
 
-    if (req.method === 'GET' && what === 'plays') {
+    if (req.method === 'POST' && what === 'optin') {
+      readJson(req, function (err, body) {
+        if (err) return send(res, err.status, { error: err.message });
+        if (!body || typeof body.manager !== 'string' || !body.manager.trim()) return send(res, 400, { error: 'manager is required' });
+        db.query('INSERT INTO optins (game_id, manager) VALUES ($1, $2) ON CONFLICT (game_id, manager) DO NOTHING', [gameId, body.manager.trim()])
+          .then(function () { send(res, 201, { game_id: gameId, manager: body.manager.trim() }); },
+            function (e) {
+              if (e && e.code === '23503') return send(res, 404, { error: 'unknown game' });
+              onErr(e);
+            });
+      });
+    } else if (req.method === 'GET' && what === 'optins') {
+      db.query('SELECT game_id, manager, opted_in_at FROM optins WHERE game_id = $1 ORDER BY opted_in_at, manager', [gameId])
+        .then(function (r) { send(res, 200, { game_id: gameId, optins: r.rows }); }, onErr);
+    } else if (req.method === 'GET' && what === 'plays') {
       db.query('SELECT game_id, seq, played_at, quarter, team, slot, player, kind, yards, fantasy_points, detail, why ' +
         'FROM plays WHERE game_id = $1 ORDER BY seq', [gameId])
         .then(function (r) { send(res, 200, { game_id: gameId, plays: r.rows }); }, onErr);
