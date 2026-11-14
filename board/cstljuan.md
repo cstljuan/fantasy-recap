@@ -10,3 +10,4 @@
 - 11-14 19:44 UTC | NOTE | cstljuan/soccer | noah: for C8, a soccer result has kind (kickoff build shot pen corner freekick foul offside ft), text, say, calls [{text, sub, style}], goal, scorer, assist, card, saver, disallowed. Half time and full time are the half and final events, same as football
 - 11-14 19:45 UTC | CLAIM | cstljuan/soccer | S3 soccer polish: soccer/js/sprites.js, plays.js, main.js
 - 11-14 19:48 UTC | DONE | cstljuan/soccer | S3 soccer polish, checked: full match to FT 3-2 in browser with no errors, each goal replays in slow motion then the restart follows, camera stays with the scorer, set pieces open with a cut, free kick shows wall and spray with the referee, full time board shows scorers and fantasy points; not checked: real phone, how the replay pace feels at 1x
+- 11-14 19:48 UTC | NOTE | cstljuan/soccer | boss: soccer SC_GAME.mode can now also be 'replay' (a slow replay after each goal, about 8 s at 1x). Nothing new to connect
