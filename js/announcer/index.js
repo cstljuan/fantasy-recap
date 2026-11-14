@@ -19,6 +19,12 @@
 //                   or goes against it (0.3 or less), line() adds one short sentence. Only
 //                   tendencies with a real number count; null is never guessed. The same
 //                   player and tendency is mentioned at most once every 6 plays.
+//   memory()        what the announcer remembers about the game so far (see C11 below).
+//                   line() uses it for setups and payoffs: a team that needs an answer and
+//                   then answers, a red zone trip and whether it scored, a player closing in
+//                   on 100 yards and then passing it, a third catch on one drive, a kicker's
+//                   second make, a lead change. At most one such line every 2 plays (every 4
+//                   for setups); a lead change or an answered score is always called.
 //   maxLength       the longest a play line may be (characters): what fits on one line of the
 //                   captions strip at 375 pixels wide. Tendency remarks are only added when the
 //                   whole line still fits. intro, halftime and wrap are longer on purpose.
@@ -221,6 +227,163 @@
     return '';
   }
 
+  // ---- C11: commentary that remembers the game ----
+  // Each line replaces the ordinary line for that play, so it still says what happened.
+  var MEMORY = {
+    lead_change: {
+      straight: ['{how} {team}, and they take the lead!', '{how}! The lead changes hands. {team} in front.', '{how}, and the {team} are back in front!'],
+      fun: ['Flip the script! {how}, and the {team} lead!', 'New leader! {team} on top, {score}!', 'Look who\'s in front now! {how}, {team}!']
+    },
+    go_ahead: {
+      straight: ['{how}, and the {team} go ahead!', '{how} {team}. They break the tie.', '{how}! The {team} lead it now.'],
+      fun: ['Tie broken! {how}, {team}!', 'The {team} go ahead! {score}!', 'Not tied anymore! {how}, {team}!']
+    },
+    answer: {
+      straight: ['{how}, and the {team} answer right back!', 'The {team} answer! {how}. {score}.', 'Right back at them! {how}, {team}.'],
+      fun: ['Anything you can do! The {team} answer!', 'Tit for tat! {how}, {team}!', 'The {team} hit right back! {how}!']
+    },
+    rz_empty: {
+      straight: ['{what}! A red zone trip with no points.', '{what}! The {team} come away empty.', '{what}! No points from the red zone.'],
+      fun: ['{what}! All that work, no points!', '{what}! The {def} bend, don\'t break!', '{what}! Red zone, zero points. Ouch.']
+    },
+    kicker_again: {
+      straight: ['{kicker} from {dist}, good! {made} for {att} today.', 'Good again! {kicker} is {made} for {att}.', '{kicker} does it again from {dist}! {made} for {att}.'],
+      fun: ['Automatic! {kicker} is {made} for {att} today!', '{kicker} again! That leg is money!', '{kicker} can\'t miss today! {made} for {att}!']
+    },
+    hundred: {
+      straight: ['{player} for {yards}, and that\'s 100 yards today.', '{player} again! Over 100 yards for the day.', '{player} for {yards}. That\'s {total} on the day.'],
+      fun: ['{player} hits triple digits! {total} yards!', '100 yards and counting for {player}!', '{player} is having a day! {total} yards!']
+    },
+    third_catch: {
+      straight: ['{player} again! Third catch on this drive.', '{qb} keeps going to {player}. That\'s three.', '{player} for {yards}, a third catch this drive.'],
+      fun: ['Can\'t stop {player}! Three catches this drive!', '{qb} has a favorite! {player} again!', 'Hat trick! Third catch this drive for {player}!']
+    },
+    need_answer: {
+      straight: ['The {team} need an answer. {player} to the {spot}.', 'Down {diff}, the {team} need a response.', 'Your move, {team}. {player} brings it out.'],
+      fun: ['Time to answer, {team}! {player} to the {spot}!', 'Down {diff}! Let\'s see what the {team} have!', 'Gotta answer this one, {team}!']
+    },
+    rz_enter: {
+      straight: ['{player} for {yards}. {team} in the red zone!', 'Inside the twenty now! {player} for {yards}.', '{player} gets the {team} inside the twenty.'],
+      fun: ['Red zone! {player} gets the {team} close!', 'Knock knock! The {team} are at the door!', '{player} for {yards}! Smell the end zone!']
+    },
+    near_hundred: {
+      straight: ['{player} for {yards}. That\'s {total} yards today.', '{player} again, up to {total} yards on the day.', '{player} is at {total} yards now.'],
+      fun: ['{player} is at {total}! Triple digits coming?', '{total} yards for {player}! Keep feeding that!', '{player} closing in on 100! {total} so far!']
+    }
+  };
+  var PAYOFF = ['lead_change', 'go_ahead', 'answer', 'rz_empty', 'kicker_again', 'hundred', 'third_catch'];
+  var SETUP = ['need_answer', 'rz_enter', 'near_hundred'];
+  var MEM_GAP = 2, SETUP_GAP = 4;
+
+  function freshMemory() {
+    return { lastPoss: -1, drive: null, players: {}, kick: [{ made: 0, att: 0 }, { made: 0, att: 0 }],
+      lastScoreTeam: -1, lastRemark: -99, nearSaid: {}, leadChanges: 0, scoringDrives: [0, 0], log: [] };
+  }
+  var mem = freshMemory();
+
+  function playsSinceScore() {
+    var n = 0;
+    for (var i = mem.log.length - 1; i > 0; i--) {
+      var a = mem.log[i].score, b = mem.log[i - 1].score;
+      if (a[0] !== b[0] || a[1] !== b[1]) return n;
+      n++;
+    }
+    return n;
+  }
+  function sign(x) { return x > 0 ? 1 : x < 0 ? -1 : 0; }
+  function playerRec(team, slot) {
+    var k = team + '|' + slot;
+    return mem.players[k] || (mem.players[k] = { team: team, slot: slot, rec: 0, recYds: 0, rushYds: 0, td: 0 });
+  }
+
+  // Update the record with one play and return the remark kinds this play earns, best first.
+  function remember(res) {
+    var e = res.e || {}, out = [];
+    if (!res.pre || !res.post) return out;
+    var off = e.t === 'kickoff' ? res.post.poss : res.pre.poss;
+    if (off !== 0 && off !== 1) return out;
+    if (e.t === 'kickoff' || off !== mem.lastPoss || !mem.drive) mem.drive = { team: off, catches: {}, redZone: false, scored: false };
+    mem.lastPoss = res.post.poss;
+    var d = mem.drive, pre = res.pre.score, post = res.post.score, v = {};
+    var sc = post[0] > pre[0] ? 0 : post[1] > pre[1] ? 1 : -1;
+
+    // Players: catches, yards, touchdowns.
+    var p = null, before = 0, after = 0;
+    if (e.t === 'pass') {
+      p = playerRec(off, e.to); before = Math.max(p.recYds, p.rushYds);
+      p.rec++; p.recYds += e.yds; d.catches[e.to] = (d.catches[e.to] || 0) + 1;
+    } else if (e.t === 'run' || e.t === 'fumble') {
+      p = playerRec(off, e.by); before = Math.max(p.recYds, p.rushYds); p.rushYds += e.yds;
+    }
+    if (p) { after = Math.max(p.recYds, p.rushYds); if (res.td) p.td++; v.total = after; }
+
+    // Kicker.
+    if (e.t === 'fg') { mem.kick[off].att++; if (e.good) mem.kick[off].made++; v.made = mem.kick[off].made; v.att = mem.kick[off].att; }
+
+    // Scores, lead changes and answers (touchdowns, field goals, extra points).
+    if (sc >= 0) {
+      v.how = res.td ? 'Touchdown' : e.t === 'fg' ? 'Field goal' : 'Extra point';
+      var leadBefore = sign(pre[0] - pre[1]), leadAfter = sign(post[0] - post[1]), mine = sc === 0 ? 1 : -1;
+      // Taking the lead from behind is a lead change; breaking a tie is going ahead. The game's
+      // first score is neither.
+      if (leadAfter === mine && leadBefore === -mine) { out.push('lead_change'); mem.leadChanges++; }
+      else if (leadAfter === mine && leadBefore === 0 && (pre[0] + pre[1]) > 0) out.push('go_ahead');
+      if (res.td || e.t === 'fg') {
+        if (mem.lastScoreTeam === 1 - sc) out.push('answer');
+        mem.lastScoreTeam = sc; d.scored = true; mem.scoringDrives[sc]++;
+      }
+    }
+
+    // Red zone: the first time a drive gets inside the twenty, and a trip that ends empty.
+    var stays = !res.flip && !res.td && res.post.poss === off;
+    if (stays && res.pre.ballOn < 80 && res.post.ballOn >= 80 && !d.redZone && e.t !== 'pen') out.push('rz_enter');
+    if (stays && res.post.ballOn >= 80) d.redZone = true;
+    var endsEmpty = e.t === 'int' || e.t === 'fumble' || e.t === 'punt' || (e.t === 'fg' && !e.good) || res.downs;
+    if (endsEmpty && (d.redZone || res.pre.ballOn >= 80) && !d.scored) {
+      out.push('rz_empty');
+      v.what = e.t === 'int' ? 'Intercepted' : e.t === 'fumble' ? 'Fumble' : e.t === 'fg' ? 'No good' : res.downs ? 'Stopped on fourth down' : 'They punt';
+    }
+
+    if (e.t === 'fg' && e.good && mem.kick[off].made >= 2) out.push('kicker_again');
+    // Player remarks only on plays that score nothing, so a touchdown is always called as one.
+    if (sc < 0) {
+      if (p && before < 100 && after >= 100) out.push('hundred');
+      if (e.t === 'pass' && d.catches[e.to] === 3) out.push('third_catch');
+      if (p && after >= 75 && after < 100 && !mem.nearSaid[off + '|' + (e.to || e.by)]) out.push('near_hundred');
+    }
+
+    // A kickoff to a team that just gave up a score and trails.
+    if (e.t === 'kickoff' && mem.lastScoreTeam === 1 - off && post[off] < post[1 - off]) { out.push('need_answer'); v.diff = post[1 - off] - post[off]; }
+
+    mem.log.push({ play: playNo, t: e.t, team: off, score: post.slice(), earned: out.slice() });
+    return { kinds: out, v: v, team: off, p: p, slot: e.to || e.by };
+  }
+
+  // Pick the remark for this play, if any, respecting the gaps.
+  function memoryLine(r, base, style) {
+    if (!r || !r.kinds || !r.kinds.length) return null;
+    var gap = playNo - mem.lastRemark;
+    var kind = null;
+    for (var i = 0; i < PAYOFF.length && !kind; i++) {
+      var k = PAYOFF[i];
+      if (r.kinds.indexOf(k) < 0) continue;
+      if (k === 'lead_change' || k === 'go_ahead' || k === 'answer' || gap >= MEM_GAP) kind = k;
+    }
+    // need_answer comes right after a score by design, so it only waits the payoff gap.
+    for (var j = 0; j < SETUP.length && !kind; j++) {
+      if (r.kinds.indexOf(SETUP[j]) >= 0 && gap >= (SETUP[j] === 'need_answer' ? MEM_GAP : SETUP_GAP)) kind = SETUP[j];
+    }
+    if (!kind) return null;
+    var v = {};
+    Object.keys(base).forEach(function (k2) { v[k2] = base[k2]; });
+    Object.keys(r.v).forEach(function (k2) { v[k2] = r.v[k2]; });
+    var text = fill(pick(kind, style, MEMORY), v);
+    if (!text || /\{\w+\}/.test(text) || text.length > api.maxLength) return null;
+    mem.lastRemark = playNo;
+    if (kind === 'near_hundred') mem.nearSaid[r.team + '|' + r.slot] = true;
+    return { kind: 'memory_' + kind, text: text };
+  }
+
   // Longer pieces: intro, halftime and wrap. Built from the score, the leaders and the plays.
   var STORIES = {
     intro: {
@@ -345,7 +508,7 @@
     switch (e.t) {
       case 'kickoff':
         v.player = lastName(R.WR3);
-        v.spot = teams[off].id + ' ' + e.to;
+        v.spot = e.to === 50 ? '50' : e.to < 50 ? teams[off].id + ' ' + e.to : teams[1 - off].id + ' ' + (100 - e.to);
         return { kind: 'kickoff', v: v };
       case 'xp': return { kind: e.good ? 'xp_good' : 'xp_miss', v: v };
       case 'fg':
@@ -462,7 +625,10 @@
         var style = STYLES.indexOf(ctx.style) >= 0 ? ctx.style : api.style;
         var c = classify(res, teams, score);
         if (res.e) playNo++;
+        var r = res.e ? remember(res) : null;
         if (!c.kind) return '';
+        var m = memoryLine(r, c.v, style);
+        if (m) { announce(m.text, m.kind, style); return m.text; }
         var text = fill(pick(c.kind, style), c.v);
         var note = ctx.profiles ? tendencyNote(res, teams, ctx.profiles) : '';
         if (text && note && text.length + 1 + note.length <= api.maxLength) text += ' ' + note;
@@ -500,7 +666,16 @@
       return api.style;
     },
 
-    reset: function () { decks = {}; lastUsed = {}; last = null; playNo = 0; tendencySaid = {}; api.hush(); },
+    reset: function () { decks = {}; lastUsed = {}; last = null; playNo = 0; tendencySaid = {}; mem = freshMemory(); api.hush(); },
+
+    memory: function () {
+      var players = Object.keys(mem.players).map(function (k) {
+        var x = mem.players[k]; return { team: x.team, slot: x.slot, catches: x.rec, recYards: x.recYds, rushYards: x.rushYds, td: x.td };
+      });
+      return { players: players, kickers: mem.kick.map(function (k) { return { made: k.made, att: k.att }; }),
+        leadChanges: mem.leadChanges, lastScoreTeam: mem.lastScoreTeam, scoringDrives: mem.scoringDrives.slice(),
+        playsSinceRemark: playNo - mem.lastRemark, playsSinceScore: playsSinceScore(), log: mem.log.slice() };
+    },
 
     onLine: function (fn) {
       if (typeof fn !== 'function') return function () {};
@@ -513,6 +688,7 @@
     // For js/announcer/check.js and tests.
     kinds: function () { return Object.keys(LINES); },
     classify: classify,
+    _memoryLines: MEMORY,
     _setRandom: function (fn) { rand = fn || Math.random; }
   };
 

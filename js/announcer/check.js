@@ -270,6 +270,82 @@ STYLES.forEach(function (style) {
   console.log('\nTendencies: real profiles added ' + longer + ' remarks; test numbers added ' + noted.length + ', e.g. "' + (noted[0] || '') + '"');
 })();
 
+// C11: the announcer's memory. Replay the default game file (the one the app plays) and print
+// the whole broadcast so a person can read it, with the remarks that came from memory marked.
+(function () {
+  var fs = require('fs'), path = require('path');
+  Object.keys(A._memoryLines).forEach(function (kind) {
+    STYLES.forEach(function (style) {
+      var list = A._memoryLines[kind][style] || [];
+      if (list.length < 3) problems.push('memory ' + kind + ' ' + style + ' has ' + list.length + ' variants');
+      list.forEach(function (t) {
+        var w = fill(t, Object.assign({ how: 'Extra point', what: 'Stopped on fourth down', total: 199, made: 3, att: 3, diff: 14 }, worst));
+        if (w.length > A.maxLength) problems.push('memory ' + kind + ' ' + style + ' is ' + w.length + ' characters: ' + w);
+        if (/\{\w+\}/.test(w)) problems.push('memory ' + kind + ' unknown placeholder: ' + t);
+        if (/\b(he|him|his|she|her)\b/i.test(t)) problems.push('memory ' + kind + ' has a pronoun: ' + t);
+      });
+    });
+  });
+  var file = path.join(__dirname, '../../data/games/current.js'), game = null;
+  try { var src = fs.readFileSync(file, 'utf8'); game = JSON.parse(src.slice(src.indexOf('{'), src.lastIndexOf('}') + 1)); } catch (err) { game = null; }
+  if (!game) { console.log('\n(no data/games/current.js, broadcast replay skipped)'); return; }
+  var teams = game.teams;
+  STYLES.forEach(function (style) {
+    A.reset();
+    var st = Rules.create(teams), n = 0, mems = 0, lastMem = -9, kinds = {}, out = [];
+    out.push(A.intro({ teams: teams, style: style }));
+    Rules.flatten(game.game, teams).forEach(function (x) {
+      if (x.kind === 'half') { Rules.startHalf(st); out.push('-- ' + A.line({ kind: 'half' }, { teams: teams, score: st.score.slice(), style: style })); return; }
+      if (x.kind === 'final') { out.push('-- ' + A.line({ kind: 'final' }, { teams: teams, score: st.score.slice(), style: style })); return; }
+      var res = Rules.apply(st, x.e, x.team); n++;
+      var t = A.line(res, { teams: teams, style: style }), c = A.caption();
+      var isMem = c && /^memory_/.test(c.kind) && c.text === t;
+      if (isMem) {
+        var k = c.kind.slice(7); kinds[k] = (kinds[k] || 0) + 1; mems++;
+        var big = k === 'lead_change' || k === 'go_ahead' || k === 'answer';
+        if (!big && n - lastMem < 2) problems.push('memory lines too close together at play ' + n + ': ' + t);
+        lastMem = n;
+      }
+      if (t.length > A.maxLength) problems.push('broadcast line too long: ' + t);
+      out.push((isMem ? ' * ' : '   ') + t);
+    });
+    var mm = A.memory();
+    if (!mems) problems.push('the ' + style + ' broadcast used no memory lines');
+    if (mems > n / 4) problems.push('memory talks over too many plays: ' + mems + ' of ' + n);
+    if (style === 'straight') {
+      console.log('\n== Full broadcast, ' + game.id + ', straight (* = from memory) ==');
+      out.forEach(function (l) { console.log(l); });
+    }
+    console.log('\n' + style + ': ' + mems + ' memory lines in ' + n + ' plays: ' + JSON.stringify(kinds) +
+      '; lead changes ' + mm.leadChanges + ', kickers ' + JSON.stringify(mm.kickers) + ', plays since last score ' + mm.playsSinceScore);
+  });
+})();
+
+// C11 again, on a short made-up game (test only) that has what the real one lacks: a lead
+// change from behind, a player passing 100 yards, a kicker's second make.
+(function () {
+  var teams = data.TEAMS;
+  var game = { drives: [
+    { team: teams[0].id, plays: [{ t: 'kickoff', to: 25 }, { t: 'pass', to: 'WR1', yds: 50 }, { t: 'pass', to: 'WR1', yds: 25 }, { t: 'xp', good: true }] },
+    { team: teams[1].id, plays: [{ t: 'kickoff', to: 25 }, { t: 'pass', to: 'WR1', yds: 75 }, { t: 'xp', good: true }] },
+    { team: teams[0].id, plays: [{ t: 'kickoff', to: 25 }, { t: 'run', by: 'RB', yds: 4 }, { t: 'run', by: 'RB', yds: 3 }, { t: 'pass', to: 'WR1', yds: 30 }, { t: 'fg', good: true }] },
+    { team: teams[1].id, plays: [{ t: 'kickoff', to: 25 }, { t: 'pass', to: 'WR1', yds: 75 }, { t: 'xp', good: true }] },
+    { team: teams[0].id, plays: [{ t: 'kickoff', to: 25 }, { t: 'run', by: 'RB', yds: 2 }, { t: 'run', by: 'RB', yds: 3 }, { t: 'run', by: 'RB', yds: 4 }, { t: 'pass', to: 'WR2', yds: 30 }, { t: 'fg', good: true }] }
+  ] };
+  A.reset();
+  var st = Rules.create(teams), seen = {}, lines = [];
+  Rules.flatten(game, teams).forEach(function (x) {
+    if (x.kind !== 'play') return;
+    var t = A.line(Rules.apply(st, x.e, x.team), { teams: teams, style: 'straight' }), c = A.caption();
+    if (c && /^memory_/.test(c.kind) && c.text === t) { seen[c.kind.slice(7)] = true; lines.push(t); }
+  });
+  ['lead_change', 'go_ahead', 'answer', 'hundred', 'need_answer'].forEach(function (k) { if (!seen[k]) problems.push('made-up game: no ' + k + ' line'); });
+  var mm = A.memory();
+  if (mm.leadChanges !== 1) problems.push('made-up game: expected 1 lead change, memory says ' + mm.leadChanges);
+  if (mm.kickers[0].made !== 2) problems.push('made-up game: kicker makes should be 2');
+  console.log('\nMade-up game memory lines: ' + lines.join(' | '));
+})();
+
 console.log('\nStyle switch: ' + A.setStyle('fun') + ', ' + A.setStyle('nonsense') + ', ' + A.setStyle('straight'));
 console.log('speak() without a speech voice does nothing: ' + (A.speak('test') === undefined ? 'ok' : 'unexpected'));
 console.log('line() with no teams is quiet: ' + (A.line({}, {}) === '' ? 'ok' : 'unexpected'));
