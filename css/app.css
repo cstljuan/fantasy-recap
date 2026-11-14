@@ -551,6 +551,11 @@ h2 { margin: 0; font: 700 var(--fs-label)/1 var(--body); letter-spacing: 0.14em;
 body.in-game .a2hs { display: none; }
 @media (min-width: 760px) { .a2hs { left: auto; right: 24px; bottom: 24px; max-width: 420px; } }
 
+/* Demo mode tag, in the top left corner over everything. */
+.demo-tag { position: fixed; z-index: 50; top: calc(4px + env(safe-area-inset-top, 0px)); left: calc(4px + env(safe-area-inset-left, 0px));
+            padding: 2px var(--sp-1); background: var(--amber); color: var(--ink); pointer-events: none;
+            font: 700 var(--fs-micro)/1.2 var(--body); letter-spacing: 0.12em; text-transform: uppercase; }
+
 /* --------------------------------------------------------- phone polish */
 /* Safe areas for the notch and the home indicator, and tap targets of at least 44 pixels. */
 
