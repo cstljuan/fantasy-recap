@@ -140,8 +140,8 @@ Run `sh tools/next.sh` to get your next task with its full description. A row is
 | C28 | C | nexodv | Test lead: run every check, walk both apps in a browser, one command in tests/, send bugs to owners | open |
 | C29 | C | nexodv | Stadium sound for football to match the soccer broadcast, with Peyton's B35 | open |
 | C30 | C | nexodv | Soccer voice and captions, Noah's half of S6 | open |
-| D41 | D | Rickstar-App | Deep agents finished: Scout ready for a real run, offline test of the subagents and the evidence guard | open |
-| D42 | D | Rickstar-App | Tiger Data finished: schema, migrations, seed, every route, a test against a real database when DATABASE_URL is set | open |
+| D41 | D | Rickstar-App | Deep agents finished: Scout ready for a real run, offline test of the subagents and the evidence guard | merged |
+| D42 | D | Rickstar-App | Tiger Data finished: schema, migrations, seed, every route, a test against a real database when DATABASE_URL is set | merged |
 | D43 | D | Rickstar-App | Fix every bug the test lead (C28) sends | open |
 
 ## Answers to ASK posts
@@ -263,6 +263,7 @@ The boss reviews every DONE before it reaches main: the authors check, the lane 
 - Merged after review: B30, B31, B32, B33, B34, C24, C25, C26, C27, D35, D36, D37. All checks and the three full-game runs passed
 - Merged after review: D38, D39. All checks and the three full-game runs passed
 - Merged after review: D40. All checks and the three full-game runs passed
+- Merged after review: D41, D42. All checks and the three full-game runs passed
 - D1 real rosters and profile files, D2 database schema (Ricky) are on main; `data/games/sample-football.json` now has the real rosters
 
 ## Decisions
