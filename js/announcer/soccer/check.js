@@ -149,9 +149,9 @@ STYLES.forEach(function (style) {
   var firstGoal = res.findIndex(function (r) { return r.goal; });
   var cases = [
     ['no skipped events', [], {}, function (t) { return t === ''; }],
-    ['a goal', res.slice(0, firstGoal + 1), {}, function (t) { return /goal from/i.test(t); }],
+    ['a goal', res.slice(0, firstGoal + 1), {}, function (t) { return /goal/i.test(t); }],
     ['a red card', [plain, red], {}, function (t) { return /sent off/.test(t); }],
-    ['a saved penalty', [plain, penSave], {}, function (t) { return /saved a penalty/.test(t); }],
+    ['a saved penalty', [plain, penSave], {}, function (t) { return /saved a pen/.test(t); }],
     ['quiet, leader shown', [plain], { leaders: leaders }, function (t) { return /5\.5/.test(t); }],
     ['hidden scores', [plain], { leaders: leaders, hidden: true }, function (t) { return t && !/fantasy|5\.5/.test(t); }]
   ];
@@ -163,6 +163,7 @@ STYLES.forEach(function (style) {
     var n = (t.match(/[.!?](\s|$)/g) || []).length;
     if (t && (n < 1 || n > 2)) problems.push('catchUp, ' + c[0] + ' has ' + n + ' sentences');
     if (/\{\w+\}|undefined|NaN/.test(t)) problems.push('catchUp gap: ' + t);
+    if (t.length > A.maxLength) problems.push('catchUp too long (' + t.length + '): ' + t);
     console.log('  ' + pad(c[0], 22) + (t || '(quiet)'));
   });
   A.reset(); A.catchUp(res.slice(0, 10), { teams: teams });

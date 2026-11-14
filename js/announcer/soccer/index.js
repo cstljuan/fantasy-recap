@@ -17,9 +17,9 @@
 //   explain(kind)   one or two plain sentences on a soccer rule for the rule cards; '' for an
 //                   unknown kind. explainKinds lists them; explainFor(res) gives a result's kinds.
 //   catchUp(results, ctx)
-//                   after SC_GAME.seek skipped events: one or two sentences (the goals and the new
-//                   score, then a red card, a saved penalty or the busiest keeper), '' when nothing
-//                   was skipped. Same shapes as FF_ANNOUNCER.catchUp; ctx.hidden keeps fantasy
+//                   after SC_GAME.seek skipped events: one or two short sentences (the goals and the
+//                   new score, then a red card, a saved penalty or the busiest keeper), at most
+//                   maxLength characters, '' when nothing was skipped. Same shapes as FF_ANNOUNCER.catchUp; ctx.hidden keeps fantasy
 //                   points out. It also adds the skipped events to the memory.
 //   bigCall(res, ctx)
 //                   two or three sentences for a goal, a red card or a saved penalty, '' otherwise:
@@ -256,25 +256,7 @@
   }
 
   // ---- Catch-up after a jump ----
-  var CATCHUP = {
-    scored: {
-      straight: ['We pick it up at {min} minutes: {what}, and it\'s {score}.', 'A few minutes on, {what}, so it\'s {score}.', 'Since you left: {what}, making it {score}.'],
-      fun: ['Fast forward to {min} minutes: {what}, {score}!', 'You missed {what}! It\'s {score}!', 'Skip ahead: {what}, {score}!']
-    },
-    quiet: {
-      straight: ['We pick it up at {min} minutes, still {score}.', '{min} minutes gone, and it\'s still {score}.', 'Skipping ahead to {min} minutes, still {score}.'],
-      fun: ['Fast forward to {min} minutes, still {score}!', 'Nothing on the board yet, {score} at {min} minutes!', 'Skipped to {min} minutes, and nobody has scored!']
-    },
-    extra: {
-      straight: ['Along the way, {extra}.', 'Worth knowing: {extra}.', 'The big moment: {extra}.'],
-      fun: ['And get this: {extra}!', 'Oh, and {extra}!', 'Plot twist: {extra}!']
-    },
-    leader: {
-      straight: ['{leader} leads in fantasy points with {lpts}.', '{leader} is up to {lpts} fantasy points.', 'Top of the fantasy board: {leader}, {lpts}.'],
-      fun: ['{leader} is flying: {lpts} points!', '{leader} has {lpts} already!', 'Fantasy star right now: {leader}, {lpts}!']
-    }
-  };
-  function joinList(a) { return a.length <= 1 ? (a[0] || '') : a.slice(0, -1).join(', ') + ' and ' + a[a.length - 1]; }
+  // Short enough for one line of the captions strip: the first form that fits maxLength.
   function r1(x) { return String(Math.round((+x || 0) * 10) / 10); }
 
   function catchUp(results, ctx) {
@@ -282,32 +264,35 @@
       ctx = ctx || {};
       var teams = ctx.teams, evs = (results || []).filter(function (r) { return r && r.e && r.pre && r.post && (r.team === 0 || r.team === 1); });
       if (!teams || teams.length < 2 || !evs.length) return '';
-      var style = STYLES.indexOf(ctx.style) >= 0 ? ctx.style : api.style;
+      var style = STYLES.indexOf(ctx.style) >= 0 ? ctx.style : api.style, fun = style === 'fun';
       evs.forEach(function (r) { eventNo++; remember(r); });
       var first = evs[0].pre.score, end = evs[evs.length - 1].post.score, score = ctx.score || end;
-      var v = { n: evs.length, min: evs[evs.length - 1].e.min, score: scoreText(teams, score) };
       var goals = [], extra = '', saves = [0, 0];
       evs.forEach(function (r) {
         var e = r.e, R = teams[r.team].roster || {}, O = teams[1 - r.team].roster || {};
-        if (r.goal) goals.push(lastName(R[r.scorer]) + ' for ' + teams[r.team].name + ' (' + e.min + "')");
-        if (!extra && r.card === 'red') extra = lastName(R[e.by]) + ' was sent off';
-        if (!extra && e.t === 'pen' && e.out === 'saved') extra = lastName(O.GK) + ' saved a penalty';
+        if (r.goal) goals.push(lastName(R[r.scorer]) + ' ' + e.min + "'");
+        if (!extra && r.card === 'red') extra = lastName(R[e.by]) + ' sent off';
+        if (!extra && e.t === 'pen' && e.out === 'saved') extra = lastName(O.GK) + ' saved a pen';
         if ((e.t === 'shot' || e.t === 'pen') && e.out === 'saved') saves[1 - r.team]++;
       });
       if (!extra) {
         var k = saves[0] >= saves[1] ? 0 : 1;
         if (saves[k] >= 2) extra = lastName((teams[k].roster || {}).GK) + ' made ' + saves[k] + ' saves';
       }
-      var changed = first[0] !== end[0] || first[1] !== end[1];
-      v.what = goals.length === 1 ? 'a goal from ' + goals[0] : goals.length ? 'goals from ' + joinList(goals) : '';
-      var s1 = fill(pick(changed && goals.length ? 'scored' : 'quiet', style, CATCHUP), v);
-      var s2 = '';
-      if (extra) s2 = fill(pick('extra', style, CATCHUP), { extra: extra });
-      else if (!ctx.hidden && ctx.leaders && ctx.leaders.length) {
+      var end1 = fun ? '!' : '.', sc = score[0] + ' to ' + score[1], at = evs[evs.length - 1].e.min + "'";
+      var s2 = extra ? extra.charAt(0).toUpperCase() + extra.slice(1) + end1 : '';
+      if (!s2 && !ctx.hidden && ctx.leaders && ctx.leaders.length) {
         var top = ctx.leaders.reduce(function (a, l) { return !a || (+l.points || 0) > (+a.points || 0) ? l : a; }, null);
-        if (top) s2 = fill(pick('leader', style, CATCHUP), { leader: lastName(top.name), lpts: r1(top.points) });
+        if (top) s2 = lastName(top.name) + ': ' + r1(top.points) + ' fantasy pts' + end1;
       }
-      var text = s2 ? s1 + ' ' + s2 : s1;
+      var changed = (first[0] !== end[0] || first[1] !== end[1]) && goals.length;
+      var forms = changed ? ['Now ' + at + ': goal' + (goals.length > 1 ? 's' : '') + ' ' + goals.join(', ') + ', ' + sc + end1, 'Now ' + at + ', ' + sc + end1]
+                          : ['Now ' + at + ', still ' + sc + end1];
+      // The fullest form first, with the extra fact if it fits, then without it.
+      var text = '', tries = [];
+      forms.forEach(function (f) { if (s2) tries.push(f + ' ' + s2); tries.push(f); });
+      for (var i = 0; i < tries.length && !text; i++) if (tries[i].length <= api.maxLength) text = tries[i];
+      if (!text) text = forms[forms.length - 1].slice(0, api.maxLength);
       announce(text, 'catch_up', style);
       return text;
     } catch (err) {
