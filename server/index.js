@@ -28,6 +28,11 @@ var MAX_BODY = 1024 * 1024;
 var INSERT_PLAY =
   'INSERT INTO plays (game_id, seq, played_at, quarter, team, slot, player, kind, yards, fantasy_points, detail, why) ' +
   'VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12) ON CONFLICT DO NOTHING';
+// Soccer rows also carry the match minute. The minute column comes from db/migrate-002-soccer.sql, so it is only
+// written for plays that have a minute and football keeps working on a database without the migration.
+var INSERT_PLAY_MINUTE =
+  'INSERT INTO plays (game_id, seq, played_at, quarter, team, slot, player, kind, yards, fantasy_points, detail, why, minute) ' +
+  'VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13) ON CONFLICT DO NOTHING';
 
 // A browser page on another port may call the service only from http://localhost:<port> or http://127.0.0.1:<port>.
 var LOCAL_ORIGIN = /^http:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/;
@@ -69,6 +74,7 @@ function checkPlay(p, i) {
   if (!Number.isInteger(p.quarter)) return 'plays[' + i + '].quarter must be an integer';
   if (typeof p.team !== 'string' || !p.team) return 'plays[' + i + '].team is required';
   if (typeof p.kind !== 'string' || !p.kind) return 'plays[' + i + '].kind is required';
+  if (p.minute != null && (!Number.isInteger(p.minute) || p.minute < 0 || p.minute > 200)) return 'plays[' + i + '].minute must be a whole minute';
   return null;
 }
 
@@ -180,9 +186,11 @@ function createServer(db) {
         }).then(function () {
           return body.plays.reduce(function (chain, p) {
             return chain.then(function () {
-              return client.query(INSERT_PLAY, [gameId, p.seq, p.played_at, p.quarter, p.team, p.slot || null, p.player || null,
+              var vals = [gameId, p.seq, p.played_at, p.quarter, p.team, p.slot || null, p.player || null,
                 p.kind, p.yards == null ? null : p.yards, p.fantasy_points == null ? 0 : p.fantasy_points,
-                JSON.stringify(p.detail || {}), JSON.stringify(p.why || {})]);
+                JSON.stringify(p.detail || {}), JSON.stringify(p.why || {})];
+              if (p.minute != null) return client.query(INSERT_PLAY_MINUTE, vals.concat([p.minute]));
+              return client.query(INSERT_PLAY, vals);
             });
           }, Promise.resolve());
         }).then(function () {
