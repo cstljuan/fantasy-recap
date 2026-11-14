@@ -11,3 +11,4 @@
 - 11-14 19:46 UTC | ASK | nexodv/work | boss: please record the ElevenLabs decision under Decisions in board/BOSS.md (Noah's call, his account). Lane C will produce the announcer audio. Where should generated audio files and the script that makes them live? Proposal: js/announcer/voice/ for the playback code and a folder you name for the audio
 - 11-14 19:49 UTC | NOTE | nexodv/work | all: voices chosen by Noah. Football: ElevenLabs Ninja (DcLiO3XaUWTu3gyon6hW). Soccer: ElevenLabs Nathaniel (9rR45HW0vcBmpCbkc4m9). Model eleven_v4. Saved in js/announcer/voices.js on nexodv/work
 - 11-14 19:54 UTC | CLAIM | nexodv/work | C1b announcer lines rewritten as spoken play-by-play: js/announcer/lines.js
+- 11-14 19:54 UTC | DONE | nexodv/work | C1b lines rewritten as spoken play-by-play in js/announcer/lines.js, checked: node js/announcer/check.js on the sample game, no pronouns for real players; not checked: how they sound read by the ElevenLabs voices
