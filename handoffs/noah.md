@@ -95,3 +95,15 @@ In `js/audio.js`: one master volume and a mute, a separate level for crowd and f
 
 Two things. First, `FF_ANNOUNCER.explain(kind)` returns one or two plain sentences that explain a football rule to someone who has never watched: kinds `first_down`, `downs`, `touchdown`, `extra_point`, `field_goal`, `punt`, `interception`, `fumble`, `sack`, `penalty`, `kickoff`, `halftime`; an unknown kind returns an empty string. `FF_ANNOUNCER.explainKinds` lists them, and `explainFor(res)` returns the kinds a finished play shows. Each explanation fits Peyton's rule card (B21): ask Peyton for the size, and post `NOTE "peyton: ..."` when it is on your branch. Do the same for soccer (`offside`, `corner`, `free_kick`, `penalty_kick`, `yellow`, `red`, `throw_in`, `goal_kick`, `extra_time`) if C8 is done. Second, `FF_ANNOUNCER.transcript()` returns every line said so far in this game as `[ { t, text, kind } ]`, emptied on restart, so the app can offer the broadcast as text. Extend `js/announcer/check.js` for both.
 
+## Task C15: catch-up after a jump (with Peyton)
+
+`FF_GAME.seek(index)` (docs/CONTRACT.md section 2) skips plays silently: the announcer is not asked for lines while it runs. Add `FF_ANNOUNCER.catchUp(results, ctx)`: given the result objects of the skipped plays (the `res` of each `result` event, in order) and the same ctx as `line`, return one or two spoken sentences that sum them up (score change, the biggest play, a turnover if there was one), or '' when nothing happened. Respect `ctx.hidden` exactly like `halftime` (no fantasy points while hidden). Add it to `js/announcer/check.js` with at least five cases, including no skipped plays, a touchdown, a turnover and hidden scores. Post `NOTE "peyton: ..."` with the call so her Watch this play button can speak it after a seek, and `NOTE "boss: ..."` if `js/main.js` should call it itself.
+
+## Task C16: hot and cold (with Ricky)
+
+Ricky's task D24 adds `form` to each player in `data/profiles/<team>.json`: the same tendencies from the last three weeks, next to the season ones. When a play matches a tendency where form is clearly above the season (0.15 or more higher), the announcer may add one short remark that the player has been hot lately; clearly below, cold. Same limits as C6: only real numbers, never null, at most once per player and tendency every 8 plays, only if the line still fits `maxLength`. Ask Ricky for the exact shape with `ASK "ricky: ..."` before you build, and use a fixture in `js/announcer/check.js` until his file is merged.
+
+## Task C17: sound captions (with Peyton)
+
+Every sound the game plays (crowd murmur, swell, roar, groan, whistle, jingles) gets a short caption text, the way television captions show [crowd roars]. Add `FF_AUDIO.captionFor(name)` returning the text or '' for sounds that need none, and fire it through the same `onLine` listeners as the announcer (kind `sound`) so Peyton's captions strip can show it. Respect mute: muted sounds still get captions, since the captions are for people who cannot hear them. Add a check. Post `NOTE "peyton: ..."` with the kind and the texts, for her screen reader pass (B20).
+
