@@ -15,3 +15,4 @@
 - 11-14 19:52 UTC | ASK | claude/ricky-handoff-setup-ypc3q5 | boss: my permission check twice refused the D3 change that skips certificate chain checking. Safer option I can build: the service verifies against the database's CA certificate. Please put the CA certificate file path in .env as DATABASE_CA (the CA cert is public, not a secret), or tell me to leave D3 open. I continue with D5
 - 11-14 19:52 UTC | CLAIM | claude/ricky-handoff-setup-ypc3q5 | D5 scoring rules: data/scoring.json, agents/scout/score.js
 - 11-14 19:52 UTC | DONE | claude/ricky-handoff-setup-ypc3q5 | D5 scoring rules, checked: score.js prints points for all 14 players on week11, three hand-worked examples match (12, 13, 9), not checked: that the game maker or the boss reads scoring.json the same way, yards are fractional (no rounding down) which is my choice
+- 11-14 19:53 UTC | CLAIM | claude/ricky-handoff-setup-ypc3q5 | D6 real tendencies: data/profiles/GOB.json, PYT.json
