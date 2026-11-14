@@ -16,7 +16,9 @@
 //                   Returns a function that removes the listener.
 //   ctx.profiles    optional: the data/profiles/<team>.json objects, as { GOB: {...}, PYT: {...} }
 //                   or an array. When a play matches a player's tendency (number 0.7 or more)
-//                   or goes against it (0.3 or less), line() adds one short sentence. Only
+//                   or goes against it (0.3 or less), line() adds one short sentence. Keys: deep_ball,
+//                   short_pass, scramble, run_share, target_share, catch_rate, pass_catching,
+//                   red_zone_use, kicker_range. Only
 //                   tendencies with a real number count; null is never guessed. The same
 //                   player and tendency is mentioned at most once every 6 plays.
 //                   Hot and cold (C16): when the profile also has the player's recent form for that
@@ -190,6 +192,14 @@
       high: ['Down close, they look for {name}.', '{name} is the red zone weapon.', 'Inside the twenty, it is {name} time.'],
       low: ['A surprise choice near the goal line, {name}.', 'Not usually {name} down here.', '{name} in the red zone, that is new.']
     },
+    catch_rate: {
+      high: ['Sure hands from {name}.', '{name} catches everything.', '{name} rarely drops one.'],
+      low: ['Good hands there from {name}.', '{name} holds on this time.', 'A nice grab by {name}.']
+    },
+    pass_catching: {
+      high: ['{name} is a real threat out of the backfield.', 'They love throwing to {name}.', '{name} catches it like a receiver.'],
+      low: ['A rare catch for {name}.', 'Not often {name} gets a pass.', '{name} with a catch, unusual.']
+    },
     kicker_range: {
       high: ['From that distance, {name} is as good as anyone.', '{name} has the leg for it.', 'Long range is no problem for {name}.'],
       low: ['That is a long way for {name}.', 'Testing {name}\'s range there.', 'Not a usual distance for {name}.']
@@ -234,6 +244,7 @@
       if (redZone || res.td) t.push([e.to, 'red_zone_use']);
       if (e.yds >= 20) { t.push(['QB', 'deep_ball']); t.push([e.to, 'deep_ball']); }
       else if (e.yds < 10) t.push(['QB', 'short_pass']);
+      t.push([e.to, e.to === 'RB' ? 'pass_catching' : 'catch_rate']);
       t.push([e.to, 'target_share']);
     } else if (e.t === 'inc') {
       t.push([e.to, 'target_share']);
@@ -863,7 +874,8 @@
           }
         }
       }
-      var text = fill(pick(k, style, STORIES), v);
+      // A filled-in value can start a sentence ("the 9 yard run by Barkley..."): capitalize it.
+      var text = fill(pick(k, style, STORIES), v).replace(/(^|[.!?]\s+)([a-z])/g, function (m, a, b) { return a + b.toUpperCase(); });
       if (text) announce(text, kind, style);
       return text;
     } catch (err) {
