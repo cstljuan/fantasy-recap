@@ -70,6 +70,41 @@ RULES = [
 ]
 
 
+# Rules on the real plays (play_tendencies, from agents/scout/play_tendencies.py). They come before RULES because
+# snap-by-snap numbers say more about play calling than season averages.
+PLAY_RULES = [
+    ("QB", "deep_share", lambda v: v >= 0.22, "{last} throws deep often: {v} of throws in the real plays."),
+    ("QB", "deep_share", lambda v: v <= 0.15, "{last} rarely throws deep: {v} of throws in the real plays."),
+    ("QB", "right_share", lambda v: v >= 0.45, "{last} favors the right side: {v} of throws."),
+    ("QB", "left_share", lambda v: v >= 0.45, "{last} favors the left side: {v} of throws."),
+    ("QB", "scramble_rate", lambda v: v >= 0.1, "{last} scrambles on {v} of dropbacks: watch for the run when the pocket breaks."),
+    ("QB", "third_down_conversion", lambda v: v >= 0.45, "{last} converts {v} of the third downs where {last} throws or runs."),
+    ("RB", "goal_line_share", lambda v: v >= 0.75, "{last} gets {v} of the team's carries inside the 5: the goal line back."),
+    ("RB", "carry_share", lambda v: v >= 0.65, "{last} carries the load: {v} of the team's carries in the games played."),
+    ("RB", "short_yardage_share", lambda v: v >= 0.5, "{last} gets {v} of the team's short yardage carries."),
+    ("RB", "explosive_run_rate", lambda v: v >= 0.14, "{last} breaks a run of 10 yards or more on {v} of carries."),
+    ("RB", "target_share", lambda v: v >= 0.12, "{last} is part of the passing game: {v} of the team's throws."),
+    ("WR", "target_share", lambda v: v >= 0.28, "{last} is the focus of the passing game: {v} of the team's throws."),
+    ("WR", "red_zone_target_share", lambda v: v >= 0.3, "Inside the 20, {last} gets {v} of the team's throws."),
+    ("WR", "third_down_target_share", lambda v: v >= 0.35, "On third down, {last} gets {v} of the team's throws."),
+    ("WR", "deep_target_share", lambda v: v >= 0.3, "{v} of {last}'s targets are deep."),
+    ("TE", "target_share", lambda v: v >= 0.25, "{last} is a main target: {v} of the team's throws."),
+    ("TE", "red_zone_target_share", lambda v: v >= 0.25, "Inside the 20, {last} gets {v} of the team's throws."),
+    ("TE", "third_down_target_share", lambda v: v >= 0.35, "On third down, {last} gets {v} of the team's throws."),
+    ("K", "make_rate_50_plus", lambda v: v >= 0.75, "{last} makes {v} of attempts from 50 yards or more."),
+    ("K", "make_rate_50_plus", lambda v: v <= 0.4, "{last} makes only {v} of attempts from 50 yards or more."),
+]
+PLAY_LABEL = {"deep_share": "deep throws", "left_share": "to the left", "middle_share": "to the middle", "right_share": "to the right",
+              "deep_completion": "deep completions", "sack_rate": "sacks", "int_rate": "interceptions", "scramble_rate": "scrambles",
+              "third_down_conversion": "third downs converted", "red_zone_td_rate": "red zone touchdown throws",
+              "target_share": "target share", "deep_target_share": "deep targets", "red_zone_target_share": "red zone target share",
+              "third_down_target_share": "third down target share", "catch_rate_short": "short catch rate", "catch_rate_deep": "deep catch rate",
+              "carry_share": "carry share", "goal_line_share": "goal line share", "short_yardage_share": "short yardage share",
+              "explosive_run_rate": "runs of 10 or more", "stuff_rate": "runs stopped at 0 or less",
+              "make_rate_0_39": "made from 0 to 39", "make_rate_40_49": "made from 40 to 49", "make_rate_50_plus": "made from 50 or more",
+              "long_attempt_share": "attempts from 40 or more"}
+
+
 def _read(path, default=None):
     try:
         with open(path, "r", encoding="utf-8") as f:
@@ -95,7 +130,16 @@ def sentences(p):
     """Two sentences from RULES and recent form. Returns (first, second)."""
     pos, t, last = p.get("position"), p.get("tendencies") or {}, last_name(p.get("name", ""))
     out, used = [], set()
-    for rpos, key, test, text in RULES:
+    pt = p.get("play_tendencies") or {}
+    for rpos, key, test, text in PLAY_RULES:
+        v = pt.get(key)
+        if rpos != pos or v is None or key in used or not test(v):
+            continue
+        out.append(text.format(last=last, v=fmt(v)))
+        used.add(key)
+        if len(out) == 1:
+            break
+    for rpos, key, test, text in ([] if out else RULES):
         v = t.get(key)
         if rpos != pos or v is None or key in used or not test(v):
             continue
@@ -131,7 +175,7 @@ def page(team, slot, p, cross, date):
     name = p.get("name", "")
     lines = ["# %s" % name, "",
              "%s, %s (%s). Written by `agents/scout/notes.py` on %s from the data files, with no model: the two "
-             "sentences under \"What it means\" come from fixed rules on the numbers below. On-field numbers only."
+             "sentences under \"What it means\" come from fixed rules on the numbers below (the real plays first). On-field numbers only."
              % (team, slot, p.get("position", ""), date), ""]
     t, src = p.get("tendencies") or {}, p.get("tendency_sources") or {}
     lines += ["## Season tendencies", "", "| Tendency | Value | How | Source | Date |", "|---|---|---|---|---|"]
@@ -143,6 +187,17 @@ def page(team, slot, p, cross, date):
     lines += [""]
     if p.get("notes"):
         lines += [p["notes"], ""]
+    pt, ps = p.get("play_tendencies") or {}, p.get("play_tendency_sources") or {}
+    if pt:
+        any_src = next(iter(ps.values()), {})
+        lines += ["## From the real plays", "",
+                  "Worked out snap by snap from ESPN's play-by-play of %d games (%s, read %s). A number needs at least 5 plays under it." % (
+                      len(any_src.get("games") or []), any_src.get("source") or "", any_src.get("date") or ""), "",
+                  "| What | Value | Plays | How |", "|---|---|---|---|"]
+        for k, v in pt.items():
+            sp = ps.get(k) or {}
+            lines.append("| %s | %s | %s of %s | %s |" % (PLAY_LABEL.get(k, k), fmt(v), sp.get("n", ""), sp.get("of", ""), sp.get("how", "")))
+        lines += [""]
     f = p.get("form")
     lines += ["## Recent form", ""]
     if f and f.get("weeks"):

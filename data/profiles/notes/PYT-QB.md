@@ -1,6 +1,6 @@
 # Lamar Jackson
 
-PYT, QB (QB). Written by `agents/scout/notes.py` on 2026-11-14 from the data files, with no model: the two sentences under "What it means" come from fixed rules on the numbers below. On-field numbers only.
+PYT, QB (QB). Written by `agents/scout/notes.py` on 2026-11-14 from the data files, with no model: the two sentences under "What it means" come from fixed rules on the numbers below (the real plays first). On-field numbers only.
 
 ## Season tendencies
 
@@ -11,6 +11,23 @@ PYT, QB (QB). Written by `agents/scout/notes.py` on 2026-11-14 from the data fil
 | running as a quarterback | 0.13 | rush yards divided by pass plus rush yards | https://api.sleeper.com/stats/nfl/player/4881?season_type=regular&season=2026 | 2026-11-14 |
 
 Season 2026 numbers through game week 6.0 (5.0 games). Filled by agents/scout/fill_profiles.py, no model.
+
+## From the real plays
+
+Worked out snap by snap from ESPN's play-by-play of 5 games (data/rosters/plays-2026.json (ESPN play-by-play, parsed by agents/scout/plays.py), read 2026-11-14). A number needs at least 5 plays under it.
+
+| What | Value | Plays | How |
+|---|---|---|---|
+| deep throws | 0.221 | 21 of 95 | deep throws divided by throws with a depth in the play text |
+| to the left | 0.326 | 31 of 95 | throws to the left divided by throws with a direction |
+| to the middle | 0.347 | 33 of 95 | throws to the middle divided by throws with a direction |
+| to the right | 0.326 | 31 of 95 | throws to the right divided by throws with a direction |
+| deep completions | 0.524 | 11 of 21 | deep completions divided by deep throws |
+| sacks | 0.069 | 7 of 102 | sacks divided by throws plus sacks |
+| interceptions | 0.011 | 1 of 95 | interceptions divided by throws |
+| scrambles | 0.089 | 10 of 112 | scrambles divided by dropbacks (throws, sacks and scrambles) |
+| third downs converted | 0.375 | 9 of 24 | third down plays by the quarterback that gained the first down or scored |
+| red zone touchdown throws | 0.286 | 4 of 14 | touchdown throws inside the 20 divided by throws inside the 20 |
 
 ## Recent form
 
@@ -30,4 +47,4 @@ Sleeper: https://api.sleeper.com/stats/nfl/player/4881?season_type=regular&seaso
 
 ## What it means for play calling
 
-Jackson pushes the ball downfield: a high deep ball number (0.831) says the long throw is a real option. Jackson completes a high share of passes (0.701): the short game is safe with this quarterback.
+Jackson throws deep often: 0.221 of throws in the real plays. Jackson pushes the ball downfield: a high deep ball number (0.831) says the long throw is a real option.

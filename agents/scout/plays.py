@@ -16,7 +16,8 @@ of every total.
 
 Writes data/rosters/plays-<season>.json:
   { season, date, weeks, sources, games: { <event id>: {week, home, away, source} },
-    team_games: { <NFL team>: { <event id>: { pass_att, rush_att, plays, red_zone, third_down } } },
+    team_games: { <NFL team>: { <event id>: { pass_att, rush_att, plays, red_zone, third_down, rz_pass (passes inside the 20),
+                                              third_pass, gl_rush (carries inside the 5), sy_rush (carries on 3rd or 4th and 2 or less) } } },
     players: { "<team>.<slot>": { name, short, nfl_team, espn_id, games: [event ids], plays: [play, ...],
                                   totals: {...}, sleeper: {...}, reconcile: {...} } },
     reconcile: { compared, exact, within_1, differ: [...] } }
@@ -510,7 +511,19 @@ def main(argv):
                 spot_adjust(pr, r, abbr)
                 off = r["off"]
                 if pr and off and not pr.get("nullified"):
-                    c = ctx.setdefault(off, {"pass_att": 0, "rush_att": 0, "plays": 0, "red_zone": 0, "third_down": 0})
+                    c = ctx.setdefault(off, {"pass_att": 0, "rush_att": 0, "plays": 0, "red_zone": 0, "third_down": 0,
+                                             "rz_pass": 0, "third_pass": 0, "gl_rush": 0, "sy_rush": 0})
+                    is_pass = pr["kind"] in ("pass", "inc", "int") and not (pr.get("dpi") and pr["kind"] == "inc")
+                    is_rush = pr["kind"] in ("run", "scramble")
+                    ytg = r["ytg"] if isinstance(r["ytg"], int) else None
+                    if is_pass and ytg is not None and ytg <= 20:
+                        c["rz_pass"] += 1
+                    if is_pass and r["dn"] == 3:
+                        c["third_pass"] += 1
+                    if is_rush and ytg is not None and ytg <= 5:
+                        c["gl_rush"] += 1
+                    if is_rush and r["dn"] in (3, 4) and isinstance(r["dist"], int) and r["dist"] <= 2:
+                        c["sy_rush"] += 1
                     if pr["kind"] in ("pass", "inc", "int") and not (pr.get("dpi") and pr["kind"] == "inc"):
                         c["pass_att"] += 1
                     if pr["kind"] in ("run", "scramble"):

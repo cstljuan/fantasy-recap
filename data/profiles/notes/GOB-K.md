@@ -1,6 +1,6 @@
 # Brandon Aubrey
 
-GOB, K (K). Written by `agents/scout/notes.py` on 2026-11-14 from the data files, with no model: the two sentences under "What it means" come from fixed rules on the numbers below. On-field numbers only.
+GOB, K (K). Written by `agents/scout/notes.py` on 2026-11-14 from the data files, with no model: the two sentences under "What it means" come from fixed rules on the numbers below (the real plays first). On-field numbers only.
 
 ## Season tendencies
 
@@ -10,6 +10,17 @@ GOB, K (K). Written by `agents/scout/notes.py` on 2026-11-14 from the data files
 | accuracy | 0.773 | field goals made divided by attempted | https://api.sleeper.com/stats/nfl/player/11533?season_type=regular&season=2026 | 2026-11-14 |
 
 Season 2026 numbers through game week 9.0 (9.0 games). Filled by agents/scout/fill_profiles.py, no model.
+
+## From the real plays
+
+Worked out snap by snap from ESPN's play-by-play of 9 games (data/rosters/plays-2026.json (ESPN play-by-play, parsed by agents/scout/plays.py), read 2026-11-14). A number needs at least 5 plays under it.
+
+| What | Value | Plays | How |
+|---|---|---|---|
+| made from 0 to 39 | 1 | 10 of 10 | field goals made from 0 to 39 yards divided by attempts |
+| made from 40 to 49 | not known | 4 of 4 | field goals made from 40 to 49 yards divided by attempts (null: fewer than 5 plays) |
+| made from 50 or more | 0.375 | 3 of 8 | field goals made from 50 or more yards divided by attempts |
+| attempts from 40 or more | 0.545 | 12 of 22 | attempts from 40 yards or more divided by attempts |
 
 ## Recent form
 
@@ -28,4 +39,4 @@ Sleeper: https://api.sleeper.com/stats/nfl/player/11533?season_type=regular&seas
 
 ## What it means for play calling
 
-Aubrey makes 0.773 of field goals attempted. Aubrey makes 0.412 of field goals from 40 yards or more.
+Aubrey makes only 0.375 of attempts from 50 yards or more. Aubrey makes 0.773 of field goals attempted.

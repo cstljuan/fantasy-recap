@@ -1,6 +1,6 @@
 # Josh Allen
 
-GOB, QB (QB). Written by `agents/scout/notes.py` on 2026-11-14 from the data files, with no model: the two sentences under "What it means" come from fixed rules on the numbers below. On-field numbers only.
+GOB, QB (QB). Written by `agents/scout/notes.py` on 2026-11-14 from the data files, with no model: the two sentences under "What it means" come from fixed rules on the numbers below (the real plays first). On-field numbers only.
 
 ## Season tendencies
 
@@ -11,6 +11,23 @@ GOB, QB (QB). Written by `agents/scout/notes.py` on 2026-11-14 from the data fil
 | running as a quarterback | 0.123 | rush yards divided by pass plus rush yards | https://api.sleeper.com/stats/nfl/player/4984?season_type=regular&season=2026 | 2026-11-14 |
 
 Season 2026 numbers through game week 8.0 (8.0 games). Filled by agents/scout/fill_profiles.py, no model.
+
+## From the real plays
+
+Worked out snap by snap from ESPN's play-by-play of 8 games (data/rosters/plays-2026.json (ESPN play-by-play, parsed by agents/scout/plays.py), read 2026-11-14). A number needs at least 5 plays under it.
+
+| What | Value | Plays | How |
+|---|---|---|---|
+| deep throws | 0.208 | 49 of 236 | deep throws divided by throws with a depth in the play text |
+| to the left | 0.331 | 78 of 236 | throws to the left divided by throws with a direction |
+| to the middle | 0.237 | 56 of 236 | throws to the middle divided by throws with a direction |
+| to the right | 0.432 | 102 of 236 | throws to the right divided by throws with a direction |
+| deep completions | 0.469 | 23 of 49 | deep completions divided by deep throws |
+| sacks | 0.067 | 17 of 253 | sacks divided by throws plus sacks |
+| interceptions | 0.025 | 6 of 236 | interceptions divided by throws |
+| scrambles | 0.073 | 20 of 273 | scrambles divided by dropbacks (throws, sacks and scrambles) |
+| third downs converted | 0.481 | 39 of 81 | third down plays by the quarterback that gained the first down or scored |
+| red zone touchdown throws | 0.176 | 6 of 34 | touchdown throws inside the 20 divided by throws inside the 20 |
 
 ## Recent form
 
@@ -30,4 +47,4 @@ Sleeper: https://api.sleeper.com/stats/nfl/player/4984?season_type=regular&seaso
 
 ## What it means for play calling
 
-Allen pushes the ball downfield: a high deep ball number (0.716) says the long throw is a real option. Allen runs a fair amount (0.123 of the yards on the ground): a called run for the quarterback is in play.
+Allen converts 0.481 of the third downs where Allen throws or runs. Allen pushes the ball downfield: a high deep ball number (0.716) says the long throw is a real option.
