@@ -12,6 +12,13 @@
 // Levels and mute are kept in localStorage under 'fr.audio'. Everything goes silent while
 // the page is hidden and comes back when it is shown again.
 //
+// Sound captions (C17), for people who cannot hear the sound:
+//   FF_AUDIO.captionFor(name)   the caption for a sound, like '[crowd roars]', or '' for the small
+//                               sounds of every play (pass, catch, tackle, kick, short whistle).
+// play(name) sends the caption to the announcer's onLine listeners with kind 'sound'
+// (FF_ANNOUNCER.notify, or SC_ANNOUNCER.notify on the soccer page), also while muted.
+// The crowd murmur is captioned once when it starts, not at every snap.
+//
 // Crowd (all made in code, no audio files):
 //   crowd_murmur  starts or keeps a low murmur under the game. Call it at each snap.
 //                 It fades out by itself about 15 seconds after the last crowd call.
@@ -336,7 +343,30 @@
     return '';
   }
 
+  var CAPTIONS = {
+    crowd_murmur: '[crowd murmurs]',
+    crowd_swell: '[crowd rises]',
+    crowd_roar: '[crowd roars]',
+    crowd_groan: '[crowd groans]',
+    whistle_long: '[long whistle]',
+    jingle_kickoff: '[kickoff theme plays]',
+    jingle_final: '[full-time theme plays]',
+    miss: '[sad horn]'
+  };
+  var murmurCaptioned = false;
+  function captionFor(name) { return Object.prototype.hasOwnProperty.call(CAPTIONS, name) ? CAPTIONS[name] : ''; }
+  function sendCaption(name) {
+    if (name === 'crowd_stop') { murmurCaptioned = false; return; }
+    var text = captionFor(name);
+    if (!text) return;
+    if (name === 'crowd_murmur') { if (murmurCaptioned) return; murmurCaptioned = true; }
+    [root.FF_ANNOUNCER, root.SC_ANNOUNCER].forEach(function (A) {
+      if (A && typeof A.notify === 'function') { try { A.notify(text, 'sound'); } catch (err) { /* captions are optional */ } }
+    });
+  }
+
   function play(name) {
+    sendCaption(name);
     played[name] = (played[name] || 0) + 1;
     if (!ac || !SOUNDS[name]) return;
     try { SOUNDS[name](ac.currentTime + 0.01); } catch (err) { /* sound is optional */ }
@@ -354,7 +384,7 @@
   }
 
   root.FF_AUDIO = {
-    init: init, play: play, played: played, crowdFor: crowdFor,
+    init: init, play: play, played: played, crowdFor: crowdFor, captionFor: captionFor,
     setVolume: setVolume,
     volume: function (kind) { return kind in DEFAULTS && kind !== 'muted' ? settings[kind] : undefined; },
     mute: function (on) { settings.muted = !!on; saveSettings(); applyMix(); return settings.muted; },

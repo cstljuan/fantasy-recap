@@ -355,6 +355,27 @@ console.log('\nStyle switch: ' + A.setStyle('fun') + ', ' + A.setStyle('nonsense
 console.log('speak() without a speech voice does nothing: ' + (A.speak('test') === undefined ? 'ok' : 'unexpected'));
 console.log('line() with no teams is quiet: ' + (A.line({}, {}) === '' ? 'ok' : 'unexpected'));
 
+// C17: sound captions from js/audio.js reach the announcer's onLine listeners as kind 'sound'.
+(function () {
+  require('../audio.js');
+  var Snd = globalThis.FF_AUDIO;
+  if (!Snd) { problems.push('js/audio.js did not load'); return; }
+  A.reset();
+  var got = [], off = A.onLine(function (text, kind) { if (kind === 'sound') got.push(text); });
+  ['crowd_murmur', 'crowd_murmur', 'pass', 'catch', 'tackle', 'kick', 'whistle', 'crowd_roar', 'crowd_groan', 'crowd_swell',
+   'crowd_stop', 'crowd_murmur', 'whistle_long', 'jingle_kickoff', 'jingle_final'].forEach(function (n) { Snd.play(n); });
+  var want = ['[crowd murmurs]', '[crowd roars]', '[crowd groans]', '[crowd rises]', '[crowd murmurs]', '[long whistle]',
+    '[kickoff theme plays]', '[full-time theme plays]'];
+  if (got.join('|') !== want.join('|')) problems.push('sound captions: got ' + JSON.stringify(got));
+  // Muted: the captions still come, they are for people who cannot hear.
+  Snd.mute(true); got.length = 0; Snd.play('crowd_roar'); Snd.mute(false);
+  if (got[0] !== '[crowd roars]') problems.push('no caption while muted');
+  if (Snd.captionFor('tackle') !== '' || Snd.captionFor('no_such_sound') !== '') problems.push('captionFor should be empty for small or unknown sounds');
+  if (A.transcript().length) problems.push('sound captions must not go into the transcript');
+  off();
+  console.log('\nSound captions: ' + want.join(' '));
+})();
+
 // C16: hot and cold, on a fixture until Ricky's form data (D24) is merged. Numbers made up
 // for the test only. RB run share is hot (0.80 lately vs 0.50), WR1 targets are cold (0.30 vs
 // 0.60), QB short passes are no different (0.55 vs 0.50) and must never get a remark.

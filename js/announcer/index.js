@@ -871,6 +871,13 @@
         playsSinceRemark: playNo - mem.lastRemark, playsSinceScore: playsSinceScore(), log: mem.log.slice() };
     },
 
+    // For other modules (js/audio.js sound captions): tell the onLine listeners about a text
+    // that is not an announcer line. It does not go into caption() or the transcript.
+    notify: function (text, kind, style) {
+      if (!text) return;
+      for (var i = 0; i < listeners.length; i++) { try { listeners[i](String(text), kind || 'sound', style || api.style); } catch (err) { /* optional */ } }
+    },
+
     onLine: function (fn) {
       if (typeof fn !== 'function') return function () {};
       listeners.push(fn);
