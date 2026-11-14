@@ -276,6 +276,7 @@ h2 { margin: 0; font: 700 var(--fs-label)/1 var(--body); letter-spacing: 0.14em;
 .lg-mark.is-on { border-color: var(--amber); color: var(--amber); }
 .lg-drop { color: var(--dim); font-size: var(--fs-small); }
 .lg-go { margin-left: auto; font: 700 var(--fs-label)/1 var(--body); letter-spacing: 0.1em; text-transform: uppercase; color: var(--amber); }
+.lg-optins { margin: 0; padding: 0 var(--inset-x) var(--sp-3); color: var(--dim); font-size: var(--fs-meta); }
 .lg-go::after { content: " \203A"; }
 @media (max-width: 400px) { .tabs a { font-size: var(--fs-small); letter-spacing: 0.06em; } }
 

@@ -125,6 +125,7 @@
     ['A player broke a rule. The referee throws a yellow flag, and the ball moves back or forward, usually 5 to 15 yards.', 'Un jugador rompió una regla. El árbitro lanza un pañuelo amarillo y el balón se mueve atrás o adelante, por lo general de 5 a 15 yardas.'],
     ['Each half starts with a kickoff, and so does play after every score: one team kicks the ball deep to the other.', 'Cada mitad empieza con un saque, y también el juego tras cada anotación: un equipo patea el balón lejos hacia el otro.'],
     ['A game has two halves. At halftime the teams rest, and the team that received the first kickoff kicks off to start the second.', 'Un partido tiene dos mitades. En el medio tiempo los equipos descansan, y el que recibió el primer saque patea para empezar la segunda.'],
+    ['Nobody in this matchup has opted in yet.', 'Nadie en este partido participa todavía.'],
     // watch party
     ['Watch party', 'Fiesta para ver'], ['Join a watch party', 'Unirse a una fiesta para ver'], ['Room code', 'Código de sala'], ['Join', 'Unirse'],
     ['Play', 'Jugar'], ['Hold', 'Pausar'], ['Release', 'Seguir'], ['Not started', 'Sin empezar'], ['Playing', 'Jugando'], ['Between plays', 'Entre jugadas'],
@@ -262,6 +263,7 @@
       return TENDENCY[m[1]] + ' ' + m[2] + ' en ' + (m[3] === 'recent weeks' ? 'las últimas semanas' : m[3].replace('weeks', 'las semanas')) + ', ' + m[4] + ' en la temporada';
     }],
     [/^Rule: (.+)$/, function (m) { return 'Regla: ' + tr(m[1]); }],
+    [/^Opted in, in the league: (.+)$/, function (m) { return 'Participan, en la liga: ' + m[1]; }],
     [/^Connected to room ([A-Z]{4})( on this computer)?\.$/, function (m) { return 'Conectado a la sala ' + m[1] + (m[2] ? ' en esta computadora' : '') + '.'; }]
   ];
 
