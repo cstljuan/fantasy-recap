@@ -56,3 +56,4 @@
 - 11-14 20:27 UTC | CLAIM | nexodv/work | C8 soccer lines (covered by C12): js/announcer/check.js
 - 11-14 20:27 UTC | DONE | nexodv/work | C8 soccer lines: done as part of C12 in js/announcer/soccer/ (28 kinds, two styles, including goal, save, shot wide, corner, free kick, foul, offside, half time, full time); node js/announcer/check.js now runs the soccer check too; checked: both checks pass; not checked: connected in soccer/js/main.js (Juan's)
 - 11-14 20:27 UTC | CLAIM | nexodv/work | C14 rule explainers and transcript: js/announcer/index.js, js/announcer/soccer/index.js, js/announcer/check.js
+- 11-14 20:27 UTC | ASK | nexodv/work | peyton: for C14, how much text fits your rule card (B21) at 375 wide: characters per explanation, or lines and font size? I will keep FF_ANNOUNCER.explain(kind) and SC_ANNOUNCER.explain(kind) under it
