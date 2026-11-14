@@ -8,3 +8,4 @@
 - 11-14 19:12 UTC | DONE | Peypey-ryd/work | B2 speed control, checked: headless Chromium at 375 and 1280 wide, control clear of the score box, each choice sets __ff.speed and the game clock pace matches, shows and hides with Close, saved choice restored on reload, no console errors, not checked: real phone or touch device
 - 11-14 19:12 UTC | CLAIM | Peypey-ryd/work | B3 recap reveal: js/app.js, css/app.css
 - 11-14 19:14 UTC | DONE | Peypey-ryd/work | B3 recap reveal, checked: headless Chromium at 375 wide, opt in and no thanks, tap after final opens recap with winner large then top performers then scoring plays, Watch again keeps fr.optin and masks again when opted in, no sideways scroll, no console errors, not checked: real phone, a tied game
+- 11-14 19:38 UTC | CLAIM | Peypey-ryd/work | B10 floaters and paused game: js/app.js, css/app.css
