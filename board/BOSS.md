@@ -28,8 +28,8 @@ Run `sh tools/next.sh` to get your next task with its full description. A row is
 | B16 | B | Peypey-ryd | The season: standings and past weeks, with Ricky | merged |
 | B17 | B | Peypey-ryd | One look for the whole app | merged |
 | B18 | B | Peypey-ryd | This week in the league: every matchup's biggest plays, with Ricky | merged |
-| B19 | B | Peypey-ryd | Save the opt-in to the service when it answers, with Ricky | open |
-| B20 | B | Peypey-ryd | Screen reader and reduced motion pass | open |
+| B19 | B | Peypey-ryd | Save the opt-in to the service when it answers, with Ricky | merged |
+| B20 | B | Peypey-ryd | Screen reader and reduced motion pass | merged |
 | B21 | B | Peypey-ryd | Rule cards: explain each football rule the first time it comes up, with Noah | open |
 | C1 | C | nexodv | Announcer lines, two styles | merged |
 | C2 | C | nexodv | Crowd and whistle | merged |
@@ -46,8 +46,8 @@ Run `sh tools/next.sh` to get your next task with its full description. A row is
 | C13 | C | nexodv | The mix: volumes, mute, crowd ducking under the voice | merged |
 | C10 | C | nexodv | ElevenLabs voice: playback, the render script, and audio for the current games | merged |
 | C8 | C | nexodv | Soccer lines | merged |
-| C14 | C | nexodv | Rule explainer lines for Peyton's rule cards, and a full broadcast transcript | open |
-| C15 | C | nexodv | Catch-up line after a jump: one sentence for the plays FF_GAME.seek skipped, with Peyton | open |
+| C14 | C | nexodv | Rule explainer lines for Peyton's rule cards, and a full broadcast transcript | merged |
+| C15 | C | nexodv | Catch-up line after a jump: one sentence for the plays FF_GAME.seek skipped, with Peyton | merged |
 | C16 | C | nexodv | Hot and cold: lines from each player's recent form against the season, with Ricky | open |
 | C17 | C | nexodv | Sound captions: every crowd, whistle and jingle as caption text, with Peyton | open |
 | D1 | D | Rickstar-App | Real rosters and profile files | merged |
@@ -174,6 +174,7 @@ The boss reviews every DONE before it reaches main: the authors check, the lane 
 - Merged after review: B17. All checks and the three full-game runs passed
 - Merged after review: B18. All checks and the three full-game runs passed
 - Merged after review: C10, C8. All checks and the three full-game runs passed
+- Merged after review: B19, B20, C14, C15. All checks and the three full-game runs passed
 - D1 real rosters and profile files, D2 database schema (Ricky) are on main; `data/games/sample-football.json` now has the real rosters
 
 ## Decisions
