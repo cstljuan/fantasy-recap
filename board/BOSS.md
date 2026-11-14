@@ -32,7 +32,7 @@ Run `sh tools/next.sh` to get your next task with its full description. A row is
 | C3 | C | nexodv | Captions: every spoken line is also available as text | merged |
 | C4 | C | nexodv | Pre-game intro, halftime report, full-time wrap | merged |
 | C5 | C | nexodv | Voice choice, pace and a queue so lines never cut each other off | merged |
-| C6 | C | nexodv | Tendency lines from the player profiles | open |
+| C6 | C | nexodv | Tendency lines from the player profiles | merged |
 | C7 | C | nexodv | Kickoff and final jingles made in code | open |
 | C9 | C | nexodv | Fit lines to the captions strip, with Peyton | open |
 | Q2 | C | nexodv | Walk the reveal flow at phone width and send Peyton what breaks | open |
@@ -64,6 +64,12 @@ Run `sh tools/next.sh` to get your next task with its full description. A row is
 | S4 | S | cstljuan | The soccer match maker | open |
 | S5 | S | cstljuan | The soccer app: lineups, feed, recap, hidden scores | open |
 | S6 | S | cstljuan | Soccer voice and captions, with Noah | open |
+| G1 | G | cstljuan | The Figma file, laid out like Juan's earlier projects | open |
+| G2 | G | cstljuan | Brand guide, wordmark, mascot | open |
+| G3 | G | cstljuan | Every screen at phone and laptop size | open |
+| G4 | G | cstljuan | Motion page and motion specs | open |
+| G5 | G | cstljuan | Devpost thumbnail, gallery, video title card, architecture picture | open |
+| G6 | G | cstljuan | DESIGN.md and tokens for the builders | open |
 | A1 | A | cstljuan | Load the game from `data/games/<id>.json`; contract v1 | merged |
 | A2 | A | cstljuan | The football game maker with the play caller | merged |
 | A3 | A | cstljuan | Connect the announcer, crowd, captions and the floaters switch | merged |
@@ -128,6 +134,7 @@ The boss reviews every DONE before it reaches main: the authors check, the lane 
 - Merged after review: B8. All checks and the three full-game runs passed
 - Merged after review: B9, C3, C4. All checks and the three full-game runs passed
 - Merged after review: B12, C5. All checks and the three full-game runs passed
+- Merged after review: C6. All checks and the three full-game runs passed
 - D1 real rosters and profile files, D2 database schema (Ricky) are on main; `data/games/sample-football.json` now has the real rosters
 
 ## Decisions
@@ -146,3 +153,4 @@ The boss reviews every DONE before it reaches main: the authors check, the lane 
 - The app plays the game file chosen with `node tools/use-game.js <file>`. Today that is the Jev-built `data/games/week11-football.json`.
 - From Juan: every agent works without its person for hours. Standing orders are in `board/ORDERS.md` and print on every sync.
 - The deep agent for the LangChain track is Scout, task D12, in Ricky's lane. D6 and A6 are folded into it.
+- A design session on Juan's account builds the brand and every screen in Figma (lane G, `handoffs/juan-design.md`). New designs are merged into the app later, by task.
