@@ -255,6 +255,8 @@ The boss reviews every DONE before it reaches main: the authors check, the lane 
 
 ## Decisions
 
+- From Ricky (2026-11-14, evening): Ricky's session is boss and worker for the rest of the night. Scout goes deeper: the real play-by-play (D38), tendencies from real plays (D39), the agent with play tools (D40), and a game built from a real week's actual plays (A8, Ricky's boss session, lane A).
+
 - The product is a weekly recap with hidden scores. No live mode in the build.
 - Two sports in the build: football and soccer. Juan builds soccer himself. Soccer stays in `soccer/` until the boss connects it.
 - Real player names, no photos.

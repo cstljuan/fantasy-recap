@@ -53,6 +53,8 @@ It is connected: `js/main.js` calls `line` for every play result, for halftime w
 
 Optional recent form (task D24), old fields unchanged: `players.<slot>.form = { "tendencies": { same keys as tendencies, 0 to 1 or null }, "tendency_sources": { "<key>": { source, date, how, weeks } }, "weeks": [the three weeks used, oldest first], "skipped_weeks": [...], "source", "date", "notes" }`. Written by `python3 agents/scout/form.py`; raw sums in `data/rosters/form-2026.json`. A reader must work when `form` is missing or a value is null.
 
+Optional tendencies from real plays (tasks D38 and D39), old fields unchanged: `players.<slot>.play_tendencies = { "<key>": 0 to 1 or null }` and `players.<slot>.play_tendency_sources = { "<key>": { how, n, of, games: [ESPN event ids], source, date } }`, worked out snap by snap from ESPN's play-by-play in `data/rosters/plays-2026.json` (written by `python3 agents/scout/plays.py`, then `python3 agents/scout/play_tendencies.py`). Keys by position are listed at the top of `agents/scout/play_tendencies.py`. A share needs 5 plays or it is null. `tendencies.target_share` is filled from the same plays for receivers, tight ends and backs.
+
 ## 5. Database (lane D)
 
 Every play is stored as one row with the time it happened in the game. The schema is in `db/schema.sql`. The app must keep working from the game file alone when the database cannot be reached.
