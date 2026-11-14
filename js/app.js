@@ -7,7 +7,7 @@
   var G = window.FF_GAME, D = window.FF_DATA, Rules = window.FF_RULES, Spr = window.FF_SPRITES;
   var TEAMS = D.TEAMS;
   var WEEK = 'Week 11';
-  var TABS = ['league', 'matchup', 'lineups', 'plays', 'recap'];
+  var TABS = ['league', 'matchup', 'lineups', 'plays', 'recap', 'film'];
   var SLOTS = [
     { role: 'QB', pos: 'QB' }, { role: 'RB', pos: 'RB' }, { role: 'WR1', pos: 'WR' }, { role: 'WR2', pos: 'WR' },
     { role: 'WR3', pos: 'FLEX' }, { role: 'TE', pos: 'TE' }, { role: 'K', pos: 'K' }, { role: 'DST', pos: 'D/ST' }
@@ -92,7 +92,8 @@
       status: 'pre',           // pre | live | final
       pts: [{}, {}], st: [{}, {}],
       team: [{ pass: 0, rush: 0, to: 0, pens: 0, penYds: 0 }, { pass: 0, rush: 0, to: 0, pens: 0, penYds: 0 }],
-      field: [0, 0], feed: [], done: 0, now: '', flash: {}
+      field: [0, 0], feed: [], done: 0, now: '', flash: {},
+      drives: []               // the film room: one entry per drive, built as the plays come in
     };
     SLOTS.forEach(function (s) { for (var t = 0; t < 2; t++) { o.pts[t][s.role] = 0; o.st[t][s.role] = {}; } });
     return o;
@@ -233,7 +234,36 @@
       scoring: changed, flag: e.t === 'pen', score: res.post.score.slice(),
       fp: before ? filePointsDelta(before) : res.fp.map(function (f) { return { pts: f.pts, who: shortName(f.team, f.role), team: f.team }; })
     });
+    filmRecord(res);
   }
+
+  // ------------------------------------------------------------- film room
+  // Drives from the plays as they happened. Field positions are yards from the
+  // offense's own goal line (ballOn, 0 to 100), as js/rules.js keeps them.
+  function openDrive() { var d = m.drives[m.drives.length - 1]; return d && !d.end ? d : null; }
+  function closeDrive(end) { var d = openDrive(); if (d) d.end = end; }
+  function filmRecord(res) {
+    var e = res.e, off = res.pre.poss;
+    if (e.t === 'xp') return;
+    if (e.t === 'kickoff') {
+      closeDrive('');
+      m.drives.push({ team: off, start: res.post.ballOn, plays: [], end: '' });
+      return;
+    }
+    var d = openDrive();
+    if (!d || d.team !== off) { closeDrive(''); d = { team: off, start: res.pre.ballOn, plays: [], end: '' }; m.drives.push(d); }
+    var from = res.pre.ballOn, to;
+    if (res.td) to = 100;
+    else if (res.post.poss === off) to = res.post.ballOn;
+    else to = Math.max(0, Math.min(100, from + (res.yds || 0)));
+    d.plays.push({ n: m.done, from: from, to: to, flag: e.t === 'pen', why: !!(m.feed[m.feed.length - 1] || {}).why });
+    if (res.td) d.end = 'Touchdown';
+    else if (e.t === 'fg') d.end = e.good ? 'Field goal' : 'Missed field goal';
+    else if (e.t === 'punt') d.end = 'Punt';
+    else if (e.t === 'int' || e.t === 'fumble') d.end = 'Turnover';
+    else if (res.downs) d.end = 'Downs';
+  }
+
 
   function statLine(t, role) {
     var s = m.st[t][role], out = [];
@@ -371,7 +401,7 @@
     if (!name) return humanize(k);
     return (mm[1] === 'pass' ? 'Pass to ' : 'Run by ') + Rules.lastName(name);
   }
-  function whyCard(p) {
+  function whyCard(p, forceOpen) {
     if (!p.why) return '';
     var body = p.why.map(function (w) {
       return '<div class="why-q">' + esc(WHY_QUESTIONS[w.q] || humanize(w.q)) + '?</div>' +
@@ -383,7 +413,7 @@
             '<span class="why-pct">' + pct + '%</span></li>';
         }).join('') + '</ul>';
     }).join('');
-    return '<details class="why" data-n="' + p.n + '"' + (whyOpen[p.n] ? ' open' : '') + '>' +
+    return '<details class="why" data-n="' + p.n + '"' + (forceOpen || whyOpen[p.n] ? ' open' : '') + '>' +
       '<summary>Why this play</summary>' + body + '<p class="why-note">Chosen by the play caller from these odds</p></details>';
   }
 
@@ -635,7 +665,8 @@
       '<div class="field"><span class="eyebrow">On the field</span>' +
         fieldScore() +
         '<span class="sit">Full time</span></div>' +
-      '<div class="actions">' + watchButton() + '<button type="button" class="cta ghost" data-act="share">Share result</button>' + keep + '</div>' +
+      '<div class="actions">' + watchButton() + '<button type="button" class="cta ghost" data-act="share">Share result</button>' +
+        '<a class="cta ghost" href="#film">Film room</a>' + keep + '</div>' +
       '</div>';
   }
 
@@ -713,7 +744,87 @@
       '</div>';
   }
 
-  var RENDER = { league: renderLeague, matchup: renderMatchup, lineups: renderLineups, plays: renderPlays, recap: renderRecap };
+  var filmSel = 0; // the play number open in the film room
+
+  var END_MARK = { 'Touchdown': 'TD', 'Field goal': 'FG', 'Missed field goal': 'FG miss', 'Punt': 'Punt', 'Turnover': 'TO', 'Downs': 'Downs', 'End of half': 'Half', 'End of game': 'End' };
+  // Field position across the page: the Goblins attack to the right, the Pythons to the left.
+  function absX(team, ballOn) { return team === 0 ? ballOn : 100 - ballOn; }
+
+  function filmStats() {
+    var picked = [];
+    m.feed.forEach(function (p) {
+      if (!p.why) return;
+      p.why.forEach(function (w) {
+        if (!w.chosen) return;
+        var o = w.opts.filter(function (x) { return x.k === w.chosen; })[0];
+        if (o) picked.push({ p: p, team: w.team, k: o.k, pr: o.p });
+      });
+    });
+    if (!picked.length) return null;
+    var best = picked[0], worst = picked[0], sum = 0;
+    picked.forEach(function (x) { if (x.pr > best.pr) best = x; if (x.pr < worst.pr) worst = x; sum += x.pr; });
+    return { count: picked.length, best: best, worst: worst, avg: sum / picked.length };
+  }
+
+  function filmPlayDetail() {
+    var plays = m.feed.filter(function (p) { return !p.divider; });
+    var i = -1;
+    for (var k = 0; k < plays.length; k++) if (plays[k].n === filmSel) i = k;
+    if (i < 0) return '<div class="empty">Tap a play in the chart to see it here, with the play caller\'s odds when it chose the play.</div>';
+    var p = plays[i];
+    var nav = '<div class="film-nav">' +
+      '<button type="button" data-act="film" data-n="' + (i > 0 ? plays[i - 1].n : p.n) + '"' + (i > 0 ? '' : ' disabled') + '>Previous play</button>' +
+      '<span>Play ' + p.n + ' of ' + plays.length + '</span>' +
+      '<button type="button" data-act="film" data-n="' + (i < plays.length - 1 ? plays[i + 1].n : p.n) + '"' + (i < plays.length - 1 ? '' : ' disabled') + '>Next play</button></div>';
+    return nav + '<ul class="feed">' + playItem(p, false).replace(/<details class="why"[\s\S]*<\/details>/, '') + '</ul>' +
+      (p.why ? '<div class="film-why">' + whyCard(p, true) + '</div>'
+             : '<p class="film-none">No play caller odds for this play. The game decided it by itself (kicks, penalties, sacks, turnovers and forced plays).</p>');
+  }
+
+  function renderFilm() {
+    if (m.status !== 'final') {
+      return '<div class="narrow"><div class="panel"><div class="panel-head"><h2>Film room</h2>' + statusChip() + '</div>' +
+        '<div class="empty">The film room opens after the final: every drive on the field and what the play caller chose.</div>' +
+        '<div class="actions">' + watchButton() + '</div></div></div>';
+    }
+    var rows = m.drives.filter(function (d) { return d.plays.length; }).map(function (d, i) {
+      var segs = d.plays.map(function (pl) {
+        var a = absX(d.team, pl.from), b = absX(d.team, pl.to), lo = Math.min(a, b), w = Math.abs(b - a);
+        return '<button type="button" class="seg' + (pl.flag ? ' is-flag' : '') + (b < a === (d.team === 0) && w ? ' is-loss' : '') +
+          (pl.n === filmSel ? ' is-on' : '') + '" data-act="film" data-n="' + pl.n + '" style="left:' + lo + '%;width:' + Math.max(w, 1.2) + '%"' +
+          ' aria-label="Play ' + pl.n + (pl.why ? ', play caller odds' : '') + '"><i></i></button>';
+      }).join('');
+      var endAt = absX(d.team, d.plays[d.plays.length - 1].to);
+      var mark = END_MARK[d.end] || '';
+      return '<li class="drive" style="--c: var(--t' + d.team + ')">' +
+        '<span class="drive-id">' + TEAMS[d.team].id + '<b>' + (i + 1) + '</b></span>' +
+        '<div class="drive-field">' + segs +
+          (mark ? '<span class="drive-end' + (d.end === 'Touchdown' || d.end === 'Field goal' ? ' is-score' : d.end === 'Turnover' || d.end === 'Downs' ? ' is-to' : '') +
+            '" style="left:' + endAt + '%"></span>' : '') + '</div>' +
+        '<span class="drive-res">' + esc(mark) + '</span></li>';
+    }).join('');
+    var st = filmStats();
+    function pct(x) { return Math.round(x * 100) + '%'; }
+    var caller = st
+      ? '<dl class="caller">' +
+          '<div><dt>Plays it chose</dt><dd class="num">' + st.count + '</dd><span>of ' + m.feed.filter(function (p) { return !p.divider; }).length + ' plays</span></div>' +
+          '<div><dt>Average odds of its pick</dt><dd class="num">' + pct(st.avg) + '</dd></div>' +
+          '<div><dt>Most confident call</dt><dd><button type="button" data-act="film" data-n="' + st.best.p.n + '">' + esc(optionName(st.best.k, st.best.team)) + ', ' + pct(st.best.pr) + '</button></dd><span>' + esc(st.best.p.desc) + '</span></div>' +
+          '<div><dt>Biggest surprise</dt><dd><button type="button" data-act="film" data-n="' + st.worst.p.n + '">' + esc(optionName(st.worst.k, st.worst.team)) + ', ' + pct(st.worst.pr) + '</button></dd><span>' + esc(st.worst.p.desc) + '</span></div>' +
+        '</dl>'
+      : '<div class="empty">No play in this game carries the play caller\'s odds.</div>';
+    return '<div class="film">' +
+      '<div class="panel"><div class="panel-head"><h2>Drive chart</h2><a href="#recap">Recap</a></div>' +
+        '<div class="film-key"><span>' + esc(TEAMS[0].name) + ' attack this way &#8594;</span><span>&#8592; ' + esc(TEAMS[1].name) + '</span></div>' +
+        '<ol class="drives">' + rows + '</ol>' +
+        '<p class="film-legend"><i class="k-score"></i>Score <i class="k-to"></i>Turnover <i class="k-flag"></i>Penalty <i class="k-loss"></i>Lost yards</p></div>' +
+      '<div class="grid two">' +
+        '<div class="panel"><div class="panel-head"><h2>The play caller</h2></div>' + caller + '</div>' +
+        '<div class="panel film-detail" id="filmDetail"><div class="panel-head"><h2>The play</h2></div>' + filmPlayDetail() + '</div>' +
+      '</div></div>';
+  }
+
+  var RENDER = { film: renderFilm, league: renderLeague, matchup: renderMatchup, lineups: renderLineups, plays: renderPlays, recap: renderRecap };
 
   function render(isFresh) {
     fresh = !!isFresh;
@@ -878,6 +989,10 @@
     sec.className = 'screen'; sec.id = 's-league'; sec.setAttribute('aria-label', 'League'); sec.hidden = true;
     var first = $('s-matchup');
     first.parentNode.insertBefore(sec, first);
+    // The film room has no tab: it is reached from the recap after the final.
+    var film = document.createElement('section');
+    film.className = 'screen'; film.id = 's-film'; film.setAttribute('aria-label', 'Film room'); film.hidden = true;
+    $('s-recap').parentNode.insertBefore(film, $('s-recap').nextSibling);
     var brand = document.querySelector('.brand');
     if (brand) brand.setAttribute('href', '#league');
   })();
@@ -964,6 +1079,14 @@
     else if (act === 'filter') { filter = el.getAttribute('data-f'); render(false); }
     else if (act === 'optin') { setOptin(el.getAttribute('data-v') === 'in' ? 'in' : 'out'); render(false); }
     else if (act === 'share') { shareResult(el); }
+    else if (act === 'film') {
+      filmSel = Number(el.getAttribute('data-n'));
+      render(false);
+      var det = $('filmDetail');
+      if (det && det.getBoundingClientRect().top > window.innerHeight - 120) det.scrollIntoView({ block: 'start' });
+      var again = document.querySelector('#s-film [data-act=film][data-n="' + filmSel + '"].seg');
+      if (el.classList.contains('seg') && again) again.focus();
+    }
     else if (act === 'me') { setMe(Number(el.getAttribute('data-v'))); render(false); }
   });
 
@@ -991,15 +1114,15 @@
   };
 
   G.on(function (type, d) {
-    if (type === 'reset') { m = blank(); whyDemoUsed = 0; whyOpen = {}; }
+    if (type === 'reset') { m = blank(); whyDemoUsed = 0; whyOpen = {}; filmSel = 0; }
     else if (type === 'start') m.status = 'live';
     else if (type === 'snap') m.now = d.res.e.t === 'kickoff' ? 'Kickoff' : d.res.e.t === 'xp' ? 'Extra point try' : d.res.where;
     else if (type === 'result') {
       applyResult(d.res);
       setTimeout(function () { if (!inGame) render(false); }, 1600); // lets the highlight on new points fade
     }
-    else if (type === 'half') { m.feed.push({ divider: 'Halftime' }); m.now = 'Halftime'; }
-    else if (type === 'final') { m.status = 'final'; m.now = ''; }
+    else if (type === 'half') { m.feed.push({ divider: 'Halftime' }); m.now = 'Halftime'; closeDrive('End of half'); }
+    else if (type === 'final') { m.status = 'final'; m.now = ''; closeDrive('End of game'); }
     syncFloaters();
     captionFor(type, d);
     if (!inGame) render(type === 'result');
@@ -1015,6 +1138,7 @@
     get paused() { return paused(); },
     get me() { return me; },
     get sport() { return sport; },
+    get drives() { return m.drives; },
     get scoringFromFile() { return useFile(); },
     // Each player's points from the game and, when the file is loaded, from data/scoring.json.
     comparePoints: function () {

@@ -322,6 +322,53 @@ h2 { margin: 0; font: 700 11px/1 var(--body); letter-spacing: 0.14em; text-trans
   .status.is-live i, .tick, .play.is-new { animation: none; }
 }
 
+/* ------------------------------------------------------------ film room */
+
+.film-key { display: flex; justify-content: space-between; padding: 10px 14px 0 58px; color: var(--dim); font-size: 12px; }
+.drives { list-style: none; margin: 0; padding: 6px 0 4px; }
+.drive { display: grid; grid-template-columns: 44px minmax(0, 1fr) 52px; align-items: center; gap: 8px; padding: 0 14px; }
+.drive-id { font: 700 11px/1 var(--body); letter-spacing: 0.08em; color: var(--dim); }
+.drive-id b { margin-left: 4px; color: var(--text); }
+.drive-field { position: relative; height: 44px;
+               background: linear-gradient(var(--inset), var(--inset)) center / 100% 16px no-repeat,
+                           repeating-linear-gradient(90deg, var(--rule) 0 1px, transparent 1px 10%) center / 100% 16px no-repeat; }
+.seg { position: absolute; top: 0; bottom: 0; padding: 0; margin: 0; background: transparent; border: 0; cursor: pointer; min-width: 4px; }
+.seg i { position: absolute; left: 0; right: 0; top: 50%; height: 12px; margin-top: -6px; background: var(--c); border-right: 1px solid var(--bg); }
+.seg.is-flag i { background: repeating-linear-gradient(135deg, var(--flag) 0 3px, var(--bg) 3px 6px); }
+.seg.is-loss i { background: var(--alert); opacity: 0.6; }
+.seg.is-on i { outline: 2px solid var(--amber); outline-offset: 2px; }
+.seg:focus-visible { outline: none; }
+.seg:focus-visible i { outline: 2px solid var(--amber); outline-offset: 2px; }
+.drive-end { position: absolute; top: 50%; width: 10px; height: 10px; margin: -5px 0 0 -5px; background: var(--dim); pointer-events: none; }
+.drive-end.is-score { background: var(--amber); }
+.drive-end.is-to { background: var(--alert); }
+.drive-res { font: 700 11px/1 var(--body); letter-spacing: 0.06em; text-transform: uppercase; color: var(--dim); text-align: right; white-space: nowrap; }
+.film-legend { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 12px; margin: 0; padding: 10px 14px 14px; color: var(--dim); font-size: 12px; }
+.film-legend i { display: inline-block; width: 10px; height: 10px; margin-right: -6px; }
+.film-legend .k-score { background: var(--amber); }
+.film-legend .k-to { background: var(--alert); }
+.film-legend .k-flag { background: repeating-linear-gradient(135deg, var(--flag) 0 3px, var(--bg) 3px 6px); }
+.film-legend .k-loss { background: var(--alert); opacity: 0.6; }
+.caller { margin: 0; }
+.caller > div { padding: 12px 14px; border-top: 1px solid var(--rule); }
+.caller > div:first-child { border-top: 0; }
+.caller dt { font: 700 11px/1 var(--body); letter-spacing: 0.12em; text-transform: uppercase; color: var(--dim); }
+.caller dd { margin: 6px 0 0; }
+.caller dd.num { display: inline-block; font-size: 34px; line-height: 1; }
+.caller > div > span { display: block; margin-top: 4px; color: var(--dim); font-size: 12px; }
+.caller dd.num + span { display: inline; margin-left: 8px; }
+.caller dd button { min-height: 44px; padding: 0 12px; background: transparent; border: 1px solid var(--rule); border-radius: 2px; cursor: pointer;
+                    color: var(--text); font: 600 14px/1.2 var(--body); text-align: left; }
+.film-nav { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 10px 14px; border-bottom: 1px solid var(--rule); color: var(--dim); font-size: 12px; }
+.film-nav button { min-height: 44px; padding: 0 12px; background: transparent; border: 1px solid var(--rule); border-radius: 2px; cursor: pointer;
+                   color: var(--text); font: 700 11px/1 var(--body); letter-spacing: 0.1em; text-transform: uppercase; }
+.film-nav button:disabled { color: var(--dim); opacity: 0.5; cursor: default; }
+.film-why { padding: 0 14px 12px; }
+.film-why .why { margin-top: 0; }
+.film-why summary { pointer-events: none; }
+.film-none { margin: 0; padding: 12px 14px; color: var(--dim); font-size: 13px; }
+.film-detail .feed .play { border-top: 0; }
+
 /* --------------------------------------------------------- phone polish */
 /* Safe areas for the notch and the home indicator, and tap targets of at least 44 pixels. */
 
