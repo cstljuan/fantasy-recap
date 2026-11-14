@@ -20,5 +20,7 @@ else
     fi
   fi
 fi
+echo "================ STANDING ORDERS (board/ORDERS.md on main) ================"
+git show origin/main:board/ORDERS.md 2>/dev/null | grep -E "^[0-9]+\. " | cut -c1-400
 sh tools/board.sh
 sh tools/inbox.sh
