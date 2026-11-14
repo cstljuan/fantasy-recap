@@ -93,6 +93,59 @@ var srv = createServer(fake).listen(0, function () {
       assert.ok(ins.some(function (l) { return Number(l[1][9]) > 0; }), 'fantasy points are sent');
       assert.equal(log.filter(function (l) { return l[0] === 'COMMIT'; }).length, 2, 'two batches of at most 40');
     })
+    // soccer: push-game.js replays a soccer match file with soccer/js/rules.js; goal rows equal the final score
+    .then(function () {
+      var P = require('path'), rp = require('./replay.js');
+      ['sample-soccer.json', 'week11-soccer.json'].forEach(function (f) {
+        var file = P.join(__dirname, '..', 'soccer', 'data', f), raw = JSON.parse(require('fs').readFileSync(file, 'utf8'));
+        var m = rp.buildPlays(file);
+        assert.equal(m.sport, 'soccer');
+        assert.equal(m.plays.length, raw.game.events.filter(function (e) { return e.t !== 'ht'; }).length + 1, f + ': one row per event plus full time');
+        var goals = m.plays.filter(function (p) { return p.kind === 'goal'; });
+        [0, 1].forEach(function (t) {
+          var id = raw.teams[t].id;
+          assert.equal(goals.filter(function (p) { return p.team === id; }).length, m.final[t], f + ': goal rows of ' + id + ' equal the final score');
+        });
+        if (raw.report && raw.report.score) assert.deepEqual(m.final, raw.report.score, f + ': final equals the match report');
+        assert.ok(m.plays.every(function (p) { return Number.isInteger(p.minute) && (p.quarter === 1 || p.quarter === 2); }), f + ': minute and half');
+        var t = m.plays.map(function (p) { return Date.parse(p.played_at); });
+        assert.ok(t.every(function (x, i) { return i === 0 || x >= t[i - 1]; }), f + ': times never go back');
+        // the fantasy points of every award add up to the soccer fantasy breakdown
+        var B = require('../soccer/js/fantasy.js').breakdown(raw.game, raw.teams, require('../soccer/js/rules.js'));
+        var sum = [0, 0];
+        m.plays.forEach(function (p) { p.detail.fp.forEach(function (x) { sum[x.team === raw.teams[0].id ? 0 : 1] += x.pts; }); });
+        assert.deepEqual(sum, [B.totals[0].total, B.totals[1].total], f + ': fantasy points add up');
+        if (raw.report && raw.report.points) raw.report.points.forEach(function (pts, ti) {
+          Object.keys(pts).forEach(function (slot) {
+            var got = 0;
+            m.plays.forEach(function (p) { p.detail.fp.forEach(function (x) { if (x.team === raw.teams[ti].id && x.slot === slot) got += x.pts; }); });
+            assert.equal(got, pts[slot], f + ': ' + raw.teams[ti].id + ' ' + slot + ' points equal the report');
+          });
+        });
+      });
+      log.length = 0;
+      var file = P.join(__dirname, '..', 'soccer', 'data', 'week11-soccer.json');
+      return require('./push-game.js').pushGame(file, 'http://localhost:' + port).then(function (r) {
+        assert.equal(r.id, 'week11-soccer'); assert.deepEqual(r.final, [2, 0]);
+        var ins = log.filter(function (l) { return /^INSERT INTO plays/.test(l[0]); });
+        assert.equal(ins.length, r.plays);
+        assert.ok(ins.every(function (l) { return /minute\) VALUES/.test(l[0]) && Number.isInteger(l[1][12]); }), 'soccer rows carry the minute');
+        var goalRows = ins.filter(function (l) { return l[1][7] === 'goal'; });
+        assert.equal(goalRows.length, 2, 'goal rows sent equal the final score 2 to 0');
+        assert.ok(goalRows.every(function (l) { return l[1][4] === 'IRN' && l[1][6]; }), 'goal rows name the scorer of IRN');
+        assert.ok(log.some(function (l) { return /^INSERT INTO games/.test(l[0]) && l[1][0] === 'week11-soccer' && l[1][1] === 'soccer'; }), 'game row says soccer');
+      });
+    })
+    .then(function () {
+      // football rows have no minute and use the insert without the minute column (works before the migration)
+      log.length = 0;
+      return call('POST', '/games/g1/plays', { plays: [play] }).then(function (r) {
+        assert.equal(r.status, 201);
+        assert.ok(log.some(function (l) { return /^INSERT INTO plays/.test(l[0]) && !/minute/.test(l[0]) && l[1].length === 12; }));
+      });
+    })
+    .then(function () { return call('POST', '/games/g1/plays', { plays: [Object.assign({}, play, { minute: 1.5 })] }); })
+    .then(function (r) { assert.equal(r.status, 400); })
     // top plays: from the database when it answers, from the game file when it does not
     .then(function () {
       var tp = require('./top-plays.js'), file = require('path').join(__dirname, '..', 'data', 'games', 'week11-football.json');
