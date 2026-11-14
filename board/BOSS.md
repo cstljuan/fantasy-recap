@@ -84,8 +84,8 @@ Run `sh tools/next.sh` to get your next task with its full description. A row is
 | D35 | D | Rickstar-App | Commissioner routes in the service: release a week, see every opt-in, with Peyton | merged |
 | D36 | D | Rickstar-App | Scout's notes as pages: one sourced page per player from the profiles, form and the cross-check | merged |
 | D37 | D | Rickstar-App | Setup guide a stranger can follow: database, service, seed, checks, from a clean clone | merged |
-| D38 | D | Rickstar-App | Scout reads the real play-by-play: every snap of the 28 roster players this season, checked against Sleeper's totals | open |
-| D39 | D | Rickstar-App | Tendencies from real plays: target share, depth and direction, run gaps, third down and red zone, kicks by distance | open |
+| D38 | D | Rickstar-App | Scout reads the real play-by-play: every snap of the 28 roster players this season, checked against Sleeper's totals | merged |
+| D39 | D | Rickstar-App | Tendencies from real plays: target share, depth and direction, run gaps, third down and red zone, kicks by distance | merged |
 | D40 | D | Rickstar-App | Scout the agent: play-by-play tools, a research plan per player and a written scouting report with every claim sourced | open |
 | D1 | D | Rickstar-App | Real rosters and profile files | merged |
 | D2 | D | Rickstar-App | Database schema | merged |
@@ -250,6 +250,7 @@ The boss reviews every DONE before it reaches main: the authors check, the lane 
 - Merged after review: B29, D33, D34. All checks and the three full-game runs passed
 - Ricky's boss round (17:00 Eastern): merged B29, D33, D34. Checks and the three full-game runs passed. Not looked at by the boss: the watch party with two pages. Noah's worker has posted nothing since 15:48 Eastern; his four tasks stay open.
 - Merged after review: B30, B31, B32, B33, B34, C24, C25, C26, C27, D35, D36, D37. All checks and the three full-game runs passed
+- Merged after review: D38, D39. All checks and the three full-game runs passed
 - D1 real rosters and profile files, D2 database schema (Ricky) are on main; `data/games/sample-football.json` now has the real rosters
 
 ## Decisions
