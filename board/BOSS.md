@@ -84,6 +84,9 @@ Run `sh tools/next.sh` to get your next task with its full description. A row is
 | D35 | D | Rickstar-App | Commissioner routes in the service: release a week, see every opt-in, with Peyton | merged |
 | D36 | D | Rickstar-App | Scout's notes as pages: one sourced page per player from the profiles, form and the cross-check | merged |
 | D37 | D | Rickstar-App | Setup guide a stranger can follow: database, service, seed, checks, from a clean clone | merged |
+| D38 | D | Rickstar-App | Scout reads the real play-by-play: every snap of the 28 roster players this season, checked against Sleeper's totals | open |
+| D39 | D | Rickstar-App | Tendencies from real plays: target share, depth and direction, run gaps, third down and red zone, kicks by distance | open |
+| D40 | D | Rickstar-App | Scout the agent: play-by-play tools, a research plan per player and a written scouting report with every claim sourced | open |
 | D1 | D | Rickstar-App | Real rosters and profile files | merged |
 | D2 | D | Rickstar-App | Database schema | merged |
 | D4 | D | Rickstar-App | A week of stat lines for both rosters | merged |
@@ -129,6 +132,7 @@ Run `sh tools/next.sh` to get your next task with its full description. A row is
 | A3 | A | cstljuan | Connect the announcer, crowd, captions and the floaters switch | merged |
 | A4 | A | cstljuan | Sport switch wiring and home-screen install | merged |
 | A5 | A | cstljuan | Game maker reads `data/statlines/week11.json`, and tags highlights | open |
+| A8 | A | Rickstar-App | A game built from a real week's actual plays: every catch, run and kick our players really made, woven into one legal game (asked by Ricky; Ricky's boss session) | open |
 | A6 | A | cstljuan | Season numbers file for the profiles | replaced by D12 |
 
 ## Answers to ASK posts
