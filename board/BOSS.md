@@ -70,6 +70,9 @@ Run `sh tools/next.sh` to get your next task with its full description. A row is
 | D21 | D | Rickstar-App | Momentum: points per team over game time, from the database and from a game file, with Peyton | merged |
 | D22 | D | Rickstar-App | Soccer in the service: push a soccer match and read it back | open |
 | D23 | D | Rickstar-App | Devpost text, refreshed against main, with one honest paragraph per sponsor track | open |
+| D24 | D | Rickstar-App | Recent form: last three weeks of tendencies next to the season, live from Sleeper | open |
+| D25 | D | Rickstar-App | One command that runs every check in Ricky's lane and the whole repository | open |
+| D26 | D | Rickstar-App | Cross-check Sleeper against ESPN for the 14 players and report every disagreement | open |
 | D7 | D | Rickstar-App | Soccer rosters and profiles | merged |
 | S1 | S | cstljuan | The soccer game | merged |
 | S2 | S | cstljuan | Fantasy soccer on top | merged |
@@ -129,12 +132,13 @@ Newest at the bottom. The boss answers every ASK here. If the answer is "yes, do
 - ANSWER to nexodv (C6 profiles in ctx): not passed yet. Every tendency is still null until Scout runs for real; the boss passes `profiles` in the ctx of `line` when a profile has numbers.
 - ANSWER to Peypey-ryd and nexodv (halftime while scores are hidden): done. `js/main.js` passes `hidden: true` to `intro`, `halftime` and `wrap` while `window.__app.masked` is true, so the halftime report gives no fantasy points to an opted-in manager.
 - ANSWER to nexodv (Q2, the final box and the mock data text): the text is fixed: the score box says "SAMPLE GAME, MADE-UP STATS" and the final box "Sample game. Real names, made-up stats." The canvas already draws the final box after the name labels, so if badges still cover it on main, post which element they are.
+- ANSWER to Peypey-ryd (manifest): done. `manifest.webmanifest` is at the root with exactly your JSON, and `index.html` has the manifest link and the apple-touch-icon link in its head. Your install.js can stop adding the icon link itself. `?intro=0` noted for the smoke runs.
 
 ## Waiting for Juan
 
-- Ricky's cloud environment needs network access to the stats hosts and a model key for Scout (task D12).
+- Scout needs a model key for its real run (task D12). Ricky's cloud environment now has the network for Sleeper and ESPN (set by Ricky's session, 2026-11-14) and `agents/scout/fill_profiles.py` already filled the profiles without a model.
 - Run Scout for real on the laptop (needs `GOOGLE_API_KEY` or `ANTHROPIC_API_KEY` and a route to `api.sleeper.app`): `pip install -r agents/scout/requirements.txt`, `python3 agents/scout/scout.py`, then commit the log in `agents/scout/runs/` and the filled profiles.
-- Run `python3 agents/scout/statlines.py --week <NN>` on the laptop and commit `data/statlines/week<NN>-real.json` (no key needed, only the route).
+- Real week of stat lines: `data/statlines/week09-real.json` is done (Ricky's session). Nothing to run unless a later week is wanted.
 - Grove cables and an owner for the hardware box.
 - The project's name.
 
@@ -161,6 +165,7 @@ The boss reviews every DONE before it reaches main: the authors check, the lane 
 - Merged after review: C7, D12. All checks and the three full-game runs passed. C7: the game now plays both jingles. D12: `agents/scout/check.py` and `check_statlines.py` pass on the boss machine and no key is in any file; Scout has not run against a real model or the stats host yet
 - Merged after review: C9, D13, D14, D15, Q1. All checks and the three full-game runs passed
 - Merged after review: D16, D17, P1, Q2. All checks and the three full-game runs passed
+- Ricky's boss round: merged Peyton, Noah and Ricky's branches, all three full-game smoke runs passed. Added the manifest and its links. Checked by running: tools/boss-round.sh output (authors, lanes, checks, smoke).
 - Merged after review: B14, B15, B16, C11, C12, D18, D19, D20, D21, P2. All checks and the three full-game runs passed
 - D1 real rosters and profile files, D2 database schema (Ricky) are on main; `data/games/sample-football.json` now has the real rosters
 
