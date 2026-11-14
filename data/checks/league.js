@@ -11,7 +11,12 @@ var d;
 try { d = JSON.parse(fs.readFileSync(file, 'utf8')); } catch (e) { console.log('data/league.json does not parse: ' + e.message); process.exit(1); }
 
 if (d.invented !== true) bad('invented must be true');
-if (!/past score|every past/i.test(d.note || '') || !/made up/i.test(d.note || '')) bad('note must say that every past score is made up');
+// The note must say what is made up, and every past week with a game file must be named as real in it.
+if (!/made up/i.test(d.note || '')) bad('note must say what is made up');
+(d.weeks || []).forEach(function (w) {
+  var real = w.finished && (w.matchups || []).some(function (m) { return m.gameFile; });
+  if (real && !new RegExp('Week ' + w.week + ' is real', 'i').test(d.note || '')) bad('note must say week ' + w.week + ' is real');
+});
 var ids = {};
 (d.matchups || []).forEach(function (m) { m.teams.forEach(function (t) { ids[t.id] = true; }); });
 if (Object.keys(ids).length !== 4) bad('expected 4 teams in matchups, found ' + Object.keys(ids).length);
@@ -32,7 +37,14 @@ if (!Array.isArray(d.weeks) || d.weeks.length !== 3) bad('weeks must list weeks 
     if (m.teams[0].id === m.teams[1].id) bad(where + ': a team plays itself');
     if (w.finished) {
       if (!Array.isArray(m.final) || m.final.length !== 2 || m.final.some(function (x) { return typeof x !== 'number'; })) return bad(where + ': a finished week needs final [points, points]');
-      if (m.gameFile !== null) bad(where + ': a past week has no game file, gameFile must be null');
+      if (m.gameFile !== null) {
+        // a past week may have a game: then the file must exist, have these two teams, and its fantasy points must be the final
+        var gp = require('path').join(__dirname, '..', 'games', m.gameFile), g = null;
+        try { g = JSON.parse(require('fs').readFileSync(gp, 'utf8')); } catch (e) { return bad(where + ': game file ' + m.gameFile + ' cannot be read'); }
+        if (g.teams[0].id !== m.teams[0].id || g.teams[1].id !== m.teams[1].id) bad(where + ': ' + m.gameFile + ' has other teams');
+        var pts = (g.report && g.report.points || []).map(function (o) { return Math.round(Object.keys(o).reduce(function (a, k) { return a + o[k]; }, 0) * 10) / 10; });
+        if (pts.join() !== m.final.join()) bad(where + ': final ' + m.final.join(' to ') + ' but ' + m.gameFile + ' gives ' + pts.join(' to '));
+      }
       var a = m.teams[0].id, b = m.teams[1].id, fa = m.final[0], fb = m.final[1];
       if (fa === fb) bad(where + ': a tie is not handled by the standings');
       played[a]++; played[b]++;
