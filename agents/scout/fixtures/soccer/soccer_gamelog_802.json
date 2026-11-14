@@ -1,0 +1,72 @@
+{
+ "filters": [
+  {
+   "name": "season",
+   "value": "2020"
+  },
+  {
+   "name": "team",
+   "value": "2",
+   "options": [
+    {
+     "value": "2",
+     "displayValue": "Test U21"
+    }
+   ]
+  },
+  {
+   "name": "league",
+   "value": "tst.trophy"
+  }
+ ],
+ "names": [
+  "totalGoals",
+  "goalAssists",
+  "totalShots",
+  "shotsOnTarget",
+  "foulsCommitted",
+  "foulsSuffered",
+  "offsides",
+  "yellowCards",
+  "redCards"
+ ],
+ "seasonTypes": [
+  {
+   "displayName": "x",
+   "categories": [
+    {
+     "events": [
+      {
+       "eventId": "e9",
+       "stats": [
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "1"
+       ]
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "events": {
+  "e9": {
+   "id": "e9",
+   "gameDate": "2020-12-08T15:00:00.000+00:00",
+   "score": "1-0",
+   "opponent": {
+    "displayName": "Opp"
+   },
+   "team": {
+    "abbreviation": "TTT"
+   },
+   "leagueName": "Test League"
+  }
+ }
+}

@@ -1,0 +1,36 @@
+{
+ "splits": {
+  "categories": [
+   {
+    "name": "general",
+    "stats": [
+     {
+      "name": "appearances",
+      "value": 10
+     }
+    ]
+   },
+   {
+    "name": "offensive",
+    "stats": [
+     {
+      "name": "accuratePasses",
+      "value": 450
+     },
+     {
+      "name": "totalPasses",
+      "value": 500
+     },
+     {
+      "name": "totalShots",
+      "value": 10
+     },
+     {
+      "name": "goalAssists",
+      "value": 1
+     }
+    ]
+   }
+  ]
+ }
+}

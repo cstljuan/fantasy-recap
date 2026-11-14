@@ -95,3 +95,16 @@ python3 agents/scout/check_crosscheck.py    # offline, fixtures in fixtures/espn
 For the 14 roster players it finds each one in ESPN's search (`site.api.espn.com/apis/common/v3/search`), reads the season totals (`sports.core.api.espn.com/v2/sports/football/leagues/nfl/seasons/2026/types/2/athletes/<id>/statistics`) and compares passing, rushing and receiving yards and touchdowns, receptions and field goals made with Sleeper's numbers. A disagreement is more than 5 units or more than 2 percent. It writes `data/rosters/crosscheck-2026.json` with both numbers, the difference, both addresses and dates, and games played on each side. A stat Sleeper leaves out is read as 0 when the player has games; a stat ESPN does not give is null and listed under `not_compared`. No profile is changed.
 
 Live run on 2026-11-14: all 14 players found on ESPN, every compared number equal, games played equal for all 14. The only stats not compared are field goals made for the 12 players who are not kickers: ESPN has no kicking category for them, so their ESPN number is null.
+
+## Soccer numbers
+
+```bash
+python3 agents/scout/fill_soccer.py     # live: ESPN's public soccer JSON, no model, no key
+python3 agents/scout/check_soccer.py    # offline, fixtures in fixtures/soccer/
+```
+
+For the 22 players in `data/rosters/IRN.json` and `RHB.json` it finds each one in ESPN's search, reads the game log (club, league, matches) and the league season totals, and fills the tendencies in `data/profiles/IRN.json` and `RHB.json` with address, date and formula per number. Formulas: keeper `save_rate` saves over shots faced (or over saves plus goals conceded when ESPN gives no shots faced), `pen_save_rate` penalties saved over faced; defender `tackle_rate` tackles won over tackles, `goal_share` goals per appearance; midfielder `pass_share` accurate passes over passes, `shot_share` shots per appearance over 5, `assist_share` assists per appearance; forward `shot_share`, `assist_share` as for midfielders, `shot_conversion` goals over shots, `header_share` headed goals over goals. All capped to 0 to 1. `aerial_win_rate` stays null: ESPN gives all duels together, not aerial ones.
+
+It also writes one real round of lines, `data/statlines/soccer-real-<date>.json`, in the shape of `soccer/data/week11-lines.json`: each player's line from his own league match in the last four days up to the latest match. A player with no league match in that round has an empty line. The players of one fantasy team play for different clubs, so the lines are not one match, and real keeper saves almost never equal the other fantasy team's saved shots: the file lists the match maker rules it breaks in `match_maker_rules`, and nothing was changed to make them fit.
+
+Live run on 2026-11-14: 21 of 22 players filled. William Saliba stays null: ESPN's game log for him only has season 2020 (Arsenal U21) and the 2026 Premier League statistics address answers 404. Round 2026-11-05 to 2026-11-08; Hakimi, Kvaratskhelia, Saka, Nuno Mendes and Kounde had no league match in it. Both keeper-saves rules are broken, so `soccer/engine/make-match.js` refuses the file as it is.

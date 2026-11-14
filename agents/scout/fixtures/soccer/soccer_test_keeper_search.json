@@ -1,0 +1,13 @@
+{
+ "items": [
+  {
+   "id": "801",
+   "displayName": "Test Keeper",
+   "sport": "soccer",
+   "isActive": true,
+   "position": {
+    "abbreviation": "G"
+   }
+  }
+ ]
+}

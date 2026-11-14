@@ -1,0 +1,13 @@
+{
+ "items": [
+  {
+   "id": "802",
+   "displayName": "Old Defender",
+   "sport": "soccer",
+   "isActive": true,
+   "position": {
+    "abbreviation": "D"
+   }
+  }
+ ]
+}
