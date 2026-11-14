@@ -350,6 +350,18 @@ console.log('\nStyle switch: ' + A.setStyle('fun') + ', ' + A.setStyle('nonsense
 console.log('speak() without a speech voice does nothing: ' + (A.speak('test') === undefined ? 'ok' : 'unexpected'));
 console.log('line() with no teams is quiet: ' + (A.line({}, {}) === '' ? 'ok' : 'unexpected'));
 
+// The soccer announcer (js/announcer/soccer/) has its own check; run it here too so one
+// command covers both sports.
+(function () {
+  var cp = require('child_process'), path = require('path');
+  var f = path.join(__dirname, 'soccer/check.js');
+  if (!require('fs').existsSync(f)) return;
+  var r = cp.spawnSync(process.execPath, [f], { encoding: 'utf8' });
+  var lastLine = (r.stdout || '').trim().split('\n').pop();
+  console.log('\nSoccer: ' + lastLine);
+  if (r.status !== 0) problems.push('soccer check failed: ' + ((r.stdout || '') + (r.stderr || '')).split('PROBLEMS')[1]);
+})();
+
 if (problems.length) {
   console.log('\nPROBLEMS (' + problems.length + '):');
   problems.forEach(function (p) { console.log('  ' + p); });
