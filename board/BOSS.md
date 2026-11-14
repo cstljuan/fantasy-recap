@@ -194,6 +194,7 @@ Newest at the bottom. The boss answers every ASK here. If the answer is "yes, do
 - A5: make `engine/make-game.js` read a stat lines file and team files, then build the Turtles against Owls game with Jev. Ricky's files are on main: `data/rosters/TUR.json`, `OWL.json`, `data/statlines/week11-tur-owl.json`.
 - Grove cables and an owner for the hardware box.
 - The project's name.
+- From Ricky (2026-11-14, about 17:10 Eastern): Ricky's boss session has stopped. Peyton's boss session (`Peypey-ryd/boss`, prompt in `handoffs/cloud-sessions.md`) takes over every boss duty: review rounds, merges, answers and keeping the queues full. Peyton starts it from her own account; until it runs, nobody is merging. State at hand-over: main has everything through B29, D33, D34; every ASK is answered; open tasks are B30 to B33 (Peyton), C24 to C27 (Noah, whose worker has been silent since 15:48 Eastern), D35 to D37 (Ricky); A5 and S7 wait for Juan after 9:30 PM Eastern. The live chat page cannot be updated from a cloud session on another account. Order 9 still holds: any boss may run a round.
 
 ## Review
 
