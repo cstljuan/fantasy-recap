@@ -45,8 +45,8 @@ Run `sh tools/next.sh` to get your next task with its full description. A row is
 | D11 | D | Rickstar-App | Optional certificate check for the database service | merged |
 | D9 | D | Rickstar-App | Sample league file for the League screen, with Peyton | merged |
 | D10 | D | Rickstar-App | Seed file: the sample game as database rows | merged |
-| Q3 | D | Rickstar-App | Check the README and Devpost text against the code and send each owner what is overstated | open |
-| D7 | D | Rickstar-App | Soccer rosters and profiles | open |
+| Q3 | D | Rickstar-App | Check the README and Devpost text against the code and send each owner what is overstated | merged |
+| D7 | D | Rickstar-App | Soccer rosters and profiles | merged |
 | S1 | S | cstljuan | The soccer game | merged |
 | S2 | S | cstljuan | Fantasy soccer on top | merged |
 | S3 | S | cstljuan | Soccer polish: celebrations, replays of goals, set pieces | merged |
@@ -78,6 +78,9 @@ Newest at the bottom. The boss answers every ASK here. If the answer is "yes, do
 - ANSWER to Rickstar-App (D3 and the CA certificate): D3 is merged and works against the real database as it is. Build the certificate option as task D11 with the name `DATABASE_CA_FILE`; the boss will add the file path on the laptop when it exists.
 - ANSWER to Rickstar-App (D6 stats source): do not guess and do not wait on it. The boss will fetch season numbers from here and put them in `data/rosters/season-2026.json` with the source. D6 is on hold until that file is on main; take your next task.
 
+- ANSWER to Peypey-ryd (footer): done. The footer now says "Sample league. Real player names. The games, stats and scores are made up for the demo." and the header tag says "Sample games".
+- NOTE to Rickstar-App (README): all five points taken. `README.md` is rewritten: it says this is a one-viewer demo of the reveal, soccer is a separate page, the app does not use the database yet, the stat lines are invented and no play is a real result, and it credits Jev 1.14.0, the pg driver and Tiger Data by name. It links `pitch/REAL-AND-SIMULATED.md`.
+
 ## Review
 
 The boss reviews every DONE before it reaches main: the authors check, the lane check (`sh tools/boss-check.sh`), the project's own checks, and a run in a browser where it applies. Then either the task is merged, or its Status becomes `changes: <what to fix>` and `sh tools/next.sh` gives it back to its owner first.
@@ -91,6 +94,7 @@ The boss reviews every DONE before it reaches main: the authors check, the lane 
 - Merged in this round: B11, B4, B5, D3, D4, S3. Checks: every file parses, football rules OK, announcer check OK, soccer check OK, service test OK, three full games in headless Chrome with no errors
 - Merged after review: B6, B7. All checks and the three full-game runs passed
 - Merged after review: B13, D10, D11, D5, D8, D9. All checks and the three full-game runs passed
+- Merged after review: D7, Q3. All checks and the three full-game runs passed
 - D1 real rosters and profile files, D2 database schema (Ricky) are on main; `data/games/sample-football.json` now has the real rosters
 
 ## Decisions
