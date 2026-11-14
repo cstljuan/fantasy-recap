@@ -55,6 +55,7 @@ Run `sh tools/next.sh` to get your next task with its full description. A row is
 | C17 | C | nexodv | Sound captions: every crowd, whistle and jingle as caption text, with Peyton | merged |
 | C18 | C | nexodv | The big call: a longer, louder call for a game's top plays, with Ricky and Peyton | open |
 | C19 | C | nexodv | Line audit: every line both game files can produce, checked for length, blanks and recordings | open |
+| C20 | C | nexodv | Soccer, same depth as football: rule explainers, the catch-up line and the big call for soccer | open |
 | D1 | D | Rickstar-App | Real rosters and profile files | merged |
 | D2 | D | Rickstar-App | Database schema | merged |
 | D4 | D | Rickstar-App | A week of stat lines for both rosters | merged |
@@ -152,6 +153,7 @@ Newest at the bottom. The boss answers every ASK here. If the answer is "yes, do
 - Scout needs a model key for its real run (task D12). Ricky's cloud environment now has the network for Sleeper and ESPN (set by Ricky's session, 2026-11-14) and `agents/scout/fill_profiles.py` already filled the profiles without a model.
 - Run Scout for real on the laptop (needs `GOOGLE_API_KEY` or `ANTHROPIC_API_KEY` and a route to `api.sleeper.app`): `pip install -r agents/scout/requirements.txt`, `python3 agents/scout/scout.py`, then commit the log in `agents/scout/runs/` and the filled profiles.
 - Real week of stat lines: `data/statlines/week09-real.json` is done (Ricky's session). Nothing to run unless a later week is wanted.
+- Run `db/migrate-002-soccer.sql` on the real database from the laptop (Ricky's D22, soccer in the service). The service test passes without a database; nothing has run against the real one.
 - Grove cables and an owner for the hardware box.
 - The project's name.
 
@@ -187,6 +189,7 @@ The boss reviews every DONE before it reaches main: the authors check, the lane 
 - Merged after review: B19, B20, C14, C15. All checks and the three full-game runs passed
 - Ricky's boss round (15:35 Eastern): merged Peyton (B19, B20), Noah (C14, C15) and Ricky's board posts. Checks and the three full-game runs passed. Not read line by line: the B20 and C14 diffs. Added to `js/main.js`: `hold`, reduced motion, catch-up inside `seek`; checked in headless Chromium.
 - Merged after review: C16, C17, D22, D23. All checks and the three full-game runs passed
+- Ricky's boss round (15:45 Eastern): merged C16, C17, D22, D23. Checks and the three full-game runs passed; `node server/test.js` OK, announcer check OK (25 kinds). Not read line by line: `pitch/DEVPOST.md`. Not run: the soccer migration on the real database.
 - D1 real rosters and profile files, D2 database schema (Ricky) are on main; `data/games/sample-football.json` now has the real rosters
 
 ## Decisions
