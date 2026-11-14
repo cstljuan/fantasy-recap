@@ -23,9 +23,9 @@ Run `sh tools/next.sh` to get your next task with its full description. A row is
 | B12 | B | Peypey-ryd | Lineup points from the scoring rules, with Ricky | merged |
 | Q1 | B | Peypey-ryd | Listen-through: read every announcer line and send Noah the ones to fix | merged |
 | P1 | B | Peypey-ryd | The two-minute demo script with timings | merged |
-| B14 | B | Peypey-ryd | The film room: drive chart and the play caller panel | open |
-| B15 | B | Peypey-ryd | First run walkthrough and install | open |
-| B16 | B | Peypey-ryd | The season: standings and past weeks, with Ricky | open |
+| B14 | B | Peypey-ryd | The film room: drive chart and the play caller panel | merged |
+| B15 | B | Peypey-ryd | First run walkthrough and install | merged |
+| B16 | B | Peypey-ryd | The season: standings and past weeks, with Ricky | merged |
 | B17 | B | Peypey-ryd | One look for the whole app | open |
 | B18 | B | Peypey-ryd | This week in the league: every matchup's biggest plays, with Ricky | open |
 | B19 | B | Peypey-ryd | Save the opt-in to the service when it answers, with Ricky | open |
@@ -40,9 +40,9 @@ Run `sh tools/next.sh` to get your next task with its full description. A row is
 | C7 | C | nexodv | Kickoff and final jingles made in code | merged |
 | C9 | C | nexodv | Fit lines to the captions strip, with Peyton | merged |
 | Q2 | C | nexodv | Walk the reveal flow at phone width and send Peyton what breaks | merged |
-| P2 | C | nexodv | Shot list for the demo video | open |
-| C11 | C | nexodv | Commentary that remembers the game | open |
-| C12 | C | nexodv | The soccer broadcast, with Juan's soccer agent | open |
+| P2 | C | nexodv | Shot list for the demo video | merged |
+| C11 | C | nexodv | Commentary that remembers the game | merged |
+| C12 | C | nexodv | The soccer broadcast, with Juan's soccer agent | merged |
 | C13 | C | nexodv | The mix: volumes, mute, crowd ducking under the voice | open |
 | C10 | C | nexodv | ElevenLabs voice: playback, the render script, and audio for the current games | open |
 | C8 | C | nexodv | Soccer lines | open |
@@ -64,10 +64,10 @@ Run `sh tools/next.sh` to get your next task with its full description. A row is
 | D14 | D | Rickstar-App | The service, finished: opt-ins, push a game, health | merged |
 | D16 | D | Rickstar-App | Two finished past weeks and standings in `data/league.json`, with Peyton | merged |
 | D17 | D | Rickstar-App | Judges' questions with honest answers: `pitch/QUESTIONS.md` | merged |
-| D18 | D | Rickstar-App | Top plays of a game and of a week, from the service and from a game file, with Peyton | open |
-| D19 | D | Rickstar-App | Drive chart data for the film room: `GET /games/:id/drives` and the same from a game file, with Peyton | open |
-| D20 | D | Rickstar-App | A second week of football stat lines with a different winner, with its check | open |
-| D21 | D | Rickstar-App | Momentum: points per team over game time, from the database and from a game file, with Peyton | open |
+| D18 | D | Rickstar-App | Top plays of a game and of a week, from the service and from a game file, with Peyton | merged |
+| D19 | D | Rickstar-App | Drive chart data for the film room: `GET /games/:id/drives` and the same from a game file, with Peyton | merged |
+| D20 | D | Rickstar-App | A second week of football stat lines with a different winner, with its check | merged |
+| D21 | D | Rickstar-App | Momentum: points per team over game time, from the database and from a game file, with Peyton | merged |
 | D22 | D | Rickstar-App | Soccer in the service: push a soccer match and read it back | open |
 | D23 | D | Rickstar-App | Devpost text, refreshed against main, with one honest paragraph per sponsor track | open |
 | D7 | D | Rickstar-App | Soccer rosters and profiles | merged |
@@ -161,6 +161,7 @@ The boss reviews every DONE before it reaches main: the authors check, the lane 
 - Merged after review: C7, D12. All checks and the three full-game runs passed. C7: the game now plays both jingles. D12: `agents/scout/check.py` and `check_statlines.py` pass on the boss machine and no key is in any file; Scout has not run against a real model or the stats host yet
 - Merged after review: C9, D13, D14, D15, Q1. All checks and the three full-game runs passed
 - Merged after review: D16, D17, P1, Q2. All checks and the three full-game runs passed
+- Merged after review: B14, B15, B16, C11, C12, D18, D19, D20, D21, P2. All checks and the three full-game runs passed
 - D1 real rosters and profile files, D2 database schema (Ricky) are on main; `data/games/sample-football.json` now has the real rosters
 
 ## Decisions
