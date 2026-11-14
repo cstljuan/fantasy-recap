@@ -210,6 +210,21 @@ h2 { margin: 0; font: 700 11px/1 var(--body); letter-spacing: 0.14em; text-trans
 .why-bars li.is-chosen { color: var(--text); }
 .why-bars li.is-chosen .why-bar i { background: var(--amber); }
 
+/* -------------------------------------------------------------- my team */
+
+.mine-tag { display: inline-block; margin-bottom: 8px; font: 700 10px/1 var(--body); letter-spacing: 0.12em; text-transform: uppercase;
+            color: #111; background: var(--amber); padding: 3px 5px; }
+.mine-tag.is-blank { visibility: hidden; }
+.me-pick { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 8px 14px; margin-top: 12px; }
+.me-btns { display: flex; gap: 6px; }
+.me-btns button { min-height: 36px; min-width: 52px; padding: 0 10px; background: transparent; border: 1px solid var(--rule); border-radius: 2px; cursor: pointer;
+                  color: var(--dim); font: 700 11px/1 var(--body); letter-spacing: 0.1em; text-transform: uppercase; }
+.me-btns button[aria-pressed="true"] { color: #111; background: var(--amber); border-color: var(--amber); }
+.row.is-mine { border-left: 3px solid var(--amber); padding-left: 11px; background: rgba(255, 194, 26, 0.06); }
+.play.is-mine { background: rgba(255, 194, 26, 0.06); }
+.play-fp .mine { color: var(--amber); }
+.play-fp .mine b { color: var(--amber); }
+
 /* ---------------------------------------------------------------- recap */
 
 /* The winner reveal at the top of the recap. */

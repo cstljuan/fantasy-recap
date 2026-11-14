@@ -54,6 +54,31 @@
     try { window.localStorage.setItem(OPTIN_KEY, v); } catch (err) { /* storage may be off */ }
     syncFloaters();
   }
+  // My team: ?me=<team id> or the choice on the matchup screen, saved under fr.me.
+  // -1 means no team chosen, and then the app looks as it always did.
+  var ME_KEY = 'fr.me';
+  function teamByName(id) {
+    id = String(id || '').toUpperCase();
+    for (var i = 0; i < 2; i++) if (TEAMS[i].id.toUpperCase() === id) return i;
+    return -1;
+  }
+  var me = (function () {
+    var fromUrl = /[?&]me=([^&]*)/.exec(location.search), saved = null;
+    if (fromUrl) {
+      var t = teamByName(decodeURIComponent(fromUrl[1]));
+      try { if (t >= 0) window.localStorage.setItem(ME_KEY, TEAMS[t].id); else window.localStorage.removeItem(ME_KEY); } catch (err) { /* storage may be off */ }
+      return t;
+    }
+    try { saved = window.localStorage.getItem(ME_KEY); } catch (err) { saved = null; }
+    return teamByName(saved);
+  })();
+  function setMe(t) {
+    me = t === 0 || t === 1 ? t : -1;
+    try { if (me >= 0) window.localStorage.setItem(ME_KEY, TEAMS[me].id); else window.localStorage.removeItem(ME_KEY); } catch (err) { /* storage may be off */ }
+  }
+  // Team order on screen: my team first when I have one.
+  function ord() { return me === 1 ? [1, 0] : [0, 1]; }
+
   // True while every fantasy number and stat line must stay masked.
   function masked() { return optin === 'in' && m.status !== 'final'; }
   function pts1(n) { return masked() ? MASK : f1(n); }
@@ -137,7 +162,7 @@
     m.feed.push({
       n: m.done, team: off, where: res.where || '', desc: describe(res), tags: tags, why: whyFor(e, res),
       scoring: changed, flag: e.t === 'pen', score: res.post.score.slice(),
-      fp: res.fp.map(function (f) { return { pts: f.pts, who: shortName(f.team, f.role) }; })
+      fp: res.fp.map(function (f) { return { pts: f.pts, who: shortName(f.team, f.role), team: f.team }; })
     });
   }
 
@@ -182,10 +207,24 @@
   function side(t, withWin) {
     var tot = pts1(total(t)), tick = fresh && tot !== prevTotals[t] ? ' tick' : '';
     var win = withWin && !masked() && total(t) > total(1 - t) ? '<span class="won">Win</span>' : '';
-    return '<div class="side" style="--c: var(--t' + t + ')">' +
+    return '<div class="side' + (t === me ? ' is-mine' : '') + '" style="--c: var(--t' + t + ')">' +
+      (t === me ? '<span class="mine-tag">Your team</span>' : me >= 0 ? '<span class="mine-tag is-blank" aria-hidden="true">Your team</span>' : '') +
       '<div class="side-id"><img class="sprite" src="' + marks[t] + '" alt=""><div class="team-name">' + esc(TEAMS[t].full) + '</div></div>' +
       '<div class="window"><span class="num' + tick + '">' + tot + '</span><span class="unit">Fantasy pts' + win + '</span></div>' +
       '</div>';
+  }
+
+  function fieldScore() {
+    return ord().map(function (t) { return '<span class="fs">' + TEAMS[t].id + '<b>' + m.field[t] + '</b></span>'; }).join('');
+  }
+
+  // The choice of my team, a slim row under the scoreboard on the matchup screen.
+  function meCard() {
+    function btn(t, label) {
+      return '<button type="button" data-act="me" data-v="' + t + '" aria-pressed="' + (me === t) + '">' + esc(label) + '</button>';
+    }
+    return '<div class="panel me-pick"><span class="eyebrow">Your team</span>' +
+      '<div class="me-btns">' + btn(0, TEAMS[0].id) + btn(1, TEAMS[1].id) + btn(-1, 'Neither') + '</div></div>';
   }
 
   function board(actions, label) {
@@ -193,10 +232,8 @@
             : paused() ? 'Paused' + (m.now ? ', ' + esc(m.now) : '') : esc(m.now);
     return '<div class="board">' +
       '<div class="board-top"><span class="eyebrow">' + esc(label) + '</span>' + statusChip() + '</div>' +
-      '<div class="sides">' + side(0, m.status === 'final') + side(1, m.status === 'final') + '</div>' +
-      '<div class="field"><span class="eyebrow">On the field</span>' +
-        '<span class="fs">' + TEAMS[0].id + '<b>' + m.field[0] + '</b></span>' +
-        '<span class="fs">' + TEAMS[1].id + '<b>' + m.field[1] + '</b></span>' +
+      '<div class="sides">' + ord().map(function (t) { return side(t, m.status === 'final'); }).join('') + '</div>' +
+      '<div class="field"><span class="eyebrow">On the field</span>' + fieldScore() +
         '<span class="sit">' + sit + '</span></div>' +
       '<div class="actions">' + actions + '</div>' +
       '</div>';
@@ -204,7 +241,7 @@
 
   function playerRow(t, role, rank) {
     var pts = m.pts[t][role], hot = !masked() && m.flash[t + role] && Date.now() - m.flash[t + role] < 1500;
-    return '<div class="row' + (hot ? ' flash' : '') + '">' +
+    return '<div class="row' + (hot ? ' flash' : '') + (t === me ? ' is-mine' : '') + '">' +
       (rank ? '<span class="rank">' + rank + '</span>' : '') +
       '<span class="tile" style="--c: ' + TEAMS[t].colors.tile + '">' + initials(t, role) + '</span>' +
       '<div class="who"><div class="name">' + esc(fullName(t, role)) + '</div>' +
@@ -279,10 +316,12 @@
     var tags = p.tags.map(function (t) { return '<span class="tag t-' + t[0] + '">' + t[1] + '</span>'; }).join('');
     if (p.scoring) tags += '<span class="play-score">' + TEAMS[0].id + ' ' + p.score[0] + ', ' + TEAMS[1].id + ' ' + p.score[1] + '</span>';
     var fp = p.fp.map(function (f) {
-      if (masked()) return '<div><b>' + MASK + '</b> ' + esc(f.who) + '</div>';
-      return '<div' + (f.pts < 0 ? ' class="neg"' : '') + '><b>' + (f.pts > 0 ? '+' : '') + f1(f.pts) + '</b> ' + esc(f.who) + '</div>';
+      var cls = (f.team === me ? ' mine' : '') + (!masked() && f.pts < 0 ? ' neg' : '');
+      var open = cls ? '<div class="' + cls.slice(1) + '">' : '<div>';
+      if (masked()) return open + '<b>' + MASK + '</b> ' + esc(f.who) + '</div>';
+      return open + '<b>' + (f.pts > 0 ? '+' : '') + f1(f.pts) + '</b> ' + esc(f.who) + '</div>';
     }).join('');
-    return '<li class="play' + (isNew ? ' is-new' : '') + '" style="--c: var(--t' + p.team + ')">' +
+    return '<li class="play' + (isNew ? ' is-new' : '') + (p.team === me ? ' is-mine' : '') + '" style="--c: var(--t' + p.team + ')">' +
       '<div class="play-main">' +
         '<div class="play-meta"><b>' + TEAMS[p.team].id + '</b>' + esc(p.where) + '</div>' +
         '<div class="play-desc">' + esc(p.desc) + '</div>' +
@@ -327,7 +366,7 @@
     var plays = m.feed.filter(function (p) { return !p.divider; }).slice(-3).reverse();
     var top = masked() ? [] : leaders(3);
     var noLeaders = masked() ? 'Leaders are hidden until the final.' : 'No fantasy points yet.';
-    return optinCard() + board(actions, WEEK + ' matchup') +
+    return optinCard() + board(actions, WEEK + ' matchup') + meCard() +
       '<div class="grid two">' +
         '<div class="panel"><div class="panel-head"><h2>Latest plays</h2><a href="#plays">All plays</a></div>' +
           (plays.length ? '<ul class="feed">' + plays.map(function (p, i) { return playItem(p, fresh && i === 0); }).join('') + '</ul>'
@@ -346,7 +385,7 @@
         SLOTS.map(function (s) { return playerRow(t, s.role, 0); }).join('') +
         '</div>';
     }
-    return '<div class="grid two" style="margin-top:0">' + team(0) + team(1) + '</div>' +
+    return '<div class="grid two" style="margin-top:0">' + ord().map(team).join('') + '</div>' +
       '<p class="note" style="border:0;margin-top:14px">Scoring in this sample league: 0.1 per rushing or receiving yard, 0.04 per passing yard, ' +
       '6 for a rushing or receiving touchdown, 4 for a passing touchdown, minus 2 for an interception or lost fumble. ' +
       'Kickers get 1 for an extra point and 3 to 5 for a field goal. A defense gets 1 for a sack and 2 for a takeaway.</p>';
@@ -386,12 +425,13 @@
       '<div class="board-top"><span class="eyebrow">' + esc(WEEK) + ' result</span>' + statusChip() + '</div>' +
       head +
       '<div class="hero-score">' +
-        '<div style="--c: var(--t0)"><span class="num">' + f1(total(0)) + '</span><span class="eyebrow">' + esc(TEAMS[0].name) + '</span></div>' +
-        '<div style="--c: var(--t1)"><span class="num">' + f1(total(1)) + '</span><span class="eyebrow">' + esc(TEAMS[1].name) + '</span></div>' +
+        ord().map(function (t) {
+          return '<div style="--c: var(--t' + t + ')"><span class="num">' + f1(total(t)) + '</span><span class="eyebrow">' +
+            esc(TEAMS[t].name) + (t === me ? ', yours' : '') + '</span></div>';
+        }).join('') +
       '</div>' +
       '<div class="field"><span class="eyebrow">On the field</span>' +
-        '<span class="fs">' + TEAMS[0].id + '<b>' + m.field[0] + '</b></span>' +
-        '<span class="fs">' + TEAMS[1].id + '<b>' + m.field[1] + '</b></span>' +
+        fieldScore() +
         '<span class="sit">Full time</span></div>' +
       '<div class="actions">' + watchButton() + keep + '</div>' +
       '</div>';
@@ -412,7 +452,10 @@
     var top = leaders(5);
     var scores = m.feed.filter(function (p) { return p.scoring; });
     var a = m.team[0], b = m.team[1];
-    function line(x, label, y) { return '<tr><td>' + x + '</td><td>' + label + '</td><td>' + y + '</td></tr>'; }
+    function line(x, label, y) {
+      if (me === 1) { var z = x; x = y; y = z; }
+      return '<tr><td>' + x + '</td><td>' + label + '</td><td>' + y + '</td></tr>';
+    }
     return winnerHero() +
       '<div class="grid two">' +
         '<div class="panel"><div class="panel-head"><h2>Top performers</h2></div>' +
@@ -420,7 +463,7 @@
         '<div class="panel"><div class="panel-head"><h2>Scoring plays</h2><a href="#plays">All plays</a></div>' +
           '<ul class="feed">' + scores.map(function (p) { return playItem(p, false); }).join('') + '</ul></div>' +
       '</div>' +
-      '<div class="grid"><div class="panel"><div class="panel-head"><h2>' + TEAMS[0].name + ' against ' + TEAMS[1].name + '</h2></div>' +
+      '<div class="grid"><div class="panel"><div class="panel-head"><h2>' + TEAMS[ord()[0]].name + ' against ' + TEAMS[ord()[1]].name + '</h2></div>' +
         '<table class="compare">' +
           line(f1(total(0)), 'Fantasy points', f1(total(1))) +
           line(m.field[0], 'Score on the field', m.field[1]) +
@@ -451,7 +494,7 @@
   function renderLeague() {
     var ours = '<a class="panel lg-match is-ours" href="#matchup">' +
       '<div class="lg-top"><span class="eyebrow">Your matchup</span>' + statusChip() + '</div>' +
-      '<div class="lg-teams">' + leagueTeam(TEAMS[0].full, '', marks[0]) + '<span class="lg-vs">vs</span>' + leagueTeam(TEAMS[1].full, '', marks[1]) + '</div>' +
+      '<div class="lg-teams">' + ord().map(function (t) { return leagueTeam(TEAMS[t].full + (t === me ? ' (you)' : ''), '', marks[t]); }).join('<span class="lg-vs">vs</span>') + '</div>' +
       '<div class="lg-foot">' + optMark(optin === 'in') + '<span class="lg-drop">' + RELEASE + '</span><span class="lg-go">Open</span></div>' +
       '</a>';
     var others = OTHER_MATCHUPS.map(function (x) {
@@ -660,6 +703,7 @@
     else if (act === 'again') { G.restart(); location.hash = 'game'; }
     else if (act === 'filter') { filter = el.getAttribute('data-f'); render(false); }
     else if (act === 'optin') { setOptin(el.getAttribute('data-v') === 'in' ? 'in' : 'out'); render(false); }
+    else if (act === 'me') { setMe(Number(el.getAttribute('data-v'))); render(false); }
   });
 
   $('closeGame').addEventListener('click', function () { leaveGame(tab); });
@@ -695,6 +739,7 @@
     get optin() { return optin; },
     get masked() { return masked(); },
     get paused() { return paused(); },
+    get me() { return me; },
     get caption() { return capEl.hidden ? '' : capEl.textContent; },
     totals: function () { return [f1(total(0)), f1(total(1))]; }
   };
