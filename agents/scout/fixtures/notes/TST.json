@@ -1,0 +1,88 @@
+{
+ "team": "TST",
+ "source": "test",
+ "players": {
+  "QB": {
+   "name": "Test Quarterback",
+   "position": "QB",
+   "tendencies": {
+    "deep_ball": 0.8,
+    "short_pass": 0.6,
+    "scramble": null
+   },
+   "tendency_sources": {
+    "deep_ball": {
+     "source": "https://example.test/season/FX1",
+     "date": "2026-11-14",
+     "how": "made up for the check"
+    },
+    "short_pass": {
+     "source": "https://example.test/season/FX1",
+     "date": "2026-11-14",
+     "how": "made up for the check"
+    },
+    "scramble": {
+     "source": "https://example.test/season/FX1",
+     "date": "2026-11-14",
+     "how": "made up for the check"
+    }
+   },
+   "notes": "Made up.",
+   "form": {
+    "tendencies": {
+     "deep_ball": 0.6,
+     "short_pass": 0.62,
+     "scramble": null
+    },
+    "weeks": [
+     7,
+     8,
+     9
+    ],
+    "skipped_weeks": [
+     10
+    ],
+    "source": "https://example.test/weekly/FX1",
+    "date": "2026-11-14",
+    "notes": ""
+   }
+  },
+  "K": {
+   "name": "Test Kicker Jr.",
+   "position": "K",
+   "tendencies": {
+    "kicker_range": null,
+    "accuracy": null
+   },
+   "tendency_sources": {},
+   "notes": "Not filled: no player."
+  },
+  "WR1": {
+   "name": "Test Van Receiver",
+   "position": "WR",
+   "tendencies": {
+    "deep_ball": 0.6,
+    "catch_rate": 0.7,
+    "red_zone_use": 0.1
+   },
+   "tendency_sources": {
+    "deep_ball": {
+     "source": "https://example.test/season/FX1",
+     "date": "2026-11-14",
+     "how": "made up for the check"
+    },
+    "catch_rate": {
+     "source": "https://example.test/season/FX1",
+     "date": "2026-11-14",
+     "how": "made up for the check"
+    },
+    "red_zone_use": {
+     "source": "https://example.test/season/FX1",
+     "date": "2026-11-14",
+     "how": "made up for the check"
+    }
+   },
+   "notes": ""
+  }
+ }
+}

@@ -22,7 +22,7 @@ process.on('unhandledRejection', function (e) { crashes.push('unhandled rejectio
 // ---------------------------------------------------------------- the stand-in database
 // Keeps games, plays and opt-ins in memory and answers the queries server/index.js sends, by their text.
 function memoryDb() {
-  var games = {}, plays = {}, optins = {};
+  var games = {}, plays = {}, optins = {}, releases = {}, watched = {};
   var cols = ['game_id', 'seq', 'played_at', 'quarter', 'team', 'slot', 'player', 'kind', 'yards', 'fantasy_points', 'detail', 'why', 'minute'];
   function q(text, p) {
     p = p || [];
@@ -53,6 +53,13 @@ function memoryDb() {
     if (/FROM games WHERE id/.test(text)) return { rows: games[p[0]] ? [games[p[0]]] : [] };
     if (/FROM optins WHERE game_id/.test(text)) return { rows: (optins[p[0]] || []).slice() };
     if (/FROM player_points_per_game|FROM team_points_per_quarter/.test(text)) return { rows: [] };
+    if (/^INSERT INTO releases/.test(text)) { releases[p[0]] = { released: p[1], changed_at: new Date().toISOString() }; return { rows: [releases[p[0]]] }; }
+    if (/FROM releases WHERE week/.test(text)) return { rows: releases[p[0]] ? [releases[p[0]]] : [] };
+    if (/^INSERT INTO watched/.test(text)) {
+      if (!games[p[0]]) { var we = new Error('violates foreign key constraint'); we.code = '23503'; throw we; }
+      (watched[p[0]] = watched[p[0]] || {})[p[1]] = 1; return { rows: [] };
+    }
+    if (/FROM watched WHERE game_id/.test(text)) return { rows: [{ n: String(Object.keys(watched[p[0]] || {}).length) }] };
     throw new Error('stand-in database does not know this query: ' + text.slice(0, 60));
   }
   function query(text, p) { try { return Promise.resolve(q(text, p)); } catch (e) { return Promise.reject(e); } }
@@ -171,6 +178,26 @@ var srv = createServer(db).listen(0, function () {
     ['wrong method on health', 'POST', '/health', undefined, [404, 405]],
     ['wrong method on top plays', 'PUT', '/games/g1/top-plays', undefined, [405]],
     ['wrong method on league', 'POST', '/league', { x: 1 }, [405]],
+    ['commissioner: release', 'POST', '/league/week/11/release', { released: true }, [200]],
+    ['commissioner: read release', 'GET', '/league/week/11/release', undefined, [200]],
+    ['commissioner: opt-ins', 'GET', '/league/week/11/optins', undefined, [200]],
+    ['commissioner: watched', 'POST', '/games/week11-football/watched', { manager: 'GOB' }, [201]],
+    ['commissioner: released is text', 'POST', '/league/week/11/release', { released: 'true' }, [400]],
+    ['commissioner: released is missing', 'POST', '/league/week/11/release', {}, [400]],
+    ['commissioner: body is a list', 'POST', '/league/week/11/release', [1], [400]],
+    ['commissioner: broken JSON', 'POST', '/league/week/11/release', undefined, [400], '{"released":'],
+    ['commissioner: body over 2 KB', 'POST', '/league/week/11/release', undefined, [413], JSON.stringify({ released: true, pad: new Array(4000).join('x') })],
+    ['commissioner: week is text', 'GET', '/league/week/abc/optins', undefined, [400]],
+    ['commissioner: week is huge', 'GET', '/league/week/99999999999/release', undefined, [400]],
+    ['commissioner: week is negative', 'GET', '/league/week/-1/release', undefined, [400]],
+    ['commissioner: week not in the league', 'GET', '/league/week/20/optins', undefined, [404]],
+    ['commissioner: SQL in the week', 'GET', "/league/week/11%3B%20DROP%20TABLE%20releases/release", undefined, [400]],
+    ['commissioner: wrong method', 'PUT', '/league/week/11/optins', undefined, [405]],
+    ['watched: no manager', 'POST', '/games/week11-football/watched', {}, [400]],
+    ['watched: manager is an object', 'POST', '/games/week11-football/watched', { manager: { a: 1 } }, [400]],
+    ['watched: SQL in manager', 'POST', '/games/week11-football/watched', { manager: "x'); DROP TABLE watched;--" }, [201]],
+    ['watched: unknown game', 'POST', '/games/nogame/watched', { manager: 'GOB' }, [404]],
+    ['watched: wrong method', 'GET', '/games/week11-football/watched', undefined, [405]],
     ['league with a query', 'GET', '/league?week=99&x=%E0%A4%A', undefined, [200]],
     ['story: odd id', 'GET', '/games/..%2Fx/story', undefined, [404]],
     ['wrong method on story', 'POST', '/games/g1/story', undefined, [405]]
@@ -229,7 +256,7 @@ var srv = createServer(db).listen(0, function () {
   // 3. 200 requests at once
   steps.push(function () {
     var routes = ['/games/week11-football/plays', '/games/week11-football/top-plays?n=5', '/games/week11-football/drives',
-      '/games/week11-football/momentum', '/games/week11-football/story', '/league', '/games/week11-soccer/plays', '/health', '/games/week11-football/optins', '/games/nope/plays'];
+      '/games/week11-football/momentum', '/games/week11-football/story', '/league', '/league/week/11/optins', '/league/week/11/release', '/games/week11-soccer/plays', '/health', '/games/week11-football/optins', '/games/nope/plays'];
     var all = [];
     for (var i = 0; i < 200; i++) {
       var p = routes[i % routes.length];

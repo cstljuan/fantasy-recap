@@ -194,3 +194,20 @@ For Peyton's commissioner view (B33): `GET /league/week/:n/optins` (who has opte
 ## Task D37: a setup guide a stranger can follow
 
 `docs` is the boss's, so write `server/SETUP.md`: from a clean clone to a running service and a passing `node data/checks/all.js`, every command in order, what each prints when it works, what needs a database and what does not, where `.env` goes and what it holds (names only, never values), how to seed, how to open the app against the service with `?api=`. Follow it yourself in a fresh copy of the repository in a temporary folder and fix every step that fails. Post `NOTE "boss: ..."` so README can link it.
+
+## Task D38: Scout reads the real play-by-play (asked by Ricky)
+
+`agents/scout/plays.py`: for each of the 28 roster players (GOB, PYT, TUR, OWL), find the player and his current NFL team on ESPN, walk this season's weeks on ESPN's scoreboard, read the play-by-play of every game that team played (`site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event=<id>`), and keep every snap that involves the player, parsed from the play text: the kind (pass, incompletion, sack, interception, run, scramble, field goal, extra point, fumble), passer and target, pass depth (short or deep) and direction, run gap, yards, touchdown, down, distance, yards to the end zone, quarter and clock, and whether a penalty wiped it out. Keep each game's team totals (pass attempts, carries, red zone and third down snaps) so shares can be worked out. Write `data/rosters/plays-2026.json` with the address of every game. Reconcile: add up each player's plays and compare with Sleeper's season totals read in the same run (receptions, yards, touchdowns, carries, attempts, completions, interceptions, field goals); write the result next to the plays and say in DONE how many numbers match exactly and why the others differ. Fixtures and an offline check; add it to `data/checks/all.js`.
+
+## Task D39: tendencies from real plays
+
+From `data/rosters/plays-2026.json`, add `play_tendencies` to each football profile, next to the season ones and without changing them, each with how it was worked out, the games it covers and the source: for quarterbacks the share of deep attempts, left, middle and right, sack and interception rates, third down conversion rate; for receivers and tight ends the real target share of the team's attempts, the share of deep targets, red zone and third down target shares, catch rate short and deep; for running backs the share of carries by gap (left, middle, right), carries inside the 5, short yardage use, explosive runs (10 yards or more) and stuffs (0 or less); for kickers attempts and makes by distance band. Fill the old null keys where plays now give them (`target_share`). Update the contract note for the boss, the notes pages (`notes.py`) and the checks.
+
+## Task D40: Scout the agent, deeper
+
+Give the deepagents agent tools over the plays (`player_plays(player, filters)`, `team_context(team, week)`, `split(player, by)` for down, quarter, field zone, depth or direction) and a research plan per player: what to look at, which splits matter for his position, what changed lately. It writes a scouting report per player in `data/profiles/notes/` where every sentence cites the plays or totals it rests on, and a research log of every step. With no model key, a fixed-order runner uses the same tools and writes the same reports with rules, and says so. Offline check with fixtures.
+
+## Task A8 (boss lane, Ricky's boss session): a game from a real week's actual plays
+
+`engine/make-game.js --plays data/rosters/plays-2026.json --week <n>`: build a legal game in which our players' plays are their real plays of that week (the same catches with the same yards, the same runs, kicks and touchdowns), ordered and stitched into drives the rules engine accepts, with the other snaps filled as today. The report names the week and every real play used. `node data/checks/game-vs-lines.js` gets the real lines of that week as its source. No Jev without a key: the filler choices use equal weights and the report says so.
+

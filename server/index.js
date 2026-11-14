@@ -15,6 +15,7 @@ var momentumModule = require('./momentum.js');
 var storyModule = require('./story.js');
 var createParties = require('./party.js').createParties;
 var leagueModule = require('./league.js');
+var createCommish = require('./commish.js').createCommish;
 var PARTY_BODY = 2048;
 
 function loadEnv(file) {
@@ -100,6 +101,7 @@ var MAX_ID = 200, MAX_MANAGER = 100;
 // opts.parties: a watch party store (server/party.js); one is made when it is not given.
 function createServer(db, opts) {
   var parties = (opts && opts.parties) || createParties();
+  var commish = createCommish(db);
   return http.createServer(function (req, res) {
     res.originHeader = req.headers.origin;
     // Anything thrown while handling a request answers 500 instead of leaving the request open.
@@ -178,11 +180,23 @@ function createServer(db, opts) {
         function (e) { console.error('health: database does not answer:', e.message); send(res, 503, { ok: false, database: false }); });
     }
     if (url.pathname === '/party' || url.pathname.indexOf('/party/') === 0) return party(req, res, url);
+    var cw = url.pathname.match(/^\/league\/week\/([^\/]+)\/(optins|release)$/);
+    if (cw) {
+      var wk = commish.parseWeek(cw[1]);
+      if (wk === null) return send(res, 400, { error: 'the week is a whole number from 1 to 30' });
+      var answer = function (r) { if (!res.headersSent) send(res, r.status, r.body); };
+      if (cw[2] === 'optins' && req.method === 'GET') return commish.optins(wk, answer);
+      if (cw[2] === 'release' && req.method === 'GET') return commish.getRelease(wk, answer);
+      if (cw[2] === 'release' && req.method === 'POST') {
+        return readJson(req, function (err, body) { if (err) return send(res, err.status, { error: err.message }); commish.setRelease(wk, body, answer); }, PARTY_BODY);
+      }
+      return send(res, 405, { error: 'method not allowed' });
+    }
     if (url.pathname === '/league') {
       if (req.method !== 'GET') return send(res, 405, { error: 'method not allowed' });
       return league(res);
     }
-    var m = url.pathname.match(/^\/games\/([^\/]+)\/(plays|summary|optin|optins|top-plays|drives|momentum|story)$/);
+    var m = url.pathname.match(/^\/games\/([^\/]+)\/(plays|summary|optin|optins|top-plays|drives|momentum|story|watched)$/);
     if (!m) return send(res, 404, { error: 'not found' });
     var gameId;
     try { gameId = decodeURIComponent(m[1]); } catch (e) { return send(res, 400, { error: 'the game id is not valid' }); }
@@ -193,6 +207,12 @@ function createServer(db, opts) {
     // A throw inside a callback below would otherwise leave the request open.
     function late(e) { console.error('request failed:', e && e.message); if (!res.headersSent) send(res, 500, { error: 'server error' }); }
 
+    if (req.method === 'POST' && what === 'watched') {
+      return readJson(req, function (err, body) {
+        if (err) return send(res, err.status, { error: err.message });
+        commish.watched(gameId, body, function (r) { if (!res.headersSent) send(res, r.status, r.body); });
+      }, PARTY_BODY);
+    }
     if (req.method === 'GET' && what === 'story') {
       var sFile = /^[A-Za-z0-9_-]+$/.test(gameId) ? path.join(__dirname, '..', 'data', 'games', gameId + '.json') : null;
       var storyFromFile = function () {

@@ -60,6 +60,7 @@
     chip.setAttribute('role', 'status');
     chip.innerHTML = '<b>' + esc(tr('Watch party')) + '</b> <span class="party-code">…</span><span class="party-note"></span>';
     document.body.appendChild(chip);
+    document.body.classList.add('party-host');
     function show(note) {
       chip.querySelector('.party-code').textContent = code;
       chip.querySelector('.party-note').textContent = note ? ' ' + tr(note) : '';

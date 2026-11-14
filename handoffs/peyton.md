@@ -169,3 +169,26 @@ When the app is opened with `?api=<address>`, the league home reads Ricky's `GET
 ## Task B33: commissioner view (with Ricky)
 
 `?commish=1` opens a screen for the league's commissioner: every matchup of the week with who has opted in, a "release the recap" switch per week (the Tuesday release, by hand), and a count of who has watched to the final. It reads and writes Ricky's commissioner routes (D35) when `?api=` is set; without the service it works on this device only and says so. No points for unfinished recaps, even here. Ask Ricky for the routes.
+
+## Task B34: a stadium full of fans (asked by Ricky)
+
+Ricky wants the game to feel like a stadium: a crowd all around the field, louder, that reacts to every play with movement, emotion and sound. Build it as its own layer in your lane so `js/main.js` and `js/audio.js` do not change: `js/screens/crowd.js` (and styles in `css/`), driven only by the game's events (`FF_GAME.on`: `start`, `snap`, `result` with `res`, `half`, `final`; `res.td`, `res.e.t` for `fg`, `int`, `fumble`, `sack`, `pen`, `punt`, `res.downs`, `res.e.yds`, `res.post.score`, and which team had the ball).
+
+Look: stands on every side of the field (around the `.stage` canvas, in its own canvas or behind it, in the same 8-bit style as the players: pixel fans drawn in code, no image files), filled with fans in the two teams' colors (one side each, some neutral), a few signs and flags, light sway at rest.
+
+Movement and emotion, per side, depending on whose play it was:
+- every snap: a ripple of small bounces; big gains (15 yards or more): the side that gained jumps up and down, arms up;
+- touchdown: that side erupts (everyone jumps for about 3 seconds, flags wave, flashes of the team color), the other side slumps (heads down, hands on heads);
+- field goal good or missed, turnover, sack, fourth-down stop: cheering on one side, groans and shaking fists on the other;
+- penalty: boos and pointing from the side it went against;
+- a stadium wave around the stands now and then in quiet stretches and on big defensive stops;
+- halftime: fans sit, some walk; final: the winner's side celebrates until the view closes, the loser's side empties a little.
+
+Sound (Web Audio in code, like `js/audio.js`; no audio files): claps after good plays, rhythmic chants ("DE-FENSE" for the side on defense on third down, stomp-stomp-clap, a drum line), boos on penalties and turnovers against the home side, a big cheer on touchdowns on top of Noah's roar, an air horn or drum hit on scores, a rising "ohhh" on long passes, a short organ "charge" riff now and then. Louder than today's crowd, with its own level. Respect Noah's mix: silent when `FF_AUDIO.muted()` or the page is hidden, dip while the announcer speaks (`FF_AUDIO.mix().ducked`), quiet above 2x speed like the voice. Caption each new sound through the announcer's `notify` like Noah's (`[crowd chants DEFENSE]`, `[boos]`). Post `NOTE "noah: ..."` with the sound names in case he moves them into `js/audio.js` later.
+
+Hidden scores: the crowd reacts to what happens on the field (real points), which the viewer already sees. It must never react to fantasy points or show them.
+
+Reduced motion: fans show emotion as a pose, no jumping, waving or flashes. No dropped frames on a phone (check the frame rate in headless Chromium at 375 wide); the layer stops when the game view is closed.
+
+Check: headless Chromium at 375 and 1280 wide, play the week 11 game to the final: stands on every side, the right side reacts on a touchdown, a turnover and a penalty (say what you saw in DONE), no console errors, `node data/checks/all.js` still OK. Ask the boss for the `<script>` tag in `index.html`.
+
