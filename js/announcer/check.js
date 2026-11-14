@@ -253,7 +253,12 @@ STYLES.forEach(function (style) {
   var plain = run(null), withReal = run(real);
   // Lines are picked from shuffled decks, so compare lengths: a remark makes a line longer.
   var longer = withReal.filter(function (t, i) { return t.split('. ').length > plain[i].split('. ').length + 1; }).length;
-  if (Object.keys(real).length && longer) problems.push('real profiles have null tendencies but ' + longer + ' remarks were added');
+  // While a profile's tendencies are all null, it must add nothing. Real numbers may add remarks.
+  var anyNumber = Object.keys(real).some(function (id) {
+    var ps = real[id].players || {};
+    return Object.keys(ps).some(function (sl) { var t = ps[sl].tendencies || {}; return Object.keys(t).some(function (k) { return typeof t[k] === 'number'; }); });
+  });
+  if (Object.keys(real).length && !anyNumber && longer) problems.push('real profiles have null tendencies but ' + longer + ' remarks were added');
 
   var fake = {};
   fake[teams[0].id] = { team: teams[0].id, players: {
@@ -262,7 +267,7 @@ STYLES.forEach(function (style) {
     WR1: { name: teams[0].roster.WR1, tendencies: { target_share: 0.1 } }
   } };
   var TEN = ['loves the deep ball', 'does best, take the top', 'Classic', 'not the usual', 'Not often', 'settles for that', 'check it down',
-    'Quick and short', 'easy completion', 'Bread and butter', 'runs through', 'Feed', 'engine of this ground game', 'A rare target',
+    'Quick and short', 'easy completion', 'Bread and butter', 'runs through', 'keep feeding', 'engine of this ground game', 'A rare target',
     'does not see many', 'Not often the ball goes to'];
   var noted = run([fake[teams[0].id]]).filter(function (t) { return TEN.some(function (k) { return t.indexOf(k) >= 0; }); });
   if (!noted.length) problems.push('made-up tendencies produced no remark');
@@ -349,6 +354,48 @@ STYLES.forEach(function (style) {
 console.log('\nStyle switch: ' + A.setStyle('fun') + ', ' + A.setStyle('nonsense') + ', ' + A.setStyle('straight'));
 console.log('speak() without a speech voice does nothing: ' + (A.speak('test') === undefined ? 'ok' : 'unexpected'));
 console.log('line() with no teams is quiet: ' + (A.line({}, {}) === '' ? 'ok' : 'unexpected'));
+
+// C16: hot and cold, on a fixture until Ricky's form data (D24) is merged. Numbers made up
+// for the test only. RB run share is hot (0.80 lately vs 0.50), WR1 targets are cold (0.30 vs
+// 0.60), QB short passes are no different (0.55 vs 0.50) and must never get a remark.
+// Tendencies sit at 0.5 or 0.6 so the plain C6 tendency remarks stay out of the way.
+(function () {
+  var teams = data.TEAMS, id = teams[0].id, R = teams[0].roster;
+  function fixture(shapeB) {
+    function form(o) { return shapeB ? o : { tendencies: o, weeks: [9, 10, 11] }; }
+    var f = {}; f[id] = { team: id, players: {
+      QB: { name: R.QB, tendencies: { deep_ball: 0.5, short_pass: 0.5 }, form: form({ deep_ball: null, short_pass: 0.55 }) },
+      WR1: { name: R.WR1, tendencies: { target_share: 0.6 }, form: form({ target_share: 0.3 }) },
+      RB: { name: R.RB, tendencies: { run_share: 0.5 }, form: form({ run_share: 0.8 }) }
+    } };
+    return f;
+  }
+  [false, true].forEach(function (shapeB) {
+    A.reset();
+    var st = Rules.create(teams), hot = [], cold = [], lastAt = {}, n = 0;
+    Rules.flatten(data.SAMPLE_GAME, teams).forEach(function (x) {
+      if (x.kind === 'half') { Rules.startHalf(st); return; }
+      if (x.kind !== 'play') return;
+      n++;
+      var t = A.line(Rules.apply(st, x.e, x.team), { teams: teams, profiles: fixture(shapeB) });
+      if (t.length > A.maxLength) problems.push('hot/cold line too long: ' + t);
+      var who = null;
+      if (/hot lately|on a roll lately|Hot streak/.test(t)) { hot.push(t); who = 'hot'; }
+      if (/needed that one|quiet lately|Rare lately/.test(t)) { cold.push(t); who = 'cold'; }
+      if (who) {
+        var name = t.match(/(\S+) (has been|is on|needed)|for (\S+)\.|from (\S+)\.$/);
+        var key = who + (name ? name[0] : '');
+        if (lastAt[key] != null && n - lastAt[key] < 8) problems.push('hot/cold remark repeated within 8 plays: ' + t);
+        lastAt[key] = n;
+      }
+      var qb = String(R.QB).split(' ').pop();
+      if (new RegExp(qb + ' (has been|is on|needed)|for ' + qb + '\\.|from ' + qb + '\\.').test(t)) problems.push('remark for a form that is no different: ' + t);
+    });
+    if (!hot.length) problems.push('fixture ' + (shapeB ? 'B' : 'A') + ': no hot remark');
+    if (!cold.length) problems.push('fixture ' + (shapeB ? 'B' : 'A') + ': no cold remark');
+    if (!shapeB) console.log('\nHot and cold (fixture): ' + hot.length + ' hot, ' + cold.length + ' cold, e.g. "' + (hot[0] || '') + '" / "' + (cold[0] || '') + '"');
+  });
+})();
 
 // C15: catch-up after a jump (FF_GAME.seek).
 (function () {
