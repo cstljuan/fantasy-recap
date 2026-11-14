@@ -60,7 +60,7 @@
 //                   ahead for good, the lead changes, the longest drive, the biggest fantasy swing and
 //                   each team's best fantasy player. ctx is { teams, style, hidden }; '' while hidden
 //                   or without a story. Goes to onLine (kind 'recap') like every line.
-//   spoken(text, lang)
+//   spoken(text)
 //                   the form of a line a voice reads (C27): team codes and yard lines as words ("the
 //                   Pythons 21"), downs ("second and ten"), scores ("17 to 14"), clock times, Q1, TD,
 //                   FG, pts, ordinals, names (St., Ja'Marr, initials) and shouting capitals turned
@@ -70,10 +70,6 @@
 //                   the kinds; explainFor(res) gives the kinds a finished play shows.
 //   transcript()    every line said in this game so far: [ { t, text, kind, play } ], t is
 //                   Date.now() when it was said. reset() empties it.
-//   lang            'en' (the default) or 'es'. In Spanish every kind of line, the rule explainers
-//                   and the sound captions come from js/announcer/lines-es.js (load it before this
-//                   file), and the browser voice is a Spanish one when installed. Anything missing in
-//                   Spanish falls back to English; a missing Spanish fun line to the Spanish straight.
 //   maxLength       the longest a play line may be (characters): what fits on one line of the
 //                   captions strip at 375 pixels wide. Tendency remarks are only added when the
 //                   whole line still fits. intro, halftime and wrap are longer on purpose.
@@ -91,16 +87,7 @@
   var LINES = root.FF_ANNOUNCER_LINES ||
     (typeof require === 'function' ? require('./lines.js') : null) || {};
   var STYLES = ['straight', 'fun'];
-  // Spanish tables (C24), from js/announcer/lines-es.js. Looked up each time, so the file can
-  // load before or after this one.
-  var esLoaded = null;
-  function ES() {
-    if (root.FF_ANNOUNCER_LINES_ES) return root.FF_ANNOUNCER_LINES_ES;
-    if (esLoaded === null) { try { esLoaded = typeof require === 'function' ? require('./lines-es.js') : false; } catch (err) { esLoaded = false; } }
-    return esLoaded || null;
-  }
-  function isEs() { return api.lang === 'es' && !!ES(); }
-  // The short pieces the code puts together itself, per language.
+  // The short pieces the code puts together itself.
   var MSG = {
     yards1: '{n} yard', yardsN: '{n} yards', points1: '{n} point', pointsN: '{n} points',
     how_td: 'Touchdown', how_fg: 'Field goal', how_xp: 'Extra point',
@@ -120,8 +107,7 @@
     dec_pass: '{a} to {b} for {n}', dec_run: 'the {n} yard run by {a}'
   };
   function M(key, v) {
-    var es = isEs() && ES().msg, t = es && es[key] != null ? es[key] : MSG[key];
-    return fill(t || '', v || {});
+    return fill(MSG[key] || '', v || {});
   }
   var decks = {};   // kind + style -> variants not used yet in this game
   var lastUsed = {}; // kind + style -> last variant index, so a reshuffle never repeats right away
@@ -146,14 +132,11 @@
 
   // Score a browser voice: English first, US or UK English next, then the voices that
   // usually sound best (network or enhanced voices), local voices as a tie breaker.
-  // want: 'en' or 'es', the language of the line.
-  function voiceScore(v, style, want) {
+  function voiceScore(v, style) {
     var lang = String(v.lang || '').toLowerCase().replace('_', '-'), name = String(v.name || '');
-    want = want || 'en';
-    if (lang.indexOf(want) !== 0) return -1;
+    if (lang.indexOf('en') !== 0) return -1;
     var sc = 10;
-    if (want === 'en') { if (lang === 'en-us') sc += 4; else if (lang === 'en-gb') sc += 3; }
-    else if (lang === 'es-mx' || lang === 'es-us' || lang === 'es-419') sc += 4; else if (lang === 'es-es') sc += 3;
+    if (lang === 'en-us') sc += 4; else if (lang === 'en-gb') sc += 3;
     if (/natural|neural|premium|enhanced|online/i.test(name)) sc += 6;
     if (/google/i.test(name)) sc += 4;
     if (/(daniel|alex|aaron|guy|davis|tony|ryan|george|fred)\b/i.test(name)) sc += style === 'straight' ? 2 : 1;
@@ -163,25 +146,20 @@
     return sc;
   }
 
-  // chosen.straight and chosen.fun are the English voices; chosen['es|straight'] and
-  // chosen['es|fun'] the Spanish ones (null when the browser has none).
   function chooseVoices() {
     var sy = synth(), list = [];
     try { list = sy && sy.getVoices ? sy.getVoices() || [] : []; } catch (err) { list = []; }
-    ['en', 'es'].forEach(function (want) {
-      function key(style) { return want === 'en' ? style : want + '|' + style; }
-      STYLES.forEach(function (style) {
-        var best = null, bestSc = -1;
-        list.forEach(function (v) { var sc = voiceScore(v, style, want); if (sc > bestSc) { best = v; bestSc = sc; } });
-        chosen[key(style)] = best;
-      });
-      // Two different voices when the browser has them, so the styles sound apart.
-      if (chosen[key('fun')] && chosen[key('fun')] === chosen[key('straight')]) {
-        var alt = null, altSc = -1;
-        list.forEach(function (v) { var sc = voiceScore(v, 'fun', want); if (v !== chosen[key('straight')] && sc > altSc) { alt = v; altSc = sc; } });
-        if (alt && altSc >= 10) chosen[key('fun')] = alt;
-      }
+    STYLES.forEach(function (style) {
+      var best = null, bestSc = -1;
+      list.forEach(function (v) { var sc = voiceScore(v, style); if (sc > bestSc) { best = v; bestSc = sc; } });
+      chosen[style] = best;
     });
+    // Two different voices when the browser has them, so the styles sound apart.
+    if (chosen.fun && chosen.straight && chosen.fun === chosen.straight) {
+      var alt = null, altSc = -1;
+      list.forEach(function (v) { var sc = voiceScore(v, 'fun'); if (v !== chosen.straight && sc > altSc) { alt = v; altSc = sc; } });
+      if (alt && altSc >= 10) chosen.fun = alt;
+    }
     return list.length;
   }
 
@@ -198,10 +176,8 @@
     if (!item) return;
     if (!chosen.straight) chooseVoices();
     try {
-      var u = new root.SpeechSynthesisUtterance(spoken(item.text, item.lang)), set = VOICE_SET[item.style] || VOICE_SET.straight;
-      var vk = item.lang === 'es' ? 'es|' + item.style : item.style;
-      if (chosen[vk]) { u.voice = chosen[vk]; u.lang = chosen[vk].lang; }
-      else if (item.lang === 'es') u.lang = 'es-MX';   // no Spanish voice found: let the browser pick one
+      var u = new root.SpeechSynthesisUtterance(spoken(item.text)), set = VOICE_SET[item.style] || VOICE_SET.straight;
+      if (chosen[item.style]) { u.voice = chosen[item.style]; u.lang = chosen[item.style].lang; }
       u.rate = set.rate; u.pitch = set.pitch;
       var done = function () { if (speaking === item) speakNext(); };
       u.onend = done; u.onerror = done;
@@ -342,7 +318,7 @@
       if (formSaid[fid] != null && playNo - formSaid[fid] < FORM_GAP) continue;
       var fwho = (profile.players[fs] && profile.players[fs].name) || (team.roster || {})[fs] || '';
       if (!fwho) continue;
-      var fnote = fill(pick(recent > season ? 'hot' : 'cold', 'form', FORM_TABLE, 'form'), { name: lastName(fwho) });
+      var fnote = fill(pick(recent > season ? 'hot' : 'cold', 'form', FORM_TABLE), { name: lastName(fwho) });
       if (fnote.length > room) continue;
       formSaid[fid] = playNo;
       return fnote;
@@ -356,7 +332,7 @@
       if (tendencySaid[id] != null && playNo - tendencySaid[id] < TENDENCY_GAP) continue;
       var who = (profile.players[slot] && profile.players[slot].name) || (team.roster || {})[slot] || '';
       if (!who) continue;
-      var note = fill(pick(key, v >= 0.7 ? 'high' : 'low', TENDENCY, 'tendency'), { name: lastName(who) });
+      var note = fill(pick(key, v >= 0.7 ? 'high' : 'low', TENDENCY), { name: lastName(who) });
       if (note.length > room) continue;
       tendencySaid[id] = playNo;
       return note;
@@ -514,7 +490,7 @@
     var v = {};
     Object.keys(base).forEach(function (k2) { v[k2] = base[k2]; });
     Object.keys(r.v).forEach(function (k2) { v[k2] = r.v[k2]; });
-    var text = fill(pick(kind, style, MEMORY, 'memory'), v);
+    var text = fill(pick(kind, style, MEMORY), v);
     if (!text || /\{\w+\}/.test(text) || text.length > api.maxLength) return null;
     mem.lastRemark = playNo;
     if (kind === 'near_hundred') mem.nearSaid[r.team + '|' + r.slot] = true;
@@ -651,7 +627,7 @@
       var slot = e.t === 'pass' ? e.to : e.t === 'run' || e.t === 'fumble' ? e.by : e.t === 'int' ? 'QB' : '';
       var v = { team: teams[off].name, def: teams[def].name, qb: lastName(R.QB), player: lastName(R[slot] || R.QB),
         yds: Math.abs(e.yds || 0), ret: e.ret || 0, score: scoreText(teams, score) };
-      var s1 = fill(pick(kind, style, BIG, 'big'), v);
+      var s1 = fill(pick(kind, style, BIG), v);
       // What it did to the score.
       var pre = res.pre.score, post = res.post.score, s2;
       if (post[0] !== pre[0] || post[1] !== pre[1]) {
@@ -755,45 +731,39 @@
   // ---- C27: say it right ----
   // Team codes a line can contain, with the names to say. Teams passed to line() are added.
   var TEAM_NAMES = { GOB: 'Goblins', PYT: 'Pythons', IRN: 'Ironside', RHB: 'Red Harbour', TUR: 'Turtles', OWL: 'Owls' };
-  var ORD = { en: { 1: 'first', 2: 'second', 3: 'third', 4: 'fourth' }, es: { 1: 'primera', 2: 'segunda', 3: 'tercera', 4: 'cuarta' } };
-  var ACRONYM_SAY = { en: { TD: 'touchdown', TDs: 'touchdowns', FG: 'field goal', FGs: 'field goals', XP: 'extra point', pts: 'points', MVP: 'M V P', NFL: 'N F L', DST: 'defense' },
-                      es: { TD: 'touchdown', GC: 'gol de campo', pts: 'puntos', MVP: 'M V P', NFL: 'N F L' } };
+  var ORD = { 1: 'first', 2: 'second', 3: 'third', 4: 'fourth' };
+  var ACRONYM_SAY = { TD: 'touchdown', TDs: 'touchdowns', FG: 'field goal', FGs: 'field goals', XP: 'extra point', pts: 'points', MVP: 'M V P', NFL: 'N F L', DST: 'defense' };
   function learnTeams(teams) { (teams || []).forEach(function (t) { if (t && t.id && t.name) TEAM_NAMES[t.id] = t.name; }); }
 
-  function spoken(text, lang) {
+  function spoken(text) {
     if (!text) return '';
-    lang = lang || (isEs() ? 'es' : 'en');
-    var es = lang === 'es', t = String(text), ids = Object.keys(TEAM_NAMES).join('|');
+    var t = String(text), ids = Object.keys(TEAM_NAMES).join('|');
     // Names: Saint, apostrophes and hyphens inside names, initials.
     t = t.replace(/\bSt\.\s/g, 'Saint ').replace(/([A-Za-z])'([A-Z])/g, '$1$2').replace(/\b([A-Z])\.([A-Z])\./g, '$1 $2');
     t = t.replace(/([A-Za-z])-([A-Z][a-z])/g, '$1 $2');
     // Yard lines: "the GOB 27" / "la PYT 21".
-    t = t.replace(new RegExp('\\b(?:(the|la|el) )?(' + ids + ') (\\d{1,2})\\b', 'g'), function (m, art, id, n) {
-      return es ? 'la ' + n + ' de los ' + TEAM_NAMES[id] : 'the ' + TEAM_NAMES[id] + ' ' + n;
-    });
+    t = t.replace(new RegExp('\\b(?:the )?(' + ids + ') (\\d{1,2})\\b', 'g'), function (m, id, n) { return 'the ' + TEAM_NAMES[id] + ' ' + n; });
     // Any team code left on its own.
     t = t.replace(new RegExp('\\b(' + ids + ')\\b', 'g'), function (m, id) { return TEAM_NAMES[id]; });
     // Downs and ordinals: "2nd & 10", "1st and goal", "3rd".
     t = t.replace(/\b([1-4])(?:st|nd|rd|th)\s*(?:&|and)\s*(\d+|goal)\b/gi, function (m, d, togo) {
-      return (es ? ORD.es[d] + ' y ' : ORD.en[d] + ' and ') + (/goal/i.test(togo) ? (es ? 'gol' : 'goal') : togo);
+      return ORD[d] + ' and ' + (/goal/i.test(togo) ? 'goal' : togo);
     });
-    t = t.replace(/\b(\d+)(st|nd|rd|th)\b/g, function (m, n) { return es ? n : n + (n.slice(-2) >= 11 && n.slice(-2) <= 13 ? 'th' : ({ 1: 'st', 2: 'nd', 3: 'rd' })[n.slice(-1)] || 'th'); });
-    t = t.replace(/\bQ([1-4])\b/g, function (m, q) { return es ? ORD.es[q].replace(/a$/, 'o') + ' cuarto' : ORD.en[q] + ' quarter'; });
+    t = t.replace(/\bQ([1-4])\b/g, function (m, q) { return ORD[q] + ' quarter'; });
     // Clock times: "7:30", "12:00", "0:35".
     t = t.replace(/\b(\d{1,2}):(\d{2})\b/g, function (m, mm, ss) {
-      if (+mm === 0) return +ss + (es ? ' segundos' : ' seconds');
-      if (ss === '00') return +mm + (es ? ' minutos' : ' minutes');
-      return +mm + ' ' + (ss.charAt(0) === '0' ? (es ? 'cero ' : 'oh ') + ss.charAt(1) : ss);
+      if (+mm === 0) return +ss + ' seconds';
+      if (ss === '00') return +mm + ' minutes';
+      return +mm + ' ' + (ss.charAt(0) === '0' ? 'oh ' + ss.charAt(1) : ss);
     });
     // Records before scores: "(1-1, third)" is one win and one loss, "17-14" a score.
-    t = t.replace(/\b(\d+)-(\d+), (first|second|third|fourth|fifth|sixth|[a-z]+th)\b/g, es ? '$1 y $2, $3' : '$1 and $2, $3');
-    t = t.replace(/\b(\d+)-(\d+)\b/g, es ? '$1 a $2' : '$1 to $2');
+    t = t.replace(/\b(\d+)-(\d+), (first|second|third|fourth|fifth|sixth|[a-z]+th)\b/g, '$1 and $2, $3');
+    t = t.replace(/\b(\d+)-(\d+)\b/g, '$1 to $2');
     t = t.replace(/\s*\(\s*/g, ', ').replace(/\s*\)/g, ',').replace(/,\s*([,.!?])/g, '$1').replace(/^,\s*/, '');
-    t = t.replace(/&/g, es ? ' y ' : ' and ');
+    t = t.replace(/&/g, ' and ');
     // Short forms and shouting capitals.
-    var A = ACRONYM_SAY[es ? 'es' : 'en'];
-    t = t.replace(/\b(TDs?|FGs?|XP|GC|pts|MVP|NFL|DST)\b/g, function (m) { return A[m] || m; });
-    t = t.replace(/\b([A-ZÁÉÍÓÚÑ]{2,})\b/g, function (m) { return m.charAt(0) + m.slice(1).toLowerCase(); });
+    t = t.replace(/\b(TDs?|FGs?|XP|pts|MVP|NFL|DST)\b/g, function (m) { return ACRONYM_SAY[m] || m; });
+    t = t.replace(/\b([A-Z]{2,})\b/g, function (m) { return m.charAt(0) + m.slice(1).toLowerCase(); });
     // Leftover symbols a voice would read out.
     t = t.replace(/[#@*_~^|<>\[\]{}"]/g, ' ').replace(/\s+([,.!?])/g, '$1').replace(/ {2,}/g, ' ').trim();
     return t;
@@ -820,24 +790,22 @@
   };
   // Drive results from server/drives.js, said as words.
   var RESULT = {
-    en: { touchdown: 'a touchdown', 'field goal': 'a field goal', 'missed field goal': 'a missed field goal', punt: 'a punt',
-      interception: 'an interception', fumble: 'a fumble', downs: 'a turnover on downs', half: 'the end of the half', end: 'the end of the game' },
-    es: { touchdown: 'touchdown', 'field goal': 'gol de campo', 'missed field goal': 'gol de campo fallado', punt: 'despeje',
-      interception: 'intercepción', fumble: 'balón perdido', downs: 'pérdida por downs', half: 'el final de la mitad', end: 'el final del partido' }
+    touchdown: 'a touchdown', 'field goal': 'a field goal', 'missed field goal': 'a missed field goal', punt: 'a punt',
+      interception: 'an interception', fumble: 'a fumble', downs: 'a turnover on downs', half: 'the end of the half', end: 'the end of the game'
   };
-  var QTH = { en: ['', 'first', 'second', 'third', 'fourth'], es: ['', 'primer', 'segundo', 'tercer', 'cuarto'] };
+  var QTH = ['', 'first', 'second', 'third', 'fourth'];
 
   function recap(story, ctx) {
     try {
       ctx = ctx || {};
       if (ctx.hidden || !story || !story.final) return '';
       var teams = ctx.teams || [], style = STYLES.indexOf(ctx.style) >= 0 ? ctx.style : api.style;
-      var q = isEs() ? QTH.es : QTH.en;
+      var q = QTH;
       function name(id) { for (var i = 0; i < teams.length; i++) if (teams[i].id === id) return teams[i].name; return id; }
       function qth(n) { return q[n] || String(n); }
       function sc(arr) { return arr[0] + '-' + arr[1]; }
       var out = [], f = story.final, home = story.home, away = story.away;
-      function say(kind, v) { var t = fill(pick(kind, style, RECAP, 'recap'), v); if (t) out.push(t); }
+      function say(kind, v) { var t = fill(pick(kind, style, RECAP), v); if (t) out.push(t); }
       if (story.winner) {
         var hw = story.winner === home;
         say('final', { winner: name(story.winner), loser: name(hw ? away : home), w: hw ? f[0] : f[1], l: hw ? f[1] : f[0] });
@@ -848,13 +816,13 @@
       if (lc.length === 1 && story.winner && lc[0].team === story.winner) say('one_lead', { team: name(lc[0].team) });
       else if (lc.length >= 2) say('many_leads', { n: lc.length });
       var dr = story.longestDrive;
-      var rw = (isEs() ? RESULT.es : RESULT.en)[dr && dr.result];
+      var rw = RESULT[dr && dr.result];
       if (dr && dr.plays && rw) say('drive', { team: name(dr.team), plays: dr.plays, yards: dr.yards, result: rw });
       var sw = story.biggestSwing;
       if (sw && sw.fpSwing) say('swing', { team: name(sw.team), qth: qth(sw.quarter), fp: pts(sw.fpSwing) });
       var bp = story.bestPlayers || [];
       if (bp.length >= 2) say('best', { a: lastName(bp[0].name), pa: pts(bp[0].points), ta: name(bp[0].team), b: lastName(bp[1].name), pb: pts(bp[1].points), tb: name(bp[1].team) });
-      var text = out.slice(0, 6).join(' ').replace(/(^|[.!?]\s+)([a-záéíóúñ])/g, function (m, a, b) { return a + b.toUpperCase(); });
+      var text = out.slice(0, 6).join(' ').replace(/(^|[.!?]\s+)([a-z])/g, function (m, a, b) { return a + b.toUpperCase(); });
       if (text) announce(text, 'recap', style);
       return text;
     } catch (err) {
@@ -979,15 +947,10 @@
     };
   }
 
-  // esName: which Spanish table stands in for this one ('lines', 'stories', 'memory', ...).
-  function pick(kind, style, table, esName) {
+  function pick(kind, style, table) {
     table = table || LINES;
     var prefix = table === LINES ? '' : 'story:';
-    if (esName && isEs()) {
-      var E = ES()[esName];
-      if (E && E[kind]) { table = E; prefix = 'es:' + esName + ':'; }
-    }
-    var entry = table[kind], list = entry && (entry[style] || (prefix.indexOf('es:') === 0 && entry.straight));
+    var entry = table[kind], list = entry && entry[style];
     if (!list || !list.length) return '';
     var key = prefix + kind + '|' + style;
     if (!decks[key] || !decks[key].length) {
@@ -1009,7 +972,6 @@
     return text
       .replace(/\{(\w+)\}/g, function (m, k) { return v[k] == null ? m : String(v[k]); })
       .replace(/\b1 yards\b/g, '1 yard')
-      .replace(/\b1 yardas\b/g, '1 yarda')
       .replace(/\b1 (fantasy )?points\b/g, '1 $1point')
       .replace(/\b([Aa]) (8|11|18|8\d)\b/g, '$1n $2');   // "an 11 yard", "an 8 yard"
   }
@@ -1139,7 +1101,7 @@
         }
       }
       // A filled-in value can start a sentence ("the 9 yard run by Barkley..."): capitalize it.
-      var text = fill(pick(k, style, STORIES, 'stories'), v).replace(/(^|[.!?]\s+)([a-záéíóúñ])/g, function (m, a, b) { return a + b.toUpperCase(); });
+      var text = fill(pick(k, style, STORIES), v).replace(/(^|[.!?]\s+)([a-z])/g, function (m, a, b) { return a + b.toUpperCase(); });
       if (text) announce(text, kind, style);
       return text;
     } catch (err) {
@@ -1148,7 +1110,6 @@
   }
 
   var api = {
-    lang: 'en',
     // 337 pixels of text at 600 13px in the captions strip, about 5.9 pixels a character.
     maxLength: 56,
 
@@ -1172,7 +1133,7 @@
         if (!c.kind) return '';
         var m = memoryLine(r, c.v, style);
         if (m) { announce(m.text, m.kind, style); return m.text; }
-        var text = fill(pick(c.kind, style, null, 'lines'), c.v);
+        var text = fill(pick(c.kind, style), c.v);
         var note = ctx.profiles && text ? tendencyNote(res, teams, ctx.profiles, api.maxLength - text.length - 1) : '';
         if (text && note && text.length + 1 + note.length <= api.maxLength) text += ' ' + note;
         if (text) announce(text, c.kind, style);
@@ -1185,7 +1146,7 @@
     speak: function (text) {
       if (!text || !synth()) return;
       if (tooFast()) { api.hush(); return; }
-      queue.push({ text: String(text), play: playNo, style: api.style, lang: api.lang === 'es' ? 'es' : 'en' });
+      queue.push({ text: String(text), play: playNo, style: api.style });
       if (!speaking) speakNext();
     },
 
@@ -1197,11 +1158,11 @@
 
     voices: function () {
       var n = synth() ? chooseVoices() : 0;
-      function info(style, want) {
-        var v = chosen[want === 'es' ? 'es|' + style : style], set = VOICE_SET[style];
+      function info(style) {
+        var v = chosen[style], set = VOICE_SET[style];
         return { name: v ? v.name : '(browser default)', lang: v ? v.lang : '', rate: set.rate, pitch: set.pitch };
       }
-      return { straight: info('straight'), fun: info('fun'), es: { straight: info('straight', 'es'), fun: info('fun', 'es') }, available: n };
+      return { straight: info('straight'), fun: info('fun'), available: n };
     },
 
     setStyle: function (name) {
@@ -1217,11 +1178,7 @@
     _recapLines: RECAP,
     bigCallMaxLength: 200,   // the longest names in the data give 195; check.js tests it
     _bigLines: BIG,
-    explain: function (kind) {
-      if (!Object.prototype.hasOwnProperty.call(EXPLAIN, kind)) return '';
-      var es = isEs() && ES().explain;
-      return es && es[kind] ? es[kind] : EXPLAIN[kind];
-    },
+    explain: function (kind) { return Object.prototype.hasOwnProperty.call(EXPLAIN, kind) ? EXPLAIN[kind] : ''; },
     explainKinds: Object.keys(EXPLAIN),
     explainFor: explainFor,
     explainMaxLength: 160,

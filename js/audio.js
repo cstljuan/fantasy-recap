@@ -354,12 +354,7 @@
     miss: '[sad horn]'
   };
   var murmurCaptioned = false;
-  // In Spanish (FF_ANNOUNCER.lang === 'es') the captions come from js/announcer/lines-es.js.
-  function captionFor(name) {
-    if (!Object.prototype.hasOwnProperty.call(CAPTIONS, name)) return '';
-    var A = root.FF_ANNOUNCER, es = A && A.lang === 'es' && root.FF_ANNOUNCER_LINES_ES && root.FF_ANNOUNCER_LINES_ES.sounds;
-    return es && es[name] ? es[name] : CAPTIONS[name];
-  }
+  function captionFor(name) { return Object.prototype.hasOwnProperty.call(CAPTIONS, name) ? CAPTIONS[name] : ''; }
   function sendCaption(name) {
     if (name === 'crowd_stop') { murmurCaptioned = false; return; }
     var text = captionFor(name);
