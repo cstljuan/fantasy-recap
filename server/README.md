@@ -47,7 +47,7 @@ A soccer match file works the same way:
 node server/push-game.js soccer/data/week11-soccer.json
 ```
 
-When the file says `sport: "soccer"`, `server/replay.js` replays it with `soccer/js/rules.js` and `soccer/js/fantasy.js` and sends one row per event plus one `full_time` row with the clean sheets. Each row has `minute` (the match minute), `quarter` set to the half, and `kind` set to the event type, or `goal` for a shot or penalty that went in, so the goal rows of a team equal its score. A goal row is the scorer's. Other rows are credited to the biggest fantasy award of the event, and every award (goal, assist, save, card, clean sheet, with `why`) is in `detail.fp`. Times are the match minute from an invented kickoff with a 15 minute half time. Soccer rows need `db/migrate-002-soccer.sql` applied first, for the `minute` column. The top plays, drives and momentum routes are football only and answer 404 for a soccer id.
+When the file says `sport: "soccer"`, `server/replay.js` replays it with `soccer/js/rules.js` and `soccer/js/fantasy.js` and sends one row per event plus one `full_time` row with the clean sheets. Each row has `minute` (the match minute), `quarter` set to the half, and `kind` set to the event type, or `goal` for a shot or penalty that went in, so the goal rows of a team equal its score. A goal row is the scorer's. Other rows are credited to the biggest fantasy award of the event, and every award (goal, assist, save, card, clean sheet, with `why`) is in `detail.fp`. Times are the match minute from an invented kickoff with a 15 minute half time. Soccer rows need `db/migrate-002-soccer.sql` applied first, for the `minute` column. The top plays, drives and momentum routes were written for football: for a soccer match that is in the database, top plays and momentum answer from its rows (top plays ranks by fantasy points, so the clean sheet row can come first) and drives answers 404; for a soccer id with no rows they answer 404.
 
 ## Browsers on another port
 
@@ -60,6 +60,14 @@ node server/test.js
 ```
 
 This runs every route against a fake database, plus the CORS rules, a database that is down, `push-game.js` sending all 73 plays of the sample game, and both soccer match files (goal rows equal the final score, every player's fantasy points equal the soccer breakdown and the match report, and the minute is sent). It checks routing, input checks and the data sent, not the SQL.
+
+## Stress test
+
+```bash
+node server/stress.js
+```
+
+With an in-memory stand-in for the database, it pushes `week11-football` and `week11-soccer`, reads every route back, sends bad input to every route (wrong types, missing fields, a body over 1 MB, broken JSON, odd and broken ids, SQL in strings, an unknown sport, bad query numbers, wrong methods) and then 200 requests at once. It fails on any 500, any crash or hang, any answer over one second, and any answer without the CORS header for a localhost page. What it found and what was fixed: a broken percent sign in a game id (`/games/%E0%A4%A/plays`) threw and left the request open (now 400); an unknown sport reached the database (now 400 before any query); text in `fantasy_points`, an object in `yards`, a string in `detail` or `why`, and a manager name of thousands of characters were accepted (now 400). Limits: game id 200 characters, manager 100, a play's fantasy points below 10000. A throw anywhere in a request now answers 500 instead of leaving it open. SQL in strings is stored as plain text: every query uses parameters.
 
 ## Not checked
 

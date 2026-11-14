@@ -75,14 +75,33 @@ function checkPlay(p, i) {
   if (typeof p.team !== 'string' || !p.team) return 'plays[' + i + '].team is required';
   if (typeof p.kind !== 'string' || !p.kind) return 'plays[' + i + '].kind is required';
   if (p.minute != null && (!Number.isInteger(p.minute) || p.minute < 0 || p.minute > 200)) return 'plays[' + i + '].minute must be a whole minute';
+  if (p.yards != null && !Number.isInteger(p.yards)) return 'plays[' + i + '].yards must be a whole number or null';
+  if (p.fantasy_points != null && (typeof p.fantasy_points !== 'number' || !isFinite(p.fantasy_points) || Math.abs(p.fantasy_points) >= 10000)) {
+    return 'plays[' + i + '].fantasy_points must be a number below 10000';
+  }
+  if (p.slot != null && typeof p.slot !== 'string') return 'plays[' + i + '].slot must be text or null';
+  if (p.player != null && typeof p.player !== 'string') return 'plays[' + i + '].player must be text or null';
+  if (p.detail != null && !isPlainObject(p.detail)) return 'plays[' + i + '].detail must be an object';
+  if (p.why != null && !isPlainObject(p.why)) return 'plays[' + i + '].why must be an object';
   return null;
 }
+
+function isPlainObject(x) { return typeof x === 'object' && x !== null && !Array.isArray(x); }
+
+var SPORTS = ['football', 'soccer'];
+var MAX_ID = 200, MAX_MANAGER = 100;
 
 // db needs query(text, params) -> Promise<{rows}> and, for POST, connect() -> client with query and release.
 function createServer(db) {
   return http.createServer(function (req, res) {
-    var url = new URL(req.url, 'http://localhost');
     res.originHeader = req.headers.origin;
+    // Anything thrown while handling a request answers 500 instead of leaving the request open.
+    try { route(req, res); }
+    catch (e) { console.error('request failed:', e.message); if (!res.headersSent) send(res, 500, { error: 'server error' }); }
+  });
+
+  function route(req, res) {
+    var url = new URL(req.url, 'http://localhost');
     if (req.method === 'OPTIONS') return send(res, 204, {});
     if (req.method === 'GET' && url.pathname === '/health') {
       return db.query('SELECT 1 AS ok').then(function () { send(res, 200, { ok: true, database: true }); },
@@ -90,10 +109,14 @@ function createServer(db) {
     }
     var m = url.pathname.match(/^\/games\/([^\/]+)\/(plays|summary|optin|optins|top-plays|drives|momentum)$/);
     if (!m) return send(res, 404, { error: 'not found' });
-    var gameId = decodeURIComponent(m[1]);
+    var gameId;
+    try { gameId = decodeURIComponent(m[1]); } catch (e) { return send(res, 400, { error: 'the game id is not valid' }); }
+    if (gameId.length > MAX_ID) return send(res, 400, { error: 'the game id is longer than ' + MAX_ID + ' characters' });
     var what = m[2];
 
     function onErr(e) { console.error('database error:', e.message); send(res, 500, { error: 'database error' }); }
+    // A throw inside a callback below would otherwise leave the request open.
+    function late(e) { console.error('request failed:', e && e.message); if (!res.headersSent) send(res, 500, { error: 'server error' }); }
 
     if (req.method === 'GET' && what === 'momentum') {
       var bucket = parseInt(url.searchParams.get('bucket') || '120', 10);
@@ -113,7 +136,7 @@ function createServer(db) {
         if (!ok) return momFromFile();
         var m = momentumModule.fromRecords(rows, g.home, g.away, bucket); m.game_id = gameId; m.source = 'database';
         send(res, 200, m);
-      }, function (e) { console.error('momentum: database does not answer, using the game file:', e.message); momFromFile(); });
+      }, function (e) { console.error('momentum: database does not answer, using the game file:', e.message); momFromFile(); }).catch(late);
     } else if (req.method === 'GET' && what === 'drives') {
       var dFile = /^[A-Za-z0-9_-]+$/.test(gameId) ? path.join(__dirname, '..', 'data', 'games', gameId + '.json') : null;
       var driveFromFile = function () {
@@ -125,7 +148,7 @@ function createServer(db) {
         .then(function (r) {
           if (!r.rows.length || !drivesModule.usable(r.rows)) return driveFromFile();
           send(res, 200, { game_id: gameId, source: 'database', drives: drivesModule.fromRecords(r.rows) });
-        }, function (e) { console.error('drives: database does not answer, using the game file:', e.message); driveFromFile(); });
+        }, function (e) { console.error('drives: database does not answer, using the game file:', e.message); driveFromFile(); }).catch(late);
     } else if (req.method === 'GET' && what === 'top-plays') {
       var n = parseInt(url.searchParams.get('n') || '3', 10);
       if (!(n >= 1 && n <= 20)) return send(res, 400, { error: 'n must be a whole number from 1 to 20' });
@@ -139,11 +162,12 @@ function createServer(db) {
         .then(function (r) {
           if (!r.rows.length) return fromFile();
           send(res, 200, { game_id: gameId, source: 'database', plays: rankPlays(r.rows, n) });
-        }, function (e) { console.error('top plays: database does not answer, using the game file:', e.message); fromFile(); });
+        }, function (e) { console.error('top plays: database does not answer, using the game file:', e.message); fromFile(); }).catch(late);
     } else if (req.method === 'POST' && what === 'optin') {
       readJson(req, function (err, body) {
         if (err) return send(res, err.status, { error: err.message });
         if (!body || typeof body.manager !== 'string' || !body.manager.trim()) return send(res, 400, { error: 'manager is required' });
+        if (body.manager.trim().length > MAX_MANAGER) return send(res, 400, { error: 'manager is longer than ' + MAX_MANAGER + ' characters' });
         db.query('INSERT INTO optins (game_id, manager) VALUES ($1, $2) ON CONFLICT (game_id, manager) DO NOTHING', [gameId, body.manager.trim()])
           .then(function () { send(res, 201, { game_id: gameId, manager: body.manager.trim() }); },
             function (e) {
@@ -153,18 +177,18 @@ function createServer(db) {
       });
     } else if (req.method === 'GET' && what === 'optins') {
       db.query('SELECT game_id, manager, opted_in_at FROM optins WHERE game_id = $1 ORDER BY opted_in_at, manager', [gameId])
-        .then(function (r) { send(res, 200, { game_id: gameId, optins: r.rows }); }, onErr);
+        .then(function (r) { send(res, 200, { game_id: gameId, optins: r.rows }); }, onErr).catch(late);
     } else if (req.method === 'GET' && what === 'plays') {
       db.query('SELECT game_id, seq, played_at, quarter, team, slot, player, kind, yards, fantasy_points, detail, why ' +
         'FROM plays WHERE game_id = $1 ORDER BY seq', [gameId])
-        .then(function (r) { send(res, 200, { game_id: gameId, plays: r.rows }); }, onErr);
+        .then(function (r) { send(res, 200, { game_id: gameId, plays: r.rows }); }, onErr).catch(late);
     } else if (req.method === 'GET' && what === 'summary') {
       Promise.all([
         db.query('SELECT player, team, slot, sum(points) AS points, sum(plays) AS plays FROM player_points_per_game ' +
           'WHERE game_id = $1 GROUP BY player, team, slot ORDER BY points DESC', [gameId]),
         db.query('SELECT quarter, team, sum(points) AS points FROM team_points_per_quarter ' +
           'WHERE game_id = $1 GROUP BY quarter, team ORDER BY quarter, team', [gameId])
-      ]).then(function (r) { send(res, 200, { game_id: gameId, players: r[0].rows, quarters: r[1].rows }); }, onErr);
+      ]).then(function (r) { send(res, 200, { game_id: gameId, players: r[0].rows, quarters: r[1].rows }); }, onErr).catch(late);
     } else if (req.method === 'POST' && what === 'plays') {
       readJson(req, function (err, body) {
         if (err) return send(res, err.status, { error: err.message });
@@ -174,9 +198,10 @@ function createServer(db) {
           if (bad) return send(res, 400, { error: bad });
         }
         var g = body.game;
-        if (g && (typeof g.sport !== 'string' || typeof g.home !== 'string' || typeof g.away !== 'string')) {
+        if (g !== undefined && (!isPlainObject(g) || typeof g.sport !== 'string' || typeof g.home !== 'string' || typeof g.away !== 'string')) {
           return send(res, 400, { error: 'game needs sport, home and away as strings' });
         }
+        if (g && SPORTS.indexOf(g.sport) < 0) return send(res, 400, { error: 'sport must be football or soccer' });
         var client;
         db.connect().then(function (c) {
           client = c;
@@ -209,7 +234,7 @@ function createServer(db) {
     } else {
       send(res, 405, { error: 'method not allowed' });
     }
-  });
+  }
 }
 
 // Optional certificate check. With DATABASE_CA_FILE set to a certificate file, the server's certificate is

@@ -16,6 +16,7 @@ It prints one line per check (OK, FAILED or SKIPPED with the reason) and a final
 | soccer announcer | `node js/announcer/soccer/check.js` | the soccer lines on their own |
 | soccer rules and fantasy points | `node soccer/check.js` | the soccer sample match replays and its fantasy points add up |
 | plays service | `node server/test.js` | every route of `server/` against a fake database, push of a football game and both soccer matches, top plays, drives, momentum |
+| service under load | `node server/stress.js` | both sports pushed and read back, bad input on every route, 200 requests at once: no 500, crash, hang, slow answer or missing CORS header |
 | league file | `node data/checks/league.js` | `data/league.json` parses, team ids exist, standings follow from the finished weeks |
 | stat line sums | `node data/checks/statlines.js` | invented stat line files add up (passing equals receiving, extra points equal touchdowns, points allowed) |
 | scoring file | `node agents/scout/check-scoring.js` | `data/scoring.json` says the same as `js/rules.js` and the sample game's points match |
