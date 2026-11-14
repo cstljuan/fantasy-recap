@@ -150,3 +150,19 @@ Extend `agents/scout/fill_profiles.py` (or a new `agents/scout/form.py` that reu
 
 `agents/scout/crosscheck.py`: for the 14 roster players read the same season totals from ESPN's public JSON (hosts `site.api.espn.com` and `sports.core.api.espn.com` are allowed; read the real responses first, do not write the addresses from memory) and compare passing, rushing and receiving yards and touchdowns, receptions and field goals made with Sleeper's numbers in `data/rosters/season-2026.json`. Write `data/rosters/crosscheck-2026.json` with both numbers, the difference and the source address and date for each, and list every disagreement larger than 2 percent or 5 units. Do not change the profiles. Add fixtures and an offline check. In the DONE post say how many of the 14 players matched and which did not, with your best explanation for each from the data, not a guess. If ESPN does not give a stat, write null and say so.
 
+
+## Task D27: soccer numbers that are real
+
+The soccer rosters (D7) have real names but their profiles have no real numbers. Do for soccer what `fill_profiles.py` did for football: find a public source this environment can reach (ESPN's soccer endpoints on `site.api.espn.com` are allowed; anything refused goes to `ASK "boss: ..."`, do not work around it), write `agents/scout/fill_soccer.py` that fills tendencies with a source and date per number, and one real match's lines in the shape of `soccer/data/week11-lines.json` saved under `data/statlines/` (your folder, not `soccer/`). Add an offline check with fixtures. Post `NOTE "juan: ..."` with the file and the command to build a match from it. If no reachable source has the numbers, say exactly what was tried and leave the fields null.
+
+## Task D28: the service under load and bad input
+
+`server/stress.js` (node, no database needed, same fake database as `server/test.js`): pushes a football game and a soccer match, reads every route back, then sends bad input to every route (wrong types, huge bodies, missing fields, odd ids, SQL in strings, unknown sport) and 200 quick requests at once. It reports any 500, any crash, any answer over one second, and any route that answers without the CORS rule. Fix what it finds in `server/`. Add it to your one command (D25).
+
+## Task D29: proof that the game reproduces the stat lines
+
+The pitch says the engine builds a legal game that reproduces every player's stat line. Prove it as a check: `data/checks/game-vs-lines.js` replays each file in `data/games/` through `js/rules.js` (read only), sums every player's passing, rushing, receiving, kicking and defense numbers and fantasy points from the plays, and compares them with the stat lines the game was built from (the game file's own report or source lines; say which). It prints one line per player with any difference, and OK only when all agree. Add it to `data/checks/all.js`. If a game file does not agree, do not edit it: post `ASK "boss: ..."` with the differences.
+
+## Task D30: story data (with Peyton)
+
+One call that gives a game's turning points, for Peyton's written recap (B27): `GET /games/:id/story` from the service and the same function from a game file, usable in the browser like your top plays module. It returns the lead changes with the play that caused each, the longest drive, the biggest swing in momentum (D21), each team's best fantasy player with points, and the play that decided the game, each with the play index so the screen can jump to it. Numbers only, no sentences. Add it to the service test. Post `NOTE "peyton: ..."` with the function, the script tag she needs and the shape.

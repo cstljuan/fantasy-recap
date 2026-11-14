@@ -119,3 +119,19 @@ A script `js/announcer/audit.js` (run with node) that plays both football game f
 ## Task C20: soccer, same depth as football
 
 Bring the soccer announcer in `js/announcer/soccer/` up to what football has: `SC_ANNOUNCER.explain(kind)` with one or two plain sentences for each soccer rule a newcomer needs (offside, corner, free kick, penalty, yellow and red card, throw in, goal kick, stoppage time, clean sheet for fantasy), `explainKinds` and `explainFor(res)`; `SC_ANNOUNCER.catchUp(results, ctx)` after a jump; and `SC_ANNOUNCER.bigCall(res, ctx)` for goals, red cards and saved penalties. Same argument shapes as the football ones so Juan's soccer app can use them the same way. Read `soccer/js/` to see the result kinds; do not edit it. Add cases to the soccer part of the check. Post `NOTE "juan: ..."` with the functions when done.
+
+## Task C21: the broadcast as a page
+
+`pitch/BROADCAST.md`: the full broadcast of `data/games/week11-football.json`, made by a script of yours (`js/announcer/transcript.js`, run with node) so it can be rebuilt: intro, every play's line with quarter and clock, the tendency and hot and cold lines where they fire, the halftime report, the big calls, the wrap, and the sound captions in brackets. Straight style first, then Fun. One short paragraph on top says honestly what it is: lines written by the team's announcer code from a game built by the engine, real player names, made-up stats. Judges read this instead of listening for two minutes.
+
+## Task C22: sound check without ears
+
+Nobody on the review side can hear the game. Write `js/audio-check.js` (node, no browser) that loads `js/audio.js` against a small fake AudioContext that records every node, gain and start time, plays a whole game's sounds through it, and reports: any gain above 1, voice and crowd at full level at the same time (ducking must lower the crowd while a line plays), anything that starts while muted, two jingles at once, and sounds left running after `crowd_stop` or the final. Prints OK or the list, exits non zero on a problem. Fix what it finds. Post `NOTE "boss: ..."` with the command.
+
+## Task C23: the pre-game show (with Ricky and Peyton)
+
+`FF_ANNOUNCER.preview(matchup, ctx)`: three or four sentences before a game, from what is known before kickoff only: each team's record and standing from `data/league.json` (D16), one hot and one cold player from recent form (D24, in the profiles), and one tendency worth watching. No score, no result, nothing from the game file. Both styles. Returns '' when it has nothing true to say. Peyton's league home can show it under each matchup: post `NOTE "peyton: ..."` with the function and arguments. Ask Ricky if a field you need is missing. Add cases to the check.
+
+## Task C24: Spanish broadcast (with Peyton)
+
+`FF_ANNOUNCER.lang = 'en'` or `'es'`. In Spanish every kind of line (plays, intro, halftime, wrap, catch-up, big call, tendency, hot and cold, rule explainers, sound captions) comes out in natural Spanish, the way a Spanish language football broadcast says it, Straight style at least, with the same variants count as the check asks for in English. Lines live in their own file (`js/announcer/lines-es.js`); ask the boss to load it. The audit (C19) and the check run in both languages. The browser voice uses a Spanish voice when one is installed. Tell Peyton the switch name for B28.

@@ -133,3 +133,19 @@ On the recap, after the final, a "Share the top play" button. It draws a card on
 ## Task B24: demo mode
 
 `?demo=1` plays the two-minute demo in `pitch/DEMO-SCRIPT.md` by itself, so the video can be recorded in one take: it opens each screen in the script's order with the script's timings, opts in, starts the game, jumps with `FF_GAME.seek` to the plays the script names, shows a why card, runs to the final at high speed, and lands on the recap reveal. A small "demo" tag in a corner, and any tap or key stops it. No new content: only drive what exists. If the script names something the app cannot do, leave that step out and list it in your DONE post. Check: a full run in headless Chromium ends on the recap with no errors.
+
+## Task B25: hot and cold on the lineup (with Ricky and Noah)
+
+Ricky's D24 put recent form in `data/profiles/<team>.json` (`players.<slot>.form`, shape in `docs/CONTRACT.md` section 4). On the lineups screen show, next to each player who has it, a small hot, cold or steady mark with one line of why ("deep ball rate 0.81 over the last three weeks, 0.62 on the season"), and the weeks it covers. Use the same thresholds as Noah's hot and cold lines (C16): ask him with `ASK "noah: ..."` so the screen and the voice never disagree. It is real data about real players, so label its source and date as the file gives them. Nothing shows when `form` is missing or null. Works when the page is opened from a file (the fetch fails): then show nothing.
+
+## Task B26: soccer gets the same extras (with Juan and Noah)
+
+The soccer app is Juan's (`soccer/`), so this is a hand-over, not an edit: write the jump bar (B22), the rule cards (B21) and the share card (B23) so they work for any game object with the contract's members (`on`, `seek`, `hold`, `plays`, `mode`) and any announcer with `explain`, `explainFor` and `catchUp`, in a file of yours under `js/screens/`. Then post `ASK "juan: ..."` with the exact script tag and the two or three calls his `soccer/index.html` needs, and `ASK "boss: ..."` if `SC_GAME` lacks `seek` or `hold`. Noah's C20 gives the soccer sentences. Check with a fake game object in headless Chromium.
+
+## Task B27: the story of the game (with Ricky and Noah)
+
+On the recap screen, after the reveal, a written recap a person can read in thirty seconds: a headline, three or four short paragraphs (how it started, the turning point, who won it for which fantasy team, the final), and the three top plays as links that jump to the play (`FF_GAME.seek`). Build it from what exists: Ricky's story data (D30; until it is on main use drives D19, momentum D21 and top plays D18 directly), and Noah's `FF_ANNOUNCER.bigCall` text for the top plays. Never shown while scores are hidden. No invented facts: every sentence must come from a number in the game. Check: the text for both football game files reads right and names the right winner.
+
+## Task B28: Spanish for the screens (with Noah)
+
+A language switch (English, Spanish) remembered as `fr.lang`. Every word the screens show goes through one table in a file of yours, with the Spanish next to the English; nothing is left in English when Spanish is on, including button names for screen readers and the share card. Noah's C24 makes the announcer and captions speak Spanish: set `FF_ANNOUNCER.lang` from the switch (ask him for the exact name). Player and team names stay as they are. Check: a headless run in Spanish finds no English word from the table on any screen.

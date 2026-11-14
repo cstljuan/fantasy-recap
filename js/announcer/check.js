@@ -355,6 +355,50 @@ console.log('\nStyle switch: ' + A.setStyle('fun') + ', ' + A.setStyle('nonsense
 console.log('speak() without a speech voice does nothing: ' + (A.speak('test') === undefined ? 'ok' : 'unexpected'));
 console.log('line() with no teams is quiet: ' + (A.line({}, {}) === '' ? 'ok' : 'unexpected'));
 
+// C18: the big call.
+(function () {
+  var fs = require('fs'), path = require('path');
+  var src = fs.readFileSync(path.join(__dirname, '../../data/games/current.js'), 'utf8');
+  var game = JSON.parse(src.slice(src.indexOf('{'), src.lastIndexOf('}') + 1)), teams = game.teams;
+  A.reset();
+  var st = Rules.create(teams), calls = [], ordinary = 0, quietOk = true, longest = '';
+  var seen = { td: 0, turnover: 0, big: 0 };
+  Rules.flatten(game.game, teams).forEach(function (x) {
+    if (x.kind === 'half') { Rules.startHalf(st); return; }
+    if (x.kind !== 'play') return;
+    var r = Rules.apply(st, x.e, x.team);
+    A.line(r, { teams: teams });
+    var before = A.memory().log.length;
+    var b = A.bigCall(r, { teams: teams }), h = A.bigCall(r, { teams: teams, hidden: true });
+    if (A.memory().log.length !== before) problems.push('bigCall changed the memory');
+    var big = r.td || r.e.t === 'int' || r.e.t === 'fumble' || r.downs || ((r.e.t === 'run' || r.e.t === 'pass') && r.e.yds >= 20);
+    if (!big) { ordinary++; if (b) { quietOk = false; problems.push('bigCall for an ordinary play: ' + b); } return; }
+    if (!b) { problems.push('no bigCall for a big play: ' + r.text); return; }
+    if (r.td) seen.td++; else if (r.e.t === 'int' || r.e.t === 'fumble' || r.downs) seen.turnover++; else seen.big++;
+    var n = (b.match(/[.!?](\s|$)/g) || []).length;
+    if (n < 2 || n > 4) problems.push('bigCall has ' + n + ' sentences: ' + b);
+    if (/fantasy|points to/i.test(h)) problems.push('hidden bigCall names fantasy points: ' + h);
+    if (/\{\w+\}|undefined|NaN|\b(he|him|his|she|her)\b/i.test(b)) problems.push('bigCall gap or pronoun: ' + b);
+    if (b.length > longest.length) longest = b;
+    calls.push(b);
+  });
+  ['td', 'turnover', 'big'].forEach(function (k) { if (!seen[k]) problems.push('the default game gave no ' + k + ' big call'); });
+  // The longest a big call can be: the longest names in the data in the longest templates.
+  var worstLen = 0;
+  Object.keys(A._bigLines).forEach(function (k) {
+    STYLES.forEach(function (style) {
+      A._bigLines[k][style].forEach(function (t) {
+        var s1 = fill(t, Object.assign({ ret: 99 }, worst)).length;
+        worstLen = Math.max(worstLen, s1 + 1 + ('That makes it ' + worst.score + ', and the ' + worst.team + ' lead by 28.').length + 1 +
+          ('That play is worth 12.5 fantasy points to ' + worst.player + '.').length);
+      });
+    });
+  });
+  console.log('\nBig calls in the default game: ' + calls.length + ' (' + JSON.stringify(seen) + '), ' + ordinary + ' ordinary plays quiet; longest ' + longest.length + ' characters, worst case ' + worstLen);
+  console.log('  e.g. ' + calls[0]);
+  if (worstLen > A.bigCallMaxLength) problems.push('a big call can reach ' + worstLen + ' characters, over bigCallMaxLength ' + A.bigCallMaxLength);
+})();
+
 // C17: sound captions from js/audio.js reach the announcer's onLine listeners as kind 'sound'.
 (function () {
   require('../audio.js');
@@ -431,11 +475,11 @@ console.log('line() with no teams is quiet: ' + (A.line({}, {}) === '' ? 'ok' : 
   function sentences(t) { return (t.match(/[.!?](\s|$)/g) || []).length; }
   var cases = [
     ['no skipped plays', [], {}, function (t) { return t === ''; }],
-    ['a touchdown', res.slice(0, tdAt + 1), {}, function (t) { return /touchdown/i.test(t) && t.indexOf(teams[0].name) >= 0; }],
-    ['a turnover', res.slice(toAt - 2, toAt + 1), {}, function (t) { return /interception|fumble|downs/i.test(t); }],
-    ['nothing scored, leader shown', res.slice(1, 4), { leaders: leaders }, function (t) { return /still|no change/i.test(t) && /9\.5/.test(t); }],
+    ['a touchdown', res.slice(0, tdAt + 1), {}, function (t) { return /TD/.test(t) && t.indexOf(teams[0].name) >= 0; }],
+    ['a turnover', res.slice(toAt - 2, toAt + 1), {}, function (t) { return /pick|fumbled|downs/i.test(t); }],
+    ['nothing scored, leader shown', res.slice(1, 4), { leaders: leaders }, function (t) { return /still/i.test(t) && /9\.5/.test(t); }],
     ['hidden scores', res.slice(1, 4), { leaders: leaders, hidden: true }, function (t) { return !/fantasy|9\.5|points/i.test(t) && t.length > 0; }],
-    ['fun style, long jump', res.slice(0, 45), { style: 'fun' }, function (t) { return /touchdown/i.test(t); }]
+    ['fun style, long jump', res.slice(0, 45), { style: 'fun' }, function (t) { return /TD/.test(t); }]
   ];
   console.log('\n== Catch-up after a jump ==');
   cases.forEach(function (c) {
@@ -444,6 +488,7 @@ console.log('line() with no teams is quiet: ' + (A.line({}, {}) === '' ? 'ok' : 
     if (!c[3](t)) problems.push('catchUp, ' + c[0] + ': ' + JSON.stringify(t));
     if (t && (sentences(t) < 1 || sentences(t) > 2)) problems.push('catchUp, ' + c[0] + ' has ' + sentences(t) + ' sentences: ' + t);
     if (/\{\w+\}|undefined|NaN/.test(t)) problems.push('catchUp, ' + c[0] + ' left a gap: ' + t);
+    if (t.length > A.maxLength) problems.push('catchUp, ' + c[0] + ' is ' + t.length + ' characters, over ' + A.maxLength + ': ' + t);
     console.log('  ' + pad(c[0], 30) + (t || '(quiet)'));
   });
   // The skipped plays go into the memory.
