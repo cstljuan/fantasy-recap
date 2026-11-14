@@ -1,0 +1,98 @@
+{
+ "filters": [
+  {
+   "name": "season",
+   "value": "2026"
+  },
+  {
+   "name": "team",
+   "value": "1",
+   "options": [
+    {
+     "value": "1",
+     "displayValue": "Test City"
+    }
+   ]
+  },
+  {
+   "name": "league",
+   "value": "tst.1"
+  }
+ ],
+ "names": [
+  "totalGoals",
+  "goalAssists",
+  "totalShots",
+  "shotsOnTarget",
+  "foulsCommitted",
+  "foulsSuffered",
+  "offsides",
+  "yellowCards",
+  "redCards"
+ ],
+ "seasonTypes": [
+  {
+   "displayName": "x",
+   "categories": [
+    {
+     "events": [
+      {
+       "eventId": "e2",
+       "stats": [
+        "1",
+        "0",
+        "3",
+        "2",
+        "0",
+        "0",
+        "0",
+        "1",
+        "0"
+       ]
+      },
+      {
+       "eventId": "e1",
+       "stats": [
+        "3",
+        "0",
+        "5",
+        "4",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0"
+       ]
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "events": {
+  "e2": {
+   "id": "e2",
+   "gameDate": "2026-11-08T15:00:00.000+00:00",
+   "score": "1-0",
+   "opponent": {
+    "displayName": "Opp"
+   },
+   "team": {
+    "abbreviation": "TTT"
+   },
+   "leagueName": "Test League"
+  },
+  "e1": {
+   "id": "e1",
+   "gameDate": "2026-10-01T15:00:00.000+00:00",
+   "score": "1-0",
+   "opponent": {
+    "displayName": "Opp"
+   },
+   "team": {
+    "abbreviation": "TTT"
+   },
+   "leagueName": "Test League"
+  }
+ }
+}

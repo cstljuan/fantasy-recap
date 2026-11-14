@@ -1,0 +1,9 @@
+{
+ "team": "RHB",
+ "sport": "soccer",
+ "roster": {
+  "GK": "Other Keeper",
+  "CM2": "Test Mid",
+  "LW": "Ghost Winger"
+ }
+}

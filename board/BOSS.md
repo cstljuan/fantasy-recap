@@ -34,8 +34,8 @@ Run `sh tools/next.sh` to get your next task with its full description. A row is
 | B22 | B | Peypey-ryd | Jump bar in the game view: next score, previous play, any play, on `FF_GAME.seek` and `hold`, with Noah | merged |
 | B23 | B | Peypey-ryd | Top play card as a picture to save or share, with Ricky | merged |
 | B24 | B | Peypey-ryd | Demo mode: `?demo=1` walks the two-minute demo script by itself | merged |
-| B25 | B | Peypey-ryd | Hot and cold on the lineup: recent form next to each player, with Ricky and Noah | open |
-| B26 | B | Peypey-ryd | Soccer gets the same extras: jump bar, rule cards and share card in the soccer app, with Juan and Noah | open |
+| B25 | B | Peypey-ryd | Hot and cold on the lineup: recent form next to each player, with Ricky and Noah | merged |
+| B26 | B | Peypey-ryd | Soccer gets the same extras: jump bar, rule cards and share card in the soccer app, with Juan and Noah | merged |
 | B27 | B | Peypey-ryd | The story of the game: a written recap on the recap screen from drives, momentum, top plays and big calls, with Ricky and Noah | open |
 | B28 | B | Peypey-ryd | Spanish for the screens, switchable, with Noah | open |
 | C1 | C | nexodv | Announcer lines, two styles | merged |
@@ -62,9 +62,9 @@ Run `sh tools/next.sh` to get your next task with its full description. A row is
 | C20 | C | nexodv | Soccer, same depth as football: rule explainers, the catch-up line and the big call for soccer | merged |
 | C21 | C | nexodv | The broadcast as a page: `pitch/BROADCAST.md`, the full transcript of the week 11 game in both styles | merged |
 | C22 | C | nexodv | Sound check without ears: a node test of the mix (levels, ducking, mute, no clipping, no overlap of voice lines) | merged |
-| D27 | D | Rickstar-App | Soccer numbers that are real: profiles and one real match's lines for the soccer rosters, with sources | open |
+| D27 | D | Rickstar-App | Soccer numbers that are real: profiles and one real match's lines for the soccer rosters, with sources | merged |
 | D28 | D | Rickstar-App | The service under load and bad input: a test that pushes both sports, bad bodies and 200 quick requests | open |
-| C23 | C | nexodv | The pre-game show: a short preview of each matchup from form, profiles and standings, with Ricky and Peyton | open |
+| C23 | C | nexodv | The pre-game show: a short preview of each matchup from form, profiles and standings, with Ricky and Peyton | merged |
 | C24 | C | nexodv | Spanish broadcast: every line kind in Spanish, switchable, with Peyton | open |
 | D29 | D | Rickstar-App | Proof that each game file reproduces its stat lines exactly, as a check | open |
 | D30 | D | Rickstar-App | Story data: one call that gives the turning points of a game, from the service and from a file, with Peyton | open |
@@ -214,6 +214,7 @@ The boss reviews every DONE before it reaches main: the authors check, the lane 
 - Ricky's boss round (16:10 Eastern): merged B23, C20, D25. Checks and the three full-game runs passed; `node data/checks/all.js --quick` prints OK (the Scout agent graph check is skipped here: deepagents is not installed). Not looked at by the boss: the share picture itself.
 - Merged after review: B24, C21, C22, D26. All checks and the three full-game runs passed
 - Ricky's boss round (16:20 Eastern): merged B24, C21, C22, D26. Checks and the three full-game runs passed; the sound check prints OK. Not looked at by the boss: demo mode in a browser, `pitch/BROADCAST.md` line by line, the Sleeper against ESPN report.
+- Merged after review: B25, B26, C23, D27. All checks and the three full-game runs passed
 - D1 real rosters and profile files, D2 database schema (Ricky) are on main; `data/games/sample-football.json` now has the real rosters
 
 ## Decisions

@@ -1,0 +1,22 @@
+{
+ "items": [
+  {
+   "id": "812",
+   "displayName": "Test Mid",
+   "sport": "soccer",
+   "isActive": true,
+   "position": {
+    "abbreviation": "M"
+   }
+  },
+  {
+   "id": "813",
+   "displayName": "Test Mid ",
+   "sport": "soccer",
+   "isActive": true,
+   "position": {
+    "abbreviation": "M"
+   }
+  }
+ ]
+}

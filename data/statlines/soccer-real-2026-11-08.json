@@ -1,0 +1,332 @@
+{
+  "invented": false,
+  "note": "Real numbers, not invented: each player's line is from his own league match in the round 2026-11-05 to 2026-11-08, read from ESPN's public game logs on 2026-11-14. A player with no league match in the round has an empty line (listed in did_not_play). The players of a fantasy team play for different clubs, so these lines are not one match. The rules of soccer/engine/make-match.js they break are listed in match_maker_rules; nothing was changed to make them fit.",
+  "before": "2026-11-14",
+  "date": "2026-11-14",
+  "sources": {
+    "search": "https://site.api.espn.com/apis/common/v3/search?query={q}&limit=10&type=player",
+    "gamelog": "https://site.api.espn.com/apis/common/v3/sports/soccer/all/athletes/{aid}/gamelog",
+    "stats": "https://sports.core.api.espn.com/v2/sports/soccer/leagues/{league}/seasons/{season}/types/1/athletes/{aid}/statistics"
+  },
+  "teams": [
+    {
+      "team": "IRN",
+      "players": {
+        "CB1": {},
+        "GK": {
+          "saves": 2
+        },
+        "LB": {
+          "sot": 1
+        },
+        "CB2": {},
+        "RB": {},
+        "CM1": {
+          "sot": 2
+        },
+        "CM2": {
+          "sot": 2
+        },
+        "CM3": {
+          "goals": 1,
+          "assists": 1,
+          "sot": 2
+        },
+        "LW": {},
+        "ST": {
+          "sot": 2
+        },
+        "RW": {}
+      }
+    },
+    {
+      "team": "RHB",
+      "players": {
+        "GK": {
+          "saves": 5
+        },
+        "LB": {},
+        "CB1": {},
+        "CB2": {},
+        "RB": {},
+        "CM1": {
+          "goals": 1,
+          "sot": 1
+        },
+        "CM2": {},
+        "CM3": {
+          "sot": 1
+        },
+        "LW": {
+          "goals": 1,
+          "sot": 4,
+          "yellow": 1
+        },
+        "ST": {
+          "assists": 2,
+          "sot": 1
+        },
+        "RW": {
+          "goals": 1,
+          "sot": 2
+        }
+      }
+    }
+  ],
+  "matches": {
+    "IRN.GK": {
+      "name": "David Raya",
+      "event_id": "401878760",
+      "date": "2026-11-07T15:00:00.000+00:00",
+      "club": "Arsenal",
+      "opponent": "Hull City",
+      "score": "1-0",
+      "league": "English Premier League",
+      "source": "https://site.api.espn.com/apis/common/v3/sports/soccer/all/athletes/196176/gamelog",
+      "line": {
+        "saves": 2
+      }
+    },
+    "IRN.LB": {
+      "name": "Alphonso Davies",
+      "event_id": "401884740",
+      "date": "2026-11-07T14:30:00.000+00:00",
+      "club": "Bayern München",
+      "opponent": "Mainz",
+      "score": "2-1",
+      "league": "German Bundesliga",
+      "source": "https://site.api.espn.com/apis/common/v3/sports/soccer/all/athletes/236721/gamelog",
+      "line": {
+        "sot": 1
+      }
+    },
+    "IRN.CB2": {
+      "name": "Ruben Dias",
+      "event_id": "401878757",
+      "date": "2026-11-07T17:30:00.000+00:00",
+      "club": "Manchester City",
+      "opponent": "Nottingham Forest",
+      "score": "3-1",
+      "league": "English Premier League",
+      "source": "https://site.api.espn.com/apis/common/v3/sports/soccer/all/athletes/234878/gamelog",
+      "line": {}
+    },
+    "IRN.CM1": {
+      "name": "Declan Rice",
+      "event_id": "401878760",
+      "date": "2026-11-07T15:00:00.000+00:00",
+      "club": "Arsenal",
+      "opponent": "Hull City",
+      "score": "1-0",
+      "league": "English Premier League",
+      "source": "https://site.api.espn.com/apis/common/v3/sports/soccer/all/athletes/238262/gamelog",
+      "line": {
+        "sot": 2
+      }
+    },
+    "IRN.CM2": {
+      "name": "Jude Bellingham",
+      "event_id": "401882808",
+      "date": "2026-11-07T20:00:00.000+00:00",
+      "club": "Real Madrid",
+      "opponent": "Valencia",
+      "score": "3-0",
+      "league": "Spanish LALIGA",
+      "source": "https://site.api.espn.com/apis/common/v3/sports/soccer/all/athletes/291281/gamelog",
+      "line": {
+        "sot": 2
+      }
+    },
+    "IRN.CM3": {
+      "name": "Florian Wirtz",
+      "event_id": "401879243",
+      "date": "2026-11-08T14:00:00.000+00:00",
+      "club": "Liverpool",
+      "opponent": "Crystal Palace",
+      "score": "3-1",
+      "league": "English Premier League",
+      "source": "https://site.api.espn.com/apis/common/v3/sports/soccer/all/athletes/303748/gamelog",
+      "line": {
+        "goals": 1,
+        "assists": 1,
+        "sot": 2
+      }
+    },
+    "IRN.ST": {
+      "name": "Erling Haaland",
+      "event_id": "401878757",
+      "date": "2026-11-07T17:30:00.000+00:00",
+      "club": "Manchester City",
+      "opponent": "Nottingham Forest",
+      "score": "3-1",
+      "league": "English Premier League",
+      "source": "https://site.api.espn.com/apis/common/v3/sports/soccer/all/athletes/253989/gamelog",
+      "line": {
+        "sot": 2
+      }
+    },
+    "RHB.GK": {
+      "name": "Mike Maignan",
+      "event_id": "401875018",
+      "date": "2026-11-08T14:00:00.000+00:00",
+      "club": "AC Milan",
+      "opponent": "Genoa",
+      "score": "2-1",
+      "league": "Italian Serie A",
+      "source": "https://site.api.espn.com/apis/common/v3/sports/soccer/all/athletes/189026/gamelog",
+      "line": {
+        "saves": 5
+      }
+    },
+    "RHB.CB1": {
+      "name": "Josko Gvardiol",
+      "event_id": "401878757",
+      "date": "2026-11-07T17:30:00.000+00:00",
+      "club": "Manchester City",
+      "opponent": "Nottingham Forest",
+      "score": "3-1",
+      "league": "English Premier League",
+      "source": "https://site.api.espn.com/apis/common/v3/sports/soccer/all/athletes/299910/gamelog",
+      "line": {}
+    },
+    "RHB.CB2": {
+      "name": "Antonio Rudiger",
+      "event_id": "401882808",
+      "date": "2026-11-07T20:00:00.000+00:00",
+      "club": "Real Madrid",
+      "opponent": "Valencia",
+      "score": "3-0",
+      "league": "Spanish LALIGA",
+      "source": "https://site.api.espn.com/apis/common/v3/sports/soccer/all/athletes/169438/gamelog",
+      "line": {}
+    },
+    "RHB.CM1": {
+      "name": "Federico Valverde",
+      "event_id": "401882808",
+      "date": "2026-11-07T20:00:00.000+00:00",
+      "club": "Real Madrid",
+      "opponent": "Valencia",
+      "score": "3-0",
+      "league": "Spanish LALIGA",
+      "source": "https://site.api.espn.com/apis/common/v3/sports/soccer/all/athletes/235818/gamelog",
+      "line": {
+        "goals": 1,
+        "sot": 1
+      }
+    },
+    "RHB.CM2": {
+      "name": "Vitinha",
+      "event_id": "401876407",
+      "date": "2026-11-07T20:05:00.000+00:00",
+      "club": "Paris Saint-Germain",
+      "opponent": "Troyes",
+      "score": "1-0",
+      "league": "French Ligue 1",
+      "source": "https://site.api.espn.com/apis/common/v3/sports/soccer/all/athletes/288897/gamelog",
+      "line": {}
+    },
+    "RHB.CM3": {
+      "name": "Cole Palmer",
+      "event_id": "401879239",
+      "date": "2026-11-08T14:00:00.000+00:00",
+      "club": "Chelsea",
+      "opponent": "Sunderland",
+      "score": "1-0",
+      "league": "English Premier League",
+      "source": "https://site.api.espn.com/apis/common/v3/sports/soccer/all/athletes/296395/gamelog",
+      "line": {
+        "sot": 1
+      }
+    },
+    "RHB.LW": {
+      "name": "Kylian Mbappe",
+      "event_id": "401882808",
+      "date": "2026-11-07T20:00:00.000+00:00",
+      "club": "Real Madrid",
+      "opponent": "Valencia",
+      "score": "3-0",
+      "league": "Spanish LALIGA",
+      "source": "https://site.api.espn.com/apis/common/v3/sports/soccer/all/athletes/231388/gamelog",
+      "line": {
+        "goals": 1,
+        "sot": 4,
+        "yellow": 1
+      }
+    },
+    "RHB.ST": {
+      "name": "Harry Kane",
+      "event_id": "401884740",
+      "date": "2026-11-07T14:30:00.000+00:00",
+      "club": "Bayern München",
+      "opponent": "Mainz",
+      "score": "2-1",
+      "league": "German Bundesliga",
+      "source": "https://site.api.espn.com/apis/common/v3/sports/soccer/all/athletes/142200/gamelog",
+      "line": {
+        "assists": 2,
+        "sot": 1
+      }
+    },
+    "RHB.RW": {
+      "name": "Mohamed Salah",
+      "event_id": "401888254",
+      "date": "2026-11-08T15:30:00.000+00:00",
+      "club": "Trabzonspor",
+      "opponent": "Alanyaspor",
+      "score": "2-0",
+      "league": "Turkish Super Lig",
+      "source": "https://site.api.espn.com/apis/common/v3/sports/soccer/all/athletes/173896/gamelog",
+      "line": {
+        "goals": 1,
+        "sot": 2
+      }
+    }
+  },
+  "missing": [
+    {
+      "player": "IRN.CB1",
+      "name": "William Saliba",
+      "why": "ESPN's game log for this player only has season 2020 (Arsenal U21, eng.trophy), not 2026, so ESPN gives no current numbers"
+    }
+  ],
+  "match_maker_rules": [
+    "team 0 keeper: 2 saves, but the other team had 6 saved shots",
+    "team 1 keeper: 5 saves, but the other team had 8 saved shots"
+  ],
+  "round": {
+    "from": "2026-11-05",
+    "to": "2026-11-08"
+  },
+  "did_not_play": [
+    {
+      "player": "IRN.RB",
+      "name": "Achraf Hakimi",
+      "club": "Paris Saint-Germain",
+      "last_league_match": "2026-10-30"
+    },
+    {
+      "player": "IRN.LW",
+      "name": "Khvicha Kvaratskhelia",
+      "club": "Paris Saint-Germain",
+      "last_league_match": "2026-10-17"
+    },
+    {
+      "player": "IRN.RW",
+      "name": "Bukayo Saka",
+      "club": "Arsenal",
+      "last_league_match": "2026-10-18"
+    },
+    {
+      "player": "RHB.LB",
+      "name": "Nuno Mendes",
+      "club": "Paris Saint-Germain",
+      "last_league_match": "2026-10-17"
+    },
+    {
+      "player": "RHB.RB",
+      "name": "Jules Kounde",
+      "club": "Barcelona",
+      "last_league_match": "2026-10-17"
+    }
+  ]
+}
