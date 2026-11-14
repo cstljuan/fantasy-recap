@@ -21,45 +21,45 @@
   var LINES = {
     kickoff: {
       straight: [
-        "Here's the kick. {player} takes it, finds a seam, and brings it out to the {spot}.",
-        'Kick is away. {player} gathers it in and the {team} will start at the {spot}.',
-        "High and deep. {player} with the return, and the return ends at the {spot}."
+        'Here\'s the kick. {player} brings it out to the {spot}.',
+        'Kick is away. {player} returns it to the {spot}.',
+        'High and deep. {player} back to the {spot}.'
       ],
       fun: [
-        'Up it goes, and {player} carries it to the {spot}. Let us play some football!',
-        '{player} takes the kick and scoots to the {spot}. The {team} are in business.',
-        'Boot is away, {player} grabs it, and we are off from the {spot}!'
+        'Up it goes! {player} to the {spot}. Let\'s play!',
+        '{player} takes the kick and scoots to the {spot}!',
+        'Boot is away! {player} grabs it, off we go!'
       ]
     },
     touchdown_run: {
       straight: [
-        "{player} takes the handoff, bounces outside, {yds} yards and into the end zone! Touchdown, {team}! It's {score}.",
-        'Handoff {player}, hits the hole, nobody lays a hand on {player}! Touchdown {team}! {score}.',
-        "{player} up the middle, breaks one tackle, breaks two, and into the end zone! {yds} yards, touchdown {team}!"
+        '{player} bounces outside, {yds} yards... TOUCHDOWN!',
+        '{player} hits the hole! Touchdown {team}!',
+        '{player} breaks one tackle, two... and in! {team}!'
       ],
       fun: [
-        '{player} is GONE! {yds} yards and a touchdown for the {team}!',
-        'Nobody lays a finger on {player}! Six points, {team}!',
-        'Hand it to {player} and get out of the way! Touchdown {team}, {score}!'
+        '{player} is GONE! {yds} yards to the house!',
+        'Get out of the way! {player} scores! {team}!',
+        'Hand it to {player}... TOUCHDOWN {team}!'
       ]
     },
     touchdown_pass: {
       straight: [
-        "{qb} drops back, fires, CAUGHT by {player} in the end zone! Touchdown, {team}! It's {score}.",
-        "{qb} looking, looking, there's {player} open! {yds} yards, TOUCHDOWN {team}!",
-        '{qb} lets it fly, {player} goes up and gets it! Six points! {score}.'
+        '{qb} drops back, fires, CAUGHT! Touchdown, {team}!',
+        '{qb} finds {player} open! {yds} yards, TOUCHDOWN!',
+        '{player} goes up and gets it! Six for the {team}!'
       ],
       fun: [
-        '{qb} lets it fly and {player} hauls it in! Touchdown {team}!',
-        'Pitch and catch, {qb} to {player}, and that is six for the {team}!',
-        'What a throw, what a catch! {player} in the end zone, {score}!'
+        '{qb} lets it fly, {player} hauls it in! Six!',
+        'Pitch and catch, {qb} to {player}! Touchdown!',
+        'What a catch by {player}! {score}!'
       ]
     },
     xp_good: {
       straight: [
-        "{kicker} adds the extra point. It's {score}.",
+        '{kicker} adds the extra point. {score}.',
         'Extra point is good. {score}.',
-        '{kicker} knocks it through. The {team} have {teamscore}.'
+        '{kicker} knocks it through. {teamscore}.'
       ],
       fun: [
         '{kicker} makes it look easy. Point after is good!',
@@ -69,21 +69,21 @@
     },
     xp_miss: {
       straight: [
-        "Oh, {kicker} pushes the extra point! It's no good! The {team} stay at {teamscore}.",
-        'Extra point... is NO good! That could come back to haunt them.',
-        '{kicker} misses the extra point! Score stays {score}.'
+        '{kicker} pushes it! Extra point NO good!',
+        'Extra point... NO good! That could hurt.',
+        '{kicker} misses the extra point! It stays {teamscore}.'
       ],
       fun: [
         'Oh no, {kicker}! The easy one gets away!',
-        'Doink! {kicker} leaves a point on the field.',
-        'That extra point is wide, and {kicker} cannot believe it.'
+        'Doink! {kicker} leaves a point out there.',
+        'Wide! {kicker} cannot believe it.'
       ]
     },
     fg_good: {
       straight: [
-        "{kicker} from {dist} yards. The kick is up... and it's GOOD! It's {score}.",
-        '{dist} yard attempt for {kicker}. Right down the middle! Three points, {team}.',
-        'Snap, hold, kick. {kicker} from {dist}... GOOD! The {team} have {teamscore}.'
+        '{kicker} from {dist}... it\'s GOOD! {score}.',
+        '{dist} yards for {kicker}, right down the middle!',
+        'Snap, hold, kick... GOOD from {dist}! {teamscore}.'
       ],
       fun: [
         '{kicker} from {dist}... it is GOOD! Three points!',
@@ -93,57 +93,57 @@
     },
     fg_miss: {
       straight: [
-        "{kicker} from {dist} yards... it's wide! No good! The {def} take over.",
-        "The {dist} yard try is up... and it's NO good! The {team} come away empty.",
-        '{kicker} hooks it! From {dist}, no good! Still {score}.'
+        '{kicker} from {dist}... wide! No good!',
+        'The {dist} yard try is up... and it\'s NO good!',
+        '{kicker} hooks it from {dist}! {score}.'
       ],
       fun: [
-        '{kicker} pushes it from {dist}... no good! The {def} breathe again.',
+        '{kicker} pushes it from {dist}... no good!',
         'Wide! That {dist} yard try sails off the mark.',
-        'So close and yet so far. {kicker} misses from {dist}.'
+        'So close! {kicker} misses from {dist}.'
       ]
     },
     interception: {
       straight: [
-        '{qb} throws... INTERCEPTED! The {def} pick it off!',
-        "{qb} under pressure, forces it, and it's PICKED! {def} ball!",
-        "Pass is up... and it's caught by the defense! Interception, {def}!"
+        '{qb} throws... INTERCEPTED! {def} ball!',
+        '{qb} forces it, and it\'s PICKED! {def} ball!',
+        'Pass is up... picked off! Interception, {def}!'
       ],
       fun: [
-        'PICKED OFF! The {def} jump the route and steal it!',
-        '{qb} throws it right to the wrong jersey! {def} ball!',
+        'PICKED OFF! The {def} jump the route!',
+        '{qb} throws it to the wrong jersey! {def} ball!',
         'Thief! The {def} snatch it out of the air!'
       ]
     },
     fumble: {
       straight: [
-        '{player} fights for extra yards and the ball comes out! FUMBLE! The {def} recover!',
-        "{player} gets hit, it's loose, it's LOOSE! And the {def} have it!",
-        'Fumble! {player} coughs it up and the {def} fall on it!'
+        '{player} fights for more... FUMBLE! {def} ball!',
+        'It\'s loose, it\'s LOOSE! The {def} have it!',
+        'Fumble! {player} coughs it up! {def} ball!'
       ],
       fun: [
         'The ball is LOOSE! And the {def} fall on it!',
         '{player} coughs it up! {def} ball!',
-        'Butterfingers! {player} drops it and the {def} pounce!'
+        'Butterfingers! {player} drops it! {def} pounce!'
       ]
     },
     sack: {
       straight: [
-        "{qb} drops back, nowhere to go, and {qb} is SACKED! A loss of {loss}.",
-        'Pressure up the middle! {qb} goes down! Sacked for {loss}!',
-        'The {def} get home! {qb} is buried, {loss} yards lost.'
+        'Nowhere to go, and {qb} is SACKED! Lost {loss}.',
+        'Pressure up the middle! {qb} goes down!',
+        'The {def} get home! {qb} sacked for {loss}.'
       ],
       fun: [
         '{qb} goes DOWN! The {def} pass rush gets home!',
-        'Nowhere to run for {qb}! Sacked, and that is {loss} yards gone.',
-        'Boom! The {def} flatten {qb} for a loss of {loss}!'
+        'Nowhere to run for {qb}! That is {loss} gone.',
+        'Boom! The {def} flatten {qb} for {loss}!'
       ]
     },
     big_gain: {
       straight: [
-        "{player} breaks free! Past midfield, still going! A {yds} yard gain!",
-        '{player} has room to run! {yds} yards before the {def} finally make the stop!',
-        'Big play! {player} for {yds} yards and the {team} are rolling!'
+        '{player} breaks free! Still going! {yds} yards!',
+        '{player} has room to run! {yds} yards!',
+        'Big play! {player} for {yds}, the {team} roll!'
       ],
       fun: [
         '{player} takes off! {yds} yards before anybody catches up!',
@@ -153,9 +153,9 @@
     },
     first_down: {
       straight: [
-        "{player} for {yds}, and that'll move the chains. First down, {team}.",
-        "{player} picks up {yds}. That's a first down.",
-        '{player} fights forward for {yds}. Moves the sticks!'
+        '{player} for {yds}, and that moves the chains.',
+        '{player} picks up {yds}. That\'s a first down.',
+        '{player} fights forward for {yds}. First down!'
       ],
       fun: [
         '{player} moves the chains! First down!',
@@ -178,7 +178,7 @@
     no_gain: {
       straight: [
         '{player} is stuffed at the line! No gain.',
-        '{player} has nowhere to go. The {def} stop {player} cold.',
+        '{player} has nowhere to go. No gain.',
         '{player} runs into a wall. Nothing there.'
       ],
       fun: [
@@ -190,8 +190,8 @@
     incomplete: {
       straight: [
         '{qb} throws for {player}... incomplete.',
-        'Pass intended for {player}, knocked away! Incomplete.',
-        "{qb} fires for {player}, can't hang on. Incomplete."
+        'Intended for {player}, knocked away!',
+        '{player} can\'t hang on. Incomplete.'
       ],
       fun: [
         '{qb} fires for {player}... off the fingertips!',
@@ -201,20 +201,20 @@
     },
     pen_false_start: {
       straight: [
-        'Flag before the snap. False start, {team}. Five yards.',
-        'Somebody moved early. False start on the {team}, back {pen}.',
-        'Whistle. False start on the {team} offense, {pen} yards.'
+        'Flag before the snap. False start, {team}.',
+        'Somebody moved early. False start, {team}.',
+        'Whistle. False start on the {team}, {pen} yards.'
       ],
       fun: [
-        'Somebody on the {team} line got a little too excited! False start.',
+        'Somebody got a little too excited! False start.',
         'Jumpy, jumpy! False start, back {pen} yards.',
-        'Flinch! The {team} get flagged before the play even starts.'
+        'Flinch! The {team} get flagged early.'
       ]
     },
     pen_holding: {
       straight: [
-        'Flag on the play! Holding, {team} offense. {pen} yards.',
-        "And there's a flag. Offensive holding, {pen} yards, replay the down.",
+        'Flag on the play! Holding, {team}. {pen} yards.',
+        'Flag. Offensive holding, {pen} yards.',
         'Holding, {team}. That costs them {pen} yards.'
       ],
       fun: [
@@ -225,26 +225,26 @@
     },
     pen_offside: {
       straight: [
-        'Flag! The {def} jumped. Offside, {pen} free yards for the {team}.',
-        'Defense was early! Offside on the {def}, {pen} yards.',
-        'Offside, {def} defense. The {team} move up {pen}.'
+        'Flag! The {def} jumped. Offside, {pen} yards.',
+        'Defense was early! Offside on the {def}.',
+        'Offside, {def}. The {team} move up {pen}.'
       ],
       fun: [
-        'Too eager, {def}! Offside, and that is a free {pen} yards.',
+        'Too eager, {def}! Offside, {pen} free yards.',
         'The {def} jump the gun! Offside!',
-        'Patience, {def}! Offside gives the {team} {pen} for free.'
+        'Patience, {def}! Offside, {pen} for free.'
       ]
     },
     pen_dpi: {
       straight: [
-        'Flag downfield! Pass interference on the {def}. Ball at the spot, first down {team}.',
-        "There's contact, and there's a flag! Defensive pass interference, {pen} yards.",
-        "Pass interference! That's a big gain for the {team} without a catch."
+        'Flag downfield! Pass interference, {def}.',
+        'Contact, and a flag! Pass interference, {pen}.',
+        'Pass interference! A big gain for the {team}.'
       ],
       fun: [
-        'Flag! The {def} defender was all over the receiver! Pass interference!',
-        'You cannot do that, {def}! Interference, {pen} yards!',
-        'Too much contact downfield! The {team} get a gift of {pen} yards.'
+        'Flag! The {def} were all over the receiver!',
+        'You cannot do that, {def}! {pen} yards!',
+        'Too much contact! A gift of {pen} yards.'
       ]
     },
     punt: {
@@ -254,19 +254,19 @@
         'Fourth down, and the {team} will punt. A {net} yard boot.'
       ],
       fun: [
-        'Big boot! {net} yards and the {def} have to start over.',
-        'Punt team on, and that one flips the field {net} yards.',
-        'Away it goes! The {team} give it up with a {net} yard punt.'
+        'Big boot! {net} yards, the {def} start over.',
+        'Punt team on, and that one flips the field.',
+        'Away it goes! A {net} yard punt.'
       ]
     },
     downs: {
       straight: [
-        "Fourth down, they go for it... and they're STOPPED! Turnover on downs!",
-        'The {team} roll the dice on fourth down and come up short! {def} ball!',
-        'Huge stop by the {def} defense! Turnover on downs!'
+        'Fourth down... and they\'re STOPPED! {def} ball!',
+        'The {team} come up short on fourth down!',
+        'Huge stop by the {def}! Turnover on downs!'
       ],
       fun: [
-        'They went for it and... NO! The {def} stand tall on fourth down!',
+        'They went for it and... NO! {def} ball!',
         'Fourth down gamble fails! {def} ball!',
         'The {def} defense holds! Turnover on downs!'
       ]
@@ -285,9 +285,9 @@
     },
     half: {
       straight: [
-        "And that'll bring us to halftime. {score}.",
-        "Halftime here, and it's {score}.",
-        "That's the end of the first half. {score}."
+        'That\'ll bring us to halftime. {score}.',
+        'Halftime here, and it\'s {score}.',
+        'End of the first half. {score}.'
       ],
       fun: [
         'Halftime! Grab a snack, it is {score}.',
@@ -297,26 +297,26 @@
     },
     final: {
       straight: [
-        'And that is the ballgame! The {winner} win it, {score}!',
-        'Final whistle! The {winner} beat the {loser}, {score}!',
-        "It's all over! {winner} win, {score}!"
+        'That\'s the ballgame! {score}!',
+        'Final! The {winner} win it, {score}!',
+        'It\'s all over! {winner} win, {score}!'
       ],
       fun: [
-        'Game over! The {winner} take it, {score}!',
-        'Put it in the books! {winner} win, {score}!',
-        'And that will do it! The {winner} get the W over the {loser}!'
+        'Game over! {winner} take it, {score}!',
+        'In the books! {winner} win, {score}!',
+        'That will do it! The {winner} get the W!'
       ]
     },
     final_tie: {
       straight: [
-        "That's the final, and nobody wins this one. {score}.",
-        "It's over, and we're tied! {score}.",
+        'That\'s the final, a tie. {score}.',
+        'It\'s over, and we\'re tied! {score}.',
         'All square at the end. {score}.'
       ],
       fun: [
         'All square at the end! {score}!',
-        'Nobody blinks! It ends in a tie, {score}.',
-        'A tie! Everybody gets half a trophy. {score}.'
+        'Nobody blinks! It\'s a tie, {score}.',
+        'A tie! Half a trophy each. {score}.'
       ]
     }
   };

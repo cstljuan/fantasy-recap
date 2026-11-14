@@ -25,6 +25,20 @@ var sample = {
 };
 function fill(t, v) { return t.replace(/\{(\w+)\}/g, function (m, k) { return v[k] == null ? m : String(v[k]); }); }
 
+// The longest values a line can be filled with: the longest last name and team name in the
+// data, the longest score. Every line must still fit FF_ANNOUNCER.maxLength.
+var worst = (function () {
+  var names = [], tnames = [];
+  data.TEAMS.forEach(function (t) {
+    tnames.push(t.name);
+    Object.keys(t.roster).forEach(function (k) { names.push(String(t.roster[k]).split(' ').pop()); });
+  });
+  function longest(a) { return a.reduce(function (x, y) { return y.length > x.length ? y : x; }, ''); }
+  var n = longest(names), t = longest(tnames);
+  return { team: t, def: t, player: n, qb: n, kicker: n, yds: 99, loss: 12, dist: 58, net: 62, pen: 15,
+    spot: 'GOB 35', score: t + ' 28, ' + t + ' 24', teamscore: '28 points', winner: t, loser: t };
+})();
+
 console.log('== Every kind, every style ==');
 Object.keys(LINES).forEach(function (kind) {
   STYLES.forEach(function (style) {
@@ -32,6 +46,8 @@ Object.keys(LINES).forEach(function (kind) {
     if (list.length < 3) problems.push(kind + ' ' + style + ' has ' + list.length + ' variants, needs 3');
     list.forEach(function (t) {
       if (/\u2014/.test(t)) problems.push('em dash in ' + kind + ' ' + style + ': ' + t);
+      var long = fill(t, worst);
+      if (long.length > A.maxLength) problems.push(kind + ' ' + style + ' is ' + long.length + ' characters with the longest names (max ' + A.maxLength + '): ' + long);
       var out = fill(t, sample);
       if (/\{\w+\}/.test(out)) problems.push('unknown placeholder in ' + kind + ' ' + style + ': ' + t);
     });
@@ -59,6 +75,7 @@ STYLES.forEach(function (style) {
     var text = A.line(res, { teams: teams, score: s.score.slice(), style: style });
     if (!text) problems.push('no line for step ' + i + ' (' + (st.e ? st.e.t : st.kind) + ')');
     if (/\{\w+\}/.test(text)) problems.push('unfilled placeholder: ' + text);
+    if (text.length > A.maxLength) problems.push('sample game line too long (' + text.length + '): ' + text);
     // The same sentence must not come back before the other variants of its kind have been used.
     var n = (LINES[kind] && LINES[kind][style] || []).length;
     if (recent[text] != null && i - recent[text] < n) {

@@ -19,6 +19,9 @@
 //                   or goes against it (0.3 or less), line() adds one short sentence. Only
 //                   tendencies with a real number count; null is never guessed. The same
 //                   player and tendency is mentioned at most once every 6 plays.
+//   maxLength       the longest a play line may be (characters): what fits on one line of the
+//                   captions strip at 375 pixels wide. Tendency remarks are only added when the
+//                   whole line still fits. intro, halftime and wrap are longer on purpose.
 //   intro(ctx), halftime(ctx), wrap(ctx)
 //                   two or three sentences each, built from numbers only. ctx is what
 //                   line() takes plus leaders ([{ name, points }], best first or not) and
@@ -426,6 +429,9 @@
   }
 
   var api = {
+    // 337 pixels of text at 600 13px in the captions strip, about 5.9 pixels a character.
+    maxLength: 56,
+
     intro: function (ctx) { return story('intro', ctx); },
     halftime: function (ctx) { return story('halftime', ctx); },
     wrap: function (ctx) { return story('wrap', ctx); },
@@ -444,7 +450,7 @@
         if (!c.kind) return '';
         var text = fill(pick(c.kind, style), c.v);
         var note = ctx.profiles ? tendencyNote(res, teams, ctx.profiles) : '';
-        if (text && note) text += ' ' + note;
+        if (text && note && text.length + 1 + note.length <= api.maxLength) text += ' ' + note;
         if (text) announce(text, c.kind, style);
         return text;
       } catch (err) {
