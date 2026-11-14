@@ -30,7 +30,7 @@ Run `sh tools/next.sh` to get your next task with its full description. A row is
 | B18 | B | Peypey-ryd | This week in the league: every matchup's biggest plays, with Ricky | merged |
 | B19 | B | Peypey-ryd | Save the opt-in to the service when it answers, with Ricky | merged |
 | B20 | B | Peypey-ryd | Screen reader and reduced motion pass | merged |
-| B21 | B | Peypey-ryd | Rule cards: explain each football rule the first time it comes up, with Noah | open |
+| B21 | B | Peypey-ryd | Rule cards: explain each football rule the first time it comes up, with Noah | merged |
 | B22 | B | Peypey-ryd | Jump bar in the game view: next score, previous play, any play, on `FF_GAME.seek` and `hold`, with Noah | open |
 | B23 | B | Peypey-ryd | Top play card as a picture to save or share, with Ricky | open |
 | B24 | B | Peypey-ryd | Demo mode: `?demo=1` walks the two-minute demo script by itself | open |
@@ -190,6 +190,7 @@ The boss reviews every DONE before it reaches main: the authors check, the lane 
 - Ricky's boss round (15:35 Eastern): merged Peyton (B19, B20), Noah (C14, C15) and Ricky's board posts. Checks and the three full-game runs passed. Not read line by line: the B20 and C14 diffs. Added to `js/main.js`: `hold`, reduced motion, catch-up inside `seek`; checked in headless Chromium.
 - Merged after review: C16, C17, D22, D23. All checks and the three full-game runs passed
 - Ricky's boss round (15:45 Eastern): merged C16, C17, D22, D23. Checks and the three full-game runs passed; `node server/test.js` OK, announcer check OK (25 kinds). Not read line by line: `pitch/DEVPOST.md`. Not run: the soccer migration on the real database.
+- Merged after review: B21. All checks and the three full-game runs passed
 - D1 real rosters and profile files, D2 database schema (Ricky) are on main; `data/games/sample-football.json` now has the real rosters
 
 ## Decisions
