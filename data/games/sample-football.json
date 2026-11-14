@@ -1,0 +1,456 @@
+{
+ "version": 0,
+ "sport": "football",
+ "teams": [
+  {
+   "id": "GOB",
+   "name": "Goblins",
+   "full": "Gridiron Goblins",
+   "colors": {
+    "jersey": "#7a4fd8",
+    "helmet": "#c9f24b",
+    "stripe": "#3a1d7a",
+    "pants": "#efeaff",
+    "tile": "#5b34b8",
+    "zone": "#4b2a99"
+   },
+   "roster": {
+    "QB": "Dex Marlowe",
+    "RB": "Kofi Brandt",
+    "WR1": "Milo Vance",
+    "WR2": "Rafa Quill",
+    "WR3": "Jun Okoro",
+    "TE": "Bram Holt",
+    "K": "Nils Petrov"
+   }
+  },
+  {
+   "id": "PYT",
+   "name": "Pythons",
+   "full": "Pixel Pythons",
+   "colors": {
+    "jersey": "#f08a24",
+    "helmet": "#16324f",
+    "stripe": "#ffd166",
+    "pants": "#fff4e0",
+    "tile": "#c96a10",
+    "zone": "#b85f0c"
+   },
+   "roster": {
+    "QB": "Cal Whitlock",
+    "RB": "Zeke Mbeki",
+    "WR1": "Leo Santoro",
+    "WR2": "Andre Pike",
+    "WR3": "Hugo Lind",
+    "TE": "Sam Oduya",
+    "K": "Ivo Kranz"
+   }
+  }
+ ],
+ "game": {
+  "note": "Sample game. Mock data, made up for the demo.",
+  "drives": [
+   {
+    "team": "GOB",
+    "plays": [
+     {
+      "t": "kickoff",
+      "to": 27
+     },
+     {
+      "t": "run",
+      "by": "RB",
+      "yds": 4
+     },
+     {
+      "t": "pass",
+      "to": "WR1",
+      "yds": 9
+     },
+     {
+      "t": "inc",
+      "to": "WR2"
+     },
+     {
+      "t": "pen",
+      "kind": "false_start"
+     },
+     {
+      "t": "pass",
+      "to": "TE",
+      "yds": 13
+     },
+     {
+      "t": "run",
+      "by": "RB",
+      "yds": 3
+     },
+     {
+      "t": "pass",
+      "to": "WR2",
+      "yds": 31
+     },
+     {
+      "t": "run",
+      "by": "RB",
+      "yds": 2
+     },
+     {
+      "t": "inc",
+      "to": "WR3"
+     },
+     {
+      "t": "pass",
+      "to": "WR1",
+      "yds": 16
+     },
+     {
+      "t": "xp",
+      "good": true
+     }
+    ]
+   },
+   {
+    "team": "PYT",
+    "plays": [
+     {
+      "t": "kickoff",
+      "to": 22
+     },
+     {
+      "t": "run",
+      "by": "RB",
+      "yds": 2
+     },
+     {
+      "t": "inc",
+      "to": "WR1"
+     },
+     {
+      "t": "sack",
+      "yds": -6
+     },
+     {
+      "t": "punt",
+      "net": 41
+     }
+    ]
+   },
+   {
+    "team": "GOB",
+    "plays": [
+     {
+      "t": "run",
+      "by": "RB",
+      "yds": 5
+     },
+     {
+      "t": "run",
+      "by": "RB",
+      "yds": 1
+     },
+     {
+      "t": "pass",
+      "to": "WR3",
+      "yds": 17
+     },
+     {
+      "t": "pen",
+      "kind": "holding",
+      "during": {
+       "t": "run",
+       "by": "RB",
+       "yds": 12
+      }
+     },
+     {
+      "t": "pass",
+      "to": "TE",
+      "yds": 6
+     },
+     {
+      "t": "inc",
+      "to": "WR2"
+     },
+     {
+      "t": "pass",
+      "to": "WR1",
+      "yds": 10
+     },
+     {
+      "t": "fg",
+      "good": true
+     }
+    ]
+   },
+   {
+    "team": "PYT",
+    "plays": [
+     {
+      "t": "kickoff",
+      "to": 30
+     },
+     {
+      "t": "pass",
+      "to": "WR1",
+      "yds": 12
+     },
+     {
+      "t": "run",
+      "by": "RB",
+      "yds": 7
+     },
+     {
+      "t": "run",
+      "by": "RB",
+      "yds": 4
+     },
+     {
+      "t": "pen",
+      "kind": "offside"
+     },
+     {
+      "t": "pass",
+      "to": "WR2",
+      "yds": 27
+     },
+     {
+      "t": "run",
+      "by": "RB",
+      "yds": 3
+     },
+     {
+      "t": "inc",
+      "to": "TE"
+     },
+     {
+      "t": "pen",
+      "kind": "dpi",
+      "to": "WR1",
+      "spot": 15
+     },
+     {
+      "t": "run",
+      "by": "RB",
+      "yds": 1
+     },
+     {
+      "t": "xp",
+      "good": true
+     }
+    ]
+   },
+   {
+    "team": "GOB",
+    "plays": [
+     {
+      "t": "kickoff",
+      "to": 25
+     },
+     {
+      "t": "pass",
+      "to": "WR2",
+      "yds": 6
+     },
+     {
+      "t": "run",
+      "by": "RB",
+      "yds": 3
+     },
+     {
+      "t": "int",
+      "to": "WR1",
+      "at": 14,
+      "ret": 9
+     }
+    ]
+   },
+   {
+    "team": "PYT",
+    "plays": [
+     {
+      "t": "run",
+      "by": "RB",
+      "yds": 4
+     },
+     {
+      "t": "inc",
+      "to": "WR3"
+     },
+     {
+      "t": "pass",
+      "to": "TE",
+      "yds": 5
+     },
+     {
+      "t": "fg",
+      "good": false
+     }
+    ]
+   },
+   {
+    "team": "PYT",
+    "half": 2,
+    "plays": [
+     {
+      "t": "kickoff",
+      "to": 28
+     },
+     {
+      "t": "run",
+      "by": "RB",
+      "yds": 6
+     },
+     {
+      "t": "pass",
+      "to": "WR1",
+      "yds": 14
+     },
+     {
+      "t": "fumble",
+      "by": "RB",
+      "yds": 3
+     }
+    ]
+   },
+   {
+    "team": "GOB",
+    "plays": [
+     {
+      "t": "pass",
+      "to": "WR1",
+      "yds": 24
+     },
+     {
+      "t": "run",
+      "by": "RB",
+      "yds": 8
+     },
+     {
+      "t": "run",
+      "by": "RB",
+      "yds": 19
+     },
+     {
+      "t": "xp",
+      "good": true
+     }
+    ]
+   },
+   {
+    "team": "PYT",
+    "plays": [
+     {
+      "t": "kickoff",
+      "to": 26
+     },
+     {
+      "t": "pass",
+      "to": "WR3",
+      "yds": 9
+     },
+     {
+      "t": "run",
+      "by": "RB",
+      "yds": 2
+     },
+     {
+      "t": "pass",
+      "to": "WR2",
+      "yds": 28
+     },
+     {
+      "t": "sack",
+      "yds": -5
+     },
+     {
+      "t": "pass",
+      "to": "TE",
+      "yds": 11
+     },
+     {
+      "t": "run",
+      "by": "RB",
+      "yds": 5
+     },
+     {
+      "t": "inc",
+      "to": "WR3"
+     },
+     {
+      "t": "pass",
+      "to": "WR1",
+      "yds": 24
+     },
+     {
+      "t": "xp",
+      "good": true
+     }
+    ]
+   },
+   {
+    "team": "GOB",
+    "plays": [
+     {
+      "t": "kickoff",
+      "to": 24
+     },
+     {
+      "t": "run",
+      "by": "RB",
+      "yds": 3
+     },
+     {
+      "t": "inc",
+      "to": "TE"
+     },
+     {
+      "t": "pass",
+      "to": "WR3",
+      "yds": 4
+     },
+     {
+      "t": "punt",
+      "net": 44
+     }
+    ]
+   },
+   {
+    "team": "PYT",
+    "plays": [
+     {
+      "t": "pass",
+      "to": "WR1",
+      "yds": 15
+     },
+     {
+      "t": "inc",
+      "to": "WR2"
+     },
+     {
+      "t": "run",
+      "by": "RB",
+      "yds": 3
+     },
+     {
+      "t": "inc",
+      "to": "TE"
+     },
+     {
+      "t": "pass",
+      "to": "WR2",
+      "yds": 5
+     }
+    ]
+   },
+   {
+    "team": "GOB",
+    "plays": [
+     {
+      "t": "kneel"
+     }
+    ]
+   }
+  ]
+ }
+}
