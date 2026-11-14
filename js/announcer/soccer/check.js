@@ -106,6 +106,32 @@ STYLES.forEach(function (style) {
   console.log('Late winner: ' + w);
 })();
 
+// Rule explainers and the transcript.
+(function () {
+  var want = ['offside', 'corner', 'free_kick', 'penalty_kick', 'yellow', 'red', 'throw_in', 'goal_kick', 'extra_time'];
+  want.forEach(function (k) {
+    var t = A.explain(k), n = (t.match(/[.!?](\s|$)/g) || []).length;
+    if (!t) problems.push('explain(' + k + ') is empty');
+    if (t.length > A.explainMaxLength) problems.push('explain(' + k + ') is too long');
+    if (n < 1 || n > 2) problems.push('explain(' + k + ') has ' + n + ' sentences');
+    if (/\u2014|\b(he|him|his|she|her)\b/i.test(t)) problems.push('explain(' + k + ') has an em dash or a pronoun');
+  });
+  if (A.explain('nothing') !== '') problems.push('explain() of an unknown kind should be empty');
+  A.reset();
+  var teams = data.TEAMS, s = Rules.create(teams), shown = {}, made = 0;
+  Rules.flatten(data.SAMPLE_GAME, teams).forEach(function (st) {
+    if (st.kind === 'half') { Rules.startHalf(s); return; }
+    if (st.kind !== 'play') return;
+    var r = Rules.apply(s, st.e, st.team);
+    A.explainFor(r).forEach(function (k) { shown[k] = 1; if (!A.explain(k)) problems.push('explainFor gave ' + k + ' with no text'); });
+    if (A.line(r, { teams: teams })) made++;
+  });
+  if (A.transcript().length !== made) problems.push('transcript has ' + A.transcript().length + ' lines, ' + made + ' were said');
+  A.reset();
+  if (A.transcript().length) problems.push('reset() should empty the transcript');
+  console.log('\nRules shown in the sample match: ' + Object.keys(shown).join(', '));
+})();
+
 if (problems.length) {
   console.log('\nPROBLEMS (' + problems.length + '):');
   problems.forEach(function (p) { console.log('  ' + p); });

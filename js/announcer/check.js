@@ -350,6 +350,37 @@ console.log('\nStyle switch: ' + A.setStyle('fun') + ', ' + A.setStyle('nonsense
 console.log('speak() without a speech voice does nothing: ' + (A.speak('test') === undefined ? 'ok' : 'unexpected'));
 console.log('line() with no teams is quiet: ' + (A.line({}, {}) === '' ? 'ok' : 'unexpected'));
 
+// C14: rule explainers and the transcript.
+(function () {
+  var want = ['first_down', 'downs', 'touchdown', 'extra_point', 'field_goal', 'punt', 'interception', 'fumble', 'sack', 'penalty', 'kickoff', 'halftime'];
+  want.forEach(function (k) {
+    var t = A.explain(k), n = (t.match(/[.!?](\s|$)/g) || []).length;
+    if (!t) problems.push('explain(' + k + ') is empty');
+    if (t.length > A.explainMaxLength) problems.push('explain(' + k + ') is ' + t.length + ' characters, over ' + A.explainMaxLength);
+    if (n < 1 || n > 2) problems.push('explain(' + k + ') has ' + n + ' sentences');
+    if (/\u2014|\b(he|him|his|she|her)\b/i.test(t)) problems.push('explain(' + k + ') has an em dash or a pronoun');
+  });
+  if (A.explain('no_such_rule') !== '') problems.push('explain() of an unknown kind should be empty');
+  if (A.explainKinds.join() !== want.join()) problems.push('explainKinds is ' + A.explainKinds.join());
+  // Which rules the sample game shows, and the transcript of it.
+  A.reset();
+  var teams = data.TEAMS, st = Rules.create(teams), shown = {}, made = 0;
+  Rules.flatten(data.SAMPLE_GAME, teams).forEach(function (x) {
+    if (x.kind === 'half') { Rules.startHalf(st); A.explainFor({ kind: 'half' }).forEach(function (k) { shown[k] = 1; }); if (A.line({ kind: 'half' }, { teams: teams, score: st.score.slice() })) made++; return; }
+    if (x.kind !== 'play') return;
+    var res = Rules.apply(st, x.e, x.team);
+    A.explainFor(res).forEach(function (k) { shown[k] = (shown[k] || 0) + 1; if (!A.explain(k)) problems.push('explainFor gave a kind with no text: ' + k); });
+    if (A.line(res, { teams: teams })) made++;
+  });
+  var tr = A.transcript();
+  if (tr.length !== made) problems.push('transcript has ' + tr.length + ' lines, ' + made + ' were said');
+  if (tr.some(function (x) { return typeof x.t !== 'number' || !x.text || !x.kind; })) problems.push('transcript entries need t, text and kind');
+  A.reset();
+  if (A.transcript().length) problems.push('reset() should empty the transcript');
+  console.log('\nRules shown in the sample game: ' + Object.keys(shown).join(', ') + '; transcript held ' + tr.length + ' lines');
+  console.log('  e.g. explain(first_down): ' + A.explain('first_down'));
+})();
+
 // The soccer announcer (js/announcer/soccer/) has its own check; run it here too so one
 // command covers both sports.
 (function () {

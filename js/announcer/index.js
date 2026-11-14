@@ -25,6 +25,11 @@
 //                   on 100 yards and then passing it, a third catch on one drive, a kicker's
 //                   second make, a lead change. At most one such line every 2 plays (every 4
 //                   for setups); a lead change or an answered score is always called.
+//   explain(kind)   one or two plain sentences on a football rule for someone who has never
+//                   watched, for the app's rule cards; '' for an unknown kind. explainKinds lists
+//                   the kinds; explainFor(res) gives the kinds a finished play shows.
+//   transcript()    every line said in this game so far: [ { t, text, kind, play } ], t is
+//                   Date.now() when it was said. reset() empties it.
 //   maxLength       the longest a play line may be (characters): what fits on one line of the
 //                   captions strip at 375 pixels wide. Tendency remarks are only added when the
 //                   whole line still fits. intro, halftime and wrap are longer on purpose.
@@ -127,8 +132,11 @@
   }
   var last = null;    // the last caption
 
+  var said = [];   // the transcript of this game
+
   function announce(text, kind, style) {
     last = { text: text, kind: kind, style: style, at: Date.now() };
+    said.push({ t: last.at, text: text, kind: kind, play: playNo });
     for (var i = 0; i < listeners.length; i++) {
       try { listeners[i](text, kind, style); } catch (err) { /* a listener must never stop the game */ }
     }
@@ -384,6 +392,41 @@
     mem.lastRemark = playNo;
     if (kind === 'near_hundred') mem.nearSaid[r.team + '|' + r.slot] = true;
     return { kind: 'memory_' + kind, text: text };
+  }
+
+  // ---- C14: rule explainers ----
+  var EXPLAIN = {
+    first_down: "The offense gets four tries, called downs, to move the ball 10 yards. If they make it, that is a first down and they get four new tries.",
+    downs: "If the offense does not gain 10 yards in four tries, the other team takes the ball right there. That is a turnover on downs.",
+    touchdown: "Carry or catch the ball in the other team's end zone for a touchdown. It is worth 6 points, and a try for 1 more follows.",
+    extra_point: "After a touchdown, the kicker tries a short kick between the posts for 1 more point.",
+    field_goal: "The kicker sends the ball between the posts for 3 points. Teams try it when they are close but stuck on fourth down.",
+    punt: "On fourth down far from the goal, teams usually kick the ball away, so the other team has to start a long way back.",
+    interception: "A defender catches a pass that was meant for the offense. The defending team takes the ball.",
+    fumble: "A player drops the ball while carrying it. Whoever picks it up keeps it, so the defense can take over.",
+    sack: "The quarterback is tackled behind the line before throwing. The offense loses yards and uses up a down.",
+    penalty: "A player broke a rule. The referee throws a yellow flag, and the ball moves back or forward, usually 5 to 15 yards.",
+    kickoff: "Each half starts with a kickoff, and so does play after every score: one team kicks the ball deep to the other.",
+    halftime: "A game has two halves. At halftime the teams rest, and the team that received the first kickoff kicks off to start the second."
+  };
+
+  // The rule kinds a finished play shows, most important first.
+  function explainFor(res) {
+    if (!res) return [];
+    if (res.kind === 'half') return ['halftime'];
+    var e = res.e || {}, k = [];
+    if (e.t === 'kickoff') k.push('kickoff');
+    if (res.td) k.push('touchdown');
+    if (e.t === 'xp') k.push('extra_point');
+    if (e.t === 'fg') k.push('field_goal');
+    if (e.t === 'punt') k.push('punt');
+    if (e.t === 'int') k.push('interception');
+    if (e.t === 'fumble') k.push('fumble');
+    if (e.t === 'sack') k.push('sack');
+    if (e.t === 'pen') k.push('penalty');
+    if (res.downs) k.push('downs');
+    if (res.first && !res.td) k.push('first_down');
+    return k;
   }
 
   // Longer pieces: intro, halftime and wrap. Built from the score, the leaders and the plays.
@@ -688,7 +731,13 @@
       return api.style;
     },
 
-    reset: function () { decks = {}; lastUsed = {}; rounds = {}; last = null; playNo = 0; tendencySaid = {}; mem = freshMemory(); api.hush(); },
+    explain: function (kind) { return Object.prototype.hasOwnProperty.call(EXPLAIN, kind) ? EXPLAIN[kind] : ''; },
+    explainKinds: Object.keys(EXPLAIN),
+    explainFor: explainFor,
+    explainMaxLength: 160,
+    transcript: function () { return said.map(function (x) { return { t: x.t, text: x.text, kind: x.kind, play: x.play }; }); },
+
+    reset: function () { said = []; decks = {}; lastUsed = {}; rounds = {}; last = null; playNo = 0; tendencySaid = {}; mem = freshMemory(); api.hush(); },
 
     memory: function () {
       var players = Object.keys(mem.players).map(function (k) {
