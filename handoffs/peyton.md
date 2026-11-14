@@ -157,3 +157,15 @@ One game on a laptop or television, phones as remotes. The laptop opens `?party=
 ## Task B30: every screen at four widths
 
 Open every screen and state (league, matchup before and after opt-in, lineups, plays, film room, this week, recap before and after the reveal, the game view with the jump bar, a rule card, a why card, the share card dialog, demo mode, watch party when it exists) at 320, 375, 768 and 1280 wide in headless Chromium, in English and in Spanish when B28 is in. Fix everything that overlaps, is cut, scrolls sideways, or has a tap target under 44 pixels. Say in the DONE post what you found and fixed per screen, and what only a real phone can show.
+
+## Task B31: league home from the service (with Ricky)
+
+When the app is opened with `?api=<address>`, the league home reads Ricky's `GET /league` (D33): standings, each week's results, and who has opted in this week, in place of `data/league.json`. Never show anyone's points for a game that is not final. When the service does not answer within two seconds, or there is no `?api`, use the file as today and show nothing about it. Ask Ricky for the shape if his NOTE is not enough. Check: with `node server/index.js` running without a database, and with no service at all.
+
+## Task B32: one command for the reveal flow
+
+`node js/screens/flow-test.js` (it may use the Chromium that `tools/smoke.sh` finds; no new dependency): opens the app, opts in, checks that no fantasy point shows anywhere (screens, canvas floaters off, captions, halftime line, share button absent), watches to the final at high speed, checks the reveal shows the right winner and points for both game files, then the same not opted in. Prints one line per step and OK or the failures. Post `NOTE "boss: ..."` with the command so it joins the review round, and `NOTE "ricky: ..."` so it joins `data/checks/all.js`.
+
+## Task B33: commissioner view (with Ricky)
+
+`?commish=1` opens a screen for the league's commissioner: every matchup of the week with who has opted in, a "release the recap" switch per week (the Tuesday release, by hand), and a count of who has watched to the final. It reads and writes Ricky's commissioner routes (D35) when `?api=` is set; without the service it works on this device only and says so. No points for unfinished recaps, even here. Ask Ricky for the routes.

@@ -40,6 +40,9 @@ Run `sh tools/next.sh` to get your next task with its full description. A row is
 | B28 | B | Peypey-ryd | Spanish for the screens, switchable, with Noah | merged |
 | B29 | B | Peypey-ryd | Watch party: a phone is the remote for the game on a laptop, with Ricky | merged |
 | B30 | B | Peypey-ryd | Walk every screen at 320, 375, 768 and 1280 wide and fix what overlaps or is cut | open |
+| B31 | B | Peypey-ryd | League home from the service: real opt-ins and standings when `?api=` is set, with Ricky | open |
+| B32 | B | Peypey-ryd | A browser test of the whole reveal flow that anyone can run with one command | open |
+| B33 | B | Peypey-ryd | Commissioner view: every matchup's opt-in state and a release switch, with Ricky | open |
 | C1 | C | nexodv | Announcer lines, two styles | merged |
 | C2 | C | nexodv | Crowd and whistle | merged |
 | C3 | C | nexodv | Captions: every spoken line is also available as text | merged |
@@ -77,6 +80,9 @@ Run `sh tools/next.sh` to get your next task with its full description. A row is
 | D32 | D | Rickstar-App | Honesty pass two: README, every file in `pitch/` and the screens' own labels against main as it is tonight | merged |
 | D33 | D | Rickstar-App | The league from the service: standings, who has opted in, and each week's results, with Peyton | merged |
 | D34 | D | Rickstar-App | A third and fourth matchup that are real: Turtles and Owls rosters, profiles and a week of lines, so the league home has two full games | merged |
+| D35 | D | Rickstar-App | Commissioner routes in the service: release a week, see every opt-in, with Peyton | open |
+| D36 | D | Rickstar-App | Scout's notes as pages: one sourced page per player from the profiles, form and the cross-check | open |
+| D37 | D | Rickstar-App | Setup guide a stranger can follow: database, service, seed, checks, from a clean clone | open |
 | D1 | D | Rickstar-App | Real rosters and profile files | merged |
 | D2 | D | Rickstar-App | Database schema | merged |
 | D4 | D | Rickstar-App | A week of stat lines for both rosters | merged |
@@ -177,6 +183,7 @@ Newest at the bottom. The boss answers every ASK here. If the answer is "yes, do
 - ANSWER to Peypey-ryd (B28, words on the canvas): done. `js/main.js` passes the score box tag, every banner (text and sub line), FINAL, the sample line and "Tap for the recap" through `FR_I18N.tr` when it exists. The whole string is passed (for example `TOUCHDOWN GOBLINS!`, and the sub line with the score), so banners with a team name need a pattern in your table. The down marker is a number and stays.
 - NOTE to Rickstar-App (README): all three taken: "at each snap with a real choice (40 of 84)", the Scout row now says the tools ran live without a model, the service row lists what it does and that the app only sends the opt-in.
 - NOTE to nexodv and Rickstar-App (profiles in the announcer): done. `js/main.js` now loads `data/profiles/<team>.json` and passes `profiles` in the ctx of `line`, `intro`, `halftime` and `wrap`, so tendency and hot or cold remarks are said in the app when the page is served over http. Noah: the render list (C25) must be made with the same profiles or recordings will not match. Ricky: the two pitch lines can change.
+- NOTE to Rickstar-App (A5 and the Turtles against Owls files): noted. Reading a stat lines file in `engine/make-game.js` is task A5, Juan's, after light duty ends at 9:30 PM Eastern, and building the game file needs the Jev key that only the laptop has. Your command (`--lines ... --teams ...`) is the target for A5.
 
 ## Waiting for Juan
 
@@ -184,8 +191,10 @@ Newest at the bottom. The boss answers every ASK here. If the answer is "yes, do
 - Run Scout for real on the laptop (needs `GOOGLE_API_KEY` or `ANTHROPIC_API_KEY` and a route to `api.sleeper.app`): `pip install -r agents/scout/requirements.txt`, `python3 agents/scout/scout.py`, then commit the log in `agents/scout/runs/` and the filled profiles.
 - Real week of stat lines: `data/statlines/week09-real.json` is done (Ricky's session). Nothing to run unless a later week is wanted.
 - Run `db/migrate-002-soccer.sql` on the real database from the laptop (Ricky's D22, soccer in the service). The service test passes without a database; nothing has run against the real one.
+- A5: make `engine/make-game.js` read a stat lines file and team files, then build the Turtles against Owls game with Jev. Ricky's files are on main: `data/rosters/TUR.json`, `OWL.json`, `data/statlines/week11-tur-owl.json`.
 - Grove cables and an owner for the hardware box.
 - The project's name.
+- From Ricky (2026-11-14, about 17:10 Eastern): Ricky's boss session has stopped. Peyton's boss session (`Peypey-ryd/boss`, prompt in `handoffs/cloud-sessions.md`) takes over every boss duty: review rounds, merges, answers and keeping the queues full. Peyton starts it from her own account; until it runs, nobody is merging. State at hand-over: main has everything through B29, D33, D34; every ASK is answered; open tasks are B30 to B33 (Peyton), C24 to C27 (Noah, whose worker has been silent since 15:48 Eastern), D35 to D37 (Ricky); A5 and S7 wait for Juan after 9:30 PM Eastern. The live chat page cannot be updated from a cloud session on another account. Order 9 still holds: any boss may run a round.
 
 ## Review
 
@@ -234,6 +243,7 @@ The boss reviews every DONE before it reaches main: the authors check, the lane 
 - Merged after review: B28, D31, D32. All checks and the three full-game runs passed
 - Ricky's boss round (16:50 Eastern): merged B28, D31, D32. Checks and the three full-game runs passed. Boss changes: canvas words go through the language table, the announcer gets the profiles, three README corrections from Ricky's honesty pass. Not looked at by the boss: Spanish on screen.
 - Merged after review: B29, D33, D34. All checks and the three full-game runs passed
+- Ricky's boss round (17:00 Eastern): merged B29, D33, D34. Checks and the three full-game runs passed. Not looked at by the boss: the watch party with two pages. Noah's worker has posted nothing since 15:48 Eastern; his four tasks stay open.
 - D1 real rosters and profile files, D2 database schema (Ricky) are on main; `data/games/sample-football.json` now has the real rosters
 
 ## Decisions
