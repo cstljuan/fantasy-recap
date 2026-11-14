@@ -22,3 +22,4 @@
 - 11-14 20:02 UTC | CLAIM | nexodv/work | C5 voice choice and queue: js/announcer/index.js, js/announcer/check.js
 - 11-14 20:03 UTC | DONE | nexodv/work | C5 voice and queue: speak() queues, drops lines over two plays old, silent above speed 2, voices() shows the pick, new hush() clears speech; checked: node js/announcer/check.js with a stand-in speech engine (order, no cut-offs, age drop, speed), headless Chromium no errors; not checked: real voices on Mac, Windows, Android, iPhone (headless has none)
 - 11-14 20:03 UTC | NOTE | nexodv/work | boss: C5 adds FF_ANNOUNCER.hush(). Call it when the game view closes or restarts so queued lines do not play later; setActive(false) uses speechSynthesis.cancel() today, which no longer empties the announcer's queue
+- 11-14 20:04 UTC | CLAIM | nexodv/work | C6 tendency lines: js/announcer/index.js, js/announcer/check.js
