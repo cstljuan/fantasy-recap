@@ -168,6 +168,28 @@ h2 { margin: 0; font: 700 11px/1 var(--body); letter-spacing: 0.14em; text-trans
 .optin-undo { flex: none; min-height: 36px; padding: 0 12px; background: transparent; border: 1px solid var(--rule); border-radius: 2px; cursor: pointer;
               color: var(--dim); font: 700 11px/1 var(--body); letter-spacing: 0.1em; text-transform: uppercase; }
 
+/* --------------------------------------------------------------- league */
+
+.lg-head { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; margin-bottom: 12px; }
+.lg-count { color: var(--dim); font-size: 12px; }
+.lg-match { display: block; margin-top: 12px; border-left: 3px solid var(--rule); }
+.lg-head + .lg-match { margin-top: 0; }
+.lg-match.is-ours { border-left-color: var(--amber); cursor: pointer; }
+@media (hover: hover) { .lg-match.is-ours:hover { background: var(--inset); } }
+.lg-top { display: flex; align-items: center; justify-content: space-between; padding: 12px 14px 0; }
+.lg-teams { display: flex; flex-direction: column; gap: 6px; padding: 12px 14px; }
+.lg-team { display: flex; align-items: center; gap: 10px; min-width: 0; }
+.lg-team .team-name { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.lg-team .tile { width: 24px; height: 24px; font-size: 11px; }
+.lg-vs { padding-left: 34px; color: var(--dim); font: 700 11px/1 var(--body); letter-spacing: 0.14em; text-transform: uppercase; }
+.lg-foot { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; padding: 10px 14px; border-top: 1px solid var(--rule); }
+.lg-mark { font: 700 10px/1 var(--body); letter-spacing: 0.12em; text-transform: uppercase; padding: 4px 6px; border: 1px solid var(--rule); color: var(--dim); }
+.lg-mark.is-on { border-color: var(--amber); color: var(--amber); }
+.lg-drop { color: var(--dim); font-size: 13px; }
+.lg-go { margin-left: auto; font: 700 11px/1 var(--body); letter-spacing: 0.1em; text-transform: uppercase; color: var(--amber); }
+.lg-go::after { content: " \203A"; }
+@media (max-width: 400px) { .tabs a { font-size: 13px; letter-spacing: 0.06em; } }
+
 /* ---------------------------------------------------------------- recap */
 
 /* The winner reveal at the top of the recap. */
