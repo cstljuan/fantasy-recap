@@ -1,0 +1,56 @@
+{
+ "events": [
+  {
+   "id": "900",
+   "competitions": [
+    {
+     "status": {
+      "type": {
+       "name": "STATUS_FINAL"
+      }
+     },
+     "competitors": [
+      {
+       "homeAway": "home",
+       "team": {
+        "abbreviation": "TST"
+       }
+      },
+      {
+       "homeAway": "away",
+       "team": {
+        "abbreviation": "OPP"
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "901",
+   "competitions": [
+    {
+     "status": {
+      "type": {
+       "name": "STATUS_FINAL"
+      }
+     },
+     "competitors": [
+      {
+       "homeAway": "home",
+       "team": {
+        "abbreviation": "AAA"
+       }
+      },
+      {
+       "homeAway": "away",
+       "team": {
+        "abbreviation": "BBB"
+       }
+      }
+     ]
+    }
+   ]
+  }
+ ]
+}

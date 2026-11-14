@@ -1,6 +1,6 @@
 # Cameron Dicker
 
-TUR, K (K). Written by `agents/scout/notes.py` on 2026-11-14 from the data files, with no model: the two sentences under "What it means" come from fixed rules on the numbers below. On-field numbers only.
+TUR, K (K). Written by `agents/scout/notes.py` on 2026-11-14 from the data files, with no model: the two sentences under "What it means" come from fixed rules on the numbers below (the real plays first). On-field numbers only.
 
 ## Season tendencies
 
@@ -10,6 +10,17 @@ TUR, K (K). Written by `agents/scout/notes.py` on 2026-11-14 from the data files
 | accuracy | 0.882 | field goals made divided by attempted | https://api.sleeper.com/stats/nfl/player/8259?season_type=regular&season=2026 | 2026-11-14 |
 
 Season 2026 numbers through game week 8.0 (8.0 games). Filled by agents/scout/fill_profiles.py, no model.
+
+## From the real plays
+
+Worked out snap by snap from ESPN's play-by-play of 8 games (data/rosters/plays-2026.json (ESPN play-by-play, parsed by agents/scout/plays.py), read 2026-11-14). A number needs at least 5 plays under it.
+
+| What | Value | Plays | How |
+|---|---|---|---|
+| made from 0 to 39 | 1 | 9 of 9 | field goals made from 0 to 39 yards divided by attempts |
+| made from 40 to 49 | 0.833 | 5 of 6 | field goals made from 40 to 49 yards divided by attempts |
+| made from 50 or more | not known | 1 of 2 | field goals made from 50 or more yards divided by attempts (null: fewer than 5 plays) |
+| attempts from 40 or more | 0.471 | 8 of 17 | attempts from 40 yards or more divided by attempts |
 
 ## Recent form
 

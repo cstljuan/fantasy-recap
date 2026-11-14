@@ -1,6 +1,6 @@
 # Harrison Butker
 
-PYT, K (K). Written by `agents/scout/notes.py` on 2026-11-14 from the data files, with no model: the two sentences under "What it means" come from fixed rules on the numbers below. On-field numbers only.
+PYT, K (K). Written by `agents/scout/notes.py` on 2026-11-14 from the data files, with no model: the two sentences under "What it means" come from fixed rules on the numbers below (the real plays first). On-field numbers only.
 
 ## Season tendencies
 
@@ -10,6 +10,17 @@ PYT, K (K). Written by `agents/scout/notes.py` on 2026-11-14 from the data files
 | accuracy | 0.632 | field goals made divided by attempted | https://api.sleeper.com/stats/nfl/player/4227?season_type=regular&season=2026 | 2026-11-14 |
 
 Season 2026 numbers through game week 8.0 (8.0 games). Filled by agents/scout/fill_profiles.py, no model.
+
+## From the real plays
+
+Worked out snap by snap from ESPN's play-by-play of 8 games (data/rosters/plays-2026.json (ESPN play-by-play, parsed by agents/scout/plays.py), read 2026-11-14). A number needs at least 5 plays under it.
+
+| What | Value | Plays | How |
+|---|---|---|---|
+| made from 0 to 39 | 1 | 6 of 6 | field goals made from 0 to 39 yards divided by attempts |
+| made from 40 to 49 | 0.8 | 4 of 5 | field goals made from 40 to 49 yards divided by attempts |
+| made from 50 or more | 0.25 | 2 of 8 | field goals made from 50 or more yards divided by attempts |
+| attempts from 40 or more | 0.684 | 13 of 19 | attempts from 40 yards or more divided by attempts |
 
 ## Recent form
 
@@ -28,4 +39,4 @@ Sleeper: https://api.sleeper.com/stats/nfl/player/4227?season_type=regular&seaso
 
 ## What it means for play calling
 
-Butker makes many field goals from 40 yards or more (0.5): long attempts are reasonable. Lately Butker's long kicks number is up: 1 in weeks 7, 8, 9 against 0.5 for the season, a small sample.
+Butker makes only 0.25 of attempts from 50 yards or more. Lately Butker's long kicks number is up: 1 in weeks 7, 8, 9 against 0.5 for the season, a small sample.

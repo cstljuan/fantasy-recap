@@ -80,6 +80,160 @@
         "source": "https://api.sleeper.com/stats/nfl/player/4881?season_type=regular&season=2026&grouping=week",
         "date": "2026-11-14",
         "notes": "Season 2026, weeks 4, 8, 9 added up, weeks 5, 6, 7, 10 skipped (no stats in the source: a bye, an injury, or a game not played yet)."
+      },
+      "play_tendencies": {
+        "deep_share": 0.221,
+        "left_share": 0.326,
+        "middle_share": 0.347,
+        "right_share": 0.326,
+        "deep_completion": 0.524,
+        "sack_rate": 0.069,
+        "int_rate": 0.011,
+        "scramble_rate": 0.089,
+        "third_down_conversion": 0.375,
+        "red_zone_td_rate": 0.286
+      },
+      "play_tendency_sources": {
+        "deep_share": {
+          "how": "deep throws divided by throws with a depth in the play text",
+          "n": 21,
+          "of": 95,
+          "games": [
+            "401872659",
+            "401872938",
+            "401872960",
+            "401872973",
+            "401873026"
+          ],
+          "source": "data/rosters/plays-2026.json (ESPN play-by-play, parsed by agents/scout/plays.py)",
+          "date": "2026-11-14"
+        },
+        "left_share": {
+          "how": "throws to the left divided by throws with a direction",
+          "n": 31,
+          "of": 95,
+          "games": [
+            "401872659",
+            "401872938",
+            "401872960",
+            "401872973",
+            "401873026"
+          ],
+          "source": "data/rosters/plays-2026.json (ESPN play-by-play, parsed by agents/scout/plays.py)",
+          "date": "2026-11-14"
+        },
+        "middle_share": {
+          "how": "throws to the middle divided by throws with a direction",
+          "n": 33,
+          "of": 95,
+          "games": [
+            "401872659",
+            "401872938",
+            "401872960",
+            "401872973",
+            "401873026"
+          ],
+          "source": "data/rosters/plays-2026.json (ESPN play-by-play, parsed by agents/scout/plays.py)",
+          "date": "2026-11-14"
+        },
+        "right_share": {
+          "how": "throws to the right divided by throws with a direction",
+          "n": 31,
+          "of": 95,
+          "games": [
+            "401872659",
+            "401872938",
+            "401872960",
+            "401872973",
+            "401873026"
+          ],
+          "source": "data/rosters/plays-2026.json (ESPN play-by-play, parsed by agents/scout/plays.py)",
+          "date": "2026-11-14"
+        },
+        "deep_completion": {
+          "how": "deep completions divided by deep throws",
+          "n": 11,
+          "of": 21,
+          "games": [
+            "401872659",
+            "401872938",
+            "401872960",
+            "401872973",
+            "401873026"
+          ],
+          "source": "data/rosters/plays-2026.json (ESPN play-by-play, parsed by agents/scout/plays.py)",
+          "date": "2026-11-14"
+        },
+        "sack_rate": {
+          "how": "sacks divided by throws plus sacks",
+          "n": 7,
+          "of": 102,
+          "games": [
+            "401872659",
+            "401872938",
+            "401872960",
+            "401872973",
+            "401873026"
+          ],
+          "source": "data/rosters/plays-2026.json (ESPN play-by-play, parsed by agents/scout/plays.py)",
+          "date": "2026-11-14"
+        },
+        "int_rate": {
+          "how": "interceptions divided by throws",
+          "n": 1,
+          "of": 95,
+          "games": [
+            "401872659",
+            "401872938",
+            "401872960",
+            "401872973",
+            "401873026"
+          ],
+          "source": "data/rosters/plays-2026.json (ESPN play-by-play, parsed by agents/scout/plays.py)",
+          "date": "2026-11-14"
+        },
+        "scramble_rate": {
+          "how": "scrambles divided by dropbacks (throws, sacks and scrambles)",
+          "n": 10,
+          "of": 112,
+          "games": [
+            "401872659",
+            "401872938",
+            "401872960",
+            "401872973",
+            "401873026"
+          ],
+          "source": "data/rosters/plays-2026.json (ESPN play-by-play, parsed by agents/scout/plays.py)",
+          "date": "2026-11-14"
+        },
+        "third_down_conversion": {
+          "how": "third down plays by the quarterback that gained the first down or scored",
+          "n": 9,
+          "of": 24,
+          "games": [
+            "401872659",
+            "401872938",
+            "401872960",
+            "401872973",
+            "401873026"
+          ],
+          "source": "data/rosters/plays-2026.json (ESPN play-by-play, parsed by agents/scout/plays.py)",
+          "date": "2026-11-14"
+        },
+        "red_zone_td_rate": {
+          "how": "touchdown throws inside the 20 divided by throws inside the 20",
+          "n": 4,
+          "of": 14,
+          "games": [
+            "401872659",
+            "401872938",
+            "401872960",
+            "401872973",
+            "401873026"
+          ],
+          "source": "data/rosters/plays-2026.json (ESPN play-by-play, parsed by agents/scout/plays.py)",
+          "date": "2026-11-14"
+        }
       }
     },
     "RB": {
@@ -88,7 +242,8 @@
       "tendencies": {
         "run_share": 0.809,
         "pass_catching": 0.775,
-        "red_zone_use": 0.172
+        "red_zone_use": 0.172,
+        "target_share": 0.157
       },
       "tendency_sources": {
         "run_share": {
@@ -105,6 +260,11 @@
           "source": "https://api.sleeper.com/stats/nfl/player/9509?season_type=regular&season=2026",
           "date": "2026-11-14",
           "how": "red zone carries divided by carries"
+        },
+        "target_share": {
+          "source": "data/rosters/plays-2026.json (ESPN play-by-play, parsed by agents/scout/plays.py)",
+          "date": "2026-11-14",
+          "how": "targets divided by the team's throws in the games played (from the real plays)"
         }
       },
       "notes": "Season 2026 numbers through game week 9.0 (9.0 games). Filled by agents/scout/fill_profiles.py, no model.",
@@ -157,6 +317,181 @@
         "source": "https://api.sleeper.com/stats/nfl/player/9509?season_type=regular&season=2026&grouping=week",
         "date": "2026-11-14",
         "notes": "Season 2026, weeks 7, 8, 9 added up, weeks 10 skipped (no stats in the source: a bye, an injury, or a game not played yet)."
+      },
+      "play_tendencies": {
+        "target_share": 0.157,
+        "carry_share": 0.679,
+        "left_share": 0.509,
+        "middle_share": 0.219,
+        "right_share": 0.272,
+        "goal_line_share": 0.8,
+        "short_yardage_share": 0.529,
+        "explosive_run_rate": 0.118,
+        "stuff_rate": 0.13
+      },
+      "play_tendency_sources": {
+        "target_share": {
+          "how": "targets divided by the team's throws in the games played",
+          "n": 40,
+          "of": 255,
+          "games": [
+            "401872658",
+            "401872933",
+            "401872948",
+            "401872979",
+            "401872993",
+            "401872999",
+            "401873017",
+            "401873025",
+            "401873038"
+          ],
+          "source": "data/rosters/plays-2026.json (ESPN play-by-play, parsed by agents/scout/plays.py)",
+          "date": "2026-11-14"
+        },
+        "carry_share": {
+          "how": "carries divided by the team's carries in the games played",
+          "n": 169,
+          "of": 249,
+          "games": [
+            "401872658",
+            "401872933",
+            "401872948",
+            "401872979",
+            "401872993",
+            "401872999",
+            "401873017",
+            "401873025",
+            "401873038"
+          ],
+          "source": "data/rosters/plays-2026.json (ESPN play-by-play, parsed by agents/scout/plays.py)",
+          "date": "2026-11-14"
+        },
+        "left_share": {
+          "how": "carries to the left divided by carries with a gap",
+          "n": 86,
+          "of": 169,
+          "games": [
+            "401872658",
+            "401872933",
+            "401872948",
+            "401872979",
+            "401872993",
+            "401872999",
+            "401873017",
+            "401873025",
+            "401873038"
+          ],
+          "source": "data/rosters/plays-2026.json (ESPN play-by-play, parsed by agents/scout/plays.py)",
+          "date": "2026-11-14"
+        },
+        "middle_share": {
+          "how": "carries to the middle divided by carries with a gap",
+          "n": 37,
+          "of": 169,
+          "games": [
+            "401872658",
+            "401872933",
+            "401872948",
+            "401872979",
+            "401872993",
+            "401872999",
+            "401873017",
+            "401873025",
+            "401873038"
+          ],
+          "source": "data/rosters/plays-2026.json (ESPN play-by-play, parsed by agents/scout/plays.py)",
+          "date": "2026-11-14"
+        },
+        "right_share": {
+          "how": "carries to the right divided by carries with a gap",
+          "n": 46,
+          "of": 169,
+          "games": [
+            "401872658",
+            "401872933",
+            "401872948",
+            "401872979",
+            "401872993",
+            "401872999",
+            "401873017",
+            "401873025",
+            "401873038"
+          ],
+          "source": "data/rosters/plays-2026.json (ESPN play-by-play, parsed by agents/scout/plays.py)",
+          "date": "2026-11-14"
+        },
+        "goal_line_share": {
+          "how": "carries inside the 5 divided by the team's carries inside the 5",
+          "n": 8,
+          "of": 10,
+          "games": [
+            "401872658",
+            "401872933",
+            "401872948",
+            "401872979",
+            "401872993",
+            "401872999",
+            "401873017",
+            "401873025",
+            "401873038"
+          ],
+          "source": "data/rosters/plays-2026.json (ESPN play-by-play, parsed by agents/scout/plays.py)",
+          "date": "2026-11-14"
+        },
+        "short_yardage_share": {
+          "how": "carries on third or fourth and 2 or less divided by the team's",
+          "n": 9,
+          "of": 17,
+          "games": [
+            "401872658",
+            "401872933",
+            "401872948",
+            "401872979",
+            "401872993",
+            "401872999",
+            "401873017",
+            "401873025",
+            "401873038"
+          ],
+          "source": "data/rosters/plays-2026.json (ESPN play-by-play, parsed by agents/scout/plays.py)",
+          "date": "2026-11-14"
+        },
+        "explosive_run_rate": {
+          "how": "carries of 10 yards or more divided by carries",
+          "n": 20,
+          "of": 169,
+          "games": [
+            "401872658",
+            "401872933",
+            "401872948",
+            "401872979",
+            "401872993",
+            "401872999",
+            "401873017",
+            "401873025",
+            "401873038"
+          ],
+          "source": "data/rosters/plays-2026.json (ESPN play-by-play, parsed by agents/scout/plays.py)",
+          "date": "2026-11-14"
+        },
+        "stuff_rate": {
+          "how": "carries for no gain or a loss divided by carries",
+          "n": 22,
+          "of": 169,
+          "games": [
+            "401872658",
+            "401872933",
+            "401872948",
+            "401872979",
+            "401872993",
+            "401872999",
+            "401873017",
+            "401873025",
+            "401873038"
+          ],
+          "source": "data/rosters/plays-2026.json (ESPN play-by-play, parsed by agents/scout/plays.py)",
+          "date": "2026-11-14"
+        }
       }
     },
     "WR1": {
@@ -165,7 +500,8 @@
       "tendencies": {
         "deep_ball": 0.634,
         "catch_rate": 0.608,
-        "red_zone_use": 0.137
+        "red_zone_use": 0.137,
+        "target_share": 0.274
       },
       "tendency_sources": {
         "deep_ball": {
@@ -182,6 +518,11 @@
           "source": "https://api.sleeper.com/stats/nfl/player/6794?season_type=regular&season=2026",
           "date": "2026-11-14",
           "how": "red zone targets divided by targets"
+        },
+        "target_share": {
+          "source": "data/rosters/plays-2026.json (ESPN play-by-play, parsed by agents/scout/plays.py)",
+          "date": "2026-11-14",
+          "how": "targets divided by the team's throws in the games played (from the real plays)"
         }
       },
       "notes": "Season 2026 numbers through game week 7.0 (7.0 games). Filled by agents/scout/fill_profiles.py, no model.",
@@ -234,6 +575,163 @@
         "source": "https://api.sleeper.com/stats/nfl/player/6794?season_type=regular&season=2026&grouping=week",
         "date": "2026-11-14",
         "notes": "Season 2026, weeks 7, 8, 9 added up, weeks 10 skipped (no stats in the source: a bye, an injury, or a game not played yet)."
+      },
+      "play_tendencies": {
+        "target_share": 0.274,
+        "deep_target_share": 0.255,
+        "red_zone_target_share": 0.333,
+        "third_down_target_share": 0.328,
+        "catch_rate_short": 0.632,
+        "catch_rate_deep": 0.538,
+        "left_share": 0.431,
+        "middle_share": 0.176,
+        "right_share": 0.392
+      },
+      "play_tendency_sources": {
+        "target_share": {
+          "how": "targets divided by the team's throws in the games played",
+          "n": 51,
+          "of": 186,
+          "games": [
+            "401872927",
+            "401872937",
+            "401872959",
+            "401872987",
+            "401873014",
+            "401873030",
+            "401873051"
+          ],
+          "source": "data/rosters/plays-2026.json (ESPN play-by-play, parsed by agents/scout/plays.py)",
+          "date": "2026-11-14"
+        },
+        "deep_target_share": {
+          "how": "deep targets divided by targets with a depth",
+          "n": 13,
+          "of": 51,
+          "games": [
+            "401872927",
+            "401872937",
+            "401872959",
+            "401872987",
+            "401873014",
+            "401873030",
+            "401873051"
+          ],
+          "source": "data/rosters/plays-2026.json (ESPN play-by-play, parsed by agents/scout/plays.py)",
+          "date": "2026-11-14"
+        },
+        "red_zone_target_share": {
+          "how": "targets inside the 20 divided by the team's throws inside the 20",
+          "n": 7,
+          "of": 21,
+          "games": [
+            "401872927",
+            "401872937",
+            "401872959",
+            "401872987",
+            "401873014",
+            "401873030",
+            "401873051"
+          ],
+          "source": "data/rosters/plays-2026.json (ESPN play-by-play, parsed by agents/scout/plays.py)",
+          "date": "2026-11-14"
+        },
+        "third_down_target_share": {
+          "how": "third down targets divided by the team's third down throws",
+          "n": 21,
+          "of": 64,
+          "games": [
+            "401872927",
+            "401872937",
+            "401872959",
+            "401872987",
+            "401873014",
+            "401873030",
+            "401873051"
+          ],
+          "source": "data/rosters/plays-2026.json (ESPN play-by-play, parsed by agents/scout/plays.py)",
+          "date": "2026-11-14"
+        },
+        "catch_rate_short": {
+          "how": "short catches divided by short targets",
+          "n": 24,
+          "of": 38,
+          "games": [
+            "401872927",
+            "401872937",
+            "401872959",
+            "401872987",
+            "401873014",
+            "401873030",
+            "401873051"
+          ],
+          "source": "data/rosters/plays-2026.json (ESPN play-by-play, parsed by agents/scout/plays.py)",
+          "date": "2026-11-14"
+        },
+        "catch_rate_deep": {
+          "how": "deep catches divided by deep targets",
+          "n": 7,
+          "of": 13,
+          "games": [
+            "401872927",
+            "401872937",
+            "401872959",
+            "401872987",
+            "401873014",
+            "401873030",
+            "401873051"
+          ],
+          "source": "data/rosters/plays-2026.json (ESPN play-by-play, parsed by agents/scout/plays.py)",
+          "date": "2026-11-14"
+        },
+        "left_share": {
+          "how": "targets to the left divided by targets with a direction",
+          "n": 22,
+          "of": 51,
+          "games": [
+            "401872927",
+            "401872937",
+            "401872959",
+            "401872987",
+            "401873014",
+            "401873030",
+            "401873051"
+          ],
+          "source": "data/rosters/plays-2026.json (ESPN play-by-play, parsed by agents/scout/plays.py)",
+          "date": "2026-11-14"
+        },
+        "middle_share": {
+          "how": "targets to the middle divided by targets with a direction",
+          "n": 9,
+          "of": 51,
+          "games": [
+            "401872927",
+            "401872937",
+            "401872959",
+            "401872987",
+            "401873014",
+            "401873030",
+            "401873051"
+          ],
+          "source": "data/rosters/plays-2026.json (ESPN play-by-play, parsed by agents/scout/plays.py)",
+          "date": "2026-11-14"
+        },
+        "right_share": {
+          "how": "targets to the right divided by targets with a direction",
+          "n": 20,
+          "of": 51,
+          "games": [
+            "401872927",
+            "401872937",
+            "401872959",
+            "401872987",
+            "401873014",
+            "401873030",
+            "401873051"
+          ],
+          "source": "data/rosters/plays-2026.json (ESPN play-by-play, parsed by agents/scout/plays.py)",
+          "date": "2026-11-14"
+        }
       }
     },
     "WR2": {
@@ -242,7 +740,8 @@
       "tendencies": {
         "deep_ball": 0.597,
         "catch_rate": 0.682,
-        "red_zone_use": 0.106
+        "red_zone_use": 0.106,
+        "target_share": 0.284
       },
       "tendency_sources": {
         "deep_ball": {
@@ -259,6 +758,11 @@
           "source": "https://api.sleeper.com/stats/nfl/player/11632?season_type=regular&season=2026",
           "date": "2026-11-14",
           "how": "red zone targets divided by targets"
+        },
+        "target_share": {
+          "source": "data/rosters/plays-2026.json (ESPN play-by-play, parsed by agents/scout/plays.py)",
+          "date": "2026-11-14",
+          "how": "targets divided by the team's throws in the games played (from the real plays)"
         }
       },
       "notes": "Season 2026 numbers through game week 9.0 (9.0 games). Filled by agents/scout/fill_profiles.py, no model.",
@@ -311,6 +815,181 @@
         "source": "https://api.sleeper.com/stats/nfl/player/11632?season_type=regular&season=2026&grouping=week",
         "date": "2026-11-14",
         "notes": "Season 2026, weeks 7, 9, 10 added up, weeks 8 skipped (no stats in the source: a bye, an injury, or a game not played yet)."
+      },
+      "play_tendencies": {
+        "target_share": 0.284,
+        "deep_target_share": 0.294,
+        "red_zone_target_share": 0.323,
+        "third_down_target_share": 0.266,
+        "catch_rate_short": 0.75,
+        "catch_rate_deep": 0.52,
+        "left_share": 0.376,
+        "middle_share": 0.212,
+        "right_share": 0.412
+      },
+      "play_tendency_sources": {
+        "target_share": {
+          "how": "targets divided by the team's throws in the games played",
+          "n": 85,
+          "of": 299,
+          "games": [
+            "401872930",
+            "401872947",
+            "401872956",
+            "401872966",
+            "401872988",
+            "401873000",
+            "401873016",
+            "401873044",
+            "401873052"
+          ],
+          "source": "data/rosters/plays-2026.json (ESPN play-by-play, parsed by agents/scout/plays.py)",
+          "date": "2026-11-14"
+        },
+        "deep_target_share": {
+          "how": "deep targets divided by targets with a depth",
+          "n": 25,
+          "of": 85,
+          "games": [
+            "401872930",
+            "401872947",
+            "401872956",
+            "401872966",
+            "401872988",
+            "401873000",
+            "401873016",
+            "401873044",
+            "401873052"
+          ],
+          "source": "data/rosters/plays-2026.json (ESPN play-by-play, parsed by agents/scout/plays.py)",
+          "date": "2026-11-14"
+        },
+        "red_zone_target_share": {
+          "how": "targets inside the 20 divided by the team's throws inside the 20",
+          "n": 10,
+          "of": 31,
+          "games": [
+            "401872930",
+            "401872947",
+            "401872956",
+            "401872966",
+            "401872988",
+            "401873000",
+            "401873016",
+            "401873044",
+            "401873052"
+          ],
+          "source": "data/rosters/plays-2026.json (ESPN play-by-play, parsed by agents/scout/plays.py)",
+          "date": "2026-11-14"
+        },
+        "third_down_target_share": {
+          "how": "third down targets divided by the team's third down throws",
+          "n": 21,
+          "of": 79,
+          "games": [
+            "401872930",
+            "401872947",
+            "401872956",
+            "401872966",
+            "401872988",
+            "401873000",
+            "401873016",
+            "401873044",
+            "401873052"
+          ],
+          "source": "data/rosters/plays-2026.json (ESPN play-by-play, parsed by agents/scout/plays.py)",
+          "date": "2026-11-14"
+        },
+        "catch_rate_short": {
+          "how": "short catches divided by short targets",
+          "n": 45,
+          "of": 60,
+          "games": [
+            "401872930",
+            "401872947",
+            "401872956",
+            "401872966",
+            "401872988",
+            "401873000",
+            "401873016",
+            "401873044",
+            "401873052"
+          ],
+          "source": "data/rosters/plays-2026.json (ESPN play-by-play, parsed by agents/scout/plays.py)",
+          "date": "2026-11-14"
+        },
+        "catch_rate_deep": {
+          "how": "deep catches divided by deep targets",
+          "n": 13,
+          "of": 25,
+          "games": [
+            "401872930",
+            "401872947",
+            "401872956",
+            "401872966",
+            "401872988",
+            "401873000",
+            "401873016",
+            "401873044",
+            "401873052"
+          ],
+          "source": "data/rosters/plays-2026.json (ESPN play-by-play, parsed by agents/scout/plays.py)",
+          "date": "2026-11-14"
+        },
+        "left_share": {
+          "how": "targets to the left divided by targets with a direction",
+          "n": 32,
+          "of": 85,
+          "games": [
+            "401872930",
+            "401872947",
+            "401872956",
+            "401872966",
+            "401872988",
+            "401873000",
+            "401873016",
+            "401873044",
+            "401873052"
+          ],
+          "source": "data/rosters/plays-2026.json (ESPN play-by-play, parsed by agents/scout/plays.py)",
+          "date": "2026-11-14"
+        },
+        "middle_share": {
+          "how": "targets to the middle divided by targets with a direction",
+          "n": 18,
+          "of": 85,
+          "games": [
+            "401872930",
+            "401872947",
+            "401872956",
+            "401872966",
+            "401872988",
+            "401873000",
+            "401873016",
+            "401873044",
+            "401873052"
+          ],
+          "source": "data/rosters/plays-2026.json (ESPN play-by-play, parsed by agents/scout/plays.py)",
+          "date": "2026-11-14"
+        },
+        "right_share": {
+          "how": "targets to the right divided by targets with a direction",
+          "n": 35,
+          "of": 85,
+          "games": [
+            "401872930",
+            "401872947",
+            "401872956",
+            "401872966",
+            "401872988",
+            "401873000",
+            "401873016",
+            "401873044",
+            "401873052"
+          ],
+          "source": "data/rosters/plays-2026.json (ESPN play-by-play, parsed by agents/scout/plays.py)",
+          "date": "2026-11-14"
+        }
       }
     },
     "WR3": {
@@ -319,7 +998,8 @@
       "tendencies": {
         "deep_ball": 0.686,
         "catch_rate": 0.718,
-        "red_zone_use": 0.128
+        "red_zone_use": 0.128,
+        "target_share": 0.195
       },
       "tendency_sources": {
         "deep_ball": {
@@ -336,6 +1016,11 @@
           "source": "https://api.sleeper.com/stats/nfl/player/7569?season_type=regular&season=2026",
           "date": "2026-11-14",
           "how": "red zone targets divided by targets"
+        },
+        "target_share": {
+          "source": "data/rosters/plays-2026.json (ESPN play-by-play, parsed by agents/scout/plays.py)",
+          "date": "2026-11-14",
+          "how": "targets divided by the team's throws in the games played (from the real plays)"
         }
       },
       "notes": "Season 2026 numbers through game week 6.0 (6.0 games). Filled by agents/scout/fill_profiles.py, no model.",
@@ -389,6 +1074,154 @@
         "source": "https://api.sleeper.com/stats/nfl/player/7569?season_type=regular&season=2026&grouping=week",
         "date": "2026-11-14",
         "notes": "Season 2026, weeks 6, 7, 9 added up, weeks 8, 10 skipped (no stats in the source: a bye, an injury, or a game not played yet)."
+      },
+      "play_tendencies": {
+        "target_share": 0.195,
+        "deep_target_share": 0.359,
+        "red_zone_target_share": 0.2,
+        "third_down_target_share": 0.188,
+        "catch_rate_short": 0.88,
+        "catch_rate_deep": 0.429,
+        "left_share": 0.256,
+        "middle_share": 0.282,
+        "right_share": 0.462
+      },
+      "play_tendency_sources": {
+        "target_share": {
+          "how": "targets divided by the team's throws in the games played",
+          "n": 39,
+          "of": 200,
+          "games": [
+            "401872660",
+            "401872967",
+            "401872984",
+            "401872996",
+            "401873016",
+            "401873046"
+          ],
+          "source": "data/rosters/plays-2026.json (ESPN play-by-play, parsed by agents/scout/plays.py)",
+          "date": "2026-11-14"
+        },
+        "deep_target_share": {
+          "how": "deep targets divided by targets with a depth",
+          "n": 14,
+          "of": 39,
+          "games": [
+            "401872660",
+            "401872967",
+            "401872984",
+            "401872996",
+            "401873016",
+            "401873046"
+          ],
+          "source": "data/rosters/plays-2026.json (ESPN play-by-play, parsed by agents/scout/plays.py)",
+          "date": "2026-11-14"
+        },
+        "red_zone_target_share": {
+          "how": "targets inside the 20 divided by the team's throws inside the 20",
+          "n": 6,
+          "of": 30,
+          "games": [
+            "401872660",
+            "401872967",
+            "401872984",
+            "401872996",
+            "401873016",
+            "401873046"
+          ],
+          "source": "data/rosters/plays-2026.json (ESPN play-by-play, parsed by agents/scout/plays.py)",
+          "date": "2026-11-14"
+        },
+        "third_down_target_share": {
+          "how": "third down targets divided by the team's third down throws",
+          "n": 9,
+          "of": 48,
+          "games": [
+            "401872660",
+            "401872967",
+            "401872984",
+            "401872996",
+            "401873016",
+            "401873046"
+          ],
+          "source": "data/rosters/plays-2026.json (ESPN play-by-play, parsed by agents/scout/plays.py)",
+          "date": "2026-11-14"
+        },
+        "catch_rate_short": {
+          "how": "short catches divided by short targets",
+          "n": 22,
+          "of": 25,
+          "games": [
+            "401872660",
+            "401872967",
+            "401872984",
+            "401872996",
+            "401873016",
+            "401873046"
+          ],
+          "source": "data/rosters/plays-2026.json (ESPN play-by-play, parsed by agents/scout/plays.py)",
+          "date": "2026-11-14"
+        },
+        "catch_rate_deep": {
+          "how": "deep catches divided by deep targets",
+          "n": 6,
+          "of": 14,
+          "games": [
+            "401872660",
+            "401872967",
+            "401872984",
+            "401872996",
+            "401873016",
+            "401873046"
+          ],
+          "source": "data/rosters/plays-2026.json (ESPN play-by-play, parsed by agents/scout/plays.py)",
+          "date": "2026-11-14"
+        },
+        "left_share": {
+          "how": "targets to the left divided by targets with a direction",
+          "n": 10,
+          "of": 39,
+          "games": [
+            "401872660",
+            "401872967",
+            "401872984",
+            "401872996",
+            "401873016",
+            "401873046"
+          ],
+          "source": "data/rosters/plays-2026.json (ESPN play-by-play, parsed by agents/scout/plays.py)",
+          "date": "2026-11-14"
+        },
+        "middle_share": {
+          "how": "targets to the middle divided by targets with a direction",
+          "n": 11,
+          "of": 39,
+          "games": [
+            "401872660",
+            "401872967",
+            "401872984",
+            "401872996",
+            "401873016",
+            "401873046"
+          ],
+          "source": "data/rosters/plays-2026.json (ESPN play-by-play, parsed by agents/scout/plays.py)",
+          "date": "2026-11-14"
+        },
+        "right_share": {
+          "how": "targets to the right divided by targets with a direction",
+          "n": 18,
+          "of": 39,
+          "games": [
+            "401872660",
+            "401872967",
+            "401872984",
+            "401872996",
+            "401873016",
+            "401873046"
+          ],
+          "source": "data/rosters/plays-2026.json (ESPN play-by-play, parsed by agents/scout/plays.py)",
+          "date": "2026-11-14"
+        }
       }
     },
     "TE": {
@@ -397,7 +1230,8 @@
       "tendencies": {
         "deep_ball": 0.636,
         "catch_rate": 0.717,
-        "red_zone_use": 0.208
+        "red_zone_use": 0.208,
+        "target_share": 0.226
       },
       "tendency_sources": {
         "deep_ball": {
@@ -414,6 +1248,11 @@
           "source": "https://api.sleeper.com/stats/nfl/player/4217?season_type=regular&season=2026",
           "date": "2026-11-14",
           "how": "red zone targets divided by targets"
+        },
+        "target_share": {
+          "source": "data/rosters/plays-2026.json (ESPN play-by-play, parsed by agents/scout/plays.py)",
+          "date": "2026-11-14",
+          "how": "targets divided by the team's throws in the games played (from the real plays)"
         }
       },
       "notes": "Season 2026 numbers through game week 8.0 (8.0 games). Filled by agents/scout/fill_profiles.py, no model.",
@@ -467,6 +1306,172 @@
         "source": "https://api.sleeper.com/stats/nfl/player/4217?season_type=regular&season=2026&grouping=week",
         "date": "2026-11-14",
         "notes": "Season 2026, weeks 6, 7, 9 added up, weeks 8, 10 skipped (no stats in the source: a bye, an injury, or a game not played yet)."
+      },
+      "play_tendencies": {
+        "target_share": 0.226,
+        "deep_target_share": 0.208,
+        "red_zone_target_share": 0.3,
+        "third_down_target_share": 0.155,
+        "catch_rate_short": 0.786,
+        "catch_rate_deep": 0.455,
+        "left_share": 0.472,
+        "middle_share": 0.245,
+        "right_share": 0.283
+      },
+      "play_tendency_sources": {
+        "target_share": {
+          "how": "targets divided by the team's throws in the games played",
+          "n": 53,
+          "of": 234,
+          "games": [
+            "401872657",
+            "401872942",
+            "401872958",
+            "401872975",
+            "401872992",
+            "401873008",
+            "401873017",
+            "401873047"
+          ],
+          "source": "data/rosters/plays-2026.json (ESPN play-by-play, parsed by agents/scout/plays.py)",
+          "date": "2026-11-14"
+        },
+        "deep_target_share": {
+          "how": "deep targets divided by targets with a depth",
+          "n": 11,
+          "of": 53,
+          "games": [
+            "401872657",
+            "401872942",
+            "401872958",
+            "401872975",
+            "401872992",
+            "401873008",
+            "401873017",
+            "401873047"
+          ],
+          "source": "data/rosters/plays-2026.json (ESPN play-by-play, parsed by agents/scout/plays.py)",
+          "date": "2026-11-14"
+        },
+        "red_zone_target_share": {
+          "how": "targets inside the 20 divided by the team's throws inside the 20",
+          "n": 12,
+          "of": 40,
+          "games": [
+            "401872657",
+            "401872942",
+            "401872958",
+            "401872975",
+            "401872992",
+            "401873008",
+            "401873017",
+            "401873047"
+          ],
+          "source": "data/rosters/plays-2026.json (ESPN play-by-play, parsed by agents/scout/plays.py)",
+          "date": "2026-11-14"
+        },
+        "third_down_target_share": {
+          "how": "third down targets divided by the team's third down throws",
+          "n": 9,
+          "of": 58,
+          "games": [
+            "401872657",
+            "401872942",
+            "401872958",
+            "401872975",
+            "401872992",
+            "401873008",
+            "401873017",
+            "401873047"
+          ],
+          "source": "data/rosters/plays-2026.json (ESPN play-by-play, parsed by agents/scout/plays.py)",
+          "date": "2026-11-14"
+        },
+        "catch_rate_short": {
+          "how": "short catches divided by short targets",
+          "n": 33,
+          "of": 42,
+          "games": [
+            "401872657",
+            "401872942",
+            "401872958",
+            "401872975",
+            "401872992",
+            "401873008",
+            "401873017",
+            "401873047"
+          ],
+          "source": "data/rosters/plays-2026.json (ESPN play-by-play, parsed by agents/scout/plays.py)",
+          "date": "2026-11-14"
+        },
+        "catch_rate_deep": {
+          "how": "deep catches divided by deep targets",
+          "n": 5,
+          "of": 11,
+          "games": [
+            "401872657",
+            "401872942",
+            "401872958",
+            "401872975",
+            "401872992",
+            "401873008",
+            "401873017",
+            "401873047"
+          ],
+          "source": "data/rosters/plays-2026.json (ESPN play-by-play, parsed by agents/scout/plays.py)",
+          "date": "2026-11-14"
+        },
+        "left_share": {
+          "how": "targets to the left divided by targets with a direction",
+          "n": 25,
+          "of": 53,
+          "games": [
+            "401872657",
+            "401872942",
+            "401872958",
+            "401872975",
+            "401872992",
+            "401873008",
+            "401873017",
+            "401873047"
+          ],
+          "source": "data/rosters/plays-2026.json (ESPN play-by-play, parsed by agents/scout/plays.py)",
+          "date": "2026-11-14"
+        },
+        "middle_share": {
+          "how": "targets to the middle divided by targets with a direction",
+          "n": 13,
+          "of": 53,
+          "games": [
+            "401872657",
+            "401872942",
+            "401872958",
+            "401872975",
+            "401872992",
+            "401873008",
+            "401873017",
+            "401873047"
+          ],
+          "source": "data/rosters/plays-2026.json (ESPN play-by-play, parsed by agents/scout/plays.py)",
+          "date": "2026-11-14"
+        },
+        "right_share": {
+          "how": "targets to the right divided by targets with a direction",
+          "n": 15,
+          "of": 53,
+          "games": [
+            "401872657",
+            "401872942",
+            "401872958",
+            "401872975",
+            "401872992",
+            "401873008",
+            "401873017",
+            "401873047"
+          ],
+          "source": "data/rosters/plays-2026.json (ESPN play-by-play, parsed by agents/scout/plays.py)",
+          "date": "2026-11-14"
+        }
       }
     },
     "K": {
@@ -527,6 +1532,82 @@
         "source": "https://api.sleeper.com/stats/nfl/player/4227?season_type=regular&season=2026&grouping=week",
         "date": "2026-11-14",
         "notes": "Season 2026, weeks 7, 8, 9 added up, weeks 10 skipped (no stats in the source: a bye, an injury, or a game not played yet)."
+      },
+      "play_tendencies": {
+        "make_rate_0_39": 1.0,
+        "make_rate_40_49": 0.8,
+        "make_rate_50_plus": 0.25,
+        "long_attempt_share": 0.684
+      },
+      "play_tendency_sources": {
+        "make_rate_0_39": {
+          "how": "field goals made from 0 to 39 yards divided by attempts",
+          "n": 6,
+          "of": 6,
+          "games": [
+            "401872931",
+            "401872945",
+            "401872952",
+            "401872976",
+            "401873006",
+            "401873022",
+            "401873033",
+            "401873045"
+          ],
+          "source": "data/rosters/plays-2026.json (ESPN play-by-play, parsed by agents/scout/plays.py)",
+          "date": "2026-11-14"
+        },
+        "make_rate_40_49": {
+          "how": "field goals made from 40 to 49 yards divided by attempts",
+          "n": 4,
+          "of": 5,
+          "games": [
+            "401872931",
+            "401872945",
+            "401872952",
+            "401872976",
+            "401873006",
+            "401873022",
+            "401873033",
+            "401873045"
+          ],
+          "source": "data/rosters/plays-2026.json (ESPN play-by-play, parsed by agents/scout/plays.py)",
+          "date": "2026-11-14"
+        },
+        "make_rate_50_plus": {
+          "how": "field goals made from 50 or more yards divided by attempts",
+          "n": 2,
+          "of": 8,
+          "games": [
+            "401872931",
+            "401872945",
+            "401872952",
+            "401872976",
+            "401873006",
+            "401873022",
+            "401873033",
+            "401873045"
+          ],
+          "source": "data/rosters/plays-2026.json (ESPN play-by-play, parsed by agents/scout/plays.py)",
+          "date": "2026-11-14"
+        },
+        "long_attempt_share": {
+          "how": "attempts from 40 yards or more divided by attempts",
+          "n": 13,
+          "of": 19,
+          "games": [
+            "401872931",
+            "401872945",
+            "401872952",
+            "401872976",
+            "401873006",
+            "401873022",
+            "401873033",
+            "401873045"
+          ],
+          "source": "data/rosters/plays-2026.json (ESPN play-by-play, parsed by agents/scout/plays.py)",
+          "date": "2026-11-14"
+        }
       }
     }
   }

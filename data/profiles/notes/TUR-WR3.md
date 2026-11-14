@@ -1,6 +1,6 @@
 # Drake London
 
-TUR, WR3 (WR). Written by `agents/scout/notes.py` on 2026-11-14 from the data files, with no model: the two sentences under "What it means" come from fixed rules on the numbers below. On-field numbers only.
+TUR, WR3 (WR). Written by `agents/scout/notes.py` on 2026-11-14 from the data files, with no model: the two sentences under "What it means" come from fixed rules on the numbers below (the real plays first). On-field numbers only.
 
 ## Season tendencies
 
@@ -9,8 +9,25 @@ TUR, WR3 (WR). Written by `agents/scout/notes.py` on 2026-11-14 from the data fi
 | deep ball | 0.786 | receiving yards per catch divided by 20, capped at 1 | https://api.sleeper.com/stats/nfl/player/8112?season_type=regular&season=2026 | 2026-11-14 |
 | catch rate | 0.647 | catches divided by targets | https://api.sleeper.com/stats/nfl/player/8112?season_type=regular&season=2026 | 2026-11-14 |
 | red zone use | 0.059 | red zone targets divided by targets | https://api.sleeper.com/stats/nfl/player/8112?season_type=regular&season=2026 | 2026-11-14 |
+| target share | 0.263 | targets divided by the team's throws in the games played (from the real plays) | data/rosters/plays-2026.json (ESPN play-by-play, parsed by agents/scout/plays.py) | 2026-11-14 |
 
 Season 2026 numbers through game week 9.0 (9.0 games). Filled by agents/scout/fill_profiles.py, no model.
+
+## From the real plays
+
+Worked out snap by snap from ESPN's play-by-play of 9 games (data/rosters/plays-2026.json (ESPN play-by-play, parsed by agents/scout/plays.py), read 2026-11-14). A number needs at least 5 plays under it.
+
+| What | Value | Plays | How |
+|---|---|---|---|
+| target share | 0.263 | 67 of 255 | targets divided by the team's throws in the games played |
+| deep targets | 0.269 | 18 of 67 | deep targets divided by targets with a depth |
+| red zone target share | 0.118 | 4 of 34 | targets inside the 20 divided by the team's throws inside the 20 |
+| third down target share | 0.338 | 24 of 71 | third down targets divided by the team's third down throws |
+| short catch rate | 0.673 | 33 of 49 | short catches divided by short targets |
+| deep catch rate | 0.611 | 11 of 18 | deep catches divided by deep targets |
+| to the left | 0.388 | 26 of 67 | targets to the left divided by targets with a direction |
+| to the middle | 0.209 | 14 of 67 | targets to the middle divided by targets with a direction |
+| to the right | 0.403 | 27 of 67 | targets to the right divided by targets with a direction |
 
 ## Recent form
 

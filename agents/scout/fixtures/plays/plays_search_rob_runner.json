@@ -1,0 +1,21 @@
+{
+ "items": [
+  {
+   "id": "802",
+   "displayName": "Rob Runner",
+   "league": "nfl",
+   "isActive": true,
+   "position": {
+    "abbreviation": "RB"
+   },
+   "teamRelationships": [
+    {
+     "type": "team",
+     "core": {
+      "abbreviation": "TST"
+     }
+    }
+   ]
+  }
+ ]
+}

@@ -1,6 +1,6 @@
 # Patrick Mahomes
 
-OWL, QB (QB). Written by `agents/scout/notes.py` on 2026-11-14 from the data files, with no model: the two sentences under "What it means" come from fixed rules on the numbers below. On-field numbers only.
+OWL, QB (QB). Written by `agents/scout/notes.py` on 2026-11-14 from the data files, with no model: the two sentences under "What it means" come from fixed rules on the numbers below (the real plays first). On-field numbers only.
 
 ## Season tendencies
 
@@ -11,6 +11,23 @@ OWL, QB (QB). Written by `agents/scout/notes.py` on 2026-11-14 from the data fil
 | running as a quarterback | 0.04 | rush yards divided by pass plus rush yards | https://api.sleeper.com/stats/nfl/player/4046?season_type=regular&season=2026 | 2026-11-14 |
 
 Season 2026 numbers through game week 8.0 (8.0 games). Filled by agents/scout/fill_profiles.py, no model.
+
+## From the real plays
+
+Worked out snap by snap from ESPN's play-by-play of 8 games (data/rosters/plays-2026.json (ESPN play-by-play, parsed by agents/scout/plays.py), read 2026-11-14). A number needs at least 5 plays under it.
+
+| What | Value | Plays | How |
+|---|---|---|---|
+| deep throws | 0.133 | 35 of 263 | deep throws divided by throws with a depth in the play text |
+| to the left | 0.3 | 79 of 263 | throws to the left divided by throws with a direction |
+| to the middle | 0.224 | 59 of 263 | throws to the middle divided by throws with a direction |
+| to the right | 0.475 | 125 of 263 | throws to the right divided by throws with a direction |
+| deep completions | 0.4 | 14 of 35 | deep completions divided by deep throws |
+| sacks | 0.04 | 11 of 274 | sacks divided by throws plus sacks |
+| interceptions | 0.015 | 4 of 263 | interceptions divided by throws |
+| scrambles | 0.052 | 15 of 289 | scrambles divided by dropbacks (throws, sacks and scrambles) |
+| third downs converted | 0.368 | 28 of 76 | third down plays by the quarterback that gained the first down or scored |
+| red zone touchdown throws | 0.279 | 12 of 43 | touchdown throws inside the 20 divided by throws inside the 20 |
 
 ## Recent form
 
@@ -30,4 +47,4 @@ Sleeper: https://api.sleeper.com/stats/nfl/player/4046?season_type=regular&seaso
 
 ## What it means for play calling
 
-Mahomes rarely runs (0.04): plan for the pocket. Mahomes throws at a middle depth (0.645 on deep ball): a mix of short and long.
+Mahomes rarely throws deep: 0.133 of throws in the real plays. Mahomes rarely runs (0.04): plan for the pocket.

@@ -116,3 +116,20 @@ Live run on 2026-11-14: 21 of 22 players filled. William Saliba stays null: ESPN
 ## Notes pages
 
 `python3 agents/scout/notes.py` writes `data/profiles/notes/<team>-<slot>.md` for the 28 players of the four football teams: season tendencies with how, source and date; recent form next to the season; the Sleeper and ESPN result; and two sentences on what it means for play calling. The sentences come from fixed rules on the numbers (`RULES` in the script), not from a model, and each page says so. Run it again after the profiles change; do not edit the pages by hand. Offline check: `python3 agents/scout/check_notes.py`. `data/rosters/crosscheck-2026.json` now covers all 28 players (all agree).
+
+## Real play-by-play
+
+```bash
+SCOUT_CACHE=/tmp/espn python3 agents/scout/plays.py    # live; SCOUT_CACHE keeps the game files for a second run
+python3 agents/scout/check_plays.py                       # offline, fixtures in fixtures/plays/
+```
+
+For the 28 football roster players it finds each one and his NFL team on ESPN, walks every finished week of the season on ESPN's scoreboard, reads the play-by-play of every game those teams played, and keeps every snap that involves our players, parsed from the play text: kind, passer, target, depth and direction of the pass, run gap, yards, touchdown, down, distance, yards to the end zone, quarter and clock. It writes `data/rosters/plays-2026.json` with the address of every game, each game's team totals (for shares), and each player's ESPN box score line per game.
+
+Rules it follows, each found by comparing with the official numbers: only the final ruling of a replay counts ("the play was REVERSED."); a play wiped out by a penalty ("No Play") is kept but left out of every total; an accepted defensive pass interference is not an attempt; an offensive foul beyond the line on a run stops the yards at the foul; yards after a lateral count as receiving yards for the player who took it; aborted snaps are carries; ESPN writes a longer first name part when two players share a short name ("Bi.Robinson"), and some plays with full names.
+
+Live run on 2026-11-14 (weeks 1 to 10, 116 games, 3,177 plays): 1,080 of 1,100 game lines equal ESPN's own box score exactly, and 156 of 172 season totals equal Sleeper's (6 more within 1). Every difference is listed in the file under `reconcile_box` and `reconcile`; the ones left are single attempts or targets on plays wiped out by penalties, which the providers count differently, and a few yards on plays with fouls after the catch.
+
+## Tendencies from real plays
+
+`python3 agents/scout/play_tendencies.py` (no network) reads `data/rosters/plays-2026.json` and adds `play_tendencies` and `play_tendency_sources` to every football profile: for quarterbacks deep share, left, middle and right, deep completion, sack, interception and scramble rates, third down conversion and red zone touchdown rate; for receivers and tight ends target share, deep, red zone and third down target shares, catch rates short and deep, directions; for backs carry and target share, gap sides, goal line and short yardage shares, explosive and stuffed runs; for kickers make rates by distance band. Every number says how it was worked out, how many plays it rests on out of how many, and which games. Team totals come only from the games the player played. A share needs 5 plays or it stays null. It also fills `target_share` in the season `tendencies`, which season totals could not give. `notes.py` shows these in a "From the real plays" section and uses them first for the play-calling sentences. Offline check: `python3 agents/scout/check_play_tendencies.py`.

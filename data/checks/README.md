@@ -27,6 +27,8 @@ It prints one line per check (OK, FAILED or SKIPPED with the reason) and a final
 | Scout tools | `python3 agents/scout/check.py` | Scout's tools on saved samples in `agents/scout/fixtures/` |
 | real week stat lines | `python3 agents/scout/check_statlines.py` | `statlines.py` writes the shape of `week11.json` from samples |
 | recent form | `python3 agents/scout/check_form.py` | `form.py` picks the last three played weeks and leaves the season fields alone |
+| play-by-play | `python3 agents/scout/check_plays.py` | `plays.py` parses every kind of play (catches, laterals, full-name plays, replay reversals, plays wiped out by penalties, two-point tries, kicks), credits the right player, and finds planted differences with Sleeper and with ESPN's box score |
+| play tendencies | `python3 agents/scout/check_play_tendencies.py` | shares from real plays are right on hand-made plays (team totals only from the player's games, wiped-out plays and DPI left out, fewer than 5 plays gives null), and the profile keeps its other fields |
 | Sleeper against ESPN | `python3 agents/scout/check_crosscheck.py` | `crosscheck.py` finds the right ESPN player, flags only real disagreements and writes null where ESPN has no number |
 | Scout notes | `python3 agents/scout/check_notes.py` | `notes.py` writes one page per football player with every number's source and date, null as not known, the Sleeper and ESPN result, and exactly two rule-made sentences with no pronouns |
 | soccer numbers | `python3 agents/scout/check_soccer.py` | `fill_soccer.py` computes the soccer tendencies, leaves null what ESPN does not give, and builds one real round of lines with the broken match maker rules listed |
