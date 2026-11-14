@@ -683,22 +683,22 @@
   }
 
   // Share sheet when the browser has one for files, a download otherwise.
-  function shareResult(btn) {
-    var c = drawResultCard();
+  // Share a picture: the share sheet when the browser can share files, a download otherwise.
+  function sharePicture(c, name, title, btn) {
     if (btn) btn.disabled = true;
     function done() { if (btn) btn.disabled = false; }
     function download(blob) {
       var url = URL.createObjectURL(blob), a = document.createElement('a');
-      a.href = url; a.download = cardFileName();
+      a.href = url; a.download = name;
       document.body.appendChild(a); a.click(); a.remove();
       setTimeout(function () { URL.revokeObjectURL(url); }, 4000);
     }
     c.toBlob(function (blob) {
       if (!blob) { done(); return; }
       var file = null;
-      try { file = new File([blob], cardFileName(), { type: 'image/png' }); } catch (err) { file = null; }
+      try { file = new File([blob], name, { type: 'image/png' }); } catch (err) { file = null; }
       if (file && navigator.share && navigator.canShare && navigator.canShare({ files: [file] })) {
-        navigator.share({ files: [file], title: 'Fantasy Recap, ' + WEEK })
+        navigator.share({ files: [file], title: title })
           .catch(function (err) { if (!err || err.name !== 'AbortError') download(blob); })
           .then(done, done);
       } else {
@@ -706,6 +706,89 @@
         done();
       }
     }, 'image/png');
+  }
+  function shareResult(btn) { sharePicture(drawResultCard(), cardFileName(), 'Fantasy Recap, ' + WEEK, btn); }
+
+  // The top play as a picture: the first of the same list as server/top-plays.js (B18),
+  // or, if that cannot be worked out, the play in the feed that moved the most points.
+  function topPlayForCard() {
+    var t = topPlaysLocal(1)[0];
+    if (t) return { text: t.text, players: t.players, points: t.points, quarter: t.quarter, clock: t.clock, team: t.team };
+    var best = null;
+    m.feed.forEach(function (p) {
+      if (p.divider) return;
+      var pts = p.fp.reduce(function (a, f) { return a + Math.abs(f.pts); }, 0);
+      if (!best || pts > best.points) best = { text: p.desc, players: p.fp.map(function (f) { return f.who; }), points: Math.round(pts * 10) / 10, team: TEAMS[p.team].id };
+    });
+    return best;
+  }
+  function drawTopPlayCard() {
+    var top = topPlayForCard();
+    var c = document.createElement('canvas');
+    c.width = CARD_W; c.height = CARD_H;
+    var g = c.getContext('2d'), P = 72, inner = CARD_W - 2 * P;
+    var styles = getComputedStyle(document.documentElement);
+    function tc(n, f) { return styles.getPropertyValue(n).trim() || f; }
+    var C = { bg: tc('--bg', '#0b0d0e'), panel: tc('--panel', '#131617'), inset: tc('--inset', '#1b1f21'), rule: tc('--rule', '#2b3033'),
+              text: tc('--text', '#f3f1ea'), dim: tc('--dim', '#8e9597'), amber: tc('--amber', '#ffc21a') };
+    var ti = top ? Math.max(0, teamByName(top.team)) : 0;
+    g.fillStyle = C.bg; g.fillRect(0, 0, CARD_W, CARD_H);
+    g.fillStyle = TEAMS[ti].colors.jersey; g.fillRect(0, 0, CARD_W, 14);
+    g.textBaseline = 'alphabetic';
+    g.fillStyle = C.amber; g.fillRect(P, 92, 22, 22);
+    g.fillStyle = C.text; g.font = '700 44px ' + CARD_FONT; g.textAlign = 'left';
+    g.fillText('FANTASY RECAP', P + 38, 114);
+    g.fillStyle = C.dim; g.font = '700 28px ' + CARD_BODY; g.textAlign = 'right';
+    g.fillText((WEEK + ', top play').toUpperCase(), CARD_W - P, 112);
+
+    // Both teams and the final score.
+    var y = 190;
+    ord().forEach(function (t, i) {
+      var yy = y + i * 84;
+      g.fillStyle = TEAMS[t].colors.jersey; g.fillRect(P, yy, 10, 62);
+      g.fillStyle = C.text; g.font = '700 56px ' + CARD_FONT; g.textAlign = 'left';
+      g.fillText(TEAMS[t].full.toUpperCase(), P + 30, yy + 52);
+      g.textAlign = 'right'; g.fillText(String(m.field[t]), CARD_W - P, yy + 52);
+    });
+    g.fillStyle = C.dim; g.font = '700 26px ' + CARD_BODY; g.textAlign = 'left';
+    g.fillText('FINAL', P, y + 84 * 2 + 30);
+
+    // The play.
+    y = 520;
+    g.font = '700 76px ' + CARD_FONT;
+    var pre = top ? String(top.text) : '', mm0 = /^(?:.+? at (?:the )?[A-Z0-9 ]+|1st and goal[^:]*): (.*)$/.exec(pre);
+    var nLines = Math.min(4, wrapText(g, mm0 ? mm0[1] : pre || 'No play moved any points.', inner - 88).length);
+    var panelH = 150 + nLines * 84 + (top ? 150 : 20);
+    g.fillStyle = C.panel; g.fillRect(P, y, inner, panelH);
+    g.fillStyle = TEAMS[ti].colors.jersey; g.fillRect(P, y, 10, panelH);
+    g.fillStyle = C.dim; g.font = '700 26px ' + CARD_BODY;
+    g.fillText(top && top.quarter ? ('TOP PLAY, Q' + top.quarter + ' ' + top.clock + ', ' + top.team) : 'TOP PLAY', P + 44, y + 62);
+    var text = top ? String(top.text) : 'No play moved any points.';
+    var mm = /^(?:.+? at (?:the )?[A-Z0-9 ]+|1st and goal[^:]*): (.*)$/.exec(text);
+    if (mm) text = mm[1];
+    text = text.charAt(0).toUpperCase() + text.slice(1).replace(/TOUCHDOWN/g, 'touchdown');
+    if (!/[.!]$/.test(text)) text += '.';
+    g.fillStyle = C.text; g.font = '700 76px ' + CARD_FONT;
+    var lines = wrapText(g, text, inner - 88).slice(0, 4);
+    lines.forEach(function (l, i) { g.fillText(l, P + 44, y + 150 + i * 84); });
+    if (top) {
+      var py = y + 150 + lines.length * 84 + 40;
+      g.fillStyle = C.dim; g.font = '600 32px ' + CARD_BODY;
+      var who = top.players.join(', ');
+      while (g.measureText(who).width > inner - 380 && who.length > 4) who = who.slice(0, -2);
+      g.fillText(who, P + 44, py);
+      g.fillStyle = C.amber; g.font = '700 120px ' + CARD_FONT; g.textAlign = 'right';
+      g.fillText(f1(top.points), CARD_W - P - 40, py + 20);
+      g.fillStyle = C.dim; g.font = '700 24px ' + CARD_BODY;
+      g.fillText('FANTASY POINTS', CARD_W - P - 40, py + 60);
+    }
+    g.textAlign = 'left'; g.fillStyle = C.dim; g.font = '600 26px ' + CARD_BODY;
+    g.fillText('Sample game. Real names, made-up stats.', P, CARD_H - 70);
+    return c;
+  }
+  function shareTopPlay(btn) {
+    if (masked()) return; // never while scores are hidden
+    sharePicture(drawTopPlayCard(), 'fantasy-recap-' + WEEK.toLowerCase().replace(/\s+/g, '-') + '-top-play.png', 'Top play, ' + WEEK, btn);
   }
 
   function winnerHero() {
@@ -729,6 +812,7 @@
         fieldScore() +
         '<span class="sit">Full time</span></div>' +
       '<div class="actions">' + watchButton() + '<button type="button" class="cta ghost" data-act="share">Share result</button>' +
+        (masked() ? '' : '<button type="button" class="cta ghost" data-act="share-top">Share the top play</button>') +
         '<a class="cta ghost" href="#film">Film room</a>' + keep + '</div>' +
       '</div>';
   }
@@ -1595,6 +1679,7 @@
     else if (act === 'filter') { filter = el.getAttribute('data-f'); render(false); }
     else if (act === 'optin') { setOptin(el.getAttribute('data-v') === 'in' ? 'in' : 'out'); render(false); }
     else if (act === 'share') { shareResult(el); }
+    else if (act === 'share-top') { shareTopPlay(el); }
     else if (act === 'seek') { watchPlay(Number(el.getAttribute('data-i')), el); }
     else if (act === 'week') { weekSel = Number(el.getAttribute('data-w')); render(false); }
     else if (act === 'film') {
@@ -1639,7 +1724,9 @@
   G.on(function (type, d) {
     if (type === 'reset') { m = blank(); whyDemoUsed = 0; whyOpen = {}; filmSel = 0; }
     else if (type === 'start') m.status = 'live';
-    else if (type === 'snap') m.now = d.res.e.t === 'kickoff' ? 'Kickoff' : d.res.e.t === 'xp' ? 'Extra point try' : d.res.where;
+    // A seek resets the game without a new start event, so the first play after it marks it live.
+    if ((type === 'snap' || type === 'result') && m.status === 'pre') m.status = 'live';
+    if (type === 'snap') m.now = d.res.e.t === 'kickoff' ? 'Kickoff' : d.res.e.t === 'xp' ? 'Extra point try' : d.res.where;
     else if (type === 'result') {
       applyResult(d.res);
       setTimeout(function () { if (!inGame) render(false); }, 1600); // lets the highlight on new points fade
@@ -1680,8 +1767,10 @@
       return out;
     },
     resultCard: function () { return drawResultCard().toDataURL('image/png'); },
+    topPlayCard: function () { return drawTopPlayCard().toDataURL('image/png'); },
     get live() { return liveEl.textContent; },
     get learn() { return learn; },
+    setOptin: function (v) { setOptin(v === 'in' ? 'in' : 'out'); if (!inGame) render(false); },
     jumpTo: function (n) { return jumpTo(n); },
     get currentPlay() { return currentPlay(); },
     get rule() { return ruleEl.hidden ? '' : ruleEl.textContent; },
@@ -1700,4 +1789,10 @@
   var installScript = document.createElement('script');
   installScript.src = 'js/screens/install.js';
   document.body.appendChild(installScript);
+  // ?demo=1 plays the two-minute demo by itself (js/screens/demo.js).
+  if (/[?&]demo=1(&|$)/.test(location.search)) {
+    var demoScript = document.createElement('script');
+    demoScript.src = 'js/screens/demo.js';
+    document.body.appendChild(demoScript);
+  }
 })();

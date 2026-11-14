@@ -127,3 +127,15 @@ Bring the soccer announcer in `js/announcer/soccer/` up to what football has: `S
 ## Task C22: sound check without ears
 
 Nobody on the review side can hear the game. Write `js/audio-check.js` (node, no browser) that loads `js/audio.js` against a small fake AudioContext that records every node, gain and start time, plays a whole game's sounds through it, and reports: any gain above 1, voice and crowd at full level at the same time (ducking must lower the crowd while a line plays), anything that starts while muted, two jingles at once, and sounds left running after `crowd_stop` or the final. Prints OK or the list, exits non zero on a problem. Fix what it finds. Post `NOTE "boss: ..."` with the command.
+
+## Task C23: the pre-game show (with Ricky and Peyton)
+
+`FF_ANNOUNCER.preview(matchup, ctx)`: three or four sentences before a game, from what is known before kickoff only: each team's record and standing from `data/league.json` (D16), one hot and one cold player from recent form (D24, in the profiles), and one tendency worth watching. No score, no result, nothing from the game file. Both styles. Returns '' when it has nothing true to say. Peyton's league home can show it under each matchup: post `NOTE "peyton: ..."` with the function and arguments. Ask Ricky if a field you need is missing. Add cases to the check.
+
+## Task C24: Spanish broadcast (with Peyton)
+
+`FF_ANNOUNCER.lang = 'en'` or `'es'`. In Spanish every kind of line (plays, intro, halftime, wrap, catch-up, big call, tendency, hot and cold, rule explainers, sound captions) comes out in natural Spanish, the way a Spanish language football broadcast says it, Straight style at least, with the same variants count as the check asks for in English. Lines live in their own file (`js/announcer/lines-es.js`); ask the boss to load it. The audit (C19) and the check run in both languages. The browser voice uses a Spanish voice when one is installed. Tell Peyton the switch name for B28.
+
+## Task C25: voice render dry run
+
+Rendering spends Noah's ElevenLabs credits, so a person must see the bill first. Add `--dry-run` to `js/announcer/voice/render.js`: with no key and no network it prints every line it would render for the football game the app plays and the soccer sample (after the audit's rules: no repeats rendered twice), the count, the total characters, an estimate of the audio size against the 15 MB limit, and writes the list to `js/announcer/voice/render-list.json` so the real run renders exactly that list. Never call the service in this task. Post `NOTE "boss: ..."` with the numbers so they go under "Waiting for Juan" for Noah to approve.

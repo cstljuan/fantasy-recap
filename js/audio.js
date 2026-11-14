@@ -80,7 +80,7 @@
   var played = {};
 
   function init(ctx) {
-    if (ctx) { ac = null; bed = null; }   // a given context (for tests) replaces the old one
+    if (ctx) { ac = null; bed = null; jingleUntil = 0; }   // a given context (for tests) replaces the old one
     if (ac) { if (ac.state === 'suspended') ac.resume(); return; }
     var AC = ctx ? null : root.AudioContext || root.webkitAudioContext;
     if (!AC && !ctx) return;
@@ -174,7 +174,7 @@
     // A slow wobble in loudness so it sounds like people talking, not a fan.
     var lfo = ac.createOscillator(), lg = ac.createGain();
     lfo.frequency.value = 0.35; lg.gain.value = 0.25;
-    var wob = ac.createGain(); wob.gain.value = 1;
+    var wob = ac.createGain(); wob.gain.value = 0.75;   // wobbles between 0.5 and 1.0, never above 1
     lfo.connect(lg); lg.connect(wob.gain);
     src.connect(lo); lo.connect(hi); hi.connect(wob); wob.connect(g); g.connect(crowdBus);
     src.start(t); lfo.start(t);
@@ -365,11 +365,25 @@
     });
   }
 
+  var jingleUntil = 0;
+  var JINGLE_SECS = { jingle_kickoff: 3.5, jingle_final: 4.2 };
+
   function play(name) {
-    sendCaption(name);
+    sendCaption(name);   // captions come even when muted: they are for people who cannot hear
     played[name] = (played[name] || 0) + 1;
     if (!ac || !SOUNDS[name]) return;
-    try { SOUNDS[name](ac.currentTime + 0.01); } catch (err) { /* sound is optional */ }
+    var t = ac.currentTime + 0.01;
+    // Muted or hidden: start nothing, but still let crowd_stop end a murmur that is running.
+    if ((settings.muted || hidden()) && name !== 'crowd_stop') {
+      if (name === 'crowd_murmur' && bed) stopBed(t);
+      return;
+    }
+    // One jingle at a time: a jingle asked for while another plays is skipped.
+    if (JINGLE_SECS[name]) {
+      if (t < jingleUntil) return;
+      jingleUntil = t + JINGLE_SECS[name];
+    }
+    try { SOUNDS[name](t); } catch (err) { /* sound is optional */ }
   }
 
   if (root.document && root.document.addEventListener) {

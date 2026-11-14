@@ -475,11 +475,11 @@ console.log('line() with no teams is quiet: ' + (A.line({}, {}) === '' ? 'ok' : 
   function sentences(t) { return (t.match(/[.!?](\s|$)/g) || []).length; }
   var cases = [
     ['no skipped plays', [], {}, function (t) { return t === ''; }],
-    ['a touchdown', res.slice(0, tdAt + 1), {}, function (t) { return /touchdown/i.test(t) && t.indexOf(teams[0].name) >= 0; }],
-    ['a turnover', res.slice(toAt - 2, toAt + 1), {}, function (t) { return /interception|fumble|downs/i.test(t); }],
-    ['nothing scored, leader shown', res.slice(1, 4), { leaders: leaders }, function (t) { return /still|no change/i.test(t) && /9\.5/.test(t); }],
+    ['a touchdown', res.slice(0, tdAt + 1), {}, function (t) { return /TD/.test(t) && t.indexOf(teams[0].name) >= 0; }],
+    ['a turnover', res.slice(toAt - 2, toAt + 1), {}, function (t) { return /pick|fumbled|downs/i.test(t); }],
+    ['nothing scored, leader shown', res.slice(1, 4), { leaders: leaders }, function (t) { return /still/i.test(t) && /9\.5/.test(t); }],
     ['hidden scores', res.slice(1, 4), { leaders: leaders, hidden: true }, function (t) { return !/fantasy|9\.5|points/i.test(t) && t.length > 0; }],
-    ['fun style, long jump', res.slice(0, 45), { style: 'fun' }, function (t) { return /touchdown/i.test(t); }]
+    ['fun style, long jump', res.slice(0, 45), { style: 'fun' }, function (t) { return /TD/.test(t); }]
   ];
   console.log('\n== Catch-up after a jump ==');
   cases.forEach(function (c) {
@@ -488,6 +488,7 @@ console.log('line() with no teams is quiet: ' + (A.line({}, {}) === '' ? 'ok' : 
     if (!c[3](t)) problems.push('catchUp, ' + c[0] + ': ' + JSON.stringify(t));
     if (t && (sentences(t) < 1 || sentences(t) > 2)) problems.push('catchUp, ' + c[0] + ' has ' + sentences(t) + ' sentences: ' + t);
     if (/\{\w+\}|undefined|NaN/.test(t)) problems.push('catchUp, ' + c[0] + ' left a gap: ' + t);
+    if (t.length > A.maxLength) problems.push('catchUp, ' + c[0] + ' is ' + t.length + ' characters, over ' + A.maxLength + ': ' + t);
     console.log('  ' + pad(c[0], 30) + (t || '(quiet)'));
   });
   // The skipped plays go into the memory.
