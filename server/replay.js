@@ -1,11 +1,19 @@
-'use strict';
 // Replays a game file from data/games/ through js/rules.js and returns one record per play, in the shape the
 // plays service saves. The game file has no clock, so quarters and times are worked out: each half is split
 // in two by play count and plays are spread evenly over three hours from an invented kickoff time.
-var fs = require('fs');
-var path = require('path');
-var root = path.join(__dirname, '..');
-var Rules = require(path.join(root, 'js', 'rules.js'));
+// Runs in Node and in the browser with the same code:
+//   Node:    require('./replay.js').buildPlays('<game file>')      or .buildFromGame(gameObject, id)
+//   browser: <script src="server/replay.js"></script> after js/rules.js (and soccer/js/fantasy.js, soccer/js/rules.js
+//            for soccer), then FR_REPLAY.buildFromGame(window.FF_GAME_FILE, 'week11-football')
+(function (root) {
+'use strict';
+var isNode = typeof module !== 'undefined' && !!module.exports && typeof require === 'function';
+var fs = isNode ? require('fs') : null;
+var path = isNode ? require('path') : null;
+var ROOT = isNode ? path.join(__dirname, '..') : null;
+function footballRules() { return isNode ? require(path.join(ROOT, 'js', 'rules.js')) : root.FF_RULES; }
+function soccerRules() { return isNode ? require(path.join(ROOT, 'soccer', 'js', 'rules.js')) : root.SC_RULES; }
+function soccerFantasy() { return isNode ? require(path.join(ROOT, 'soccer', 'js', 'fantasy.js')) : root.SC_FANTASY; }
 
 var START = Date.parse('2026-11-15T18:00:00Z');
 var SPAN_MS = 3 * 60 * 60 * 1000;
@@ -21,9 +29,16 @@ function ballOf(p) {
   return { pre: pre, post: post, end: end, flip: !!r.flip, downs: !!r.downs };
 }
 
+// A game file's path in Node. The id is the file name without .json.
 function buildPlays(file) {
   var g = JSON.parse(fs.readFileSync(file, 'utf8'));
-  if (g.sport === 'soccer') return buildSoccerPlays(g, file);
+  return buildFromGame(g, path.basename(file).replace(/\.json$/, ''));
+}
+
+// A parsed game file (football or soccer), anywhere.
+function buildFromGame(g, id) {
+  if (g.sport === 'soccer') return buildSoccerPlays(g, id);
+  var Rules = footballRules();
   var teams = g.teams;
   var steps = Rules.flatten(g.game, teams);
   var state = Rules.create(teams);
@@ -74,7 +89,7 @@ function buildPlays(file) {
       why: e.why || {}
     };
   });
-  return { id: path.basename(file).replace(/\.json$/, ''), sport: g.sport || 'football', home: teams[0].id, away: teams[1].id,
+  return { id: id || g.id || null, sport: g.sport || 'football', home: teams[0].id, away: teams[1].id,
     final: state.score.slice(), started_at: new Date(START).toISOString(), plays: plays };
 }
 
@@ -85,9 +100,8 @@ function buildPlays(file) {
 // minute spread evenly over it. A goal row is the scorer's (team, slot, player and the goal's points). Any other
 // row, like football, takes slot, player, team and fantasy_points from the biggest award of the event. Every
 // award is in detail.fp, and by_team is the team that made the event.
-function buildSoccerPlays(g, file) {
-  var SR = require(path.join(root, 'soccer', 'js', 'rules.js'));
-  var SF = require(path.join(root, 'soccer', 'js', 'fantasy.js'));
+function buildSoccerPlays(g, id) {
+  var SR = soccerRules(), SF = soccerFantasy();
   var teams = g.teams;
   var s = SR.create(teams);
   var list = [];
@@ -137,8 +151,11 @@ function buildSoccerPlays(g, file) {
       why: (p.e && p.e.why) || {}
     };
   });
-  return { id: path.basename(file).replace(/\.json$/, ''), sport: 'soccer', home: teams[0].id, away: teams[1].id,
+  return { id: id || g.id || null, sport: 'soccer', home: teams[0].id, away: teams[1].id,
     final: s.score.slice(), started_at: new Date(START).toISOString(), plays: plays };
 }
 
-module.exports = { buildPlays: buildPlays, buildSoccerPlays: buildSoccerPlays };
+var api = { buildPlays: buildPlays, buildFromGame: buildFromGame, buildSoccerPlays: buildSoccerPlays };
+root.FR_REPLAY = api;
+if (isNode) module.exports = api;
+})(typeof window !== 'undefined' ? window : globalThis);

@@ -1,4 +1,3 @@
-'use strict';
 // Momentum: each team's fantasy points and real points per bucket of game time, with running totals.
 // For a chart in the recap and the film room, to be shown only after the reveal.
 //   node server/momentum.js data/games/week11-football.json [bucketSeconds]
@@ -12,8 +11,11 @@
 //   score     real points the team scored in the bucket
 // Every bucket from 0 to the last play is listed, empty ones with zeros, so a chart has no gaps.
 // The last bucket's totals equal the final score and the game's total fantasy points.
-var path = require('path');
-var buildPlays = require('./replay.js').buildPlays;
+// Runs in Node and in the browser (<script src="server/momentum.js"></script>, then window.FR_MOMENTUM.fromRecords(...)).
+(function (root) {
+'use strict';
+var isNode = typeof module !== 'undefined' && !!module.exports && typeof require === 'function';
+function buildPlays(file) { return require('./replay.js').buildPlays(file); }
 
 function r1(x) { return Math.round(x * 10) / 10; }
 
@@ -48,9 +50,12 @@ function momentum(gameFile, bucketSeconds) {
   return fromRecords(g.plays, g.home, g.away, bucketSeconds);
 }
 
-module.exports = { momentum: momentum, fromRecords: fromRecords };
+var api = { momentum: momentum, fromRecords: fromRecords };
+root.FR_MOMENTUM = api;
+if (isNode) module.exports = api;
 
-if (require.main === module) {
+if (isNode && require.main === module) {
+  var path = require('path');
   var file = process.argv[2], bs = parseInt(process.argv[3], 10) || 120;
   if (!file) { console.error('Usage: node server/momentum.js <game file> [bucketSeconds]'); process.exit(2); }
   var m = momentum(path.resolve(file), bs);
@@ -59,3 +64,4 @@ if (require.main === module) {
       '  totals fp ' + b.fpTotal.join(' / ') + ', score ' + b.scoreTotal.join(' / '));
   });
 }
+})(typeof window !== 'undefined' ? window : globalThis);
