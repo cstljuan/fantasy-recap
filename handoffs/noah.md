@@ -139,3 +139,11 @@ Nobody on the review side can hear the game. Write `js/audio-check.js` (node, no
 ## Task C25: voice render dry run
 
 Rendering spends Noah's ElevenLabs credits, so a person must see the bill first. Add `--dry-run` to `js/announcer/voice/render.js`: with no key and no network it prints every line it would render for the football game the app plays and the soccer sample (after the audit's rules: no repeats rendered twice), the count, the total characters, an estimate of the audio size against the 15 MB limit, and writes the list to `js/announcer/voice/render-list.json` so the real run renders exactly that list. Never call the service in this task. Post `NOTE "boss: ..."` with the numbers so they go under "Waiting for Juan" for Noah to approve.
+
+## Task C26: the spoken recap (with Ricky and Peyton)
+
+After the reveal the announcer reads the story of the game: `FF_ANNOUNCER.recap(story, ctx)` takes Ricky's story data (D30: lead changes, longest drive, biggest swing, best fantasy players, the deciding play) and returns four to six sentences, both styles, that also go to the captions. Fantasy points are allowed here because the reveal has happened; with `ctx.hidden` true it returns ''. Peyton's written story (B27) and your spoken one must agree on the facts: both read the same data, neither invents. Post `NOTE "peyton: ..."` with the call. Add cases to the check.
+
+## Task C27: say it right
+
+The browser voice misreads football text. Add one function every spoken line passes through before `speak` (captions keep the written form): names (`St. Brown`, `Ja'Marr`, initials), downs (`2nd & 10` as "second and ten"), scores (`17-14` as "seventeen to fourteen"), yard lines, clock times, team abbreviations (`GOB`, `PYT`) and decimals in fantasy points. Cover every player on both football rosters and both soccer rosters. A check runs every line the audit produces through it and fails on any leftover symbol or abbreviation a voice would spell out.
