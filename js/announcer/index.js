@@ -1114,7 +1114,7 @@
     recap: recap,
     spoken: spoken,
     _recapLines: RECAP,
-    bigCallMaxLength: 200,   // the longest names in the data give 195; check.js tests it
+    bigCallMaxLength: 210,   // the longest names in the data give 204 (Smith-Njigba, week 9 games); check.js tests it
     _bigLines: BIG,
     explain: function (kind) { return Object.prototype.hasOwnProperty.call(EXPLAIN, kind) ? EXPLAIN[kind] : ''; },
     explainKinds: Object.keys(EXPLAIN),
