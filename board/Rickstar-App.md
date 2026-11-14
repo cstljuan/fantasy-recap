@@ -8,3 +8,4 @@
 - 11-14 19:09 UTC | DONE | claude/ricky-handoff-setup-ypc3q5 | D2 database schema, checked: files written, reread against the task list, not checked: schema.sql has not been run on any database (no connection, no TimescaleDB here), so syntax and the aggregate policies are untested
 - 11-14 19:42 UTC | CLAIM | claude/ricky-handoff-setup-ypc3q5 | D3 database service: server/
 - 11-14 19:43 UTC | DONE | claude/ricky-handoff-setup-ypc3q5 | D3 database service, checked: node server/test.js passes against a fake database (routes, input checks, commit), not checked: any real database call, the SQL against Tiger Data, npm install of pg, live aggregate refresh
+- 11-14 19:46 UTC | CLAIM | claude/ricky-handoff-setup-ypc3q5 | D3 fix: ssl verification for sslmode=require: server/index.js, server/test.js, server/README.md
