@@ -7,6 +7,10 @@
 //   - any sound started while muted;
 //   - two jingles playing at once (a jingle started over another, as on a quick restart);
 //   - crowd sounds still running 2 seconds after crowd_stop, or anything 6 seconds after the final.
+// Then it plays the week 11 soccer match the same way (C29: one broadcast sound for both sports),
+// through window.SC_SOUND and FF_AUDIO.reactSoccer, and checks the same things, plus: every sound
+// soccer/js/plays.js asks for exists, the bed runs under every soccer event, the whistle blows at
+// half and full time, a goal roars, and crowd sounds of one kind never overlap (FF_AUDIO.claim).
 // Run from the repo root:  node js/audio-check.js     Prints OK or the list; exits 1 on a problem.
 'use strict';
 var path = require('path');
@@ -86,7 +90,8 @@ FakeContext.prototype.createBufferSource = function () { var n = new Node('sourc
 FakeContext.prototype.createBuffer = function (ch, len) { var d = new Float32Array(len); return { getChannelData: function () { return d; } }; };
 
 // ---------------- load audio.js with fake timers, speech and storage ----------------
-var intervals = [];
+var intervals = [], timers = [];
+global.setTimeout = function (fn, ms) { timers.push({ at: (ctx ? ctx.currentTime : 0) + (ms || 0) / 1000, fn: fn }); return timers.length; };
 var speaking = false;
 global.window = undefined;
 global.speechSynthesis = { get speaking() { return speaking; } };
@@ -100,7 +105,17 @@ var problems = [];
 
 function tick() { intervals.forEach(function (fn) { fn(); }); }
 function play(name) { currentLabel = name; Snd.play(name); currentLabel = ''; }
-function advance(s) { ctx.currentTime += s; }
+function advance(s) {
+  var end = ctx.currentTime + s;
+  for (;;) {
+    var due = timers.filter(function (x) { return x.at <= end; }).sort(function (a, b) { return a.at - b.at; })[0];
+    if (!due) break;
+    timers.splice(timers.indexOf(due), 1);
+    ctx.currentTime = Math.max(ctx.currentTime, due.at);
+    due.fn();
+  }
+  ctx.currentTime = end;
+}
 
 Snd.init();
 var master = nodes.filter(function (n) { return n.kind === 'gain' && n.outs.indexOf(ctx.destination) >= 0; })[0];
@@ -174,7 +189,7 @@ Rules.flatten(game.game, teams).forEach(function (x) {
   speak(A.line(res, { teams: teams, score: res.post.score }));
   advance(0.5);
 });
-var gameEnd = ctx.currentTime;
+var gameEnd = ctx.currentTime, ffLines = lines;
 
 // ---------------- what a listener would notice ----------------
 // 1. Gains above 1.
@@ -209,10 +224,87 @@ var startedMuted = nodes.slice(mutedFrom).filter(function (n) { return n.started
 if (startedMuted.length) problems.push('sounds start while muted: ' + startedMuted.filter(function (v, i, a) { return a.indexOf(v) === i; }).join(', '));
 Snd.mute(false);
 
+// ---------------- the soccer match through the same sound (C29) ----------------
+var SC = { active: true, seeking: false };
+global.SC_GAME = SC;
+var scNotes = [];
+global.SC_ANNOUNCER = { notify: function (text, kind) { scNotes.push(text); } };
+var snd = globalThis.SC_SOUND;
+if (!snd || typeof snd.play !== 'function') problems.push('window.SC_SOUND.play is missing (soccer/js/main.js plays its sounds through it)');
+var scPlays = fs.readFileSync(path.join(__dirname, '../soccer/js/plays.js'), 'utf8'), asked = {};
+scPlays.replace(/sound\('([a-z_]+)'\)/g, function (m, n) { asked[n] = 1; return m; });
+Object.keys(asked).forEach(function (n) { if (Snd.names().indexOf(n) < 0) problems.push('soccer/js/plays.js asks for sound "' + n + '" that js/audio.js does not have'); });
+var SR = require(path.join(__dirname, '../soccer/js/rules.js'));
+var sgame = JSON.parse(fs.readFileSync(path.join(__dirname, '../soccer/data/week11-soccer.json'), 'utf8'));
+var sst = SR.create(sgame.teams), scStart = nodes.length, scEvents = 0, bedMiss = 0, goals = 0, roars = 0, scStops = [];
+function scPlay(name) { currentLabel = name; snd.play(name); currentLabel = ''; }
+// The sounds reactSoccer plays by itself are counted through FF_AUDIO.played.
+function labelled(from, name) { return (Snd.played[name] || 0) - (from[name] || 0); }
+function counts() { var c = {}; Object.keys(Snd.played).forEach(function (k) { c[k] = Snd.played[k]; }); return c; }
+function bedRunning(t) { return nodes.some(function (n) { return n.kind === 'source' && n.loop && running(n, t); }); }
+advance(30);
+var whistleAt = {};
+SR.flatten(sgame.game, sgame.teams).forEach(function (x) {
+  if (x.kind === 'half') {
+    SR.startHalf(sst);
+    var h = counts();
+    Snd.reactSoccer('half', { score: sst.score.slice() });
+    scStops.push({ t: ctx.currentTime, what: 'soccer half time' });
+    whistleAt.half = labelled(h, 'whistle_long');
+    advance(8);
+    return;
+  }
+  if (x.kind === 'final') {
+    var f = counts();
+    Snd.reactSoccer('final', { score: sst.score.slice() });
+    scStops.push({ t: ctx.currentTime, what: 'the soccer final', all: true });
+    advance(4);
+    whistleAt.final = labelled(f, 'whistle_full');
+    return;
+  }
+  var res = SR.apply(sst, x.e, x.team);
+  scEvents++;
+  Snd.reactSoccer('snap', { res: res });
+  advance(0.5);
+  if (!bedRunning(ctx.currentTime)) bedMiss++;
+  scPlay('kick');
+  if (res.goal && !res.disallowed) { scPlay('goal'); goals++; }
+  else if (res.kind === 'shot' && /post|bar/.test(String(x.e.out))) scPlay('post');
+  else if (res.kind === 'shot' && x.e.out === 'blocked') scPlay('block');
+  if (res.kind === 'foul' || res.kind === 'offside') scPlay('whistle');
+  advance(1.5);
+  var r0 = counts();
+  Snd.reactSoccer('result', { res: res });
+  if (res.goal && !res.disallowed && labelled(r0, 'crowd_roar')) roars++;
+  speak('A line from the soccer announcer for this event.');
+  advance(0.5);
+});
+if (bedMiss) problems.push('the stadium bed is silent under ' + bedMiss + ' of ' + scEvents + ' soccer events');
+if (!whistleAt.half) problems.push('no whistle at soccer half time');
+if (!whistleAt.final) problems.push('no full-time whistle at the soccer final');
+if (roars !== goals) problems.push('the crowd roars for ' + roars + ' of ' + goals + ' soccer goals');
+if (scNotes.indexOf('[full-time whistle]') < 0) problems.push('the full-time whistle is not captioned on the soccer page');
+nodes.slice(scStart).forEach(function (n) {
+  if (n.kind !== 'gain' || !n.outs.length) return;
+  var p = n.gain.peak();
+  if (p > 1.0001) problems.push('a gain reaches ' + p.toFixed(2) + ' (above 1) in soccer ' + (n.label || 'the mix'));
+});
+scStops.forEach(function (s) {
+  var later = s.all ? s.t + 6 : s.t + 2;
+  var left = nodes.filter(function (n) { return (n.kind === 'source' || n.kind === 'osc') && n.createdAt <= s.t && running(n, later) && (s.all || reachesCrowd(n)); });
+  if (left.length) problems.push(left.length + ' sound(s) still running ' + (later - s.t) + ' s after ' + s.what + ' (' + left.map(function (n) { return n.label || n.kind; }).slice(0, 3).join(', ') + ')');
+});
+// One crowd at a time: a second module asking for a kind that just played is told no.
+advance(20);
+if (!Snd.claim('chant') || Snd.claim('chant')) problems.push('FF_AUDIO.claim lets the same crowd kind play twice within 4 seconds');
+advance(5);
+if (!Snd.claim('chant')) problems.push('FF_AUDIO.claim still refuses a crowd kind after its 4 seconds');
+
 if (problems.length) {
   console.log('PROBLEMS (' + problems.length + '):');
   problems.forEach(function (p) { console.log('  ' + p); });
   process.exit(1);
 }
-console.log('OK: a whole game (' + Math.round(gameEnd / 60) + ' minutes of sound, ' + nodes.length + ' audio nodes, ' + lines +
+console.log('OK: a whole game (' + Math.round(gameEnd / 60) + ' minutes of sound, ' + ffLines +
   ' spoken lines): no gain above 1, the crowd ducks under every line, nothing runs on after crowd_stop or the final, no two jingles at once, nothing starts while muted.');
+console.log('OK: the soccer match through the same sound (' + scEvents + ' events, ' + goals + ' goals): every sound soccer asks for exists, the bed runs under every event, whistles at half and full time, a roar for every goal, no gain above 1, nothing runs on after the final, claim() keeps crowds from doubling up. ' + nodes.length + ' audio nodes in all.');

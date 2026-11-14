@@ -20,13 +20,18 @@
 // The crowd murmur is captioned once when it starts, not at every snap.
 //
 // Crowd (all made in code, no audio files):
-//   crowd_murmur  starts or keeps a low murmur under the game. Call it at each snap.
-//                 It fades out by itself about 15 seconds after the last crowd call.
+//   crowd_murmur  starts or keeps the stadium bed under the game (near voices, the rumble of the
+//                 stand, a far end that sings and swells). Call it at each snap. It fades out by
+//                 itself about 40 seconds after the last crowd call.
 //   crowd_swell   the crowd rises, for a gain of 15 yards or more
 //   crowd_roar    a full roar, for a touchdown
 //   crowd_groan   a falling groan, for a turnover
 //   crowd_stop    fades the murmur out now (halftime, final, pause)
-//   whistle_long  one long blast, for halftime and the final
+//   whistle       the referee's pea whistle, one short blast (also: pass, catch, tackle, kick, td,
+//                 fg, miss, turnover sound like a broadcast microphone, no arcade beeps)
+//   whistle_long  a short and a long blast, for half time
+//   whistle_full  two short and a long blast, for full time
+//   crowd_cheer   a cheer that does not restart the bed, for the final
 //   jingle_kickoff  a short brass and drum fanfare, about 3 seconds, before the kickoff
 //   jingle_final    a fuller theme that ends on a held chord, about 4 seconds, at full time
 //   crowd_clap   rhythmic clapping        crowd_chant  "De-fense!" three times with claps
@@ -41,6 +46,12 @@
 // Big plays build on each other: every swell and roar makes the murmur a little
 // louder for a while, and that excitement fades again over about 30 seconds.
 // crowdFor(res) returns the crowd sound name for a play result, or ''.
+//
+// One broadcast sound for both sports (C29): the soccer page loads this file too and gets
+// window.SC_SOUND.play(name) (kick, head, block, post, goal, whistle) with the same bed, whistle,
+// crowd, levels, mute and captions; its crowd reacts to SC_GAME's events (reactSoccer).
+// FF_AUDIO.claim(kind, secs) lets another module (js/screens/crowd.js) skip a crowd sound of a
+// kind that already played in the last secs, so two crowds never chant or cheer over each other.
 (function (root) {
   'use strict';
 
@@ -136,16 +147,53 @@
     list.forEach(function (f, i) { tone(type, f, f, t0 + i * step, step * 1.6, vol); });
   }
 
+  // A referee's pea whistle (C29, the same on the football field and the soccer pitch): a high
+  // tone that the pea inside makes flutter about 30 times a second, with some breath on top.
+  function refWhistle(t, dur, vol) {
+    var o = ac.createOscillator(), g = ac.createGain(), trill = ac.createOscillator(), tg = ac.createGain();
+    o.type = 'sine';
+    o.frequency.setValueAtTime(2850, t);
+    o.frequency.linearRampToValueAtTime(3050, t + 0.04);
+    trill.frequency.value = 31; tg.gain.value = 160;
+    trill.connect(tg); tg.connect(o.frequency);
+    g.gain.setValueAtTime(0.0001, t);
+    g.gain.linearRampToValueAtTime(vol, t + 0.02);
+    g.gain.setValueAtTime(vol, t + Math.max(0.03, dur - 0.06));
+    g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+    o.connect(g); g.connect(fxBus);
+    o.start(t); trill.start(t); o.stop(t + dur + 0.03); trill.stop(t + dur + 0.03);
+    noise(t, dur, vol * 0.35, 3000);
+  }
+
+  // A crowd that jolts at once (the moment a ball crosses the line or changes hands): a short,
+  // loud band of voices that the slower roar or groan from crowdFor then carries on.
+  function burst(t, vol, f0, f1, dur) {
+    var src = ac.createBufferSource(); src.buffer = noiseBuffer(dur + 0.1);
+    var f = ac.createBiquadFilter(); f.type = 'bandpass'; f.Q.value = 0.9;
+    f.frequency.setValueAtTime(f0, t); f.frequency.exponentialRampToValueAtTime(f1, t + dur);
+    var g = ac.createGain();
+    g.gain.setValueAtTime(0.0001, t); g.gain.linearRampToValueAtTime(vol, t + 0.08);
+    g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+    src.connect(f); f.connect(g); g.connect(crowdBus);
+    src.start(t); src.stop(t + dur + 0.05);
+  }
+
+  // The small sounds of play, as a broadcast microphone hears them: no arcade beeps (C29).
   var SOUNDS = {
-    pass: function (t) { tone('square', 320, 980, t, 0.2, 0.16); noise(t, 0.2, 0.08, 1800); },
-    'catch': function (t) { tone('square', 740, 740, t, 0.07, 0.14); },
+    pass: function (t) { noise(t, 0.06, 0.5, 600, 'lowpass'); noise(t + 0.02, 0.24, 0.12, 1400); },
+    'catch': function (t) { noise(t, 0.07, 0.3, 700, 'lowpass'); tone('sine', 170, 90, t, 0.07, 0.18); },
     tackle: function (t) { noise(t, 0.16, 0.4, 320, 'lowpass'); tone('sine', 110, 50, t, 0.16, 0.4); },
     kick: function (t) { tone('sine', 170, 45, t, 0.24, 0.7); noise(t, 0.05, 0.2, 900); },
-    td: function (t) { notes([523, 659, 784, 1047, 784, 1047, 1319], t, 0.11, 'square', 0.16); noise(t, 1.6, 0.14, 1200); },
-    fg: function (t) { notes([784, 1047, 1319], t, 0.13, 'square', 0.16); noise(t + 0.1, 0.9, 0.1, 1200); },
-    miss: function (t) { tone('sawtooth', 300, 110, t, 0.5, 0.16); },
-    whistle: function (t) { tone('square', 2350, 2350, t, 0.12, 0.1); tone('square', 2500, 2500, t + 0.1, 0.3, 0.1); },
-    turnover: function (t) { tone('square', 620, 240, t, 0.3, 0.16); tone('square', 520, 180, t + 0.18, 0.35, 0.14); }
+    td: function (t) { burst(t, 0.42, 600, 1300, 1.2); voices(t + 0.05, 10, 1.0, 0.02, 450, 900, true); },
+    fg: function (t) { burst(t, 0.3, 550, 1100, 1.0); },
+    miss: function (t) { burst(t, 0.22, 700, 380, 0.7); },
+    whistle: function (t) { refWhistle(t, 0.38, 0.18); },
+    turnover: function (t) { burst(t, 0.3, 450, 950, 0.9); },
+    // Soccer (SC_SOUND.play from soccer/js/plays.js)
+    head: function (t) { tone('sine', 220, 90, t, 0.12, 0.35); noise(t, 0.04, 0.12, 800); },
+    block: function (t) { noise(t, 0.14, 0.4, 300, 'lowpass'); tone('sine', 120, 55, t, 0.14, 0.35); },
+    post: function (t) { tone('sine', 1180, 1170, t, 0.7, 0.12); tone('sine', 1770, 1760, t, 0.45, 0.06); tone('sine', 160, 60, t, 0.12, 0.3); },
+    goal: function (t) { SOUNDS.td(t); }
   };
 
 
@@ -153,7 +201,7 @@
   var bed = null;          // the running murmur: { src, gain, lfo }
   var hype = 0;            // 0 to 1, raised by big plays, fades over time
   var hypeAt = 0;          // ac time when hype was last set
-  var BED_BASE = 0.09, BED_MAX = 0.22, BED_IDLE = 15, HYPE_FADE = 30;   // louder crowd (Noah)
+  var BED_BASE = 0.11, BED_MAX = 0.24, BED_IDLE = 40, HYPE_FADE = 30;   // louder crowd (Noah); a stadium never drops out mid game (C29)
 
   function noiseBuffer(secs) {
     var n = Math.floor(ac.sampleRate * secs), buf = ac.createBuffer(1, n, ac.sampleRate), d = buf.getChannelData(0);
@@ -175,6 +223,9 @@
 
   function bedLevel(t) { return BED_BASE + (BED_MAX - BED_BASE) * hypeNow(t); }
 
+  // The stadium bed (C29, the soccer broadcast sound on both fields): near voices talking, the
+  // low rumble of a full stand, and a far end that sings and swells on its own every ten seconds
+  // or so. The three layers add up to at most 1 before the bed's own level.
   function startBed(t) {
     var src = ac.createBufferSource(); src.buffer = noiseBuffer(3); src.loop = true;
     var lo = ac.createBiquadFilter(); lo.type = 'bandpass'; lo.frequency.value = 420; lo.Q.value = 0.6;
@@ -182,12 +233,23 @@
     var g = ac.createGain(); g.gain.setValueAtTime(0.0001, t);
     // A slow wobble in loudness so it sounds like people talking, not a fan.
     var lfo = ac.createOscillator(), lg = ac.createGain();
-    lfo.frequency.value = 0.35; lg.gain.value = 0.25;
-    var wob = ac.createGain(); wob.gain.value = 0.75;   // wobbles between 0.5 and 1.0, never above 1
+    lfo.frequency.value = 0.35; lg.gain.value = 0.15;
+    var wob = ac.createGain(); wob.gain.value = 0.45;   // near voices: 0.3 to 0.6
     lfo.connect(lg); lg.connect(wob.gain);
-    src.connect(lo); lo.connect(hi); hi.connect(wob); wob.connect(g); g.connect(crowdBus);
-    src.start(t); lfo.start(t);
-    bed = { src: src, gain: g, lfo: lfo };
+    src.connect(lo); lo.connect(hi); hi.connect(wob); wob.connect(g);
+    // The rumble of the stand: the same noise, low and steady.
+    var rf = ac.createBiquadFilter(); rf.type = 'lowpass'; rf.frequency.value = 220;
+    var rg = ac.createGain(); rg.gain.value = 0.2;
+    src.connect(rf); rf.connect(rg); rg.connect(g);
+    // The far end singing: a narrow band that rises and falls slowly.
+    var far = ac.createBiquadFilter(); far.type = 'bandpass'; far.frequency.value = 640; far.Q.value = 3;
+    var flfo = ac.createOscillator(), flg = ac.createGain(), fw = ac.createGain();
+    flfo.frequency.value = 0.09; flg.gain.value = 0.1; fw.gain.value = 0.1;   // 0 to 0.2
+    flfo.connect(flg); flg.connect(fw.gain);
+    src.connect(far); far.connect(fw); fw.connect(g);
+    g.connect(crowdBus);
+    src.start(t); lfo.start(t); flfo.start(t);
+    bed = { src: src, gain: g, lfo: lfo, flfo: flfo };
   }
 
   function setBed(t, level, secs) {
@@ -208,7 +270,7 @@
     if (!bed) return;
     setBed(t, 0.0001, 1.5);
     var b = bed; bed = null;
-    try { b.src.stop(t + 1.6); b.lfo.stop(t + 1.6); } catch (err) { /* already stopped */ }
+    try { b.src.stop(t + 1.6); b.lfo.stop(t + 1.6); b.flfo.stop(t + 1.6); } catch (err) { /* already stopped */ }
   }
 
   // A swept band of noise: the body of a crowd reaction.
@@ -283,9 +345,13 @@
       settle(t, 1.8);
     },
     crowd_stop: function (t) { stopBed(t); },
-    whistle_long: function (t) {
-      tone('square', 2400, 2400, t, 1.1, 0.1);
-      tone('square', 2560, 2560, t, 1.1, 0.05);
+    whistle_long: function (t) { refWhistle(t, 0.3, 0.18); refWhistle(t + 0.45, 1.0, 0.18); },
+    // Full time on both fields: two short blasts and a long one.
+    whistle_full: function (t) { refWhistle(t, 0.28, 0.18); refWhistle(t + 0.4, 0.28, 0.18); refWhistle(t + 0.8, 1.2, 0.18); },
+    // A cheer that does not start the bed again: for the final, after crowd_stop.
+    crowd_cheer: function (t) {
+      wave(t, 3.0, 0.4, 700, 1300, 0.3);
+      voices(t + 0.1, 14, 2.2, 0.02, 420, 900, true);
     }
   };
   Object.keys(CROWD).forEach(function (k) { SOUNDS[k] = CROWD[k]; });
@@ -421,16 +487,31 @@
   };
   Object.keys(MORE).forEach(function (k) { SOUNDS[k] = MORE[k]; });
 
-  // The stadium reacts to the game by itself: init() hooks into FF_GAME's events. Nothing plays
-  // while the game view is closed or while FF_GAME.seek is running the skipped plays.
-  var lastAt = {}, hooked = false;
+  // The stadium reacts to the game by itself: init() hooks into FF_GAME's events, and into
+  // SC_GAME's on the soccer page. Nothing plays while the game view is closed or while the game
+  // is seeking (running skipped plays at once).
+  // claim(kind, secs): one crowd at a time. Any module that plays a crowd sound of a kind
+  // ('chant', 'cheer', 'boo', 'clap', 'groan', 'ooh', 'aww', 'drum', 'stomp', 'horn') asks first;
+  // false means the same kind already played in the last secs (default 4), so skip yours.
+  var lastAt = {}, hooked = {}, claimed = {};
+  function nowSecs() { return ac ? ac.currentTime : Date.now() / 1000; }
+  function claim(kind, secs) {
+    var now = nowSecs(), gap = secs == null ? 4 : +secs;
+    if (claimed[kind] != null && now - claimed[kind] < gap) return false;
+    claimed[kind] = now;
+    return true;
+  }
+  var KIND = { crowd_chant: 'chant', crowd_clap: 'clap', crowd_boo: 'boo', crowd_ooh: 'ooh', crowd_aww: 'aww', crowd_drum: 'drum',
+               crowd_stomp: 'stomp', air_horn: 'horn', crowd_cheer: 'cheer', crowd_roar: 'cheer', crowd_groan: 'groan' };
+  function game() { return root.FF_GAME || root.SC_GAME || null; }
   function after(name, delay, gap) {
     if (!ac) return;
     var now = ac.currentTime;
     if (gap && lastAt[name] != null && now - lastAt[name] < gap) return;
+    if (KIND[name] && !claim(KIND[name], Math.max(4, delay || 0))) return;
     lastAt[name] = now;
     if (!delay) { play(name); return; }
-    setTimeout(function () { var G = root.FF_GAME; if (!G || G.active !== false) play(name); }, delay * 1000);
+    setTimeout(function () { var G = game(); if (!G || G.active !== false) play(name); }, delay * 1000);
   }
   function react(type, d) {
     var G = root.FF_GAME;
@@ -447,14 +528,41 @@
       else if (e.t === 'sack') after('crowd_clap', 0.6, 12);
       else if (e.t === 'inc' && res.pre && res.pre.down >= 3) after('crowd_ooh', 0.1, 12);
       else if (e.t === 'int' || e.t === 'fumble') after('crowd_boo', 1.6, 15);
-    } else if (type === 'half') after('crowd_clap', 0.5, 0);
-    else if (type === 'final') { after('air_horn', 0.2, 0); after('crowd_clap', 1.6, 0); }
+    } else if (type === 'half') { after('whistle_long', 0, 0); after('crowd_clap', 1.6, 0); }
+    else if (type === 'final') { after('whistle_full', 0, 0); after('crowd_cheer', 2.1, 0); after('crowd_clap', 3.0, 0); }
+  }
+  // Soccer, with the same broadcast sound as football (C29): the bed under every event, the
+  // whistle at half and full time, a roar for a goal, ooh for a save, aww for a miss, boos for a card.
+  function reactSoccer(type, d) {
+    var G = root.SC_GAME;
+    // 'start' comes just before the app opens the match view, so it is let through; the delayed
+    // whistle still checks that the view is open when it blows.
+    if (!G || G.seeking || (G.active === false && type !== 'start')) return;
+    var res = d && d.res;
+    // The match is set at its kickoff before the first tap, so the opening whistle comes with 'start'.
+    if (type === 'start') after('whistle', 0.4, 3);
+    else if (type === 'snap' && res) {
+      play('crowd_murmur');
+      if (res.kind === 'kickoff') after('whistle', 0.6, 3);   // football's kickoff whistles in js/plays.js
+      if (res.kind === 'pen') after('crowd_swell', 0.2, 10);
+    } else if (type === 'result' && res) {
+      if (res.goal && !res.disallowed) { play('crowd_roar'); after('crowd_clap', 2.6, 10); }
+      else if (res.goal && res.disallowed) after('crowd_groan', 0.2, 6);
+      else if (res.kind === 'shot' || res.kind === 'pen') after(res.saver || (res.e && res.e.out === 'blocked') ? 'crowd_ooh' : 'crowd_aww', 0.1, 8);
+      if (res.card) after('crowd_boo', 0.3, 12);
+    } else if (type === 'half') { play('crowd_stop'); after('whistle_long', 0, 0); after('crowd_clap', 1.6, 0); }
+    else if (type === 'final') { play('crowd_stop'); after('whistle_full', 0, 0); after('crowd_cheer', 2.1, 0); after('crowd_clap', 3.0, 0); }
   }
   function hook() {
-    var G = root.FF_GAME;
-    if (hooked || !G || typeof G.on !== 'function') return;
-    hooked = true;
-    G.on(function (type, d) { try { react(type, d); } catch (err) { /* sound is optional */ } });
+    var F = root.FF_GAME, S = root.SC_GAME;
+    if (!hooked.ff && F && typeof F.on === 'function') {
+      hooked.ff = true;
+      F.on(function (type, d) { try { react(type, d); } catch (err) { /* sound is optional */ } });
+    }
+    if (!hooked.sc && S && typeof S.on === 'function' && !F) {
+      hooked.sc = true;
+      S.on(function (type, d) { try { reactSoccer(type, d); } catch (err) { /* sound is optional */ } });
+    }
   }
 
   // Which crowd sound fits a play result from js/rules.js ('' for none).
@@ -473,12 +581,15 @@
     crowd_swell: '[crowd rises]',
     crowd_roar: '[crowd roars]',
     crowd_groan: '[crowd groans]',
-    whistle_long: '[long whistle]',
+    whistle_long: '[half-time whistle]',
+    whistle_full: '[full-time whistle]',
+    crowd_cheer: '[crowd cheers]',
+    post: '[ball clangs off the post]',
     jingle_kickoff: '[kickoff theme plays]',
     jingle_final: '[full-time theme plays]',
     crowd_clap: '[crowd claps]', crowd_chant: '[crowd chants: De-fense!]', crowd_boo: '[crowd boos]',
     crowd_ooh: '[crowd: ooh!]', crowd_aww: '[crowd: aww]', crowd_stomp: '[crowd stomps]', crowd_drum: '[drums]', air_horn: '[air horn]',
-    miss: '[sad horn]'
+    miss: '[crowd gasps]'
   };
   var murmurCaptioned = false;
   function captionFor(name) { return Object.prototype.hasOwnProperty.call(CAPTIONS, name) ? CAPTIONS[name] : ''; }
@@ -525,7 +636,7 @@
   }
 
   root.FF_AUDIO = {
-    init: init, play: play, played: played, crowdFor: crowdFor, captionFor: captionFor, react: react,
+    init: init, play: play, played: played, crowdFor: crowdFor, captionFor: captionFor, react: react, reactSoccer: reactSoccer, claim: claim,
     setVolume: setVolume,
     volume: function (kind) { return kind in DEFAULTS && kind !== 'muted' ? settings[kind] : undefined; },
     mute: function (on) { settings.muted = !!on; saveSettings(); applyMix(); return settings.muted; },
@@ -539,4 +650,16 @@
     names: function () { return Object.keys(SOUNDS); },
     state: function () { return ac ? ac.state : 'none'; }
   };
+
+  // The soccer page (soccer/js/main.js calls SC_SOUND.play(name)) uses the same sounds, levels,
+  // mute and captions. Its first tap starts the sound, since soccer has no FF_GAME.start to do it.
+  root.SC_SOUND = { play: play };
+  if (root.document && root.document.addEventListener && root.addEventListener) {
+    var firstTap = function () {
+      if (root.FF_GAME || !root.SC_GAME) return;
+      init(); hook();
+    };
+    root.addEventListener('pointerdown', firstTap, true);
+    root.addEventListener('keydown', firstTap, true);
+  }
 })(typeof window !== 'undefined' ? window : globalThis);
