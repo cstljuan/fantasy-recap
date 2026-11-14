@@ -43,6 +43,7 @@ Run `sh tools/next.sh` to get your next task with its full description. A row is
 | B31 | B | Peypey-ryd | League home from the service: real opt-ins and standings when `?api=` is set, with Ricky | open |
 | B32 | B | Peypey-ryd | A browser test of the whole reveal flow that anyone can run with one command | open |
 | B33 | B | Peypey-ryd | Commissioner view: every matchup's opt-in state and a release switch, with Ricky | open |
+| B34 | B | Peypey-ryd | A stadium full of fans around the field that jump, cheer, boo and chant with every play, and a louder crowd (asked by Ricky) | open |
 | C1 | C | nexodv | Announcer lines, two styles | merged |
 | C2 | C | nexodv | Crowd and whistle | merged |
 | C3 | C | nexodv | Captions: every spoken line is also available as text | merged |
