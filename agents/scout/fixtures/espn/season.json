@@ -1,0 +1,7 @@
+{ "season": 2026, "players": {
+  "GOB.QB": { "name": "Test Quarterback", "player_id": "FX1", "source": "https://example.test/sleeper/FX1", "date": "2026-11-14",
+              "stats": { "gp": 8, "pass_yd": 2000, "pass_td": 20, "rush_yd": 100, "rush_td": 2, "rec": 0, "rec_yd": 0 } },
+  "GOB.WR1": { "name": "Test Receiver", "player_id": "FX3", "source": "https://example.test/sleeper/FX3", "date": "2026-11-14",
+               "stats": { "gp": 8, "rec": 50, "rec_yd": 600, "rec_td": 5, "rush_yd": 3 } },
+  "GOB.K": { "name": "Test Kicker", "player_id": "FX4", "source": "https://example.test/sleeper/FX4", "date": "2026-11-14",
+             "stats": { "gp": 8, "fgm": 15 } } } }

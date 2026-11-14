@@ -84,3 +84,14 @@ form = { tendencies: { same keys as tendencies, 0 to 1 or null },
 ```
 
 A week with no stats is a bye, an injury or a game not played yet; the source does not say which, so the file does not either. Three weeks is a small sample: a kicker with three attempts can swing from 0 to 1. The summed weekly numbers are in `data/rosters/form-2026.json`, and each run's steps are in `agents/scout/runs/`.
+
+## Sleeper against ESPN
+
+```bash
+python3 agents/scout/crosscheck.py          # live: ESPN's public JSON, Sleeper from data/rosters/season-2026.json
+python3 agents/scout/check_crosscheck.py    # offline, fixtures in fixtures/espn/
+```
+
+For the 14 roster players it finds each one in ESPN's search (`site.api.espn.com/apis/common/v3/search`), reads the season totals (`sports.core.api.espn.com/v2/sports/football/leagues/nfl/seasons/2026/types/2/athletes/<id>/statistics`) and compares passing, rushing and receiving yards and touchdowns, receptions and field goals made with Sleeper's numbers. A disagreement is more than 5 units or more than 2 percent. It writes `data/rosters/crosscheck-2026.json` with both numbers, the difference, both addresses and dates, and games played on each side. A stat Sleeper leaves out is read as 0 when the player has games; a stat ESPN does not give is null and listed under `not_compared`. No profile is changed.
+
+Live run on 2026-11-14: all 14 players found on ESPN, every compared number equal, games played equal for all 14. The only stats not compared are passing, rushing and receiving for the two kickers, where ESPN gives no kicking category for the 12 non-kickers' field goals (not a gap: they kick none).

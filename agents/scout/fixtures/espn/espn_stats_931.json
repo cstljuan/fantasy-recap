@@ -1,0 +1,5 @@
+{"splits":{"name":"All Splits","categories":[
+ {"name":"general","stats":[{"name":"gamesPlayed","value":8.0}]},
+ {"name":"passing","stats":[{"name":"passingYards","value":0.0},{"name":"passingTouchdowns","value":0.0}]},
+ {"name":"rushing","stats":[{"name":"rushingYards","value":3.0},{"name":"rushingTouchdowns","value":0.0}]},
+ {"name":"receiving","stats":[{"name":"receptions","value":50.0},{"name":"receivingYards","value":600.0},{"name":"receivingTouchdowns","value":5.0}]}]}}

@@ -1,0 +1,59 @@
+20:41:52 | crosscheck starts (no model, fixed order). season=2026
+20:41:52 | plan: for each player read Sleeper's numbers from data/rosters/season-2026.json, find the player on ESPN, read ESPN's season totals, compare 8 stats
+20:41:52 | starting GOB.QB Josh Allen: find on ESPN
+20:41:53 | espn_find(Josh Allen, QB) -> 1 match(es)
+20:41:53 | espn_stats(3918298) -> defensive, defensiveInterceptions, general, passing, receiving, rushing, scoring
+20:41:53 | Josh Allen: ESPN 3918298, games Sleeper 8.0 ESPN 8.0, every compared stat agrees
+20:41:53 | starting GOB.RB Saquon Barkley: find on ESPN
+20:41:53 | espn_find(Saquon Barkley, RB) -> 1 match(es)
+20:41:53 | espn_stats(3929630) -> general, passing, receiving, rushing, scoring
+20:41:53 | Saquon Barkley: ESPN 3929630, games Sleeper 7.0 ESPN 7.0, every compared stat agrees
+20:41:53 | starting GOB.WR1 Ja'Marr Chase: find on ESPN
+20:41:54 | espn_find(Ja'Marr Chase, WR) -> 1 match(es)
+20:41:54 | espn_stats(4362628) -> defensive, defensiveInterceptions, general, passing, receiving, rushing, scoring
+20:41:54 | Ja'Marr Chase: ESPN 4362628, games Sleeper 8.0 ESPN 8.0, every compared stat agrees
+20:41:54 | starting GOB.WR2 Puka Nacua: find on ESPN
+20:41:54 | espn_find(Puka Nacua, WR) -> 1 match(es)
+20:41:54 | espn_stats(4426515) -> defensive, defensiveInterceptions, general, passing, receiving, rushing, scoring
+20:41:54 | Puka Nacua: ESPN 4426515, games Sleeper 7.0 ESPN 7.0, every compared stat agrees
+20:41:54 | starting GOB.WR3 Amon-Ra St. Brown: find on ESPN
+20:41:54 | espn_find(Amon-Ra St. Brown, WR) -> 1 match(es)
+20:41:54 | espn_stats(4374302) -> defensive, defensiveInterceptions, general, passing, receiving, returning, rushing, scoring
+20:41:54 | Amon-Ra St. Brown: ESPN 4374302, games Sleeper 8.0 ESPN 8.0, every compared stat agrees
+20:41:54 | starting GOB.TE Trey McBride: find on ESPN
+20:41:55 | espn_find(Trey McBride, TE) -> 1 match(es)
+20:41:55 | espn_stats(4361307) -> defensive, defensiveInterceptions, general, passing, receiving, rushing, scoring
+20:41:55 | Trey McBride: ESPN 4361307, games Sleeper 9.0 ESPN 9.0, every compared stat agrees
+20:41:55 | starting GOB.K Brandon Aubrey: find on ESPN
+20:41:55 | espn_find(Brandon Aubrey, PK) -> 1 match(es)
+20:41:55 | espn_stats(3953687) -> general, kicking, passing, receiving, rushing, scoring
+20:41:55 | Brandon Aubrey: ESPN 3953687, games Sleeper 9.0 ESPN 9.0, every compared stat agrees
+20:41:55 | starting PYT.QB Lamar Jackson: find on ESPN
+20:41:56 | espn_find(Lamar Jackson, QB) -> 1 match(es)
+20:41:56 | espn_stats(3916387) -> general, passing, receiving, rushing, scoring
+20:41:56 | Lamar Jackson: ESPN 3916387, games Sleeper 5.0 ESPN 5.0, every compared stat agrees
+20:41:56 | starting PYT.RB Bijan Robinson: find on ESPN
+20:41:56 | espn_find(Bijan Robinson, RB) -> 1 match(es)
+20:41:56 | espn_stats(4430807) -> defensive, defensiveInterceptions, general, passing, receiving, rushing, scoring
+20:41:56 | Bijan Robinson: ESPN 4430807, games Sleeper 9.0 ESPN 9.0, every compared stat agrees
+20:41:56 | starting PYT.WR1 Justin Jefferson: find on ESPN
+20:41:56 | espn_find(Justin Jefferson, WR) -> 1 match(es)
+20:41:56 | espn_stats(4262921) -> general, passing, receiving, rushing, scoring
+20:41:56 | Justin Jefferson: ESPN 4262921, games Sleeper 7.0 ESPN 7.0, every compared stat agrees
+20:41:56 | starting PYT.WR2 Malik Nabers: find on ESPN
+20:41:57 | espn_find(Malik Nabers, WR) -> 1 match(es)
+20:41:57 | espn_stats(4595348) -> defensive, defensiveInterceptions, general, passing, receiving, rushing, scoring
+20:41:57 | Malik Nabers: ESPN 4595348, games Sleeper 9.0 ESPN 9.0, every compared stat agrees
+20:41:57 | starting PYT.WR3 Nico Collins: find on ESPN
+20:41:57 | espn_find(Nico Collins, WR) -> 1 match(es)
+20:41:57 | espn_stats(4258173) -> general, passing, receiving, rushing, scoring
+20:41:57 | Nico Collins: ESPN 4258173, games Sleeper 6.0 ESPN 6.0, every compared stat agrees
+20:41:57 | starting PYT.TE George Kittle: find on ESPN
+20:41:57 | espn_find(George Kittle, TE) -> 1 match(es)
+20:41:58 | espn_stats(3040151) -> defensive, defensiveInterceptions, general, passing, receiving, rushing, scoring
+20:41:58 | George Kittle: ESPN 3040151, games Sleeper 8.0 ESPN 8.0, every compared stat agrees
+20:41:58 | starting PYT.K Harrison Butker: find on ESPN
+20:41:58 | espn_find(Harrison Butker, PK) -> 1 match(es)
+20:41:59 | espn_stats(3055899) -> defensive, defensiveInterceptions, general, kicking, passing, receiving, rushing, scoring
+20:41:59 | Harrison Butker: ESPN 3055899, games Sleeper 8.0 ESPN 8.0, every compared stat agrees
+20:41:59 | crosscheck finished: 14 of 14 players agree on every compared stat, 0 disagreements
