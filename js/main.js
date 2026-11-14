@@ -113,6 +113,7 @@
         if (!a || !a.onField) return;
         disp.floaters.push({ x: a.x, y: a.y, text: (f.pts > 0 ? '+' : '') + f.pts.toFixed(1), t0: clock + i * 0.25, good: f.pts > 0 });
       });
+      results.push(res);
       say(announce(res, res.post.score) || res.say || '');
       var crowd = Snd.crowdFor ? Snd.crowdFor(res) : '';
       if (crowd) fx.sound(crowd);
@@ -126,6 +127,16 @@
   // The game stops while its view is closed, so nobody misses a play. setBackground(true)
   // lets it keep running behind the app screens.
   var BACKGROUND = q.get('bg') === '1';
+
+  // Every finished play of this game so far, for the announcer's longer pieces.
+  var results = [];
+  // The intro, the halftime report and the wrap, from js/announcer/ when it has them.
+  function piece(name, score) {
+    var ann = window.FF_ANNOUNCER;
+    if (!ann || typeof ann[name] !== 'function') return '';
+    try { return ann[name]({ teams: TEAMS, score: score || [0, 0], style: ann.style, leaders: [], plays: results.slice() }) || ''; }
+    catch (err) { return ''; }
+  }
 
   // The line for a finished play, from js/announcer/ when it is loaded.
   function announce(res, score) {
@@ -175,7 +186,7 @@
       mode = 'inter'; interUntil = clock + 3.2; disp.lines = null;
       fx.banner('HALFTIME', scoreText(), 3);
       fx.sound('crowd_stop');
-      say(announce({ kind: 'half' }, disp.score.slice()) || 'Halftime. ' + spokenScore());
+      say(piece('halftime', disp.score.slice()) || announce({ kind: 'half' }, disp.score.slice()) || 'Halftime. ' + spokenScore());
       log.push({ step: si, text: 'HALFTIME', score: disp.score.slice() });
       emit('half', { score: disp.score.slice() });
       return;
@@ -183,7 +194,7 @@
     if (st.kind === 'final') {
       mode = 'final'; disp.lines = null; disp.banner = null;
       fx.sound('crowd_stop');
-      say(announce({ kind: 'final' }, state.score.slice()) || 'That is the final. ' + spokenScore());
+      say(piece('wrap', state.score.slice()) || announce({ kind: 'final' }, state.score.slice()) || 'That is the final. ' + spokenScore());
       log.push({ step: si, text: 'FINAL', score: state.score.slice() });
       emit('final', { score: state.score.slice() });
       return;
@@ -214,7 +225,7 @@
     state = Rules.create(TEAMS);
     si = 0; clock = 0; camSet = false;
     disp.score = [0, 0]; disp.poss = -1; disp.banner = null; disp.lines = null; disp.floaters = [];
-    log.length = 0;
+    log.length = 0; results.length = 0;
     all.forEach(function (a) { a.onField = false; });
     emit('reset');
     startStep();
@@ -523,7 +534,7 @@
       if (mode !== 'ready') return;
       mode = 'play';
       emit('start');
-      say('Kickoff. ' + TEAMS[0].name + ' against ' + TEAMS[1].name + '.');
+      say(piece('intro') || 'Kickoff. ' + TEAMS[0].name + ' against ' + TEAMS[1].name + '.');
     },
     restart: function () {
       Snd.init();

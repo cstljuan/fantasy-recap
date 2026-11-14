@@ -20,7 +20,7 @@ Run `sh tools/next.sh` to get your next task with its full description. A row is
 | B7 | B | Peypey-ryd | Result card to share | merged |
 | B8 | B | Peypey-ryd | Sport switch control: football and soccer | merged |
 | B9 | B | Peypey-ryd | Phone polish and keyboard use | merged |
-| B12 | B | Peypey-ryd | Lineup points from the scoring rules, with Ricky | open |
+| B12 | B | Peypey-ryd | Lineup points from the scoring rules, with Ricky | merged |
 | Q1 | B | Peypey-ryd | Listen-through: read every announcer line and send Noah the ones to fix | open |
 | P1 | B | Peypey-ryd | The two-minute demo script with timings | open |
 | B14 | B | Peypey-ryd | The film room: drive chart and the play caller panel | open |
@@ -31,7 +31,7 @@ Run `sh tools/next.sh` to get your next task with its full description. A row is
 | C2 | C | nexodv | Crowd and whistle | merged |
 | C3 | C | nexodv | Captions: every spoken line is also available as text | merged |
 | C4 | C | nexodv | Pre-game intro, halftime report, full-time wrap | merged |
-| C5 | C | nexodv | Voice choice, pace and a queue so lines never cut each other off | open |
+| C5 | C | nexodv | Voice choice, pace and a queue so lines never cut each other off | merged |
 | C6 | C | nexodv | Tendency lines from the player profiles | open |
 | C7 | C | nexodv | Kickoff and final jingles made in code | open |
 | C9 | C | nexodv | Fit lines to the captions strip, with Peyton | open |
@@ -55,6 +55,7 @@ Run `sh tools/next.sh` to get your next task with its full description. A row is
 | Q3 | D | Rickstar-App | Check the README and Devpost text against the code and send each owner what is overstated | merged |
 | D12 | D | Rickstar-App | Scout, the deep agent: real player research with LangChain deepagents | open |
 | D13 | D | Rickstar-App | A real week of stat lines from a public source | open |
+| D15 | D | Rickstar-App | Make `data/scoring.json` describe exactly what `js/rules.js` scores, with Peyton | open |
 | D14 | D | Rickstar-App | The service, finished: opt-ins, push a game, health | open |
 | D7 | D | Rickstar-App | Soccer rosters and profiles | merged |
 | S1 | S | cstljuan | The soccer game | merged |
@@ -100,6 +101,10 @@ Newest at the bottom. The boss answers every ASK here. If the answer is "yes, do
 - ANSWER to Peypey-ryd (score box under the notch): the canvas cannot read the safe area, so do it in your stylesheet: give the game view's stage `padding-top: env(safe-area-inset-top)` (and the sides likewise) so the whole canvas sits below the status bar. No change in `js/main.js`.
 - NOTE to all (orders): read `board/ORDERS.md`. Your person is away for hours: never ask them anything, never wait for them, never stop the loop. Decide yourself and say what you decided in the DONE post.
 
+- ANSWER to Peypey-ryd (B12, which scoring wins): the game's points win. `js/rules.js` is the scoring the game file was built to reproduce, so the app keeps showing those. `data/scoring.json` has to describe the same rules; that is Ricky's task D15. Until D15 is merged keep what you did (rules from the file shown under the lineups, `?scoring=file` as a preview). You may fetch `data/scoring.json` from `js/app.js`; fall back to the built-in numbers when the fetch fails, because the page is sometimes opened straight from a file.
+- ANSWER to Rickstar-App (more work): D12, D13, D14 and D15 are open for you now. D12 is the big one.
+- NOTE to nexodv (C4 connected): `js/main.js` now calls `FF_ANNOUNCER.intro` at kickoff, `halftime` at the half and `wrap` at the final, with `leaders: []` (the game does not know fantasy leaders, and scores may be hidden) and `plays` as the list of results so far. Each falls back to the single line when the function is missing.
+
 ## Waiting for Juan
 
 - Ricky's cloud environment needs network access to the stats hosts and a model key for Scout (task D12).
@@ -122,6 +127,7 @@ The boss reviews every DONE before it reaches main: the authors check, the lane 
 - Merged after review: D7, Q3. All checks and the three full-game runs passed
 - Merged after review: B8. All checks and the three full-game runs passed
 - Merged after review: B9, C3, C4. All checks and the three full-game runs passed
+- Merged after review: B12, C5. All checks and the three full-game runs passed
 - D1 real rosters and profile files, D2 database schema (Ricky) are on main; `data/games/sample-football.json` now has the real rosters
 
 ## Decisions
