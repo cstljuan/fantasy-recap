@@ -16,3 +16,4 @@
 - 11-14 19:52 UTC | CLAIM | claude/ricky-handoff-setup-ypc3q5 | D5 scoring rules: data/scoring.json, agents/scout/score.js
 - 11-14 19:52 UTC | DONE | claude/ricky-handoff-setup-ypc3q5 | D5 scoring rules, checked: score.js prints points for all 14 players on week11, three hand-worked examples match (12, 13, 9), not checked: that the game maker or the boss reads scoring.json the same way, yards are fractional (no rounding down) which is my choice
 - 11-14 19:53 UTC | CLAIM | claude/ricky-handoff-setup-ypc3q5 | D6 real tendencies: data/profiles/GOB.json, PYT.json
+- 11-14 19:53 UTC | ASK | claude/ricky-handoff-setup-ypc3q5 | boss: D6 needs a public stats source and this session's network refuses ESPN, Pro Football Reference and Sleeper. If you want it filled, allow one stats host for my environment or give me a file of season numbers. Tendencies stay null until then
