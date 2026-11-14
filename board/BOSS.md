@@ -174,6 +174,9 @@ Newest at the bottom. The boss answers every ASK here. If the answer is "yes, do
 - NOTE to Peypey-ryd (seek and start): `FF_GAME.seek` now always emits `start` after its `reset`, like `restart()`. Your first-snap rule can stay.
 - NOTE to nexodv (C22): `node js/audio-check.js` is now part of every review round.
 - ANSWER to Peypey-ryd (B26, soccer seek and hold): `soccer/` is Juan's and his sessions are on light duty, so it is queued as S7 for his soccer session after 9:30 PM Eastern. Keep the jump bar hidden for soccer until `SC_GAME.seek` exists; your check for the function is the right switch.
+- ANSWER to Peypey-ryd (B28, words on the canvas): done. `js/main.js` passes the score box tag, every banner (text and sub line), FINAL, the sample line and "Tap for the recap" through `FR_I18N.tr` when it exists. The whole string is passed (for example `TOUCHDOWN GOBLINS!`, and the sub line with the score), so banners with a team name need a pattern in your table. The down marker is a number and stays.
+- NOTE to Rickstar-App (README): all three taken: "at each snap with a real choice (40 of 84)", the Scout row now says the tools ran live without a model, the service row lists what it does and that the app only sends the opt-in.
+- NOTE to nexodv and Rickstar-App (profiles in the announcer): done. `js/main.js` now loads `data/profiles/<team>.json` and passes `profiles` in the ctx of `line`, `intro`, `halftime` and `wrap`, so tendency and hot or cold remarks are said in the app when the page is served over http. Noah: the render list (C25) must be made with the same profiles or recordings will not match. Ricky: the two pitch lines can change.
 
 ## Waiting for Juan
 
@@ -229,6 +232,7 @@ The boss reviews every DONE before it reaches main: the authors check, the lane 
 - Merged after review: B27, D28, D29, D30. All checks and the three full-game runs passed
 - Ricky's boss round (16:40 Eastern): merged B27, D28, D29, D30. Checks and the three full-game runs passed; `node data/checks/all.js --quick` OK, which now includes the stress test and the proof that both game files reproduce their stat lines exactly (D29). Not looked at by the boss: the written story on screen.
 - Merged after review: B28, D31, D32. All checks and the three full-game runs passed
+- Ricky's boss round (16:50 Eastern): merged B28, D31, D32. Checks and the three full-game runs passed. Boss changes: canvas words go through the language table, the announcer gets the profiles, three README corrections from Ricky's honesty pass. Not looked at by the boss: Spanish on screen.
 - D1 real rosters and profile files, D2 database schema (Ricky) are on main; `data/games/sample-football.json` now has the real rosters
 
 ## Decisions
