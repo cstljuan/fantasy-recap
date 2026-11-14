@@ -24,7 +24,7 @@ node tools/validate.js
 
 ## How the football game is made
 
-`engine/make-game.js` takes a week of fantasy stat lines for two rosters and builds a full, legal game in which every player ends with exactly those numbers. At each snap it asks a decision model, Jev by TypeSafe AI, to choose among the plays that still let the drive finish; Jev returns a probability for every option and the play is drawn from them. `js/rules.js` referees every play, and the finished game is replayed and compared with the stat lines before it is kept.
+`engine/make-game.js` takes a week of fantasy stat lines for two rosters and builds a full, legal game in which every player ends with exactly those numbers. At each snap with a real choice (40 of the 84 snaps in the current game; the rest had one legal option) it asks a decision model, Jev by TypeSafe AI, to choose among the plays that still let the drive finish; Jev returns a probability for every option and the play is drawn from them. `js/rules.js` referees every play, and the finished game is replayed and compared with the stat lines before it is kept.
 
 The game in the app (`data/games/week11-football.json`) has 84 plays, 40 of them chosen by Jev 1.14.0. **The players are real NFL players. The stat lines are invented sample data, and no play is a real result.**
 
@@ -39,8 +39,8 @@ The game in the app (`data/games/week11-football.json`) has 84 plays, 40 of them
 | `js/audio.js`, `js/announcer/` | Sound and the announcer |
 | `engine/` | The game maker and its link to Jev |
 | `soccer/` | The soccer game and its own small app (matchup, lineups, plays, recap). The sport switch shows it in a frame; it shares the opt-in and the speed with football and nothing else |
-| `agents/scout/` | Scout, a research agent built with LangChain deepagents, and a script that reads a real week of stat lines. Both pass their offline checks. Neither has run against a real model or the stats host yet |
-| `db/`, `server/` | A Tiger Data (PostgreSQL) schema and a small service that saves and returns plays. The app does not use them yet |
+| `agents/scout/` | Scout, a research agent built with LangChain deepagents, and a script that reads a real week of stat lines. Both pass their offline checks. The tools have run live against Sleeper and ESPN without a model (season tendencies, recent form, a real week 9 of stat lines, a Sleeper against ESPN cross-check, soccer numbers; logs in `agents/scout/runs/`). The agent itself has not run against a real model yet |
+| `db/`, `server/` | A Tiger Data (PostgreSQL) schema and a small service that saves and returns plays, top plays, drives, momentum and story data, with a watch party relay and a stress test. The app sends the opt-in to the service when opened with `?api=<address>` and reads nothing from it yet. `node data/checks/all.js` runs every offline check |
 | `docs/` | The contract between parts, who owns what, how the team coordinates |
 
 ## How it was built, and what it uses

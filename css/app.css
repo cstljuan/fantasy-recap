@@ -111,6 +111,8 @@ body.in-game { overflow: hidden; }
 a { color: inherit; text-decoration: none; }
 button { font: inherit; color: inherit; }
 [hidden] { display: none !important; }
+html.i18n-wait #app, html.i18n-wait #gameView { visibility: hidden; }
+.sport.lang { flex: none; margin-left: 0; }
 .sr-only { position: absolute !important; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
 h2.team-name, h2.hero-name { margin: 0; color: var(--text); }
 .board-top h2.eyebrow { margin: 0; }
@@ -394,7 +396,8 @@ h2 { margin: 0; font: 700 var(--fs-label)/1 var(--body); letter-spacing: 0.14em;
 .soccer-wait p { margin: 0; padding: 16px 14px; color: var(--text); }
 @media (max-width: 479px) {
   .bar { flex-wrap: wrap; height: auto; min-height: 52px; padding: 12px 0; row-gap: 12px; }
-  .sport { order: 3; width: 100%; margin-left: 0; }
+  .sport { order: 3; width: auto; flex: 1 1 calc(100% - 112px); margin-left: 0; }
+  .sport.lang { flex: none; }
   .sport button { flex: 1; min-height: 36px; }
   .sport + .mock { margin-left: auto; }
 }
