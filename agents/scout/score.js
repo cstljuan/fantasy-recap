@@ -14,7 +14,25 @@ function score(line, rules) {
   return round2(total);
 }
 
-module.exports = { score: score };
+// Points for a defense line using rules.defense_per.
+function scoreDefense(line, rules) {
+  var total = 0, per = rules.defense_per || {};
+  Object.keys(per).forEach(function (k) { total += (Number(line[k]) || 0) * per[k]; });
+  return round2(total);
+}
+
+// Bonus points for made field goals from their distances, using rules.field_goal_bands.
+// distances is a list of the distance in yards of each made field goal.
+function kickBonus(distances, rules) {
+  var bands = (rules.field_goal_bands || []).slice().sort(function (a, b) { return b.min_yards - a.min_yards; });
+  var total = 0;
+  (distances || []).forEach(function (d) {
+    for (var i = 0; i < bands.length; i++) if (d >= bands[i].min_yards) { total += bands[i].bonus; break; }
+  });
+  return round2(total);
+}
+
+module.exports = { score: score, scoreDefense: scoreDefense, kickBonus: kickBonus };
 
 if (require.main === module) {
   var root = path.join(__dirname, '..', '..');
@@ -29,7 +47,9 @@ if (require.main === module) {
       sum += pts;
       console.log('  ' + slot + ' ' + p.name + ': ' + pts);
     });
+    var def = week.teams[t].defense;
+    console.log('  defense: ' + scoreDefense(def.line, rules) + ' (not in the total)');
     console.log('  total: ' + round2(sum));
   });
-  console.log('(invented sample week, defense not scored)');
+  console.log('(invented sample week)');
 }

@@ -1,17 +1,27 @@
 {
-  "name": "Standard, half point per reception",
+  "name": "Fantasy Recap scoring, the same rules js/rules.js uses",
   "per": {
     "pass_yards": 0.04,
     "pass_td": 4,
     "interceptions": -2,
     "rush_yards": 0.1,
     "rush_td": 6,
-    "receptions": 0.5,
+    "receptions": 0,
     "rec_yards": 0.1,
     "rec_td": 6,
+    "fumbles_lost": -2,
     "fg_made": 3,
     "fg_missed": 0,
     "xp_made": 1
   },
-  "notes": "Every value is points per one unit of the stat. 0.04 per pass yard is 1 point per 25 yards. 0.1 per rush or receiving yard is 1 point per 10. Yards count fractionally, there is no rounding down. Defense is not scored."
+  "field_goal_bands": [
+    { "min_yards": 40, "bonus": 1 },
+    { "min_yards": 50, "bonus": 2 }
+  ],
+  "defense_per": {
+    "sacks": 1,
+    "def_interceptions": 2,
+    "fumble_recoveries": 2
+  },
+  "notes": "Every value in per is points per one unit of the stat. 0.04 per pass yard is 1 point per 25 yards. 0.1 per rush or receiving yard is 1 point per 10. There is no point per reception: js/rules.js does not give one. A field goal is 3 points, 4 from 40 to 49 yards and 5 from 50 yards (field_goal_bands add to fg_made, the highest band that applies wins). Stat lines do not carry kick distance, so bands only apply when a distance is known. defense_per is for the defense: 1 per sack, 2 per interception caught, 2 per fumble recovered. Defensive touchdowns and points allowed are not scored. The game rounds each play's points to one decimal, so a season total of per-play points can differ from the exact total by a few hundredths."
 }
