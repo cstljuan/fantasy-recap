@@ -29,7 +29,9 @@ Plays the engine decided by itself (sacks, penalties, kicks, turnovers, forced p
 - `on(fn)`: `fn(type, data)` is called for `start`, `snap`, `result`, `half`, `final`, `reset`. For `snap` and `result`, `data` is `{ res, play, step }`.
 - `start()`, `restart()`, `setActive(true or false)`, `ontap`.
 - Read only: `mode`, `active`, `plays`.
-- `seek(index)`: jump to the start of play number `index` (from 1, plays only). The plays before it run at once: listeners still get `reset`, `snap`, `result` and `half` for them so tallies stay right, but there is no sound, voice, floater or banner, and the announcer is not asked for lines. Returns `false` for an index that is not a play. Works before the game starts and after the final.
+- `seek(index)`: jump to the start of play number `index` (from 1, plays only). The plays before it run at once: listeners still get `reset`, `snap`, `result` and `half` for them so tallies stay right, but there is no sound, voice, floater or banner, and the announcer is not asked for lines. Returns `false` for an index that is not a play. Works before the game starts and after the final. After the jump the game itself says `FF_ANNOUNCER.catchUp(...)` for the skipped plays, so callers of `seek` must not call it again.
+- `hold(true or false)`: stop or release the clock. The view stays open and the announcer finishes its line. `held` reads it.
+- Reduced motion: when the system asks for reduced motion (or with `?calm=1`) the camera jumps instead of gliding and the point floaters appear in place without rising or fading. The players still move. `calm` reads it.
 - `setFloaters(true or false)`: show or hide the fantasy point numbers that float up from players. `floaters` reads it.
 - `setBackground(true or false)`: by default the game only advances while its view is open (`setActive(true)`). `setBackground(true)`, or `?bg=1`, lets it run behind the app. `background` reads it.
 
