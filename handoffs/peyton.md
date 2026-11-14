@@ -84,3 +84,7 @@ Run `node js/announcer/check.js` and read every line in both styles. Send Noah, 
 ## Task P1: the two-minute demo script
 
 Create `pitch/DEMO-SCRIPT.md`: what is said and what is on screen, second by second, for exactly two minutes. 15 seconds for the problem, 60 for the demo (opt in, hidden scores, the game, the announcer, a touchdown, the reveal), 25 for how it works (profiles, the play caller choosing each play with real probabilities, the rules engine), 20 for what is next. Only claim what `README.md` and the board say is built. Mark anything not built yet as "if ready".
+
+## Task B13: the why card from the real game file
+
+The app now plays a game built by the game maker, and 40 of its plays carry a real `why` (see `docs/CONTRACT.md` section 1). Make the card read `e.why.picked` for the chosen option, name each option by the player it means (`pass_WR1` is "Pass to" plus the WR1 on that team's roster, `run_RB` is "Run by" plus the RB), sort the bars highest first, and add one line under the card: "Chosen by the play caller from these odds". Keep `?whydemo=1` working. Check at 375 wide with the default game (not `?game=sample`).

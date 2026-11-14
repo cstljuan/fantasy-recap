@@ -1,4 +1,4 @@
 Peypey-ryd js/app.js js/screens/ css/ pitch/ board/Peypey-ryd.md
-nexodv js/audio.js js/announcer/ pitch/ board/nexodv.md
+nexodv js/audio.js js/announcer/ assets/voice/ pitch/ board/nexodv.md
 Rickstar-App js/data.js data/rosters/ data/profiles/ data/statlines/ data/scoring.json data/league.json agents/scout/ db/ server/ pitch/ board/Rickstar-App.md
 cstljuan .
