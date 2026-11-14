@@ -44,7 +44,9 @@
   var STYLES = ['straight', 'fun'];
   var decks = {};   // kind + style -> variants not used yet in this game
   var lastUsed = {}; // kind + style -> last variant index, so a reshuffle never repeats right away
-  var rand = Math.random;
+  var rand = null;      // a test can set its own random source with _setRandom
+  var rounds = {};      // how many times each deck has been shuffled this game
+  var seedBase = 1;
   var listeners = [];
   var playNo = 0;       // counts play results, so queued speech can tell how old it is
   var queue = [];       // { text, play, style } waiting to be spoken
@@ -448,15 +450,35 @@
     }
   };
 
+  // Deterministic shuffles. Each deck (kind and style) is shuffled from its own seed, so the
+  // n-th line of a kind is the same in every run of the same game, whatever else was said in
+  // between. That is what lets js/announcer/voice/render.js record exactly the lines a viewer
+  // will hear. seed(n) changes the whole set; reset() starts every deck again.
+  function hashStr(str) {
+    var h = 2166136261;
+    for (var i = 0; i < str.length; i++) { h ^= str.charCodeAt(i); h = Math.imul(h, 16777619); }
+    return h >>> 0;
+  }
+  function seeded(n) {
+    return function () {
+      n = (n + 0x6D2B79F5) >>> 0;
+      var t = Math.imul(n ^ (n >>> 15), 1 | n);
+      t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+      return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+    };
+  }
+
   function pick(kind, style, table) {
     table = table || LINES;
     var list = table[kind] && table[kind][style];
     if (!list || !list.length) return '';
     var key = (table === LINES ? '' : 'story:') + kind + '|' + style;
     if (!decks[key] || !decks[key].length) {
+      rounds[key] = (rounds[key] || 0) + 1;
+      var rnd = rand || seeded(hashStr(seedBase + '|' + key + '|' + rounds[key]));
       var d = list.map(function (_, i) { return i; });
       for (var i = d.length - 1; i > 0; i--) {
-        var j = Math.floor(rand() * (i + 1)), t = d[i]; d[i] = d[j]; d[j] = t;
+        var j = Math.floor(rnd() * (i + 1)), t = d[i]; d[i] = d[j]; d[j] = t;
       }
       if (d.length > 1 && d[d.length - 1] === lastUsed[key]) { d.unshift(d.pop()); }
       decks[key] = d;
@@ -666,7 +688,7 @@
       return api.style;
     },
 
-    reset: function () { decks = {}; lastUsed = {}; last = null; playNo = 0; tendencySaid = {}; mem = freshMemory(); api.hush(); },
+    reset: function () { decks = {}; lastUsed = {}; rounds = {}; last = null; playNo = 0; tendencySaid = {}; mem = freshMemory(); api.hush(); },
 
     memory: function () {
       var players = Object.keys(mem.players).map(function (k) {
@@ -689,7 +711,8 @@
     kinds: function () { return Object.keys(LINES); },
     classify: classify,
     _memoryLines: MEMORY,
-    _setRandom: function (fn) { rand = fn || Math.random; }
+    seed: function (n) { seedBase = n == null ? 1 : n; decks = {}; lastUsed = {}; rounds = {}; return seedBase; },
+    _setRandom: function (fn) { rand = fn || null; decks = {}; lastUsed = {}; rounds = {}; }
   };
 
   root.FF_ANNOUNCER = api;
