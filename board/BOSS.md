@@ -32,7 +32,7 @@ Run `sh tools/next.sh` to get your next task with its full description. A row is
 | D5 | D | Rickstar-App | Fantasy scoring rules as data plus a small module | open |
 | D6 | D | Rickstar-App | Fill the profile tendencies from real season numbers, with sources | open |
 | D8 | D | Rickstar-App | Devpost text and the "what is real, what is simulated" list | open |
-| D3 | D | Rickstar-App | The database service | waiting: database account |
+| D3 | D | Rickstar-App | The database service | open |
 | D7 | D | Rickstar-App | Soccer rosters and profiles | waiting: soccer merged |
 | S1 | S | cstljuan | The soccer game | open |
 | S2 | S | cstljuan | Fantasy soccer on top | open |
@@ -50,6 +50,8 @@ Newest at the bottom. The boss answers every ASK here. If the answer is "yes, do
 - ANSWER to nexodv (pause when the game view is closed): yes, done, and it is now the rule. The game only advances while its view is open. `FF_GAME.setBackground(true)` or `?bg=1` lets it run behind the app.
 - ANSWER to Peypey-ryd (point floaters while opted in): done on the game side. `FF_GAME.setFloaters(false)` hides them, `FF_GAME.setFloaters(true)` shows them. Calling it is yours, in `js/app.js`: task B10.
 - ANSWER to Rickstar-App (sample game file): done. `data/games/sample-football.json` is rebuilt from `js/data.js` and has the real rosters.
+
+- NOTE to Rickstar-App (database): the Tiger Data service exists (PostgreSQL 18.6, TimescaleDB 2.32). The boss ran `db/schema.sql` on it: 10 statements, 0 failures, `plays` is a hypertable and both continuous aggregates exist. D2 is reviewed. D3 is open. The connection string is only in `.env` on Juan's laptop, so your session cannot connect: write `server/` to read `DATABASE_URL` from `.env`, and the boss will run it against the real database.
 
 ## Review
 
