@@ -491,8 +491,8 @@
         SLOTS.map(function (s) { return playerRow(t, s.role, 0); }).join('') +
         '</div>';
     }
-    return '<div class="grid two" style="margin-top:0">' + ord().map(team).join('') + '</div>' +
-      '<p class="note" style="border:0;margin-top:14px">' + rulesNote() + '</p>';
+    return '<div class="grid two is-first">' + ord().map(team).join('') + '</div>' +
+      '<p class="note is-plain">' + rulesNote() + '</p>';
   }
 
   function renderPlays() {
@@ -539,18 +539,23 @@
     var p0 = Number(f1(total(0))), p1 = Number(f1(total(1)));
     var w = p0 === p1 ? -1 : p0 > p1 ? 0 : 1;
     var order = ord(), top = leaders(1)[0];
+    // Colors come from the tokens on :root, so the card has the app's one look.
     var styles = getComputedStyle(document.documentElement);
-    var amber = styles.getPropertyValue('--amber').trim() || '#ffc21a';
+    function tokenColor(name, fallback) { return styles.getPropertyValue(name).trim() || fallback; }
+    var amber = tokenColor('--amber', '#ffc21a'), C = {
+      bg: tokenColor('--bg', '#0b0d0e'), panel: tokenColor('--panel', '#131617'), inset: tokenColor('--inset', '#1b1f21'),
+      rule: tokenColor('--rule', '#2b3033'), text: tokenColor('--text', '#f3f1ea'), dim: tokenColor('--dim', '#8e9597')
+    };
 
-    g.fillStyle = '#0b0d0e'; g.fillRect(0, 0, CARD_W, CARD_H);
+    g.fillStyle = C.bg; g.fillRect(0, 0, CARD_W, CARD_H);
     g.fillStyle = w < 0 ? amber : TEAMS[w].colors.jersey; g.fillRect(0, 0, CARD_W, 14);
 
     // Header: the project name and the week.
     g.textBaseline = 'alphabetic';
     g.fillStyle = amber; g.fillRect(P, 92, 22, 22);
-    g.fillStyle = '#f3f1ea'; g.font = '700 44px ' + CARD_FONT; g.textAlign = 'left';
+    g.fillStyle = C.text; g.font = '700 44px ' + CARD_FONT; g.textAlign = 'left';
     g.fillText('FANTASY RECAP', P + 38, 114);
-    g.fillStyle = '#8e9597'; g.font = '700 28px ' + CARD_BODY; g.textAlign = 'right';
+    g.fillStyle = C.dim; g.font = '700 28px ' + CARD_BODY; g.textAlign = 'right';
     g.fillText((WEEK + ' result').toUpperCase(), CARD_W - P, 112);
 
     // The winner, large, with the team's player.
@@ -563,7 +568,7 @@
       } catch (err) { /* the card works without the player */ }
     }
     var tx = w >= 0 ? P + 156 : P;
-    g.textAlign = 'left'; g.fillStyle = '#f3f1ea'; g.font = '700 112px ' + CARD_FONT;
+    g.textAlign = 'left'; g.fillStyle = C.text; g.font = '700 112px ' + CARD_FONT;
     var lines = wrapText(g, (w < 0 ? 'It is a tie' : TEAMS[w].full).toUpperCase(), CARD_W - P - tx);
     lines.slice(0, 2).forEach(function (l, i) { g.fillText(l, tx, y + 92 + i * 104); });
     var after = y + 92 + (Math.min(lines.length, 2) - 1) * 104;
@@ -574,11 +579,11 @@
     var boxW = (inner - 24) / 2, boxH = 230;
     order.forEach(function (t, i) {
       var x = P + i * (boxW + 24);
-      g.fillStyle = '#1b1f21'; g.fillRect(x, y, boxW, boxH);
+      g.fillStyle = C.inset; g.fillRect(x, y, boxW, boxH);
       g.fillStyle = TEAMS[t].colors.jersey; g.fillRect(x, y, boxW, 10);
-      g.fillStyle = '#f3f1ea'; g.font = '700 128px ' + CARD_FONT; g.textAlign = 'left';
+      g.fillStyle = C.text; g.font = '700 128px ' + CARD_FONT; g.textAlign = 'left';
       g.fillText(f1(total(t)), x + 28, y + 150);
-      g.fillStyle = '#8e9597';
+      g.fillStyle = C.dim;
       var label = (TEAMS[t].name + (t === me ? ' (you)' : '') + ', fantasy pts').toUpperCase(), fs = 26;
       g.font = '700 ' + fs + 'px ' + CARD_BODY;
       while (fs > 18 && g.measureText(label).width > boxW - 56) { fs -= 1; g.font = '700 ' + fs + 'px ' + CARD_BODY; }
@@ -587,30 +592,30 @@
 
     // The score on the field.
     y += boxH + 70;
-    g.fillStyle = '#8e9597'; g.font = '700 26px ' + CARD_BODY; g.textAlign = 'left';
+    g.fillStyle = C.dim; g.font = '700 26px ' + CARD_BODY; g.textAlign = 'left';
     g.fillText('ON THE FIELD', P, y);
-    g.fillStyle = '#f3f1ea'; g.font = '700 54px ' + CARD_FONT;
+    g.fillStyle = C.text; g.font = '700 54px ' + CARD_FONT;
     g.fillText(order.map(function (t) { return TEAMS[t].id + ' ' + m.field[t]; }).join('   '), P + 250, y + 6);
 
     // The top performer.
     y += 60;
-    g.fillStyle = '#131617'; g.fillRect(P, y, inner, 190);
-    g.strokeStyle = '#2b3033'; g.lineWidth = 2; g.strokeRect(P + 1, y + 1, inner - 2, 188);
-    g.fillStyle = '#8e9597'; g.font = '700 26px ' + CARD_BODY;
+    g.fillStyle = C.panel; g.fillRect(P, y, inner, 190);
+    g.strokeStyle = C.rule; g.lineWidth = 2; g.strokeRect(P + 1, y + 1, inner - 2, 188);
+    g.fillStyle = C.dim; g.font = '700 26px ' + CARD_BODY;
     g.fillText('TOP PERFORMER', P + 32, y + 50);
     if (top) {
-      g.fillStyle = '#f3f1ea'; g.font = '700 64px ' + CARD_FONT;
+      g.fillStyle = C.text; g.font = '700 64px ' + CARD_FONT;
       var nm = fullName(top.t, top.role);
       while (g.measureText(nm).width > inner - 300 && nm.length > 4) nm = nm.slice(0, -2);
       g.fillText(nm, P + 32, y + 122);
-      g.fillStyle = '#8e9597'; g.font = '600 28px ' + CARD_BODY;
+      g.fillStyle = C.dim; g.font = '600 28px ' + CARD_BODY;
       g.fillText(TEAMS[top.t].id + ', ' + posOf(top.role), P + 32, y + 166);
       g.fillStyle = amber; g.font = '700 96px ' + CARD_FONT; g.textAlign = 'right';
       g.fillText(f1(top.pts), CARD_W - P - 32, y + 136);
     }
 
     // Footer.
-    g.textAlign = 'left'; g.fillStyle = '#8e9597'; g.font = '600 26px ' + CARD_BODY;
+    g.textAlign = 'left'; g.fillStyle = C.dim; g.font = '600 26px ' + CARD_BODY;
     g.fillText('Sample league with mock data. Made with Fantasy Recap.', P, CARD_H - 70);
     return c;
   }
@@ -678,7 +683,7 @@
                                          : 'The recap is ready at the final whistle: final score, top performers and every scoring play.') +
         (paused() ? ' The game is paused while you are away, so you will not miss a play.' : '') +
         '<div class="progress"><i style="width:' + Math.round(100 * m.done / G.plays) + '%"></i></div>' +
-        '<div style="margin-top:8px;font-size:12px">' + m.done + ' of ' + G.plays + ' plays so far</div></div>' +
+        '<div class="progress-text">' + m.done + ' of ' + G.plays + ' plays so far</div></div>' +
         '<div class="actions">' + watchButton() + '</div>' +
         '</div></div>';
     }
@@ -822,7 +827,7 @@
       weekPicker() +
       '<div class="lg-head"><h2>Week ' + weekSel + ' matchups</h2><span class="lg-count">' + count + '</span></div>' +
       body + standingsTable() +
-      '<p class="note" style="border:0;margin-top:14px">Sample league, made up for the demo: the other teams, past scores and standings are invented. ' +
+      '<p class="note is-plain">Sample league, made up for the demo: the other teams, past scores and standings are invented. ' +
       'Each recap is released on Tuesday, after the week is over. Only your week ' + L.week + ' matchup has a game to watch.</p>' +
       '</div>';
   }
