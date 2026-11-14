@@ -6,3 +6,4 @@
 - 11-14 19:08 UTC | DONE | nexodv/work | C1 announcer, checked: node js/announcer/check.js (all 25 kinds x 2 styles, sample game replayed, no repeats or unfilled names), not checked: the voice out loud in a browser
 - 11-14 19:09 UTC | CLAIM | nexodv/work | C2 crowd and whistle: js/audio.js
 - 11-14 19:11 UTC | DONE | nexodv/work | C2 crowd sounds, new names: crowd_murmur (call at each snap), crowd_swell, crowd_roar, crowd_groan, crowd_stop, whistle_long, plus FF_AUDIO.crowdFor(res); checked: every sound rendered in headless Chromium with no errors, old names unchanged; not checked: how it sounds to a person on real speakers
+- 11-14 19:19 UTC | ASK | nexodv/work | boss: Noah asks that the recap pause when the game view is closed. In js/main.js frame(): update(mode === 'ready' || !active ? 0 : real * SPEED). Tested in a demo copy: no plays advance while closed, resumes on reopen. When you connect the announcer and crowd, call them only while FF_GAME.active
