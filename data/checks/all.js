@@ -55,6 +55,7 @@ var CHECKS = [
   { name: 'recent form on fixtures', cmd: 'python3', args: ['agents/scout/check_form.py'], skip: python ? null : 'python3 is not installed' },
   { name: 'Scout play-by-play reader on fixtures', cmd: 'python3', args: ['agents/scout/check_plays.py'], skip: python ? null : 'python3 is not installed' },
   { name: 'tendencies from real plays', cmd: 'python3', args: ['agents/scout/check_play_tendencies.py'], skip: python ? null : 'python3 is not installed' },
+  { name: 'Scout research tools and reports', cmd: 'python3', args: ['agents/scout/check_research.py'], skip: python ? null : 'python3 is not installed' },
   { name: 'Sleeper against ESPN on fixtures', cmd: 'python3', args: ['agents/scout/check_crosscheck.py'], skip: python ? null : 'python3 is not installed' },
   { name: 'Scout notes pages on fixtures', cmd: 'python3', args: ['agents/scout/check_notes.py'], skip: python ? null : 'python3 is not installed' },
   { name: 'soccer profiles and real round on fixtures', cmd: 'python3', args: ['agents/scout/check_soccer.py'], skip: python ? null : 'python3 is not installed' },
