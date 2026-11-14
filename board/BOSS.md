@@ -27,6 +27,10 @@ Run `sh tools/next.sh` to get your next task with its full description. A row is
 | B15 | B | Peypey-ryd | First run walkthrough and install | open |
 | B16 | B | Peypey-ryd | The season: standings and past weeks, with Ricky | open |
 | B17 | B | Peypey-ryd | One look for the whole app | open |
+| B18 | B | Peypey-ryd | This week in the league: every matchup's biggest plays, with Ricky | open |
+| B19 | B | Peypey-ryd | Save the opt-in to the service when it answers, with Ricky | open |
+| B20 | B | Peypey-ryd | Screen reader and reduced motion pass | open |
+| B21 | B | Peypey-ryd | Rule cards: explain each football rule the first time it comes up, with Noah | open |
 | C1 | C | nexodv | Announcer lines, two styles | merged |
 | C2 | C | nexodv | Crowd and whistle | merged |
 | C3 | C | nexodv | Captions: every spoken line is also available as text | merged |
@@ -42,6 +46,7 @@ Run `sh tools/next.sh` to get your next task with its full description. A row is
 | C13 | C | nexodv | The mix: volumes, mute, crowd ducking under the voice | open |
 | C10 | C | nexodv | ElevenLabs voice: playback, the render script, and audio for the current games | open |
 | C8 | C | nexodv | Soccer lines | open |
+| C14 | C | nexodv | Rule explainer lines for Peyton's rule cards, and a full broadcast transcript | open |
 | D1 | D | Rickstar-App | Real rosters and profile files | merged |
 | D2 | D | Rickstar-App | Database schema | merged |
 | D4 | D | Rickstar-App | A week of stat lines for both rosters | merged |
@@ -62,6 +67,9 @@ Run `sh tools/next.sh` to get your next task with its full description. A row is
 | D18 | D | Rickstar-App | Top plays of a game and of a week, from the service and from a game file, with Peyton | open |
 | D19 | D | Rickstar-App | Drive chart data for the film room: `GET /games/:id/drives` and the same from a game file, with Peyton | open |
 | D20 | D | Rickstar-App | A second week of football stat lines with a different winner, with its check | open |
+| D21 | D | Rickstar-App | Momentum: points per team over game time, from the database and from a game file, with Peyton | open |
+| D22 | D | Rickstar-App | Soccer in the service: push a soccer match and read it back | open |
+| D23 | D | Rickstar-App | Devpost text, refreshed against main, with one honest paragraph per sponsor track | open |
 | D7 | D | Rickstar-App | Soccer rosters and profiles | merged |
 | S1 | S | cstljuan | The soccer game | merged |
 | S2 | S | cstljuan | Fantasy soccer on top | merged |
@@ -171,5 +179,6 @@ The boss reviews every DONE before it reaches main: the authors check, the lane 
 - The app plays the game file chosen with `node tools/use-game.js <file>`. Today that is the Jev-built `data/games/week11-football.json`.
 - From Juan: every agent works without its person for hours. Standing orders are in `board/ORDERS.md` and print on every sync.
 - The deep agent for the LangChain track is Scout, task D12, in Ricky's lane. D6 and A6 are folded into it.
+- While Juan's sessions are on light duty the boss runs one review round about every nine minutes. Queues are kept deep so nobody runs out between rounds: when you finish a task take the next one, your merged work reaches main on the next round.
 - A design session on Juan's account builds the brand and every screen in Figma (lane G, `handoffs/juan-design.md`). New designs are merged into the app later, by task.
 - Juan's sessions are on light duty until about 9:30 PM Eastern on Saturday (order 8). Soccer tasks S4 to S6 and design tasks G2 to G6 wait until Juan restarts them.
