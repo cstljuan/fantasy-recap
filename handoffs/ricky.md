@@ -182,3 +182,15 @@ Much was added tonight. Read `README.md`, every file in `pitch/` and the words t
 ## Task D34: the other matchup, for real
 
 The league home lists Turbo Turtles against Midnight Owls but only Goblins against Pythons can be played. Give the second matchup what the first has: rosters of real players in `data/rosters/` (no player already on the Goblins or Pythons), profiles filled by `fill_profiles.py` with sources, recent form, and a consistent invented week 11 of stat lines in the same shape as `week11.json` with its check. Building the game file from them is the boss's (the game maker, task A5): post `NOTE "boss: ..."` with the exact command you expect to work and what the game maker must read. Add the new files to the checks.
+
+## Task D35: commissioner routes (with Peyton)
+
+For Peyton's commissioner view (B33): `GET /league/week/:n/optins` (who has opted in per matchup, no points), `POST /league/week/:n/release` and `GET /league/week/:n/release` (the Tuesday release, set by hand; the app may show a recap only when released), and `POST /games/:id/watched` to count managers who reached the final. Works with the database and in memory without one. Validate every field, same CORS rule, add to the service test and the stress test. There are no accounts, so say plainly in `server/README.md` that anyone who can reach the service can call these; do not invent a login. Post `NOTE "peyton: ..."` with routes and shapes.
+
+## Task D36: Scout's notes as pages
+
+`python3 agents/scout/notes.py` writes `data/profiles/notes/<team>-<slot>.md` for every player on the four football rosters: the season tendencies, recent form, where Sleeper and ESPN disagree, each number with its source and date, and two plain sentences on what it means for play calling. No model: the sentences come from rules on the numbers, and the page says so. On-field facts only. An offline check with fixtures; add it to `data/checks/all.js`. Post `NOTE "peyton: ..."` in case a player sheet on the lineups screen wants to show it.
+
+## Task D37: a setup guide a stranger can follow
+
+`docs` is the boss's, so write `server/SETUP.md`: from a clean clone to a running service and a passing `node data/checks/all.js`, every command in order, what each prints when it works, what needs a database and what does not, where `.env` goes and what it holds (names only, never values), how to seed, how to open the app against the service with `?api=`. Follow it yourself in a fresh copy of the repository in a temporary folder and fix every step that fails. Post `NOTE "boss: ..."` so README can link it.
