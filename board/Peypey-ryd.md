@@ -22,3 +22,4 @@
 - 11-14 19:49 UTC | CLAIM | Peypey-ryd/work | B6 my team view: js/app.js, css/app.css
 - 11-14 19:51 UTC | DONE | Peypey-ryd/work | B6 my team view, checked: headless Chromium at 375 wide, ?me=pyt and ?me=gob put that team first on scoreboard, field score, lineups and league, Your team tag, my lineup rows and feed plays and points highlighted (30 plays, 0 wrong), fr.me kept after reload, chooser and ?me=none, no team looks as before, no sideways scroll, no console errors, not checked: two real phones side by side
 - 11-14 19:52 UTC | CLAIM | Peypey-ryd/work | B7 result card: js/app.js, css/app.css
+- 11-14 19:53 UTC | DONE | Peypey-ryd/work | B7 result card, checked: headless Chromium at 375 wide, Share result after the final, download path gives fantasy-recap-week-11.png (1080x1350), share path with a stand-in share function gets one PNG file, no network requests while sharing, card read by eye, no console errors, not checked: a real share sheet on a phone
