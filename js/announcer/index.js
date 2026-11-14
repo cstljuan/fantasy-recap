@@ -46,6 +46,14 @@
 //                   the announcer's memory. ctx is what line() takes; ctx.hidden true keeps fantasy
 //                   points out. It reads the memory and does not change it: call it after line()
 //                   for the same play, or after the game.
+//   preview(matchup, ctx)
+//                   the pre-game show: up to four sentences from what is known before kickoff only.
+//                   matchup is one of data/league.json's matchups ({ teams: [{ id, full }, ...] });
+//                   ctx is { league, profiles, style }: league is data/league.json (records and
+//                   standings), profiles is { <team id>: data/profiles/<id>.json } (recent form and
+//                   tendencies). Says each team's record and place, the player most up and most
+//                   down in recent form (0.10 or more off the season), and one tendency to watch.
+//                   Nothing from the game file, no score. '' when there is nothing true to say.
 //   explain(kind)   one or two plain sentences on a football rule for someone who has never
 //                   watched, for the app's rule cards; '' for an unknown kind. explainKinds lists
 //                   the kinds; explainFor(res) gives the kinds a finished play shows.
@@ -605,6 +613,88 @@
     }
   }
 
+  // ---- C23: the pre-game show ----
+  var WHAT = {
+    deep_ball: 'big plays downfield', short_pass: 'completing passes', scramble: 'running with the ball',
+    run_share: 'getting carries', pass_catching: 'catching passes out of the backfield', catch_rate: 'holding on to the ball',
+    red_zone_use: 'work near the goal line', target_share: 'getting targets', kicker_range: 'long kicks', accuracy: 'kicking accuracy'
+  };
+  var WATCH = {
+    deep_ball: '{name} is a real deep threat.', short_pass: '{name} rarely misses on short throws.',
+    run_share: 'The {team} offense runs through {name}.', pass_catching: '{name} is a weapon out of the backfield.',
+    catch_rate: '{name} has some of the surest hands around.'
+  };
+  var PREVIEW = {
+    record: {
+      straight: ['The {a} ({ra}) take on the {b} ({rb}).', 'It\'s the {a} ({ra}) against the {b} ({rb}).', 'This week: the {a} ({ra}) and the {b} ({rb}).'],
+      fun: ['The {a} ({ra}) square off with the {b} ({rb})!', 'Showdown time: the {a} ({ra}) versus the {b} ({rb})!', 'Here we go: {a} ({ra}) against {b} ({rb})!']
+    },
+    hot: {
+      straight: ['Hot lately: {name} of the {team}, better at {what} in recent games.', 'In form: {name}, up on {what} lately for the {team}.', 'Trending up: {name} of the {team}, sharper at {what}.'],
+      fun: ['Red hot: {name} has been on fire at {what}!', '{name} of the {team} is heating up at {what}!', '{name} has been flying lately at {what}!']
+    },
+    cold: {
+      straight: ['Cooling off: {name}, down on {what} lately.', 'Out of form: {name} of the {team}, worse at {what} recently.', 'Something to fix for {name}: {what}.'],
+      fun: ['Ice cold: {name} has struggled with {what}!', '{name} needs a bounce back at {what}!', 'Rough patch for {name}: {what} is down!']
+    }
+  };
+  var PLACES = ['', 'first', 'second', 'third', 'fourth', 'fifth', 'sixth', 'seventh', 'eighth', 'ninth', 'tenth'];
+
+  function recordOf(league, id) {
+    var rows = (league && league.standings) || [];
+    for (var i = 0; i < rows.length; i++) {
+      var r = rows[i];
+      if (r.id === id && typeof r.wins === 'number' && typeof r.losses === 'number') {
+        return r.wins + '-' + r.losses + ', ' + (PLACES[i + 1] || (i + 1) + 'th');
+      }
+    }
+    return '';
+  }
+
+  function preview(matchup, ctx) {
+    try {
+      ctx = ctx || {};
+      var ts = (matchup && matchup.teams) || [];
+      if (ts.length < 2) return '';
+      var style = STYLES.indexOf(ctx.style) >= 0 ? ctx.style : api.style;
+      var out = [];
+      var ra = recordOf(ctx.league, ts[0].id), rb = recordOf(ctx.league, ts[1].id);
+      if (ra && rb) out.push(fill(pick('record', style, PREVIEW), { a: ts[0].full, b: ts[1].full, ra: ra, rb: rb }));
+      // Recent form against the season, and the strongest tendency, over both teams' profiles.
+      var hot = null, cold = null, colds = [], watch = null, profiles = ctx.profiles || {};
+      ts.forEach(function (t) {
+        var pr = profiles[t.id], ps = pr && pr.players;
+        if (!ps) return;
+        Object.keys(ps).forEach(function (slot) {
+          var pl = ps[slot], season = pl.tendencies || {}, form = (pl.form && (pl.form.tendencies || pl.form)) || {};
+          Object.keys(season).forEach(function (k) {
+            var sv = season[k], fv = form[k];
+            if (typeof sv !== 'number' || !WHAT[k]) return;
+            if (typeof fv === 'number') {
+              var d = fv - sv, x = { name: lastName(pl.name), team: t.full, what: WHAT[k], d: d };
+              x.key = t.id + '|' + slot;
+              if (d >= 0.1 && (!hot || d > hot.d)) hot = x;
+              if (d <= -0.1) colds.push(x);
+            }
+            if (WATCH[k] && sv >= 0.7 && (!watch || sv > watch.v)) watch = { name: lastName(pl.name), team: t.full, k: k, v: sv };
+          });
+        });
+      });
+      // The coldest player who is not also the hot one.
+      colds.forEach(function (x) { if ((!hot || x.key !== hot.key) && (!cold || x.d < cold.d)) cold = x; });
+      if (hot) out.push(fill(pick('hot', style, PREVIEW), hot));
+      if (cold) out.push(fill(pick('cold', style, PREVIEW), cold));
+      if (watch && (!hot || watch.name !== hot.name) && (!cold || watch.name !== cold.name)) {
+        out.push(fill(WATCH[watch.k], { name: watch.name, team: watch.team }));
+      }
+      var text = out.slice(0, 4).join(' ').replace(/(^|[.!?]\s+)([a-z])/g, function (m, a, b) { return a + b.toUpperCase(); });
+      if (text) announce(text, 'preview', style);
+      return text;
+    } catch (err) {
+      return '';
+    }
+  }
+
   // ---- C14: rule explainers ----
   var EXPLAIN = {
     first_down: "The offense gets four tries, called downs, to move the ball 10 yards. If they make it, that is a first down and they get four new tries.",
@@ -945,6 +1035,7 @@
 
     catchUp: catchUp,
     bigCall: bigCall,
+    preview: preview,
     bigCallMaxLength: 200,   // the longest names in the data give 195; check.js tests it
     _bigLines: BIG,
     explain: function (kind) { return Object.prototype.hasOwnProperty.call(EXPLAIN, kind) ? EXPLAIN[kind] : ''; },
