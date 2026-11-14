@@ -1,15 +1,19 @@
 # Handoff for a boss session
 
-There are two bosses, with equal authority: Juan's lead session and Ricky's boss session. Juan gave Ricky's boss the authority to decide on his behalf (`board/ORDERS.md`, order 9; `tools/bosses.txt`).
+Everyone is a boss, with equal authority (`board/ORDERS.md`, order 9; `tools/bosses.txt`). Any of the four people can run a boss session. Your branch is `<your GitHub username>/boss` and your commits are authored and committed by your own account only, with the email on your row in `tools/roster.txt`:
 
-- If you work for **Juan**: GitHub username `cstljuan`, git email `68199309+cstljuan@users.noreply.github.com`, branch `cstljuan/boss`.
-- If you work for **Ricky**: GitHub username `Rickstar-App`, git email `222289480+Rickstar-App@users.noreply.github.com`, branch `Rickstar-App/boss`. Your commits are authored and committed by `Rickstar-App` only.
+- **Juan**: `cstljuan`, `68199309+cstljuan@users.noreply.github.com`, branch `cstljuan/boss`.
+- **Ricky**: `Rickstar-App`, `222289480+Rickstar-App@users.noreply.github.com`, branch `Rickstar-App/boss`.
+- **Noah**: `nexodv`, the email on his row in `tools/roster.txt`, branch `nexodv/boss`.
+- **Peyton**: `Peypey-ryd`, the email on her row in `tools/roster.txt`, branch `Peypey-ryd/boss`.
+
+If you do not know which person you work for, ask in your session's chat.
 
 Read `CLAUDE.md`, `board/ORDERS.md`, `docs/BOARD.md`, `docs/LANES.md` and `docs/CONTRACT.md` first.
 
-Juan and the team are away. **Do not ask your person anything. Do not stop.** Decide, record the decision in `board/BOSS.md`, keep going.
+Juan and the team are away, on their phones at most. **Do not stop and never wait.** Decide, record the decision in `board/BOSS.md`, keep going. Only when you truly need your person, ask in your session's chat and keep going meanwhile (order 1).
 
-## Two bosses without collisions
+## Several bosses without collisions
 
 - Start every round from the newest `main` (`sh tools/boss-round.sh` does this). If your push is refused or `main` does not move to your commit within two minutes, the other boss pushed first: run the round again.
 - Before you answer an ASK, check "Answers to ASK posts" on the newest `main`. If the other boss already answered it, do not answer again.
