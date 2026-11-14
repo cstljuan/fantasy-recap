@@ -68,7 +68,10 @@
       if (s.sentOff[t + ':' + slot]) throw new Error(T[t].id + ' ' + slot + ' was sent off and cannot play at ' + e.min + "'");
       return lastName(T[t].roster[slot]);
     }
-    function call(text, sub, color) { r.calls.push({ text: text, sub: sub || '', color: color }); }
+    // style: goal | score | card | flag | info. The view draws each one differently.
+    function call(text, sub, style, color, forTeam) {
+      r.calls.push({ text: text, sub: sub || '', style: style || 'info', color: color || '', team: forTeam === undefined ? team : forTeam });
+    }
     function scoreLine() { return T[0].id + ' ' + s.score[0] + '  ' + T[1].id + ' ' + s.score[1]; }
     function spokenScore() { return T[0].name + ' ' + s.score[0] + ', ' + T[1].name + ' ' + s.score[1] + '.'; }
     function goal(by, assist, how) {
@@ -77,8 +80,8 @@
       r.goal = true; r.scorer = by; r.assist = assist || null;
       s.poss = -1;
       s.expect = [{ t: 'kickoff', team: other }];
-      call('GOAL!', nm(team, by) + ' ' + e.min + "'", '#ffe600');
-      call(scoreLine(), assist ? 'Assist ' + nm(team, assist) : '', '#ffffff');
+      call('GOAL', nm(team, by) + ' ' + e.min + "'" + (assist ? ', ASSIST ' + nm(team, assist) : ''), 'goal');
+      call(scoreLine(), '', 'score');
       r.say = 'Goal! ' + nm(team, by) + ' scores for ' + T[team].name + '. ' + spokenScore();
     }
 
@@ -96,41 +99,48 @@
     if (e.t === 'kickoff') {
       if (s.firstKicker < 0) s.firstKicker = team;
       s.poss = team; s.expect = null;
-      r.text = e.min + "' Kickoff, " + T[team].id;
-      if (e.min === 0) { call('KICKOFF', T[0].name.toUpperCase() + ' v ' + T[1].name.toUpperCase()); r.say = 'Kickoff. ' + T[0].name + ' against ' + T[1].name + '.'; }
+      r.text = e.min + "' " + T[team].name + ' kick off';
+      if (e.min === 0) { call('KICKOFF', T[0].name + ' v ' + T[1].name); r.say = 'Kickoff. ' + T[0].name + ' against ' + T[1].name + '.'; }
       else if (s.half === 2 && !s.secondStarted) { call('SECOND HALF'); r.say = 'We are back under way.'; }
       if (s.half === 2) s.secondStarted = true;
     } else if (e.t === 'build') {
       if (!e.chain || !e.chain.length) throw new Error('Build without a chain at ' + e.min + "'");
       r.regain = s.poss !== team;
       s.poss = team; s.expect = null;
-      r.text = e.min + "' " + T[team].id + ': ' + e.chain.map(function (k) { return nm(team, k); }).join(' to ');
+      var names = e.chain.map(function (k) { return nm(team, k); });
+      r.text = e.min + "' " + (names.length <= 3 ? names.join(' to ') : names[0] + ' to ' + names[names.length - 1] + ', ' + (names.length - 1) + ' passes');
     } else if (e.t === 'shot' || e.t === 'pen') {
       if (s.poss !== team) throw new Error(e.min + "' " + T[team].id + ' shoot without the ball');
       var who = nm(team, e.by), keeper = nm(other, 'GK');
       if (e.assist) nm(team, e.assist);
-      r.text = e.min + "' " + (e.t === 'pen' ? 'Penalty, ' : 'Shot, ') + who + ': ' + e.out + (e.offside ? ' (offside)' : '');
+      r.text = e.min + "' " + ({
+        in: e.offside ? who + ' goal ruled out, offside' : who + (e.t === 'pen' ? ' scores the penalty' : ' scores') + (e.assist ? ', assist ' + nm(team, e.assist) : ''),
+        saved: keeper + ' saves from ' + who,
+        wide: who + (e.t === 'pen' ? ' misses the penalty' : ' shoots wide'),
+        post: who + ' hits the post',
+        blocked: 'Shot by ' + who + ', blocked'
+      }[e.out] || who + ' shoots');
       if (e.out === 'in') {
         if (e.offside) {
-          call('NO GOAL', 'OFFSIDE, ' + who.toUpperCase(), '#ffd400');
+          call('NO GOAL', 'OFFSIDE, ' + who, 'flag');
           r.say = 'It is in, but the flag is up. ' + who + ' was offside. No goal.';
           r.disallowed = true;
           s.poss = other; s.expect = [{ team: other }];
           s.restart = 'fk';
         } else goal(e.by, e.assist, e.t === 'pen' ? 'pen' : e.head ? 'head' : 'foot');
       } else if (e.out === 'saved') {
-        call('SAVE', keeper.toUpperCase());
+        call('SAVE', keeper, 'info', '', other);
         r.say = 'Saved by ' + keeper + '.';
         r.saver = 'GK';
         s.poss = other;
         s.expect = e.t === 'pen' ? [{ team: other }] : [{ team: other }, { team: team, t: 'corner' }];
       } else if (e.out === 'wide') {
-        call(e.t === 'pen' ? 'MISSED' : 'WIDE', who.toUpperCase());
+        call(e.t === 'pen' ? 'MISSED' : 'WIDE', who);
         r.say = who + (e.t === 'pen' ? ' misses the penalty.' : ' puts it wide.');
         s.poss = other; s.expect = [{ team: other }];
         s.restart = 'gk';
       } else if (e.out === 'post' && e.t === 'shot') {
-        call('OFF THE POST', who.toUpperCase());
+        call('OFF THE POST', who);
         r.say = 'Off the post! So close for ' + who + '.';
         s.poss = -1; s.expect = null;
       } else if (e.out === 'blocked' && e.t === 'shot') {
@@ -142,27 +152,27 @@
       nm(team, e.by);
       s.poss = team;
       call('CORNER', T[team].id);
-      r.text = e.min + "' Corner " + T[team].id + ', ' + nm(team, e.by) + (e.to ? ' to ' + nm(team, e.to) : ', cleared');
+      r.text = e.min + "' " + nm(team, e.by) + (e.to ? "'s corner to " + nm(team, e.to) : "'s corner, cleared");
       if (e.to) { nm(team, e.to); s.expect = [{ team: team, t: 'shot', by: e.to }, { team: other }]; s.restart = 'corner'; }
       else { s.poss = other; s.expect = [{ team: other }]; r.say = 'Corner, headed clear.'; }
     } else if (e.t === 'freekick') {
       nm(team, e.by);
       s.poss = team;
       call('FREE KICK', T[team].id);
-      r.text = e.min + "' Free kick " + T[team].id + ', ' + nm(team, e.by) + (e.to ? ' to ' + nm(team, e.to) : ', direct');
+      r.text = e.min + "' " + nm(team, e.by) + (e.to ? "'s free kick to " + nm(team, e.to) : ' over the free kick');
       if (e.to) { nm(team, e.to); s.expect = null; s.restart = 'fkpass'; }
       else { s.expect = [{ team: team, t: 'shot', by: e.by }]; s.restart = 'fk'; r.direct = true; }
     } else if (e.t === 'foul') {
       var off = nm(team, e.by), vic = nm(other, e.on), key = team + ':' + e.by;
-      r.text = e.min + "' Foul by " + off + ' on ' + vic + (e.card ? ', ' + e.card + ' card' : '') + (e.box ? ', penalty' : '');
-      call(e.box ? 'PENALTY' : 'FOUL', off.toUpperCase() + ' ON ' + vic.toUpperCase(), e.box ? '#ffe600' : '#ffffff');
+      r.text = e.min + "' " + off + ' fouls ' + vic + (e.box ? ', penalty' : e.card ? ', ' + e.card : '');
+      call(e.box ? 'PENALTY' : 'FOUL', off + ' on ' + vic, e.box ? 'flag' : 'info', '', e.box ? other : team);
       var card = e.card;
       if (card === 'yellow' && s.cards[key] === 'yellow') card = 'red';
       if (card) {
         s.cards[key] = card;
         r.card = card;
         if (card === 'red') s.sentOff[key] = true;
-        call(card === 'red' ? 'RED CARD' : 'YELLOW CARD', off.toUpperCase(), card === 'red' ? '#ff3b30' : '#ffd400');
+        call(card === 'red' ? 'RED CARD' : 'YELLOW CARD', off, 'card', card === 'red' ? '#e5322b' : '#ffd21a');
       }
       r.say = e.box ? 'Penalty! ' + off + ' brings down ' + vic + '.' : 'Foul by ' + off + '.' + (card ? ' ' + (card === 'red' ? 'Red' : 'Yellow') + ' card.' : '');
       s.poss = other;
@@ -170,8 +180,8 @@
       s.restart = e.box ? 'pen' : 'fk';
     } else if (e.t === 'offside') {
       var ow = nm(team, e.by);
-      call('OFFSIDE', ow.toUpperCase(), '#ffd400');
-      r.text = e.min + "' Offside, " + ow;
+      call('OFFSIDE', ow, 'flag');
+      r.text = e.min + "' " + ow + ' caught offside';
       r.say = 'Flag up. ' + ow + ' is offside.';
       s.poss = other; s.expect = [{ team: other }];
       s.restart = 'fk';

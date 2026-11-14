@@ -5,6 +5,7 @@
   'use strict';
 
   var D = window.SC_DATA, Rules = window.SC_RULES, Plays = window.SC_PLAYS, Spr = window.SC_SPRITES;
+  var Font = window.SC_FONT, Stadium = window.SC_STADIUM;
   var TEAMS = D.TEAMS;
   var LEN = Plays.LEN, WID = Plays.WID;
 
@@ -28,9 +29,10 @@
 
   // Logical canvas size. The width is fixed, the height follows the phone.
   var W = 390, H = 844, SCALE = 1;
-  var PX = 5.25, PY = 9.2, PAD = 70;      // pixels per meter across and along the pitch
-  var MX = (W - WID * PX) / 2;
-  var FONT = '"Courier New", ui-monospace, Menlo, Consolas, monospace';
+  var S = 8;                              // pixels per meter, the same across and along the pitch
+  var stadium = Stadium.build(TEAMS, S, Font), M = stadium.M;
+  // Palette: near-black panels, warm white text, one amber signal color (same as css/app.css).
+  var INK = '#0b0d0e', PANEL = '#121516', RULE = '#2b3033', TEXT = '#f3f1ea', DIM = '#8e9597', AMBER = '#ffc21a', FLAG = '#ffd21a';
 
   var canvas = document.getElementById('scGame');
   var g = canvas.getContext('2d');
@@ -51,9 +53,6 @@
   // ------------------------------------------------------------ actors
 
   var all = [];
-  function initials(name) {
-    return name.split(' ').map(function (w) { return w.charAt(0); }).join('').slice(0, 2).toUpperCase();
-  }
   function makeTeam(ti) {
     var T = TEAMS[ti], s = {}, list = [];
     Rules.SLOTS.forEach(function (slot, i) {
@@ -62,7 +61,7 @@
         team: ti, role: slot, keeper: slot === 'GK', tone: (n * 7) % 3, hair: (n * 5) % Spr.HAIRS, phase: n * 0.37,
         jx: ((n * 37) % 7) / 2 - 1.5, jy: ((n * 53) % 7) / 2 - 1.5,
         x: WID / 2, y: LEN / 2, path: null, state: '', view: 'f', moving: false, num: [1, 3, 4, 5, 2, 8, 6, 10, 11, 9, 7][i],
-        label: own ? { initials: initials(T.roster[slot]), name: Rules.lastName(T.roster[slot]), color: T.colors.tile } : null
+        label: own ? { name: Rules.lastName(T.roster[slot]) } : null
       };
       s[slot] = a; list.push(a); all.push(a);
     });
@@ -73,9 +72,9 @@
   // ------------------------------------------------------------- state
 
   var steps = Rules.flatten(D.SAMPLE_GAME, TEAMS);
-  var state, si, play, pt, mode, clock = 0, interUntil = 0, cam = 0, camSet = false;
+  var state, si, play, pt, mode, clock = 0, interUntil = 0, camX = 0, camY = 0, camSet = false;
   var ball = { x: WID / 2, y: LEN / 2, holder: null }, spot = null, teleport = true;
-  var disp = { score: [0, 0], min: 0, half: 1, banner: null };
+  var disp = { score: [0, 0], min: 0, half: 1, banner: null, ticker: null, flash: -9, scoreAt: [-9, -9] };
   var log = [], errors = [];
   var active = false, listeners = [];
 
@@ -87,12 +86,16 @@
   }
 
   var fx = {
-    sound: function (name) { if (active && window.SC_SOUND) { try { window.SC_SOUND.play(name); } catch (err) { /* optional */ } } },
-    banner: function (text, sub, secs, color) {
-      disp.banner = { text: text, sub: sub || '', until: clock + secs, color: color || '#ffffff' };
+    sound: function (name) {
+      if (name === 'goal') disp.flash = clock;
+      if (active && window.SC_SOUND) { try { window.SC_SOUND.play(name); } catch (err) { /* optional */ } }
     },
+    // c is a call from the rules: { text, sub, style, team, color }
+    banner: function (c, secs) { disp.banner = { c: c, t0: clock, until: clock + secs }; },
     result: function (res, p) {
+      for (var i = 0; i < 2; i++) if (res.post.score[i] !== disp.score[i]) disp.scoreAt[i] = clock;
       disp.score = res.post.score.slice();
+      disp.ticker = { min: res.min, team: res.team, text: res.text.replace(/^\d+' /, '').toUpperCase(), t0: clock };
       if (res.say) say(res.say);
       emit('result', { res: res, play: p.name, step: si });
     }
@@ -108,7 +111,6 @@
     } catch (err) { /* the announcer is optional */ }
   }
 
-  function scoreText() { return TEAMS[0].id + ' ' + disp.score[0] + '   ' + TEAMS[1].id + ' ' + disp.score[1]; }
   function spokenScore() { return TEAMS[0].name + ' ' + disp.score[0] + ', ' + TEAMS[1].name + ' ' + disp.score[1] + '.'; }
 
   // An empty play that just holds everyone where they are (half time, final).
@@ -125,7 +127,7 @@
       disp.half = 2; disp.min = 45;
       play = stillPlay(); pt = 0;
       mode = 'inter'; interUntil = clock + 3.4;
-      fx.banner('HALF TIME', scoreText(), 3.2);
+      disp.banner = null;
       say('Half time. ' + spokenScore());
       teleport = true; ball = { x: WID / 2, y: LEN / 2, holder: null };
       log.push({ step: si, text: 'HALF TIME', score: disp.score.slice() });
@@ -164,7 +166,7 @@
     state = Rules.create(TEAMS);
     si = 0; clock = 0; camSet = false; teleport = true; spot = null;
     ball = { x: WID / 2, y: LEN / 2, holder: null };
-    disp.score = [0, 0]; disp.min = 0; disp.half = 1; disp.banner = null;
+    disp.score = [0, 0]; disp.min = 0; disp.half = 1; disp.banner = null; disp.ticker = null; disp.flash = -9; disp.scoreAt = [-9, -9];
     log.length = 0;
     emit('reset');
     startStep();
@@ -194,247 +196,275 @@
     }
   }
 
+  // The camera follows the ball on both axes and never shows past the stands.
   function updateCamera(realDt) {
     var b = Plays.ballAt(play, pt);
-    var target = sy0(b.y) - H * 0.5;
-    target = clamp(target, 0, Math.max(0, sy0(LEN) + PAD - H));
-    if (!camSet) { cam = target; camSet = true; }
-    else cam += (target - cam) * (1 - Math.exp(-realDt * 4 * Math.max(1, SPEED)));
+    var tx = clamp(wx(b.x) - W / 2, 0, stadium.W - W);
+    var ty = stadium.H > H ? clamp(wy(b.y) - H * 0.52, 0, stadium.H - H) : (stadium.H - H) / 2;
+    if (!camSet) { camX = tx; camY = ty; camSet = true; return; }
+    var k = 1 - Math.exp(-realDt * 3.5 * Math.max(1, SPEED));
+    camX += (tx - camX) * k; camY += (ty - camY) * k;
   }
 
   // -------------------------------------------------------------- draw
 
-  function sx(x) { return MX + x * PX; }
-  function sy0(y) { return PAD + y * PY; }
-  function sy(y) { return sy0(y) - cam; }
+  function wx(x) { return (x + M) * S; }
+  function wy(y) { return (y + M) * S; }
+  var ox = 0, oy = 0;   // camera offset for this frame, whole pixels, shake included
+  function sx(x) { return Math.round(wx(x)) - ox; }
+  function sy(y) { return Math.round(wy(y)) - oy; }
+  function ease(t) { t = clamp(t, 0, 1); return 1 - Math.pow(1 - t, 3); }
+  function text(str, x, y, o) { return Font.draw(g, str, x, y, o); }
 
-  function line(x0, y0, x1, y1) { g.fillRect(sx(x0), sy(y0), Math.max(1.5, (x1 - x0) * PX), Math.max(1.5, (y1 - y0) * PY)); }
-  function ell(cx, cy, r, a0, a1) { g.beginPath(); g.ellipse(sx(cx), sy(cy), r * PX, r * PY, 0, a0, a1); g.stroke(); }
-
-  function drawPitch() {
-    // Stadium floor, then the grass with mowing stripes past the lines.
-    g.fillStyle = '#0b0d0e';
-    g.fillRect(0, 0, W, H);
-    var gx0 = sx(-3.5), gx1 = sx(WID + 3.5);
-    for (var k = -2; k < 22; k++) {
-      var y0 = sy(k * 5.25), y1 = sy((k + 1) * 5.25);
-      if (y1 < 0 || y0 > H) continue;
-      g.fillStyle = k % 2 === 0 ? '#2a6b33' : '#25622f';
-      g.fillRect(gx0, y0, gx1 - gx0, y1 - y0 + 0.5);
+  // Carrier ring under the feet: a pixel ellipse, built once.
+  var RING = (function () {
+    var pts = [], seen = {};
+    for (var t = 0; t < Math.PI * 2; t += 0.05) {
+      var x = Math.round(Math.cos(t) * 5) * 2, y = Math.round(Math.sin(t) * 2) * 2, k = x + ',' + y;
+      if (!seen[k]) { seen[k] = 1; pts.push([x, y]); }
     }
-    // Advertising boards along both touchlines, team colors in blocks.
-    for (var b = 0; b < 21; b++) {
-      var by0 = sy(b * 5.25 - 3), by1 = sy(b * 5.25 + 2.25);
-      if (by1 < 0 || by0 > H) continue;
-      var c = TEAMS[b % 2].colors;
-      g.fillStyle = b % 2 ? c.shirt : '#17191c';
-      g.fillRect(gx0 - 6, by0, 4, by1 - by0); g.fillRect(gx1 + 2, by0, 4, by1 - by0);
-    }
-    g.fillStyle = 'rgba(255,255,255,0.88)';
-    line(0, 0, WID, 0); line(0, LEN, WID, LEN);
-    line(0, 0, 0, LEN); line(WID - 0.28, 0, WID, LEN);
-    line(0, LEN / 2, WID, LEN / 2);
-    [0, 1].forEach(function (end) {
-      var y = end ? LEN : 0, s = end ? -1 : 1;
-      function box(w, d) {
-        var x0 = WID / 2 - w / 2, x1 = WID / 2 + w / 2, yy = y + s * d;
-        line(x0, Math.min(y, yy), x0 + 0.28, Math.max(y, yy));
-        line(x1 - 0.28, Math.min(y, yy), x1, Math.max(y, yy));
-        line(x0, yy, x1, yy);
-      }
-      box(40.32, 16.5); box(18.32, 5.5);
-      g.fillRect(sx(WID / 2) - 1.5, sy(y + s * 11) - 1.5, 3, 3);
-    });
-    g.strokeStyle = 'rgba(255,255,255,0.88)'; g.lineWidth = 1.5;
-    ell(WID / 2, LEN / 2, 9.15, 0, Math.PI * 2);
-    g.fillRect(sx(WID / 2) - 1.5, sy(LEN / 2) - 1.5, 3, 3);
-    // Penalty arcs, outside the box only.
-    var a = Math.acos(5.5 / 9.15);
-    ell(WID / 2, 11, 9.15, Math.PI / 2 - a, Math.PI / 2 + a);
-    ell(WID / 2, LEN - 11, 9.15, -Math.PI / 2 - a, -Math.PI / 2 + a);
-    // Corner arcs.
-    ell(0, 0, 1, 0, Math.PI / 2); ell(WID, 0, 1, Math.PI / 2, Math.PI);
-    ell(0, LEN, 1, -Math.PI / 2, 0); ell(WID, LEN, 1, Math.PI, Math.PI * 1.5);
-  }
+    return pts;
+  })();
 
-  function drawGoal(end) {
-    var y = end ? LEN : 0, s = end ? 1 : -1, x0 = sx(WID / 2 - 3.66), x1 = sx(WID / 2 + 3.66);
-    var yl = sy(y), yb = sy(y + s * 2.2);
-    if (Math.max(yl, yb) < -10 || Math.min(yl, yb) > H + 10) return;
-    var hit = play.netHit !== undefined && pt >= play.netHit && pt < play.netHit + 0.8 && Math.abs(Plays.ballAt(play, pt).y - y) < 3;
-    var top = Math.min(yl, yb), h = Math.abs(yb - yl);
-    g.fillStyle = 'rgba(255,255,255,0.10)';
-    g.fillRect(x0, top, x1 - x0, h);
-    g.strokeStyle = hit ? 'rgba(255,255,255,0.85)' : 'rgba(255,255,255,0.35)'; g.lineWidth = 1;
-    for (var x = x0; x <= x1; x += 4) { g.beginPath(); g.moveTo(x + 0.5, top); g.lineTo(x + 0.5, top + h); g.stroke(); }
-    for (var yy = top; yy <= top + h; yy += 4) { g.beginPath(); g.moveTo(x0, yy + 0.5); g.lineTo(x1, yy + 0.5); g.stroke(); }
-    g.fillStyle = '#ffffff';
-    g.fillRect(x0 - 2, yl - 2, 4, 4); g.fillRect(x1 - 2, yl - 2, 4, 4);
-    g.fillRect(x0 - 1, top, 2, h); g.fillRect(x1 - 1, top, 2, h);
-    g.fillRect(x0, yb - 1, x1 - x0, 2);
+  function drawGoalHit() {
+    if (play.netHit === undefined || pt < play.netHit || pt > play.netHit + 1.2) return;
+    var b = Plays.ballAt(play, pt), end = b.y > LEN / 2 ? LEN : 0, s = end ? 1 : -1;
+    var x0 = sx(WID / 2 - 3.66), x1 = sx(WID / 2 + 3.66), yl = sy(end), yb = sy(end + s * 2.2);
+    var top = Math.min(yl, yb), h = Math.abs(yb - yl), a = 1 - (pt - play.netHit) / 1.2;
+    g.fillStyle = 'rgba(255,255,255,' + (0.35 * a).toFixed(3) + ')';
+    for (var x = x0; x <= x1; x += 4) {
+      var bulge = Math.round(Math.sin((x - x0) / (x1 - x0) * Math.PI) * 3 * a) * s;
+      g.fillRect(x, top + bulge, 2, h);
+    }
   }
 
   function drawMarks() {
     play.marks.forEach(function (m) {
       if (m.kind !== 'offside' || pt < m.t) return;
-      var y = Math.round(sy(m.y));
-      g.fillStyle = 'rgba(255,212,0,0.75)';
-      for (var x = sx(0); x < sx(WID); x += 10) g.fillRect(x, y - 1, 6, 2);
-      // Assistant referee's flag on the touchline, raised.
-      var fx0 = Math.round(sx(m.x)) + (m.x > 0 ? 4 : -12);
-      g.fillStyle = '#d9d9d9'; g.fillRect(fx0 + 3, y - 18, 2, 18);
-      g.fillStyle = '#ffd400'; g.fillRect(fx0 + 5, y - 18, 7, 6);
-      g.fillStyle = '#ff3b30'; g.fillRect(fx0 + 5, y - 18, 3, 3); g.fillRect(fx0 + 8, y - 15, 4, 3);
+      var y = sy(m.y);
+      g.fillStyle = 'rgba(255,210,26,0.8)';
+      for (var x = sx(0); x < sx(WID); x += 8) g.fillRect(x, y - 1, 4, 2);
+      // The assistant referee on the touchline, flag up.
+      var fx0 = sx(m.x) + (m.x > 0 ? 6 : -14);
+      g.fillStyle = '#111'; g.fillRect(fx0 + 2, y - 4, 6, 8);
+      g.fillStyle = '#d8d8d0'; g.fillRect(fx0 + 4, y - 22, 2, 18);
+      g.fillStyle = FLAG; g.fillRect(fx0 + 6, y - 22, 8, 6);
+      g.fillStyle = '#e5322b'; g.fillRect(fx0 + 6, y - 22, 4, 3); g.fillRect(fx0 + 10, y - 19, 4, 3);
     });
   }
 
   function drawPlayer(a, isCarrier) {
-    var px = Math.round(sx(a.x)), py = Math.round(sy(a.y));
-    if (py < -40 || py > H + 40) return;
+    var px = sx(a.x), py = sy(a.y);
+    if (py < -40 || py > H + 40 || px < -20 || px > W + 20) return;
     var colors = TEAMS[a.team].colors;
     var still = a.state === 'down' || a.state === 'dive';
     var frame = a.moving && !still ? (Math.floor(clock * 10 + a.phase) % 2 ? 'a' : 'b') : 'stand';
     var img = Spr.get(a.team, colors, a.keeper, a.view, frame, a.tone, a.hair);
-    g.fillStyle = 'rgba(0,0,0,0.32)';
-    g.fillRect(px - 7, py, 14, 3);
-    if (isCarrier) {
-      var pulse = 0.5 + 0.5 * Math.sin(clock * 10);
-      g.strokeStyle = 'rgba(255,230,0,' + (0.65 + 0.35 * pulse) + ')';
-      g.lineWidth = 2;
-      g.beginPath(); g.ellipse(px, py + 1, 11 + pulse * 2, 5 + pulse, 0, 0, Math.PI * 2); g.stroke();
+    g.fillStyle = 'rgba(0,0,0,0.3)';
+    g.fillRect(px - 6, py, 12, 2); g.fillRect(px - 4, py + 2, 8, 2);
+    if (isCarrier && Math.floor(clock * 4) % 2 === 0) {
+      g.fillStyle = AMBER;
+      for (var i = 0; i < RING.length; i++) g.fillRect(px + RING[i][0] - 1, py + 1 + RING[i][1], 2, 2);
     }
     if (still) {
       g.save(); g.translate(px, py - 5); g.rotate((a.state === 'dive' ? (a.diveDir || 1) : 1) * Math.PI / 2);
       g.drawImage(img, -8, -11, 16, 22);
       g.restore();
     } else {
-      var hop = a.state === 'celebrate' ? Math.abs(Math.sin(clock * 9)) * 7 : 0;
+      var hop = a.state === 'celebrate' ? Math.round(Math.abs(Math.sin(clock * 9)) * 3) * 2 : 0;
       g.drawImage(img, px - 8, py - 20 - hop, 16, 22);
     }
   }
 
+  // One plate per owned player: a team-colored edge and the surname.
   function drawLabel(a, isCarrier) {
-    var L = a.label, px = Math.round(sx(a.x)), py = Math.round(sy(a.y));
-    if (py < -40 || py > H + 40) return;
-    var top = py - 22;
-    if (L) {
-      var tx = px - 7, ty = top - 15;
-      g.fillStyle = L.color; g.fillRect(tx, ty, 14, 14);
-      g.strokeStyle = isCarrier ? '#ffe600' : '#ffffff'; g.lineWidth = 1;
-      g.strokeRect(tx + 0.5, ty + 0.5, 13, 13);
-      g.textAlign = 'center';
-      g.fillStyle = '#ffffff'; g.font = 'bold 8px ' + FONT;
-      g.fillText(L.initials, px, ty + 10);
-      g.font = 'bold 9px ' + FONT;
-      g.lineWidth = 2.5; g.strokeStyle = 'rgba(0,0,0,0.85)';
-      g.strokeText(L.name.toUpperCase(), px, py + 11);
-      g.fillStyle = isCarrier ? '#ffe600' : '#ffffff';
-      g.fillText(L.name.toUpperCase(), px, py + 11);
-      top = ty;
-    }
+    var L = a.label, px = sx(a.x), py = sy(a.y);
+    if (py < -40 || py > H + 40 || px < -60 || px > W + 60) return;
+    var top = py - 24;
     play.cards.forEach(function (c) {
       if (c.a !== a || pt < c.t0) return;
-      g.fillStyle = '#111'; g.fillRect(px + 9, top - 1, 9, 12);
-      g.fillStyle = c.color; g.fillRect(px + 10, top, 7, 10);
+      g.fillStyle = INK; g.fillRect(px + 6, top - 4, 10, 14);
+      g.fillStyle = c.color; g.fillRect(px + 8, top - 2, 6, 10);
     });
+    if (L) {
+      var name = L.name.toUpperCase(), tw = Font.width(name, 1), w = tw + 9, x = Math.round(px - w / 2), y = py + 5;
+      g.fillStyle = isCarrier ? AMBER : 'rgba(11,13,14,0.86)';
+      g.fillRect(x, y, w, 11);
+      g.fillStyle = isCarrier ? INK : TEAMS[a.team].colors.trim;
+      g.fillRect(x, y, 2, 11);
+      text(name, x + 5, y + 2, { color: isCarrier ? INK : TEXT });
+    }
     if (isCarrier) {
-      var bob = Math.sin(clock * 8) * 2;
-      g.fillStyle = '#ffe600';
-      g.beginPath();
-      g.moveTo(px - 5, top - 9 + bob); g.lineTo(px + 5, top - 9 + bob); g.lineTo(px, top - 3 + bob);
-      g.closePath(); g.fill();
+      var bob = Math.round(Math.sin(clock * 7)) * 2, ty = top - 10 + bob;
+      g.fillStyle = AMBER;
+      g.fillRect(px - 4, ty, 8, 2); g.fillRect(px - 2, ty + 2, 4, 2);
     }
   }
 
   function drawBall(b) {
-    var x = sx(b.x), y = sy(b.y), s = 1 + b.z / 9;
+    var x = sx(b.x), y = sy(b.y);
+    // A short trail when the ball is really moving.
+    if (!b.holder) {
+      for (var k = 2; k >= 1; k--) {
+        var p = Plays.ballAt(play, Math.max(0, pt - k * 0.035));
+        var tx = sx(p.x), ty = sy(p.y) - Math.round(p.z * S * 0.5);
+        if (Math.abs(tx - x) + Math.abs(ty - y) < 6) continue;
+        g.fillStyle = 'rgba(255,255,255,' + (k === 1 ? 0.35 : 0.15) + ')';
+        g.fillRect(tx - 2, ty - 2, 4, 4);
+      }
+    }
+    var lift = Math.round(b.z * S * 0.5), s = b.z > 2.5 ? 4 : 3;
     g.fillStyle = 'rgba(0,0,0,0.35)';
-    g.fillRect(Math.round(x) - 2, Math.round(y), 5, 2);
-    y -= b.z * PY * 0.55;
-    x = Math.round(x); y = Math.round(y);
-    var r = Math.round(3 * s);
-    g.fillStyle = '#111';
-    g.fillRect(x - r, y - r + 1, 2 * r, 2 * r - 2); g.fillRect(x - r + 1, y - r, 2 * r - 2, 2 * r);
-    g.fillStyle = '#ffffff';
-    g.fillRect(x - r + 1, y - r + 2, 2 * r - 2, 2 * r - 4); g.fillRect(x - r + 2, y - r + 1, 2 * r - 4, 2 * r - 2);
+    g.fillRect(x - 2, y, 4, 2);
+    y -= lift;
+    g.fillStyle = '#0e0e10';
+    g.fillRect(x - s, y - s + 1, 2 * s, 2 * s - 2); g.fillRect(x - s + 1, y - s, 2 * s - 2, 2 * s);
+    g.fillStyle = '#f4f4ee';
+    g.fillRect(x - s + 1, y - s + 2, 2 * s - 2, 2 * s - 4); g.fillRect(x - s + 2, y - s + 1, 2 * s - 4, 2 * s - 2);
     g.fillStyle = '#1a1a1a';
     g.fillRect(x - 1, y - 1, 2, 2);
   }
 
-  function drawScore() {
-    var x = 8, y = 8, w = 104, h = 58;
-    g.fillStyle = 'rgba(8,10,11,0.86)'; g.fillRect(x, y, w, h);
-    g.strokeStyle = '#ffffff'; g.lineWidth = 1; g.strokeRect(x + 0.5, y + 0.5, w - 1, h - 1);
-    for (var i = 0; i < 2; i++) {
-      var ry = y + 5 + i * 16, c = TEAMS[i].colors;
-      g.fillStyle = c.shirt; g.fillRect(x + 5, ry, 12, 12);
-      g.fillStyle = c.trim; g.fillRect(x + 5, ry, 12, 3);
-      g.fillStyle = '#ffffff'; g.font = 'bold 14px ' + FONT;
-      g.textAlign = 'left'; g.fillText(TEAMS[i].id, x + 22, ry + 11);
-      g.textAlign = 'right'; g.fillText(String(disp.score[i]), x + w - 8, ry + 11);
-    }
-    g.fillStyle = '#ffc21a'; g.fillRect(x + 5, y + 39, w - 10, 1);
-    g.textAlign = 'left'; g.fillStyle = '#ffc21a'; g.font = 'bold 12px ' + FONT;
+  function chip(team, x, y, size) {
+    var c = TEAMS[team].colors;
+    g.fillStyle = RULE; g.fillRect(x - 1, y - 1, size + 2, size + 2);
+    g.fillStyle = c.shirt; g.fillRect(x, y, size, size);
+    g.fillStyle = c.trim; g.fillRect(x, y, size, 2); g.fillRect(x + size / 2 - 1, y + 2, 2, size - 2);
+  }
+
+  // Broadcast score bug: clock, home, score, score, away.
+  function drawScoreBug() {
+    var x = 8, y = 8, h = 22;
     var minute = mode === 'final' ? 'FT' : mode === 'inter' ? 'HT' : disp.min + "'";
-    g.fillText(minute, x + 5, y + 52);
-    g.textAlign = 'right'; g.fillStyle = 'rgba(255,255,255,0.75)'; g.font = 'bold 7px ' + FONT;
-    g.fillText('SAMPLE, MOCK DATA', x + w - 6, y + 51);
-  }
-
-  function drawBanner() {
-    var b = disp.banner;
-    if (!b || clock >= b.until) return;
-    var fs = 16;
-    g.font = 'bold ' + fs + 'px ' + FONT;
-    var tw = g.measureText(b.text).width;
-    if (tw > W - 44) { fs = Math.floor(fs * (W - 44) / tw); g.font = 'bold ' + fs + 'px ' + FONT; tw = g.measureText(b.text).width; }
-    var sw = 0;
-    if (b.sub) { g.font = 'bold 9px ' + FONT; sw = g.measureText(b.sub).width; }
-    var bw = Math.max(tw, sw) + 24, bh = b.sub ? 46 : 30, bx = Math.round((W - bw) / 2), by = 80;
-    g.fillStyle = 'rgba(8,10,11,0.92)'; g.fillRect(bx, by, bw, bh);
-    g.strokeStyle = b.color; g.lineWidth = 2; g.strokeRect(bx + 1, by + 1, bw - 2, bh - 2);
-    g.textAlign = 'center';
-    g.fillStyle = b.color; g.font = 'bold ' + fs + 'px ' + FONT;
-    g.fillText(b.text, W / 2, by + 20);
-    if (b.sub) { g.fillStyle = '#ffffff'; g.font = 'bold 9px ' + FONT; g.fillText(b.sub, W / 2, by + 36); }
-  }
-
-  function drawFinal() {
-    var bw = 250, bh = 168, bx = (W - bw) / 2, by = Math.round(H / 2 - bh / 2);
-    g.fillStyle = 'rgba(8,10,11,0.93)'; g.fillRect(bx, by, bw, bh);
-    g.strokeStyle = '#ffffff'; g.lineWidth = 2; g.strokeRect(bx + 1, by + 1, bw - 2, bh - 2);
-    g.textAlign = 'center';
-    g.fillStyle = '#ffe600'; g.font = 'bold 24px ' + FONT; g.fillText('FULL TIME', W / 2, by + 36);
-    g.font = 'bold 18px ' + FONT;
+    var cw = Math.max(34, Font.width(minute, 2) + 12);
+    g.fillStyle = AMBER; g.fillRect(x, y, cw, h);
+    text(minute, x + cw / 2, y + 4, { unit: 2, color: INK, align: 'center' });
+    x += cw;
+    var codes = [TEAMS[0].id, TEAMS[1].id], codeW = Math.max(Font.width(codes[0], 2), Font.width(codes[1], 2));
+    var bw = 4 + 8 + codeW + 8 + 20 + 2 + 20 + 8 + codeW + 8 + 4;
+    g.fillStyle = PANEL; g.fillRect(x, y, bw, h);
+    g.fillStyle = TEAMS[0].colors.trim; g.fillRect(x, y, 4, h);
+    g.fillStyle = TEAMS[1].colors.trim; g.fillRect(x + bw - 4, y, 4, h);
+    text(codes[0], x + 12, y + 4, { unit: 2, color: TEXT });
+    text(codes[1], x + bw - 12, y + 4, { unit: 2, color: TEXT, align: 'right' });
+    var sx0 = x + 12 + codeW + 8;
     for (var i = 0; i < 2; i++) {
-      g.fillStyle = '#ffffff';
-      g.textAlign = 'left'; g.fillText(TEAMS[i].name.toUpperCase(), bx + 26, by + 72 + i * 28);
-      g.textAlign = 'right'; g.fillText(String(disp.score[i]), bx + bw - 26, by + 72 + i * 28);
+      var bx = sx0 + i * 22, hot = clock - disp.scoreAt[i] < 2.4 && Math.floor((clock - disp.scoreAt[i]) * 6) % 2 === 0;
+      g.fillStyle = hot ? AMBER : '#1e2225'; g.fillRect(bx, y, 20, h);
+      text(String(disp.score[i]), bx + 10, y + 4, { unit: 2, color: hot ? INK : TEXT, align: 'center' });
     }
-    g.textAlign = 'center';
-    g.fillStyle = 'rgba(255,255,255,0.8)'; g.font = 'bold 10px ' + FONT;
-    g.fillText('Sample match. Mock data.', W / 2, by + 128);
-    g.fillText('Tap for the recap', W / 2, by + 148);
+    var label = mode === 'final' ? 'FULL TIME' : mode === 'inter' ? 'HALF TIME' : (disp.half === 1 ? '1ST' : '2ND') + ' HALF';
+    var lw = Font.width(label, 1, 1) + 10;
+    g.fillStyle = PANEL; g.fillRect(8, y + h, lw, 13);
+    text(label, 13, y + h + 3, { color: DIM, track: 1 });
+    var mw = Font.width('SAMPLE MATCH', 1, 1) + 10;
+    g.fillStyle = PANEL; g.fillRect(W - 8 - mw, 8, mw, 22);
+    text('SAMPLE MATCH', W - 13, 11, { color: DIM, align: 'right', track: 1 });
+    text('MOCK DATA', W - 13, 20, { color: DIM, align: 'right', track: 1 });
+  }
+
+  // Banners wipe in from the left and out to the right.
+  function drawBanner() {
+    var B = disp.banner;
+    if (!B || clock >= B.until) return;
+    var c = B.c, team = c.team >= 0 ? c.team : 0, tc = TEAMS[team].colors;
+    var pin = ease((clock - B.t0) / 0.16), pout = ease((clock - (B.until - 0.16)) / 0.16);
+    var y = 52, big = c.style === 'goal', unit = big ? 6 : 3;
+    var th = 7 * unit, h = th + (c.sub ? 14 : 0) + (big ? 24 : 16);
+    g.save();
+    g.beginPath(); g.rect(Math.round(W * pout), y, Math.round(W * (pin - pout)), h); g.clip();
+    var slide = Math.round((1 - pin) * -24);
+    if (big) {
+      g.fillStyle = tc.shirt; g.fillRect(0, y, W, h);
+      g.fillStyle = tc.trim; g.fillRect(0, y, W, 2); g.fillRect(0, y + h - 2, W, 2);
+      // Hazard stripes along the edges.
+      for (var sx1 = (Math.floor(clock * 40) % 16) - 16; sx1 < W; sx1 += 16) { g.fillRect(sx1, y + 4, 8, 2); g.fillRect(sx1 + 8, y + h - 6, 8, 2); }
+      var flick = clock - B.t0 < 0.6 && Math.floor((clock - B.t0) * 10) % 2 === 1;
+      text(c.text, W / 2 + slide, y + 12, { unit: unit, color: flick ? '#ffffff' : tc.trim, align: 'center', track: 1 });
+      if (c.sub) text(c.sub, W / 2, y + 12 + th + 6, { color: tc.trim, align: 'center', track: 1 });
+    } else {
+      g.fillStyle = PANEL; g.fillRect(0, y, W, h);
+      var edge = c.style === 'flag' ? FLAG : c.style === 'score' ? AMBER : tc.trim;
+      g.fillStyle = edge; g.fillRect(0, y, W, 2);
+      var lx = 16;
+      if (c.style === 'flag') { g.fillStyle = FLAG; g.fillRect(0, y + 2, 6, h - 2); lx = 18; }
+      else if (c.style === 'card') {
+        g.fillStyle = INK; g.fillRect(14, y + 8, 14, 20);
+        g.fillStyle = c.color || FLAG; g.fillRect(16, y + 10, 10, 16); lx = 38;
+      } else { g.fillStyle = edge; g.fillRect(0, y + 2, 4, h - 2); }
+      text(c.text, lx + slide, y + 9, { unit: unit, color: c.style === 'flag' ? FLAG : TEXT, track: 1 });
+      if (c.sub) text(c.sub, lx, y + 9 + th + 5, { color: DIM, track: 1 });
+    }
+    g.restore();
+  }
+
+  // Lower third: what just happened, with the minute.
+  function drawTicker() {
+    var T = disp.ticker;
+    if (!T || mode === 'final' || mode === 'inter') return;
+    var h = 22, y = H - h - 10 + Math.round((1 - ease((clock - T.t0) / 0.2)) * (h + 12));
+    var mw = Math.max(34, Font.width(T.min + "'", 2) + 12), x = 8, w = W - 16;
+    g.fillStyle = AMBER; g.fillRect(x, y, mw, h);
+    text(T.min + "'", x + mw / 2, y + 4, { unit: 2, color: INK, align: 'center' });
+    g.fillStyle = PANEL; g.fillRect(x + mw, y, w - mw, h);
+    g.fillStyle = TEAMS[T.team >= 0 ? T.team : 0].colors.trim; g.fillRect(x + mw, y, 3, h);
+    var room = w - mw - 18, unit = Font.width(T.text, 2) <= room ? 2 : 1;
+    var str = T.text;
+    while (Font.width(str, unit) > room && str.length > 4) str = str.slice(0, -2);
+    if (str !== T.text) str = str.replace(/\s*\S?$/, '') + '..';
+    text(str, x + mw + 10, y + (unit === 2 ? 4 : 8), { unit: unit, color: TEXT });
+  }
+
+  function scorers(team) {
+    return state.goals.filter(function (gl) { return gl.team === team; }).map(function (gl) {
+      return Rules.lastName(TEAMS[team].roster[gl.by]).toUpperCase() + ' ' + gl.min + "'" + (gl.how === 'pen' ? ' (P)' : '');
+    }).join('  ');
+  }
+
+  // Half time and full time: a full board over the pitch, left aligned.
+  function drawBoard(title, foot) {
+    g.fillStyle = 'rgba(8,9,10,0.86)'; g.fillRect(0, 0, W, H);
+    var x = 24, y = Math.round(H / 2 - 110);
+    text(title, x, y, { unit: 4, color: AMBER, track: 1 });
+    y += 40;
+    g.fillStyle = AMBER; g.fillRect(x, y, W - 2 * x, 2);
+    y += 18;
+    for (var i = 0; i < 2; i++) {
+      chip(i, x, y + 3, 14);
+      text(TEAMS[i].name, x + 24, y + 3, { unit: 2, color: TEXT, track: 1 });
+      text(String(disp.score[i]), W - x, y - 4, { unit: 4, color: TEXT, align: 'right' });
+      var sc = scorers(i);
+      text(sc || 'NO GOALS', x + 24, y + 24, { color: sc ? DIM : RULE, track: 1 });
+      y += 52;
+    }
+    g.fillStyle = RULE; g.fillRect(x, y, W - 2 * x, 2);
+    y += 16;
+    if (foot && Math.floor(clock * 2) % 2 === 0) text(foot, x, y, { unit: 2, color: TEXT, track: 1 });
+    text('SAMPLE MATCH. MOCK DATA, MADE UP FOR THE DEMO.', x, y + (foot ? 26 : 0), { color: DIM });
   }
 
   function draw() {
     g.setTransform(SCALE, 0, 0, SCALE, 0, 0);
     g.imageSmoothingEnabled = false;
-    g.lineJoin = 'round';
-    drawPitch();
-    drawGoal(0);
+    var shake = clock - disp.flash < 0.45 ? Math.round((1 - (clock - disp.flash) / 0.45) * 2) * (Math.floor(clock * 60) % 2 ? 2 : -2) : 0;
+    ox = Math.round(camX) + shake; oy = Math.round(camY);
+    g.fillStyle = INK; g.fillRect(0, 0, W, H);
+    g.drawImage(stadium.canvas, -ox, -oy);
+    drawGoalHit();
     drawMarks();
     var b = Plays.ballAt(play, pt);
     var carrier = b.holder && b.hl ? b.holder : null;
     var list = all.slice().sort(function (p, r) { return p.y - r.y; });
     var i;
     for (i = 0; i < list.length; i++) drawPlayer(list[i], list[i] === carrier);
-    drawGoal(1);
     for (i = 0; i < list.length; i++) drawLabel(list[i], list[i] === carrier);
     drawBall(b);
-    drawScore();
+    if (clock - disp.flash < 0.22) { g.fillStyle = 'rgba(255,255,255,' + (0.5 * (1 - (clock - disp.flash) / 0.22)).toFixed(3) + ')'; g.fillRect(0, 0, W, H); }
+    drawScoreBug();
     drawBanner();
-    if (mode === 'final') drawFinal();
+    drawTicker();
+    if (mode === 'inter') drawBoard('HALF TIME', '');
+    if (mode === 'final') drawBoard('FULL TIME', 'TAP FOR THE RECAP');
   }
 
   // -------------------------------------------------------------- loop

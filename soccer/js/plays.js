@@ -142,7 +142,7 @@
     var secs = res.goal ? 2.0 : 1.2;
     this.cue(tEnd, function () { fx.result(res, me); });
     res.calls.forEach(function (c, i) {
-      me.cue(tc + i * (secs + 0.1), function () { fx.banner(c.text, c.sub, secs, c.color); });
+      me.cue(tc + i * (secs + 0.1), function () { fx.banner(c, secs); });
     });
     this.tEnd = tEnd;
     this.dur = Math.max(tEnd + 0.8, tc + res.calls.length * (secs + 0.1) + 0.2, opt.minDur || 0);
