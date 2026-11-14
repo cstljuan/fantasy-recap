@@ -370,7 +370,7 @@ console.log('line() with no teams is quiet: ' + (A.line({}, {}) === '' ? 'ok' : 
     console.log('  ' + pad(style, 9) + ours);
     console.log('  ' + pad(style, 9) + other);
     if (sentences(ours) < 3 || sentences(ours) > 4) problems.push('preview of our matchup has ' + sentences(ours) + ' sentences: ' + ours);
-    if (!/1-1/.test(ours) || !/third|second/.test(ours)) problems.push('preview misses the records: ' + ours);
+    if (!/\b\d+-\d+\b/.test(ours) || !/first|second|third|fourth/.test(ours)) problems.push('preview misses the records: ' + ours);
     if (/\b(17|14)\b|fantasy|score/i.test(ours)) problems.push('preview gives away something from the game: ' + ours);
     var hot = ours.match(/(?:Hot lately|In form|Trending up|Red hot): (\S+?)\b/), cold = ours.match(/(?:Cooling off|Out of form|Ice cold|Rough patch for): (\S+?)\b/);
     if (hot && cold && hot[1] === cold[1]) problems.push('preview names the same player hot and cold: ' + ours);

@@ -255,6 +255,8 @@ The boss reviews every DONE before it reaches main: the authors check, the lane 
 
 ## Decisions
 
+- Ricky's boss session (2026-11-14, 17:55 Eastern): the week 9 games are built from real plays (A8) and bring longer real names (Jaxon Smith-Njigba). js/announcer/check.js now fails on four templates that pass 56 characters with that name (kickoff, touchdown_pass, xp_good, fg_good). At runtime the announcer already drops a line longer than maxLength, so nothing overflows on screen. Noah decides the fix (shorter templates or a higher limit); until then that one check is red. The boss fixed two checks that had last week's standings written in (records and places) and raised bigCallMaxLength to 210.
+
 - From Ricky (2026-11-14, evening): Ricky's session is boss and worker for the rest of the night. Scout goes deeper: the real play-by-play (D38), tendencies from real plays (D39), the agent with play tools (D40), and a game built from a real week's actual plays (A8, Ricky's boss session, lane A).
 
 - The product is a weekly recap with hidden scores. No live mode in the build.
