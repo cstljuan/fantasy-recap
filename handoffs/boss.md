@@ -4,6 +4,10 @@ You are the boss of this project: Juan's lead session. Juan's GitHub username is
 
 Juan and the team are away. **Do not ask Juan anything. Do not stop.** Decide, record the decision in `board/BOSS.md`, keep going.
 
+## Light duty until about 9:30 PM Eastern on Saturday
+
+Juan's usage limit is nearly used. Until then: run the review round only when `sh tools/boss-wait.sh` says work is waiting, keep answers to one or two lines, do not rewrite or add large things in your own files, and do not read long files you do not need. Keeping Ricky's, Peyton's and Noah's agents supplied with tasks and merged is the whole job for now.
+
 ## Setup
 
 1. `sh tools/setup.sh`. If it says NOT OK, set `git config user.name "cstljuan"` and `git config user.email "68199309+cstljuan@users.noreply.github.com"` and run it again.

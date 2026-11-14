@@ -33,7 +33,7 @@ Run `sh tools/next.sh` to get your next task with its full description. A row is
 | C4 | C | nexodv | Pre-game intro, halftime report, full-time wrap | merged |
 | C5 | C | nexodv | Voice choice, pace and a queue so lines never cut each other off | merged |
 | C6 | C | nexodv | Tendency lines from the player profiles | merged |
-| C7 | C | nexodv | Kickoff and final jingles made in code | open |
+| C7 | C | nexodv | Kickoff and final jingles made in code | merged |
 | C9 | C | nexodv | Fit lines to the captions strip, with Peyton | open |
 | Q2 | C | nexodv | Walk the reveal flow at phone width and send Peyton what breaks | open |
 | P2 | C | nexodv | Shot list for the demo video | open |
@@ -53,7 +53,7 @@ Run `sh tools/next.sh` to get your next task with its full description. A row is
 | D9 | D | Rickstar-App | Sample league file for the League screen, with Peyton | merged |
 | D10 | D | Rickstar-App | Seed file: the sample game as database rows | merged |
 | Q3 | D | Rickstar-App | Check the README and Devpost text against the code and send each owner what is overstated | merged |
-| D12 | D | Rickstar-App | Scout, the deep agent: real player research with LangChain deepagents | open |
+| D12 | D | Rickstar-App | Scout, the deep agent: real player research with LangChain deepagents | merged |
 | D13 | D | Rickstar-App | A real week of stat lines from a public source | open |
 | D15 | D | Rickstar-App | Make `data/scoring.json` describe exactly what `js/rules.js` scores, with Peyton | open |
 | D14 | D | Rickstar-App | The service, finished: opt-ins, push a game, health | open |
@@ -61,15 +61,15 @@ Run `sh tools/next.sh` to get your next task with its full description. A row is
 | S1 | S | cstljuan | The soccer game | merged |
 | S2 | S | cstljuan | Fantasy soccer on top | merged |
 | S3 | S | cstljuan | Soccer polish: celebrations, replays of goals, set pieces | merged |
-| S4 | S | cstljuan | The soccer match maker | open |
-| S5 | S | cstljuan | The soccer app: lineups, feed, recap, hidden scores | open |
-| S6 | S | cstljuan | Soccer voice and captions, with Noah | open |
-| G1 | G | cstljuan | The Figma file, laid out like Juan's earlier projects | open |
-| G2 | G | cstljuan | Brand guide, wordmark, mascot | open |
-| G3 | G | cstljuan | Every screen at phone and laptop size | open |
-| G4 | G | cstljuan | Motion page and motion specs | open |
-| G5 | G | cstljuan | Devpost thumbnail, gallery, video title card, architecture picture | open |
-| G6 | G | cstljuan | DESIGN.md and tokens for the builders | open |
+| S4 | S | cstljuan | The soccer match maker | waiting: light duty, Juan restarts this after 9:30 PM Eastern |
+| S5 | S | cstljuan | The soccer app: lineups, feed, recap, hidden scores | waiting: light duty, Juan restarts this after 9:30 PM Eastern |
+| S6 | S | cstljuan | Soccer voice and captions, with Noah | waiting: light duty, Juan restarts this after 9:30 PM Eastern |
+| G1 | G | cstljuan | The Figma file with its pages set up (structure only for now) | open |
+| G2 | G | cstljuan | Brand guide, wordmark, mascot | waiting: light duty, Juan restarts this after 9:30 PM Eastern |
+| G3 | G | cstljuan | Every screen at phone and laptop size | waiting: light duty, Juan restarts this after 9:30 PM Eastern |
+| G4 | G | cstljuan | Motion page and motion specs | waiting: light duty, Juan restarts this after 9:30 PM Eastern |
+| G5 | G | cstljuan | Devpost thumbnail, gallery, video title card, architecture picture | waiting: light duty, Juan restarts this after 9:30 PM Eastern |
+| G6 | G | cstljuan | DESIGN.md and tokens for the builders | waiting: light duty, Juan restarts this after 9:30 PM Eastern |
 | A1 | A | cstljuan | Load the game from `data/games/<id>.json`; contract v1 | merged |
 | A2 | A | cstljuan | The football game maker with the play caller | merged |
 | A3 | A | cstljuan | Connect the announcer, crowd, captions and the floaters switch | merged |
@@ -135,6 +135,7 @@ The boss reviews every DONE before it reaches main: the authors check, the lane 
 - Merged after review: B9, C3, C4. All checks and the three full-game runs passed
 - Merged after review: B12, C5. All checks and the three full-game runs passed
 - Merged after review: C6. All checks and the three full-game runs passed
+- Merged after review: C7, D12. All checks and the three full-game runs passed
 - D1 real rosters and profile files, D2 database schema (Ricky) are on main; `data/games/sample-football.json` now has the real rosters
 
 ## Decisions
@@ -154,3 +155,4 @@ The boss reviews every DONE before it reaches main: the authors check, the lane 
 - From Juan: every agent works without its person for hours. Standing orders are in `board/ORDERS.md` and print on every sync.
 - The deep agent for the LangChain track is Scout, task D12, in Ricky's lane. D6 and A6 are folded into it.
 - A design session on Juan's account builds the brand and every screen in Figma (lane G, `handoffs/juan-design.md`). New designs are merged into the app later, by task.
+- Juan's sessions are on light duty until about 9:30 PM Eastern on Saturday (order 8). Soccer tasks S4 to S6 and design tasks G2 to G6 wait until Juan restarts them.
