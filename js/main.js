@@ -537,6 +537,7 @@
       say(piece('intro') || 'Kickoff. ' + TEAMS[0].name + ' against ' + TEAMS[1].name + '.');
     },
     restart: function () {
+      if (window.FF_ANNOUNCER && window.FF_ANNOUNCER.hush) { try { window.FF_ANNOUNCER.hush(); } catch (err) { /* optional */ } }
       Snd.init();
       reset();
       emit('start');
@@ -544,7 +545,10 @@
     setActive: function (on) {
       active = !!on;
       if (active) { camSet = false; resize(); }
-      else if ('speechSynthesis' in window) { try { window.speechSynthesis.cancel(); } catch (err) { /* optional */ } }
+      else {
+        if (window.FF_ANNOUNCER && window.FF_ANNOUNCER.hush) { try { window.FF_ANNOUNCER.hush(); } catch (err) { /* optional */ } }
+        if ('speechSynthesis' in window) { try { window.speechSynthesis.cancel(); } catch (err) { /* optional */ } }
+      }
     },
     setFloaters: function (on) { FLOATERS = !!on; if (!FLOATERS) disp.floaters = []; },
     setBackground: function (on) { BACKGROUND = !!on; },
