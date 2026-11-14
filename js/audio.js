@@ -29,6 +29,15 @@
 //   whistle_long  one long blast, for halftime and the final
 //   jingle_kickoff  a short brass and drum fanfare, about 3 seconds, before the kickoff
 //   jingle_final    a fuller theme that ends on a held chord, about 4 seconds, at full time
+//   crowd_clap   rhythmic clapping        crowd_chant  "De-fense!" three times with claps
+//   crowd_boo    a low boo                crowd_ooh    a rising and falling "ooh" for a near miss
+//   crowd_aww    a falling "aww"          crowd_stomp  stomping before a kickoff
+//   crowd_drum   a drum build on 4th down air_horn     a stadium horn after a touchdown
+// After init() these play by themselves from FF_GAME's events (react): a chant on 3rd down,
+// drums on 4th down, stomps at kickoffs, the horn and clapping after touchdowns, claps for good
+// kicks and sacks, aww for missed kicks, ooh for incompletions on 3rd and 4th down, boos for
+// flags and turnovers. Each has a cooldown so the crowd never piles up; nothing plays while
+// the game view is closed or during FF_GAME.seek.
 // Big plays build on each other: every swell and roar makes the murmur a little
 // louder for a while, and that excitement fades again over about 30 seconds.
 // crowdFor(res) returns the crowd sound name for a play result, or ''.
@@ -93,7 +102,7 @@
       ducker = ac.createGain(); ducker.gain.value = 1; ducker.connect(master);
       crowdBus = ac.createGain(); crowdBus.gain.value = settings.crowd; crowdBus.connect(ducker);
       if (!ctx && ac.state === 'suspended') ac.resume();
-      if (!ctx) watchSpeech();
+      if (!ctx) { watchSpeech(); hook(); }
     } catch (err) { ac = null; }
   }
 
@@ -144,7 +153,7 @@
   var bed = null;          // the running murmur: { src, gain, lfo }
   var hype = 0;            // 0 to 1, raised by big plays, fades over time
   var hypeAt = 0;          // ac time when hype was last set
-  var BED_BASE = 0.05, BED_MAX = 0.14, BED_IDLE = 15, HYPE_FADE = 30;
+  var BED_BASE = 0.09, BED_MAX = 0.22, BED_IDLE = 15, HYPE_FADE = 30;   // louder crowd (Noah)
 
   function noiseBuffer(secs) {
     var n = Math.floor(ac.sampleRate * secs), buf = ac.createBuffer(1, n, ac.sampleRate), d = buf.getChannelData(0);
@@ -252,24 +261,24 @@
     crowd_swell: function (t) {
       crowdCall(t);
       var h = hypeNow(t);
-      wave(t, 2.2, 0.16 + 0.1 * h, 500, 1100, 0.7);
-      voices(t + 0.3, 5 + Math.round(4 * h), 1.4, 0.012, 380, 700, true);
+      wave(t, 2.2, 0.26 + 0.12 * h, 500, 1100, 0.7);
+      voices(t + 0.3, 6 + Math.round(4 * h), 1.4, 0.02, 380, 700, true);
       addHype(t, 0.25);
       settle(t, 2.2);
     },
     crowd_roar: function (t) {
       crowdCall(t);
       var h = hypeNow(t);
-      wave(t, 3.6, 0.3 + 0.1 * h, 700, 1500, 0.25);
-      wave(t + 0.1, 3.4, 0.18, 300, 600, 0.3);
-      voices(t + 0.15, 12 + Math.round(6 * h), 2.4, 0.014, 420, 900, true);
+      wave(t, 3.6, 0.45 + 0.12 * h, 700, 1500, 0.25);
+      wave(t + 0.1, 3.4, 0.28, 300, 600, 0.3);
+      voices(t + 0.15, 14 + Math.round(6 * h), 2.4, 0.022, 420, 900, true);
       addHype(t, 0.5);
       settle(t, 3.6);
     },
     crowd_groan: function (t) {
       crowdCall(t);
-      wave(t, 1.8, 0.16, 650, 240, 0.25);
-      voices(t + 0.05, 8, 1.6, 0.012, 200, 360, false);
+      wave(t, 1.8, 0.26, 650, 240, 0.25);
+      voices(t + 0.05, 10, 1.6, 0.02, 200, 360, false);
       hype = hypeNow(t) * 0.5; hypeAt = t;   // a turnover takes some air out of the place
       settle(t, 1.8);
     },
@@ -332,6 +341,122 @@
     drum(t + 12 * b, 0.6); cymbal(t + 12 * b, 1.8, 0.1);
   };
 
+  // ---- More of a real stadium (Noah): claps, a chant, boos, ooh, aww, stomps, drums, air horn ----
+  // A section of the crowd as voices: detuned sawtooth tones through a vowel-like filter,
+  // gliding from f0 to f0 * glide.
+  function chorus(t, n, dur, vol, lo, hi, glide, vowel, mid) {
+    for (var i = 0; i < n; i++) {
+      var st = t + Math.random() * 0.12, d = dur * (0.8 + Math.random() * 0.3);
+      var f0 = lo + Math.random() * (hi - lo);
+      var o = ac.createOscillator(), g = ac.createGain(), bp = ac.createBiquadFilter(), lp = ac.createBiquadFilter();
+      o.type = 'sawtooth';
+      o.frequency.setValueAtTime(f0, st);
+      if (mid) o.frequency.linearRampToValueAtTime(f0 * mid, st + d * 0.4);
+      o.frequency.linearRampToValueAtTime(f0 * glide, st + d);
+      bp.type = 'bandpass'; bp.frequency.value = vowel; bp.Q.value = 1.5;
+      lp.type = 'lowpass'; lp.frequency.value = vowel * 2.5;
+      g.gain.setValueAtTime(0.0001, st);
+      g.gain.linearRampToValueAtTime(vol, st + Math.min(0.12, d * 0.2));
+      g.gain.setValueAtTime(vol, st + d * 0.7);
+      g.gain.exponentialRampToValueAtTime(0.0001, st + d);
+      o.connect(bp); bp.connect(lp); lp.connect(g); g.connect(crowdBus);
+      o.start(st); o.stop(st + d + 0.05);
+    }
+  }
+  // Many hands clapping on a beat: short bright bursts, each person a little early or late.
+  function claps(t, beats, every, vol) {
+    for (var b = 0; b < beats; b++) {
+      for (var p = 0; p < 7; p++) {
+        var at = Math.max(t, t + b * every + (Math.random() - 0.5) * 0.05), n = Math.max(1, Math.floor(ac.sampleRate * 0.05));
+        var buf = ac.createBuffer(1, n, ac.sampleRate), d = buf.getChannelData(0);
+        for (var i = 0; i < n; i++) d[i] = (Math.random() * 2 - 1) * (1 - i / n);
+        var src = ac.createBufferSource(); src.buffer = buf;
+        var f = ac.createBiquadFilter(); f.type = 'bandpass'; f.frequency.value = 1100 + Math.random() * 1500; f.Q.value = 1.2;
+        var g = ac.createGain(); g.gain.value = vol;
+        src.connect(f); f.connect(g); g.connect(crowdBus);
+        src.start(at); src.stop(at + 0.06);
+      }
+    }
+  }
+  function stomp(t, vol) {
+    var o = ac.createOscillator(), g = ac.createGain();
+    o.type = 'sine'; o.frequency.setValueAtTime(85, t); o.frequency.exponentialRampToValueAtTime(38, t + 0.2);
+    g.gain.setValueAtTime(vol, t); g.gain.exponentialRampToValueAtTime(0.0001, t + 0.25);
+    o.connect(g); g.connect(crowdBus); o.start(t); o.stop(t + 0.3);
+    var src = ac.createBufferSource(); src.buffer = noiseBuffer(0.12);
+    var f = ac.createBiquadFilter(); f.type = 'lowpass'; f.frequency.value = 260;
+    var g2 = ac.createGain(); g2.gain.setValueAtTime(vol * 0.6, t); g2.gain.exponentialRampToValueAtTime(0.0001, t + 0.12);
+    src.connect(f); f.connect(g2); g2.connect(crowdBus); src.start(t); src.stop(t + 0.13);
+  }
+
+  var MORE = {
+    crowd_clap: function (t) { claps(t, 8, 0.32, 0.2); },
+    // "De-fense!": a low syllable, a higher one, two claps; three times.
+    crowd_chant: function (t) {
+      for (var r = 0; r < 3; r++) {
+        var at = t + r * 1.3;
+        chorus(at, 12, 0.32, 0.045, 150, 175, 0.97, 650);
+        chorus(at + 0.38, 12, 0.45, 0.05, 185, 215, 0.92, 750);
+        claps(at + 0.82, 2, 0.24, 0.18);
+      }
+    },
+    crowd_boo: function (t) { chorus(t, 16, 2.3, 0.04, 120, 190, 0.9, 420); wave(t, 2.2, 0.12, 300, 240, 0.4); },
+    crowd_ooh: function (t) { chorus(t, 14, 1.4, 0.045, 200, 280, 0.8, 600, 1.3); },
+    crowd_aww: function (t) { chorus(t, 14, 1.3, 0.045, 260, 340, 0.6, 700); wave(t, 1.2, 0.1, 600, 300, 0.2); },
+    crowd_stomp: function (t) { [0, 0.4, 1.2, 1.6, 2.4, 2.8].forEach(function (d) { stomp(t + d, 0.45); }); },
+    crowd_drum: function (t) {
+      for (var i = 0; i < 8; i++) { var at = t + i * 0.25; drum(at, i % 4 === 0 ? 0.55 : 0.32); }
+      cymbal(t + 2, 0.6, 0.06);
+    },
+    air_horn: function (t) {
+      [233, 294, 349].forEach(function (f) {
+        var o = ac.createOscillator(), g = ac.createGain(), lp = ac.createBiquadFilter();
+        o.type = 'sawtooth'; o.frequency.setValueAtTime(f, t); o.frequency.setValueAtTime(f, t + 1.0); o.frequency.linearRampToValueAtTime(f * 0.94, t + 1.25);
+        lp.type = 'lowpass'; lp.frequency.value = 2400;
+        g.gain.setValueAtTime(0.0001, t); g.gain.linearRampToValueAtTime(0.09, t + 0.04);
+        g.gain.setValueAtTime(0.09, t + 1.05); g.gain.exponentialRampToValueAtTime(0.0001, t + 1.3);
+        o.connect(lp); lp.connect(g); g.connect(fxBus); o.start(t); o.stop(t + 1.35);
+      });
+    }
+  };
+  Object.keys(MORE).forEach(function (k) { SOUNDS[k] = MORE[k]; });
+
+  // The stadium reacts to the game by itself: init() hooks into FF_GAME's events. Nothing plays
+  // while the game view is closed or while FF_GAME.seek is running the skipped plays.
+  var lastAt = {}, hooked = false;
+  function after(name, delay, gap) {
+    if (!ac) return;
+    var now = ac.currentTime;
+    if (gap && lastAt[name] != null && now - lastAt[name] < gap) return;
+    lastAt[name] = now;
+    if (!delay) { play(name); return; }
+    setTimeout(function () { var G = root.FF_GAME; if (!G || G.active !== false) play(name); }, delay * 1000);
+  }
+  function react(type, d) {
+    var G = root.FF_GAME;
+    if (!G || G.active === false || G.seeking) return;
+    var res = d && d.res, e = res && res.e || {};
+    if (type === 'snap' && res) {
+      if (e.t === 'kickoff') after('crowd_stomp', 0, 30);
+      else if (res.pre && res.pre.down === 3) after('crowd_chant', 0.2, 25);
+      else if (res.pre && res.pre.down === 4 && e.t !== 'punt' && e.t !== 'fg') after('crowd_drum', 0, 20);
+    } else if (type === 'result' && res) {
+      if (res.td) { after('air_horn', 0.3, 5); after('crowd_clap', 2.2, 10); }
+      else if (e.t === 'fg' || e.t === 'xp') after(e.good ? 'crowd_clap' : 'crowd_aww', 0.4, 6);
+      else if (e.t === 'pen') after('crowd_boo', 0.2, 15);
+      else if (e.t === 'sack') after('crowd_clap', 0.6, 12);
+      else if (e.t === 'inc' && res.pre && res.pre.down >= 3) after('crowd_ooh', 0.1, 12);
+      else if (e.t === 'int' || e.t === 'fumble') after('crowd_boo', 1.6, 15);
+    } else if (type === 'half') after('crowd_clap', 0.5, 0);
+    else if (type === 'final') { after('air_horn', 0.2, 0); after('crowd_clap', 1.6, 0); }
+  }
+  function hook() {
+    var G = root.FF_GAME;
+    if (hooked || !G || typeof G.on !== 'function') return;
+    hooked = true;
+    G.on(function (type, d) { try { react(type, d); } catch (err) { /* sound is optional */ } });
+  }
+
   // Which crowd sound fits a play result from js/rules.js ('' for none).
   function crowdFor(res) {
     if (!res) return '';
@@ -351,6 +476,8 @@
     whistle_long: '[long whistle]',
     jingle_kickoff: '[kickoff theme plays]',
     jingle_final: '[full-time theme plays]',
+    crowd_clap: '[crowd claps]', crowd_chant: '[crowd chants: De-fense!]', crowd_boo: '[crowd boos]',
+    crowd_ooh: '[crowd: ooh!]', crowd_aww: '[crowd: aww]', crowd_stomp: '[crowd stomps]', crowd_drum: '[drums]', air_horn: '[air horn]',
     miss: '[sad horn]'
   };
   var murmurCaptioned = false;
@@ -398,7 +525,7 @@
   }
 
   root.FF_AUDIO = {
-    init: init, play: play, played: played, crowdFor: crowdFor, captionFor: captionFor,
+    init: init, play: play, played: played, crowdFor: crowdFor, captionFor: captionFor, react: react,
     setVolume: setVolume,
     volume: function (kind) { return kind in DEFAULTS && kind !== 'muted' ? settings[kind] : undefined; },
     mute: function (on) { settings.muted = !!on; saveSettings(); applyMix(); return settings.muted; },
