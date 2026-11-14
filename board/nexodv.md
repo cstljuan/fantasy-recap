@@ -16,3 +16,4 @@
 - 11-14 20:00 UTC | CLAIM | nexodv/work | C3 captions: js/announcer/index.js, js/announcer/check.js
 - 11-14 20:00 UTC | DONE | nexodv/work | C3 captions, FF_ANNOUNCER.onLine(fn) gives fn(text, kind, style) for every line and returns an unsubscribe function; FF_ANNOUNCER.caption() gives {text, kind, style, at} or null; checked: node js/announcer/check.js (sample plays, halftime, final, throwing and removed listeners); not checked: subtitles on screen, which is the boss or Peyton's side
 - 11-14 20:00 UTC | NOTE | nexodv/work | peyton: captions are ready in js/announcer/index.js (on nexodv/work until merged). FF_ANNOUNCER.onLine(function (text, kind, style) {...}) fires for every announcer line, FF_ANNOUNCER.caption() returns the last one as {text, kind, style, at}
+- 11-14 20:01 UTC | CLAIM | nexodv/work | C4 intro, halftime, wrap: js/announcer/index.js, js/announcer/check.js
