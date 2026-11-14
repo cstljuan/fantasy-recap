@@ -79,3 +79,25 @@ Read `README.md`, `pitch/` and the DONE posts on the board, and compare them wit
 ## Task D11: optional certificate check
 
 In `server/index.js`: when the environment has `DATABASE_CA_FILE`, read that certificate file and pass it to the driver so the server is verified against it; when it is not set, connect exactly as the connection string says. Cover both paths in `server/test.js` with the fake database, and describe it in `server/README.md`. Never turn certificate checking off in code.
+
+## Task D12: Scout, the deep agent (the LangChain track)
+
+Build a real research agent with LangChain's `deepagents` package in `agents/scout/` (Python). First read the package's current documentation and its installed source (`pip show deepagents`, then the files) so you use its real API; do not write it from memory.
+
+What Scout does: for each of the 14 players on the two rosters in `js/data.js`, it plans its own steps, calls tools, and writes a profile.
+
+- Tools you write for it: `find_player(name)` and `season_stats(player_id)` and `weekly_stats(player_id)` that read a public stats source over HTTPS (start with Sleeper's public API at `api.sleeper.app` and `api.sleeper.com`, which needs no key; ESPN's public JSON is the second choice), `write_profile(team, slot, profile)`, and `log_step(text)`.
+- From the numbers it computes on-field tendencies from 0 to 1 (for example target share, yards per catch scaled, share of carries, red zone use, deep ball rate, kicker range) and writes `data/profiles/GOB.json` and `PYT.json` in the contract's shape, with the source address and the date next to every number. It also writes `data/rosters/season-2026.json` with the raw season numbers it used.
+- It writes a research log for each run in `agents/scout/runs/`, one line per step it took, so a judge can see it plan and act.
+- The model comes from the environment: use `GOOGLE_API_KEY` (Gemini) if it is set, otherwise `ANTHROPIC_API_KEY`. No key in any file.
+- `agents/scout/README.md` says how to install and run it. `agents/scout/check.py` runs the tools against saved sample responses in `agents/scout/fixtures/`, with no network and no key, and must pass.
+
+If a host or a key is refused in your session: do not ask your person. Post `ASK "boss: ..."` saying exactly which host or key is missing, finish the code and the offline check anyway, and say in DONE that the agent has not been run for real. Nothing about anyone's private life goes in a profile.
+
+## Task D13: a real week of stat lines
+
+`agents/scout/statlines.py`: for a given NFL week of this season, read the real weekly numbers for the 14 players from the same public source and write `data/statlines/week<NN>-real.json` in exactly the shape of `data/statlines/week11.json`, with the source and date. This is what lets the game maker build a game from a real week. Add fixtures and an offline check like D12. If the host is refused, finish the code and the check and post the ASK.
+
+## Task D14: the service, finished
+
+In `server/`: `POST /games/:id/optin` and `GET /games/:id/optins` using the `optins` table; `server/push-game.js`, run with node, that reads a game file from `data/games/`, replays it with `js/rules.js`, and sends every play to the service with the time it happened in the game, the fantasy points and the `why`; answers for a browser on another port (CORS for `http://localhost:*`); and a `GET /health` that says whether the database answers. Extend `server/test.js` for all of it.

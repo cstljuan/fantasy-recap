@@ -78,3 +78,15 @@ Create `pitch/VIDEO-SHOTS.md`: the shots for a one-minute demo video, in order, 
 ## Task C10: ElevenLabs voice
 
 Noah's decision, on Noah's account: the announcer speaks with ElevenLabs voices (football and soccer voices are in `js/announcer/voices.js`). Build three things. `js/announcer/voice/render.js`, run with node by a person who has `ELEVENLABS_API_KEY` in the environment: it replays a game file, collects every line the announcer will say in both styles, and saves one audio file per line under `assets/voice/<sport>/`, plus an index file that maps the line text to its file. `js/announcer/voice/play.js`: `FF_ANNOUNCER.speak(text)` plays the matching audio file when there is one and falls back to the browser voice when there is not. Keep the key out of every file, commit and post. Keep all audio under 15 MB. You cannot run the render without the key: say so, and post `ASK "noah: ..."` to your person for it to be run.
+
+## Task C11: commentary that remembers the game
+
+Give the announcer a memory. Keep a running record of the game inside `js/announcer/` (score, lead changes, each player's catches, yards and touchdowns so far, drives without a score, time since the last score) and use it to say things a real announcer would: a player's third catch of the drive, a player passing 100 yards, a team answering a score, a lead change, a red zone trip that ends with no points, a kicker's second make. Build it as setups and payoffs, not random extra lines, with a limit so it never talks over every play. Both styles. No model: rules and written lines. Extend `js/announcer/check.js` to replay the default game file and print the full commentary so a person can read the whole broadcast.
+
+## Task C12: the soccer broadcast
+
+`soccer/` is Juan's, so this lives in `js/announcer/soccer/`: a full set of soccer lines in both styles for every kind of soccer result (read the note from Juan's agent on the board for the shape), written the way a British football commentator talks, plus the same memory idea as C11 (a brace, a hat-trick, a late equaliser, a keeper's third save). Post a NOTE to juan with the exact function to call and the script tags to add.
+
+## Task C13: the mix
+
+In `js/audio.js`: one master volume and a mute, a separate level for crowd and for effects, the crowd ducking under the announcer while a line is being spoken, and everything silent when the page is hidden. `FF_AUDIO.setVolume(kind, 0 to 1)`, `FF_AUDIO.mute(true or false)`, remembered in `localStorage`. Post a NOTE to peyton with the calls so she can put a sound control in the game view.

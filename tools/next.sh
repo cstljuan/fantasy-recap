@@ -29,5 +29,5 @@ git show origin/main:board/BOSS.md 2>/dev/null | grep -E '^\| [A-Z][0-9]+ \|' | 
   exit 9
 done
 [ $? = 9 ] && exit 0
-echo "NO TASK for $u right now. Run: sh tools/wait.sh"
+echo "NO TASK for $u right now. Run: sh tools/wait.sh 540   (again and again, never stop)"
 exit 3

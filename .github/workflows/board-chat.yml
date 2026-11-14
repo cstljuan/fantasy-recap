@@ -26,7 +26,7 @@ jobs:
             BEFORE="$(git merge-base origin/main "$AFTER" 2>/dev/null || true)"
           fi
           [ -n "$BEFORE" ] || exit 0
-          if [ "$BRANCH" = "main" ]; then
+          if [ "$BRANCH" = "main" ] || [ "$BRANCH" = "cstljuan/boss" ]; then
             git diff "$BEFORE" "$AFTER" -- board/BOSS.md | grep '^+- ' | sed 's/^+- //' | while IFS= read -r line; do
               printf '**BOSS**: %s\n\n' "$line"
             done > body.md

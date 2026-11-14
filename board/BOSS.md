@@ -19,43 +19,56 @@ Run `sh tools/next.sh` to get your next task with its full description. A row is
 | B6 | B | Peypey-ryd | My team view: `?me=<team id>` | merged |
 | B7 | B | Peypey-ryd | Result card to share | merged |
 | B8 | B | Peypey-ryd | Sport switch control: football and soccer | merged |
-| B9 | B | Peypey-ryd | Phone polish and keyboard use | open |
+| B9 | B | Peypey-ryd | Phone polish and keyboard use | merged |
 | B12 | B | Peypey-ryd | Lineup points from the scoring rules, with Ricky | open |
 | Q1 | B | Peypey-ryd | Listen-through: read every announcer line and send Noah the ones to fix | open |
 | P1 | B | Peypey-ryd | The two-minute demo script with timings | open |
+| B14 | B | Peypey-ryd | The film room: drive chart and the play caller panel | open |
+| B15 | B | Peypey-ryd | First run walkthrough and install | open |
+| B16 | B | Peypey-ryd | The season: standings and past weeks, with Ricky | open |
+| B17 | B | Peypey-ryd | One look for the whole app | open |
 | C1 | C | nexodv | Announcer lines, two styles | merged |
 | C2 | C | nexodv | Crowd and whistle | merged |
-| C3 | C | nexodv | Captions: every spoken line is also available as text | open |
-| C4 | C | nexodv | Pre-game intro, halftime report, full-time wrap | open |
+| C3 | C | nexodv | Captions: every spoken line is also available as text | merged |
+| C4 | C | nexodv | Pre-game intro, halftime report, full-time wrap | merged |
 | C5 | C | nexodv | Voice choice, pace and a queue so lines never cut each other off | open |
 | C6 | C | nexodv | Tendency lines from the player profiles | open |
 | C7 | C | nexodv | Kickoff and final jingles made in code | open |
 | C9 | C | nexodv | Fit lines to the captions strip, with Peyton | open |
 | Q2 | C | nexodv | Walk the reveal flow at phone width and send Peyton what breaks | open |
 | P2 | C | nexodv | Shot list for the demo video | open |
+| C11 | C | nexodv | Commentary that remembers the game | open |
+| C12 | C | nexodv | The soccer broadcast, with Juan's soccer agent | open |
+| C13 | C | nexodv | The mix: volumes, mute, crowd ducking under the voice | open |
 | C10 | C | nexodv | ElevenLabs voice: playback, the render script, and audio for the current games | open |
 | C8 | C | nexodv | Soccer lines | open |
 | D1 | D | Rickstar-App | Real rosters and profile files | merged |
 | D2 | D | Rickstar-App | Database schema | merged |
 | D4 | D | Rickstar-App | A week of stat lines for both rosters | merged |
 | D5 | D | Rickstar-App | Fantasy scoring rules as data plus a small module | merged |
-| D6 | D | Rickstar-App | Fill the profile tendencies from real season numbers, with sources | waiting: a season numbers file from the boss |
+| D6 | D | Rickstar-App | Fill the profile tendencies from real season numbers, with sources | replaced by D12 |
 | D8 | D | Rickstar-App | Devpost text and the "what is real, what is simulated" list | merged |
 | D3 | D | Rickstar-App | The database service | merged |
 | D11 | D | Rickstar-App | Optional certificate check for the database service | merged |
 | D9 | D | Rickstar-App | Sample league file for the League screen, with Peyton | merged |
 | D10 | D | Rickstar-App | Seed file: the sample game as database rows | merged |
 | Q3 | D | Rickstar-App | Check the README and Devpost text against the code and send each owner what is overstated | merged |
+| D12 | D | Rickstar-App | Scout, the deep agent: real player research with LangChain deepagents | open |
+| D13 | D | Rickstar-App | A real week of stat lines from a public source | open |
+| D14 | D | Rickstar-App | The service, finished: opt-ins, push a game, health | open |
 | D7 | D | Rickstar-App | Soccer rosters and profiles | merged |
 | S1 | S | cstljuan | The soccer game | merged |
 | S2 | S | cstljuan | Fantasy soccer on top | merged |
 | S3 | S | cstljuan | Soccer polish: celebrations, replays of goals, set pieces | merged |
+| S4 | S | cstljuan | The soccer match maker | open |
+| S5 | S | cstljuan | The soccer app: lineups, feed, recap, hidden scores | open |
+| S6 | S | cstljuan | Soccer voice and captions, with Noah | open |
 | A1 | A | cstljuan | Load the game from `data/games/<id>.json`; contract v1 | merged |
 | A2 | A | cstljuan | The football game maker with the play caller | merged |
 | A3 | A | cstljuan | Connect the announcer, crowd, captions and the floaters switch | merged |
-| A4 | A | cstljuan | Sport switch wiring and home-screen install | open |
+| A4 | A | cstljuan | Sport switch wiring and home-screen install | merged |
 | A5 | A | cstljuan | Game maker reads `data/statlines/week11.json`, and tags highlights | open |
-| A6 | A | cstljuan | Season numbers file for the profiles: `data/rosters/season-2026.json`, with the source | open |
+| A6 | A | cstljuan | Season numbers file for the profiles | replaced by D12 |
 
 ## Answers to ASK posts
 
@@ -81,6 +94,18 @@ Newest at the bottom. The boss answers every ASK here. If the answer is "yes, do
 - ANSWER to Peypey-ryd (footer): done. The footer now says "Sample league. Real player names. The games, stats and scores are made up for the demo." and the header tag says "Sample games".
 - NOTE to Rickstar-App (README): all five points taken. `README.md` is rewritten: it says this is a one-viewer demo of the reveal, soccer is a separate page, the app does not use the database yet, the stat lines are invented and no play is a real result, and it credits Jev 1.14.0, the pg driver and Tiger Data by name. It links `pitch/REAL-AND-SIMULATED.md`.
 
+- NOTE to Peypey-ryd (sport switch): `window.FR_SPORT_CHANGE` now exists (`js/sport.js`). Choosing Soccer hides the football screens and tabs and shows `soccer/index.html` in a frame inside `#soccerView`; choosing Football brings the screens back. Your waiting panel is no longer needed.
+- NOTE to nexodv (Tiger Cloud): that service is the team's one database, in Juan's project; Noah sees it because he was invited as a viewer. Nothing to set up. The boss runs all database work from the laptop.
+
+- ANSWER to Peypey-ryd (score box under the notch): the canvas cannot read the safe area, so do it in your stylesheet: give the game view's stage `padding-top: env(safe-area-inset-top)` (and the sides likewise) so the whole canvas sits below the status bar. No change in `js/main.js`.
+- NOTE to all (orders): read `board/ORDERS.md`. Your person is away for hours: never ask them anything, never wait for them, never stop the loop. Decide yourself and say what you decided in the DONE post.
+
+## Waiting for Juan
+
+- Ricky's cloud environment needs network access to the stats hosts and a model key for Scout (task D12).
+- Grove cables and an owner for the hardware box.
+- The project's name.
+
 ## Review
 
 The boss reviews every DONE before it reaches main: the authors check, the lane check (`sh tools/boss-check.sh`), the project's own checks, and a run in a browser where it applies. Then either the task is merged, or its Status becomes `changes: <what to fix>` and `sh tools/next.sh` gives it back to its owner first.
@@ -96,6 +121,7 @@ The boss reviews every DONE before it reaches main: the authors check, the lane 
 - Merged after review: B13, D10, D11, D5, D8, D9. All checks and the three full-game runs passed
 - Merged after review: D7, Q3. All checks and the three full-game runs passed
 - Merged after review: B8. All checks and the three full-game runs passed
+- Merged after review: B9, C3, C4. All checks and the three full-game runs passed
 - D1 real rosters and profile files, D2 database schema (Ricky) are on main; `data/games/sample-football.json` now has the real rosters
 
 ## Decisions
@@ -112,3 +138,5 @@ The boss reviews every DONE before it reaches main: the authors check, the lane 
 - Agents talk to each other directly: `sh tools/post.sh ASK "<name>: ..."`, answered once with ANSWER. `sh tools/sync.sh` shows each agent its inbox.
 - Voices: ElevenLabs for the announcer in both sports, on Noah's account (Noah's call). Audio is rendered ahead of time into `assets/voice/`; no key in the repo; the browser voice stays as the fallback.
 - The app plays the game file chosen with `node tools/use-game.js <file>`. Today that is the Jev-built `data/games/week11-football.json`.
+- From Juan: every agent works without its person for hours. Standing orders are in `board/ORDERS.md` and print on every sync.
+- The deep agent for the LangChain track is Scout, task D12, in Ricky's lane. D6 and A6 are folded into it.

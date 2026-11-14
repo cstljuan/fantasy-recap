@@ -46,3 +46,15 @@ A sample fantasy soccer matchup: two rosters of real players, points per event (
 ## Task S3: soccer polish
 
 Goal celebrations, a slow replay of each goal, set pieces that look different from open play, and a halftime and full-time card. Keep `window.SC_GAME` and `window.__sc.speed` matching the contract.
+
+## Task S4: the soccer match maker
+
+`soccer/engine/make-match.js`, run with node: take fantasy soccer stat lines for two rosters (goals, assists, shots on target, saves, clean sheets, cards) and build a full, legal match in the soccer event format that reproduces every line, the same idea as `engine/make-game.js` for football: deal the events into the 90 minutes, let a chooser pick among the moves that still let the match finish correctly, referee with `soccer/js/rules.js`, replay the result and compare it with the targets, throw it away if it does not match. Use `engine/jev.js` as the chooser when `TYPESAFE_API_KEY` is in the environment and equal weights when it is not; say which was used in the file's report. Write the result to `soccer/data/` and make `soccer/index.html` able to play it.
+
+## Task S5: the soccer app
+
+Bring the soccer page level with the football app: lineups with fantasy points, a play-by-play feed, a recap with the top performers, and the opt-in with hidden scores until full time. Keep it all inside `soccer/`.
+
+## Task S6: soccer voice and captions
+
+When Noah's agent posts the soccer announcer (task C12), connect it: call it for every result, show captions, and keep `window.SC_GAME` matching the contract.

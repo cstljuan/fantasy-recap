@@ -24,24 +24,21 @@ Three checks enforce this: the hooks in `.githooks/`, the check before every pus
 
 `docs/LANES.md` says which files each person owns. Edit only your person's files. Reading anything is fine. Work on a branch named `<your person's GitHub username>/work`. If the branch you were given is named after a tool, create `<username>/work` from it and push that instead; if the push is refused, say so in a NOTE post and carry on. Never push to `main`, never force-push. Juan's lead session is the boss and does every merge.
 
-## 3. The work loop: keep going without being asked
+## 3. The work loop: keep going, alone, for hours
 
-Do not stop between tasks and do not wait for your person to say "next". Repeat this loop:
+Your person is away. Read `board/ORDERS.md` (the standing orders; `sh tools/sync.sh` prints them every time). The short version: never ask your person anything, never wait for them, never stop.
 
-1. `sh tools/sync.sh` (brings in what the boss merged and shows the board).
+Repeat this loop:
+
+1. `sh tools/sync.sh` (brings in what the boss merged, prints the orders, the board and your inbox).
 2. `sh tools/next.sh` (prints your next task and its full description).
-3. If it prints a task: `sh tools/post.sh CLAIM "<id> <short name>: <files>"`, do the task, check it, commit, push, `sh tools/post.sh DONE "<id> <short name>, checked: <...>, not checked: <...>"`. Go back to step 1.
-4. If it prints NO TASK: run `sh tools/wait.sh`. It waits for new work for up to 25 minutes without using the model. If your shell tool can run a command in the background and tell you when it ends, run it that way; otherwise run it with the longest timeout you are allowed (for example `sh tools/wait.sh 540`). When it returns, go back to step 1. After 8 waits in a row with no new work, stop and tell your person.
+3. If it prints a task: `sh tools/post.sh CLAIM "<id> <short name>: <files>"`, do the whole task, check it, commit, push, `sh tools/post.sh DONE "<id> <short name>, checked: <...>, not checked: <...>, decided: <choices you made yourself>"`. Go back to step 1.
+4. If it says FIX FIRST, the boss reviewed a task of yours and it needs changes: do that before anything else.
+5. If it prints NO TASK: run `sh tools/wait.sh 540` in the foreground (give the command a 10 minute timeout). When it returns, go back to step 1. Keep doing this for as long as it takes. There is no number of waits after which you stop.
 
-Stop the loop only when: the author check fails, you are BLOCKED on something only a person can do (post it first), or your person tells you to stop. Your person watches the usage limit and will tell you.
+Decisions: make them yourself and report them in the DONE post. Anything that needs a file outside your lane, a change to the contract, a sign-up, a key or a refused tool goes to the boss with `sh tools/post.sh ASK "boss: ..."`, and you take the next task without waiting. The boss answers in `board/BOSS.md` under "Answers to ASK posts".
 
-A task that needs a file outside your lane is not a reason to stop: post `ASK "boss: ..."`, finish what you can, post DONE with what is missing, take the next task.
-
-If `sh tools/next.sh` says FIX FIRST, the boss reviewed a task of yours and it needs changes: do that before anything else.
-
-The boss answers every ASK in `board/BOSS.md` under "Answers to ASK posts". `sh tools/sync.sh` shows them. Read them before you start the next task.
-
-Every third task, give your person two lines on what is done. Then keep going.
+The loop stops only when the author check fails or the boss posts STOP.
 
 ### Talk to the other agents
 
@@ -62,4 +59,4 @@ How the board works: `docs/BOARD.md`. People watch it live at https://github.com
 - No keys, tokens or passwords in any file, commit or board post. This repository becomes public.
 - Never sign up for a service, spend credits, deploy, publish or submit to Devpost. Ask your person.
 - No em dashes anywhere. Write plainly.
-- Do one task at a time, finish it, push it, post DONE, then take the next one.
+- Do one task at a time, finish it completely, push it, post DONE, then take the next one. Do not ask your person whether to continue.
