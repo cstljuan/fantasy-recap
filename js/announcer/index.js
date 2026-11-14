@@ -37,6 +37,13 @@
 //                   line() takes, plus optional leaders and hidden (no fantasy points while hidden,
 //                   like halftime). It also adds those plays to the announcer's memory. After a seek
 //                   backwards, call reset() first and pass every play from the start.
+//   bigCall(res, ctx)
+//                   two or three sentences for a top play: a touchdown, a turnover (interception,
+//                   fumble, downs) or a gain of 20 yards or more; '' for any other play. Names the
+//                   player and the distance, says what it did to the score, and adds one fact from
+//                   the announcer's memory. ctx is what line() takes; ctx.hidden true keeps fantasy
+//                   points out. It reads the memory and does not change it: call it after line()
+//                   for the same play, or after the game.
 //   explain(kind)   one or two plain sentences on a football rule for someone who has never
 //                   watched, for the app's rule cards; '' for an unknown kind. explainKinds lists
 //                   the kinds; explainFor(res) gives the kinds a finished play shows.
@@ -516,6 +523,100 @@
     }
   }
 
+  // ---- C18: the big call ----
+  var BIG = {
+    td_pass: {
+      straight: ['{qb} drops back, finds {player} for {yds} yards, and it\'s a touchdown!', '{qb} lets it go, {player} hauls it in, {yds} yards and into the end zone!', 'Touchdown! {qb} to {player}, {yds} yards!'],
+      fun: ['{qb} slings it, {player} snags it, {yds} yards to paydirt!', 'Are you kidding me? {qb} to {player}, {yds} yards, TOUCHDOWN!', '{player} catches it and keeps going, {yds} yards, six points!']
+    },
+    td_run: {
+      straight: ['{player} takes it {yds} yards to the end zone for a touchdown!', '{player} carries it in from {yds} yards out! Touchdown!', 'Handoff to {player}, {yds} yards, and it\'s a touchdown!'],
+      fun: ['{player} is not stopping! {yds} yards to the house!', 'Hand {player} the ball and watch: {yds} yards, TOUCHDOWN!', '{player} rumbles {yds} yards into the end zone!']
+    },
+    int: {
+      straight: ['{qb} throws, and it\'s picked off! The {def} take it back {ret} yards!', 'Intercepted! {qb}\'s pass belongs to the {def}!', '{qb} forces it, and the {def} come away with the interception!'],
+      fun: ['Thief! The {def} jump the route and steal it from {qb}!', '{qb} throws it straight to the {def}! Picked off!', 'What a pick! The {def} take it right out of the air!']
+    },
+    fumble: {
+      straight: ['{player} gains {yds}, but the ball comes loose, and the {def} recover!', 'Fumble! {player} loses it, and the {def} have the ball!', '{player} is stripped! The {def} pounce on it!'],
+      fun: ['Butterfingers! {player} coughs it up, {def} ball!', 'It\'s loose! It\'s LOOSE! And the {def} have it!', '{player} fumbles, and the {def} dive on it!']
+    },
+    downs: {
+      straight: ['Fourth down, and the {def} defense stops the {team} cold!', 'The {team} go for it on fourth down, and they come up short!', 'Stopped on fourth down! The {def} take over!'],
+      fun: ['Fourth down gamble... DENIED! The {def} hold!', 'The {def} stand tall on fourth down!', 'Not today! The {def} stuff the fourth down try!']
+    },
+    big: {
+      straight: ['{player} breaks free for {yds} yards!', 'A big play: {player} for {yds} yards!', '{player} finds room and goes {yds} yards!'],
+      fun: ['{player} is GONE! {yds} yards before anyone catches up!', 'Look at {player} go! {yds} yards!', 'Zoom! {player} rips off {yds} yards!']
+    },
+    big_pass: {
+      straight: ['{qb} to {player}, and that\'s a {yds} yard gain!', '{qb} finds {player} for {yds} yards!', 'A deep one, {qb} to {player}, {yds} yards!'],
+      fun: ['{qb} airs it out, {player} brings it down, {yds} yards!', 'Bombs away! {qb} to {player}, {yds}!', '{player} makes the grab! {yds} yards!']
+    }
+  };
+
+  function bigKind(res) {
+    var e = res.e || {};
+    if (res.td && (e.t === 'pass' || e.t === 'run')) return e.t === 'pass' ? 'td_pass' : 'td_run';
+    if (e.t === 'int') return 'int';
+    if (e.t === 'fumble') return 'fumble';
+    if (res.downs) return 'downs';
+    if ((e.t === 'run' || e.t === 'pass') && e.yds >= 20) return e.t === 'pass' ? 'big_pass' : 'big';
+    return '';
+  }
+
+  // One fact from the memory about this play's player or team.
+  function bigFact(res, teams, off, slot, hidden) {
+    var name = lastName((teams[off].roster || {})[slot]);
+    var p = slot ? mem.players[off + '|' + slot] : null;
+    if (p && res.td && p.td >= 2) return 'That\'s ' + (p.td === 2 ? 'a second' : p.td === 3 ? 'a third' : 'another') + ' touchdown today for ' + name + '.';
+    if (p && p.recYds >= 60) return name + ' is up to ' + p.recYds + ' receiving yards today.';
+    if (p && p.rushYds >= 60) return name + ' is up to ' + p.rushYds + ' rushing yards today.';
+    if (p && p.rec >= 3) return 'That\'s catch number ' + p.rec + ' for ' + name + '.';
+    if (mem.leadChanges >= 2) return 'This game has already seen ' + mem.leadChanges + ' lead changes.';
+    if (mem.scoringDrives[off] >= 2 && res.td) return 'That\'s ' + mem.scoringDrives[off] + ' scoring drives for the ' + teams[off].name + '.';
+    if (!hidden && res.fp && res.fp.length) {
+      var best = res.fp.reduce(function (a, f) { return !a || Math.abs(f.pts) > Math.abs(a.pts) ? f : a; }, null);
+      if (best && best.pts > 0 && best.role !== 'DST') {
+        return 'That play is worth ' + pts(best.pts) + ' fantasy points to ' + lastName((teams[best.team].roster || {})[best.role]) + '.';
+      }
+    }
+    return '';
+  }
+
+  function bigCall(res, ctx) {
+    try {
+      ctx = ctx || {};
+      var teams = ctx.teams;
+      if (!res || !res.e || !res.pre || !res.post || !teams || teams.length < 2) return '';
+      var kind = bigKind(res);
+      if (!kind) return '';
+      var style = STYLES.indexOf(ctx.style) >= 0 ? ctx.style : api.style;
+      var e = res.e, off = res.pre.poss, def = 1 - off;
+      if (off !== 0 && off !== 1) return '';
+      var R = teams[off].roster || {}, score = ctx.score || res.post.score;
+      var slot = e.t === 'pass' ? e.to : e.t === 'run' || e.t === 'fumble' ? e.by : e.t === 'int' ? 'QB' : '';
+      var v = { team: teams[off].name, def: teams[def].name, qb: lastName(R.QB), player: lastName(R[slot] || R.QB),
+        yds: Math.abs(e.yds || 0), ret: e.ret || 0, score: scoreText(teams, score) };
+      var s1 = fill(pick(kind, style, BIG), v);
+      // What it did to the score.
+      var pre = res.pre.score, post = res.post.score, s2;
+      if (post[0] !== pre[0] || post[1] !== pre[1]) {
+        var d = score[0] - score[1];
+        s2 = d === 0 ? 'That ties it at ' + score[0] + '.' : 'That makes it ' + v.score + ', and the ' + teams[d > 0 ? 0 : 1].name + ' lead by ' + Math.abs(d) + '.';
+      } else if (kind === 'int' || kind === 'fumble' || kind === 'downs') {
+        s2 = 'The ' + teams[def].name + ' take over, and it\'s still ' + v.score + '.';
+      } else {
+        var on = res.post.ballOn;
+        s2 = on >= 80 ? 'That puts the ' + v.team + ' in the red zone.' : on >= 50 ? 'That puts the ' + v.team + ' in ' + v.def + ' territory.' : 'That flips the field for the ' + v.team + '.';
+      }
+      var s3 = bigFact(res, teams, off, slot, !!ctx.hidden);
+      return [s1, s2, s3].filter(Boolean).join(' ');
+    } catch (err) {
+      return '';
+    }
+  }
+
   // ---- C14: rule explainers ----
   var EXPLAIN = {
     first_down: "The offense gets four tries, called downs, to move the ball 10 yards. If they make it, that is a first down and they get four new tries.",
@@ -854,6 +955,9 @@
     },
 
     catchUp: catchUp,
+    bigCall: bigCall,
+    bigCallMaxLength: 200,   // the longest names in the data give 195; check.js tests it
+    _bigLines: BIG,
     explain: function (kind) { return Object.prototype.hasOwnProperty.call(EXPLAIN, kind) ? EXPLAIN[kind] : ''; },
     explainKinds: Object.keys(EXPLAIN),
     explainFor: explainFor,

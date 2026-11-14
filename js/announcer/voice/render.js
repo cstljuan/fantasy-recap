@@ -54,9 +54,14 @@ function readGameFile(file) {
 function collectFootball() {
   var A = require(path.join(ROOT, 'js/announcer/index.js'));
   var Rules = require(path.join(ROOT, 'js/rules.js'));
-  var file = arg('game', path.join(ROOT, 'data/games/current.js'));
-  var game = readGameFile(file), teams = game.teams, out = [];
-  var heard = []; A.onLine(function (text, kind) { heard.push({ text: text, kind: kind }); });
+  // Both football game files by default (the ones js/announcer/audit.js checks), or --game <file>.
+  var files = arg('game', null) ? [arg('game')] : ['data/games/week11-football.json', 'data/games/sample-football.json'].map(function (f) { return path.join(ROOT, f); });
+  var out = [], ids = [];
+  var heard = []; A.onLine(function (text, kind) { if (kind !== 'sound') heard.push({ text: text, kind: kind }); });
+  files.forEach(function (file) {
+  if (!fs.existsSync(file)) return;
+  var game = readGameFile(file), teams = game.teams;
+  ids.push(game.id || path.basename(file, '.json'));
   styles.forEach(function (style) {
     A.reset(); A.setStyle(style);
     var s = Rules.create(teams), results = [];
@@ -78,7 +83,8 @@ function collectFootball() {
       take(A.line(res, { teams: teams, score: res.post.score, style: style }));
     });
   });
-  return { id: game.id || path.basename(file), lines: out };
+  });
+  return { id: ids.join(' + '), lines: out };
 }
 
 function collectSoccer() {
