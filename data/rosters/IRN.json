@@ -1,0 +1,29 @@
+{
+  "team": "IRN",
+  "sport": "soccer",
+  "name": "Ironside",
+  "full": "Ironside FC",
+  "note": "Fantasy roster of real players. The team name and colors are made up. Same names as soccer/js/data.js.",
+  "roster": {
+    "GK": "David Raya",
+    "LB": "Alphonso Davies",
+    "CB1": "William Saliba",
+    "CB2": "Ruben Dias",
+    "RB": "Achraf Hakimi",
+    "CM1": "Declan Rice",
+    "CM2": "Jude Bellingham",
+    "CM3": "Florian Wirtz",
+    "LW": "Khvicha Kvaratskhelia",
+    "ST": "Erling Haaland",
+    "RW": "Bukayo Saka"
+  },
+  "fantasy": [
+    "GK",
+    "CB1",
+    "CB2",
+    "CM2",
+    "LW",
+    "ST",
+    "RW"
+  ]
+}

@@ -1,0 +1,118 @@
+{
+  "team": "RHB",
+  "source": "Player names and positions only, picked by hand from soccer/js/data.js on 2026-11-14. No statistics were read, because this session could not reach any public stats source (requests were refused by the network), so every tendency is null.",
+  "players": {
+    "GK": {
+      "name": "Mike Maignan",
+      "position": "GK",
+      "tendencies": {
+        "save_rate": null,
+        "pen_save_rate": null
+      },
+      "notes": "Tendencies are null: no public source could be read on 2026-11-14 and nothing was estimated. Current club and status were not checked."
+    },
+    "LB": {
+      "name": "Nuno Mendes",
+      "position": "DEF",
+      "tendencies": {
+        "tackle_rate": null,
+        "aerial_win_rate": null,
+        "goal_share": null
+      },
+      "notes": "Tendencies are null: no public source could be read on 2026-11-14 and nothing was estimated. Current club and status were not checked."
+    },
+    "CB1": {
+      "name": "Josko Gvardiol",
+      "position": "DEF",
+      "tendencies": {
+        "tackle_rate": null,
+        "aerial_win_rate": null,
+        "goal_share": null
+      },
+      "notes": "Tendencies are null: no public source could be read on 2026-11-14 and nothing was estimated. Current club and status were not checked."
+    },
+    "CB2": {
+      "name": "Antonio Rudiger",
+      "position": "DEF",
+      "tendencies": {
+        "tackle_rate": null,
+        "aerial_win_rate": null,
+        "goal_share": null
+      },
+      "notes": "Tendencies are null: no public source could be read on 2026-11-14 and nothing was estimated. Current club and status were not checked."
+    },
+    "RB": {
+      "name": "Jules Kounde",
+      "position": "DEF",
+      "tendencies": {
+        "tackle_rate": null,
+        "aerial_win_rate": null,
+        "goal_share": null
+      },
+      "notes": "Tendencies are null: no public source could be read on 2026-11-14 and nothing was estimated. Current club and status were not checked."
+    },
+    "CM1": {
+      "name": "Federico Valverde",
+      "position": "MID",
+      "tendencies": {
+        "pass_share": null,
+        "shot_share": null,
+        "assist_share": null
+      },
+      "notes": "Tendencies are null: no public source could be read on 2026-11-14 and nothing was estimated. Current club and status were not checked."
+    },
+    "CM2": {
+      "name": "Vitinha",
+      "position": "MID",
+      "tendencies": {
+        "pass_share": null,
+        "shot_share": null,
+        "assist_share": null
+      },
+      "notes": "Tendencies are null: no public source could be read on 2026-11-14 and nothing was estimated. Current club and status were not checked."
+    },
+    "CM3": {
+      "name": "Cole Palmer",
+      "position": "MID",
+      "tendencies": {
+        "pass_share": null,
+        "shot_share": null,
+        "assist_share": null
+      },
+      "notes": "Tendencies are null: no public source could be read on 2026-11-14 and nothing was estimated. Current club and status were not checked."
+    },
+    "LW": {
+      "name": "Kylian Mbappe",
+      "position": "FWD",
+      "tendencies": {
+        "shot_share": null,
+        "shot_conversion": null,
+        "assist_share": null,
+        "header_share": null
+      },
+      "notes": "Tendencies are null: no public source could be read on 2026-11-14 and nothing was estimated. Current club and status were not checked."
+    },
+    "ST": {
+      "name": "Harry Kane",
+      "position": "FWD",
+      "tendencies": {
+        "shot_share": null,
+        "shot_conversion": null,
+        "assist_share": null,
+        "header_share": null
+      },
+      "notes": "Tendencies are null: no public source could be read on 2026-11-14 and nothing was estimated. Current club and status were not checked."
+    },
+    "RW": {
+      "name": "Mohamed Salah",
+      "position": "FWD",
+      "tendencies": {
+        "shot_share": null,
+        "shot_conversion": null,
+        "assist_share": null,
+        "header_share": null
+      },
+      "notes": "Tendencies are null: no public source could be read on 2026-11-14 and nothing was estimated. Current club and status were not checked."
+    }
+  }
+}
