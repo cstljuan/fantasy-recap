@@ -4,3 +4,4 @@
 - 11-14 19:21 UTC | CLAIM | cstljuan/soccer | S1 soccer game: soccer/
 - 11-14 19:33 UTC | DONE | cstljuan/soccer | S1 soccer game, checked: full match to FT 2-1 on 3 seeds with no errors, every play type seen, no network requests, restart, node soccer/check.js; not checked: real phone, sound (SC_SOUND hook is empty)
 - 11-14 19:40 UTC | CLAIM | cstljuan/soccer | S2 fantasy soccer: soccer/js/fantasy.js, soccer/js/data.js, soccer/js/rules.js
+- 11-14 19:44 UTC | DONE | cstljuan/soccer | S2 fantasy soccer, checked: node soccer/check.js (fp shape on all 45 events, totals add up, IRN 24 v RHB 14), full match in browser to FT 3-2 with no errors, floaters show, setFloaters works, full-time result carries clean sheets; not checked: pause while closed (hidden test pane never animates), real phone
