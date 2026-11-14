@@ -98,9 +98,78 @@
     return o;
   }
 
+  // ------------------------------------------------- scoring rules file
+  // Points normally come from the game (js/rules.js, res.fp). ?scoring=file reads
+  // data/scoring.json instead and scores each player's stat line with it. The two
+  // rule sets differ today (receptions, field goal distance, fumbles, defense), so
+  // the file is a preview until the boss picks one.
+  var SCORING_FILE = /[?&]scoring=file(&|$)/.test(location.search);
+  var scoringRules = null;
+  // Stat line keys in data/scoring.json, and where the app keeps each one.
+  var RULE_STATS = {
+    pass_yards: function (s) { return s.paYds || 0; }, pass_td: function (s) { return s.paTd || 0; },
+    interceptions: function (s, role) { return role === 'QB' ? s.int || 0 : 0; },
+    rush_yards: function (s) { return s.ruYds || 0; }, rush_td: function (s) { return s.ruTd || 0; },
+    receptions: function (s) { return s.rec || 0; }, rec_yards: function (s) { return s.reYds || 0; },
+    rec_td: function (s) { return s.reTd || 0; },
+    fg_made: function (s) { return s.fgm || 0; }, fg_missed: function (s) { return (s.fga || 0) - (s.fgm || 0); },
+    xp_made: function (s) { return s.xpm || 0; }
+  };
+  function useFile() { return !!(SCORING_FILE && scoringRules); }
+  function filePoints(t, role) {
+    if (!scoringRules || role === 'DST') return 0;
+    var st = m.st[t][role], per = scoringRules.per, sum = 0;
+    Object.keys(per).forEach(function (k) { if (RULE_STATS[k]) sum += RULE_STATS[k](st, role) * per[k]; });
+    return Math.round(sum * 100) / 100;
+  }
+  function allFilePoints() {
+    var o = {};
+    for (var t = 0; t < 2; t++) SLOTS.forEach(function (sl) { o[t + sl.role] = filePoints(t, sl.role); });
+    return o;
+  }
+  function filePointsDelta(before) {
+    var out = [], now = Date.now();
+    for (var t = 0; t < 2; t++) SLOTS.forEach(function (sl) {
+      var d = Math.round((filePoints(t, sl.role) - before[t + sl.role]) * 100) / 100;
+      if (d) { out.push({ pts: d, who: shortName(t, sl.role), team: t }); m.flash[t + sl.role] = now; }
+    });
+    return out;
+  }
+  function playerPts(t, role) { return useFile() ? filePoints(t, role) : m.pts[t][role]; }
+  function validRules(r) {
+    if (!r || typeof r.per !== 'object') return false;
+    return Object.keys(r.per).every(function (k) { return typeof r.per[k] === 'number' && isFinite(r.per[k]); });
+  }
+  if (SCORING_FILE && window.fetch) {
+    fetch('data/scoring.json').then(function (r) { return r.ok ? r.json() : null; }).then(function (r) {
+      if (!validRules(r)) return;
+      scoringRules = r;
+      if (!inGame) render(false);
+    }).catch(function () { /* without the file the game's points stay */ });
+  }
+  var RULE_WORDS = {
+    pass_yards: 'per passing yard', pass_td: 'per passing touchdown', interceptions: 'per interception thrown',
+    rush_yards: 'per rushing yard', rush_td: 'per rushing touchdown', receptions: 'per reception',
+    rec_yards: 'per receiving yard', rec_td: 'per receiving touchdown', fg_made: 'per field goal made',
+    fg_missed: 'per field goal missed', xp_made: 'per extra point made'
+  };
+  function rulesNote() {
+    if (!useFile()) {
+      return 'Scoring in this sample league: 0.1 per rushing or receiving yard, 0.04 per passing yard, ' +
+        '6 for a rushing or receiving touchdown, 4 for a passing touchdown, minus 2 for an interception or lost fumble. ' +
+        'Kickers get 1 for an extra point and 3 to 5 for a field goal. A defense gets 1 for a sack and 2 for a takeaway.';
+    }
+    var per = scoringRules.per;
+    var parts = Object.keys(per).filter(function (k) { return per[k] !== 0; }).map(function (k) {
+      return (per[k] < 0 ? 'minus ' + (-per[k]) : per[k]) + ' ' + (RULE_WORDS[k] || esc(k.replace(/_/g, ' ')));
+    });
+    return 'Scoring from data/scoring.json' + (scoringRules.name ? ' (' + esc(scoringRules.name) + ')' : '') + ': ' + parts.join(', ') + '.' +
+      (per.fg_missed === 0 ? ' A missed field goal costs nothing.' : '') + ' Defenses are not scored.';
+  }
+
   function total(t) {
     var sum = 0;
-    SLOTS.forEach(function (s) { sum += m.pts[t][s.role]; });
+    SLOTS.forEach(function (s) { sum += playerPts(t, s.role); });
     return sum;
   }
 
@@ -129,13 +198,13 @@
   }
 
   function applyResult(res) {
-    var e = res.e, off = res.pre.poss, def = 1 - off, s;
+    var e = res.e, off = res.pre.poss, def = 1 - off, s, before = useFile() ? allFilePoints() : null;
     function S(t, role) { return m.st[t][role]; }
     switch (e.t) {
-      case 'run': s = S(off, e.by); add(s, 'car'); add(s, 'ruYds', e.yds); if (res.td) add(s, 'td'); m.team[off].rush += e.yds; break;
+      case 'run': s = S(off, e.by); add(s, 'car'); add(s, 'ruYds', e.yds); if (res.td) { add(s, 'td'); add(s, 'ruTd'); } m.team[off].rush += e.yds; break;
       case 'pass':
         s = S(off, 'QB'); add(s, 'att'); add(s, 'cmp'); add(s, 'paYds', e.yds); if (res.td) add(s, 'paTd');
-        s = S(off, e.to); add(s, 'rec'); add(s, 'reYds', e.yds); if (res.td) add(s, 'td');
+        s = S(off, e.to); add(s, 'rec'); add(s, 'reYds', e.yds); if (res.td) { add(s, 'td'); add(s, 'reTd'); }
         m.team[off].pass += e.yds; break;
       case 'inc': add(S(off, 'QB'), 'att'); break;
       case 'int': s = S(off, 'QB'); add(s, 'att'); add(s, 'int'); add(S(def, 'DST'), 'int'); m.team[off].to += 1; break;
@@ -162,7 +231,7 @@
     m.feed.push({
       n: m.done, team: off, where: res.where || '', desc: describe(res), tags: tags, why: whyFor(e, res),
       scoring: changed, flag: e.t === 'pen', score: res.post.score.slice(),
-      fp: res.fp.map(function (f) { return { pts: f.pts, who: shortName(f.team, f.role), team: f.team }; })
+      fp: before ? filePointsDelta(before) : res.fp.map(function (f) { return { pts: f.pts, who: shortName(f.team, f.role), team: f.team }; })
     });
   }
 
@@ -190,7 +259,7 @@
 
   function leaders(n) {
     var list = [];
-    for (var t = 0; t < 2; t++) SLOTS.forEach(function (s) { list.push({ t: t, role: s.role, pts: m.pts[t][s.role] }); });
+    for (var t = 0; t < 2; t++) SLOTS.forEach(function (s) { list.push({ t: t, role: s.role, pts: playerPts(t, s.role) }); });
     list.sort(function (a, b) { return b.pts - a.pts; });
     return list.filter(function (p) { return p.pts > 0; }).slice(0, n);
   }
@@ -240,7 +309,7 @@
   }
 
   function playerRow(t, role, rank) {
-    var pts = m.pts[t][role], hot = !masked() && m.flash[t + role] && Date.now() - m.flash[t + role] < 1500;
+    var pts = playerPts(t, role), hot = !masked() && m.flash[t + role] && Date.now() - m.flash[t + role] < 1500;
     return '<div class="row' + (hot ? ' flash' : '') + (t === me ? ' is-mine' : '') + '">' +
       (rank ? '<span class="rank">' + rank + '</span>' : '') +
       '<span class="tile" style="--c: ' + TEAMS[t].colors.tile + '">' + initials(t, role) + '</span>' +
@@ -393,9 +462,7 @@
         '</div>';
     }
     return '<div class="grid two" style="margin-top:0">' + ord().map(team).join('') + '</div>' +
-      '<p class="note" style="border:0;margin-top:14px">Scoring in this sample league: 0.1 per rushing or receiving yard, 0.04 per passing yard, ' +
-      '6 for a rushing or receiving touchdown, 4 for a passing touchdown, minus 2 for an interception or lost fumble. ' +
-      'Kickers get 1 for an extra point and 3 to 5 for a field goal. A defense gets 1 for a sack and 2 for a takeaway.</p>';
+      '<p class="note" style="border:0;margin-top:14px">' + rulesNote() + '</p>';
   }
 
   function renderPlays() {
@@ -948,6 +1015,15 @@
     get paused() { return paused(); },
     get me() { return me; },
     get sport() { return sport; },
+    get scoringFromFile() { return useFile(); },
+    // Each player's points from the game and, when the file is loaded, from data/scoring.json.
+    comparePoints: function () {
+      var out = [];
+      for (var t = 0; t < 2; t++) SLOTS.forEach(function (sl) {
+        out.push({ team: TEAMS[t].id, slot: sl.role, game: Math.round(m.pts[t][sl.role] * 100) / 100, file: scoringRules ? filePoints(t, sl.role) : null });
+      });
+      return out;
+    },
     resultCard: function () { return drawResultCard().toDataURL('image/png'); },
     get caption() { return capEl.hidden ? '' : capEl.textContent; },
     totals: function () { return [f1(total(0)), f1(total(1))]; }
