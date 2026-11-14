@@ -27,7 +27,7 @@ python3 agents/scout/scout.py             # the real run
 
 - `data/profiles/GOB.json`, `PYT.json`: the contract shape (`docs/CONTRACT.md` section 4). `tendencies` are plain numbers. `tendency_sources` has, for each number, the source address, the date and how it was computed. `source` says where the numbers came from.
 - `data/rosters/season-2026.json`: the raw season numbers Scout used, with source and date.
-- `agents/scout/runs/<time>-scout.log`: one line per step, from `log_step` and from each tool call.
+- `agents/scout/runs/<time>-<label>.txt`: one line per step, from `log_step` and from each tool call.
 
 A real run overwrites the player entries in the two profile files.
 
