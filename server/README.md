@@ -24,6 +24,7 @@ node server/index.js
 - `POST /games/:id/optin` records that a manager opted in. Body: `{ "manager": "ricky" }`. Answers 201, or 404 if the game does not exist yet. A repeat is ignored.
 - `GET /games/:id/optins` returns who opted in, oldest first.
 - `GET /health` answers 200 `{ ok: true, database: true }` when the database answers a `SELECT 1`, otherwise 503 `{ ok: false, database: false }`.
+- `GET /games/:id/top-plays?n=3` returns the `n` biggest plays (1 to 20, default 3) with `source`: `"database"` when the plays table answers with rows for the game, `"file"` when it does not and `data/games/<id>.json` exists, otherwise 404. Items: `{ index, quarter, clock, team, kind, yards, players, points, highlight, text }`. `points` is the fantasy points the play moved, ignoring sign; ranked by points, then `why.highlight` (0 when the play has none), then the earlier play. `index` counts from 1, like `seq`. `quarter` and `clock` are worked out, the game file has no clock. Same list on the command line: `node server/top-plays.js data/games/week11-football.json 3`.
 - `GET /games/:id/summary` returns `{ players, quarters }` from the two continuous aggregates: points per player and points per team per quarter. Numbers come back as strings, as PostgreSQL sends them.
 
 ## Optional certificate check

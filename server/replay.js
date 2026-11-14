@@ -27,6 +27,14 @@ function buildPlays(file) {
     var cut = Math.ceil(inHalf.length / 2);
     inHalf.forEach(function (p, i) { p.quarter = (h - 1) * 2 + (i < cut ? 1 : 2); });
   });
+  // The game file has no clock either. Within a quarter the plays are spread evenly over 15:00 counting down.
+  [1, 2, 3, 4].forEach(function (q) {
+    var inQ = list.filter(function (p) { return p.quarter === q; });
+    inQ.forEach(function (p, k) {
+      var left = Math.round(900 * (1 - k / inQ.length));
+      p.clock = Math.floor(left / 60) + ':' + ('0' + (left % 60)).slice(-2);
+    });
+  });
   var plays = list.map(function (p, i) {
     var e = p.st.e, r = p.r, fp = r.fp || [], main = null;
     fp.forEach(function (f) { if (!main || Math.abs(f.pts) > Math.abs(main.pts)) main = f; });
@@ -44,8 +52,11 @@ function buildPlays(file) {
       quarter: p.quarter, team: team, slot: slot, player: player, kind: e.t,
       yards: e.yds !== undefined ? e.yds : (e.net !== undefined ? e.net : null),
       fantasy_points: pts,
-      detail: { event: e, text: r.text, score_after: p.score, drive: p.st.drive + 1,
-        fp: fp.map(function (f) { return { team: teams[f.team].id, slot: f.role, pts: f.pts }; }) },
+      detail: { event: e, text: r.text, score_after: p.score, drive: p.st.drive + 1, clock: p.clock, td: !!r.td,
+        fp: fp.map(function (f) {
+          var id = teams[f.team].id;
+          return { team: id, slot: f.role, name: f.role === 'DST' ? id + ' defense' : teams[f.team].roster[f.role] || null, pts: f.pts };
+        }) },
       why: e.why || {}
     };
   });

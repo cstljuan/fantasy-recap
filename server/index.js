@@ -8,6 +8,8 @@
 var http = require('http');
 var fs = require('fs');
 var path = require('path');
+var topPlaysModule = require('./top-plays.js');
+var topPlays = topPlaysModule.topPlays, rankPlays = topPlaysModule.rank;
 
 function loadEnv(file) {
   var text;
@@ -78,14 +80,28 @@ function createServer(db) {
       return db.query('SELECT 1 AS ok').then(function () { send(res, 200, { ok: true, database: true }); },
         function (e) { console.error('health: database does not answer:', e.message); send(res, 503, { ok: false, database: false }); });
     }
-    var m = url.pathname.match(/^\/games\/([^\/]+)\/(plays|summary|optin|optins)$/);
+    var m = url.pathname.match(/^\/games\/([^\/]+)\/(plays|summary|optin|optins|top-plays)$/);
     if (!m) return send(res, 404, { error: 'not found' });
     var gameId = decodeURIComponent(m[1]);
     var what = m[2];
 
     function onErr(e) { console.error('database error:', e.message); send(res, 500, { error: 'database error' }); }
 
-    if (req.method === 'POST' && what === 'optin') {
+    if (req.method === 'GET' && what === 'top-plays') {
+      var n = parseInt(url.searchParams.get('n') || '3', 10);
+      if (!(n >= 1 && n <= 20)) return send(res, 400, { error: 'n must be a whole number from 1 to 20' });
+      var gameFile = /^[A-Za-z0-9_-]+$/.test(gameId) ? path.join(__dirname, '..', 'data', 'games', gameId + '.json') : null;
+      var fromFile = function () {
+        if (!gameFile || !fs.existsSync(gameFile)) return send(res, 404, { error: 'no plays in the database and no game file for ' + gameId });
+        try { send(res, 200, { game_id: gameId, source: 'file', plays: topPlays(gameFile, n) }); }
+        catch (e) { console.error('top plays from file failed:', e.message); send(res, 500, { error: 'could not read the game file' }); }
+      };
+      db.query('SELECT seq, quarter, team, kind, yards, detail, why FROM plays WHERE game_id = $1 ORDER BY seq', [gameId])
+        .then(function (r) {
+          if (!r.rows.length) return fromFile();
+          send(res, 200, { game_id: gameId, source: 'database', plays: rankPlays(r.rows, n) });
+        }, function (e) { console.error('top plays: database does not answer, using the game file:', e.message); fromFile(); });
+    } else if (req.method === 'POST' && what === 'optin') {
       readJson(req, function (err, body) {
         if (err) return send(res, err.status, { error: err.message });
         if (!body || typeof body.manager !== 'string' || !body.manager.trim()) return send(res, 400, { error: 'manager is required' });

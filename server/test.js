@@ -93,6 +93,33 @@ var srv = createServer(fake).listen(0, function () {
       assert.ok(ins.some(function (l) { return Number(l[1][9]) > 0; }), 'fantasy points are sent');
       assert.equal(log.filter(function (l) { return l[0] === 'COMMIT'; }).length, 2, 'two batches of at most 40');
     })
+    // top plays: from the database when it answers, from the game file when it does not
+    .then(function () {
+      var tp = require('./top-plays.js'), file = require('path').join(__dirname, '..', 'data', 'games', 'week11-football.json');
+      var want = tp.topPlays(file, 3);
+      assert.equal(want.length, 3);
+      assert.ok(want[0].points >= want[1].points && want[1].points >= want[2].points, 'ranked by points');
+      ['index', 'quarter', 'clock', 'team', 'kind', 'yards', 'players', 'points', 'highlight', 'text'].forEach(function (k) { assert.ok(k in want[0], 'field ' + k); });
+      assert.ok(Array.isArray(want[0].players) && want[0].players.length >= 1 && typeof want[0].text === 'string');
+      var rows = require('./replay.js').buildPlays(file).plays.map(function (p) { return { seq: p.seq, quarter: p.quarter, team: p.team, kind: p.kind, yards: p.yards, detail: p.detail, why: p.why }; });
+      var withDb = createServer({ query: function () { return Promise.resolve({ rows: rows }); } }).listen(0);
+      var noDb = createServer({ query: function () { return Promise.reject(new Error('down')); } }).listen(0);
+      var empty = createServer({ query: function () { return Promise.resolve({ rows: [] }); } }).listen(0);
+      return call('GET', '/games/week11-football/top-plays?n=3', undefined, undefined, withDb.address().port)
+        .then(function (r) { assert.equal(r.status, 200); assert.equal(r.body.source, 'database'); assert.deepEqual(r.body.plays, want); })
+        .then(function () { return call('GET', '/games/week11-football/top-plays?n=3', undefined, undefined, noDb.address().port); })
+        .then(function (r) { assert.equal(r.status, 200); assert.equal(r.body.source, 'file'); assert.deepEqual(r.body.plays, want); })
+        .then(function () { return call('GET', '/games/week11-football/top-plays', undefined, undefined, empty.address().port); })
+        .then(function (r) { assert.equal(r.body.source, 'file'); assert.equal(r.body.plays.length, 3); })
+        .then(function () { return call('GET', '/games/week11-football/top-plays?n=1', undefined, undefined, noDb.address().port); })
+        .then(function (r) { assert.equal(r.body.plays.length, 1); assert.deepEqual(r.body.plays[0], want[0]); })
+        .then(function () { return call('GET', '/games/week11-football/top-plays?n=0', undefined, undefined, noDb.address().port); })
+        .then(function (r) { assert.equal(r.status, 400); })
+        .then(function () { return call('GET', '/games/no-such-game/top-plays', undefined, undefined, noDb.address().port); })
+        .then(function (r) { assert.equal(r.status, 404); })
+        .then(function () { return call('GET', '/games/..%2f..%2fpackage/top-plays', undefined, undefined, noDb.address().port); })
+        .then(function (r) { assert.equal(r.status, 404); withDb.close(); noDb.close(); empty.close(); });
+    })
     .then(function () { console.log('OK'); srv.close(); })
     .catch(function (e) { console.error('FAIL', e.message); process.exit(1); });
 });
