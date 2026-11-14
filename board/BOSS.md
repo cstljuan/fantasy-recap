@@ -32,20 +32,20 @@ Run `sh tools/next.sh` to get your next task with its full description. A row is
 | C9 | C | nexodv | Fit lines to the captions strip, with Peyton | open |
 | Q2 | C | nexodv | Walk the reveal flow at phone width and send Peyton what breaks | open |
 | P2 | C | nexodv | Shot list for the demo video | open |
-| C8 | C | nexodv | Soccer lines | waiting: soccer merged |
+| C8 | C | nexodv | Soccer lines | open |
 | D1 | D | Rickstar-App | Real rosters and profile files | merged |
 | D2 | D | Rickstar-App | Database schema | merged |
 | D4 | D | Rickstar-App | A week of stat lines for both rosters | open |
 | D5 | D | Rickstar-App | Fantasy scoring rules as data plus a small module | open |
 | D6 | D | Rickstar-App | Fill the profile tendencies from real season numbers, with sources | open |
 | D8 | D | Rickstar-App | Devpost text and the "what is real, what is simulated" list | open |
-| D3 | D | Rickstar-App | The database service | open |
+| D3 | D | Rickstar-App | The database service | changes: the boss ran it against the real database and every route answered 500, `self-signed certificate in certificate chain`. The `pg` driver treats `sslmode=require` in the connection string as full certificate verification. In `server/index.js` build the pool so that `sslmode=require` means encrypted without verifying the chain (pass `ssl: { rejectUnauthorized: false }` when the URL asks for ssl, or add `uselibpqcompat=true` to the connection string in code), keep `DATABASE_URL` itself untouched, cover it in `server/test.js`, and say it in `server/README.md` |
 | D9 | D | Rickstar-App | Sample league file for the League screen, with Peyton | open |
 | D10 | D | Rickstar-App | Seed file: the sample game as database rows | open |
 | Q3 | D | Rickstar-App | Check the README and Devpost text against the code and send each owner what is overstated | open |
-| D7 | D | Rickstar-App | Soccer rosters and profiles | waiting: soccer merged |
-| S1 | S | cstljuan | The soccer game | open |
-| S2 | S | cstljuan | Fantasy soccer on top | open |
+| D7 | D | Rickstar-App | Soccer rosters and profiles | open |
+| S1 | S | cstljuan | The soccer game | merged |
+| S2 | S | cstljuan | Fantasy soccer on top | merged |
 | S3 | S | cstljuan | Soccer polish: celebrations, replays of goals, set pieces | open |
 | A1 | A | cstljuan | Load the game from `data/games/<id>.json`; contract v1 | open |
 | A2 | A | cstljuan | The football game maker with the play caller | open |
@@ -63,6 +63,8 @@ Newest at the bottom. The boss answers every ASK here. If the answer is "yes, do
 
 - NOTE to Rickstar-App (database): the Tiger Data service exists (PostgreSQL 18.6, TimescaleDB 2.32). The boss ran `db/schema.sql` on it: 10 statements, 0 failures, `plays` is a hypertable and both continuous aggregates exist. D2 is reviewed. D3 is open. The connection string is only in `.env` on Juan's laptop, so your session cannot connect: write `server/` to read `DATABASE_URL` from `.env`, and the boss will run it against the real database.
 
+- NOTE to all (play caller): the boss called Jev from `engine/jev.js` for the first time: one call, 0.28 seconds, probabilities back for a play call. The football game maker is being built on it now.
+
 ## Review
 
 The boss reviews every DONE before it reaches main: the authors check, the lane check (`sh tools/boss-check.sh`), the project's own checks, and a run in a browser where it applies. Then either the task is merged, or its Status becomes `changes: <what to fix>` and `sh tools/next.sh` gives it back to its owner first.
@@ -72,6 +74,7 @@ The boss reviews every DONE before it reaches main: the authors check, the lane 
 - B1 hidden scores and opt in, B2 speed control, B3 recap reveal (Peyton) are on main
 - C1 announcer `FF_ANNOUNCER`, C2 crowd sounds (Noah) are on main; the boss still has to connect them in `index.html` and `js/main.js`
 - B10 floaters off while opted in, and the screens say Paused while the game view is closed (Peyton) is on main. Boss check: floaters off and scores masked while opted in, no errors; the reveal at the final rests on Peyton's own run
+- S1 the soccer game and S2 fantasy soccer (Juan) are on main in `soccer/`. Boss check: `node soccer/check.js` OK, all files parse; not run in a browser by the boss. Open `soccer/index.html` to see it. C8 soccer lines and D7 soccer rosters are now open
 - D1 real rosters and profile files, D2 database schema (Ricky) are on main; `data/games/sample-football.json` now has the real rosters
 
 ## Decisions
