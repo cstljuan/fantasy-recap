@@ -300,6 +300,15 @@ h2 { margin: 0; font: 700 var(--fs-label)/1 var(--body); letter-spacing: 0.14em;
 .why-note { margin: 8px 0 2px; color: var(--dim); font-size: var(--fs-meta); }
 .why-bars li.is-chosen .why-bar i { background: var(--amber); }
 
+/* --------------------------------------------------------- hot and cold */
+
+.form { display: flex; align-items: baseline; gap: var(--sp-2); margin-top: var(--sp-1); font-size: var(--fs-meta); color: var(--dim); }
+.form-mark { flex: none; padding: 2px var(--sp-1); border: 1px solid var(--rule); font: 700 var(--fs-micro)/1.2 var(--body); letter-spacing: 0.12em; text-transform: uppercase; }
+.form.is-hot .form-mark { color: var(--ink); background: var(--amber); border-color: var(--amber); }
+.form.is-cold .form-mark { color: var(--text); border-color: var(--dim); }
+.form-why { min-width: 0; }
+.form-source { margin: 0; padding: var(--sp-3) var(--inset-x); border-top: 1px solid var(--rule); color: var(--dim); font-size: var(--fs-meta); }
+
 /* -------------------------------------------------------------- my team */
 
 .mine-tag { display: inline-block; margin-bottom: 8px; font: 700 var(--fs-micro)/1 var(--body); letter-spacing: 0.12em; text-transform: uppercase;
