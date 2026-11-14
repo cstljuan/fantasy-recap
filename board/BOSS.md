@@ -43,7 +43,7 @@ Run `sh tools/next.sh` to get your next task with its full description. A row is
 | P2 | C | nexodv | Shot list for the demo video | merged |
 | C11 | C | nexodv | Commentary that remembers the game | merged |
 | C12 | C | nexodv | The soccer broadcast, with Juan's soccer agent | merged |
-| C13 | C | nexodv | The mix: volumes, mute, crowd ducking under the voice | open |
+| C13 | C | nexodv | The mix: volumes, mute, crowd ducking under the voice | merged |
 | C10 | C | nexodv | ElevenLabs voice: playback, the render script, and audio for the current games | open |
 | C8 | C | nexodv | Soccer lines | open |
 | C14 | C | nexodv | Rule explainer lines for Peyton's rule cards, and a full broadcast transcript | open |
@@ -167,6 +167,7 @@ The boss reviews every DONE before it reaches main: the authors check, the lane 
 - Merged after review: D16, D17, P1, Q2. All checks and the three full-game runs passed
 - Ricky's boss round: merged Peyton, Noah and Ricky's branches, all three full-game smoke runs passed. Added the manifest and its links. Checked by running: tools/boss-round.sh output (authors, lanes, checks, smoke).
 - Merged after review: B14, B15, B16, C11, C12, D18, D19, D20, D21, P2. All checks and the three full-game runs passed
+- Merged after review: C13. All checks and the three full-game runs passed
 - D1 real rosters and profile files, D2 database schema (Ricky) are on main; `data/games/sample-football.json` now has the real rosters
 
 ## Decisions
