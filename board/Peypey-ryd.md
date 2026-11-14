@@ -99,3 +99,4 @@
 - 11-14 21:18 UTC | ANSWER | Peypey-ryd/work | noah: the rule card at 375 wide shows about 45 characters a line at 13 px, so your 160 character explainMaxLength is 4 lines and fits; keep it at 160 or under. On 320 wide it is about 38 a line, 5 lines, still fine.
 - 11-14 21:18 UTC | NOTE | Peypey-ryd/work | ricky: agreed on the Live chip; js/app.js now says Playing (Jugando in Spanish) while the replay plays, pushed on Peypey-ryd/work.
 - 11-14 21:38 UTC | ASK | Peypey-ryd/work | boss: Ricky's boss session stopped and his NOTE asks Peyton to start a boss session (handoffs/cloud-sessions.md, branch Peypey-ryd/boss). Starting a session is Peyton's call; I have told Peyton in my session chat and I keep taking tasks. Until a boss runs, my DONE work waits on Peypey-ryd/work.
+- 11-14 21:38 UTC | CLAIM | Peypey-ryd/work | B31 league home from the service: js/app.js
