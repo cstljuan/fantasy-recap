@@ -148,7 +148,7 @@
   }
 
   // -------------------------------------------------------------- start
-  var skipIntro = /[?&]intro=0(&|$)/.test(location.search);
+  var skipIntro = /[?&](intro=0|demo=1)(&|$)/.test(location.search);
   if (!get(SEEN_KEY) && !skipIntro && location.hash !== '#game') openWalk();
   else maybeHint();
 

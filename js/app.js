@@ -1724,7 +1724,9 @@
   G.on(function (type, d) {
     if (type === 'reset') { m = blank(); whyDemoUsed = 0; whyOpen = {}; filmSel = 0; }
     else if (type === 'start') m.status = 'live';
-    else if (type === 'snap') m.now = d.res.e.t === 'kickoff' ? 'Kickoff' : d.res.e.t === 'xp' ? 'Extra point try' : d.res.where;
+    // A seek resets the game without a new start event, so the first play after it marks it live.
+    if ((type === 'snap' || type === 'result') && m.status === 'pre') m.status = 'live';
+    if (type === 'snap') m.now = d.res.e.t === 'kickoff' ? 'Kickoff' : d.res.e.t === 'xp' ? 'Extra point try' : d.res.where;
     else if (type === 'result') {
       applyResult(d.res);
       setTimeout(function () { if (!inGame) render(false); }, 1600); // lets the highlight on new points fade
@@ -1768,6 +1770,7 @@
     topPlayCard: function () { return drawTopPlayCard().toDataURL('image/png'); },
     get live() { return liveEl.textContent; },
     get learn() { return learn; },
+    setOptin: function (v) { setOptin(v === 'in' ? 'in' : 'out'); if (!inGame) render(false); },
     jumpTo: function (n) { return jumpTo(n); },
     get currentPlay() { return currentPlay(); },
     get rule() { return ruleEl.hidden ? '' : ruleEl.textContent; },
@@ -1786,4 +1789,10 @@
   var installScript = document.createElement('script');
   installScript.src = 'js/screens/install.js';
   document.body.appendChild(installScript);
+  // ?demo=1 plays the two-minute demo by itself (js/screens/demo.js).
+  if (/[?&]demo=1(&|$)/.test(location.search)) {
+    var demoScript = document.createElement('script');
+    demoScript.src = 'js/screens/demo.js';
+    document.body.appendChild(demoScript);
+  }
 })();
