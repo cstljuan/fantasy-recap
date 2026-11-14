@@ -133,3 +133,28 @@ Live run on 2026-11-14 (weeks 1 to 10, 116 games, 3,177 plays): 1,080 of 1,100 g
 ## Tendencies from real plays
 
 `python3 agents/scout/play_tendencies.py` (no network) reads `data/rosters/plays-2026.json` and adds `play_tendencies` and `play_tendency_sources` to every football profile: for quarterbacks deep share, left, middle and right, deep completion, sack, interception and scramble rates, third down conversion and red zone touchdown rate; for receivers and tight ends target share, deep, red zone and third down target shares, catch rates short and deep, directions; for backs carry and target share, gap sides, goal line and short yardage shares, explosive and stuffed runs; for kickers make rates by distance band. Every number says how it was worked out, how many plays it rests on out of how many, and which games. Team totals come only from the games the player played. A share needs 5 plays or it stays null. It also fills `target_share` in the season `tendencies`, which season totals could not give. `notes.py` shows these in a "From the real plays" section and uses them first for the play-calling sentences. Offline check: `python3 agents/scout/check_play_tendencies.py`.
+
+## Research and scouting reports
+
+`agents/scout/research.py` holds Scout's research tools over the real plays: `research_plan` (the splits that matter for the position), `player_plays` (filtered plays with game, quarter, clock and text), `split` (by down, quarter, field zone, depth, direction, gap or week, with yards per play, success rate, touchdowns and first downs), `team_context`, and `write_report`, which refuses any claim without evidence. Success is the usual measure: 40 percent of the distance on first down, 60 on second, all of it on third or fourth, or a touchdown.
+
+The agent (`scout.py`) gets these as tools and is told to research each player's plays after the profiles and to cite the plays for every claim. With no model key, `python3 agents/scout/research.py` runs the same tools in a fixed order with rules in place of judgment and writes the same reports, `data/profiles/notes/<team>-<slot>-report.md`, each saying it was made by rules: volume and the last three weeks, the side or depth or gap that works best and worst (only when they differ by 10 points of success rate on 8 plays or more), third down, inside the 20, the biggest plays, and for kickers each distance band and the misses. Every claim is numbered and points to the plays behind it, each with a link to its game. Offline check: `python3 agents/scout/check_research.py`.
+
+## The agent team
+
+`scout.py` builds Scout as a deepagents main agent with three subagents, each with its own tools and instructions, reached through deepagents' `task` tool:
+
+- `stats-researcher`: one player's season profile from Sleeper (find_player, season_stats, weekly_stats, compute_tendencies, write_profile).
+- `film-room`: one player's real plays (research_plan, split, player_plays, team_context). It returns structured findings (a pydantic `Findings` schema through deepagents' `response_format`): claims, each with the plays behind it.
+- `fact-checker`: verifies each claim (verify_evidence, and the same split or player_plays again), drops what does not hold, and writes the report.
+
+The main agent plans with deepagents' todo tool, runs the three for each player in turn and logs every step. `write_report` itself refuses a claim whose evidence is not one of the player's real plays (same game, clock and text), so a report cannot cite a play that never happened even if a model makes one up.
+
+```bash
+pip install -r agents/scout/requirements.txt
+GOOGLE_API_KEY=... python3 agents/scout/scout.py --players GOB.WR1     # or ANTHROPIC_API_KEY; one player first
+python3 agents/scout/scout.py --dry-run                                # builds the team, no model call
+python3 agents/scout/check_agent_team.py                               # the whole team on a stand-in model, offline
+```
+
+Status: the team builds and runs end to end on a scripted stand-in model (`check_agent_team.py`); it has not run with a real model because this session has no model key. The 28 reports in `data/profiles/notes/` were written by `research.py` with rules and say so.

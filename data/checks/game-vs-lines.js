@@ -107,12 +107,56 @@ function compareReport(file, made, report) {
 }
 
 var source = tally(Data.TEAMS, Data.SAMPLE_GAME);
+
+// A game built from a real week (report.source.from 'plays'): every catch and run of each player must be one of his
+// real plays that week, with the same yards, all of them used once, and each field goal made a real make.
+function compareReal(f, g) {
+  var src = g.report.source, diffs = [];
+  var doc = JSON.parse(fs.readFileSync(path.join(ROOT, src.file), 'utf8'));
+  var made = tally(g.teams, g.game);
+  g.teams.forEach(function (T, i) {
+    var want = {}, have = {};
+    function add(m, k) { m[k] = (m[k] || 0) + 1; }
+    Object.keys(T.roster).forEach(function (slot) {
+      var pl = doc.players[T.id + '.' + slot];
+      if (!pl) return diffs.push(f + ': ' + T.id + ' ' + slot + ' is not in ' + src.file);
+      pl.plays.forEach(function (x) {
+        if (x.wk !== src.week || x.nullified || (x.dpi && x.kind === 'inc')) return;
+        if (x.role === 'target' && x.kind === 'pass') add(want, slot + ' catch ' + x.yds + (x.td ? ' TD' : ''));
+        if (x.role === 'rusher' && (x.kind === 'run' || x.kind === 'scramble')) add(want, slot + ' run ' + x.yds + (x.td ? ' TD' : ''));
+      });
+    });
+    var s = Rules.create(g.teams);
+    Rules.flatten(g.game, g.teams).forEach(function (st) {
+      if (st.kind === 'half') { Rules.startHalf(s); return; }
+      if (st.kind !== 'play') return;
+      var r = Rules.apply(s, st.e, st.team);
+      if (st.team !== i) return;
+      if (st.e.t === 'pass') add(have, st.e.to + ' catch ' + st.e.yds + (r.td ? ' TD' : ''));
+      if (st.e.t === 'run') add(have, st.e.by + ' run ' + st.e.yds + (r.td ? ' TD' : ''));
+    });
+    Object.keys(Object.assign({}, want, have)).forEach(function (k) {
+      if ((want[k] || 0) !== (have[k] || 0)) diffs.push(f + ': ' + T.id + ' ' + k + ': ' + (have[k] || 0) + ' in the game, ' + (want[k] || 0) + ' in week ' + src.week);
+    });
+  });
+  if (g.report.points) diffs = diffs.concat(compareReport(f, made, g.report));
+  var n = made.reduce(function (a, m) { return a + Object.keys(m.players).length; }, 0);
+  return { diffs: diffs, line: f + ': every catch and run of ' + n + ' players is their real week ' + src.week + ' play with the same yards (' + src.file + '), and points and score ' +
+    made[0].score + ' to ' + made[1].score + ' equal the file\'s report' };
+}
 var dir = path.join(ROOT, 'data', 'games');
 var files = fs.readdirSync(dir).filter(function (f) { return /\.json$/.test(f); }).sort();
 var all = [];
 files.forEach(function (f) {
   var g = JSON.parse(fs.readFileSync(path.join(dir, f), 'utf8'));
   if ((g.sport || 'football') !== 'football') { console.log('SKIPPED ' + f + ': sport ' + g.sport); return; }
+  if (g.report && g.report.source && g.report.source.from === 'plays') {
+    var rr;
+    try { rr = compareReal(f, g); } catch (e) { rr = { diffs: [f + ': ' + e.message], line: '' }; }
+    if (rr.diffs.length) rr.diffs.forEach(function (d) { console.log('DIFF    ' + d); }); else console.log('OK      ' + rr.line);
+    all = all.concat(rr.diffs);
+    return;
+  }
   var made;
   try { made = tally(g.teams, g.game); }
   catch (e) { var msg = f + ': the rules refuse the game: ' + e.message; console.log('DIFF    ' + msg); all.push(msg); return; }

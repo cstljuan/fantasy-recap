@@ -1,0 +1,234 @@
+22:53:43 | research starts (no model: fixed order, rules in place of judgment), plays from data/rosters/plays-2026.json
+22:53:43 | research_plan(GOB.QB) -> depth, direction, down, zone, week
+22:53:43 | Josh Allen: plan depth, direction, down, zone, week
+22:53:43 | split(GOB.QB, depth) -> 2 rows
+22:53:43 | split(GOB.QB, direction) -> 3 rows
+22:53:43 | split(GOB.QB, down) -> 4 rows
+22:53:43 | split(GOB.QB, zone) -> 4 rows
+22:53:43 | split(GOB.QB, week) -> 8 rows
+22:53:43 | write_report(GOB.QB) -> 5 claims, 15 plays cited
+22:53:43 | Josh Allen: report with 5 claims and 15 plays cited
+22:53:43 | research_plan(GOB.RB) -> gap, down, zone, week
+22:53:43 | Saquon Barkley: plan gap, down, zone, week
+22:53:43 | split(GOB.RB, gap) -> 7 rows
+22:53:43 | split(GOB.RB, down) -> 4 rows
+22:53:43 | split(GOB.RB, zone) -> 4 rows
+22:53:43 | split(GOB.RB, week) -> 7 rows
+22:53:43 | write_report(GOB.RB) -> 5 claims, 15 plays cited
+22:53:43 | Saquon Barkley: report with 5 claims and 15 plays cited
+22:53:43 | research_plan(GOB.WR1) -> depth, direction, down, zone, week
+22:53:43 | Ja'Marr Chase: plan depth, direction, down, zone, week
+22:53:43 | split(GOB.WR1, depth) -> 2 rows
+22:53:43 | split(GOB.WR1, direction) -> 3 rows
+22:53:43 | split(GOB.WR1, down) -> 4 rows
+22:53:43 | split(GOB.WR1, zone) -> 4 rows
+22:53:43 | split(GOB.WR1, week) -> 8 rows
+22:53:43 | write_report(GOB.WR1) -> 5 claims, 15 plays cited
+22:53:43 | Ja'Marr Chase: report with 5 claims and 15 plays cited
+22:53:43 | research_plan(GOB.WR2) -> depth, direction, down, zone, week
+22:53:43 | Puka Nacua: plan depth, direction, down, zone, week
+22:53:43 | split(GOB.WR2, depth) -> 2 rows
+22:53:43 | split(GOB.WR2, direction) -> 3 rows
+22:53:43 | split(GOB.WR2, down) -> 4 rows
+22:53:43 | split(GOB.WR2, zone) -> 4 rows
+22:53:43 | split(GOB.WR2, week) -> 7 rows
+22:53:43 | write_report(GOB.WR2) -> 6 claims, 18 plays cited
+22:53:43 | Puka Nacua: report with 6 claims and 18 plays cited
+22:53:43 | research_plan(GOB.WR3) -> depth, direction, down, zone, week
+22:53:43 | Amon-Ra St. Brown: plan depth, direction, down, zone, week
+22:53:43 | split(GOB.WR3, depth) -> 2 rows
+22:53:43 | split(GOB.WR3, direction) -> 3 rows
+22:53:43 | split(GOB.WR3, down) -> 4 rows
+22:53:43 | split(GOB.WR3, zone) -> 4 rows
+22:53:43 | split(GOB.WR3, week) -> 8 rows
+22:53:43 | write_report(GOB.WR3) -> 4 claims, 12 plays cited
+22:53:43 | Amon-Ra St. Brown: report with 4 claims and 12 plays cited
+22:53:43 | research_plan(GOB.TE) -> depth, down, zone, week
+22:53:43 | Trey McBride: plan depth, down, zone, week
+22:53:43 | split(GOB.TE, depth) -> 2 rows
+22:53:43 | split(GOB.TE, down) -> 4 rows
+22:53:43 | split(GOB.TE, zone) -> 4 rows
+22:53:43 | split(GOB.TE, week) -> 9 rows
+22:53:43 | write_report(GOB.TE) -> 4 claims, 12 plays cited
+22:53:43 | Trey McBride: report with 4 claims and 12 plays cited
+22:53:43 | research_plan(GOB.K) -> zone, week
+22:53:43 | Brandon Aubrey: plan zone, week
+22:53:43 | split(GOB.K, zone) -> 3 rows
+22:53:43 | split(GOB.K, week) -> 7 rows
+22:53:43 | write_report(GOB.K) -> 5 claims, 15 plays cited
+22:53:43 | Brandon Aubrey: report with 5 claims and 15 plays cited
+22:53:43 | research_plan(PYT.QB) -> depth, direction, down, zone, week
+22:53:43 | Lamar Jackson: plan depth, direction, down, zone, week
+22:53:43 | split(PYT.QB, depth) -> 2 rows
+22:53:43 | split(PYT.QB, direction) -> 3 rows
+22:53:43 | split(PYT.QB, down) -> 4 rows
+22:53:43 | split(PYT.QB, zone) -> 4 rows
+22:53:43 | split(PYT.QB, week) -> 5 rows
+22:53:43 | write_report(PYT.QB) -> 6 claims, 17 plays cited
+22:53:43 | Lamar Jackson: report with 6 claims and 17 plays cited
+22:53:43 | research_plan(PYT.RB) -> gap, down, zone, week
+22:53:43 | Bijan Robinson: plan gap, down, zone, week
+22:53:43 | split(PYT.RB, gap) -> 7 rows
+22:53:43 | split(PYT.RB, down) -> 4 rows
+22:53:43 | split(PYT.RB, zone) -> 4 rows
+22:53:43 | split(PYT.RB, week) -> 9 rows
+22:53:43 | write_report(PYT.RB) -> 5 claims, 15 plays cited
+22:53:43 | Bijan Robinson: report with 5 claims and 15 plays cited
+22:53:43 | research_plan(PYT.WR1) -> depth, direction, down, zone, week
+22:53:43 | Justin Jefferson: plan depth, direction, down, zone, week
+22:53:43 | split(PYT.WR1, depth) -> 2 rows
+22:53:43 | split(PYT.WR1, direction) -> 3 rows
+22:53:43 | split(PYT.WR1, down) -> 4 rows
+22:53:43 | split(PYT.WR1, zone) -> 4 rows
+22:53:43 | split(PYT.WR1, week) -> 7 rows
+22:53:43 | write_report(PYT.WR1) -> 5 claims, 15 plays cited
+22:53:43 | Justin Jefferson: report with 5 claims and 15 plays cited
+22:53:43 | research_plan(PYT.WR2) -> depth, direction, down, zone, week
+22:53:43 | Malik Nabers: plan depth, direction, down, zone, week
+22:53:43 | split(PYT.WR2, depth) -> 2 rows
+22:53:43 | split(PYT.WR2, direction) -> 3 rows
+22:53:43 | split(PYT.WR2, down) -> 3 rows
+22:53:43 | split(PYT.WR2, zone) -> 4 rows
+22:53:43 | split(PYT.WR2, week) -> 9 rows
+22:53:43 | write_report(PYT.WR2) -> 5 claims, 15 plays cited
+22:53:43 | Malik Nabers: report with 5 claims and 15 plays cited
+22:53:43 | research_plan(PYT.WR3) -> depth, direction, down, zone, week
+22:53:43 | Nico Collins: plan depth, direction, down, zone, week
+22:53:43 | split(PYT.WR3, depth) -> 2 rows
+22:53:43 | split(PYT.WR3, direction) -> 3 rows
+22:53:43 | split(PYT.WR3, down) -> 3 rows
+22:53:43 | split(PYT.WR3, zone) -> 3 rows
+22:53:43 | split(PYT.WR3, week) -> 6 rows
+22:53:43 | write_report(PYT.WR3) -> 6 claims, 18 plays cited
+22:53:43 | Nico Collins: report with 6 claims and 18 plays cited
+22:53:43 | research_plan(PYT.TE) -> depth, down, zone, week
+22:53:43 | George Kittle: plan depth, down, zone, week
+22:53:43 | split(PYT.TE, depth) -> 2 rows
+22:53:43 | split(PYT.TE, down) -> 4 rows
+22:53:43 | split(PYT.TE, zone) -> 4 rows
+22:53:43 | split(PYT.TE, week) -> 8 rows
+22:53:43 | write_report(PYT.TE) -> 5 claims, 15 plays cited
+22:53:43 | George Kittle: report with 5 claims and 15 plays cited
+22:53:43 | research_plan(PYT.K) -> zone, week
+22:53:43 | Harrison Butker: plan zone, week
+22:53:43 | split(PYT.K, zone) -> 2 rows
+22:53:43 | split(PYT.K, week) -> 8 rows
+22:53:43 | write_report(PYT.K) -> 5 claims, 15 plays cited
+22:53:43 | Harrison Butker: report with 5 claims and 15 plays cited
+22:53:43 | research_plan(TUR.QB) -> depth, direction, down, zone, week
+22:53:43 | Jayden Daniels: plan depth, direction, down, zone, week
+22:53:43 | split(TUR.QB, depth) -> 2 rows
+22:53:43 | split(TUR.QB, direction) -> 3 rows
+22:53:43 | split(TUR.QB, down) -> 4 rows
+22:53:43 | split(TUR.QB, zone) -> 4 rows
+22:53:43 | split(TUR.QB, week) -> 7 rows
+22:53:43 | write_report(TUR.QB) -> 5 claims, 15 plays cited
+22:53:43 | Jayden Daniels: report with 5 claims and 15 plays cited
+22:53:43 | research_plan(TUR.RB) -> gap, down, zone, week
+22:53:43 | Jahmyr Gibbs: plan gap, down, zone, week
+22:53:43 | split(TUR.RB, gap) -> 7 rows
+22:53:43 | split(TUR.RB, down) -> 4 rows
+22:53:43 | split(TUR.RB, zone) -> 4 rows
+22:53:43 | split(TUR.RB, week) -> 8 rows
+22:53:43 | write_report(TUR.RB) -> 5 claims, 15 plays cited
+22:53:43 | Jahmyr Gibbs: report with 5 claims and 15 plays cited
+22:53:43 | research_plan(TUR.WR1) -> depth, direction, down, zone, week
+22:53:43 | CeeDee Lamb: plan depth, direction, down, zone, week
+22:53:43 | split(TUR.WR1, depth) -> 2 rows
+22:53:43 | split(TUR.WR1, direction) -> 3 rows
+22:53:43 | split(TUR.WR1, down) -> 4 rows
+22:53:43 | split(TUR.WR1, zone) -> 4 rows
+22:53:43 | split(TUR.WR1, week) -> 9 rows
+22:53:43 | write_report(TUR.WR1) -> 5 claims, 15 plays cited
+22:53:43 | CeeDee Lamb: report with 5 claims and 15 plays cited
+22:53:43 | research_plan(TUR.WR2) -> depth, direction, down, zone, week
+22:53:43 | Garrett Wilson: plan depth, direction, down, zone, week
+22:53:43 | split(TUR.WR2, depth) -> 2 rows
+22:53:43 | split(TUR.WR2, direction) -> 3 rows
+22:53:43 | split(TUR.WR2, down) -> 4 rows
+22:53:43 | split(TUR.WR2, zone) -> 4 rows
+22:53:43 | split(TUR.WR2, week) -> 8 rows
+22:53:43 | write_report(TUR.WR2) -> 5 claims, 15 plays cited
+22:53:43 | Garrett Wilson: report with 5 claims and 15 plays cited
+22:53:43 | research_plan(TUR.WR3) -> depth, direction, down, zone, week
+22:53:43 | Drake London: plan depth, direction, down, zone, week
+22:53:43 | split(TUR.WR3, depth) -> 2 rows
+22:53:43 | split(TUR.WR3, direction) -> 3 rows
+22:53:43 | split(TUR.WR3, down) -> 4 rows
+22:53:43 | split(TUR.WR3, zone) -> 3 rows
+22:53:43 | split(TUR.WR3, week) -> 9 rows
+22:53:43 | write_report(TUR.WR3) -> 5 claims, 15 plays cited
+22:53:43 | Drake London: report with 5 claims and 15 plays cited
+22:53:43 | research_plan(TUR.TE) -> depth, down, zone, week
+22:53:43 | Brock Bowers: plan depth, down, zone, week
+22:53:43 | split(TUR.TE, depth) -> 2 rows
+22:53:43 | split(TUR.TE, down) -> 4 rows
+22:53:43 | split(TUR.TE, zone) -> 4 rows
+22:53:43 | split(TUR.TE, week) -> 7 rows
+22:53:43 | write_report(TUR.TE) -> 5 claims, 15 plays cited
+22:53:43 | Brock Bowers: report with 5 claims and 15 plays cited
+22:53:43 | research_plan(TUR.K) -> zone, week
+22:53:43 | Cameron Dicker: plan zone, week
+22:53:43 | split(TUR.K, zone) -> 3 rows
+22:53:43 | split(TUR.K, week) -> 7 rows
+22:53:43 | write_report(TUR.K) -> 5 claims, 13 plays cited
+22:53:43 | Cameron Dicker: report with 5 claims and 13 plays cited
+22:53:43 | research_plan(OWL.QB) -> depth, direction, down, zone, week
+22:53:43 | Patrick Mahomes: plan depth, direction, down, zone, week
+22:53:43 | split(OWL.QB, depth) -> 2 rows
+22:53:43 | split(OWL.QB, direction) -> 3 rows
+22:53:43 | split(OWL.QB, down) -> 4 rows
+22:53:43 | split(OWL.QB, zone) -> 4 rows
+22:53:43 | split(OWL.QB, week) -> 8 rows
+22:53:43 | write_report(OWL.QB) -> 5 claims, 15 plays cited
+22:53:43 | Patrick Mahomes: report with 5 claims and 15 plays cited
+22:53:43 | research_plan(OWL.RB) -> gap, down, zone, week
+22:53:43 | Derrick Henry: plan gap, down, zone, week
+22:53:43 | split(OWL.RB, gap) -> 7 rows
+22:53:43 | split(OWL.RB, down) -> 4 rows
+22:53:43 | split(OWL.RB, zone) -> 4 rows
+22:53:43 | split(OWL.RB, week) -> 9 rows
+22:53:43 | write_report(OWL.RB) -> 5 claims, 15 plays cited
+22:53:43 | Derrick Henry: report with 5 claims and 15 plays cited
+22:53:43 | research_plan(OWL.WR1) -> depth, direction, down, zone, week
+22:53:43 | Tee Higgins: plan depth, direction, down, zone, week
+22:53:43 | split(OWL.WR1, depth) -> 2 rows
+22:53:43 | split(OWL.WR1, direction) -> 3 rows
+22:53:43 | split(OWL.WR1, down) -> 3 rows
+22:53:43 | split(OWL.WR1, zone) -> 4 rows
+22:53:43 | split(OWL.WR1, week) -> 8 rows
+22:53:43 | write_report(OWL.WR1) -> 5 claims, 15 plays cited
+22:53:43 | Tee Higgins: report with 5 claims and 15 plays cited
+22:53:43 | research_plan(OWL.WR2) -> depth, direction, down, zone, week
+22:53:43 | Jaxon Smith-Njigba: plan depth, direction, down, zone, week
+22:53:43 | split(OWL.WR2, depth) -> 2 rows
+22:53:43 | split(OWL.WR2, direction) -> 3 rows
+22:53:43 | split(OWL.WR2, down) -> 4 rows
+22:53:43 | split(OWL.WR2, zone) -> 4 rows
+22:53:43 | split(OWL.WR2, week) -> 9 rows
+22:53:43 | write_report(OWL.WR2) -> 5 claims, 15 plays cited
+22:53:43 | Jaxon Smith-Njigba: report with 5 claims and 15 plays cited
+22:53:43 | research_plan(OWL.WR3) -> depth, direction, down, zone, week
+22:53:43 | Ladd McConkey: plan depth, direction, down, zone, week
+22:53:43 | split(OWL.WR3, depth) -> 2 rows
+22:53:43 | split(OWL.WR3, direction) -> 3 rows
+22:53:43 | split(OWL.WR3, down) -> 3 rows
+22:53:43 | split(OWL.WR3, zone) -> 3 rows
+22:53:43 | split(OWL.WR3, week) -> 6 rows
+22:53:43 | write_report(OWL.WR3) -> 4 claims, 10 plays cited
+22:53:43 | Ladd McConkey: report with 4 claims and 10 plays cited
+22:53:43 | research_plan(OWL.TE) -> depth, down, zone, week
+22:53:43 | Tucker Kraft: plan depth, down, zone, week
+22:53:43 | split(OWL.TE, depth) -> 2 rows
+22:53:43 | split(OWL.TE, down) -> 4 rows
+22:53:43 | split(OWL.TE, zone) -> 4 rows
+22:53:43 | split(OWL.TE, week) -> 9 rows
+22:53:43 | write_report(OWL.TE) -> 4 claims, 12 plays cited
+22:53:43 | Tucker Kraft: report with 4 claims and 12 plays cited
+22:53:43 | research_plan(OWL.K) -> zone, week
+22:53:43 | Ka'imi Fairbairn: plan zone, week
+22:53:43 | split(OWL.K, zone) -> 2 rows
+22:53:43 | split(OWL.K, week) -> 8 rows
+22:53:43 | write_report(OWL.K) -> 5 claims, 13 plays cited
+22:53:43 | Ka'imi Fairbairn: report with 5 claims and 13 plays cited
+22:53:43 | research finished: 28 reports

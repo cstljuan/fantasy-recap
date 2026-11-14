@@ -367,7 +367,7 @@ var srv = createServer(fake).listen(0, function () {
         assert.equal(r.status, 200); assert.equal(r.body.source.optins, 'database');
         assert.deepEqual(r.body.current.matchups[0].optedIn, ['PYT']);
         assert.ok(r.body.weeks.every(function (w) { return w.finished || w.matchups.every(function (m) { return m.final === null; }); }));
-        assert.equal(r.body.standings[0].id, 'OWL');
+        assert.equal(r.body.standings[0].id, doc.standings[0].id, 'the leader is the file\'s leader');
         return call('GET', '/league', undefined, undefined, noDb.address().port);
       }).then(function (r) {
         assert.equal(r.status, 200); assert.equal(r.body.source.optins, 'file'); assert.deepEqual(r.body.current.matchups[0].optedIn, ['GOB', 'PYT']);
