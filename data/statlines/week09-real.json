@@ -1,0 +1,263 @@
+{
+  "invented": false,
+  "note": "Real weekly numbers read from Sleeper's public stats API. Defense is not read: those fields are null.",
+  "week": 9,
+  "season": 2026,
+  "source": "https://api.sleeper.com/stats/nfl/player/<player_id>?season_type=regular&season=2026&grouping=week",
+  "date": "2026-11-14",
+  "unresolved": [],
+  "teams": {
+    "GOB": {
+      "players": {
+        "QB": {
+          "name": "Josh Allen",
+          "line": {
+            "pass_yards": 234,
+            "pass_td": 1,
+            "interceptions": 1,
+            "rush_yards": 15,
+            "rush_td": 0,
+            "receptions": 0,
+            "rec_yards": 0,
+            "rec_td": 0,
+            "fg_made": 0,
+            "fg_missed": 0,
+            "xp_made": 0
+          }
+        },
+        "RB": {
+          "name": "Saquon Barkley",
+          "line": {
+            "pass_yards": 0,
+            "pass_td": 0,
+            "interceptions": 0,
+            "rush_yards": 22,
+            "rush_td": 1,
+            "receptions": 0,
+            "rec_yards": 0,
+            "rec_td": 0,
+            "fg_made": 0,
+            "fg_missed": 0,
+            "xp_made": 0
+          }
+        },
+        "WR1": {
+          "name": "Ja'Marr Chase",
+          "line": {
+            "pass_yards": 0,
+            "pass_td": 0,
+            "interceptions": 0,
+            "rush_yards": 0,
+            "rush_td": 0,
+            "receptions": 10,
+            "rec_yards": 155,
+            "rec_td": 1,
+            "fg_made": 0,
+            "fg_missed": 0,
+            "xp_made": 0
+          }
+        },
+        "WR2": {
+          "name": "Puka Nacua",
+          "line": {
+            "pass_yards": 0,
+            "pass_td": 0,
+            "interceptions": 0,
+            "rush_yards": 20,
+            "rush_td": 0,
+            "receptions": 14,
+            "rec_yards": 150,
+            "rec_td": 1,
+            "fg_made": 0,
+            "fg_missed": 0,
+            "xp_made": 0
+          }
+        },
+        "WR3": {
+          "name": "Amon-Ra St. Brown",
+          "line": {
+            "pass_yards": 0,
+            "pass_td": 0,
+            "interceptions": 0,
+            "rush_yards": 0,
+            "rush_td": 0,
+            "receptions": 8,
+            "rec_yards": 86,
+            "rec_td": 0,
+            "fg_made": 0,
+            "fg_missed": 0,
+            "xp_made": 0
+          }
+        },
+        "TE": {
+          "name": "Trey McBride",
+          "line": {
+            "pass_yards": 0,
+            "pass_td": 0,
+            "interceptions": 0,
+            "rush_yards": 0,
+            "rush_td": 0,
+            "receptions": 7,
+            "rec_yards": 54,
+            "rec_td": 0,
+            "fg_made": 0,
+            "fg_missed": 0,
+            "xp_made": 0
+          }
+        },
+        "K": {
+          "name": "Brandon Aubrey",
+          "line": {
+            "pass_yards": 0,
+            "pass_td": 0,
+            "interceptions": 0,
+            "rush_yards": 0,
+            "rush_td": 0,
+            "receptions": 0,
+            "rec_yards": 0,
+            "rec_td": 0,
+            "fg_made": 2,
+            "fg_missed": 1,
+            "xp_made": 3
+          }
+        }
+      },
+      "defense": {
+        "name": "GOB defense",
+        "line": {
+          "sacks": null,
+          "def_interceptions": null,
+          "fumble_recoveries": null,
+          "def_td": null,
+          "points_allowed": null
+        }
+      }
+    },
+    "PYT": {
+      "players": {
+        "QB": {
+          "name": "Lamar Jackson",
+          "line": {
+            "pass_yards": 0,
+            "pass_td": 0,
+            "interceptions": 0,
+            "rush_yards": 0,
+            "rush_td": 0,
+            "receptions": 0,
+            "rec_yards": 0,
+            "rec_td": 0,
+            "fg_made": 0,
+            "fg_missed": 0,
+            "xp_made": 0
+          }
+        },
+        "RB": {
+          "name": "Bijan Robinson",
+          "line": {
+            "pass_yards": 0,
+            "pass_td": 0,
+            "interceptions": 0,
+            "rush_yards": 100,
+            "rush_td": 1,
+            "receptions": 6,
+            "rec_yards": 47,
+            "rec_td": 0,
+            "fg_made": 0,
+            "fg_missed": 0,
+            "xp_made": 0
+          }
+        },
+        "WR1": {
+          "name": "Justin Jefferson",
+          "line": {
+            "pass_yards": 0,
+            "pass_td": 0,
+            "interceptions": 0,
+            "rush_yards": 0,
+            "rush_td": 0,
+            "receptions": 3,
+            "rec_yards": 58,
+            "rec_td": 0,
+            "fg_made": 0,
+            "fg_missed": 0,
+            "xp_made": 0
+          }
+        },
+        "WR2": {
+          "name": "Malik Nabers",
+          "line": {
+            "pass_yards": 0,
+            "pass_td": 0,
+            "interceptions": 0,
+            "rush_yards": 0,
+            "rush_td": 0,
+            "receptions": 5,
+            "rec_yards": 43,
+            "rec_td": 0,
+            "fg_made": 0,
+            "fg_missed": 0,
+            "xp_made": 0
+          }
+        },
+        "WR3": {
+          "name": "Nico Collins",
+          "line": {
+            "pass_yards": 0,
+            "pass_td": 0,
+            "interceptions": 0,
+            "rush_yards": 0,
+            "rush_td": 0,
+            "receptions": 4,
+            "rec_yards": 55,
+            "rec_td": 1,
+            "fg_made": 0,
+            "fg_missed": 0,
+            "xp_made": 0
+          }
+        },
+        "TE": {
+          "name": "George Kittle",
+          "line": {
+            "pass_yards": 0,
+            "pass_td": 0,
+            "interceptions": 0,
+            "rush_yards": 0,
+            "rush_td": 0,
+            "receptions": 4,
+            "rec_yards": 58,
+            "rec_td": 0,
+            "fg_made": 0,
+            "fg_missed": 0,
+            "xp_made": 0
+          }
+        },
+        "K": {
+          "name": "Harrison Butker",
+          "line": {
+            "pass_yards": 0,
+            "pass_td": 0,
+            "interceptions": 0,
+            "rush_yards": 0,
+            "rush_td": 0,
+            "receptions": 0,
+            "rec_yards": 0,
+            "rec_td": 0,
+            "fg_made": 0,
+            "fg_missed": 1,
+            "xp_made": 5
+          }
+        }
+      },
+      "defense": {
+        "name": "PYT defense",
+        "line": {
+          "sacks": null,
+          "def_interceptions": null,
+          "fumble_recoveries": null,
+          "def_td": null,
+          "points_allowed": null
+        }
+      }
+    }
+  }
+}

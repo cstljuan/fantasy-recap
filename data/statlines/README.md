@@ -36,6 +36,10 @@ Slots: QB, RB, WR1, WR2, WR3, TE, K. Team ids: GOB, PYT. Every player line has a
 
 The scoring rules in D5 only list offense, so defense numbers are there for the game maker and are not scored yet.
 
+## Real week
+
+`week09-real.json` holds real week 9 numbers for the 14 players, read from Sleeper's public API on 2026-11-14 by `agents/scout/statlines.py`. It has `invented: false`, the source address and the date. Defense fields are `null` because the roster defenses are made up. The sums check does not apply to it: it holds 14 players, not whole teams.
+
 ## Weeks and the check
 
 - `week11.json`: GOB 34, PYT 17. `week12.json`: GOB 27, PYT 31 (the Pythons win a high scoring game). Both are invented.

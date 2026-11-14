@@ -7,6 +7,8 @@
 //   - the other defense's points allowed equal this team's score (6 a touchdown, 1 an extra point, 3 a field goal;
 //     a defensive touchdown with its extra point, 7, is not allowed by the other defense)
 //   - the quarterback's interceptions equal the other defense's interceptions
+// A -real file holds numbers read from a stats source for 14 players of a team, not a whole team, so its sums
+// are not checked, only its shape and counts.
 // A team with null lines (a real week that could not be read) is skipped and listed.
 // The invented flag must match what the file says about itself.
 'use strict';
@@ -53,6 +55,7 @@ files.forEach(function (f) {
       }
       if (line.rec_td > line.receptions) bad(where, s + ' has more receiving touchdowns than catches');
     });
+    if (real) { notes.push(where + ': real numbers, shape and counts checked, sums not (the roster is only some of the team)'); return; }
     var P = T.players, q = P.QB.line;
     if (q.pass_yards !== sum(P, 'rec_yards')) bad(where, 'QB pass yards ' + q.pass_yards + ' but receivers add up to ' + sum(P, 'rec_yards'));
     if (q.pass_td !== sum(P, 'rec_td')) bad(where, 'QB pass touchdowns ' + q.pass_td + ' but receivers add up to ' + sum(P, 'rec_td'));
@@ -76,7 +79,7 @@ files.forEach(function (f) {
     if (win !== ex.winner) bad(f, 'the winner should be ' + ex.winner + ' but is ' + win);
     ids.forEach(function (t) { if (score[t] <= ex.bothOver) bad(f, t + ' scored ' + score[t] + ', both teams must score over ' + ex.bothOver); });
   }
-  if (!problems.length || true) notes.push(f + ': ' + ids.map(function (t) { return t + ' ' + score[t]; }).join(', '));
+  if (!real) notes.push(f + ': ' + ids.map(function (t) { return t + ' ' + score[t]; }).join(', '));
 });
 
 notes.forEach(function (n) { console.log('  ' + n); });
