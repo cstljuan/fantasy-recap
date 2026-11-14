@@ -349,11 +349,54 @@
 
   // ------------------------------------------------------- navigation
 
+  // Speed control. It lives next to Close and shows and hides with it.
+  // The choice sets window.__ff.speed and is saved under fr.speed.
+  var SPEED_KEY = 'fr.speed', SPEEDS = [0.5, 1, 2, 4];
+  var speedEl = document.createElement('div');
+  speedEl.className = 'speed';
+  speedEl.setAttribute('role', 'group');
+  speedEl.setAttribute('aria-label', 'Game speed');
+  speedEl.hidden = true;
+  speedEl.innerHTML = SPEEDS.map(function (v) {
+    return '<button type="button" data-speed="' + v + '">' + v + 'x</button>';
+  }).join('');
+  $('closeGame').parentNode.appendChild(speedEl);
+
+  function markSpeed() {
+    var cur = window.__ff ? Number(window.__ff.speed) : 1;
+    Array.prototype.forEach.call(speedEl.children, function (b) {
+      b.setAttribute('aria-pressed', String(Number(b.getAttribute('data-speed')) === cur));
+    });
+  }
+  function setSpeed(v, save) {
+    if (window.__ff) window.__ff.speed = v;
+    if (save) { try { window.localStorage.setItem(SPEED_KEY, String(v)); } catch (err) { /* storage may be off */ } }
+    markSpeed();
+  }
+  (function loadSpeed() {
+    var saved = null;
+    try { saved = Number(window.localStorage.getItem(SPEED_KEY)); } catch (err) { saved = null; }
+    // A ?speed= in the address wins over the saved choice, so test links keep working.
+    var fromUrl = /[?&]speed=/.test(location.search);
+    if (!fromUrl && SPEEDS.indexOf(saved) >= 0) setSpeed(saved, false); else markSpeed();
+  })();
+  speedEl.addEventListener('click', function (ev) {
+    var b = ev.target.closest ? ev.target.closest('[data-speed]') : null;
+    if (!b) return;
+    setSpeed(Number(b.getAttribute('data-speed')), true);
+    revealClose();
+  });
+
+  function setControls(on) {
+    $('closeGame').hidden = !on;
+    speedEl.hidden = !on;
+  }
+
   var closeTimer = 0;
   function showGame(on) {
     inGame = on;
     $('gameView').hidden = !on;
-    $('closeGame').hidden = true;
+    setControls(false);
     document.body.classList.toggle('in-game', on);
     G.setActive(on);
   }
@@ -361,9 +404,10 @@
   function leaveGame(to) { location.replace('#' + (to || tab)); }
 
   function revealClose() {
-    $('closeGame').hidden = false;
+    setControls(true);
+    markSpeed();
     clearTimeout(closeTimer);
-    closeTimer = setTimeout(function () { $('closeGame').hidden = true; }, 2600);
+    closeTimer = setTimeout(function () { setControls(false); }, 2600);
   }
 
   function route() {
