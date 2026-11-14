@@ -25,6 +25,13 @@
 //                   on 100 yards and then passing it, a third catch on one drive, a kicker's
 //                   second make, a lead change. At most one such line every 2 plays (every 4
 //                   for setups); a lead change or an answered score is always called.
+//   catchUp(results, ctx)
+//                   after FF_GAME.seek skipped plays: one or two sentences on what was missed (the
+//                   score change, then a turnover or the biggest play), or '' when no play was
+//                   skipped. results are the skipped plays' result objects in order; ctx is what
+//                   line() takes, plus optional leaders and hidden (no fantasy points while hidden,
+//                   like halftime). It also adds those plays to the announcer's memory. After a seek
+//                   backwards, call reset() first and pass every play from the start.
 //   explain(kind)   one or two plain sentences on a football rule for someone who has never
 //                   watched, for the app's rule cards; '' for an unknown kind. explainKinds lists
 //                   the kinds; explainFor(res) gives the kinds a finished play shows.
@@ -394,6 +401,84 @@
     return { kind: 'memory_' + kind, text: text };
   }
 
+  // ---- C15: catch-up after a jump ----
+  var CATCHUP = {
+    scored: {
+      straight: ['We pick it up {n} plays later: {what}, and it\'s {score}.', '{n} plays on, {what}, so it\'s {score}.', 'Since you left: {what}, making it {score}.'],
+      fun: ['Fast forward {n} plays: {what}, {score}!', 'You missed {what}, so it\'s {score}!', '{n} plays later: {what}, {score}!']
+    },
+    quiet: {
+      straight: ['We pick it up {n} plays later, still {score}.', '{n} plays on, and it\'s still {score}.', 'Skipping ahead {n} plays, still {score}.'],
+      fun: ['Fast forward {n} plays, still {score}!', '{n} plays zipped by, still {score}!', 'Skipped {n} plays, and nothing on the board!']
+    },
+    turnover: {
+      straight: ['Along the way, {turn}.', 'The big moment: {turn}.', 'Worth knowing: {turn}.'],
+      fun: ['And get this: {turn}!', 'Oh, and {turn}!', 'Plot twist: {turn}!']
+    },
+    big: {
+      straight: ['The big play was {big}.', 'Biggest gain: {big}.', 'The play of that stretch: {big}.'],
+      fun: ['Best bit: {big}!', 'Highlight: {big}!', 'Did you see {big}? Big one!']
+    },
+    leader: {
+      straight: ['{leader} leads in fantasy points with {lpts}.', '{leader} is up to {lpts} fantasy points.', 'Top of the fantasy board: {leader}, {lpts}.'],
+      fun: ['{leader} is cooking: {lpts} points!', '{leader} has {lpts} already!', 'Fantasy king right now: {leader}, {lpts}!']
+    }
+  };
+
+  function joinList(a) { return a.length <= 1 ? (a[0] || '') : a.slice(0, -1).join(', ') + ' and ' + a[a.length - 1]; }
+  var COUNT = ['', 'a', 'two', 'three', 'four', 'five'];
+
+  function catchUp(results, ctx) {
+    try {
+      ctx = ctx || {};
+      var teams = ctx.teams, plays = (results || []).filter(function (r) { return r && r.e && r.pre && r.post; });
+      if (!teams || teams.length < 2 || !plays.length) return '';
+      var style = STYLES.indexOf(ctx.style) >= 0 ? ctx.style : api.style;
+      // Keep the memory right for what comes after the jump.
+      plays.forEach(function (r) { playNo++; remember(r); });
+      var first = plays[0].pre.score, end = plays[plays.length - 1].post.score;
+      var score = ctx.score || end;
+      var v = { n: plays.length, score: scoreText(teams, score) };
+      // Scores, per team: touchdowns and field goals.
+      var tally = [{ td: 0, fg: 0 }, { td: 0, fg: 0 }], turn = null, big = null;
+      plays.forEach(function (r) {
+        var e = r.e, off = r.pre.poss, R = off === 0 || off === 1 ? teams[off].roster || {} : {};
+        if (r.td && (off === 0 || off === 1)) tally[off].td++;
+        if (e.t === 'fg' && e.good && (off === 0 || off === 1)) tally[off].fg++;
+        if (!turn && (e.t === 'int' || e.t === 'fumble' || r.downs) && (off === 0 || off === 1)) {
+          turn = e.t === 'int' ? lastName(R.QB) + ' threw an interception' :
+            e.t === 'fumble' ? lastName(R[e.by]) + ' lost a fumble' :
+            'the ' + teams[off].name + ' turned it over on downs';
+        }
+        if ((e.t === 'run' || e.t === 'pass') && e.yds >= 15 && (!big || e.yds > big.yds)) {
+          big = { yds: e.yds, text: e.t === 'pass' ? lastName(R.QB) + ' to ' + lastName(R[e.to]) + ' for ' + e.yds : lastName(R[e.by]) + ' for ' + e.yds };
+        }
+      });
+      var what = [];
+      [0, 1].forEach(function (t) {
+        var x = tally[t], parts = [];
+        if (x.td) parts.push((COUNT[x.td] || x.td) + ' ' + teams[t].name + ' touchdown' + (x.td > 1 ? 's' : ''));
+        if (x.fg) parts.push((COUNT[x.fg] || x.fg) + ' ' + teams[t].name + ' field goal' + (x.fg > 1 ? 's' : ''));
+        what = what.concat(parts);
+      });
+      var changed = first[0] !== end[0] || first[1] !== end[1];
+      v.what = joinList(what);
+      var s1 = fill(pick(changed && what.length ? 'scored' : 'quiet', style, CATCHUP), v);
+      var s2 = '';
+      if (turn) s2 = fill(pick('turnover', style, CATCHUP), { turn: turn });
+      else if (big) s2 = fill(pick('big', style, CATCHUP), { big: big.text });
+      else if (!ctx.hidden) {
+        var top = topLeader(ctx.leaders);
+        if (top) s2 = fill(pick('leader', style, CATCHUP), { leader: lastName(top.name), lpts: pts(top.points) });
+      }
+      var text = s2 ? s1 + ' ' + s2 : s1;
+      announce(text, 'catch_up', style);
+      return text;
+    } catch (err) {
+      return '';
+    }
+  }
+
   // ---- C14: rule explainers ----
   var EXPLAIN = {
     first_down: "The offense gets four tries, called downs, to move the ball 10 yards. If they make it, that is a first down and they get four new tries.",
@@ -731,6 +816,7 @@
       return api.style;
     },
 
+    catchUp: catchUp,
     explain: function (kind) { return Object.prototype.hasOwnProperty.call(EXPLAIN, kind) ? EXPLAIN[kind] : ''; },
     explainKinds: Object.keys(EXPLAIN),
     explainFor: explainFor,
