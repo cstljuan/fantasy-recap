@@ -80,11 +80,13 @@
   }
 
   function tooFast() { var ff = root.__ff; return !!(ff && +ff.speed > 2); }
+  // Quiet while the game view is closed, even if the game cancels speech without hush().
+  function offScreen() { var g = root.FF_GAME; return !!(g && g.active === false); }
 
   function speakNext() {
     var sy = synth();
     clearTimeout(speakTimer); speaking = null;
-    if (!sy || tooFast()) { queue.length = 0; return; }
+    if (!sy || tooFast() || offScreen()) { queue.length = 0; return; }
     while (queue.length && playNo - queue[0].play > MAX_AGE) queue.shift();
     var item = queue.shift();
     if (!item) return;

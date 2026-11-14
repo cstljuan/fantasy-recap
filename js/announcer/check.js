@@ -187,6 +187,13 @@ STYLES.forEach(function (style) {
   A.speak('too fast');
   if (spoken.length) problems.push('spoke at speed 4');
   globalThis.__ff = { speed: 1 };
+
+  // Game view closed: the game cancels speech, the queue must not carry on.
+  spoken.length = 0; globalThis.FF_GAME = { active: true };
+  A.speak('on screen'); A.speak('queued');
+  globalThis.FF_GAME.active = false; end();
+  if (spoken.length !== 1) problems.push('kept speaking after the game view closed');
+  delete globalThis.FF_GAME;
   A.hush();
   console.log('\nVoices: straight ' + v.straight.name + ' (rate ' + v.straight.rate + '), fun ' + v.fun.name + ' (rate ' + v.fun.rate + '), queue and age checks run');
   delete globalThis.speechSynthesis; delete globalThis.SpeechSynthesisUtterance; delete globalThis.__ff;
