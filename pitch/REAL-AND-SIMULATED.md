@@ -22,7 +22,7 @@ Written 2026-11-14 from the code and the DONE posts on the board. If something i
 - The football game itself. The game the app plays is built from the stat lines of the invented sample game (the game maker ran with `--from-sample`), not from `data/statlines/week11.json`. No play in it happened in a real game, so the score does not match any real result. The older sample game in `js/data.js` is a scripted list that someone invented.
 - Every stat line in `data/statlines/week11.json`. The file says it is invented. The numbers are not those players' real numbers.
 - The soccer match is scripted. Whether its teams and players are real was not checked here.
-- The player profiles have no real statistics. Every tendency is `null`, because no public stats source could be reached.
+- The player tendencies in the profiles are real: season 2026 numbers read from Sleeper's public API on 2026-11-14, turned into 0 to 1 numbers by formulas of our own (`agents/scout/README.md`). A model did not do this: `agents/scout/fill_profiles.py` called the tools in a fixed order. The two scalings (12 and 20) are our choice, not league facts.
 - There is no live data feed. Nothing reads a real fantasy league or a real NFL game.
 - The two managers and their matchup are sample data. There is one viewer and no accounts. The opt-in choice lives in the browser, not in the `optins` table. The other matchup on the League screen and its opted-in marks are fixed invented text.
 - The wait is simulated: nothing is hidden for a week, scores are hidden only until the replay ends.
@@ -31,5 +31,6 @@ Written 2026-11-14 from the code and the DONE posts on the board. If something i
 
 - The plays service (`server/`) saves and returns plays. It passes its test against a fake database, and the boss reported it worked against the real database (a save, a repeat save without duplicates, and a read). The summary read came back empty because the aggregates had not refreshed yet. The optional certificate file check was only tested with a fake file.
 - The app does not use the database. Nothing in `js/` calls the service. The seed file `db/seed.sql` has not been run.
-- Profiles are read by the game maker, but every tendency is `null`, so the plays are not shaped by any real player tendency yet.
+- The game the app plays was built before the profiles were filled, so its plays were not shaped by any real player tendency. The game maker and the announcer can read the filled profiles now, but no game has been rebuilt with them.
+- The Scout agent (deepagents) has not run: no model key. Only its tools ran, live, without a model.
 - Current team and roster status of every real player was not checked.

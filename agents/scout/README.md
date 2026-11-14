@@ -4,9 +4,10 @@ Scout is a research agent built with LangChain's `deepagents` package (version 0
 
 ## Status: read this first
 
-- The tools and the agent wiring have been checked (see Check). They were checked offline, with hand-written sample files and a scripted stand-in model.
-- **Scout has not run for real yet.** This session had no model key and its network refused `api.sleeper.app` and `api.sleeper.com`. So the Sleeper address shapes and stat names in `scout_tools.py` come from memory and are unverified, and no profile has been filled by Scout. `data/profiles/GOB.json` and `PYT.json` still have null tendencies.
-- Which stat names Sleeper really uses (for example `rec_rz_tgt`, `rush_rz_att`, `fgm_40_49`) must be confirmed on the first live run. Where a stat is missing, the tendency stays `null`. Nothing is estimated.
+- The tools were run live on 2026-11-14 against `api.sleeper.app` and `api.sleeper.com`: all 14 players resolved and the stat names the formulas use (`pass_att`, `rec_rz_tgt`, `rush_rz_att`, `fgm_40_49`, `fgm_50p` and the rest) exist in the responses. `api.sleeper.app/v1/state/nfl` reported season 2026, week 10.
+- `python3 agents/scout/fill_profiles.py` called the same tools in a fixed order, with **no model**, and filled the real tendencies in `data/profiles/GOB.json`, `PYT.json` and `data/rosters/season-2026.json`. That is not the agent.
+- **The deepagents agent (`scout.py`) has still not run for real**: this session has no model key. Its wiring passed the offline checks (`check.py`, `check_agent.py`) only. A research log from a model-driven run does not exist yet.
+- ESPN's public JSON (`site.api.espn.com`) answered when tested, but nothing in Scout reads it. Sleeper is the only source in use.
 
 ## Install and run
 
@@ -26,7 +27,7 @@ python3 agents/scout/scout.py             # the real run
 
 - `data/profiles/GOB.json`, `PYT.json`: the contract shape (`docs/CONTRACT.md` section 4). `tendencies` are plain numbers. `tendency_sources` has, for each number, the source address, the date and how it was computed. `source` says where the numbers came from.
 - `data/rosters/season-2026.json`: the raw season numbers Scout used, with source and date.
-- `agents/scout/runs/<time>-scout.log`: one line per step, from `log_step` and from each tool call.
+- `agents/scout/runs/<time>-<label>.txt`: one line per step, from `log_step` and from each tool call.
 
 A real run overwrites the player entries in the two profile files.
 

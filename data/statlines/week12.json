@@ -1,0 +1,259 @@
+{
+  "invented": true,
+  "note": "INVENTED SAMPLE DATA. Week 12 of the demo: the Pythons win a high scoring game. Real player names are used, the numbers are not theirs. The lines add up (data/checks/statlines.js).",
+  "week": 12,
+  "teams": {
+    "GOB": {
+      "players": {
+        "QB": {
+          "name": "Josh Allen",
+          "line": {
+            "pass_yards": 255,
+            "pass_td": 2,
+            "interceptions": 1,
+            "rush_yards": 22,
+            "rush_td": 0,
+            "receptions": 0,
+            "rec_yards": 0,
+            "rec_td": 0,
+            "fg_made": 0,
+            "fg_missed": 0,
+            "xp_made": 0
+          }
+        },
+        "RB": {
+          "name": "Saquon Barkley",
+          "line": {
+            "pass_yards": 0,
+            "pass_td": 0,
+            "interceptions": 0,
+            "rush_yards": 91,
+            "rush_td": 1,
+            "receptions": 4,
+            "rec_yards": 31,
+            "rec_td": 0,
+            "fg_made": 0,
+            "fg_missed": 0,
+            "xp_made": 0
+          }
+        },
+        "WR1": {
+          "name": "Ja'Marr Chase",
+          "line": {
+            "pass_yards": 0,
+            "pass_td": 0,
+            "interceptions": 0,
+            "rush_yards": 0,
+            "rush_td": 0,
+            "receptions": 7,
+            "rec_yards": 97,
+            "rec_td": 1,
+            "fg_made": 0,
+            "fg_missed": 0,
+            "xp_made": 0
+          }
+        },
+        "WR2": {
+          "name": "Puka Nacua",
+          "line": {
+            "pass_yards": 0,
+            "pass_td": 0,
+            "interceptions": 0,
+            "rush_yards": 0,
+            "rush_td": 0,
+            "receptions": 6,
+            "rec_yards": 66,
+            "rec_td": 0,
+            "fg_made": 0,
+            "fg_missed": 0,
+            "xp_made": 0
+          }
+        },
+        "WR3": {
+          "name": "Amon-Ra St. Brown",
+          "line": {
+            "pass_yards": 0,
+            "pass_td": 0,
+            "interceptions": 0,
+            "rush_yards": 0,
+            "rush_td": 0,
+            "receptions": 5,
+            "rec_yards": 41,
+            "rec_td": 0,
+            "fg_made": 0,
+            "fg_missed": 0,
+            "xp_made": 0
+          }
+        },
+        "TE": {
+          "name": "Trey McBride",
+          "line": {
+            "pass_yards": 0,
+            "pass_td": 0,
+            "interceptions": 0,
+            "rush_yards": 0,
+            "rush_td": 0,
+            "receptions": 3,
+            "rec_yards": 20,
+            "rec_td": 1,
+            "fg_made": 0,
+            "fg_missed": 0,
+            "xp_made": 0
+          }
+        },
+        "K": {
+          "name": "Brandon Aubrey",
+          "line": {
+            "pass_yards": 0,
+            "pass_td": 0,
+            "interceptions": 0,
+            "rush_yards": 0,
+            "rush_td": 0,
+            "receptions": 0,
+            "rec_yards": 0,
+            "rec_td": 0,
+            "fg_made": 2,
+            "fg_missed": 0,
+            "xp_made": 3
+          }
+        }
+      },
+      "defense": {
+        "name": "GOB defense",
+        "line": {
+          "sacks": 2,
+          "def_interceptions": 1,
+          "fumble_recoveries": 0,
+          "def_td": 0,
+          "points_allowed": 31
+        }
+      }
+    },
+    "PYT": {
+      "players": {
+        "QB": {
+          "name": "Lamar Jackson",
+          "line": {
+            "pass_yards": 289,
+            "pass_td": 3,
+            "interceptions": 1,
+            "rush_yards": 54,
+            "rush_td": 0,
+            "receptions": 0,
+            "rec_yards": 0,
+            "rec_td": 0,
+            "fg_made": 0,
+            "fg_missed": 0,
+            "xp_made": 0
+          }
+        },
+        "RB": {
+          "name": "Bijan Robinson",
+          "line": {
+            "pass_yards": 0,
+            "pass_td": 0,
+            "interceptions": 0,
+            "rush_yards": 77,
+            "rush_td": 1,
+            "receptions": 5,
+            "rec_yards": 38,
+            "rec_td": 0,
+            "fg_made": 0,
+            "fg_missed": 0,
+            "xp_made": 0
+          }
+        },
+        "WR1": {
+          "name": "Justin Jefferson",
+          "line": {
+            "pass_yards": 0,
+            "pass_td": 0,
+            "interceptions": 0,
+            "rush_yards": 0,
+            "rush_td": 0,
+            "receptions": 7,
+            "rec_yards": 104,
+            "rec_td": 1,
+            "fg_made": 0,
+            "fg_missed": 0,
+            "xp_made": 0
+          }
+        },
+        "WR2": {
+          "name": "Malik Nabers",
+          "line": {
+            "pass_yards": 0,
+            "pass_td": 0,
+            "interceptions": 0,
+            "rush_yards": 0,
+            "rush_td": 0,
+            "receptions": 5,
+            "rec_yards": 62,
+            "rec_td": 1,
+            "fg_made": 0,
+            "fg_missed": 0,
+            "xp_made": 0
+          }
+        },
+        "WR3": {
+          "name": "Nico Collins",
+          "line": {
+            "pass_yards": 0,
+            "pass_td": 0,
+            "interceptions": 0,
+            "rush_yards": 0,
+            "rush_td": 0,
+            "receptions": 4,
+            "rec_yards": 51,
+            "rec_td": 0,
+            "fg_made": 0,
+            "fg_missed": 0,
+            "xp_made": 0
+          }
+        },
+        "TE": {
+          "name": "George Kittle",
+          "line": {
+            "pass_yards": 0,
+            "pass_td": 0,
+            "interceptions": 0,
+            "rush_yards": 0,
+            "rush_td": 0,
+            "receptions": 4,
+            "rec_yards": 34,
+            "rec_td": 1,
+            "fg_made": 0,
+            "fg_missed": 0,
+            "xp_made": 0
+          }
+        },
+        "K": {
+          "name": "Harrison Butker",
+          "line": {
+            "pass_yards": 0,
+            "pass_td": 0,
+            "interceptions": 0,
+            "rush_yards": 0,
+            "rush_td": 0,
+            "receptions": 0,
+            "rec_yards": 0,
+            "rec_td": 0,
+            "fg_made": 1,
+            "fg_missed": 1,
+            "xp_made": 4
+          }
+        }
+      },
+      "defense": {
+        "name": "PYT defense",
+        "line": {
+          "sacks": 3,
+          "def_interceptions": 1,
+          "fumble_recoveries": 1,
+          "def_td": 0,
+          "points_allowed": 27
+        }
+      }
+    }
+  }
+}

@@ -1,6 +1,6 @@
 {
   "invented": true,
-  "note": "INVENTED SAMPLE DATA. These stat lines were made up for the demo. They are not real game results. Real player names are used, the numbers are not theirs.",
+  "note": "INVENTED SAMPLE DATA. These stat lines were made up for the demo. They are not real game results. Real player names are used, the numbers are not theirs. The lines add up: receiving yards and touchdowns equal the quarterback's passing, extra points equal touchdowns, and points allowed equal the other team's score (data/checks/statlines.js).",
   "week": 11,
   "teams": {
     "GOB": {
@@ -46,7 +46,7 @@
             "rush_yards": 0,
             "rush_td": 0,
             "receptions": 8,
-            "rec_yards": 112,
+            "rec_yards": 100,
             "rec_td": 1,
             "fg_made": 0,
             "fg_missed": 0,
@@ -61,8 +61,8 @@
             "interceptions": 0,
             "rush_yards": 0,
             "rush_td": 0,
-            "receptions": 6,
-            "rec_yards": 71,
+            "receptions": 5,
+            "rec_yards": 60,
             "rec_td": 0,
             "fg_made": 0,
             "fg_missed": 0,
@@ -77,8 +77,8 @@
             "interceptions": 0,
             "rush_yards": 0,
             "rush_td": 0,
-            "receptions": 5,
-            "rec_yards": 58,
+            "receptions": 4,
+            "rec_yards": 50,
             "rec_td": 1,
             "fg_made": 0,
             "fg_missed": 0,
@@ -94,7 +94,7 @@
             "rush_yards": 0,
             "rush_td": 0,
             "receptions": 4,
-            "rec_yards": 39,
+            "rec_yards": 36,
             "rec_td": 0,
             "fg_made": 0,
             "fg_missed": 0,
@@ -114,7 +114,7 @@
             "rec_td": 0,
             "fg_made": 2,
             "fg_missed": 1,
-            "xp_made": 3
+            "xp_made": 4
           }
         }
       },
@@ -122,10 +122,10 @@
         "name": "GOB defense",
         "line": {
           "sacks": 3,
-          "def_interceptions": 1,
+          "def_interceptions": 0,
           "fumble_recoveries": 1,
           "def_td": 0,
-          "points_allowed": 20
+          "points_allowed": 17
         }
       }
     },
@@ -171,8 +171,8 @@
             "interceptions": 0,
             "rush_yards": 0,
             "rush_td": 0,
-            "receptions": 7,
-            "rec_yards": 96,
+            "receptions": 6,
+            "rec_yards": 70,
             "rec_td": 1,
             "fg_made": 0,
             "fg_missed": 0,
@@ -187,8 +187,8 @@
             "interceptions": 0,
             "rush_yards": 0,
             "rush_td": 0,
-            "receptions": 5,
-            "rec_yards": 64,
+            "receptions": 4,
+            "rec_yards": 50,
             "rec_td": 0,
             "fg_made": 0,
             "fg_missed": 0,
@@ -203,8 +203,8 @@
             "interceptions": 0,
             "rush_yards": 0,
             "rush_td": 0,
-            "receptions": 4,
-            "rec_yards": 47,
+            "receptions": 3,
+            "rec_yards": 35,
             "rec_td": 0,
             "fg_made": 0,
             "fg_missed": 0,
@@ -219,8 +219,8 @@
             "interceptions": 0,
             "rush_yards": 0,
             "rush_td": 0,
-            "receptions": 5,
-            "rec_yards": 52,
+            "receptions": 4,
+            "rec_yards": 33,
             "rec_td": 0,
             "fg_made": 0,
             "fg_missed": 0,
@@ -251,7 +251,7 @@
           "def_interceptions": 1,
           "fumble_recoveries": 0,
           "def_td": 0,
-          "points_allowed": 24
+          "points_allowed": 34
         }
       }
     }
