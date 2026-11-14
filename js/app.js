@@ -30,6 +30,19 @@
   function posOf(role) { for (var i = 0; i < SLOTS.length; i++) if (SLOTS[i].role === role) return SLOTS[i].pos; return role; }
 
   // Team colors and the 8-bit player from the game, reused as each team's mark.
+  // Spanish for the screens (js/screens/i18n.js). Until the table has loaded, text stays English;
+  // with Spanish saved the page waits for it (at most 1.5 s) so English does not flash.
+  function lang() { return window.FR_I18N ? window.FR_I18N.lang : 'en'; }
+  function tr(s) { return window.FR_I18N ? window.FR_I18N.tr(s) : s; }
+  (function () {
+    var saved = null;
+    try { saved = window.localStorage.getItem('fr.lang'); } catch (err) { saved = null; }
+    if (saved === 'es') {
+      document.documentElement.classList.add('i18n-wait');
+      setTimeout(function () { document.documentElement.classList.remove('i18n-wait'); }, 1500);
+    }
+  })();
+
   var root = document.documentElement;
   root.style.setProperty('--t0', TEAMS[0].colors.jersey);
   root.style.setProperty('--t1', TEAMS[1].colors.jersey);
@@ -664,7 +677,7 @@
     g.fillStyle = C.text; g.font = '700 44px ' + CARD_FONT; g.textAlign = 'left';
     g.fillText('FANTASY RECAP', P + 38, 114);
     g.fillStyle = C.dim; g.font = '700 28px ' + CARD_BODY; g.textAlign = 'right';
-    g.fillText((WEEK + ' result').toUpperCase(), CARD_W - P, 112);
+    g.fillText(tr((WEEK + ' result').toUpperCase()), CARD_W - P, 112);
 
     // The winner, large, with the team's player.
     var y = 210;
@@ -677,10 +690,10 @@
     }
     var tx = w >= 0 ? P + 156 : P;
     g.textAlign = 'left'; g.fillStyle = C.text; g.font = '700 112px ' + CARD_FONT;
-    var lines = wrapText(g, (w < 0 ? 'It is a tie' : TEAMS[w].full).toUpperCase(), CARD_W - P - tx);
+    var lines = wrapText(g, (w < 0 ? tr('It is a tie') : TEAMS[w].full).toUpperCase(), CARD_W - P - tx);
     lines.slice(0, 2).forEach(function (l, i) { g.fillText(l, tx, y + 92 + i * 104); });
     var after = y + 92 + (Math.min(lines.length, 2) - 1) * 104;
-    if (w >= 0) { g.fillStyle = amber; g.font = '700 72px ' + CARD_FONT; g.fillText('WIN', tx, after + 86); after += 86; }
+    if (w >= 0) { g.fillStyle = amber; g.font = '700 72px ' + CARD_FONT; g.fillText(tr('WIN'), tx, after + 86); after += 86; }
 
     // Both fantasy totals, my team first when I have one.
     y = Math.max(after + 70, 560);
@@ -695,13 +708,13 @@
       var label = (TEAMS[t].name + (t === me ? ' (you)' : '') + ', fantasy pts').toUpperCase(), fs = 26;
       g.font = '700 ' + fs + 'px ' + CARD_BODY;
       while (fs > 18 && g.measureText(label).width > boxW - 56) { fs -= 1; g.font = '700 ' + fs + 'px ' + CARD_BODY; }
-      g.fillText(label, x + 28, y + 200);
+      g.fillText(tr(label), x + 28, y + 200);
     });
 
     // The score on the field.
     y += boxH + 70;
     g.fillStyle = C.dim; g.font = '700 26px ' + CARD_BODY; g.textAlign = 'left';
-    g.fillText('ON THE FIELD', P, y);
+    g.fillText(tr('ON THE FIELD'), P, y);
     g.fillStyle = C.text; g.font = '700 54px ' + CARD_FONT;
     g.fillText(order.map(function (t) { return TEAMS[t].id + ' ' + m.field[t]; }).join('   '), P + 250, y + 6);
 
@@ -710,7 +723,7 @@
     g.fillStyle = C.panel; g.fillRect(P, y, inner, 190);
     g.strokeStyle = C.rule; g.lineWidth = 2; g.strokeRect(P + 1, y + 1, inner - 2, 188);
     g.fillStyle = C.dim; g.font = '700 26px ' + CARD_BODY;
-    g.fillText('TOP PERFORMER', P + 32, y + 50);
+    g.fillText(tr('TOP PERFORMER'), P + 32, y + 50);
     if (top) {
       g.fillStyle = C.text; g.font = '700 64px ' + CARD_FONT;
       var nm = fullName(top.t, top.role);
@@ -724,7 +737,7 @@
 
     // Footer.
     g.textAlign = 'left'; g.fillStyle = C.dim; g.font = '600 26px ' + CARD_BODY;
-    g.fillText('Sample league with mock data. Made with Fantasy Recap.', P, CARD_H - 70);
+    g.fillText(tr('Sample league with mock data. Made with Fantasy Recap.'), P, CARD_H - 70);
     return c;
   }
 
@@ -789,7 +802,7 @@
     g.fillStyle = C.text; g.font = '700 44px ' + CARD_FONT; g.textAlign = 'left';
     g.fillText('FANTASY RECAP', P + 38, 114);
     g.fillStyle = C.dim; g.font = '700 28px ' + CARD_BODY; g.textAlign = 'right';
-    g.fillText((WEEK + ', top play').toUpperCase(), CARD_W - P, 112);
+    g.fillText(tr((WEEK + ', top play').toUpperCase()), CARD_W - P, 112);
 
     // Both teams and the final score.
     var y = 190;
@@ -801,7 +814,7 @@
       g.textAlign = 'right'; g.fillText(String(m.field[t]), CARD_W - P, yy + 52);
     });
     g.fillStyle = C.dim; g.font = '700 26px ' + CARD_BODY; g.textAlign = 'left';
-    g.fillText('FINAL', P, y + 84 * 2 + 30);
+    g.fillText(tr('FINAL'), P, y + 84 * 2 + 30);
 
     // The play.
     y = 520;
@@ -812,12 +825,13 @@
     g.fillStyle = C.panel; g.fillRect(P, y, inner, panelH);
     g.fillStyle = TEAMS[ti].colors.jersey; g.fillRect(P, y, 10, panelH);
     g.fillStyle = C.dim; g.font = '700 26px ' + CARD_BODY;
-    g.fillText(top && top.quarter ? ('TOP PLAY, Q' + top.quarter + ' ' + top.clock + ', ' + top.team) : 'TOP PLAY', P + 44, y + 62);
-    var text = top ? String(top.text) : 'No play moved any points.';
+    g.fillText(tr(top && top.quarter ? ('TOP PLAY, Q' + top.quarter + ' ' + top.clock + ', ' + top.team) : 'TOP PLAY'), P + 44, y + 62);
+    var text = top ? String(top.text) : tr('No play moved any points.');
     var mm = /^(?:.+? at (?:the )?[A-Z0-9 ]+|1st and goal[^:]*): (.*)$/.exec(text);
     if (mm) text = mm[1];
     text = text.charAt(0).toUpperCase() + text.slice(1).replace(/TOUCHDOWN/g, 'touchdown');
     if (!/[.!]$/.test(text)) text += '.';
+    text = tr(text);
     g.fillStyle = C.text; g.font = '700 76px ' + CARD_FONT;
     var lines = wrapText(g, text, inner - 88).slice(0, 4);
     lines.forEach(function (l, i) { g.fillText(l, P + 44, y + 150 + i * 84); });
@@ -830,10 +844,10 @@
       g.fillStyle = C.amber; g.font = '700 120px ' + CARD_FONT; g.textAlign = 'right';
       g.fillText(f1(top.points), CARD_W - P - 40, py + 20);
       g.fillStyle = C.dim; g.font = '700 24px ' + CARD_BODY;
-      g.fillText('FANTASY POINTS', CARD_W - P - 40, py + 60);
+      g.fillText(tr('FANTASY POINTS'), CARD_W - P - 40, py + 60);
     }
     g.textAlign = 'left'; g.fillStyle = C.dim; g.font = '600 26px ' + CARD_BODY;
-    g.fillText('Sample game. Real names, made-up stats.', P, CARD_H - 70);
+    g.fillText(tr('Sample game. Real names, made-up stats.'), P, CARD_H - 70);
     return c;
   }
   function shareTopPlay(btn) {
@@ -854,9 +868,10 @@
     var R = m.results, n = R.length;
     if (!n) return null;
     // One story per finished game, so the announcer's wording does not change on every redraw.
-    if (storyCache && storyCache.results === R && storyCache.n === n && storyCache.me === me) return storyCache.story;
-    var story = buildStory(R, n);
-    storyCache = { results: R, n: n, me: me, story: story };
+    var lng = lang();
+    if (storyCache && storyCache.results === R && storyCache.n === n && storyCache.me === me && storyCache.lang === lng) return storyCache.story;
+    var story = lng === 'es' ? buildStoryEs(R, n) : buildStory(R, n);
+    storyCache = { results: R, n: n, me: me, lang: lng, story: story };
     return story;
   }
   function buildStory(R, n) {
@@ -925,6 +940,64 @@
     });
     return out;
   }
+  // The same story in Spanish, from the same numbers. Play sentences go through the i18n table.
+  var QWORD_ES = ['', 'el primer cuarto', 'el segundo cuarto', 'el tercer cuarto', 'el último cuarto'];
+  var END_ES = { 'Touchdown': 'un touchdown', 'Field goal': 'un gol de campo', 'Missed field goal': 'un gol de campo fallado', 'Punt': 'un despeje',
+    'Turnover': 'una pérdida', 'Downs': 'una pérdida en downs', 'End of half': 'el medio tiempo', 'End of game': 'el final' };
+  function whenEs(index) { topPlaysLocal(1); var c = playClock[index]; return c ? QWORD_ES[c.quarter] : ''; }
+  function playEs(res) { return tr(describe(res).replace(/ First down\.$/, '')).replace(/\.$/, ''); }
+  function buildStoryEs(R, n) {
+    var fin = R[n - 1].post.score, f0 = Number(f1(total(0))), f1v = Number(f1(total(1)));
+    var fw = f0 === f1v ? -1 : f0 > f1v ? 0 : 1, out = { paras: [] };
+    out.headline = fw < 0 ? TEAMS[0].full + ' y ' + TEAMS[1].full + ' empatan a ' + f1(total(0))
+      : TEAMS[fw].full + ' vence a ' + TEAMS[1 - fw].full + ', ' + f1(total(fw)) + ' a ' + f1(total(1 - fw));
+    var first = -1;
+    for (var i = 0; i < n; i++) { var a = R[i].pre.score, b = R[i].post.score; if (a[0] !== b[0] || a[1] !== b[1]) { first = i; break; } }
+    if (first >= 0) {
+      var r1 = R[first], who = r1.post.score[0] > r1.pre.score[0] ? 0 : 1;
+      var start = 'Los ' + TEAMS[who].name + ' anotaron primero, en ' + whenEs(first + 1) + ': ' + playEs(r1) + '.';
+      if (m.halfScore) start += ' Al medio tiempo iba ' + scoreSay(m.halfScore) + '.';
+      out.paras.push(start);
+    } else out.paras.push('Ningún equipo anotó.');
+    var lead = 0, lastChange = -1, changes = 0;
+    for (var j = 0; j < n; j++) {
+      var d = R[j].post.score[0] - R[j].post.score[1], l = d > 0 ? 1 : d < 0 ? -1 : 0;
+      if (l !== 0 && l !== lead) { if (lead !== 0) changes += 1; lastChange = j; }
+      if (l !== 0) lead = l;
+    }
+    var finalLead = fin[0] > fin[1] ? 0 : fin[1] > fin[0] ? 1 : -1;
+    if (finalLead >= 0 && lastChange >= 0) {
+      var rt = R[lastChange], tn = TEAMS[finalLead].name;
+      out.paras.push(changes
+        ? 'La ventaja cambió de manos ' + changes + (changes === 1 ? ' vez' : ' veces') + '. El momento clave llegó en ' + whenEs(lastChange + 1) + ': ' + playEs(rt) + ', y los ' + tn + ' se pusieron ' + scoreSay(rt.post.score) + ' y ya no fueron por detrás.'
+        : lastChange === first ? 'Los ' + tn + ' nunca fueron por detrás.'
+          : 'Los ' + tn + ' se adelantaron en ' + whenEs(lastChange + 1) + ' (' + playEs(rt) + ') y ya no fueron por detrás.');
+    } else if (finalLead < 0) out.paras.push('Ningún equipo logró escaparse, y terminó en empate.');
+    var longest = null;
+    m.drives.forEach(function (dv) { if (dv.plays.length && (!longest || dv.plays.length > longest.plays.length)) longest = dv; });
+    if (longest) {
+      var yds = longest.plays[longest.plays.length - 1].to - longest.start;
+      out.paras[out.paras.length - 1] += ' La serie más larga fue de los ' + TEAMS[longest.team].name + ': ' + longest.plays.length + ' jugadas y ' +
+        yds + (Math.abs(yds) === 1 ? ' yarda' : ' yardas') + (END_ES[longest.end] ? ', terminada en ' + END_ES[longest.end] : '') + '.';
+    }
+    var best = [0, 1].map(function (t) {
+      var bb = null;
+      SLOTS.forEach(function (sl) { var v = playerPts(t, sl.role); if (!bb || v > bb.pts) bb = { role: sl.role, pts: v }; });
+      return bb;
+    });
+    out.paras.push('En ' + TEAMS[0].full + ', ' + fullName(0, best[0].role) + ' lideró con ' + f1(best[0].pts) + ' puntos de fantasía. En ' +
+      TEAMS[1].full + ', ' + fullName(1, best[1].role) + ' lideró con ' + f1(best[1].pts) + '.');
+    out.paras.push('Final en el campo: ' + scoreSay(fin) + '. En puntos de fantasía, ' +
+      (fw < 0 ? 'empate a ' + f1(total(0)) + '.' : TEAMS[fw].full + ' gana el enfrentamiento, ' + f1(total(fw)) + ' a ' + f1(total(1 - fw)) + '.'));
+    // Noah's big calls are English for now, so the top plays use the play sentence and the score.
+    out.top = topPlaysLocal(3).map(function (x) {
+      var res = R[x.index - 1];
+      return { index: x.index, when: 'C' + x.quarter + ' ' + x.clock,
+        text: res ? playEs(res) + '. Marcador: ' + scoreSay(res.post.score) + '.' : tr(x.text), points: x.points };
+    });
+    return out;
+  }
+
   function storyPanel() {
     if (masked() || m.status !== 'final') return '';
     var st = storyOf();
@@ -1402,6 +1475,7 @@
   liveEl.className = 'sr-only';
   liveEl.setAttribute('aria-live', 'polite');
   liveEl.setAttribute('role', 'status');
+  liveEl.setAttribute('data-i18n-skip', ''); // announcer lines, in the announcer's language
   $('closeGame').parentNode.appendChild(liveEl);
   var livePending = { text: '', score: '', rule: '' }, liveTimer = 0;
   function liveSay(part, value) {
@@ -1534,7 +1608,7 @@
     ruleEl.innerHTML = '<p><b>' + esc(title.charAt(0).toUpperCase() + title.slice(1)) + '.</b> ' + esc(text) + '</p>' +
       '<button type="button" data-rule="close" aria-label="Close the rule card">OK</button>';
     ruleEl.hidden = false;
-    liveSay('rule', 'Rule: ' + text);
+    liveSay('rule', (lang() === 'es' ? 'Regla: ' : 'Rule: ') + tr(text));
     slowFor(true);
     clearTimeout(ruleTimer);
     var fast = window.__ff && window.__ff.speed > 2;
@@ -1758,6 +1832,23 @@
     var bar = document.querySelector('.bar'), mock = bar && bar.querySelector('.mock');
     if (bar) bar.insertBefore(sportEl, mock || null);
   })();
+  // Language switch, next to the sport switch. Its two names stay as they are in both languages.
+  var langEl = document.createElement('div');
+  langEl.className = 'sport lang';
+  langEl.setAttribute('role', 'group');
+  langEl.setAttribute('aria-label', 'Language');
+  langEl.innerHTML = '<button type="button" data-lang="en" lang="en" aria-label="English" data-i18n-skip>EN</button>' +
+    '<button type="button" data-lang="es" lang="es" aria-label="Español" data-i18n-skip>ES</button>';
+  sportEl.parentNode.insertBefore(langEl, sportEl.nextSibling);
+  function markLang() {
+    Array.prototype.forEach.call(langEl.children, function (b) { b.setAttribute('aria-pressed', String(b.getAttribute('data-lang') === lang())); });
+  }
+  markLang();
+  langEl.addEventListener('click', function (ev) {
+    var b = ev.target.closest ? ev.target.closest('[data-lang]') : null;
+    if (b && window.FR_I18N) window.FR_I18N.setLang(b.getAttribute('data-lang'));
+  });
+
   var soccerEl = document.createElement('section');
   soccerEl.className = 'screen'; soccerEl.id = 's-soccer'; soccerEl.setAttribute('aria-label', 'Soccer'); soccerEl.hidden = true;
   soccerEl.innerHTML = '<div class="narrow"><div class="panel soccer-wait">' +
@@ -1919,6 +2010,7 @@
     topPlayCard: function () { return drawTopPlayCard().toDataURL('image/png'); },
     get live() { return liveEl.textContent; },
     get learn() { return learn; },
+    get lang() { return lang(); },
     story: function () { return storyOf(); },
     formFor: function (team, slot) { return formFor(teamByName(team), slot); },
     setOptin: function (v) { setOptin(v === 'in' ? 'in' : 'out'); if (!inGame) render(false); },
@@ -1937,6 +2029,14 @@
 
   // First run walkthrough and the install hint live in their own file. index.html is
   // not ours, so the app loads it.
+  var i18nScript = document.createElement('script');
+  i18nScript.src = 'js/screens/i18n.js';
+  i18nScript.onload = function () {
+    markLang();
+    window.FR_I18N.onchange = function () { markLang(); storyCache = null; if (!inGame) render(false); };
+  };
+  document.body.appendChild(i18nScript);
+
   var installScript = document.createElement('script');
   installScript.src = 'js/screens/install.js';
   document.body.appendChild(installScript);
