@@ -15,9 +15,12 @@ Do the tasks of your lane in order, one at a time. `T0` comes first for everyone
 | C2 | C | Noah | Crowd and whistle sounds in `js/audio.js` that build on big plays | open |
 | D1 | D | Ricky | Two rosters of real players in `js/data.js`, and `data/profiles/<team>.json` with on-field tendencies and the source | open |
 | D2 | D | Ricky | `db/schema.sql`: plays as rows over game time, plus per-quarter and per-player totals | open |
-| A1 | A | Juan | Load the game from `data/games/<id>.json`; contract v1 | open |
-| A2 | A | Juan | The game maker: stat lines and profiles in, a legal game out, each play chosen by the play caller | open |
-| A3 | A | Juan | Connect the announcer and the speed control once C1 and B2 are merged | open |
+| D3 | D | Ricky | `server/`: a small service that saves plays to the database and returns them, reading its connection from `.env` | open, needs Juan's database account |
+| S1 | S | Juan | `soccer/`: the pitch from above, 11 against 11 in the same pixel style, one sample match that plays start to finish | open |
+| S2 | S | Juan | Soccer rules and a play library: build-up, shot, save, goal, corner, free kick, foul, offside | open |
+| A1 | A | boss | Load the game from `data/games/<id>.json`; contract v1 | open |
+| A2 | A | boss | The football game maker: stat lines and profiles in, a legal game out, each play chosen by the play caller | open |
+| A3 | A | boss | Connect the announcer, the speed control and the sport switch once C1, B2 and S1 are merged | open |
 
 ## Merged
 
@@ -26,6 +29,7 @@ Nothing yet.
 ## Decisions
 
 - The product is a weekly recap with hidden scores. No live mode in the build.
-- Football only in the demo.
+- Two sports in the build: football and soccer. Juan builds soccer himself. Soccer stays in `soccer/` until the boss connects it.
 - Real player names, no photos.
-- One database, used for plays over time.
+- One database, Tiger Data, used for plays over time. No second database.
+- The boss is Juan's lead session. It does every merge, keeps each person's commits (no squash) and is the only session that uses the play caller's API.

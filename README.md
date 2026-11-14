@@ -2,7 +2,7 @@
 
 Built at HackPrinceton Fall 2026 by Juan, Ricky, Peyton and Noah.
 
-Fantasy football managers never get to watch their own roster play together, and if you already know your score there is nothing left to watch. Here two managers opt in when their matchup is set, their scores stay hidden all week, and at the end they watch their two rosters play each other in an 8-bit football game to find out who won.
+Fantasy football managers never get to watch their own roster play together, and if you already know your score there is nothing left to watch. Here two managers opt in when their matchup is set, their scores stay hidden all week, and at the end they watch their two rosters play each other in an 8-bit game to find out who won. Football first, soccer second.
 
 ## Run it
 
@@ -29,6 +29,7 @@ node tools/validate.js
 | `js/rules.js` | The rules engine: downs, distance, possession, score, four penalties |
 | `js/data.js` | Rosters and the sample game |
 | `js/audio.js`, `js/announcer/` | Sound and the announcer |
+| `soccer/` | The soccer game |
 | `engine/`, `data/` | The game maker and what it reads and writes |
 | `docs/` | The contract between parts, who owns what, how the team coordinates |
 

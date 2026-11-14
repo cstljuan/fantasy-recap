@@ -40,3 +40,12 @@ Until it is connected, `js/main.js` keeps using its own `say()`.
 ## 5. Database (lane D)
 
 Every play is stored as one row with the time it happened in the game. The schema is in `db/schema.sql`. The app must keep working from the game file alone when the database cannot be reached.
+
+## 6. Soccer (lane S builds it, the boss connects it)
+
+Soccer is a second game in `soccer/`, with its own data, rules, plays and drawing. It follows the same pattern as football so the app, the announcer and the speed control work for both:
+
+- `soccer/js/data.js` sets `window.SC_DATA` with `TEAMS` and `SAMPLE_GAME`. A game is a list of events over match time; goals and the final score follow from the events and the rules, they are never written in the file.
+- `soccer/js/main.js` sets `window.SC_GAME` with the same members as `window.FF_GAME` in section 2 (`on`, `start`, `restart`, `setActive`, `ontap`, `mode`, `active`, `plays`) and sends the same event types.
+- Speed: `window.__sc.speed`, same meaning as `window.__ff.speed`.
+- `soccer/index.html` runs the soccer game by itself, so it can be built and checked without touching the football files.
