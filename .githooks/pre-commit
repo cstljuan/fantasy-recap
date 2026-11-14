@@ -1,0 +1,17 @@
+#!/bin/sh
+# Blocks a commit unless the author and the committer are one of the four team
+# accounts in tools/roster.txt. Turned on by tools/setup.sh.
+ROOT="$(git rev-parse --show-toplevel)"
+ROSTER="$ROOT/tools/roster.txt"
+a="$(git var GIT_AUTHOR_IDENT | sed 's/^\(.*\) <\(.*\)> .*$/\1 \2/')"
+c="$(git var GIT_COMMITTER_IDENT | sed 's/^\(.*\) <\(.*\)> .*$/\1 \2/')"
+for who in "$a" "$c"; do
+  if ! grep -i -q -x -F "$who" "$ROSTER"; then
+    echo "Commit blocked: '$who' is not a team account."
+    echo "Author and committer must be YOUR OWN row in tools/roster.txt. Fix with:"
+    echo "  git config user.name \"<your GitHub username>\""
+    echo "  git config user.email \"<the email on your row>\""
+    exit 1
+  fi
+done
+exit 0

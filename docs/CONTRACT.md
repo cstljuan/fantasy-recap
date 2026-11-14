@@ -1,0 +1,42 @@
+# Contract between lanes (v0)
+
+Version 0 writes down what the code does today, so every lane can build against it. Only the boss changes this file.
+
+## 1. Teams and the game file
+
+`js/data.js` sets `window.FF_DATA` with `TEAMS` and `SAMPLE_GAME`. That shape is the game file.
+
+- A team: `{ id, name, full, colors: { jersey, helmet, stripe, pants, tile, zone }, roster: { QB, RB, WR1, WR2, WR3, TE, K } }`. Roster values are player names.
+- A game: `{ note, drives: [ { team: '<team id>', plays: [ <event>, ... ] } ] }`.
+- An event is one play: `kickoff {to}`, `run {by, yds}`, `pass {to, yds}`, `inc {to}`, `sack {yds}`, `pen {kind, ...}`, `punt {net}`, `fg {good}`, `xp {good}`, `int {to, at, ret}`, `fumble {by, yds}`, `kneel {}`. `by` and `to` are roster slots such as `RB` or `WR1`. The comments at the top of `js/data.js` list every field.
+- Touchdowns, first downs and turnovers on downs are never in the file. `js/rules.js` works them out.
+
+Coming in v1 (boss): the same shape saved as `data/games/<id>.json`, loaded instead of `SAMPLE_GAME`, with two optional fields on an event: `why` (the play caller's probabilities, for example `{ "play": { "deep_pass": 0.46, "run": 0.31 } }`) and `tags` (for example `["highlight"]`). Code that ignores unknown fields keeps working.
+
+## 2. The game, from the app's side
+
+`window.FF_GAME`:
+
+- `on(fn)`: `fn(type, data)` is called for `start`, `snap`, `result`, `half`, `final`, `reset`. For `snap` and `result`, `data` is `{ res, play, step }`.
+- `start()`, `restart()`, `setActive(true or false)`, `ontap`.
+- Read only: `mode`, `active`, `plays`.
+
+Speed: `window.__ff.speed = 2` sets the speed while the game runs (0.25 to 40). `window.__ff.speed` reads it.
+
+## 3. The announcer (lane C builds it, the boss connects it)
+
+`js/announcer/index.js` sets `window.FF_ANNOUNCER`:
+
+- `line(res, ctx)` returns the sentence to say for a finished play, or an empty string to stay quiet. `res` is the same object the `result` event carries. `ctx` is `{ teams, score, style }`, where `style` is `"straight"` or `"fun"`.
+- `speak(text)` says it out loud with the browser's speech voice and does nothing if speech is not available.
+- `setStyle(name)` and `style`.
+
+Until it is connected, `js/main.js` keeps using its own `say()`.
+
+## 4. Profiles (lane D writes them, the game maker reads them)
+
+`data/profiles/<team id>.json`: `{ "team": "<id>", "source": "<where the numbers came from>", "players": { "<slot>": { "name", "position", "tendencies": { ... numbers from 0 to 1 ... }, "notes" } } }`. On-field tendencies only. Nothing about anyone's private life.
+
+## 5. Database (lane D)
+
+Every play is stored as one row with the time it happened in the game. The schema is in `db/schema.sql`. The app must keep working from the game file alone when the database cannot be reached.

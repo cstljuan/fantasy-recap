@@ -1,0 +1,8 @@
+#!/bin/sh
+# Blocks a commit whose message credits a tool or carries an added trailer.
+if grep -v '^#' "$1" | grep -i -q -E 'co-authored-by|generated with|claude|anthropic|codex|openai|chatgpt|copilot|\[bot\]'; then
+  echo "Commit blocked: the message names a tool or has a co-author or 'generated with' line."
+  echo "Rewrite the message so it only describes the change."
+  exit 1
+fi
+exit 0
