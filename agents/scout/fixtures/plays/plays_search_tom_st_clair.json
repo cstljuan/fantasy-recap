@@ -1,0 +1,21 @@
+{
+ "items": [
+  {
+   "id": "803",
+   "displayName": "Tom St. Clair",
+   "league": "nfl",
+   "isActive": true,
+   "position": {
+    "abbreviation": "WR"
+   },
+   "teamRelationships": [
+    {
+     "type": "team",
+     "core": {
+      "abbreviation": "TST"
+     }
+    }
+   ]
+  }
+ ]
+}

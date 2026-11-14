@@ -1,0 +1,26 @@
+{
+ "P1": {
+  "full_name": "Test Quarterback",
+  "position": "QB",
+  "team": "TST",
+  "status": "Active"
+ },
+ "P2": {
+  "full_name": "Rob Runner",
+  "position": "RB",
+  "team": "TST",
+  "status": "Active"
+ },
+ "P3": {
+  "full_name": "Tom St. Clair",
+  "position": "WR",
+  "team": "TST",
+  "status": "Active"
+ },
+ "P4": {
+  "full_name": "Kai Kicker",
+  "position": "K",
+  "team": "TST",
+  "status": "Active"
+ }
+}

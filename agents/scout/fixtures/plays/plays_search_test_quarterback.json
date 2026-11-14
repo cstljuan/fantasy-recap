@@ -1,0 +1,21 @@
+{
+ "items": [
+  {
+   "id": "801",
+   "displayName": "Test Quarterback",
+   "league": "nfl",
+   "isActive": true,
+   "position": {
+    "abbreviation": "QB"
+   },
+   "teamRelationships": [
+    {
+     "type": "team",
+     "core": {
+      "abbreviation": "TST"
+     }
+    }
+   ]
+  }
+ ]
+}

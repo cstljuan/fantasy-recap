@@ -1,0 +1,282 @@
+22:36:31 | plays starts (no model, fixed order). season=2026
+22:36:32 | find(Josh Allen) -> ESPN 3918298, BUF
+22:36:33 | find_player(Josh Allen) -> 2 match(es)
+22:36:33 | GOB QB: ESPN 3918298 (BUF), short name J.Allen, Sleeper 4984
+22:36:33 | find(Saquon Barkley) -> ESPN 3929630, PHI
+22:36:33 | find_player(Saquon Barkley) -> 1 match(es)
+22:36:33 | GOB RB: ESPN 3929630 (PHI), short name S.Barkley, Sleeper 4866
+22:36:33 | find(Ja'Marr Chase) -> ESPN 4362628, CIN
+22:36:33 | find_player(Ja'Marr Chase) -> 1 match(es)
+22:36:33 | GOB WR1: ESPN 4362628 (CIN), short name J.Chase, Sleeper 7564
+22:36:33 | find(Puka Nacua) -> ESPN 4426515, LAR
+22:36:33 | find_player(Puka Nacua) -> 1 match(es)
+22:36:33 | GOB WR2: ESPN 4426515 (LAR), short name P.Nacua, Sleeper 9493
+22:36:34 | find(Amon-Ra St. Brown) -> ESPN 4374302, DET
+22:36:34 | find_player(Amon-Ra St. Brown) -> 1 match(es)
+22:36:34 | GOB WR3: ESPN 4374302 (DET), short name A.St. Brown, Sleeper 7547
+22:36:34 | find(Trey McBride) -> ESPN 4361307, ARI
+22:36:34 | find_player(Trey McBride) -> 1 match(es)
+22:36:34 | GOB TE: ESPN 4361307 (ARI), short name T.McBride, Sleeper 8130
+22:36:34 | find(Brandon Aubrey) -> ESPN 3953687, DAL
+22:36:34 | find_player(Brandon Aubrey) -> 1 match(es)
+22:36:34 | GOB K: ESPN 3953687 (DAL), short name B.Aubrey, Sleeper 11533
+22:36:34 | find(Lamar Jackson) -> ESPN 3916387, BAL
+22:36:34 | find_player(Lamar Jackson) -> 2 match(es)
+22:36:34 | PYT QB: ESPN 3916387 (BAL), short name L.Jackson, Sleeper 4881
+22:36:35 | find(Bijan Robinson) -> ESPN 4430807, ATL
+22:36:35 | find_player(Bijan Robinson) -> 1 match(es)
+22:36:35 | PYT RB: ESPN 4430807 (ATL), short name B.Robinson, Sleeper 9509
+22:36:35 | find(Justin Jefferson) -> ESPN 4262921, MIN
+22:36:35 | find_player(Justin Jefferson) -> 2 match(es)
+22:36:35 | PYT WR1: ESPN 4262921 (MIN), short name J.Jefferson, Sleeper 6794
+22:36:35 | find(Malik Nabers) -> ESPN 4595348, NYG
+22:36:35 | find_player(Malik Nabers) -> 1 match(es)
+22:36:35 | PYT WR2: ESPN 4595348 (NYG), short name M.Nabers, Sleeper 11632
+22:36:35 | find(Nico Collins) -> ESPN 4258173, HOU
+22:36:35 | find_player(Nico Collins) -> 1 match(es)
+22:36:35 | PYT WR3: ESPN 4258173 (HOU), short name N.Collins, Sleeper 7569
+22:36:36 | find(George Kittle) -> ESPN 3040151, SF
+22:36:36 | find_player(George Kittle) -> 1 match(es)
+22:36:36 | PYT TE: ESPN 3040151 (SF), short name G.Kittle, Sleeper 4217
+22:36:36 | find(Harrison Butker) -> ESPN 3055899, KC
+22:36:36 | find_player(Harrison Butker) -> 1 match(es)
+22:36:36 | PYT K: ESPN 3055899 (KC), short name H.Butker, Sleeper 4227
+22:36:36 | find(Jayden Daniels) -> ESPN 4426348, WSH
+22:36:36 | find_player(Jayden Daniels) -> 1 match(es)
+22:36:36 | TUR QB: ESPN 4426348 (WSH), short name J.Daniels, Sleeper 11566
+22:36:36 | find(Jahmyr Gibbs) -> ESPN 4429795, DET
+22:36:36 | find_player(Jahmyr Gibbs) -> 1 match(es)
+22:36:36 | TUR RB: ESPN 4429795 (DET), short name J.Gibbs, Sleeper 9221
+22:36:37 | find(CeeDee Lamb) -> ESPN 4241389, DAL
+22:36:37 | find_player(CeeDee Lamb) -> 1 match(es)
+22:36:37 | TUR WR1: ESPN 4241389 (DAL), short name C.Lamb, Sleeper 6786
+22:36:37 | find(Garrett Wilson) -> ESPN 4569618, NYJ
+22:36:37 | find_player(Garrett Wilson) -> 1 match(es)
+22:36:37 | TUR WR2: ESPN 4569618 (NYJ), short name G.Wilson, Sleeper 8146
+22:36:37 | find(Drake London) -> ESPN 4426502, ATL
+22:36:37 | find_player(Drake London) -> 1 match(es)
+22:36:37 | TUR WR3: ESPN 4426502 (ATL), short name D.London, Sleeper 8112
+22:36:37 | find(Brock Bowers) -> ESPN 4432665, LV
+22:36:37 | find_player(Brock Bowers) -> 1 match(es)
+22:36:37 | TUR TE: ESPN 4432665 (LV), short name B.Bowers, Sleeper 11604
+22:36:38 | find(Cameron Dicker) -> ESPN 4362081, LAC
+22:36:38 | find_player(Cameron Dicker) -> 1 match(es)
+22:36:38 | TUR K: ESPN 4362081 (LAC), short name C.Dicker, Sleeper 8259
+22:36:38 | find(Patrick Mahomes) -> ESPN 3139477, KC
+22:36:38 | find_player(Patrick Mahomes) -> 1 match(es)
+22:36:38 | OWL QB: ESPN 3139477 (KC), short name P.Mahomes, Sleeper 4046
+22:36:38 | find(Derrick Henry) -> ESPN 3043078, BAL
+22:36:38 | find_player(Derrick Henry) -> 1 match(es)
+22:36:38 | OWL RB: ESPN 3043078 (BAL), short name D.Henry, Sleeper 3198
+22:36:39 | find(Tee Higgins) -> ESPN 4239993, CIN
+22:36:39 | find_player(Tee Higgins) -> 1 match(es)
+22:36:39 | OWL WR1: ESPN 4239993 (CIN), short name T.Higgins, Sleeper 6801
+22:36:39 | find(Jaxon Smith-Njigba) -> ESPN 4430878, SEA
+22:36:39 | find_player(Jaxon Smith-Njigba) -> 1 match(es)
+22:36:39 | OWL WR2: ESPN 4430878 (SEA), short name J.Smith-Njigba, Sleeper 9488
+22:36:39 | find(Ladd McConkey) -> ESPN 4612826, LAC
+22:36:39 | find_player(Ladd McConkey) -> 1 match(es)
+22:36:39 | OWL WR3: ESPN 4612826 (LAC), short name L.McConkey, Sleeper 11635
+22:36:39 | find(Tucker Kraft) -> ESPN 4572680, GB
+22:36:39 | find_player(Tucker Kraft) -> 1 match(es)
+22:36:39 | OWL TE: ESPN 4572680 (GB), short name T.Kraft, Sleeper 9484
+22:36:40 | find(Ka'imi Fairbairn) -> ESPN 2971573, HOU
+22:36:40 | find_player(Ka'imi Fairbairn) -> 1 match(es)
+22:36:40 | OWL K: ESPN 2971573 (HOU), short name K.Fairbairn, Sleeper 3451
+22:36:40 | plan: read every finished game of 20 NFL teams week by week, keep the snaps of our 28 players, then compare with Sleeper's season totals
+22:36:40 | scoreboard(week 1) -> 16 finished games
+22:36:40 | game(401872656) -> 179 plays
+22:36:40 | game(401872657) -> 169 plays
+22:36:40 | game(401872925) -> 177 plays
+22:36:40 | game(401872923) -> 226 plays
+22:36:40 | game(401872924) -> 174 plays
+22:36:40 | game(401872659) -> 175 plays
+22:36:40 | game(401872658) -> 189 plays
+22:36:40 | game(401872660) -> 188 plays
+22:36:40 | game(401872928) -> 179 plays
+22:36:40 | game(401872927) -> 188 plays
+22:36:40 | game(401872929) -> 181 plays
+22:36:40 | game(401872926) -> 184 plays
+22:36:40 | game(401872930) -> 174 plays
+22:36:40 | game(401872931) -> 171 plays
+22:36:40 | week 1: read 14 games of our NFL teams
+22:36:40 | scoreboard(week 2) -> 16 finished games
+22:36:40 | game(401872932) -> 189 plays
+22:36:40 | game(401872933) -> 180 plays
+22:36:40 | game(401872937) -> 178 plays
+22:36:40 | game(401872939) -> 178 plays
+22:36:40 | game(401872936) -> 195 plays
+22:36:40 | game(401872938) -> 173 plays
+22:36:40 | game(401872934) -> 206 plays
+22:36:40 | game(401872941) -> 188 plays
+22:36:40 | game(401872944) -> 174 plays
+22:36:40 | game(401872943) -> 167 plays
+22:36:40 | game(401872942) -> 161 plays
+22:36:40 | game(401872945) -> 213 plays
+22:36:40 | game(401872947) -> 167 plays
+22:36:40 | week 2: read 13 games of our NFL teams
+22:36:40 | scoreboard(week 3) -> 16 finished games
+22:36:40 | game(401872948) -> 184 plays
+22:36:40 | game(401872953) -> 185 plays
+22:36:40 | game(401872954) -> 174 plays
+22:36:40 | game(401872951) -> 178 plays
+22:36:40 | game(401872952) -> 168 plays
+22:36:40 | game(401872956) -> 180 plays
+22:36:40 | game(401872950) -> 174 plays
+22:36:40 | game(401872955) -> 197 plays
+22:36:40 | game(401872958) -> 198 plays
+22:36:40 | game(401872959) -> 191 plays
+22:36:40 | game(401872960) -> 194 plays
+22:36:40 | game(401872961) -> 194 plays
+22:36:40 | game(401872962) -> 211 plays
+22:36:40 | game(401872963) -> 166 plays
+22:36:40 | week 3: read 14 games of our NFL teams
+22:36:40 | scoreboard(week 4) -> 16 finished games
+22:36:40 | game(401872965) -> 183 plays
+22:36:40 | game(401872971) -> 182 plays
+22:36:40 | game(401872972) -> 174 plays
+22:36:40 | game(401872969) -> 187 plays
+22:36:40 | game(401872966) -> 186 plays
+22:36:40 | game(401872970) -> 198 plays
+22:36:40 | game(401872968) -> 170 plays
+22:36:40 | game(401872973) -> 186 plays
+22:36:41 | game(401872967) -> 192 plays
+22:36:41 | game(401872974) -> 173 plays
+22:36:41 | game(401872976) -> 201 plays
+22:36:41 | game(401872975) -> 190 plays
+22:36:41 | game(401872977) -> 197 plays
+22:36:41 | game(401872978) -> 208 plays
+22:36:41 | game(401872979) -> 182 plays
+22:36:41 | week 4: read 15 games of our NFL teams
+22:36:41 | scoreboard(week 5) -> 15 finished games
+22:36:41 | game(401872980) -> 183 plays
+22:36:41 | game(401872981) -> 199 plays
+22:36:41 | game(401872990) -> 181 plays
+22:36:41 | game(401872984) -> 177 plays
+22:36:41 | game(401872982) -> 179 plays
+22:36:41 | game(401872986) -> 183 plays
+22:36:41 | game(401872987) -> 165 plays
+22:36:41 | game(401872983) -> 197 plays
+22:36:41 | game(401872988) -> 221 plays
+22:36:41 | game(401872989) -> 187 plays
+22:36:41 | game(401872991) -> 190 plays
+22:36:41 | game(401872992) -> 177 plays
+22:36:41 | game(401872993) -> 205 plays
+22:36:41 | game(401872994) -> 206 plays
+22:36:41 | week 5: read 14 games of our NFL teams
+22:36:41 | scoreboard(week 6) -> 14 finished games
+22:36:41 | game(401872995) -> 201 plays
+22:36:41 | game(401872996) -> 186 plays
+22:36:41 | game(401872999) -> 182 plays
+22:36:41 | game(401872997) -> 183 plays
+22:36:41 | game(401873001) -> 187 plays
+22:36:41 | game(401873000) -> 212 plays
+22:36:41 | game(401872998) -> 199 plays
+22:36:41 | game(401873004) -> 187 plays
+22:36:41 | game(401873006) -> 178 plays
+22:36:41 | game(401873005) -> 189 plays
+22:36:41 | game(401873007) -> 206 plays
+22:36:41 | game(401873008) -> 178 plays
+22:36:41 | week 6: read 12 games of our NFL teams
+22:36:41 | scoreboard(week 7) -> 14 finished games
+22:36:41 | game(401873017) -> 179 plays
+22:36:41 | game(401873014) -> 168 plays
+22:36:41 | game(401873015) -> 167 plays
+22:36:41 | game(401873012) -> 170 plays
+22:36:41 | game(401873016) -> 182 plays
+22:36:41 | game(401873019) -> 197 plays
+22:36:41 | game(401873020) -> 183 plays
+22:36:41 | game(401873021) -> 192 plays
+22:36:41 | game(401873022) -> 173 plays
+22:36:41 | game(401873009) -> 187 plays
+22:36:41 | week 7: read 10 games of our NFL teams
+22:36:41 | scoreboard(week 8) -> 14 finished games
+22:36:41 | game(401873023) -> 196 plays
+22:36:41 | game(401873026) -> 187 plays
+22:36:41 | game(401873031) -> 209 plays
+22:36:41 | game(401873024) -> 221 plays
+22:36:41 | game(401873030) -> 173 plays
+22:36:41 | game(401873029) -> 182 plays
+22:36:41 | game(401873025) -> 166 plays
+22:36:41 | game(401873032) -> 173 plays
+22:36:41 | game(401873033) -> 189 plays
+22:36:42 | game(401873035) -> 188 plays
+22:36:42 | game(401873036) -> 182 plays
+22:36:42 | week 8: read 11 games of our NFL teams
+22:36:42 | scoreboard(week 9) -> 15 finished games
+22:36:42 | game(401873037) -> 166 plays
+22:36:42 | game(401873038) -> 173 plays
+22:36:42 | game(401873040) -> 204 plays
+22:36:42 | game(401873045) -> 185 plays
+22:36:42 | game(401873042) -> 169 plays
+22:36:42 | game(401873044) -> 201 plays
+22:36:42 | game(401873043) -> 191 plays
+22:36:42 | game(401873046) -> 204 plays
+22:36:42 | game(401873049) -> 185 plays
+22:36:42 | game(401873047) -> 162 plays
+22:36:42 | game(401873048) -> 168 plays
+22:36:42 | game(401873051) -> 187 plays
+22:36:42 | week 9: read 12 games of our NFL teams
+22:36:42 | scoreboard(week 10) -> 1 finished games
+22:36:42 | game(401873052) -> 188 plays
+22:36:42 | week 10: read 1 games of our NFL teams
+22:36:42 | scoreboard(week 11) -> 0 finished games
+22:36:42 | week 11 has no finished games: stop
+22:36:42 | season_stats(4984) -> 74 stat keys
+22:36:42 | Josh Allen: 338 plays in 8 games; matches Sleeper on every stat
+22:36:42 | season_stats(4866) -> 53 stat keys
+22:36:42 | Saquon Barkley: 85 plays in 7 games; matches Sleeper on every stat
+22:36:42 | season_stats(7564) -> 51 stat keys
+22:36:42 | Ja'Marr Chase: 75 plays in 8 games; matches Sleeper on every stat
+22:36:42 | season_stats(9493) -> 63 stat keys
+22:36:42 | Puka Nacua: 107 plays in 7 games; differs on rec_yd (716 v 715.0)
+22:36:42 | season_stats(7547) -> 63 stat keys
+22:36:42 | Amon-Ra St. Brown: 92 plays in 8 games; differs on rec_yd (664 v 657.0)
+22:36:43 | season_stats(8130) -> 47 stat keys
+22:36:43 | Trey McBride: 104 plays in 9 games; differs on rec_yd (599 v 598.0)
+22:36:43 | season_stats(11533) -> 37 stat keys
+22:36:43 | Brandon Aubrey: 46 plays in 9 games; matches Sleeper on every stat
+22:36:43 | season_stats(4881) -> 60 stat keys
+22:36:43 | Lamar Jackson: 134 plays in 5 games; differs on pass_att (95 v 97.0)
+22:36:43 | season_stats(9509) -> 65 stat keys
+22:36:43 | Bijan Robinson: 215 plays in 9 games; differs on rush_yd (887 v 880.0), rec_yd (252 v 250.0)
+22:36:43 | season_stats(6794) -> 50 stat keys
+22:36:43 | Justin Jefferson: 55 plays in 7 games; differs on rush_yd (-8 v -11.0)
+22:36:43 | season_stats(11632) -> 49 stat keys
+22:36:43 | Malik Nabers: 88 plays in 9 games; differs on rec_yd (697 v 692.0)
+22:36:43 | season_stats(7569) -> 51 stat keys
+22:36:43 | Nico Collins: 48 plays in 6 games; matches Sleeper on every stat
+22:36:43 | season_stats(4217) -> 51 stat keys
+22:36:43 | George Kittle: 56 plays in 8 games; differs on rec_yd (484 v 483.0)
+22:36:44 | season_stats(4227) -> 34 stat keys
+22:36:44 | Harrison Butker: 43 plays in 8 games; matches Sleeper on every stat
+22:36:44 | season_stats(11566) -> 64 stat keys
+22:36:44 | Jayden Daniels: 287 plays in 7 games; differs on pass_att (210 v 213.0), pass_yd (1503 v 1499.0)
+22:36:44 | season_stats(9221) -> 60 stat keys
+22:36:44 | Jahmyr Gibbs: 231 plays in 8 games; differs on rush_yd (849 v 847.0)
+22:36:44 | season_stats(6786) -> 59 stat keys
+22:36:44 | CeeDee Lamb: 118 plays in 9 games; matches Sleeper on every stat
+22:36:44 | season_stats(8146) -> 46 stat keys
+22:36:44 | Garrett Wilson: 68 plays in 8 games; matches Sleeper on every stat
+22:36:44 | season_stats(8112) -> 58 stat keys
+22:36:44 | Drake London: 76 plays in 9 games; differs on rec_tgt (67 v 68.0)
+22:36:44 | season_stats(11604) -> 51 stat keys
+22:36:44 | Brock Bowers: 75 plays in 7 games; differs on rec_tgt (69 v 70.0)
+22:36:44 | season_stats(8259) -> 33 stat keys
+22:36:44 | Cameron Dicker: 27 plays in 8 games; matches Sleeper on every stat
+22:36:45 | season_stats(4046) -> 61 stat keys
+22:36:45 | Patrick Mahomes: 312 plays in 8 games; differs on pass_yd (2001 v 2037.0)
+22:36:45 | season_stats(3198) -> 72 stat keys
+22:36:45 | Derrick Henry: 194 plays in 9 games; matches Sleeper on every stat
+22:36:45 | season_stats(6801) -> 44 stat keys
+22:36:45 | Tee Higgins: 69 plays in 8 games; matches Sleeper on every stat
+22:36:45 | season_stats(9488) -> 70 stat keys
+22:36:45 | Jaxon Smith-Njigba: 107 plays in 9 games; matches Sleeper on every stat
+22:36:45 | season_stats(11635) -> 41 stat keys
+22:36:45 | Ladd McConkey: 27 plays in 6 games; matches Sleeper on every stat
+22:36:45 | season_stats(9484) -> 59 stat keys
+22:36:45 | Tucker Kraft: 60 plays in 9 games; differs on rec_yd (350 v 351.0)
+22:36:45 | season_stats(3451) -> 34 stat keys
+22:36:45 | Ka'imi Fairbairn: 40 plays in 8 games; matches Sleeper on every stat
+22:36:45 | against ESPN's box scores, game by game: 1080 of 1100 numbers equal
+22:36:45 | plays finished: 116 games, 3177 plays kept; 156 of 172 numbers equal Sleeper exactly, 6 within 1

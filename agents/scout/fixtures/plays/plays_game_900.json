@@ -1,0 +1,482 @@
+{
+ "header": {
+  "competitions": [
+   {
+    "competitors": [
+     {
+      "team": {
+       "id": "1",
+       "abbreviation": "TST"
+      }
+     },
+     {
+      "team": {
+       "id": "2",
+       "abbreviation": "OPP"
+      }
+     }
+    ]
+   }
+  ]
+ },
+ "drives": {
+  "previous": [
+   {
+    "plays": [
+     {
+      "text": "(Shotgun) T.Quarterback pass short right to T.St. Clair to OPP 40 for 12 yards (X.Def).",
+      "type": {
+       "text": "Pass Reception"
+      },
+      "period": {
+       "number": 1
+      },
+      "clock": {
+       "displayValue": "14:00"
+      },
+      "statYardage": 12,
+      "scoringPlay": false,
+      "start": {
+       "down": 1,
+       "distance": 10,
+       "yardsToEndzone": 52,
+       "team": {
+        "id": "1"
+       }
+      }
+     },
+     {
+      "text": "T.Quarterback pass incomplete deep left to T.St. Clair.",
+      "type": {
+       "text": "Pass Incompletion"
+      },
+      "period": {
+       "number": 1
+      },
+      "clock": {
+       "displayValue": "13:40"
+      },
+      "statYardage": 0,
+      "scoringPlay": false,
+      "start": {
+       "down": 1,
+       "distance": 10,
+       "yardsToEndzone": 40,
+       "team": {
+        "id": "1"
+       }
+      }
+     },
+     {
+      "text": "R.Runner left tackle to OPP 35 for 5 yards (X.Def).",
+      "type": {
+       "text": "Rush"
+      },
+      "period": {
+       "number": 1
+      },
+      "clock": {
+       "displayValue": "13:00"
+      },
+      "statYardage": 5,
+      "scoringPlay": false,
+      "start": {
+       "down": 2,
+       "distance": 10,
+       "yardsToEndzone": 40,
+       "team": {
+        "id": "1"
+       }
+      }
+     },
+     {
+      "text": "R.Runner right end pushed ob at OPP 20 for 15 yards (X.Def).",
+      "type": {
+       "text": "Rush"
+      },
+      "period": {
+       "number": 1
+      },
+      "clock": {
+       "displayValue": "12:20"
+      },
+      "statYardage": 15,
+      "scoringPlay": false,
+      "start": {
+       "down": 3,
+       "distance": 5,
+       "yardsToEndzone": 35,
+       "team": {
+        "id": "1"
+       }
+      }
+     },
+     {
+      "text": "(Shotgun) T.Quarterback sacked at OPP 25 for -5 yards (X.Def).",
+      "type": {
+       "text": "Sack"
+      },
+      "period": {
+       "number": 1
+      },
+      "clock": {
+       "displayValue": "11:50"
+      },
+      "statYardage": -5,
+      "scoringPlay": false,
+      "start": {
+       "down": 1,
+       "distance": 10,
+       "yardsToEndzone": 20,
+       "team": {
+        "id": "1"
+       }
+      }
+     },
+     {
+      "text": "(Shotgun) T.Quarterback pass deep middle to T.St. Clair for 25 yards, TOUCHDOWN. K.Kicker extra point is GOOD, Center-A.B, Holder-C.D.",
+      "type": {
+       "text": "Passing Touchdown"
+      },
+      "period": {
+       "number": 1
+      },
+      "clock": {
+       "displayValue": "11:10"
+      },
+      "statYardage": 25,
+      "scoringPlay": true,
+      "start": {
+       "down": 3,
+       "distance": 15,
+       "yardsToEndzone": 25,
+       "team": {
+        "id": "1"
+       }
+      }
+     },
+     {
+      "text": "Z.Opp left end to TST 40 for 3 yards (Q.Lb).",
+      "type": {
+       "text": "Rush"
+      },
+      "period": {
+       "number": 2
+      },
+      "clock": {
+       "displayValue": "9:00"
+      },
+      "statYardage": 3,
+      "scoringPlay": false,
+      "start": {
+       "down": 1,
+       "distance": 10,
+       "yardsToEndzone": 63,
+       "team": {
+        "id": "2"
+       }
+      }
+     },
+     {
+      "text": "R.Runner up the middle to OPP 30 for 4 yards (X.Def). PENALTY on TST-A.B, Offensive Holding, 10 yards, enforced at OPP 34 - No Play.",
+      "type": {
+       "text": "Penalty"
+      },
+      "period": {
+       "number": 2
+      },
+      "clock": {
+       "displayValue": "5:00"
+      },
+      "statYardage": 0,
+      "scoringPlay": false,
+      "start": {
+       "down": 1,
+       "distance": 10,
+       "yardsToEndzone": 34,
+       "team": {
+        "id": "1"
+       }
+      }
+     },
+     {
+      "text": "K.Kicker 45 yard field goal is GOOD, Center-A.B, Holder-C.D.",
+      "type": {
+       "text": "Field Goal Good"
+      },
+      "period": {
+       "number": 2
+      },
+      "clock": {
+       "displayValue": "4:10"
+      },
+      "statYardage": 0,
+      "scoringPlay": true,
+      "start": {
+       "down": 4,
+       "distance": 6,
+       "yardsToEndzone": 27,
+       "team": {
+        "id": "1"
+       }
+      }
+     },
+     {
+      "text": "(Shotgun) T.Quarterback pass short middle intended for T.St. Clair INTERCEPTED by X.Def at OPP 30. X.Def to OPP 35 for 5 yards.",
+      "type": {
+       "text": "Pass Interception Return"
+      },
+      "period": {
+       "number": 3
+      },
+      "clock": {
+       "displayValue": "8:00"
+      },
+      "statYardage": 0,
+      "scoringPlay": false,
+      "start": {
+       "down": 2,
+       "distance": 8,
+       "yardsToEndzone": 30,
+       "team": {
+        "id": "1"
+       }
+      }
+     },
+     {
+      "text": "TWO-POINT CONVERSION ATTEMPT. R.Runner rushes up the middle. ATTEMPT FAILS.",
+      "type": {
+       "text": "Two-point Conversion"
+      },
+      "period": {
+       "number": 4
+      },
+      "clock": {
+       "displayValue": "3:00"
+      },
+      "statYardage": 0,
+      "scoringPlay": false,
+      "start": {
+       "down": null,
+       "distance": null,
+       "yardsToEndzone": 2,
+       "team": {
+        "id": "1"
+       }
+      }
+     },
+     {
+      "text": "(Shotgun) T.Quarterback pass incomplete.",
+      "type": {
+       "text": "Pass Incompletion"
+      },
+      "period": {
+       "number": 4
+      },
+      "clock": {
+       "displayValue": "2:00"
+      },
+      "statYardage": 0,
+      "scoringPlay": false,
+      "start": {
+       "down": 3,
+       "distance": 7,
+       "yardsToEndzone": 60,
+       "team": {
+        "id": "1"
+       }
+      }
+     },
+     {
+      "text": "T.Quarterback pass short left to R.Runner to OPP 45 for 3 yards. Lateral to T.St. Clair ran ob at OPP 30 for 15 yards.",
+      "type": {
+       "text": "Pass Reception"
+      },
+      "period": {
+       "number": 4
+      },
+      "clock": {
+       "displayValue": "2:30"
+      },
+      "statYardage": 18,
+      "scoringPlay": false,
+      "start": {
+       "down": 1,
+       "distance": 10,
+       "yardsToEndzone": 48,
+       "team": {
+        "id": "1"
+       }
+      }
+     },
+     {
+      "text": "Test Quarterback Incomplete Pass, Intended For Tom St. Clair",
+      "type": {
+       "text": "Pass Incompletion"
+      },
+      "period": {
+       "number": 4
+      },
+      "clock": {
+       "displayValue": "2:20"
+      },
+      "statYardage": 0,
+      "scoringPlay": false,
+      "start": {
+       "down": 2,
+       "distance": 10,
+       "yardsToEndzone": 30,
+       "team": {
+        "id": "1"
+       }
+      }
+     },
+     {
+      "text": "Timeout #1 by TST at 01:55.",
+      "type": {
+       "text": "Timeout"
+      },
+      "period": {
+       "number": 4
+      },
+      "clock": {
+       "displayValue": "1:55"
+      },
+      "statYardage": 0,
+      "scoringPlay": false,
+      "start": {
+       "down": 3,
+       "distance": 7,
+       "yardsToEndzone": 60,
+       "team": {
+        "id": "1"
+       }
+      }
+     }
+    ]
+   }
+  ]
+ },
+ "boxscore": {
+  "players": [
+   {
+    "team": {
+     "abbreviation": "TST"
+    },
+    "statistics": [
+     {
+      "name": "passing",
+      "keys": [
+       "completions/passingAttempts",
+       "passingYards",
+       "yardsPerPassAttempt",
+       "passingTouchdowns",
+       "interceptions"
+      ],
+      "athletes": [
+       {
+        "athlete": {
+         "id": "801"
+        },
+        "stats": [
+         "3/8",
+         "55",
+         "7.9",
+         "1",
+         "1"
+        ]
+       }
+      ]
+     },
+     {
+      "name": "rushing",
+      "keys": [
+       "rushingAttempts",
+       "rushingYards",
+       "yardsPerRushAttempt",
+       "rushingTouchdowns",
+       "longRushing"
+      ],
+      "athletes": [
+       {
+        "athlete": {
+         "id": "802"
+        },
+        "stats": [
+         "2",
+         "20",
+         "10",
+         "0",
+         "15"
+        ]
+       }
+      ]
+     },
+     {
+      "name": "receiving",
+      "keys": [
+       "receptions",
+       "receivingYards",
+       "yardsPerReception",
+       "receivingTouchdowns",
+       "longReception",
+       "receivingTargets"
+      ],
+      "athletes": [
+       {
+        "athlete": {
+         "id": "803"
+        },
+        "stats": [
+         "2",
+         "52",
+         "26",
+         "1",
+         "25",
+         "5"
+        ]
+       },
+       {
+        "athlete": {
+         "id": "802"
+        },
+        "stats": [
+         "1",
+         "3",
+         "3",
+         "0",
+         "3",
+         "1"
+        ]
+       }
+      ]
+     },
+     {
+      "name": "kicking",
+      "keys": [
+       "fieldGoalsMade/fieldGoalAttempts",
+       "fieldGoalPct",
+       "longFieldGoalMade",
+       "extraPointsMade/extraPointAttempts",
+       "totalKickingPoints"
+      ],
+      "athletes": [
+       {
+        "athlete": {
+         "id": "804"
+        },
+        "stats": [
+         "1/1",
+         "100",
+         "45",
+         "1/1",
+         "4"
+        ]
+       }
+      ]
+     }
+    ]
+   }
+  ]
+ }
+}
