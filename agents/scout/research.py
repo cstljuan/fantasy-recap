@@ -11,8 +11,9 @@ The same functions are tools of the deepagents agent in scout.py. They read data
     split(player, by)                      a table by down, quarter, zone, depth, direction, gap or week: plays, yards,
                                            success rate, touchdowns, first downs, with the plays behind each row
     team_context(team, week)               the NFL team's totals in a week (throws, carries, red zone, third down)
+    verify_evidence(player, evidence)      which cited plays are real plays of the player
     write_report(team, slot, report)       writes data/profiles/notes/<team>-<slot>-report.md. A claim without
-                                           evidence is refused.
+                                           evidence, or with evidence that is not a real play of the player, is refused.
 
 Success, the usual football measure: a play gains 40 percent of the distance on first down, 60 percent on second,
 all of it on third or fourth, or scores. Zones by yards to the end zone: own (more than 80), open (21 to 80),
@@ -205,6 +206,28 @@ def team_context(team: str, week: int) -> str:
                        "sources": [d["games"][e]["source"] for e in games]})
 
 
+def _real(key, e):
+    """Is this cited play one of the player's real plays? Matches the game, the clock and the start of the text."""
+    p = _data()["players"].get(key)
+    if not p or not isinstance(e, dict):
+        return False
+    text = (e.get("text") or "")[:60]
+    for x in p["plays"]:
+        if str(x["ev"]) == str(e.get("event")) and (x.get("clk") == e.get("clock")) and text and (x.get("text") or "").startswith(text):
+            return True
+    return False
+
+
+def verify_evidence(player: str, evidence: list) -> str:
+    """Check cited plays against the plays file: each item must be one of the player's real plays (same game, clock
+    and text as player_plays or split returned it). Returns which items are real and which are not."""
+    key, _ = _player(player)
+    res = [{"item": i, "real": _real(key, e)} for i, e in enumerate(evidence or [])]
+    T._log_call("verify_evidence(%s) -> %d of %d real" % (key, sum(1 for r in res if r["real"]), len(res)))
+    return json.dumps({"player": key, "checked": len(res), "real": sum(1 for r in res if r["real"]),
+                       "not_real": [r["item"] for r in res if not r["real"]]})
+
+
 def write_report(team: str, slot: str, report: dict) -> str:
     """Save a scouting report. report = {"title": str, "made_by": "model <name>" or "rules, no model",
     "claims": [{"text": one plain sentence, "evidence": [play citations from player_plays or split, at least one]}]}.
@@ -215,6 +238,11 @@ def write_report(team: str, slot: str, report: dict) -> str:
     bad = [c.get("text", "")[:60] for c in claims if not c.get("evidence")]
     if not claims or bad:
         return json.dumps({"written": None, "refused": "every claim needs evidence; missing for: %s" % bad if bad else "no claims"})
+    key0 = "%s.%s" % (team, slot)
+    fake = [c.get("text", "")[:60] for c in claims if not all(_real(key0, e) for e in c["evidence"])]
+    if fake:
+        T._log_call("write_report(%s) refused: evidence that is not a real play of the player" % key0)
+        return json.dumps({"written": None, "refused": "evidence must be the player's real plays as the tools returned them; not real in: %s" % fake})
     d = _data()
     key = "%s.%s" % (team, slot)
     p = d["players"].get(key, {})
@@ -241,7 +269,7 @@ def write_report(team: str, slot: str, report: dict) -> str:
     return json.dumps({"written": out, "claims": len(claims), "evidence": len(refs)})
 
 
-TOOLS = [research_plan, player_plays, split, team_context, write_report]
+TOOLS = [research_plan, player_plays, split, team_context, verify_evidence, write_report]
 
 
 # ---------------------------------------------------------------- the runner without a model

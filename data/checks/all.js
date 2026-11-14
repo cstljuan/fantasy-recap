@@ -59,6 +59,8 @@ var CHECKS = [
   { name: 'Sleeper against ESPN on fixtures', cmd: 'python3', args: ['agents/scout/check_crosscheck.py'], skip: python ? null : 'python3 is not installed' },
   { name: 'Scout notes pages on fixtures', cmd: 'python3', args: ['agents/scout/check_notes.py'], skip: python ? null : 'python3 is not installed' },
   { name: 'soccer profiles and real round on fixtures', cmd: 'python3', args: ['agents/scout/check_soccer.py'], skip: python ? null : 'python3 is not installed' },
+  { name: 'Scout team: main agent and subagents', cmd: 'python3', args: ['agents/scout/check_agent_team.py'],
+    skip: !python ? 'python3 is not installed' : deepagents ? null : 'deepagents is not installed (pip install -r agents/scout/requirements.txt)' },
   { name: 'Scout agent graph with a stand-in model', cmd: 'python3', args: ['agents/scout/check_agent.py'],
     skip: !python ? 'python3 is not installed' : deepagents ? null : 'deepagents is not installed (pip install -r agents/scout/requirements.txt)' },
   { name: 'every commit authored by a team account', cmd: 'sh', args: ['tools/check-authors.sh'] },

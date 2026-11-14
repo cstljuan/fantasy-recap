@@ -33,6 +33,7 @@ It prints one line per check (OK, FAILED or SKIPPED with the reason) and a final
 | Sleeper against ESPN | `python3 agents/scout/check_crosscheck.py` | `crosscheck.py` finds the right ESPN player, flags only real disagreements and writes null where ESPN has no number |
 | Scout notes | `python3 agents/scout/check_notes.py` | `notes.py` writes one page per football player with every number's source and date, null as not known, the Sleeper and ESPN result, and exactly two rule-made sentences with no pronouns |
 | soccer numbers | `python3 agents/scout/check_soccer.py` | `fill_soccer.py` computes the soccer tendencies, leaves null what ESPN does not give, and builds one real round of lines with the broken match maker rules listed |
+| Scout team | `python3 agents/scout/check_agent_team.py` | the main agent delegates to the film-room and fact-checker subagents through the real deepagents graph (stand-in model); a report citing a made-up play is refused and the real one is written; needs requirements.txt |
 | Scout agent graph | `python3 agents/scout/check_agent.py` | the tools are wired into the deepagents graph (stand-in model); needs `pip install -r agents/scout/requirements.txt` |
 | authors | `sh tools/check-authors.sh` | every commit is authored and committed by a team account with no tool credit |
 | reveal flow | `node js/screens/flow-test.js` | Peyton's test of the whole reveal flow in headless Chrome; it serves the repository itself. SKIPPED without Chrome or while the file is not on the branch |

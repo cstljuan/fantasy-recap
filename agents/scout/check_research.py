@@ -60,6 +60,12 @@ check(all(x["text"] != "wiped out" for x in json.loads(R.player_plays("ZZZ.WR1",
 check(json.loads(R.team_context("AAA", 1))["totals"] == {"pass_att": 30}, "team context for a week")
 refused = json.loads(R.write_report("ZZZ", "WR1", {"made_by": "test", "claims": [{"text": "A claim with nothing behind it.", "evidence": []}]}))
 check(refused["written"] is None and "evidence" in refused["refused"], "a claim without evidence is refused")
+real = json.loads(R.player_plays("ZZZ.WR1", {"down": 3, "limit": 1}))["plays"][0]
+made_up = dict(real, text="Test Receiver catches a 99 yard pass")
+v = json.loads(R.verify_evidence("ZZZ.WR1", [real, made_up]))
+check(v["real"] == 1 and v["not_real"] == [1], "verify_evidence tells a real play from a made-up one")
+refused2 = json.loads(R.write_report("ZZZ", "WR1", {"made_by": "test", "claims": [{"text": "A long catch.", "evidence": [made_up]}]}))
+check(refused2["written"] is None and "not real" in refused2["refused"], "a report citing a play that never happened is refused")
 res = R.rules_report("ZZZ.WR1")
 text = open(res["written"]).read()
 check("works best going right (success on 75 percent of 8 plays" in text and "least going left (12 percent of 8)" in text, "the report finds the side that works")
