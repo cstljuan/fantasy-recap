@@ -36,6 +36,8 @@ Run `sh tools/next.sh` to get your next task with its full description. A row is
 | B24 | B | Peypey-ryd | Demo mode: `?demo=1` walks the two-minute demo script by itself | open |
 | B25 | B | Peypey-ryd | Hot and cold on the lineup: recent form next to each player, with Ricky and Noah | open |
 | B26 | B | Peypey-ryd | Soccer gets the same extras: jump bar, rule cards and share card in the soccer app, with Juan and Noah | open |
+| B27 | B | Peypey-ryd | The story of the game: a written recap on the recap screen from drives, momentum, top plays and big calls, with Ricky and Noah | open |
+| B28 | B | Peypey-ryd | Spanish for the screens, switchable, with Noah | open |
 | C1 | C | nexodv | Announcer lines, two styles | merged |
 | C2 | C | nexodv | Crowd and whistle | merged |
 | C3 | C | nexodv | Captions: every spoken line is also available as text | merged |
@@ -62,6 +64,10 @@ Run `sh tools/next.sh` to get your next task with its full description. A row is
 | C22 | C | nexodv | Sound check without ears: a node test of the mix (levels, ducking, mute, no clipping, no overlap of voice lines) | open |
 | D27 | D | Rickstar-App | Soccer numbers that are real: profiles and one real match's lines for the soccer rosters, with sources | open |
 | D28 | D | Rickstar-App | The service under load and bad input: a test that pushes both sports, bad bodies and 200 quick requests | open |
+| C23 | C | nexodv | The pre-game show: a short preview of each matchup from form, profiles and standings, with Ricky and Peyton | open |
+| C24 | C | nexodv | Spanish broadcast: every line kind in Spanish, switchable, with Peyton | open |
+| D29 | D | Rickstar-App | Proof that each game file reproduces its stat lines exactly, as a check | open |
+| D30 | D | Rickstar-App | Story data: one call that gives the turning points of a game, from the service and from a file, with Peyton | open |
 | D1 | D | Rickstar-App | Real rosters and profile files | merged |
 | D2 | D | Rickstar-App | Database schema | merged |
 | D4 | D | Rickstar-App | A week of stat lines for both rosters | merged |
@@ -202,6 +208,7 @@ The boss reviews every DONE before it reaches main: the authors check, the lane 
 - Merged after review: B22, C18, C19, D24. All checks and the three full-game runs passed
 - Ricky's boss rounds (to 16:00 Eastern): merged B21, B22, C18, C19, D24. Checks and the three full-game runs passed each time; the line audit and `python3 agents/scout/check_form.py` print OK. Not looked at in a browser by the boss: the rule cards and the jump bar.
 - Merged after review: B23, C20, D25. All checks and the three full-game runs passed
+- Ricky's boss round (16:10 Eastern): merged B23, C20, D25. Checks and the three full-game runs passed; `node data/checks/all.js --quick` prints OK (the Scout agent graph check is skipped here: deepagents is not installed). Not looked at by the boss: the share picture itself.
 - D1 real rosters and profile files, D2 database schema (Ricky) are on main; `data/games/sample-football.json` now has the real rosters
 
 ## Decisions
