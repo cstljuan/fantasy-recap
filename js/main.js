@@ -194,6 +194,7 @@
     if (st.kind === 'final') {
       mode = 'final'; disp.lines = null; disp.banner = null;
       fx.sound('crowd_stop');
+      fx.sound('jingle_final');
       say(piece('wrap', state.score.slice()) || announce({ kind: 'final' }, state.score.slice()) || 'That is the final. ' + spokenScore());
       log.push({ step: si, text: 'FINAL', score: state.score.slice() });
       emit('final', { score: state.score.slice() });
@@ -533,6 +534,7 @@
       Snd.init();
       if (mode !== 'ready') return;
       mode = 'play';
+      fx.sound('jingle_kickoff');
       emit('start');
       say(piece('intro') || 'Kickoff. ' + TEAMS[0].name + ' against ' + TEAMS[1].name + '.');
     },

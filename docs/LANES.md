@@ -10,7 +10,7 @@ Two sports are in the build: football and soccer.
 | S. Soccer | Juan | `cstljuan` | `soccer/` (the whole soccer game: field, players, rules, plays, data) |
 | B. Reveal flow and screens | Peyton | `Peypey-ryd` | `js/app.js`, `js/screens/`, `css/` |
 | C. Announcer and sound | Noah | `nexodv` | `js/audio.js`, `js/announcer/`, `assets/voice/` |
-| D. Players, profiles, database | Ricky | `Rickstar-App` | `js/data.js`, `data/rosters/`, `data/profiles/`, `agents/scout/`, `db/`, `server/` |
+| D. Players, profiles, database | Ricky | `Rickstar-App` | `js/data.js`, `data/rosters/`, `data/profiles/`, `data/statlines/`, `data/scoring.json`, `data/league.json`, `data/checks/`, `agents/scout/`, `db/`, `server/` |
 | G. Design and brand | Juan's design session | `cstljuan` | `design/`, `pitch/assets/` |
 | H. Watch party box | by hand, owner to be named | | `hardware/` |
 | Pitch | everyone, Juan decides | | `pitch/` |
