@@ -6,6 +6,10 @@
 //                   For halftime and the final there is no play result, so pass
 //                   { kind: 'half' } or { kind: 'final' } as res, with ctx.score set.
 //   speak(text)     says it with the browser's speech voice; does nothing without one.
+//                   Lines wait their turn instead of cutting each other off. A line more
+//                   than two plays old by the time its turn comes is dropped. Silent when
+//                   window.__ff.speed is above 2.
+//   voices()        which browser voice each style uses: { straight, fun, available }.
 //   setStyle(name)  'straight' or 'fun'. style holds the current one.
 //   reset()         starts a new game: every line becomes available again.
 //   onLine(fn)      fn(text, kind, style) is called for every line produced, spoken or not.
@@ -27,6 +31,81 @@
   var lastUsed = {}; // kind + style -> last variant index, so a reshuffle never repeats right away
   var rand = Math.random;
   var listeners = [];
+  var playNo = 0;       // counts play results, so queued speech can tell how old it is
+  var queue = [];       // { text, play, style } waiting to be spoken
+  var speaking = null;  // the line being spoken now
+  var speakTimer = 0;
+  var MAX_AGE = 2;      // plays
+
+  // Settings per style. fun is faster and a little higher.
+  var VOICE_SET = {
+    straight: { rate: 1.08, pitch: 1.0 },
+    fun: { rate: 1.2, pitch: 1.15 }
+  };
+  var chosen = { straight: null, fun: null };
+
+  function synth() { return root.speechSynthesis && root.SpeechSynthesisUtterance ? root.speechSynthesis : null; }
+
+  // Score a browser voice: English first, US or UK English next, then the voices that
+  // usually sound best (network or enhanced voices), local voices as a tie breaker.
+  function voiceScore(v, style) {
+    var lang = String(v.lang || '').toLowerCase().replace('_', '-'), name = String(v.name || '');
+    if (lang.indexOf('en') !== 0) return -1;
+    var sc = 10;
+    if (lang === 'en-us') sc += 4; else if (lang === 'en-gb') sc += 3;
+    if (/natural|neural|premium|enhanced|online/i.test(name)) sc += 6;
+    if (/google/i.test(name)) sc += 4;
+    if (/(daniel|alex|aaron|guy|davis|tony|ryan|george|fred)\b/i.test(name)) sc += style === 'straight' ? 2 : 1;
+    if (/(samantha|karen|moira|aria|jenny)\b/i.test(name)) sc += style === 'fun' ? 2 : 1;
+    if (/compact|eloquence|whisper|bad news|bells|boing|bubbles|cellos|zarvox|trinoids|organ|jester|superstar/i.test(name)) sc -= 20;
+    if (v.localService) sc += 1;
+    return sc;
+  }
+
+  function chooseVoices() {
+    var sy = synth(), list = [];
+    try { list = sy && sy.getVoices ? sy.getVoices() || [] : []; } catch (err) { list = []; }
+    STYLES.forEach(function (style) {
+      var best = null, bestSc = -1;
+      list.forEach(function (v) { var sc = voiceScore(v, style); if (sc > bestSc) { best = v; bestSc = sc; } });
+      chosen[style] = best;
+    });
+    // Two different voices when the browser has them, so the styles sound apart.
+    if (chosen.fun && chosen.straight && chosen.fun === chosen.straight) {
+      var alt = null, altSc = -1;
+      list.forEach(function (v) { var sc = voiceScore(v, 'fun'); if (v !== chosen.straight && sc > altSc) { alt = v; altSc = sc; } });
+      if (alt && altSc >= 10) chosen.fun = alt;
+    }
+    return list.length;
+  }
+
+  function tooFast() { var ff = root.__ff; return !!(ff && +ff.speed > 2); }
+
+  function speakNext() {
+    var sy = synth();
+    clearTimeout(speakTimer); speaking = null;
+    if (!sy || tooFast()) { queue.length = 0; return; }
+    while (queue.length && playNo - queue[0].play > MAX_AGE) queue.shift();
+    var item = queue.shift();
+    if (!item) return;
+    if (!chosen.straight) chooseVoices();
+    try {
+      var u = new root.SpeechSynthesisUtterance(item.text), set = VOICE_SET[item.style] || VOICE_SET.straight;
+      if (chosen[item.style]) { u.voice = chosen[item.style]; u.lang = chosen[item.style].lang; }
+      u.rate = set.rate; u.pitch = set.pitch;
+      var done = function () { if (speaking === item) speakNext(); };
+      u.onend = done; u.onerror = done;
+      speaking = item;
+      sy.speak(u);
+      // Some browsers never send onend. Move on after a generous estimate.
+      var words = item.text.split(/\s+/).length;
+      speakTimer = setTimeout(done, Math.round(words / (2.6 * set.rate) * 1000) + 2500);
+    } catch (err) { speaking = null; }
+  }
+
+  if (synth() && 'onvoiceschanged' in root.speechSynthesis) {
+    try { root.speechSynthesis.addEventListener('voiceschanged', chooseVoices); } catch (err) { /* optional */ }
+  }
   var last = null;    // the last caption
 
   function announce(text, kind, style) {
@@ -262,6 +341,7 @@
         var score = ctx.score || (res.post && res.post.score) || [0, 0];
         var style = STYLES.indexOf(ctx.style) >= 0 ? ctx.style : api.style;
         var c = classify(res, teams, score);
+        if (res.e) playNo++;
         if (!c.kind) return '';
         var text = fill(pick(c.kind, style), c.v);
         if (text) announce(text, c.kind, style);
@@ -272,14 +352,25 @@
     },
 
     speak: function (text) {
-      if (!text || typeof root.speechSynthesis === 'undefined' || typeof root.SpeechSynthesisUtterance === 'undefined') return;
-      try {
-        root.speechSynthesis.cancel();
-        var u = new root.SpeechSynthesisUtterance(text);
-        u.rate = api.style === 'fun' ? 1.2 : 1.1;
-        u.pitch = api.style === 'fun' ? 1.15 : 1;
-        root.speechSynthesis.speak(u);
-      } catch (err) { /* speech is optional */ }
+      if (!text || !synth()) return;
+      if (tooFast()) { api.hush(); return; }
+      queue.push({ text: String(text), play: playNo, style: api.style });
+      if (!speaking) speakNext();
+    },
+
+    // Stops speech and empties the queue (for the game view closing, or a restart).
+    hush: function () {
+      queue.length = 0; clearTimeout(speakTimer); speaking = null;
+      var sy = synth(); if (sy) { try { sy.cancel(); } catch (err) { /* optional */ } }
+    },
+
+    voices: function () {
+      var n = synth() ? chooseVoices() : 0;
+      function info(style) {
+        var v = chosen[style], set = VOICE_SET[style];
+        return { name: v ? v.name : '(browser default)', lang: v ? v.lang : '', rate: set.rate, pitch: set.pitch };
+      }
+      return { straight: info('straight'), fun: info('fun'), available: n };
     },
 
     setStyle: function (name) {
@@ -287,7 +378,7 @@
       return api.style;
     },
 
-    reset: function () { decks = {}; lastUsed = {}; last = null; },
+    reset: function () { decks = {}; lastUsed = {}; last = null; playNo = 0; api.hush(); },
 
     onLine: function (fn) {
       if (typeof fn !== 'function') return function () {};
