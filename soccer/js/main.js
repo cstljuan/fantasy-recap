@@ -70,13 +70,19 @@
     return { s: s, list: list };
   }
   var teams = [makeTeam(0), makeTeam(1)];
+  // The referee: teal shirt, black shorts. Not in a team, so team is -1.
+  var REF_KIT = { shirt: '#19b8b0', trim: '#0b0d0e', shorts: '#0b0d0e', socks: '#0b0d0e' };
+  var ref = { team: -1, role: 'REF', keeper: false, tone: 1, hair: 0, phase: 0.9, jx: 0, jy: 0, x: WID / 2 + 11, y: LEN / 2,
+              path: null, state: '', view: 'f', moving: false, label: null };
+  var movers = all.concat([ref]);
 
   // ------------------------------------------------------------- state
 
   var steps = Rules.flatten(D.SAMPLE_GAME, TEAMS);
   var state, si, play, pt, mode, clock = 0, interUntil = 0, camX = 0, camY = 0, camSet = false;
   var ball = { x: WID / 2, y: LEN / 2, holder: null }, spot = null, teleport = true;
-  var disp = { score: [0, 0], min: 0, half: 1, banner: null, ticker: null, flash: -9, scoreAt: [-9, -9], floaters: [] };
+  var disp = { score: [0, 0], min: 0, half: 1, banner: null, ticker: null, flash: -9, scoreAt: [-9, -9], floaters: [], fpts: [0, 0], cutAt: -9 };
+  var replay = null;     // { t, end, rate, i } while a goal is replayed
   var log = [], errors = [];
   var active = false, listeners = [];
 
@@ -99,6 +105,7 @@
       disp.score = res.post.score.slice();
       disp.ticker = { min: res.min, team: res.team, text: res.text.replace(/^\d+' /, '').toUpperCase(), t0: clock };
       floatPoints(res.fp);
+      res.fp.forEach(function (f) { disp.fpts[f.team] += f.pts; });
       if (res.say) say(res.say);
       emit('result', { res: res, play: p.name, step: si });
     }
@@ -127,7 +134,7 @@
 
   // An empty play that just holds everyone where they are (half time, final).
   function stillPlay() {
-    all.forEach(function (a) { a.path = [{ t: 0, x: a.x, y: a.y }]; });
+    movers.forEach(function (a) { a.path = [{ t: 0, x: a.x, y: a.y }]; });
     return { name: 'still', actors: all, ball: [{ t: 0, kind: 'rest', x: ball.x, y: ball.y }], ball0: { x: ball.x, y: ball.y },
              holder0: null, cues: [], marks: [], cards: [], dur: 1e9, tEnd: 0 };
   }
@@ -155,6 +162,7 @@
       var ft = Fantasy.fullTime(state.score);
       if (ft.length) {
         floatPoints(ft);
+        ft.forEach(function (f) { disp.fpts[f.team] += f.pts; });
         emit('result', { res: { e: { t: 'ft', min: 90 }, kind: 'ft', team: -1, min: 90, text: "90' Full time", calls: [], fp: ft,
                                 pre: { poss: -1, score: state.score.slice() }, post: { poss: -1, score: state.score.slice() } },
                          play: 'full time', step: si });
@@ -165,16 +173,31 @@
     var res = Rules.apply(state, st.e, st.team);
     var p = Plays.build(st.e, res, {
       rng: rng, fx: fx, att: st.team, half: state.half, teams: teams, all: all,
-      ball: ball, holder: ball.holder, spot: spot, teleport: teleport && st.e.t === 'kickoff'
+      ball: ball, holder: ball.holder, spot: spot, teleport: teleport && st.e.t === 'kickoff', ref: ref
     });
     if (st.e.t === 'kickoff') teleport = false;
     play = p; pt = 0; mode = 'play';
+    if (p.cut || p.ctx.teleport) disp.cutAt = clock;   // set pieces and kickoffs open with a camera cut
+    if (p.goalAt !== undefined) p.rec = [];
     disp.min = st.e.min; disp.half = state.half;
     log.push({ step: si, play: p.name, text: res.text, score: res.post.score.slice() });
     emit('snap', { res: res, play: p.name, step: si });
   }
 
+  // After a goal, replay its last seconds slowly before the restart.
   function endStep() {
+    if (play.goalAt !== undefined && !play.replayed && play.rec && play.rec.length) {
+      play.replayed = true;
+      replay = { t: Math.max(0, play.goalAt - 2.8), end: play.goalAt + 0.8, rate: 0.4, i: 0 };
+      pt = replay.t; mode = 'replay';
+      return;
+    }
+    finishStep();
+  }
+
+  function finishStep() {
+    replay = null;
+    movers.forEach(function (a) { var p = Plays.posAt(a, play.dur); a.x = p.x; a.y = p.y; });
     var b = Plays.ballAt(play, play.dur);
     ball = { x: b.x, y: b.y, holder: b.holder || null };
     spot = play.spot || null;
@@ -186,7 +209,7 @@
     state = Rules.create(TEAMS);
     si = 0; clock = 0; camSet = false; teleport = true; spot = null;
     ball = { x: WID / 2, y: LEN / 2, holder: null };
-    disp.score = [0, 0]; disp.min = 0; disp.half = 1; disp.banner = null; disp.ticker = null; disp.flash = -9; disp.scoreAt = [-9, -9]; disp.floaters = [];
+    disp.score = [0, 0]; disp.min = 0; disp.half = 1; disp.banner = null; disp.ticker = null; disp.flash = -9; disp.scoreAt = [-9, -9]; disp.floaters = []; disp.fpts = [0, 0]; disp.cutAt = -9; replay = null;
     log.length = 0;
     emit('reset');
     startStep();
@@ -201,15 +224,27 @@
       for (var i = 0; i < cues.length; i++) {
         if (!cues[i].done && cues[i].t <= pt) { cues[i].done = true; cues[i].fn(); }
       }
+      if (play.rec) play.rec.push({ t: pt, s: movers.map(function (a) { return a.state; }), d: movers.map(function (a) { return a.diveDir; }) });
       if (pt >= play.dur) endStep();
+    } else if (mode === 'replay') {
+      clock += dt;
+      var before = pt;
+      pt = Math.min(replay.end, pt + dt * replay.rate);
+      if (before < play.goalAt && pt >= play.goalAt) disp.flash = clock;
+      // Actor states (dive, celebrate) come from what was recorded live.
+      var rec = play.rec;
+      while (replay.i < rec.length - 1 && rec[replay.i + 1].t <= pt) replay.i++;
+      var snap = rec[replay.i];
+      movers.forEach(function (a, k) { a.state = snap.s[k]; a.diveDir = snap.d[k]; });
+      if (pt >= replay.end) { movers.forEach(function (a, k) { a.state = rec[rec.length - 1].s[k]; }); finishStep(); return; }
     } else if (mode === 'inter') {
       clock += dt;
       if (clock >= interUntil) { si++; startStep(); }
     } else if (mode === 'final') {
       clock += dt;
     }
-    for (var j = 0; j < all.length; j++) {
-      var a = all[j], p = Plays.posAt(a, pt);
+    for (var j = 0; j < movers.length; j++) {
+      var a = movers[j], p = Plays.posAt(a, pt);
       a.x = p.x; a.y = p.y;
       a.moving = Math.abs(p.vx) + Math.abs(p.vy) > 0.6;
       if (a.moving) { if (Math.abs(p.vy) > 0.5) a.view = p.vy > 0 ? 'f' : 'b'; }
@@ -219,6 +254,8 @@
   // The camera follows the ball on both axes and never shows past the stands.
   function updateCamera(realDt) {
     var b = Plays.ballAt(play, pt);
+    // After a goal the camera stays with the scorer, not the ball in the net.
+    if (mode === 'play' && play.focus && pt >= play.focus.t) { var fp = Plays.posAt(play.focus.a, pt); b = { x: fp.x, y: fp.y }; }
     var tx = clamp(wx(b.x) - W / 2, 0, stadium.W - W);
     var ty = stadium.H > H ? clamp(wy(b.y) - H * 0.52, 0, stadium.H - H) : (stadium.H - H) / 2;
     if (!camSet) { camX = tx; camY = ty; camSet = true; return; }
@@ -258,8 +295,23 @@
     }
   }
 
+  // Vanishing spray for free kicks: dashes where the wall stands and a ring at the ball.
+  function drawSpray(m) {
+    var fade = clamp(1 - (pt - m.until) / 1.2, 0, 1);
+    if (fade <= 0) return;
+    g.fillStyle = 'rgba(250,250,245,' + (0.8 * fade).toFixed(3) + ')';
+    if (m.line) {
+      var x0 = sx(m.line[0].x), y0 = sy(m.line[0].y), x1 = sx(m.line[1].x), y1 = sy(m.line[1].y);
+      var n = Math.max(2, Math.round(Math.hypot(x1 - x0, y1 - y0) / 4));
+      for (var i = 0; i <= n; i += 2) g.fillRect(Math.round(x0 + (x1 - x0) * i / n) - 1, Math.round(y0 + (y1 - y0) * i / n) - 1, 2, 2);
+    }
+    var cx = sx(m.spot.x), cy = sy(m.spot.y);
+    for (var k = 0; k < 12; k++) { var t = k / 12 * Math.PI * 2; g.fillRect(cx + Math.round(Math.cos(t) * 5) - 1, cy + Math.round(Math.sin(t) * 5) - 1, 2, 2); }
+  }
+
   function drawMarks() {
     play.marks.forEach(function (m) {
+      if (m.kind === 'spray') { drawSpray(m); return; }
       if (m.kind !== 'offside' || pt < m.t) return;
       var y = sy(m.y);
       g.fillStyle = 'rgba(255,210,26,0.8)';
@@ -276,10 +328,11 @@
   function drawPlayer(a, isCarrier) {
     var px = sx(a.x), py = sy(a.y);
     if (py < -40 || py > H + 40 || px < -20 || px > W + 20) return;
-    var colors = TEAMS[a.team].colors;
+    var colors = a.team >= 0 ? TEAMS[a.team].colors : REF_KIT;
     var still = a.state === 'down' || a.state === 'dive';
     var frame = a.moving && !still ? (Math.floor(clock * 10 + a.phase) % 2 ? 'a' : 'b') : 'stand';
-    var img = Spr.get(a.team, colors, a.keeper, a.view, frame, a.tone, a.hair);
+    var pose = a.state === 'celebrate' || a.state === 'cheer' || a.state === 'card' ? 'up' : undefined;
+    var img = Spr.get(a.team >= 0 ? a.team : 9, colors, a.keeper, a.view, frame, a.tone, a.hair, pose);
     g.fillStyle = 'rgba(0,0,0,0.3)';
     g.fillRect(px - 6, py, 12, 2); g.fillRect(px - 4, py + 2, 8, 2);
     if (isCarrier && Math.floor(clock * 4) % 2 === 0) {
@@ -343,6 +396,19 @@
     g.fillRect(x - s + 1, y - s + 2, 2 * s - 2, 2 * s - 4); g.fillRect(x - s + 2, y - s + 1, 2 * s - 4, 2 * s - 2);
     g.fillStyle = '#1a1a1a';
     g.fillRect(x - 1, y - 1, 2, 2);
+  }
+
+  // Replay: letterbox bars, a REPLAY tag and the goal's minute.
+  function drawReplay() {
+    var bar = 56;
+    g.fillStyle = INK; g.fillRect(0, 0, W, bar); g.fillRect(0, H - bar, W, bar);
+    g.fillStyle = AMBER; g.fillRect(0, H - bar, W, 2);
+    var y = H - bar + 16;
+    if (Math.floor(clock * 2) % 2 === 0) { g.fillStyle = '#e5322b'; g.fillRect(16, y + 3, 8, 8); }
+    text('REPLAY', 32, y, { unit: 2, color: TEXT, track: 1 });
+    var gl = state.goals[state.goals.length - 1];
+    if (gl) text(Rules.lastName(TEAMS[gl.team].roster[gl.by]) + ' ' + gl.min + "'", W - 16, y, { unit: 2, color: AMBER, align: 'right' });
+    text('SLOW MOTION', 32, y + 20, { color: DIM, track: 1 });
   }
 
   function drawFloaters() {
@@ -467,6 +533,7 @@
       text(String(disp.score[i]), W - x, y - 4, { unit: 4, color: TEXT, align: 'right' });
       var sc = scorers(i);
       text(sc || 'NO GOALS', x + 24, y + 24, { color: sc ? DIM : RULE, track: 1 });
+      if (mode === 'final' && FLOATERS) text(disp.fpts[i] + ' FANTASY PTS', W - x, y + 36, { color: AMBER, align: 'right', track: 1 });
       y += 52;
     }
     g.fillStyle = RULE; g.fillRect(x, y, W - 2 * x, 2);
@@ -486,16 +553,18 @@
     drawMarks();
     var b = Plays.ballAt(play, pt);
     var carrier = b.holder && b.hl ? b.holder : null;
-    var list = all.slice().sort(function (p, r) { return p.y - r.y; });
+    var list = movers.slice().sort(function (p, r) { return p.y - r.y; });
     var i;
     for (i = 0; i < list.length; i++) drawPlayer(list[i], list[i] === carrier);
     for (i = 0; i < list.length; i++) drawLabel(list[i], list[i] === carrier);
     drawBall(b);
-    drawFloaters();
+    if (mode !== 'replay') drawFloaters();
     if (clock - disp.flash < 0.22) { g.fillStyle = 'rgba(255,255,255,' + (0.5 * (1 - (clock - disp.flash) / 0.22)).toFixed(3) + ')'; g.fillRect(0, 0, W, H); }
+    if (mode === 'replay') drawReplay();
     drawScoreBug();
-    drawBanner();
-    drawTicker();
+    if (mode !== 'replay') { drawBanner(); drawTicker(); }
+    // A camera cut into set pieces and kickoffs: a quick drop to black.
+    if (clock - disp.cutAt < 0.3) { g.fillStyle = 'rgba(8,9,10,' + (1 - (clock - disp.cutAt) / 0.3).toFixed(3) + ')'; g.fillRect(0, 0, W, H); }
     if (mode === 'inter') drawBoard('HALF TIME', '');
     if (mode === 'final') drawBoard('FULL TIME', 'TAP FOR THE RECAP');
   }

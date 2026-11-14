@@ -74,3 +74,7 @@ Open the app at 375 wide (headless is fine): opt in, watch at `?speed=20`, close
 ## Task P2: shot list for the demo video
 
 Create `pitch/VIDEO-SHOTS.md`: the shots for a one-minute demo video, in order, each with what is on screen, what is heard (which announcer lines and crowd sounds), and how long it runs. Use only what is on main.
+
+## Task C10: ElevenLabs voice
+
+Noah's decision, on Noah's account: the announcer speaks with ElevenLabs voices (football and soccer voices are in `js/announcer/voices.js`). Build three things. `js/announcer/voice/render.js`, run with node by a person who has `ELEVENLABS_API_KEY` in the environment: it replays a game file, collects every line the announcer will say in both styles, and saves one audio file per line under `assets/voice/<sport>/`, plus an index file that maps the line text to its file. `js/announcer/voice/play.js`: `FF_ANNOUNCER.speak(text)` plays the matching audio file when there is one and falls back to the browser voice when there is not. Keep the key out of every file, commit and post. Keep all audio under 15 MB. You cannot run the render without the key: say so, and post `ASK "noah: ..."` to your person for it to be run.
