@@ -4,27 +4,64 @@ Written only by the boss: Juan's lead session, account `cstljuan`. Read it with 
 
 ## Task queue
 
-Do the tasks of your lane in order, one at a time. `T0` comes first for everyone.
+Run `sh tools/next.sh` to get your next task with its full description. A row is yours when the Person column is your GitHub username and Status is exactly `open`. Do not wait to be told: finish one, post DONE, take the next.
 
 | Id | Lane | Person | Task | Status |
 |---|---|---|---|---|
-| T0 | all | everyone | Run `sh tools/setup.sh`, make your branch `<username>/start`, run `sh tools/post.sh READY "hello from <name>"` | open |
-| B1 | B | Peyton | Hidden scores and opt in: a start screen where the manager opts in, and every fantasy number masked until the final | open |
-| B2 | B | Peyton | Speed control on the game view: 0.5x, 1x, 2x, 4x, using `window.__ff.speed` | open |
-| C1 | C | Noah | `js/announcer/`: `FF_ANNOUNCER` from `docs/CONTRACT.md` section 3, with a straight voice and a fun voice | open |
-| C2 | C | Noah | Crowd and whistle sounds in `js/audio.js` that build on big plays | open |
-| D1 | D | Ricky | Two rosters of real players in `js/data.js`, and `data/profiles/<team>.json` with on-field tendencies and the source | open |
-| D2 | D | Ricky | `db/schema.sql`: plays as rows over game time, plus per-quarter and per-player totals | open |
-| D3 | D | Ricky | `server/`: a small service that saves plays to the database and returns them, reading its connection from `.env` | open, needs Juan's database account |
-| S1 | S | Juan | `soccer/`: the pitch from above, 11 against 11 in the same pixel style, one sample match that plays start to finish | open |
-| S2 | S | Juan | Soccer rules and a play library: build-up, shot, save, goal, corner, free kick, foul, offside | open |
-| A1 | A | boss | Load the game from `data/games/<id>.json`; contract v1 | open |
-| A2 | A | boss | The football game maker: stat lines and profiles in, a legal game out, each play chosen by the play caller | open |
-| A3 | A | boss | Connect the announcer, the speed control and the sport switch once C1, B2 and S1 are merged | open |
+| B1 | B | Peypey-ryd | Opt in and hidden scores | merged |
+| B2 | B | Peypey-ryd | Speed control | merged |
+| B3 | B | Peypey-ryd | Recap reveal | merged |
+| B10 | B | Peypey-ryd | Hide the point floaters while opted in, and check the screens now that the game pauses when closed | open |
+| B4 | B | Peypey-ryd | League home: this week's matchups and the Tuesday release | open |
+| B5 | B | Peypey-ryd | "Why this play" card with probability bars | open |
+| B6 | B | Peypey-ryd | My team view: `?me=<team id>` | open |
+| B7 | B | Peypey-ryd | Result card to share | open |
+| B8 | B | Peypey-ryd | Sport switch control: football and soccer | open |
+| B9 | B | Peypey-ryd | Phone polish and keyboard use | open |
+| C1 | C | nexodv | Announcer lines, two styles | merged |
+| C2 | C | nexodv | Crowd and whistle | merged |
+| C3 | C | nexodv | Captions: every spoken line is also available as text | open |
+| C4 | C | nexodv | Pre-game intro, halftime report, full-time wrap | open |
+| C5 | C | nexodv | Voice choice, pace and a queue so lines never cut each other off | open |
+| C6 | C | nexodv | Tendency lines from the player profiles | open |
+| C7 | C | nexodv | Kickoff and final jingles made in code | open |
+| C8 | C | nexodv | Soccer lines | waiting: soccer merged |
+| D1 | D | Rickstar-App | Real rosters and profile files | merged |
+| D2 | D | Rickstar-App | Database schema | merged |
+| D4 | D | Rickstar-App | A week of stat lines for both rosters | open |
+| D5 | D | Rickstar-App | Fantasy scoring rules as data plus a small module | open |
+| D6 | D | Rickstar-App | Fill the profile tendencies from real season numbers, with sources | open |
+| D8 | D | Rickstar-App | Devpost text and the "what is real, what is simulated" list | open |
+| D3 | D | Rickstar-App | The database service | open |
+| D7 | D | Rickstar-App | Soccer rosters and profiles | waiting: soccer merged |
+| S1 | S | cstljuan | The soccer game | open |
+| S2 | S | cstljuan | Fantasy soccer on top | open |
+| S3 | S | cstljuan | Soccer polish: celebrations, replays of goals, set pieces | open |
+| A1 | A | cstljuan | Load the game from `data/games/<id>.json`; contract v1 | open |
+| A2 | A | cstljuan | The football game maker with the play caller | open |
+| A3 | A | cstljuan | Connect the announcer, crowd, captions and the floaters switch | merged |
+| A4 | A | cstljuan | Sport switch wiring and home-screen install | open |
+
+## Answers to ASK posts
+
+Newest at the bottom. The boss answers every ASK here. If the answer is "yes, done", the change is already on main.
+
+- ANSWER to nexodv (script tags and calls): done. `index.html` loads `js/announcer/lines.js` and `index.js`. `js/main.js` asks `FF_ANNOUNCER.line` for every play result, for halftime (`{kind:'half'}`) and for the final (`{kind:'final'}`), and speaks through `FF_ANNOUNCER.speak`. Crowd: `crowd_murmur` at each snap, `crowdFor(res)` on each result, `crowd_stop` at halftime and the final. Checked in a browser at speed 40: 75 plays, final 17 to 14, no errors. Not checked: how it sounds out loud.
+- ANSWER to nexodv (pause when the game view is closed): yes, done, and it is now the rule. The game only advances while its view is open. `FF_GAME.setBackground(true)` or `?bg=1` lets it run behind the app.
+- ANSWER to Peypey-ryd (point floaters while opted in): done on the game side. `FF_GAME.setFloaters(false)` hides them, `FF_GAME.setFloaters(true)` shows them. Calling it is yours, in `js/app.js`: task B10.
+- ANSWER to Rickstar-App (sample game file): done. `data/games/sample-football.json` is rebuilt from `js/data.js` and has the real rosters.
+
+- NOTE to Rickstar-App (database): the Tiger Data service exists (PostgreSQL 18.6, TimescaleDB 2.32). The boss ran `db/schema.sql` on it: 10 statements, 0 failures, `plays` is a hypertable and both continuous aggregates exist. D2 is reviewed. D3 is open. The connection string is only in `.env` on Juan's laptop, so your session cannot connect: write `server/` to read `DATABASE_URL` from `.env`, and the boss will run it against the real database.
+
+## Review
+
+The boss reviews every DONE before it reaches main: the authors check, the lane check (`sh tools/boss-check.sh`), the project's own checks, and a run in a browser where it applies. Then either the task is merged, or its Status becomes `changes: <what to fix>` and `sh tools/next.sh` gives it back to its owner first.
 
 ## Merged
 
-Nothing yet.
+- B1 hidden scores and opt in, B2 speed control, B3 recap reveal (Peyton) are on main
+- C1 announcer `FF_ANNOUNCER`, C2 crowd sounds (Noah) are on main; the boss still has to connect them in `index.html` and `js/main.js`
+- D1 real rosters and profile files, D2 database schema (Ricky) are on main; `data/games/sample-football.json` now has the real rosters
 
 ## Decisions
 
@@ -33,3 +70,7 @@ Nothing yet.
 - Real player names, no photos.
 - One database, Tiger Data, used for plays over time. No second database.
 - The boss is Juan's lead session. It does every merge, keeps each person's commits (no squash) and is the only session that uses the play caller's API.
+- Agents keep working without being told: `sh tools/next.sh`, do the task, post DONE, repeat. When there is nothing, `sh tools/wait.sh`.
+- Live view for people: https://github.com/cstljuan/fantasy-recap/issues/1
+- Work branches whose name was given by a tool are deleted before the repository goes public.
+- The game pauses while its view is closed. Nobody misses a play of a recap they opted in to watch.

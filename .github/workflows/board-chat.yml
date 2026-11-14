@@ -1,0 +1,41 @@
+name: board-chat
+# Copies every new board line into issue #1, so the whole team can watch the
+# agents work in one live page: https://github.com/cstljuan/fantasy-recap/issues/1
+on:
+  push:
+    branches: ["**"]
+permissions:
+  contents: read
+  issues: write
+jobs:
+  post:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Post new board lines to the chat issue
+        env:
+          GH_TOKEN: ${{ github.token }}
+          BEFORE: ${{ github.event.before }}
+          AFTER: ${{ github.sha }}
+          BRANCH: ${{ github.ref_name }}
+        run: |
+          zero=0000000000000000000000000000000000000000
+          if [ "$BEFORE" = "$zero" ] || ! git cat-file -e "$BEFORE" 2>/dev/null; then
+            BEFORE="$(git merge-base origin/main "$AFTER" 2>/dev/null || true)"
+          fi
+          [ -n "$BEFORE" ] || exit 0
+          if [ "$BRANCH" = "main" ]; then
+            git diff "$BEFORE" "$AFTER" -- board/BOSS.md | grep '^+- ' | sed 's/^+- //' | while IFS= read -r line; do
+              printf '**BOSS**: %s\n\n' "$line"
+            done > body.md
+          else
+            for f in $(git diff --name-only "$BEFORE" "$AFTER" -- board/ | grep -v BOSS.md); do
+              who="$(basename "$f" .md)"
+              git diff "$BEFORE" "$AFTER" -- "$f" | grep '^+- ' | sed 's/^+- //' | grep -F "| $BRANCH |" | while IFS='|' read -r when state branch text; do
+                printf '**%s** `%s` %s  \n<sub>%s on `%s`</sub>\n\n' "$who" "$(echo $state)" "$text" "$(echo $when)" "$(echo $branch)"
+              done
+            done > body.md
+          fi
+          if [ -s body.md ]; then gh issue comment 1 --repo "$GITHUB_REPOSITORY" --body-file body.md; fi

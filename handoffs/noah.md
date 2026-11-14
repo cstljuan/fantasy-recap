@@ -15,12 +15,7 @@ Read `CLAUDE.md` at the root first and follow it. Then do the steps below in ord
 
 ## How to work
 
-- Do the first task below that has no DONE line in your status file. One task per go.
-- Before a task: `sh tools/sync.sh`, then `sh tools/post.sh CLAIM "<task id> <short name>: <files>"`.
-- After a task: commit, push, `sh tools/post.sh DONE "<task id> <short name>, checked: <what you checked>, not checked: <what you did not>"`.
-- Then stop and tell Noah in two or three sentences what is done and what you could not check. Wait for Noah to say "next".
-- If a task needs something outside your files, do not edit it. Run `sh tools/post.sh ASK "boss: <what you need>"` and continue with what you can.
-- Never guess a fact. If you could not check something, say so.
+Follow the work loop in `CLAUDE.md` section 3: `sh tools/sync.sh`, `sh tools/next.sh`, CLAIM, do it, DONE, repeat, without waiting to be told. When there is no task, `sh tools/wait.sh`. Never guess a fact. If you could not check something, say so in the DONE post. The boss queue in `board/BOSS.md` decides the order; the sections below are the full descriptions.
 
 ## Task C1: the announcer
 
@@ -47,3 +42,23 @@ Add a crowd made in code (no audio files): a low murmur during play, a swell on 
 ## Task C3: soccer lines
 
 Only after the boss posts that soccer is merged. Add a second set of lines in `js/announcer/` for soccer events (goal, save, shot wide, corner, free kick, foul, offside, halftime, full time), same two styles, same check file.
+
+## Task C3: captions
+
+Add `FF_ANNOUNCER.onLine(fn)`: `fn(text, kind, style)` is called every time a line is produced, whether or not it is spoken. Add `FF_ANNOUNCER.caption()` that returns the last line and when it was said. This lets the game show subtitles and lets the app list what was said. Extend `js/announcer/check.js` to cover it.
+
+## Task C4: intro, halftime, wrap
+
+Three longer pieces built from numbers, not from a model: `FF_ANNOUNCER.intro(ctx)` (the two teams and one thing to watch for each), `FF_ANNOUNCER.halftime(ctx)` (score, who leads in fantasy points, the best player so far), `FF_ANNOUNCER.wrap(ctx)` (final, the play that decided it, the top performer). `ctx` adds `leaders` (an array of `{ name, points }`) and `plays` (the list so far) to what `line` receives. Two styles each. Each returns two or three sentences.
+
+## Task C5: voice and queue
+
+Choose the best voice the browser has for each style (prefer an English voice; a different pitch and rate for `fun`). Queue lines so a new one never cuts the previous one mid-word, drop lines that are more than two plays old, and stay silent when speed is above 2. Expose `FF_ANNOUNCER.voices()` so a person can see what was chosen.
+
+## Task C6: tendency lines
+
+Read `data/profiles/<team>.json` when it is available (pass it in through `ctx.profiles`; do not fetch it yourself). When a play matches a player's known tendency, or goes against it, say so: "That is what he does best" or "You do not see him run that route often". Only when the tendency number is present; never invent one.
+
+## Task C7: jingles
+
+In `js/audio.js`, two short tunes made in code: a kickoff theme of about three seconds and a full-time theme of about four. Add names for them to `play()` and list the names in your DONE post.
