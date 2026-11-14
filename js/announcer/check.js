@@ -10,7 +10,7 @@ var data = require('../data.js');
 var Rules = require('../rules.js');
 
 var showAll = process.argv.indexOf('--all') >= 0;
-var STYLES = ['straight', 'fun'];
+var STYLES = ['straight'];
 var problems = [];
 
 // A fixed random source so the output is the same every run.
@@ -112,9 +112,9 @@ STYLES.forEach(function (style) {
   });
   if (got.length !== n) problems.push('onLine got ' + got.length + ' lines, expected ' + n);
   if (got.length && !got[0][1]) problems.push('onLine got no kind');
-  var half = A.line({ kind: 'half' }, { teams: teams, score: [7, 3], style: 'fun' });
+  var half = A.line({ kind: 'half' }, { teams: teams, score: [7, 3], style: 'straight' });
   var last = got[got.length - 1];
-  if (!last || last[0] !== half || last[1] !== 'half' || last[2] !== 'fun') problems.push('onLine missed the halftime line');
+  if (!last || last[0] !== half || last[1] !== 'half' || last[2] !== 'straight') problems.push('onLine missed the halftime line');
   off();
   A.line({ kind: 'final' }, { teams: teams, score: [7, 3] });
   if (got[got.length - 1][1] === 'final') problems.push('removed listener still called');
@@ -195,8 +195,6 @@ STYLES.forEach(function (style) {
   A.reset(); spoken.length = 0; cancels = 0;
   var v = A.voices();
   if (v.straight.name !== 'Microsoft Guy Online (Natural)') problems.push('straight voice should be the natural English one, got ' + v.straight.name);
-  if (v.fun.name === v.straight.name || !/^en/.test(v.fun.lang)) problems.push('fun should get a different English voice, got ' + v.fun.name);
-  if (v.fun.rate <= v.straight.rate || v.fun.pitch <= v.straight.pitch) problems.push('fun should be faster and higher');
 
   // Three lines in a row: one at a time, nothing cut off.
   A.speak('one'); A.speak('two'); A.speak('three');
@@ -227,7 +225,7 @@ STYLES.forEach(function (style) {
   if (spoken.length !== 1) problems.push('kept speaking after the game view closed');
   delete globalThis.FF_GAME;
   A.hush();
-  console.log('\nVoices: straight ' + v.straight.name + ' (rate ' + v.straight.rate + '), fun ' + v.fun.name + ' (rate ' + v.fun.rate + '), queue and age checks run');
+  console.log('\nVoices: straight ' + v.straight.name + ' (rate ' + v.straight.rate + '), queue and age checks run');
   delete globalThis.speechSynthesis; delete globalThis.SpeechSynthesisUtterance; delete globalThis.__ff;
 })();
 
@@ -351,7 +349,8 @@ STYLES.forEach(function (style) {
   console.log('\nMade-up game memory lines: ' + lines.join(' | '));
 })();
 
-console.log('\nStyle switch: ' + A.setStyle('fun') + ', ' + A.setStyle('nonsense') + ', ' + A.setStyle('straight'));
+console.log('\nOne style: setStyle(\'fun\') gives ' + A.setStyle('fun') + ', style is ' + A.style);
+if (A.setStyle('fun') !== 'straight' || A.style !== 'straight') problems.push('there must be only the straight style');
 console.log('speak() without a speech voice does nothing: ' + (A.speak('test') === undefined ? 'ok' : 'unexpected'));
 console.log('line() with no teams is quiet: ' + (A.line({}, {}) === '' ? 'ok' : 'unexpected'));
 
@@ -672,6 +671,6 @@ if (problems.length) {
   problems.forEach(function (p) { console.log('  ' + p); });
   process.exit(1);
 }
-console.log('\nOK: ' + Object.keys(LINES).length + ' kinds, 2 styles, at least 3 variants each, no problems found.');
+console.log('\nOK: ' + Object.keys(LINES).length + ' kinds, one style, at least 3 variants each, no problems found.');
 
 function pad(s, n) { s = String(s); while (s.length < n) s += ' '; return s + ' '; }
