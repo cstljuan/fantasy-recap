@@ -120,6 +120,42 @@ var srv = createServer(fake).listen(0, function () {
         .then(function () { return call('GET', '/games/..%2f..%2fpackage/top-plays', undefined, undefined, noDb.address().port); })
         .then(function (r) { assert.equal(r.status, 404); withDb.close(); noDb.close(); empty.close(); });
     })
+    // drives: the same list from the database rows and from the game file, and it must add up to the final score
+    .then(function () {
+      var dr = require('./drives.js'), rp = require('./replay.js');
+      var file = require('path').join(__dirname, '..', 'data', 'games', 'week11-football.json');
+      var game = rp.buildPlays(file), list = dr.drives(file);
+      assert.ok(list.length >= 8);
+      ['index', 'team', 'quarter', 'startYard', 'endYard', 'plays', 'yards', 'seconds', 'result'].forEach(function (k) { assert.ok(k in list[0], 'field ' + k); });
+      var RESULTS = ['touchdown', 'field goal', 'missed field goal', 'punt', 'interception', 'fumble', 'downs', 'half', 'end'];
+      list.forEach(function (d, i) {
+        assert.equal(d.index, i + 1);
+        assert.ok(RESULTS.indexOf(d.result) >= 0, 'result ' + d.result);
+        assert.ok(d.startYard >= 0 && d.startYard <= 100 && d.endYard >= 0 && d.endYard <= 100, 'yards from the goal line stay 0 to 100');
+        assert.equal(d.yards, d.endYard - d.startYard);
+      });
+      var teams = [game.home, game.away], points = {};
+      teams.forEach(function (t) { points[t] = 0; });
+      list.forEach(function (d) { if (d.result === 'touchdown') points[d.team] += 6; if (d.result === 'field goal') points[d.team] += 3; });
+      game.plays.forEach(function (p) { if (p.kind === 'xp' && p.detail.event.good) points[p.detail.off] += 1; });
+      assert.equal(points[game.home], game.final[0], 'touchdowns, field goals and extra points add up to the home score');
+      assert.equal(points[game.away], game.final[1], 'and to the away score');
+      var secs = list.reduce(function (a, d) { return a + d.seconds; }, 0);
+      assert.ok(secs > 3400 && secs < 3800, 'drive seconds add up to about an hour: ' + secs);
+      var rows = game.plays.map(function (p) { return { seq: p.seq, quarter: p.quarter, team: p.team, kind: p.kind, yards: p.yards, detail: p.detail, why: p.why }; });
+      var old = rows.map(function (r) { return { seq: r.seq, quarter: r.quarter, team: r.team, kind: r.kind, yards: r.yards, detail: { event: r.detail.event }, why: r.why }; });
+      var withDb = createServer({ query: function () { return Promise.resolve({ rows: rows }); } }).listen(0);
+      var oldDb = createServer({ query: function () { return Promise.resolve({ rows: old }); } }).listen(0);
+      var noDb = createServer({ query: function () { return Promise.reject(new Error('down')); } }).listen(0);
+      return call('GET', '/games/week11-football/drives', undefined, undefined, withDb.address().port)
+        .then(function (r) { assert.equal(r.status, 200); assert.equal(r.body.source, 'database'); assert.deepEqual(r.body.drives, list); })
+        .then(function () { return call('GET', '/games/week11-football/drives', undefined, undefined, oldDb.address().port); })
+        .then(function (r) { assert.equal(r.body.source, 'file', 'rows without drive details fall back to the file'); assert.deepEqual(r.body.drives, list); })
+        .then(function () { return call('GET', '/games/week11-football/drives', undefined, undefined, noDb.address().port); })
+        .then(function (r) { assert.equal(r.body.source, 'file'); assert.deepEqual(r.body.drives, list); })
+        .then(function () { return call('GET', '/games/nope/drives', undefined, undefined, noDb.address().port); })
+        .then(function (r) { assert.equal(r.status, 404); withDb.close(); oldDb.close(); noDb.close(); });
+    })
     .then(function () { console.log('OK'); srv.close(); })
     .catch(function (e) { console.error('FAIL', e.message); process.exit(1); });
 });

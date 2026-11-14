@@ -10,6 +10,7 @@ var fs = require('fs');
 var path = require('path');
 var topPlaysModule = require('./top-plays.js');
 var topPlays = topPlaysModule.topPlays, rankPlays = topPlaysModule.rank;
+var drivesModule = require('./drives.js');
 
 function loadEnv(file) {
   var text;
@@ -80,14 +81,26 @@ function createServer(db) {
       return db.query('SELECT 1 AS ok').then(function () { send(res, 200, { ok: true, database: true }); },
         function (e) { console.error('health: database does not answer:', e.message); send(res, 503, { ok: false, database: false }); });
     }
-    var m = url.pathname.match(/^\/games\/([^\/]+)\/(plays|summary|optin|optins|top-plays)$/);
+    var m = url.pathname.match(/^\/games\/([^\/]+)\/(plays|summary|optin|optins|top-plays|drives)$/);
     if (!m) return send(res, 404, { error: 'not found' });
     var gameId = decodeURIComponent(m[1]);
     var what = m[2];
 
     function onErr(e) { console.error('database error:', e.message); send(res, 500, { error: 'database error' }); }
 
-    if (req.method === 'GET' && what === 'top-plays') {
+    if (req.method === 'GET' && what === 'drives') {
+      var dFile = /^[A-Za-z0-9_-]+$/.test(gameId) ? path.join(__dirname, '..', 'data', 'games', gameId + '.json') : null;
+      var driveFromFile = function () {
+        if (!dFile || !fs.existsSync(dFile)) return send(res, 404, { error: 'no plays in the database and no game file for ' + gameId });
+        try { send(res, 200, { game_id: gameId, source: 'file', drives: drivesModule.drives(dFile) }); }
+        catch (e) { console.error('drives from file failed:', e.message); send(res, 500, { error: 'could not read the game file' }); }
+      };
+      db.query('SELECT seq, quarter, team, kind, yards, detail, why FROM plays WHERE game_id = $1 ORDER BY seq', [gameId])
+        .then(function (r) {
+          if (!r.rows.length || !drivesModule.usable(r.rows)) return driveFromFile();
+          send(res, 200, { game_id: gameId, source: 'database', drives: drivesModule.fromRecords(r.rows) });
+        }, function (e) { console.error('drives: database does not answer, using the game file:', e.message); driveFromFile(); });
+    } else if (req.method === 'GET' && what === 'top-plays') {
       var n = parseInt(url.searchParams.get('n') || '3', 10);
       if (!(n >= 1 && n <= 20)) return send(res, 400, { error: 'n must be a whole number from 1 to 20' });
       var gameFile = /^[A-Za-z0-9_-]+$/.test(gameId) ? path.join(__dirname, '..', 'data', 'games', gameId + '.json') : null;
