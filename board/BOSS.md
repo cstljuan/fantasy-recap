@@ -143,6 +143,8 @@ Run `sh tools/next.sh` to get your next task with its full description. A row is
 | D41 | D | Rickstar-App | Deep agents finished: Scout ready for a real run, offline test of the subagents and the evidence guard | merged |
 | D42 | D | Rickstar-App | Tiger Data finished: schema, migrations, seed, every route, a test against a real database when DATABASE_URL is set | merged |
 | D43 | D | Rickstar-App | Fix every bug the test lead (C28) sends | open |
+| D44 | D | Rickstar-App | Tiger Data that shows: time_bucket and continuous aggregate queries for momentum, hot streaks and week trends, served by the service, with a test | open |
+| D45 | D | Rickstar-App | Scout through the service: a route that returns the newest sourced scouting report per player, and runs Scout when a key is present | open |
 
 ## Answers to ASK posts
 

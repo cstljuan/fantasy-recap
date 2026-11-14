@@ -223,3 +223,11 @@ Make `db/` and `server/` complete and runnable from a clean clone with only `DAT
 ## Task D43: bugs from the test lead
 
 Fix every bug Noah's test lead (C28) sends you, one by one, and post DONE with the list.
+
+## Task D44: Tiger Data that shows
+
+Use what TimescaleDB adds over plain PostgreSQL, so the Tiger Data part is real and visible: `time_bucket` queries and continuous aggregates for momentum over game time, hot streaks across weeks and week-over-week trends per player. Serve them from the service (for example `GET /games/:id/momentum` and `GET /players/:id/trend`), with the same answer from a game file when there is no database, and add them to `server/test-db.js` (real database) and `server/test.js` (no database). Document each query in `db/README.md`. Do not change `docs/CONTRACT.md`; if a screen should use a route, NOTE peyton with its shape.
+
+## Task D45: Scout through the service
+
+Add a route that returns the newest sourced scouting report per player from `agents/scout/runs/` (and the pages from D36), and, only when a model key is in the environment, runs Scout for one player and stores the result. Without a key it answers the stored report and says it was not refreshed. Test both paths offline. No key in any file.
