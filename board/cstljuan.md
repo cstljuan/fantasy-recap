@@ -11,3 +11,4 @@
 - 11-14 19:45 UTC | CLAIM | cstljuan/soccer | S3 soccer polish: soccer/js/sprites.js, plays.js, main.js
 - 11-14 19:48 UTC | DONE | cstljuan/soccer | S3 soccer polish, checked: full match to FT 3-2 in browser with no errors, each goal replays in slow motion then the restart follows, camera stays with the scorer, set pieces open with a cut, free kick shows wall and spray with the referee, full time board shows scorers and fantasy points; not checked: real phone, how the replay pace feels at 1x
 - 11-14 19:48 UTC | NOTE | cstljuan/soccer | boss: soccer SC_GAME.mode can now also be 'replay' (a slow replay after each goal, about 8 s at 1x). Nothing new to connect
+- 11-14 20:01 UTC | ANSWER | cstljuan/soccer | ricky: one check from soccer: in soccer/js/data.js (branch cstljuan/soccer), TEAMS[].roster has 22 real footballers by slot (GK, LB, CB1, CB2, RB, CM1-3, LW, ST, RW). Is each one a real player who plays that position? Send back any that are wrong

@@ -11,7 +11,7 @@
 # States: READY CLAIM DONE BLOCKED ASK ANSWER NOTE. One line, no secrets.
 cd "$(git rev-parse --show-toplevel)" || exit 1
 state="$1"; shift; text="$*"
-case "$state" in READY|CLAIM|DONE|BLOCKED|ASK|ANSWER|NOTE) ;; *) echo "State must be READY, CLAIM, DONE, BLOCKED, ASK, ANSWER or NOTE."; exit 1 ;; esac
+case "$state" in READY|CLAIM|DONE|BLOCKED|ASK|ANSWER|NOTE|STOP) ;; *) echo "State must be READY, CLAIM, DONE, BLOCKED, ASK, ANSWER or NOTE."; exit 1 ;; esac
 sh tools/check-authors.sh --ident >/dev/null || { sh tools/check-authors.sh --ident; exit 1; }
 u="$(git config user.name)"
 branch="$(git branch --show-current)"

@@ -88,3 +88,19 @@ Create `pitch/DEMO-SCRIPT.md`: what is said and what is on screen, second by sec
 ## Task B13: the why card from the real game file
 
 The app now plays a game built by the game maker, and 40 of its plays carry a real `why` (see `docs/CONTRACT.md` section 1). Make the card read `e.why.picked` for the chosen option, name each option by the player it means (`pass_WR1` is "Pass to" plus the WR1 on that team's roster, `run_RB` is "Run by" plus the RB), sort the bars highest first, and add one line under the card: "Chosen by the play caller from these odds". Keep `?whydemo=1` working. Check at 375 wide with the default game (not `?game=sample`).
+
+## Task B14: the film room
+
+A new screen after the final, "Film room", reached from the recap. Three parts, all built from the game the app is playing. A drive chart: one row per drive, drawn as a bar on a field from 0 to 100 with each play as a segment, the team's color, and a marker for how the drive ended (touchdown, field goal, punt, turnover). A play caller panel for the plays that carry `why`: how many plays it chose, its most confident call, its biggest surprise (the picked option with the lowest probability), and the average odds of the option it picked. A tap on any play in the chart opens that play's why card. Check at 375 and 1280 wide with the default game.
+
+## Task B15: first run and install
+
+A three-card walkthrough the first time the app opens (what it is, opt in, watch the game), skippable, remembered in `localStorage` under `fr.seen`. An "Add to Home Screen" hint for iPhone Safari. The app needs a web app manifest and icons at the root, which are the boss's files: build `js/screens/install.js`, draw the icon in code on a canvas and save it as a data address you can hand over, then post `ASK "boss: add manifest.webmanifest with ..."` with the exact contents you need.
+
+## Task B16: the season
+
+Using `data/league.json`: a standings table for the sample league (wins, losses, points for), a week picker, and for past weeks a finished matchup card with the final score and a "Watch the recap" button that is disabled with the reason when there is no game file for that week. Ask Ricky to add two finished past weeks to `data/league.json` if they are not there: `sh tools/post.sh ASK "ricky: ..."`.
+
+## Task B17: one look for the whole app
+
+Write the app's design rules into `docs/` through an ASK to the boss (colors, type scale, spacing, the three button kinds, the two card kinds), then make every screen follow them: the same spacing steps, the same heading sizes, the same card edges, no one-off colors. The look is a dark scoreboard: modern, tough, not cute. List every screen you changed in your DONE post.
