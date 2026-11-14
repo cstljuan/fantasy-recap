@@ -420,9 +420,82 @@
     revealClose();
   });
 
+  // Announcer style switch, Straight or Fun, under the speed control. It calls
+  // FF_ANNOUNCER.setStyle and is saved under fr.style. Only built when the announcer is loaded.
+  var ANN = window.FF_ANNOUNCER, STYLE_KEY = 'fr.style';
+  var STYLE_NAMES = [['straight', 'Straight'], ['fun', 'Fun']];
+  var styleEl = null;
+  function markStyle() {
+    if (!styleEl) return;
+    Array.prototype.forEach.call(styleEl.children, function (b) {
+      b.setAttribute('aria-pressed', String(b.getAttribute('data-style') === ANN.style));
+    });
+  }
+  if (ANN && ANN.setStyle) {
+    styleEl = document.createElement('div');
+    styleEl.className = 'speed voice';
+    styleEl.setAttribute('role', 'group');
+    styleEl.setAttribute('aria-label', 'Announcer style');
+    styleEl.hidden = true;
+    styleEl.innerHTML = STYLE_NAMES.map(function (n) {
+      return '<button type="button" data-style="' + n[0] + '">' + n[1] + '</button>';
+    }).join('');
+    $('closeGame').parentNode.appendChild(styleEl);
+    try { var savedStyle = window.localStorage.getItem(STYLE_KEY); if (savedStyle) ANN.setStyle(savedStyle); } catch (err) { /* storage may be off */ }
+    markStyle();
+    styleEl.addEventListener('click', function (ev) {
+      var b = ev.target.closest ? ev.target.closest('[data-style]') : null;
+      if (!b) return;
+      ANN.setStyle(b.getAttribute('data-style'));
+      try { window.localStorage.setItem(STYLE_KEY, ANN.style); } catch (err) { /* storage may be off */ }
+      markStyle();
+      revealClose();
+    });
+  }
+
+  // Captions: one line at the bottom of the game view with what the announcer just said.
+  // It sits in the band past the end line, so it stays clear of the players and their names.
+  var capEl = document.createElement('div');
+  capEl.className = 'captions';
+  capEl.setAttribute('aria-live', 'polite');
+  capEl.hidden = true;
+  $('closeGame').parentNode.appendChild(capEl);
+  function showCaption(text) {
+    if (text && typeof text === 'object') text = text.text || text.line || '';
+    if (!text) return;
+    var span = document.createElement('span');
+    span.textContent = String(text);
+    capEl.textContent = '';
+    capEl.appendChild(span);
+    capEl.title = span.textContent;
+    capEl.hidden = false;
+    // A line longer than the strip scrolls sideways once so it can be read to the end.
+    var over = span.scrollWidth - (capEl.clientWidth - 20);
+    if (over > 0) {
+      span.style.setProperty('--shift', -over + 'px');
+      span.style.animationDuration = Math.max(2.5, over / 45 + 1.5) + 's';
+      span.className = 'scroll';
+    }
+  }
+  function clearCaption() { capEl.textContent = ''; capEl.hidden = true; }
+  // FF_ANNOUNCER.onLine (task C3) hands over the exact line that was said. Until it is on
+  // main, the app asks FF_ANNOUNCER.line itself, which can pick a different wording than the voice.
+  var hasOnLine = !!(ANN && typeof ANN.onLine === 'function');
+  if (hasOnLine) ANN.onLine(showCaption);
+  function captionFor(type, d) {
+    if (type === 'reset') { clearCaption(); return; }
+    if (hasOnLine || !ANN || !ANN.line) return;
+    try {
+      if (type === 'result') showCaption(ANN.line(d.res, { teams: TEAMS, score: d.res.post.score, style: ANN.style }));
+      else if (type === 'half' || type === 'final') showCaption(ANN.line({ kind: type }, { teams: TEAMS, score: m.field.slice(), style: ANN.style }));
+    } catch (err) { /* captions are optional */ }
+  }
+
   function setControls(on) {
     $('closeGame').hidden = !on;
     speedEl.hidden = !on;
+    if (styleEl) styleEl.hidden = !on;
+    markStyle();
   }
 
   var closeTimer = 0;
@@ -494,6 +567,7 @@
     else if (type === 'half') { m.feed.push({ divider: 'Halftime' }); m.now = 'Halftime'; }
     else if (type === 'final') { m.status = 'final'; m.now = ''; }
     syncFloaters();
+    captionFor(type, d);
     if (!inGame) render(type === 'result');
   });
 
@@ -505,6 +579,7 @@
     get optin() { return optin; },
     get masked() { return masked(); },
     get paused() { return paused(); },
+    get caption() { return capEl.hidden ? '' : capEl.textContent; },
     totals: function () { return [f1(total(0)), f1(total(1))]; }
   };
 

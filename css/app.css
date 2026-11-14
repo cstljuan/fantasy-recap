@@ -207,6 +207,19 @@ h2 { margin: 0; font: 700 11px/1 var(--body); letter-spacing: 0.14em; text-trans
 .speed button + button { border-left: 1px solid rgba(255, 255, 255, 0.35); }
 .speed button[aria-pressed="true"] { background: #fff; color: #111; }
 
+.speed.voice { top: 96px; }
+.captions { position: absolute; left: 8px; right: 8px; bottom: 4px; max-height: 32px; padding: 7px 10px;
+            background: rgba(8, 14, 10, 0.88); border: 1px solid rgba(255, 255, 255, 0.6); border-radius: 2px; color: #fff;
+            font: 600 13px/1.3 var(--body); white-space: nowrap; overflow: hidden; pointer-events: none; }
+.captions span { display: inline-block; }
+.captions span.scroll { animation: capscroll linear forwards; }
+@keyframes capscroll { 0%, 20% { transform: translateX(0); } 90%, 100% { transform: translateX(var(--shift)); } }
+@media (prefers-reduced-motion: reduce) {
+  .captions { text-overflow: ellipsis; }
+  .captions span { display: inline; }
+  .captions span.scroll { animation: none; }
+}
+
 /* --------------------------------------------------------------- larger */
 
 @media (min-width: 760px) {
