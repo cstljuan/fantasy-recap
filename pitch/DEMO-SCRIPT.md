@@ -34,8 +34,8 @@ Notes: the voice only speaks at 2x or slower (it is quiet at 4x), which is why t
 
 - Say "invented stat lines for real players". The stat lines and every play are made up; the player names are real.
 - One viewer, one device, no accounts. The opt-in is kept in the browser.
-- The database schema runs on a real Tiger Data database, but the app does not use it. Say "next", not "built in".
-- Soccer is a separate page, not connected to the app.
-- Profiles exist but every tendency is empty today. Only say the **(if ready)** line if that changes.
-- Not part of this demo today, all **(if ready)**: the spoken pre-game intro, halftime report and full-time wrap; the kickoff and final jingles; a sport switch that changes the game to soccer. They are written but not connected to the game view yet.
+- The database schema runs on a real Tiger Data database, but the app plays from a file and reads nothing from it (the opt-in goes to the service only when the page is opened with `?api=`, which this demo does not do). Say "next", not "built in".
+- Soccer is reachable from the sport switch in the header and plays a full match built by its own match maker from invented lines. Jev was not used for soccer.
+- The profiles now hold real season tendencies and recent form, and the Lineups screen shows hot, cold or steady marks from them. But the game was built before they were filled, so they do not shape the calls: do not say the **(if ready)** line until a game is rebuilt with them.
+- Now in the game view: the spoken pre-game intro, halftime report and full-time wrap, and the kickoff and final jingles. Still not in the app: the announcer's tendency and hot or cold remarks (the game view does not pass the profiles to it), and any ElevenLabs audio (nothing has been rendered; the voice is the browser's).
 - The voice and crowd were checked by scripts, not by ear on the demo machine. Rehearse once with sound on.

@@ -24,7 +24,7 @@ Draft by Noah's session, 2026-11-14. Every shot uses only what is on `main` toda
 | 8 | 0:42 | Back to the game and switch to 4x. The second half flies by: Nabers for 37, Robinson's touchdown run, Robinson's fumble, Allen's interception. | No voice at 4x. The crowd swells on the 37 yard catch, roars on the touchdown and groans on the fumble and the interception. | 6 s |
 | 9 | 0:48 | The FINAL box: Goblins 17, Pythons 14. Tap it. | The crowd stops, the full-time jingle (`jingle_final`, about 4 seconds), and the wrap if the speed is back at 2x or below, for example "It ends Goblins 17, Pythons 14. The Goblins won it on Allen to Chase for 24." | 5 s |
 | 10 | 0:53 | The recap: "Gridiron Goblins WIN", 47.8 to 43.1, top performers, then tap Share result. | The end of the jingle. | 5 s |
-| 11 | 0:58 | Tap Soccer in the header for one second to show the second sport is coming. | Nothing. | 2 s |
+| 11 | 0:58 | Tap Soccer in the header for one second to show the second sport. | Nothing. | 2 s |
 
 Total: 60 seconds.
 
@@ -35,5 +35,5 @@ Switch back to 1x or 2x a few plays before the end, so the announcer says the fi
 ## What not to show or say
 
 - Do not call the result real. The stat lines are invented for real player names (see `REAL-AND-SIMULATED.md`).
-- Soccer is a separate page today. Show the switch only, or say it is in progress.
+- Soccer is reachable from the sport switch and plays a full match built from invented lines. Show the switch only; it is not in the one-minute cut.
 - The database is not used by the app yet. Leave it out of the video.
