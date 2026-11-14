@@ -158,3 +158,11 @@ The soccer rosters (D7) have real names but their profiles have no real numbers.
 ## Task D28: the service under load and bad input
 
 `server/stress.js` (node, no database needed, same fake database as `server/test.js`): pushes a football game and a soccer match, reads every route back, then sends bad input to every route (wrong types, huge bodies, missing fields, odd ids, SQL in strings, unknown sport) and 200 quick requests at once. It reports any 500, any crash, any answer over one second, and any route that answers without the CORS rule. Fix what it finds in `server/`. Add it to your one command (D25).
+
+## Task D29: proof that the game reproduces the stat lines
+
+The pitch says the engine builds a legal game that reproduces every player's stat line. Prove it as a check: `data/checks/game-vs-lines.js` replays each file in `data/games/` through `js/rules.js` (read only), sums every player's passing, rushing, receiving, kicking and defense numbers and fantasy points from the plays, and compares them with the stat lines the game was built from (the game file's own report or source lines; say which). It prints one line per player with any difference, and OK only when all agree. Add it to `data/checks/all.js`. If a game file does not agree, do not edit it: post `ASK "boss: ..."` with the differences.
+
+## Task D30: story data (with Peyton)
+
+One call that gives a game's turning points, for Peyton's written recap (B27): `GET /games/:id/story` from the service and the same function from a game file, usable in the browser like your top plays module. It returns the lead changes with the play that caused each, the longest drive, the biggest swing in momentum (D21), each team's best fantasy player with points, and the play that decided the game, each with the play index so the screen can jump to it. Numbers only, no sentences. Add it to the service test. Post `NOTE "peyton: ..."` with the function, the script tag she needs and the shape.
