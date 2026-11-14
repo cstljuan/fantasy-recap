@@ -101,3 +101,7 @@ If a host or a key is refused in your session: do not ask your person. Post `ASK
 ## Task D14: the service, finished
 
 In `server/`: `POST /games/:id/optin` and `GET /games/:id/optins` using the `optins` table; `server/push-game.js`, run with node, that reads a game file from `data/games/`, replays it with `js/rules.js`, and sends every play to the service with the time it happened in the game, the fantasy points and the `why`; answers for a browser on another port (CORS for `http://localhost:*`); and a `GET /health` that says whether the database answers. Extend `server/test.js` for all of it.
+
+## Task D15: one scoring truth (with Peyton)
+
+`js/rules.js` is the scoring the game is built on: read it and make `data/scoring.json` say exactly the same thing (points per yard, per touchdown, field goals by distance, extra points, interceptions, lost fumbles, the defense's sacks and takeaways, and that receptions score nothing). Update `agents/scout/score.js` and its check so the points it computes for the sample game equal the points `node engine/make-game.js --from-sample --no-jev` reports. Post a NOTE to peyton with the final shape.
