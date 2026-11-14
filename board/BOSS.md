@@ -74,6 +74,9 @@ Run `sh tools/next.sh` to get your next task with its full description. A row is
 | C26 | C | nexodv | The spoken recap: the story of the game read by the announcer after the reveal, with Ricky and Peyton | open |
 | C27 | C | nexodv | Say it right: how the voice reads names, downs, scores and numbers, with a check | open |
 | D31 | D | Rickstar-App | Watch party relay in the service: a room code, the remote's commands, the screen's state, with Peyton | open |
+| D32 | D | Rickstar-App | Honesty pass two: README, every file in `pitch/` and the screens' own labels against main as it is tonight | open |
+| D33 | D | Rickstar-App | The league from the service: standings, who has opted in, and each week's results, with Peyton | open |
+| D34 | D | Rickstar-App | A third and fourth matchup that are real: Turtles and Owls rosters, profiles and a week of lines, so the league home has two full games | open |
 | D1 | D | Rickstar-App | Real rosters and profile files | merged |
 | D2 | D | Rickstar-App | Database schema | merged |
 | D4 | D | Rickstar-App | A week of stat lines for both rosters | merged |
@@ -224,6 +227,7 @@ The boss reviews every DONE before it reaches main: the authors check, the lane 
 - Merged after review: B25, B26, C23, D27. All checks and the three full-game runs passed
 - Ricky's boss round (16:30 Eastern): merged B25, B26, C23, D27. Checks and the three full-game runs passed. The boss opened the app at 375 wide in headless Chromium: league, matchup, lineups (with the form marks), plays, recap and 20 seconds of demo mode, no errors and nothing broken to the eye.
 - Merged after review: B27, D28, D29, D30. All checks and the three full-game runs passed
+- Ricky's boss round (16:40 Eastern): merged B27, D28, D29, D30. Checks and the three full-game runs passed; `node data/checks/all.js --quick` OK, which now includes the stress test and the proof that both game files reproduce their stat lines exactly (D29). Not looked at by the boss: the written story on screen.
 - D1 real rosters and profile files, D2 database schema (Ricky) are on main; `data/games/sample-football.json` now has the real rosters
 
 ## Decisions
