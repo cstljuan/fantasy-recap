@@ -6,7 +6,7 @@ Two sports are in the build: football and soccer.
 
 | Lane | Person | GitHub | Owns |
 |---|---|---|---|
-| A. Boss and football game maker | Juan's lead session | `cstljuan` | `js/main.js`, `js/rules.js`, `js/plays.js`, `js/sprites.js`, `engine/`, `tools/`, `data/games/`, `docs/`, `board/BOSS.md`, `index.html`, every file at the root, `.claude/`, `.github/`, `.githooks/` |
+| A. Boss and football game maker | Juan's lead session | `cstljuan` | `js/main.js`, `js/rules.js`, `js/plays.js`, `js/sprites.js`, `engine/`, `tools/`, `data/games/`, `docs/`, `board/BOSS.md`, `handoffs/`, `index.html`, every file at the root, `.claude/`, `.github/`, `.githooks/` |
 | S. Soccer | Juan | `cstljuan` | `soccer/` (the whole soccer game: field, players, rules, plays, data) |
 | B. Reveal flow and screens | Peyton | `Peypey-ryd` | `js/app.js`, `js/screens/`, `css/` |
 | C. Announcer and sound | Noah | `nexodv` | `js/audio.js`, `js/announcer/` |
