@@ -304,6 +304,31 @@
       '</div></div>';
   }
 
+  // The reveal: the winner, shown large, opens the recap after the final.
+  // Fantasy points decide the winner. Watch again replays the game and keeps the opt in choice.
+  function winnerHero() {
+    var p0 = Number(f1(total(0))), p1 = Number(f1(total(1)));
+    var w = p0 === p1 ? -1 : p0 > p1 ? 0 : 1;
+    var head = w < 0
+      ? '<div class="hero-id"><div class="hero-name">It is a tie</div></div>'
+      : '<div class="hero-id"><img class="sprite" src="' + marks[w] + '" alt="">' +
+          '<div class="hero-name">' + esc(TEAMS[w].full) + '<span>win</span></div></div>';
+    var keep = optin === 'in' ? '<p class="hero-keep">Your score stays hidden again on the replay.</p>' : '';
+    return '<div class="board hero" style="--c: var(--t' + (w < 0 ? 0 : w) + ')">' +
+      '<div class="board-top"><span class="eyebrow">' + esc(WEEK) + ' result</span>' + statusChip() + '</div>' +
+      head +
+      '<div class="hero-score">' +
+        '<div style="--c: var(--t0)"><span class="num">' + f1(total(0)) + '</span><span class="eyebrow">' + esc(TEAMS[0].name) + '</span></div>' +
+        '<div style="--c: var(--t1)"><span class="num">' + f1(total(1)) + '</span><span class="eyebrow">' + esc(TEAMS[1].name) + '</span></div>' +
+      '</div>' +
+      '<div class="field"><span class="eyebrow">On the field</span>' +
+        '<span class="fs">' + TEAMS[0].id + '<b>' + m.field[0] + '</b></span>' +
+        '<span class="fs">' + TEAMS[1].id + '<b>' + m.field[1] + '</b></span>' +
+        '<span class="sit">Full time</span></div>' +
+      '<div class="actions">' + watchButton() + keep + '</div>' +
+      '</div>';
+  }
+
   function renderRecap() {
     if (m.status !== 'final') {
       return '<div class="narrow"><div class="panel">' +
@@ -319,7 +344,7 @@
     var scores = m.feed.filter(function (p) { return p.scoring; });
     var a = m.team[0], b = m.team[1];
     function line(x, label, y) { return '<tr><td>' + x + '</td><td>' + label + '</td><td>' + y + '</td></tr>'; }
-    return board(watchButton(), WEEK + ' result') +
+    return winnerHero() +
       '<div class="grid two">' +
         '<div class="panel"><div class="panel-head"><h2>Top performers</h2></div>' +
           top.map(function (p, i) { return playerRow(p.t, p.role, i + 1); }).join('') + '</div>' +
