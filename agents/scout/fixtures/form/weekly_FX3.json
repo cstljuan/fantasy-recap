@@ -1,0 +1,6 @@
+{ "1": { "stats": { "gp": 1, "rec": 5, "rec_yd": 50, "rec_tgt": 8 } },
+  "2": { "stats": { "gp": 1, "rec": 5, "rec_yd": 50, "rec_tgt": 8 } },
+  "3": { "stats": { "gp": 1, "rec": 5, "rec_yd": 50, "rec_tgt": 8 } },
+  "4": { "stats": { "gp": 1, "rec": 4, "rec_yd": 80, "rec_tgt": 5, "rec_rz_tgt": 1 } },
+  "5": { "stats": { "gp": 1, "rec": 4, "rec_yd": 80, "rec_tgt": 5, "rec_rz_tgt": 1 } },
+  "6": { "stats": { "gp": 1, "rec": 4, "rec_yd": 80, "rec_tgt": 5, "rec_rz_tgt": 1 } } }

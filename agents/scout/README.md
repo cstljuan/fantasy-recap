@@ -66,3 +66,21 @@ python3 agents/scout/check_statlines.py   # offline check, no network, no key, n
 - A player who played but has no listing for a stat gets 0 for it. A player with no entry for that week, or a name the source does not know, gets `null` for every field and appears in `unresolved`. Nothing is guessed.
 - Defense is not read: those five fields are `null`, because the roster defenses are made up and not real NFL teams. The game maker does not read stat lines from this file yet, so check that before relying on it.
 - Not run against the live source yet, same reason as Scout above. The samples in `fixtures/week5/` are hand-written.
+
+## Recent form
+
+```bash
+python3 agents/scout/form.py          # live, no model, no key
+python3 agents/scout/check_form.py    # offline, fixtures in fixtures/form/
+```
+
+For each roster player it reads `weekly_stats`, takes the last league week with any stats (or `--latest`), walks back to the last three weeks the player played, adds those weeks up and computes the same tendencies with the same formulas as the season ones. It adds `players.<slot>.form` to `data/profiles/<team>.json` and changes no other field:
+
+```
+form = { tendencies: { same keys as tendencies, 0 to 1 or null },
+         tendency_sources: { key: { source, date, how, weeks } },
+         weeks: [weeks used, oldest first], skipped_weeks: [weeks with no stats in the span searched],
+         source, date, notes }
+```
+
+A week with no stats is a bye, an injury or a game not played yet; the source does not say which, so the file does not either. Three weeks is a small sample: a kicker with three attempts can swing from 0 to 1. The summed weekly numbers are in `data/rosters/form-2026.json`, and each run's steps are in `agents/scout/runs/`.
