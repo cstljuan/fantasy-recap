@@ -4,24 +4,26 @@ Scout is a research agent built with LangChain's `deepagents` package (version 0
 
 ## Status: read this first
 
-- The tools were run live on 2026-11-14 against `api.sleeper.app` and `api.sleeper.com`: all 14 players resolved and the stat names the formulas use (`pass_att`, `rec_rz_tgt`, `rush_rz_att`, `fgm_40_49`, `fgm_50p` and the rest) exist in the responses. `api.sleeper.app/v1/state/nfl` reported season 2026, week 10.
-- `python3 agents/scout/fill_profiles.py` called the same tools in a fixed order, with **no model**, and filled the real tendencies in `data/profiles/GOB.json`, `PYT.json` and `data/rosters/season-2026.json`. That is not the agent.
-- **The deepagents agent (`scout.py`) has still not run for real**: this session has no model key. Its wiring passed the offline checks (`check.py`, `check_agent.py`) only. A research log from a model-driven run does not exist yet.
-- ESPN's public JSON (`site.api.espn.com`) answered when tested, but nothing in Scout reads it. Sleeper is the only source in use.
+What ran for real and what did not (2026-11-14):
 
-## Install and run
+- **Ran for real, no model:** the tools against `api.sleeper.app` and ESPN's public JSON (14 and then 28 players resolved), `fill_profiles.py`, `form.py`, `plays.py` (116 games), `research.py` (reports written by fixed rules), and `python3 agents/scout/scout.py --preflight`, which reached both Sleeper and ESPN from this session.
+- **Ran offline with a scripted stand-in model:** the whole team through the real deepagents graph (`check_agent_team.py`, `check_agent.py`) and the readiness and guard checks (`check_scout_ready.py`). These prove the wiring, not that a real model plans well.
+- **Did not run: the deepagents team with a real model.** No model key was available in the sessions that built it. There is no research log from a model-driven run, no report in `data/profiles/notes/*-report.md` says "made by model", and the default model names (`gemini-2.5-flash`, `claude-sonnet-5-5`) have never been called from here. The first real run may show prompt problems this offline work cannot.
 
-```bash
-python3 -m venv .venv && . .venv/bin/activate
-pip install -r agents/scout/requirements.txt
-```
-
-Set a model key in the environment only, never in a file. `GOOGLE_API_KEY` (Gemini) is used if set, otherwise `ANTHROPIC_API_KEY`. `SCOUT_MODEL` overrides the model name (defaults: `gemini-2.5-flash`, `claude-sonnet-5-5`, both unverified names). `SCOUT_SEASON` sets the season (default 2026).
+## One command
 
 ```bash
-python3 agents/scout/scout.py --dry-run   # builds the agent, makes no model call
-python3 agents/scout/scout.py             # the real run
+export ANTHROPIC_API_KEY=...        # or GOOGLE_API_KEY; in your shell only, never in a file
+sh agents/scout/run.sh              # makes .venv, installs requirements, checks, runs all 28 players
+sh agents/scout/run.sh --players GOB.QB,GOB.WR1   # a few players first (recommended for the first run)
+sh agents/scout/run.sh --preflight  # only checks that a run could start
 ```
+
+`GOOGLE_API_KEY` (Gemini) is used if set, otherwise `ANTHROPIC_API_KEY`. `SCOUT_MODEL` overrides the model name; `SCOUT_SEASON` sets the season (default 2026). `python3 agents/scout/scout.py --dry-run` builds the agent and makes no model call.
+
+Before any model call it checks: the packages, a model key, `data/rosters/plays-2026.json`, `node`, and that Sleeper and ESPN answer. Each problem is printed as `NOT READY: <what, and the command that fixes it>` and the exit code is 2. If the model or network fails during the run, it prints `STOPPED: <plain reason>` (key refused, model name not accepted, network failed, rate limit), writes the same line to the log and exits 3. Any other error shows its traceback.
+
+Sources: every claim in a report must cite real plays. `write_report` refuses a claim with no evidence, and refuses any play that is not exactly one of the player's real plays from `plays-2026.json`. The written report lists each cited play with a link to its ESPN game. Tendencies in the profiles carry the Sleeper address, date and formula per number.
 
 ## What it writes
 
@@ -49,6 +51,8 @@ These scalings (12 and 20) are my own choices, not league facts.
 ```bash
 python3 agents/scout/check.py          # tools only, no network, no key, no packages
 python3 agents/scout/check_agent.py    # same tools through the real deepagents graph with a scripted model (needs the packages)
+python3 agents/scout/check_agent_team.py   # main agent, film-room and fact-checker through the graph; a made-up play is refused
+python3 agents/scout/check_scout_ready.py  # readiness errors, the three subagents' tools, the evidence guard
 ```
 
 `check.py` reads the samples in `fixtures/`. They are made up (fake players, fake numbers) and follow the shape expected from Sleeper, which was not confirmed against a live response. `check_agent.py` proves the tools are callable by an agent, not that a real model plans well.
