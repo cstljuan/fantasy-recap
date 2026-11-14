@@ -710,37 +710,120 @@
 
   // League home: this week's matchups in a small sample league, ours first.
   // The other teams are invented for the demo; only our matchup has a game to watch.
-  var RELEASE = 'Recap drops Tuesday';
-  var OTHER_MATCHUPS = [
-    { teams: [{ full: 'Turbo Turtles', tile: '#2f8f6b' }, { full: 'Midnight Owls', tile: '#4a5bd0' }], optedIn: true }
-  ];
+  // League home and the season. data/league.json (Ricky) has the sample league: this
+  // week's matchups, finished past weeks and the standings. Without it (opened from a
+  // file, or the fetch fails) the screen shows this week from the built-in sample.
+  var leagueData = null, weekSel = 0;
+  var FALLBACK_LEAGUE = {
+    week: 11, release: { text: 'Recap drops Tuesday' },
+    matchups: [
+      { ours: true },
+      { ours: false, teams: [{ id: 'TUR', full: 'Turbo Turtles', tile: '#2f8f6b' }, { id: 'OWL', full: 'Midnight Owls', tile: '#4a5bd0' }], optedIn: ['TUR', 'OWL'] }
+    ]
+  };
+  function validLeague(d) {
+    return !!(d && typeof d.week === 'number' && Array.isArray(d.matchups) && d.matchups.every(function (x) { return x.ours || (Array.isArray(x.teams) && x.teams.length === 2); }));
+  }
+  if (window.fetch) {
+    fetch('data/league.json').then(function (r) { return r.ok ? r.json() : null; }).then(function (d) {
+      if (!validLeague(d)) return;
+      leagueData = d;
+      if (tab === 'league' && !inGame) render(false);
+    }).catch(function () { /* the built-in sample stays */ });
+  }
+  function league() { return leagueData || FALLBACK_LEAGUE; }
+  function releaseText() { var L = league(); return (L.release && L.release.text) || 'Recap drops Tuesday'; }
+  function pastWeeks() {
+    return ((leagueData && leagueData.weeks) || []).filter(function (w) { return w.finished && Array.isArray(w.matchups); });
+  }
 
   function leagueTeam(name, tile, sprite) {
     return '<div class="lg-team">' +
-      (sprite ? '<img class="sprite" src="' + sprite + '" alt="">' : '<span class="tile" style="--c: ' + tile + '">' + esc(name.charAt(0)) + '</span>') +
+      (sprite ? '<img class="sprite" src="' + sprite + '" alt="">' : '<span class="tile" style="--c: ' + esc(tile || '#444') + '">' + esc(String(name).charAt(0)) + '</span>') +
       '<span class="team-name">' + esc(name) + '</span></div>';
   }
   function optMark(on) {
     return on ? '<span class="lg-mark is-on">Opted in</span>' : '<span class="lg-mark">Not opted in</span>';
   }
+  function myLeagueId() { return me >= 0 ? TEAMS[me].id : ''; }
 
-  function renderLeague() {
-    var ours = '<a class="panel lg-match is-ours" href="#matchup">' +
+  function oursCard() {
+    return '<a class="panel lg-match is-ours" href="#matchup">' +
       '<div class="lg-top"><span class="eyebrow">Your matchup</span>' + statusChip() + '</div>' +
       '<div class="lg-teams">' + ord().map(function (t) { return leagueTeam(TEAMS[t].full + (t === me ? ' (you)' : ''), '', marks[t]); }).join('<span class="lg-vs">vs</span>') + '</div>' +
-      '<div class="lg-foot">' + optMark(optin === 'in') + '<span class="lg-drop">' + RELEASE + '</span><span class="lg-go">Open</span></div>' +
+      '<div class="lg-foot">' + optMark(optin === 'in') + '<span class="lg-drop">' + esc(releaseText()) + '</span><span class="lg-go">Open</span></div>' +
       '</a>';
-    var others = OTHER_MATCHUPS.map(function (x) {
-      return '<div class="panel lg-match">' +
-        '<div class="lg-teams">' + leagueTeam(x.teams[0].full, x.teams[0].tile) + '<span class="lg-vs">vs</span>' + leagueTeam(x.teams[1].full, x.teams[1].tile) + '</div>' +
-        '<div class="lg-foot">' + optMark(x.optedIn) + '<span class="lg-drop">' + RELEASE + '</span></div>' +
-        '</div>';
+  }
+  function otherCard(x) {
+    var all = Array.isArray(x.optedIn) && x.teams.every(function (t) { return x.optedIn.indexOf(t.id) >= 0; });
+    return '<div class="panel lg-match">' +
+      '<div class="lg-teams">' + leagueTeam(x.teams[0].full, x.teams[0].tile) + '<span class="lg-vs">vs</span>' + leagueTeam(x.teams[1].full, x.teams[1].tile) + '</div>' +
+      '<div class="lg-foot">' + optMark(all) + '<span class="lg-drop">' + esc(releaseText()) + '</span></div>' +
+      '</div>';
+  }
+  // A finished week: final scores, the winner, and Watch the recap when there is a game for it.
+  function finishedCard(x, wk) {
+    var f = Array.isArray(x.final) ? x.final : null;
+    var win = f ? (f[0] === f[1] ? -1 : f[0] > f[1] ? 0 : 1) : -1;
+    var mine = myLeagueId();
+    var rows = x.teams.map(function (t, i) {
+      return '<div class="lg-final' + (i === win ? ' is-win' : '') + (t.id === mine ? ' is-mine' : '') + '">' +
+        leagueTeam(t.full, t.tile) +
+        '<span class="num">' + (f ? f1(f[i]) : '--') + '</span>' + (i === win ? '<span class="won">Win</span>' : '') + '</div>';
     }).join('');
+    var playable = x.gameFile && /week11-football\.json$/.test(x.gameFile);
+    var why = x.gameFile ? 'The app plays one game file at a time, and it is not this one.' : 'No game file for week ' + wk + '. Only the final scores were kept.';
+    var btn = playable
+      ? '<a class="cta ghost" href="#recap">Watch the recap</a>'
+      : '<button type="button" class="cta ghost" disabled aria-describedby="why-' + wk + '-' + esc(x.teams[0].id) + '">Watch the recap</button>' +
+        '<p class="lg-why" id="why-' + wk + '-' + esc(x.teams[0].id) + '">' + esc(why) + '</p>';
+    return '<div class="panel lg-match is-final">' +
+      '<div class="lg-top"><span class="eyebrow">Week ' + wk + ', final</span></div>' +
+      '<div class="lg-finals">' + rows + '</div>' +
+      '<div class="lg-foot lg-watch">' + btn + '</div></div>';
+  }
+
+  function standingsTable() {
+    var rows = (leagueData && leagueData.standings) || [];
+    if (!rows.length) return '';
+    var mine = myLeagueId();
+    return '<div class="panel lg-standings"><div class="panel-head"><h2>Standings</h2><span class="lg-count">after ' + pastWeeks().length + ' weeks</span></div>' +
+      '<table class="standings"><thead><tr><th scope="col">Team</th><th scope="col">W</th><th scope="col">L</th><th scope="col">Points for</th></tr></thead><tbody>' +
+      rows.map(function (r, i) {
+        return '<tr' + (r.id === mine ? ' class="is-mine"' : '') + '><th scope="row"><span class="rank">' + (i + 1) + '</span>' + esc(r.full) + (r.id === mine ? ' (you)' : '') + '</th>' +
+          '<td class="num">' + r.wins + '</td><td class="num">' + r.losses + '</td><td class="num">' + f1(r.pointsFor) + '</td></tr>';
+      }).join('') + '</tbody></table></div>';
+  }
+
+  function weekPicker() {
+    var weeks = pastWeeks().map(function (w) { return w.week; });
+    var cur = league().week;
+    if (weeks.indexOf(cur) < 0) weeks.push(cur);
+    if (weeks.length < 2) return '';
+    return '<div class="lg-weeks" role="group" aria-label="Week">' + weeks.map(function (n) {
+      return '<button type="button" data-act="week" data-w="' + n + '" aria-pressed="' + (n === weekSel) + '">Week ' + n + (n === cur ? ', now' : '') + '</button>';
+    }).join('') + '</div>';
+  }
+
+  function renderLeague() {
+    var L = league();
+    if (!weekSel) weekSel = L.week;
+    var body, count;
+    if (weekSel === L.week) {
+      var others = L.matchups.filter(function (x) { return !x.ours; });
+      body = oursCard() + others.map(otherCard).join('');
+      count = (1 + others.length) + ' matchups, 4 teams';
+    } else {
+      var wk = pastWeeks().filter(function (w) { return w.week === weekSel; })[0];
+      body = wk ? wk.matchups.map(function (x) { return finishedCard(x, wk.week); }).join('') : '<div class="empty">Nothing for this week.</div>';
+      count = 'Finished';
+    }
     return '<div class="narrow">' +
-      '<div class="lg-head"><h2>' + esc(WEEK) + ' matchups</h2><span class="lg-count">' + (1 + OTHER_MATCHUPS.length) + ' matchups, 4 teams</span></div>' +
-      ours + others +
-      '<p class="note" style="border:0;margin-top:14px">Sample league. Each recap is released on Tuesday, after the week is over. ' +
-      'Only your matchup has a game to watch in this demo.</p>' +
+      weekPicker() +
+      '<div class="lg-head"><h2>Week ' + weekSel + ' matchups</h2><span class="lg-count">' + count + '</span></div>' +
+      body + standingsTable() +
+      '<p class="note" style="border:0;margin-top:14px">Sample league, made up for the demo: the other teams, past scores and standings are invented. ' +
+      'Each recap is released on Tuesday, after the week is over. Only your week ' + L.week + ' matchup has a game to watch.</p>' +
       '</div>';
   }
 
@@ -1079,6 +1162,7 @@
     else if (act === 'filter') { filter = el.getAttribute('data-f'); render(false); }
     else if (act === 'optin') { setOptin(el.getAttribute('data-v') === 'in' ? 'in' : 'out'); render(false); }
     else if (act === 'share') { shareResult(el); }
+    else if (act === 'week') { weekSel = Number(el.getAttribute('data-w')); render(false); }
     else if (act === 'film') {
       filmSel = Number(el.getAttribute('data-n'));
       render(false);
