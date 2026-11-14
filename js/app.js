@@ -52,10 +52,15 @@
   function setOptin(v) {
     optin = v;
     try { window.localStorage.setItem(OPTIN_KEY, v); } catch (err) { /* storage may be off */ }
+    syncFloaters();
   }
   // True while every fantasy number and stat line must stay masked.
   function masked() { return optin === 'in' && m.status !== 'final'; }
   function pts1(n) { return masked() ? MASK : f1(n); }
+  // The point numbers that float up on the field follow the same rule.
+  function syncFloaters() { if (G.setFloaters) G.setFloaters(!masked()); }
+  // The game only advances while its view is open, unless it was told to run in the background.
+  function paused() { return m.status === 'live' && !inGame && !G.background; }
 
   function blank() {
     var o = {
@@ -168,6 +173,7 @@
   // ------------------------------------------------------------ pieces
 
   function statusChip() {
+    if (paused()) return '<span class="status is-paused"><i></i>Paused</span>';
     if (m.status === 'live') return '<span class="status is-live"><i></i>Live</span>';
     if (m.status === 'final') return '<span class="status is-final"><i></i>Final</span>';
     return '<span class="status"><i></i>Pregame</span>';
@@ -183,7 +189,8 @@
   }
 
   function board(actions, label) {
-    var sit = m.status === 'pre' ? 'Kicks off when you start watching' : m.status === 'final' ? 'Full time' : esc(m.now);
+    var sit = m.status === 'pre' ? 'Kicks off when you start watching' : m.status === 'final' ? 'Full time'
+            : paused() ? 'Paused' + (m.now ? ', ' + esc(m.now) : '') : esc(m.now);
     return '<div class="board">' +
       '<div class="board-top"><span class="eyebrow">' + esc(label) + '</span>' + statusChip() + '</div>' +
       '<div class="sides">' + side(0, m.status === 'final') + side(1, m.status === 'final') + '</div>' +
@@ -227,7 +234,7 @@
 
   function watchButton(cls) {
     return '<button type="button" class="cta' + (cls || '') + '" data-act="' + (m.status === 'final' ? 'again' : 'watch') + '">' +
-      (m.status === 'final' ? 'Watch again' : 'Watch the game') + '</button>';
+      (m.status === 'final' ? 'Watch again' : m.status === 'live' ? 'Keep watching' : 'Watch the game') + '</button>';
   }
 
   // The opt in card shows on the matchup screen before kickoff, until a choice is made.
@@ -294,7 +301,7 @@
       return '<button type="button" data-act="filter" data-f="' + id + '" aria-pressed="' + (filter === id) + '">' + label + '</button>';
     }
     var none = m.status === 'pre' ? 'Plays show up here once the game kicks off.'
-             : filter === 'scoring' ? 'No scoring plays yet.' : filter === 'flags' ? 'No penalties yet.' : 'Waiting for the first play.';
+             : filter === 'scoring' ? 'No scoring plays yet.' : filter === 'flags' ? 'No penalties yet.' : paused() ? 'Paused before the first play. Keep watching to see it.' : 'Waiting for the first play.';
     return '<div class="narrow">' +
       '<div class="filters">' + btn('all', 'All') + btn('scoring', 'Scoring') + btn('flags', 'Penalties') +
         '<span class="count">' + m.done + ' of ' + G.plays + ' plays</span></div>' +
@@ -335,6 +342,7 @@
         '<div class="panel-head"><h2>Recap</h2>' + statusChip() + '</div>' +
         '<div class="empty">' + (masked() ? 'Scores are hidden. Watch the game to find out.'
                                          : 'The recap is ready at the final whistle: final score, top performers and every scoring play.') +
+        (paused() ? ' The game is paused while you are away, so you will not miss a play.' : '') +
         '<div class="progress"><i style="width:' + Math.round(100 * m.done / G.plays) + '%"></i></div>' +
         '<div style="margin-top:8px;font-size:12px">' + m.done + ' of ' + G.plays + ' plays so far</div></div>' +
         '<div class="actions">' + watchButton() + '</div>' +
@@ -485,6 +493,7 @@
     }
     else if (type === 'half') { m.feed.push({ divider: 'Halftime' }); m.now = 'Halftime'; }
     else if (type === 'final') { m.status = 'final'; m.now = ''; }
+    syncFloaters();
     if (!inGame) render(type === 'result');
   });
 
@@ -495,10 +504,12 @@
     get inGame() { return inGame; },
     get optin() { return optin; },
     get masked() { return masked(); },
+    get paused() { return paused(); },
     totals: function () { return [f1(total(0)), f1(total(1))]; }
   };
 
   m = blank();
+  syncFloaters();
   if (location.hash === '#game') location.replace('#matchup');
   route();
 })();

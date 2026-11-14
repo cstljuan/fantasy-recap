@@ -73,6 +73,8 @@ h2 { margin: 0; font: 700 11px/1 var(--body); letter-spacing: 0.14em; text-trans
 .status i { width: 7px; height: 7px; background: var(--dim); }
 .status.is-live { color: var(--amber); }
 .status.is-live i { background: var(--amber); animation: blink 1.2s steps(2, jump-none) infinite; }
+.status.is-paused { color: var(--text); }
+.status.is-paused i { width: 7px; height: 7px; background: none; border-left: 2px solid var(--text); border-right: 2px solid var(--text); }
 .status.is-final { color: var(--text); }
 .status.is-final i { background: var(--text); }
 @keyframes blink { to { opacity: 0.15; } }
