@@ -1,6 +1,17 @@
 // Sound effects made with the Web Audio API. No audio files.
 // Browsers only allow sound after a tap, so init() is called from the first tap.
 //
+// The mix (C13): master -> speakers, with two buses under it, effects and crowd. The crowd
+// bus goes through a ducker that dips it while the announcer is speaking.
+//   FF_AUDIO.setVolume(kind, 0 to 1)   kind is 'master', 'crowd' or 'effects'
+//   FF_AUDIO.volume(kind)              the current level
+//   FF_AUDIO.mute(true or false)       FF_AUDIO.muted() reads it
+//   FF_AUDIO.mix()                     the levels in force now (after mute, hiding, ducking)
+//   FF_AUDIO.duck(true or false)       dip the crowd by hand, for example under a recorded clip.
+//                                      Browser speech is noticed by itself.
+// Levels and mute are kept in localStorage under 'fr.audio'. Everything goes silent while
+// the page is hidden and comes back when it is shown again.
+//
 // Crowd (all made in code, no audio files):
 //   crowd_murmur  starts or keeps a low murmur under the game. Call it at each snap.
 //                 It fades out by itself about 15 seconds after the last crowd call.
@@ -17,7 +28,48 @@
 (function (root) {
   'use strict';
 
-  var ac = null, master = null;
+  var ac = null, master = null, fxBus = null, crowdBus = null, ducker = null;
+  var DEFAULTS = { master: 0.5, crowd: 1, effects: 1, muted: false };
+  var DUCK_LEVEL = 0.3;
+  var settings = loadSettings(), ducked = false, handDuck = false, duckTimer = 0;
+
+  function loadSettings() {
+    var s = { master: DEFAULTS.master, crowd: DEFAULTS.crowd, effects: DEFAULTS.effects, muted: DEFAULTS.muted };
+    try {
+      var raw = root.localStorage && root.localStorage.getItem('fr.audio');
+      var v = raw ? JSON.parse(raw) : null;
+      if (v) {
+        ['master', 'crowd', 'effects'].forEach(function (k) { if (typeof v[k] === 'number' && v[k] >= 0 && v[k] <= 1) s[k] = v[k]; });
+        s.muted = v.muted === true;
+      }
+    } catch (err) { /* storage can be blocked; defaults are fine */ }
+    return s;
+  }
+  function saveSettings() {
+    try { if (root.localStorage) root.localStorage.setItem('fr.audio', JSON.stringify(settings)); } catch (err) { /* optional */ }
+  }
+  function hidden() { return !!(root.document && root.document.hidden); }
+  // Set a gain smoothly so a change never clicks.
+  function level(node, v) {
+    if (!node || !ac) return;
+    try { node.gain.cancelScheduledValues(ac.currentTime); node.gain.setTargetAtTime(v, ac.currentTime, 0.05); }
+    catch (err) { node.gain.value = v; }
+  }
+  function applyMix() {
+    if (!ac) return;
+    level(master, settings.muted || hidden() ? 0 : settings.master);
+    level(fxBus, settings.effects);
+    level(crowdBus, settings.crowd);
+    level(ducker, ducked || handDuck ? DUCK_LEVEL : 1);
+  }
+  // Watch the browser's speech so the crowd dips under the announcer.
+  function watchSpeech() {
+    clearInterval(duckTimer);
+    duckTimer = setInterval(function () {
+      var sp = !!(root.speechSynthesis && root.speechSynthesis.speaking);
+      if (sp !== ducked) { ducked = sp; applyMix(); }
+    }, 150);
+  }
   var played = {};
 
   function init(ctx) {
@@ -28,9 +80,13 @@
     try {
       ac = ctx || new AC();
       master = ac.createGain();
-      master.gain.value = 0.5;
+      master.gain.value = settings.muted || hidden() ? 0 : settings.master;
       master.connect(ac.destination);
+      fxBus = ac.createGain(); fxBus.gain.value = settings.effects; fxBus.connect(master);
+      ducker = ac.createGain(); ducker.gain.value = 1; ducker.connect(master);
+      crowdBus = ac.createGain(); crowdBus.gain.value = settings.crowd; crowdBus.connect(ducker);
       if (!ctx && ac.state === 'suspended') ac.resume();
+      if (!ctx) watchSpeech();
     } catch (err) { ac = null; }
   }
 
@@ -42,7 +98,7 @@
     g.gain.setValueAtTime(0.0001, t0);
     g.gain.linearRampToValueAtTime(vol, t0 + 0.012);
     g.gain.exponentialRampToValueAtTime(0.0001, t0 + dur);
-    o.connect(g); g.connect(master);
+    o.connect(g); g.connect(fxBus);
     o.start(t0); o.stop(t0 + dur + 0.03);
   }
 
@@ -56,7 +112,7 @@
     g.gain.setValueAtTime(0.0001, t0);
     g.gain.linearRampToValueAtTime(vol, t0 + Math.min(0.05, dur * 0.3));
     g.gain.exponentialRampToValueAtTime(0.0001, t0 + dur);
-    src.connect(f); f.connect(g); g.connect(master);
+    src.connect(f); f.connect(g); g.connect(fxBus);
     src.start(t0); src.stop(t0 + dur + 0.03);
   }
 
@@ -113,7 +169,7 @@
     lfo.frequency.value = 0.35; lg.gain.value = 0.25;
     var wob = ac.createGain(); wob.gain.value = 1;
     lfo.connect(lg); lg.connect(wob.gain);
-    src.connect(lo); lo.connect(hi); hi.connect(wob); wob.connect(g); g.connect(master);
+    src.connect(lo); lo.connect(hi); hi.connect(wob); wob.connect(g); g.connect(crowdBus);
     src.start(t); lfo.start(t);
     bed = { src: src, gain: g, lfo: lfo };
   }
@@ -150,7 +206,7 @@
     g.gain.linearRampToValueAtTime(vol, t + attack);
     g.gain.setValueAtTime(vol, t + Math.max(attack, dur * 0.55));
     g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
-    src.connect(f); f.connect(g); g.connect(master);
+    src.connect(f); f.connect(g); g.connect(crowdBus);
     src.start(t); src.stop(t + dur + 0.05);
   }
 
@@ -169,7 +225,7 @@
       g.gain.setValueAtTime(0.0001, st);
       g.gain.linearRampToValueAtTime(vol, st + d * 0.25);
       g.gain.exponentialRampToValueAtTime(0.0001, st + d);
-      o.connect(lp); lp.connect(g); g.connect(master);
+      o.connect(lp); lp.connect(g); g.connect(crowdBus);
       o.start(st); vib.start(st); o.stop(st + d + 0.05); vib.stop(st + d + 0.05);
     }
   }
@@ -236,7 +292,7 @@
       o.type = 'sawtooth'; o.frequency.value = f; o.detune.value = cents;
       o.connect(lp); o.start(t); o.stop(t + dur + 0.05);
     });
-    lp.connect(g); g.connect(master);
+    lp.connect(g); g.connect(fxBus);
   }
   function drum(t, vol) { tone('sine', 140, 45, t, 0.22, vol); noise(t, 0.08, vol * 0.3, 1500); }
   function snare(t, vol) { noise(t, 0.14, vol, 2500); tone('triangle', 220, 160, t, 0.08, vol * 0.4); }
@@ -286,8 +342,29 @@
     try { SOUNDS[name](ac.currentTime + 0.01); } catch (err) { /* sound is optional */ }
   }
 
+  if (root.document && root.document.addEventListener) {
+    root.document.addEventListener('visibilitychange', applyMix);
+  }
+
+  function setVolume(kind, v) {
+    if (!(kind in DEFAULTS) || kind === 'muted') return;
+    v = Math.max(0, Math.min(1, +v || 0));
+    settings[kind] = v; saveSettings(); applyMix();
+    return v;
+  }
+
   root.FF_AUDIO = {
     init: init, play: play, played: played, crowdFor: crowdFor,
+    setVolume: setVolume,
+    volume: function (kind) { return kind in DEFAULTS && kind !== 'muted' ? settings[kind] : undefined; },
+    mute: function (on) { settings.muted = !!on; saveSettings(); applyMix(); return settings.muted; },
+    muted: function () { return settings.muted; },
+    duck: function (on) { handDuck = !!on; applyMix(); return handDuck; },
+    // What is playing now: the levels after mute, hiding and ducking.
+    mix: function () {
+      return { master: master ? +master.gain.value.toFixed(3) : null, target: settings.muted || hidden() ? 0 : settings.master,
+        crowd: settings.crowd, effects: settings.effects, muted: settings.muted, hidden: hidden(), ducked: ducked || handDuck };
+    },
     names: function () { return Object.keys(SOUNDS); },
     state: function () { return ac ? ac.state : 'none'; }
   };
