@@ -339,6 +339,41 @@ var srv = createServer(fake).listen(0, function () {
         return pc('POST', '/party');
       }).then(function (r) { assert.equal(r.status, 201); ps.close(); });
     })
+    // league: standings from finished weeks, never the current week's points, opt-ins from the database or the file
+    .then(function () {
+      var LG = require('./league.js'), doc = JSON.parse(require('fs').readFileSync(require('path').join(__dirname, '..', 'data', 'league.json'), 'utf8'));
+      var L = LG.fromLeague(doc, { finals: { 'week11-football': [47.8, 43.1] }, optins: { 'week11-football': ['GOB', 'ricky', 'TUR'] } });
+      doc.standings.forEach(function (s) {
+        var x = L.standings.filter(function (y) { return y.id === s.id; })[0];
+        ['wins', 'losses', 'pointsFor', 'pointsAgainst'].forEach(function (k) { assert.equal(x[k], s[k], s.id + ' ' + k); });
+      });
+      var w11 = L.weeks.filter(function (w) { return w.week === 11; })[0];
+      assert.ok(w11.matchups.every(function (m) { return m.final === null; }), 'the current week never has points, even when a final is known');
+      var ours = L.current.matchups[0];
+      assert.deepEqual(ours.optedIn, ['GOB'], 'only the matchup\'s own team ids count'); assert.equal(ours.optinsFrom, 'database');
+      assert.deepEqual(L.current.matchups[1].optedIn, ['TUR', 'OWL']); assert.equal(L.current.matchups[1].optinsFrom, 'file');
+      // a finished week with a known final in the database replaces the file's numbers, and a tie counts as a tie
+      var d2 = JSON.parse(JSON.stringify(doc));
+      d2.weeks[0].matchups[0].gameFile = 'w9.json';
+      var L2 = LG.fromLeague(d2, { finals: { w9: [90, 90] } });
+      var gob = L2.standings.filter(function (x) { return x.id === 'GOB'; })[0];
+      assert.equal(gob.ties, 1); assert.equal(gob.wins, 0); assert.equal(L2.weeks[0].matchups[0].finalFrom, 'database');
+      var withDb = createServer({ query: function (t, p) {
+        if (/FROM optins/.test(t)) return Promise.resolve({ rows: p[0] === 'week11-football' ? [{ manager: 'PYT' }, { manager: 'x' }] : [] });
+        return Promise.resolve({ rows: [] });
+      } }).listen(0);
+      var noDb = createServer({ query: function () { return Promise.reject(new Error('down')); } }).listen(0);
+      return call('GET', '/league', undefined, undefined, withDb.address().port).then(function (r) {
+        assert.equal(r.status, 200); assert.equal(r.body.source.optins, 'database');
+        assert.deepEqual(r.body.current.matchups[0].optedIn, ['PYT']);
+        assert.ok(r.body.weeks.every(function (w) { return w.finished || w.matchups.every(function (m) { return m.final === null; }); }));
+        assert.equal(r.body.standings[0].id, 'OWL');
+        return call('GET', '/league', undefined, undefined, noDb.address().port);
+      }).then(function (r) {
+        assert.equal(r.status, 200); assert.equal(r.body.source.optins, 'file'); assert.deepEqual(r.body.current.matchups[0].optedIn, ['GOB', 'PYT']);
+        return call('POST', '/league', {}, undefined, noDb.address().port);
+      }).then(function (r) { assert.equal(r.status, 405); withDb.close(); noDb.close(); });
+    })
     .then(function () { console.log('OK'); srv.close(); })
     .catch(function (e) { console.error('FAIL', e.message); process.exit(1); });
 });

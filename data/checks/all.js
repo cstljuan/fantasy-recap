@@ -44,6 +44,7 @@ var CHECKS = [
   { name: 'plays service against a fake database', cmd: 'node', args: ['server/test.js'] },
   { name: 'plays service under load and bad input', cmd: 'node', args: ['server/stress.js'] },
   { name: 'league file and standings', cmd: 'node', args: ['data/checks/league.js'] },
+  { name: 'league as the service gives it', cmd: 'node', args: ['server/league.js'] },
   { name: 'stat line sums', cmd: 'node', args: ['data/checks/statlines.js'] },
   { name: 'game files reproduce their stat lines', cmd: 'node', args: ['data/checks/game-vs-lines.js'] },
   { name: 'scoring file equals js/rules.js', cmd: 'node', args: ['agents/scout/check-scoring.js'] },
