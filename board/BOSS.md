@@ -61,15 +61,15 @@ Run `sh tools/next.sh` to get your next task with its full description. A row is
 | S1 | S | cstljuan | The soccer game | merged |
 | S2 | S | cstljuan | Fantasy soccer on top | merged |
 | S3 | S | cstljuan | Soccer polish: celebrations, replays of goals, set pieces | merged |
-| S4 | S | cstljuan | The soccer match maker | open |
-| S5 | S | cstljuan | The soccer app: lineups, feed, recap, hidden scores | open |
-| S6 | S | cstljuan | Soccer voice and captions, with Noah | open |
-| G1 | G | cstljuan | The Figma file, laid out like Juan's earlier projects | open |
-| G2 | G | cstljuan | Brand guide, wordmark, mascot | open |
-| G3 | G | cstljuan | Every screen at phone and laptop size | open |
-| G4 | G | cstljuan | Motion page and motion specs | open |
-| G5 | G | cstljuan | Devpost thumbnail, gallery, video title card, architecture picture | open |
-| G6 | G | cstljuan | DESIGN.md and tokens for the builders | open |
+| S4 | S | cstljuan | The soccer match maker | waiting: light duty, Juan restarts this after 9:30 PM Eastern |
+| S5 | S | cstljuan | The soccer app: lineups, feed, recap, hidden scores | waiting: light duty, Juan restarts this after 9:30 PM Eastern |
+| S6 | S | cstljuan | Soccer voice and captions, with Noah | waiting: light duty, Juan restarts this after 9:30 PM Eastern |
+| G1 | G | cstljuan | The Figma file with its pages set up (structure only for now) | open |
+| G2 | G | cstljuan | Brand guide, wordmark, mascot | waiting: light duty, Juan restarts this after 9:30 PM Eastern |
+| G3 | G | cstljuan | Every screen at phone and laptop size | waiting: light duty, Juan restarts this after 9:30 PM Eastern |
+| G4 | G | cstljuan | Motion page and motion specs | waiting: light duty, Juan restarts this after 9:30 PM Eastern |
+| G5 | G | cstljuan | Devpost thumbnail, gallery, video title card, architecture picture | waiting: light duty, Juan restarts this after 9:30 PM Eastern |
+| G6 | G | cstljuan | DESIGN.md and tokens for the builders | waiting: light duty, Juan restarts this after 9:30 PM Eastern |
 | A1 | A | cstljuan | Load the game from `data/games/<id>.json`; contract v1 | merged |
 | A2 | A | cstljuan | The football game maker with the play caller | merged |
 | A3 | A | cstljuan | Connect the announcer, crowd, captions and the floaters switch | merged |
@@ -155,3 +155,4 @@ The boss reviews every DONE before it reaches main: the authors check, the lane 
 - From Juan: every agent works without its person for hours. Standing orders are in `board/ORDERS.md` and print on every sync.
 - The deep agent for the LangChain track is Scout, task D12, in Ricky's lane. D6 and A6 are folded into it.
 - A design session on Juan's account builds the brand and every screen in Figma (lane G, `handoffs/juan-design.md`). New designs are merged into the app later, by task.
+- Juan's sessions are on light duty until about 9:30 PM Eastern on Saturday (order 8). Soccer tasks S4 to S6 and design tasks G2 to G6 wait until Juan restarts them.

@@ -23,6 +23,8 @@ Write what you found in `design/REFERENCE-LAYOUT.md` first (page list and frame 
 
 ## Tasks
 
+**Light duty right now (order 8 in `board/ORDERS.md`): do G1 only, as structure. List the pages of the three reference files (page names and top-level frame names only, no deep reading), create the new file, set up its pages and empty titled frames to match, write `design/REFERENCE-LAYOUT.md` and `design/README.md`, post DONE, then stop and end your turn. Do not start G2.**
+
 - **G1. The file.** Create one new Figma design file named "Fantasy Recap | Brand and UI" in Juan's drafts. Set up the pages following the reference layout. Put the file's address in `design/README.md` and in your DONE post.
 - **G2. Brand guide.** Name options are open (the working name is Fantasy Recap): show three name and wordmark directions on one page and build the rest on the working name. Logo and app icon, color tokens for dark and light, type scale with the condensed numeral face, spacing, corner and line rules, the pixel-art rules for players, do and do not examples. One mascot, tough and not cute, in the 8-bit style, with five expressions.
 - **G3. Every screen.** High fidelity, phone size (390 by 844) and laptop size (1440 by 900): league, matchup before and after opt-in, lineups masked and revealed, plays feed with the "why this play" card open, the game view for football and for soccer with score, captions, speed control and sound control, the reveal, the recap, the film room (drive chart and play caller panel), the season and standings, first run walkthrough, the sport switch, empty and paused states. Use components and variables, not loose shapes.
