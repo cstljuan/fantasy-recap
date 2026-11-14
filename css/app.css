@@ -309,6 +309,18 @@ h2 { margin: 0; font: 700 var(--fs-label)/1 var(--body); letter-spacing: 0.14em;
 .form-why { min-width: 0; }
 .form-source { margin: 0; padding: var(--sp-3) var(--inset-x); border-top: 1px solid var(--rule); color: var(--dim); font-size: var(--fs-meta); }
 
+/* -------------------------------------------------------- story of the game */
+
+.story-body { padding: var(--sp-3) var(--inset-x) var(--sp-4); }
+.story-head { margin: 0 0 var(--sp-3); color: var(--text); font: 700 var(--fs-title)/1.15 var(--display); letter-spacing: 0.03em; text-transform: uppercase; }
+.story-body > p { margin: 0 0 var(--sp-3); font-size: var(--fs-body); line-height: 1.5; }
+.story-sub { margin: var(--sp-4) 0 var(--sp-2); color: var(--dim); font: 700 var(--fs-label)/1 var(--body); letter-spacing: 0.12em; text-transform: uppercase; }
+.story-top { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--sp-3); }
+.story-top li { padding-left: var(--sp-3); border-left: var(--edge) solid var(--amber); }
+.story-top p { margin: 0 0 var(--sp-2); line-height: 1.45; }
+.story-top .eyebrow { margin-right: var(--sp-1); }
+.story-top .cta { min-height: 44px; font-size: var(--fs-lead); }
+
 /* -------------------------------------------------------------- my team */
 
 .mine-tag { display: inline-block; margin-bottom: 8px; font: 700 var(--fs-micro)/1 var(--body); letter-spacing: 0.12em; text-transform: uppercase;
