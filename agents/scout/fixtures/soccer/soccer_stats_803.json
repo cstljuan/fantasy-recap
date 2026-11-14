@@ -1,0 +1,36 @@
+{
+ "splits": {
+  "categories": [
+   {
+    "name": "general",
+    "stats": [
+     {
+      "name": "appearances",
+      "value": 10
+     }
+    ]
+   },
+   {
+    "name": "offensive",
+    "stats": [
+     {
+      "name": "totalShots",
+      "value": 30
+     },
+     {
+      "name": "totalGoals",
+      "value": 6
+     },
+     {
+      "name": "goalAssists",
+      "value": 2
+     },
+     {
+      "name": "headedGoals",
+      "value": 3
+     }
+    ]
+   }
+  ]
+ }
+}
