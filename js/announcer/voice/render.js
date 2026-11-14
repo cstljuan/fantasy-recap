@@ -3,7 +3,14 @@
 // Run from the repo root by a person who has an ElevenLabs API key:
 //   ELEVENLABS_API_KEY=... node js/announcer/voice/render.js                 (football, the game the app plays)
 //   ELEVENLABS_API_KEY=... node js/announcer/voice/render.js --sport soccer  (the soccer sample match)
-//   node js/announcer/voice/render.js --dry-run                              (lists the lines, no key needed)
+//   node js/announcer/voice/render.js --dry-run                              (the bill: no key, no network)
+//
+// --dry-run (C25) never calls ElevenLabs and needs no key. For football and soccer (or the one
+// --sport names) it prints every line it would render, each line once, with the count, the
+// characters (what ElevenLabs bills) and an estimate of the audio size against the 15 MB cap,
+// and writes that list to js/announcer/voice/render-list.json. A real run then renders exactly
+// the lines in that list for its sport (skipping files that exist); pass --fresh to collect the
+// lines again instead.
 // Options: --game <file.json>  --styles straight,fun  --max-chars 20000  --dry-run  --json (print the lines)
 //
 // What it does: replays the game the same way js/main.js does (intro at kickoff, a line for
@@ -31,18 +38,28 @@ function arg(name, dflt) {
   return v && v.indexOf('--') !== 0 ? v : true;
 }
 
-var sport = arg('sport', 'football');
+var sportArg = arg('sport', null);
+var sport = sportArg || 'football';
 var dry = !!arg('dry-run', false);
 var styles = String(arg('styles', 'straight,fun')).split(',');
 var maxChars = +arg('max-chars', 20000);
 var voices = require(path.join(ROOT, 'js/announcer/voices.js'));
 var voice = voices[sport];
 if (!voice) { console.error('Unknown sport ' + sport + '. Use football or soccer.'); process.exit(2); }
+var LIST = path.join(__dirname, 'render-list.json');
+var BYTES_PER_SEC = 4000;   // mp3 at 32 kbit/s
+// About how long the line takes to say, and so how big its file is.
+function estBytes(text) { return Math.round((text.split(/\s+/).length / 2.6 + 0.4) * BYTES_PER_SEC); }
 
 // ElevenLabs audio tags for the big moments. The tag is sent to ElevenLabs only; the text
 // in the index (and on screen) stays without it.
 var EXCITED = /^(touchdown|goal|memory_(lead_change|go_ahead|answer|hundred|hat_trick|late_|brace|equaliser)|big_gain|fg_good|final$|save_pen|interception|fumble|downs|penalty_given|foul_red)/;
-function spoken(text, kind) { return (EXCITED.test(kind || '') ? '[excited] ' : '') + text; }
+// ElevenLabs gets the spoken form (C27: team codes, downs, scores and capitals as words), with
+// the tag for big moments; the index keeps the written line, which is what speak() is given.
+function spoken(text, kind, sp) {
+  var A = (sp || sport) === 'soccer' ? require(path.join(ROOT, 'js/announcer/soccer/index.js')) : require(path.join(ROOT, 'js/announcer/index.js'));
+  return (EXCITED.test(kind || '') ? '[excited] ' : '') + (A.spoken ? A.spoken(text) : text);
+}
 
 function readGameFile(file) {
   var src = fs.readFileSync(file, 'utf8');
@@ -108,8 +125,52 @@ function collectSoccer() {
   return { id: 'soccer-sample', lines: out };
 }
 
-function idFor(text) {
-  return crypto.createHash('sha1').update(voice.voice_id + '|' + voices.model + '|' + text).digest('hex').slice(0, 16);
+function idFor(text, v) {
+  return crypto.createHash('sha1').update((v || voice).voice_id + '|' + voices.model + '|' + text).digest('hex').slice(0, 16);
+}
+
+// What one sport still needs: each line once, minus the files that already exist.
+function plan(sp) {
+  var v = voices[sp], c = sp === 'soccer' ? collectSoccer() : collectFootball();
+  var outDir = path.join(ROOT, 'assets/voice', sp);
+  var indexFile = path.join(outDir, 'index.json');
+  var index = fs.existsSync(indexFile) ? JSON.parse(fs.readFileSync(indexFile, 'utf8')) : { lines: {} };
+  var seen = {}, todo = [], have = 0;
+  c.lines.forEach(function (l) {
+    if (seen[l.text]) return;
+    seen[l.text] = true;
+    var f = index.lines[l.text];
+    if (f && fs.existsSync(path.join(outDir, f)) && index.voice_id === v.voice_id && index.model === voices.model) { have++; return; }
+    var said = spoken(l.text, l.kind, sp);
+    todo.push({ sport: sp, text: l.text, kind: l.kind, spoken: said, chars: said.length, bytes: estBytes(said), file: idFor(l.text, v) + '.mp3' });
+  });
+  return { sport: sp, id: c.id, said: c.lines.length, different: Object.keys(seen).length, have: have, todo: todo, voice: v };
+}
+
+function dryRun() {
+  // The list file always covers both sports, so a real run of either finds its lines; --sport
+  // only narrows what is printed.
+  var sports = ['football', 'soccer'], show = sportArg ? [sport] : sports, all = [], totalChars = 0, totalBytes = 0;
+  var existing = dirSize(path.join(ROOT, 'assets/voice/football')) + dirSize(path.join(ROOT, 'assets/voice/soccer'));
+  var per = sports.map(function (sp) {
+    var p = plan(sp);
+    var chars = p.todo.reduce(function (n, l) { return n + l.chars; }, 0), bytes = p.todo.reduce(function (n, l) { return n + l.bytes; }, 0);
+    totalChars += chars; totalBytes += bytes; all = all.concat(p.todo);
+    var shown = show.indexOf(sp) >= 0;
+    if (shown) console.log('== ' + sp + ' (' + p.id + '), voice ' + p.voice.name + ' ==');
+    if (shown) p.todo.forEach(function (l) { console.log('  ' + (l.kind || '?') + ' | ' + l.spoken); });
+    console.log((shown ? '  ' : sp + ': ') + p.said + ' lines said in ' + styles.join(' and ') + ', ' + p.different + ' different, ' + p.have + ' already recorded, ' +
+      p.todo.length + ' to render: ' + chars + ' characters, about ' + (bytes / 1048576).toFixed(1) + ' MB.');
+    return { sport: sp, game: p.id, voice: p.voice.name, voice_id: p.voice.voice_id, lines: p.todo.length, characters: chars, bytes: bytes };
+  });
+  var after = existing + totalBytes;
+  console.log('\nTotal: ' + all.length + ' lines, ' + totalChars + ' characters (ElevenLabs bills about one credit per character), about ' +
+    (totalBytes / 1048576).toFixed(1) + ' MB of audio, ' + (after / 1048576).toFixed(1) + ' MB with what is already in assets/voice/, against the 15 MB cap' +
+    (after > MAX_BYTES ? ': OVER THE CAP.' : '.'));
+  fs.writeFileSync(LIST, JSON.stringify({ note: 'Written by render.js --dry-run. A real run renders exactly these lines. Nothing here was sent to ElevenLabs.',
+    model: voices.model, format: FORMAT, styles: styles, sports: per, total: { lines: all.length, characters: totalChars, bytes: totalBytes, cap: MAX_BYTES },
+    lines: all.map(function (l) { return { sport: l.sport, kind: l.kind, text: l.text, spoken: l.spoken, chars: l.chars, file: l.file }; }) }, null, 1) + '\n');
+  console.log('Wrote ' + path.relative(ROOT, LIST) + '. Dry run: nothing was sent to ElevenLabs and no audio was written.');
 }
 
 async function tts(text, key) {
@@ -134,8 +195,16 @@ function dirSize(dir) {
 }
 
 async function main() {
+  if (dry) return dryRun();
   var c = sport === 'soccer' ? collectSoccer() : collectFootball();
   if (arg('json', false)) { console.log(JSON.stringify(c.lines)); return; }
+  // The approved list from the dry run, unless --fresh.
+  var approved = null;
+  if (!arg('fresh', false) && fs.existsSync(LIST)) {
+    approved = JSON.parse(fs.readFileSync(LIST, 'utf8')).lines.filter(function (l) { return l.sport === sport; });
+    c = { id: c.id, lines: approved.map(function (l) { return { text: l.text, kind: l.kind }; }) };
+    console.log('Using the approved list in ' + path.relative(ROOT, LIST) + ' (' + approved.length + ' ' + sport + ' lines). Pass --fresh to collect again.');
+  }
   var outDir = path.join(ROOT, 'assets/voice', sport);
   var seen = {}, unique = [];
   c.lines.forEach(function (l) { if (!seen[l.text]) { seen[l.text] = true; unique.push(l); } });
@@ -149,11 +218,6 @@ async function main() {
   console.log(sport + ', ' + c.id + ': ' + c.lines.length + ' lines said in ' + styles.join(' and ') + ', ' + unique.length + ' different, ' +
     todo.length + ' still to render (' + chars + ' characters).');
   console.log('Voice: ' + voice.name + ' (' + voice.voice_id + '), model ' + voices.model + ', format ' + FORMAT + '.');
-  if (dry) {
-    todo.forEach(function (l) { console.log('  ' + (l.kind || '?') + ' | ' + spoken(l.text, l.kind)); });
-    console.log('Dry run: nothing was sent and nothing was written.');
-    return;
-  }
   var key = process.env.ELEVENLABS_API_KEY;
   if (!key) { console.error('Set ELEVENLABS_API_KEY in the environment (never in a file). Use --dry-run to only list the lines.'); process.exit(2); }
   if (chars > maxChars) { console.error('That is ' + chars + ' characters, over --max-chars ' + maxChars + '. Raise it to go ahead.'); process.exit(2); }

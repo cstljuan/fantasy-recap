@@ -356,6 +356,22 @@
     }
   }
 
+  // ---- Say it right (C27): the form a voice reads; captions keep the written line ----
+  var TEAM_NAMES = { IRN: 'Ironside', RHB: 'Red Harbour' };
+  function spoken(text) {
+    if (!text) return '';
+    var t = String(text), ids = Object.keys(TEAM_NAMES).join('|');
+    t = t.replace(/\bSt\.\s/g, 'Saint ').replace(/([A-Za-z])'([A-Z])/g, '$1$2').replace(/\b([A-Z])\.([A-Z])\./g, '$1 $2');
+    t = t.replace(/\b(\d+)\+(\d+)\b/g, '$1 plus $2');                 // stoppage time, 90+3
+    t = t.replace(/\b(\d+)'/g, '$1 minutes');                            // 14'
+    t = t.replace(new RegExp('\\b(' + ids + ')\\b', 'g'), function (m, id) { return TEAM_NAMES[id]; });
+    t = t.replace(/\b(\d+)-(\d+)\b/g, '$1 to $2').replace(/&/g, ' and ');
+    t = t.replace(/\bpen\b/g, 'penalty').replace(/\bpts\b/g, 'points');
+    t = t.replace(/\b([A-Z]{2,})\b/g, function (m) { return m.charAt(0) + m.slice(1).toLowerCase(); });
+    t = t.replace(/[#@*_~^|<>\[\]{}"]/g, ' ').replace(/\s*\(\s*/g, ', ').replace(/\s*\)/g, ',').replace(/,\s*([,.!?])/g, '$1');
+    return t.replace(/\s+([,.!?])/g, '$1').replace(/ {2,}/g, ' ').trim();
+  }
+
   // ---- Speech: British English first, one line at a time ----
   var queue = [], speaking = null, speakTimer = 0, chosen = { straight: null, fun: null };
   var VOICE_SET = { straight: { rate: 1.05, pitch: 1.0 }, fun: { rate: 1.15, pitch: 1.1 } };
@@ -388,7 +404,7 @@
     if (!item) return;
     if (!chosen.straight) chooseVoices();
     try {
-      var u = new root.SpeechSynthesisUtterance(item.text), set = VOICE_SET[item.style] || VOICE_SET.straight;
+      var u = new root.SpeechSynthesisUtterance(spoken(item.text)), set = VOICE_SET[item.style] || VOICE_SET.straight;
       if (chosen[item.style]) { u.voice = chosen[item.style]; u.lang = chosen[item.style].lang; }
       u.rate = set.rate; u.pitch = set.pitch;
       var done = function () { if (speaking === item) speakNext(); };
@@ -466,6 +482,7 @@
     },
 
     catchUp: catchUp,
+    spoken: spoken,
     bigCall: bigCall,
     bigCallMaxLength: 200,
     _bigLines: BIG,

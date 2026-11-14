@@ -106,13 +106,23 @@
       disp.ticker = { min: res.min, team: res.team, text: res.text.replace(/^\d+' /, '').toUpperCase(), t0: clock };
       floatPoints(res.fp);
       res.fp.forEach(function (f) { disp.fpts[f.team] += f.pts; });
-      if (res.say) say(res.say);
+      say(announce(res) || res.say);
       emit('result', { res: res, play: p.name, step: si });
     }
   };
 
+  // The line for a result from the soccer announcer (js/announcer/soccer/) when it is loaded, or ''.
+  function announce(res) {
+    var A = window.SC_ANNOUNCER;
+    if (!A || !A.line) return '';
+    try { return A.line(res, { teams: TEAMS, score: res.post ? res.post.score : disp.score.slice(), style: A.style }) || ''; }
+    catch (err) { return ''; }
+  }
+
   function say(text) {
-    if (!active || !VOICE || SPEED > 2 || !('speechSynthesis' in window)) return;
+    if (!text || !active || !VOICE || SPEED > 2 || !('speechSynthesis' in window)) return;
+    // Through the announcer: its queue, its British voice, and the ElevenLabs clips when loaded.
+    if (window.SC_ANNOUNCER && window.SC_ANNOUNCER.speak) { window.SC_ANNOUNCER.speak(text); return; }
     try {
       window.speechSynthesis.cancel();
       var u = new SpeechSynthesisUtterance(text);
@@ -147,7 +157,7 @@
       play = stillPlay(); pt = 0;
       mode = 'inter'; interUntil = clock + 3.4;
       disp.banner = null;
-      say('Half time. ' + spokenScore());
+      say(announce({ kind: 'half', post: { score: disp.score.slice() } }) || 'Half time. ' + spokenScore());
       teleport = true; ball = { x: WID / 2, y: LEN / 2, holder: null };
       log.push({ step: si, text: 'HALF TIME', score: disp.score.slice() });
       emit('half', { score: disp.score.slice() });
@@ -156,7 +166,7 @@
     if (st.kind === 'final') {
       play = stillPlay(); pt = 0;
       mode = 'final'; disp.banner = null; disp.min = 90;
-      say('Full time. ' + spokenScore());
+      say(announce({ kind: 'final', post: { score: state.score.slice() } }) || 'Full time. ' + spokenScore());
       log.push({ step: si, text: 'FULL TIME', score: state.score.slice() });
       // Clean sheets are only known at full time. They arrive as one last result, same shape as any other.
       var ft = Fantasy.fullTime(state.score);
@@ -211,6 +221,7 @@
     ball = { x: WID / 2, y: LEN / 2, holder: null };
     disp.score = [0, 0]; disp.min = 0; disp.half = 1; disp.banner = null; disp.ticker = null; disp.flash = -9; disp.scoreAt = [-9, -9]; disp.floaters = []; disp.fpts = [0, 0]; disp.cutAt = -9; replay = null;
     log.length = 0;
+    if (window.SC_ANNOUNCER && window.SC_ANNOUNCER.reset) window.SC_ANNOUNCER.reset();
     emit('reset');
     startStep();
   }
@@ -603,6 +614,7 @@
     setActive: function (on) {
       active = !!on;
       if (active) { camSet = false; resize(); }
+      else if (window.SC_ANNOUNCER && window.SC_ANNOUNCER.hush) window.SC_ANNOUNCER.hush();
       else if ('speechSynthesis' in window) { try { window.speechSynthesis.cancel(); } catch (err) { /* optional */ } }
     },
     get mode() { return mode; },

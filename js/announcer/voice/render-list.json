@@ -1,0 +1,2965 @@
+{
+ "note": "Written by render.js --dry-run. A real run renders exactly these lines. Nothing here was sent to ElevenLabs.",
+ "model": "eleven_v4",
+ "format": "mp3_22050_32",
+ "styles": [
+  "straight",
+  "fun"
+ ],
+ "sports": [
+  {
+   "sport": "football",
+   "game": "week11-football + sample-football",
+   "voice": "Ninja - Hype Gaming Commentary",
+   "voice_id": "DcLiO3XaUWTu3gyon6hW",
+   "lines": 280,
+   "characters": 11865,
+   "bytes": 3714169
+  },
+  {
+   "sport": "soccer",
+   "game": "soccer-sample",
+   "voice": "Nathaniel - Live Football Commentator",
+   "voice_id": "9rR45HW0vcBmpCbkc4m9",
+   "lines": 86,
+   "characters": 3194,
+   "bytes": 971443
+  }
+ ],
+ "total": {
+  "lines": 366,
+  "characters": 15059,
+  "bytes": 4685612,
+  "cap": 15728640
+ },
+ "lines": [
+  {
+   "sport": "football",
+   "kind": "intro",
+   "text": "Welcome in. It's the Goblins against the Pythons. Watch Allen for the Goblins, and Jackson for the Pythons.",
+   "spoken": "Welcome in. It's the Goblins against the Pythons. Watch Allen for the Goblins, and Jackson for the Pythons.",
+   "chars": 107,
+   "file": "8cf6642a1c17e828.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "kickoff",
+   "text": "Here's the kick. Collins brings it out to the PYT 21.",
+   "spoken": "Here's the kick. Collins brings it out to the Pythons 21.",
+   "chars": 57,
+   "file": "a2e67c31d7a745b8.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "big_gain",
+   "text": "Jefferson breaks free! Still going! 24 yards!",
+   "spoken": "[excited] Jefferson breaks free! Still going! 24 yards!",
+   "chars": 55,
+   "file": "b1aecbd9022cc16f.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "incomplete",
+   "text": "Broken up! Incomplete for Jefferson.",
+   "spoken": "Broken up! Incomplete for Jefferson.",
+   "chars": 36,
+   "file": "1305e4aae868ac50.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "incomplete",
+   "text": "Jackson misses Jefferson. Incomplete.",
+   "spoken": "Jackson misses Jefferson. Incomplete.",
+   "chars": 37,
+   "file": "d92a78569785a07a.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "big_gain",
+   "text": "Big play! Kittle for 15, the Pythons roll!",
+   "spoken": "[excited] Big play! Kittle for 15, the Pythons roll!",
+   "chars": 52,
+   "file": "404a2f15e7ddf61b.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "incomplete",
+   "text": "Kittle can't hang on. Incomplete.",
+   "spoken": "Kittle can't hang on. Incomplete.",
+   "chars": 33,
+   "file": "cfef74437ac2ece3.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "incomplete",
+   "text": "Pass falls incomplete, Robinson the target.",
+   "spoken": "Pass falls incomplete, Robinson the target.",
+   "chars": 43,
+   "file": "6ae8076b7b0b4d8f.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "incomplete",
+   "text": "Incomplete, intended for Jefferson.",
+   "spoken": "Incomplete, intended for Jefferson.",
+   "chars": 35,
+   "file": "6f3ea51d0de416c6.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "punt",
+   "text": "The Pythons punt it away. 40 yards net, Goblins ball.",
+   "spoken": "The Pythons punt it away. 40 yards net, Goblins ball.",
+   "chars": 53,
+   "file": "f05f95168a92984b.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "big_gain",
+   "text": "Barkley has room to run! 18 yards!",
+   "spoken": "[excited] Barkley has room to run! 18 yards!",
+   "chars": 44,
+   "file": "2f4caa6de6e34334.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "gain",
+   "text": "Barkley gets 8 yards before the tackle.",
+   "spoken": "Barkley gets 8 yards before the tackle.",
+   "chars": 39,
+   "file": "8881d17b462619c8.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "first_down",
+   "text": "Barkley for 8 yards, and that moves the chains.",
+   "spoken": "Barkley for 8 yards, and that moves the chains.",
+   "chars": 47,
+   "file": "cae79d8f1730307a.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "big_gain",
+   "text": "Chase breaks free! Still going! 22 yards!",
+   "spoken": "[excited] Chase breaks free! Still going! 22 yards!",
+   "chars": 51,
+   "file": "9344217185993164.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "touchdown_pass",
+   "text": "Chase goes up and gets it! Six for the Goblins!",
+   "spoken": "[excited] Chase goes up and gets it! Six for the Goblins!",
+   "chars": 57,
+   "file": "5f18a1db473ff852.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "xp_good",
+   "text": "Aubrey knocks it through. The Goblins have 7 points.",
+   "spoken": "Aubrey knocks it through. The Goblins have 7 points.",
+   "chars": 52,
+   "file": "6dfde82509585dc8.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "memory_need_answer",
+   "text": "Down 7, the Pythons need a response.",
+   "spoken": "Down 7, the Pythons need a response.",
+   "chars": 36,
+   "file": "e941aa637798cf50.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "incomplete",
+   "text": "Jackson throws for Robinson... incomplete.",
+   "spoken": "Jackson throws for Robinson... incomplete.",
+   "chars": 42,
+   "file": "5798d78cc7a454f1.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "incomplete",
+   "text": "Intended for Robinson, knocked away!",
+   "spoken": "Intended for Robinson, knocked away!",
+   "chars": 36,
+   "file": "2c2b15daafdab6fd.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "big_gain",
+   "text": "Nabers has room to run! 22 yards!",
+   "spoken": "[excited] Nabers has room to run! 22 yards!",
+   "chars": 43,
+   "file": "f0ae7e86635225ed.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "big_gain",
+   "text": "Big play! Jefferson for 24, the Pythons roll!",
+   "spoken": "[excited] Big play! Jefferson for 24, the Pythons roll!",
+   "chars": 55,
+   "file": "5d35a178aed6b9e6.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "memory_rz_enter",
+   "text": "Inside the twenty now! Collins for 9 yards.",
+   "spoken": "Inside the twenty now! Collins for 9 yards.",
+   "chars": 43,
+   "file": "d95ab93864e33cf2.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "first_down",
+   "text": "Chains move! Jefferson, 9 yards.",
+   "spoken": "Chains move! Jefferson, 9 yards.",
+   "chars": 32,
+   "file": "203ff7ecfda8a03b.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "memory_answer",
+   "text": "Touchdown, and the Pythons answer right back!",
+   "spoken": "[excited] Touchdown, and the Pythons answer right back!",
+   "chars": 55,
+   "file": "ef9a3dd0d3cb8f52.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "xp_good",
+   "text": "Butker adds the extra point. Goblins 7, Pythons 7.",
+   "spoken": "Butker adds the extra point. Goblins 7, Pythons 7.",
+   "chars": 50,
+   "file": "ac3731109f94737e.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "kickoff",
+   "text": "High and deep. Brown back to the GOB 22.",
+   "spoken": "High and deep. Brown back to the Goblins 22.",
+   "chars": 44,
+   "file": "2841867990a311cd.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "big_gain",
+   "text": "Nacua breaks free! Still going! 26 yards!",
+   "spoken": "[excited] Nacua breaks free! Still going! 26 yards!",
+   "chars": 51,
+   "file": "9634c363de3f998d.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "incomplete",
+   "text": "Incomplete, intended for Nacua.",
+   "spoken": "Incomplete, intended for Nacua.",
+   "chars": 31,
+   "file": "5b52209674100dab.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "first_down",
+   "text": "Brown picks up 12 yards. That's a first down.",
+   "spoken": "Brown picks up 12 yards. That's a first down.",
+   "chars": 45,
+   "file": "560bc3e027ad1544.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "gain",
+   "text": "1 yard on the play by Barkley.",
+   "spoken": "1 yard on the play by Barkley.",
+   "chars": 30,
+   "file": "2ea775a0f4c41ce7.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "first_down",
+   "text": "Chase for 12 yards, enough for a first down.",
+   "spoken": "Chase for 12 yards, enough for a first down.",
+   "chars": 44,
+   "file": "a131c4631b6d026c.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "memory_rz_enter",
+   "text": "McBride gets the Goblins inside the twenty.",
+   "spoken": "McBride gets the Goblins inside the twenty.",
+   "chars": 43,
+   "file": "7f89d461e2dc78c7.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "memory_go_ahead",
+   "text": "Touchdown, and the Goblins go ahead!",
+   "spoken": "[excited] Touchdown, and the Goblins go ahead!",
+   "chars": 46,
+   "file": "0016e3d522bd2616.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "xp_good",
+   "text": "Extra point is good. Goblins 14, Pythons 7.",
+   "spoken": "Extra point is good. Goblins 14, Pythons 7.",
+   "chars": 43,
+   "file": "112ed2178e086a53.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "memory_need_answer",
+   "text": "The Pythons need an answer. Collins to the GOB 43.",
+   "spoken": "The Pythons need an answer. Collins to the Goblins 43.",
+   "chars": 54,
+   "file": "4c46d056706f3a27.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "gain",
+   "text": "Kittle, 1 yard more.",
+   "spoken": "Kittle, 1 yard more.",
+   "chars": 20,
+   "file": "540e97e4f99af416.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "gain",
+   "text": "Robinson with a gain of 5 yards.",
+   "spoken": "Robinson with a gain of 5 yards.",
+   "chars": 32,
+   "file": "e48981cfe0b8503e.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "first_down",
+   "text": "First down Pythons! Robinson gets 14 yards.",
+   "spoken": "First down Pythons! Robinson gets 14 yards.",
+   "chars": 43,
+   "file": "b7c26cc2b4bd3c1e.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "sack",
+   "text": "Nowhere to go, and Jackson is SACKED! Lost 4.",
+   "spoken": "Nowhere to go, and Jackson is Sacked! Lost 4.",
+   "chars": 45,
+   "file": "a1521854465a5975.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "memory_rz_enter",
+   "text": "Robinson for 11 yards. Pythons in the red zone!",
+   "spoken": "Robinson for 11 yards. Pythons in the red zone!",
+   "chars": 47,
+   "file": "fa1202fb2afb4226.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "sack",
+   "text": "The Goblins get home! Jackson sacked for 9.",
+   "spoken": "The Goblins get home! Jackson sacked for 9.",
+   "chars": 43,
+   "file": "8ea00e3ee649ddd6.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "memory_rz_empty",
+   "text": "No good! No points from the red zone.",
+   "spoken": "No good! No points from the red zone.",
+   "chars": 37,
+   "file": "6d2e946f3699e7b7.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "gain",
+   "text": "Barkley for 1 yard.",
+   "spoken": "Barkley for 1 yard.",
+   "chars": 19,
+   "file": "cd47a038475dc0cb.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "gain",
+   "text": "McBride picks up 1 yard on the play.",
+   "spoken": "McBride picks up 1 yard on the play.",
+   "chars": 36,
+   "file": "2a8dc83085ff9619.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "pen_dpi",
+   "text": "Contact, and a flag! Pass interference, 17.",
+   "spoken": "Contact, and a flag! Pass interference, 17.",
+   "chars": 43,
+   "file": "1f1188deccc2c60d.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "pen_dpi",
+   "text": "Pass interference! A big gain for the Goblins.",
+   "spoken": "Pass interference! A big gain for the Goblins.",
+   "chars": 46,
+   "file": "6eebe22b5b9af0bd.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "gain",
+   "text": "Brown moves it 9 yards.",
+   "spoken": "Brown moves it 9 yards.",
+   "chars": 23,
+   "file": "25ac7ea0a9126ad0.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "pen_dpi",
+   "text": "Flag downfield! Pass interference, Pythons.",
+   "spoken": "Flag downfield! Pass interference, Pythons.",
+   "chars": 43,
+   "file": "d4007a0c180586b5.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "incomplete",
+   "text": "McBride can't hang on. Incomplete.",
+   "spoken": "McBride can't hang on. Incomplete.",
+   "chars": 34,
+   "file": "5ab0fca510edecd4.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "incomplete",
+   "text": "Allen throws for Barkley... incomplete.",
+   "spoken": "Allen throws for Barkley... incomplete.",
+   "chars": 39,
+   "file": "120de867f9efaafd.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "incomplete",
+   "text": "Broken up! Incomplete for Nacua.",
+   "spoken": "Broken up! Incomplete for Nacua.",
+   "chars": 32,
+   "file": "f7153098ec847695.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "fg_good",
+   "text": "Aubrey from 43... it's GOOD! Goblins 17, Pythons 7.",
+   "spoken": "[excited] Aubrey from 43... it's Good! Goblins 17, Pythons 7.",
+   "chars": 61,
+   "file": "1dd587a799413aa5.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "half",
+   "text": "That'll bring us to halftime. Goblins 17, Pythons 7.",
+   "spoken": "That'll bring us to halftime. Goblins 17, Pythons 7.",
+   "chars": 52,
+   "file": "e42bd7e82dae4bc9.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "kickoff",
+   "text": "Kick is away. Brown returns it to the GOB 36.",
+   "spoken": "Kick is away. Brown returns it to the Goblins 36.",
+   "chars": 49,
+   "file": "26f2360f027aee78.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "incomplete",
+   "text": "Pass falls incomplete, McBride the target.",
+   "spoken": "Pass falls incomplete, McBride the target.",
+   "chars": 42,
+   "file": "6ece7e3c7e30313a.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "first_down",
+   "text": "Nacua fights forward for 11 yards. First down!",
+   "spoken": "Nacua fights forward for 11 yards. First down!",
+   "chars": 46,
+   "file": "0c4e03ba661b20ed.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "incomplete",
+   "text": "Intended for Nacua, knocked away!",
+   "spoken": "Intended for Nacua, knocked away!",
+   "chars": 33,
+   "file": "6c30b09257c2087e.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "incomplete",
+   "text": "Allen misses Nacua. Incomplete.",
+   "spoken": "Allen misses Nacua. Incomplete.",
+   "chars": 31,
+   "file": "cbc08c4973f7d303.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "incomplete",
+   "text": "Pass falls incomplete, Nacua the target.",
+   "spoken": "Pass falls incomplete, Nacua the target.",
+   "chars": 40,
+   "file": "e850d166cee3ebf2.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "punt",
+   "text": "Punt is high and deep, 41 yards. The Pythons take over.",
+   "spoken": "Punt is high and deep, 41 yards. The Pythons take over.",
+   "chars": 55,
+   "file": "a70dbc7921447a2f.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "gain",
+   "text": "Robinson, 1 yard more.",
+   "spoken": "Robinson, 1 yard more.",
+   "chars": 22,
+   "file": "4d11c202bb502685.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "big_gain",
+   "text": "Nabers has room to run! 37 yards!",
+   "spoken": "[excited] Nabers has room to run! 37 yards!",
+   "chars": 43,
+   "file": "a4ef5470750ed5aa.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "gain",
+   "text": "Robinson with a gain of 1 yard.",
+   "spoken": "Robinson with a gain of 1 yard.",
+   "chars": 31,
+   "file": "1b5c0382edec3cd7.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "gain",
+   "text": "Robinson for 1 yard.",
+   "spoken": "Robinson for 1 yard.",
+   "chars": 20,
+   "file": "11c4eff18faf61a4.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "gain",
+   "text": "Robinson picks up 1 yard on the play.",
+   "spoken": "Robinson picks up 1 yard on the play.",
+   "chars": 37,
+   "file": "54e4352103a81bb2.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "pen_dpi",
+   "text": "Pass interference! A big gain for the Pythons.",
+   "spoken": "Pass interference! A big gain for the Pythons.",
+   "chars": 46,
+   "file": "e507b61f9d8e7a3f.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "pen_dpi",
+   "text": "Flag downfield! Pass interference, Goblins.",
+   "spoken": "Flag downfield! Pass interference, Goblins.",
+   "chars": 43,
+   "file": "03b993bdb80f56f7.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "memory_answer",
+   "text": "The Pythons answer! Touchdown. Goblins 17, Pythons 13.",
+   "spoken": "[excited] The Pythons answer! Touchdown. Goblins 17, Pythons 13.",
+   "chars": 64,
+   "file": "4e250f02dce33062.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "xp_good",
+   "text": "Butker knocks it through. The Pythons have 14 points.",
+   "spoken": "Butker knocks it through. The Pythons have 14 points.",
+   "chars": 53,
+   "file": "d3e25b8d2e64e262.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "kickoff",
+   "text": "Here's the kick. Brown brings it out to the GOB 38.",
+   "spoken": "Here's the kick. Brown brings it out to the Goblins 38.",
+   "chars": 55,
+   "file": "79da2d8794817bf9.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "gain",
+   "text": "Barkley gets 1 yard before the tackle.",
+   "spoken": "Barkley gets 1 yard before the tackle.",
+   "chars": 38,
+   "file": "3dea3465eefb6bab.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "incomplete",
+   "text": "Broken up! Incomplete for Barkley.",
+   "spoken": "Broken up! Incomplete for Barkley.",
+   "chars": 34,
+   "file": "c2c8090ec0a6113f.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "incomplete",
+   "text": "Barkley can't hang on. Incomplete.",
+   "spoken": "Barkley can't hang on. Incomplete.",
+   "chars": 34,
+   "file": "eed3a5be148cceb7.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "punt",
+   "text": "Fourth down, and the Goblins will punt. A 38 yard boot.",
+   "spoken": "Fourth down, and the Goblins will punt. A 38 yard boot.",
+   "chars": 55,
+   "file": "ddc9ed9270800e42.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "gain",
+   "text": "1 yard on the play by Nabers.",
+   "spoken": "1 yard on the play by Nabers.",
+   "chars": 29,
+   "file": "9782a05fc01cdf03.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "gain",
+   "text": "Robinson moves it 1 yard.",
+   "spoken": "Robinson moves it 1 yard.",
+   "chars": 25,
+   "file": "2003c25e3849b577.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "fumble",
+   "text": "Robinson fights for more... FUMBLE! Goblins ball!",
+   "spoken": "[excited] Robinson fights for more... Fumble! Goblins ball!",
+   "chars": 59,
+   "file": "23032dfb967fe877.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "gain",
+   "text": "1 yard on the play by Chase.",
+   "spoken": "1 yard on the play by Chase.",
+   "chars": 28,
+   "file": "947fbee374dbb14c.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "gain",
+   "text": "Barkley moves it 1 yard.",
+   "spoken": "Barkley moves it 1 yard.",
+   "chars": 24,
+   "file": "6175f71fa0f45d53.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "gain",
+   "text": "Barkley with a gain of 1 yard.",
+   "spoken": "Barkley with a gain of 1 yard.",
+   "chars": 30,
+   "file": "af1d65a5ce4324ef.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "interception",
+   "text": "Pass is up... picked off! Interception, Pythons!",
+   "spoken": "[excited] Pass is up... picked off! Interception, Pythons!",
+   "chars": 58,
+   "file": "951a008f6a48c103.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "gain",
+   "text": "Robinson gets 1 yard before the tackle.",
+   "spoken": "Robinson gets 1 yard before the tackle.",
+   "chars": 39,
+   "file": "5fb28acb17cea2d0.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "punt",
+   "text": "Punt is high and deep, 41 yards. The Goblins take over.",
+   "spoken": "Punt is high and deep, 41 yards. The Goblins take over.",
+   "chars": 55,
+   "file": "58e6a44aeecc23df.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "final",
+   "text": "That's the ballgame! Goblins 17, Pythons 14!",
+   "spoken": "[excited] That's the ballgame! Goblins 17, Pythons 14!",
+   "chars": 54,
+   "file": "798f58116b9c73e0.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "intro",
+   "text": "Buckle up, it's Goblins versus Pythons! If Allen gets going, look out. And the Pythons have Jackson ready to cook.",
+   "spoken": "Buckle up, it's Goblins versus Pythons! If Allen gets going, look out. And the Pythons have Jackson ready to cook.",
+   "chars": 114,
+   "file": "d53df41c23b5a0c3.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "kickoff",
+   "text": "Boot is away! Collins back to the PYT 21.",
+   "spoken": "Boot is away! Collins back to the Pythons 21.",
+   "chars": 45,
+   "file": "dbb2bbfb550eef59.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "big_gain",
+   "text": "Jefferson takes off! 24 yards before anybody catches up!",
+   "spoken": "[excited] Jefferson takes off! 24 yards before anybody catches up!",
+   "chars": 66,
+   "file": "51338a8a8344db8c.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "incomplete",
+   "text": "Close, but Jefferson can't reel it in.",
+   "spoken": "Close, but Jefferson can't reel it in.",
+   "chars": 38,
+   "file": "10c20c334febb750.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "incomplete",
+   "text": "Jackson fires for Jefferson... off the fingertips!",
+   "spoken": "Jackson fires for Jefferson... off the fingertips!",
+   "chars": 50,
+   "file": "98e109a357ef86a5.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "big_gain",
+   "text": "Look at Kittle go! That's a 15 yard chunk!",
+   "spoken": "[excited] Look at Kittle go! That's a 15 yard chunk!",
+   "chars": 52,
+   "file": "e80c58ad42d30849.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "incomplete",
+   "text": "Swing and a miss from Jackson!",
+   "spoken": "Swing and a miss from Jackson!",
+   "chars": 30,
+   "file": "a1bc66e2fee2f3ef.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "incomplete",
+   "text": "That one hits the turf. Nobody home!",
+   "spoken": "That one hits the turf. Nobody home!",
+   "chars": 36,
+   "file": "4a3f7737892711fa.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "incomplete",
+   "text": "Jackson and Jefferson not on the same page.",
+   "spoken": "Jackson and Jefferson not on the same page.",
+   "chars": 43,
+   "file": "9bccdefe9bc32953.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "punt",
+   "text": "Punt team on, and that one flips the field.",
+   "spoken": "Punt team on, and that one flips the field.",
+   "chars": 43,
+   "file": "221764c243ec577a.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "big_gain",
+   "text": "Big play Goblins! Barkley rips off 18!",
+   "spoken": "[excited] Big play Goblins! Barkley rips off 18!",
+   "chars": 48,
+   "file": "156e5c634b6c15cc.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "gain",
+   "text": "Nothing fancy, 8 yards for Barkley.",
+   "spoken": "Nothing fancy, 8 yards for Barkley.",
+   "chars": 35,
+   "file": "1e65acca49e7a429.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "first_down",
+   "text": "Barkley gets the Goblins a fresh start!",
+   "spoken": "Barkley gets the Goblins a fresh start!",
+   "chars": 39,
+   "file": "bd0fd33e3e77aa0b.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "big_gain",
+   "text": "Look at Chase go! That's a 22 yard chunk!",
+   "spoken": "[excited] Look at Chase go! That's a 22 yard chunk!",
+   "chars": 51,
+   "file": "a939f9661fd79c90.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "touchdown_pass",
+   "text": "Pitch and catch, Allen to Chase! Touchdown!",
+   "spoken": "[excited] Pitch and catch, Allen to Chase! Touchdown!",
+   "chars": 53,
+   "file": "64ff9a75dfca56bb.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "xp_good",
+   "text": "Right down the middle from Aubrey. Add one more!",
+   "spoken": "Right down the middle from Aubrey. Add one more!",
+   "chars": 48,
+   "file": "a1246b253ded4830.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "memory_need_answer",
+   "text": "Gotta answer this one, Pythons!",
+   "spoken": "Gotta answer this one, Pythons!",
+   "chars": 31,
+   "file": "f5ac5d20fd756252.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "incomplete",
+   "text": "So close, Robinson! Incomplete.",
+   "spoken": "So close, Robinson! Incomplete.",
+   "chars": 31,
+   "file": "a4c313d4cd5c8c04.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "incomplete",
+   "text": "Into the grass. Try again, Jackson.",
+   "spoken": "Into the grass. Try again, Jackson.",
+   "chars": 35,
+   "file": "0064fb15efaf5ee7.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "big_gain",
+   "text": "Big play Pythons! Nabers rips off 22!",
+   "spoken": "[excited] Big play Pythons! Nabers rips off 22!",
+   "chars": 47,
+   "file": "d9892771c08f6d71.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "memory_rz_enter",
+   "text": "Knock knock! The Pythons are at the door!",
+   "spoken": "Knock knock! The Pythons are at the door!",
+   "chars": 41,
+   "file": "12d58761df219827.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "first_down",
+   "text": "9 yards for Jefferson, and the sticks move!",
+   "spoken": "9 yards for Jefferson, and the sticks move!",
+   "chars": 43,
+   "file": "01e517060a6d0a52.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "memory_answer",
+   "text": "The Pythons hit right back! Touchdown!",
+   "spoken": "[excited] The Pythons hit right back! Touchdown!",
+   "chars": 48,
+   "file": "c3e35ff11bdad261.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "xp_good",
+   "text": "Automatic! Butker tacks on the extra point.",
+   "spoken": "Automatic! Butker tacks on the extra point.",
+   "chars": 43,
+   "file": "1d4cb0daae279ac8.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "kickoff",
+   "text": "Brown takes the kick and scoots to the GOB 22!",
+   "spoken": "Brown takes the kick and scoots to the Goblins 22!",
+   "chars": 50,
+   "file": "8e5fcbcb89191e21.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "big_gain",
+   "text": "Look at Nacua go! That's a 26 yard chunk!",
+   "spoken": "[excited] Look at Nacua go! That's a 26 yard chunk!",
+   "chars": 51,
+   "file": "fe154a658f74d69b.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "incomplete",
+   "text": "Allen and Nacua not on the same page.",
+   "spoken": "Allen and Nacua not on the same page.",
+   "chars": 37,
+   "file": "15a843047352643d.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "first_down",
+   "text": "Brown picks up the first down!",
+   "spoken": "Brown picks up the first down!",
+   "chars": 30,
+   "file": "0ac44fb0ea9a5660.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "gain",
+   "text": "Solid work by Barkley, 1 yard more.",
+   "spoken": "Solid work by Barkley, 1 yard more.",
+   "chars": 35,
+   "file": "75e9aaf05499b3b8.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "first_down",
+   "text": "New set of downs, courtesy of Chase!",
+   "spoken": "New set of downs, courtesy of Chase!",
+   "chars": 36,
+   "file": "73cc8b7af0d817fa.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "memory_rz_enter",
+   "text": "McBride for 18 yards! Smell the end zone!",
+   "spoken": "McBride for 18 yards! Smell the end zone!",
+   "chars": 41,
+   "file": "001c7188a6a6c0aa.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "memory_go_ahead",
+   "text": "Not tied anymore! Touchdown, Goblins!",
+   "spoken": "[excited] Not tied anymore! Touchdown, Goblins!",
+   "chars": 47,
+   "file": "f3b26748f15345d6.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "xp_good",
+   "text": "Aubrey makes it look easy. Point after is good!",
+   "spoken": "Aubrey makes it look easy. Point after is good!",
+   "chars": 47,
+   "file": "59733766cc60d9d7.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "memory_need_answer",
+   "text": "Time to answer, Pythons! Collins to the GOB 43!",
+   "spoken": "Time to answer, Pythons! Collins to the Goblins 43!",
+   "chars": 51,
+   "file": "de32fd23cfa16f4c.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "gain",
+   "text": "Kittle takes what's there, 1 yard.",
+   "spoken": "Kittle takes what's there, 1 yard.",
+   "chars": 34,
+   "file": "078347255ad7c2c1.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "gain",
+   "text": "Robinson keeps the sticks in sight, 5 yards.",
+   "spoken": "Robinson keeps the sticks in sight, 5 yards.",
+   "chars": 44,
+   "file": "8ef28db1bde985eb.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "first_down",
+   "text": "Robinson moves the chains! First down!",
+   "spoken": "Robinson moves the chains! First down!",
+   "chars": 38,
+   "file": "015a154007ebbb0e.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "sack",
+   "text": "Nowhere to run for Jackson! That's 4 gone.",
+   "spoken": "Nowhere to run for Jackson! That's 4 gone.",
+   "chars": 42,
+   "file": "0220d54fa28138d5.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "memory_rz_enter",
+   "text": "Red zone! Robinson gets the Pythons close!",
+   "spoken": "Red zone! Robinson gets the Pythons close!",
+   "chars": 42,
+   "file": "bbd89c426f276faa.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "sack",
+   "text": "Jackson goes DOWN! The Goblins pass rush gets home!",
+   "spoken": "Jackson goes Down! The Goblins pass rush gets home!",
+   "chars": 51,
+   "file": "b645a4ab2c0e5a0b.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "memory_rz_empty",
+   "text": "No good! Red zone, zero points. Ouch.",
+   "spoken": "No good! Red zone, zero points. Ouch.",
+   "chars": 37,
+   "file": "7066652859d64364.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "gain",
+   "text": "Barkley grinds out 1 yard. Every yard counts!",
+   "spoken": "Barkley grinds out 1 yard. Every yard counts!",
+   "chars": 45,
+   "file": "5d6fc37706b63a6a.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "gain",
+   "text": "A little here, a little there. 1 yard for McBride.",
+   "spoken": "A little here, a little there. 1 yard for McBride.",
+   "chars": 50,
+   "file": "f361dc6d5df0ae98.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "pen_dpi",
+   "text": "You can't do that, Pythons! 17 yards!",
+   "spoken": "You can't do that, Pythons! 17 yards!",
+   "chars": 37,
+   "file": "0956cdb82f3e5b43.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "pen_dpi",
+   "text": "Flag! The Pythons were all over the receiver!",
+   "spoken": "Flag! The Pythons were all over the receiver!",
+   "chars": 45,
+   "file": "eeaedc35e6929c93.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "gain",
+   "text": "Brown chips away, 9 yards on that one.",
+   "spoken": "Brown chips away, 9 yards on that one.",
+   "chars": 38,
+   "file": "6809c12a4ebf17ed.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "pen_dpi",
+   "text": "Too much contact! A gift of 12 yards.",
+   "spoken": "Too much contact! A gift of 12 yards.",
+   "chars": 37,
+   "file": "0e447aa9116459f3.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "incomplete",
+   "text": "Allen fires for Barkley... off the fingertips!",
+   "spoken": "Allen fires for Barkley... off the fingertips!",
+   "chars": 46,
+   "file": "82550e131cbb72c4.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "incomplete",
+   "text": "Close, but Nacua can't reel it in.",
+   "spoken": "Close, but Nacua can't reel it in.",
+   "chars": 34,
+   "file": "88d41765f84fa173.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "fg_good",
+   "text": "Split the uprights! Aubrey drills it from 43 yards!",
+   "spoken": "[excited] Split the uprights! Aubrey drills it from 43 yards!",
+   "chars": 61,
+   "file": "59847c6c3d3ccde3.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "half",
+   "text": "Two quarters down, two to go. Goblins 17, Pythons 7!",
+   "spoken": "Two quarters down, two to go. Goblins 17, Pythons 7!",
+   "chars": 52,
+   "file": "6b3f83ca8f263b49.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "kickoff",
+   "text": "Up it goes! Brown brings it to the GOB 36.",
+   "spoken": "Up it goes! Brown brings it to the Goblins 36.",
+   "chars": 46,
+   "file": "1396b53efa01e4f2.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "incomplete",
+   "text": "Swing and a miss from Allen!",
+   "spoken": "Swing and a miss from Allen!",
+   "chars": 28,
+   "file": "f0ac3b23a204194d.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "first_down",
+   "text": "Keep it rolling! Nacua gets a fresh set.",
+   "spoken": "Keep it rolling! Nacua gets a fresh set.",
+   "chars": 40,
+   "file": "96a34cb1711896e6.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "incomplete",
+   "text": "So close, Nacua! Incomplete.",
+   "spoken": "So close, Nacua! Incomplete.",
+   "chars": 28,
+   "file": "c74209e820806dde.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "incomplete",
+   "text": "Into the grass. Try again, Allen.",
+   "spoken": "Into the grass. Try again, Allen.",
+   "chars": 33,
+   "file": "6087f0e1ced4d3fd.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "punt",
+   "text": "Away it goes! A 41 yard punt.",
+   "spoken": "Away it goes! A 41 yard punt.",
+   "chars": 29,
+   "file": "f6c4996d2799cef0.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "gain",
+   "text": "A little here, a little there. 1 yard for Robinson.",
+   "spoken": "A little here, a little there. 1 yard for Robinson.",
+   "chars": 51,
+   "file": "6bdb66b0b6ac2617.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "big_gain",
+   "text": "Big play Pythons! Nabers rips off 37!",
+   "spoken": "[excited] Big play Pythons! Nabers rips off 37!",
+   "chars": 47,
+   "file": "b42dbd41383f367d.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "gain",
+   "text": "Robinson keeps the sticks in sight, 1 yard.",
+   "spoken": "Robinson keeps the sticks in sight, 1 yard.",
+   "chars": 43,
+   "file": "169e12fd86b7aa0c.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "gain",
+   "text": "Robinson grinds out 1 yard. Every yard counts!",
+   "spoken": "Robinson grinds out 1 yard. Every yard counts!",
+   "chars": 46,
+   "file": "e62adb7e4de66c31.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "gain",
+   "text": "Robinson takes what's there, 1 yard.",
+   "spoken": "Robinson takes what's there, 1 yard.",
+   "chars": 36,
+   "file": "c416664c07bd01f4.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "pen_dpi",
+   "text": "Flag! The Goblins were all over the receiver!",
+   "spoken": "Flag! The Goblins were all over the receiver!",
+   "chars": 45,
+   "file": "1c13a25998cc7519.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "pen_dpi",
+   "text": "You can't do that, Goblins! 20 yards!",
+   "spoken": "You can't do that, Goblins! 20 yards!",
+   "chars": 37,
+   "file": "b319b13f50f138bd.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "memory_answer",
+   "text": "Tit for tat! Touchdown, Pythons!",
+   "spoken": "[excited] Tit for tat! Touchdown, Pythons!",
+   "chars": 42,
+   "file": "4e5e65d0d70db2dc.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "kickoff",
+   "text": "Brown takes the kick and scoots to the GOB 38!",
+   "spoken": "Brown takes the kick and scoots to the Goblins 38!",
+   "chars": 50,
+   "file": "980a626d31bc5129.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "incomplete",
+   "text": "Allen and Barkley not on the same page.",
+   "spoken": "Allen and Barkley not on the same page.",
+   "chars": 39,
+   "file": "8604a07cbd11b8f4.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "punt",
+   "text": "Big boot! 38 yards, the Pythons start over.",
+   "spoken": "Big boot! 38 yards, the Pythons start over.",
+   "chars": 43,
+   "file": "8c39a0671b977162.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "gain",
+   "text": "Nothing fancy, 1 yard for Nabers.",
+   "spoken": "Nothing fancy, 1 yard for Nabers.",
+   "chars": 33,
+   "file": "50e6419103f7c5f4.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "gain",
+   "text": "Robinson chips away, 1 yard on that one.",
+   "spoken": "Robinson chips away, 1 yard on that one.",
+   "chars": 40,
+   "file": "a7b1bd54e71bda2e.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "fumble",
+   "text": "The ball is LOOSE! And the Goblins fall on it!",
+   "spoken": "[excited] The ball is Loose! And the Goblins fall on it!",
+   "chars": 56,
+   "file": "d25cb9be069a7239.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "gain",
+   "text": "Nothing fancy, 1 yard for Chase.",
+   "spoken": "Nothing fancy, 1 yard for Chase.",
+   "chars": 32,
+   "file": "5d9a6551f0ac2486.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "interception",
+   "text": "Thief! The Pythons snatch it out of the air!",
+   "spoken": "[excited] Thief! The Pythons snatch it out of the air!",
+   "chars": 54,
+   "file": "fa65b080cdc823df.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "incomplete",
+   "text": "Close, but Robinson can't reel it in.",
+   "spoken": "Close, but Robinson can't reel it in.",
+   "chars": 37,
+   "file": "bfe32cc7a4996a64.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "final",
+   "text": "That will do it! The Goblins get the W!",
+   "spoken": "[excited] That will do it! The Goblins get the W!",
+   "chars": 49,
+   "file": "b0e1e41acc6d0e9b.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "kickoff",
+   "text": "Here's the kick. Brown brings it out to the GOB 27.",
+   "spoken": "Here's the kick. Brown brings it out to the Goblins 27.",
+   "chars": 55,
+   "file": "3f176b5d64e21969.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "gain",
+   "text": "Barkley gets 4 yards before the tackle.",
+   "spoken": "Barkley gets 4 yards before the tackle.",
+   "chars": 39,
+   "file": "2df3f049b03fb787.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "first_down",
+   "text": "Chase for 9 yards, and that moves the chains.",
+   "spoken": "Chase for 9 yards, and that moves the chains.",
+   "chars": 45,
+   "file": "2bfb01e47cd09aeb.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "pen_false_start",
+   "text": "Flag before the snap. False start, Goblins.",
+   "spoken": "Flag before the snap. False start, Goblins.",
+   "chars": 43,
+   "file": "905a2569e0a8334e.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "gain",
+   "text": "13 yards on the play by McBride.",
+   "spoken": "13 yards on the play by McBride.",
+   "chars": 32,
+   "file": "e2d1ce80aa6cb7d7.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "first_down",
+   "text": "Chains move! Barkley, 3 yards.",
+   "spoken": "Chains move! Barkley, 3 yards.",
+   "chars": 30,
+   "file": "f72d4794656b5a98.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "memory_rz_enter",
+   "text": "Inside the twenty now! Nacua for 31 yards.",
+   "spoken": "Inside the twenty now! Nacua for 31 yards.",
+   "chars": 42,
+   "file": "1d630e066ca2593d.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "gain",
+   "text": "Barkley, 2 yards more.",
+   "spoken": "Barkley, 2 yards more.",
+   "chars": 22,
+   "file": "2818ab2ec12781d7.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "incomplete",
+   "text": "Allen misses Brown. Incomplete.",
+   "spoken": "Allen misses Brown. Incomplete.",
+   "chars": 31,
+   "file": "bfbaf229aafacece.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "gain",
+   "text": "Robinson with a gain of 2 yards.",
+   "spoken": "Robinson with a gain of 2 yards.",
+   "chars": 32,
+   "file": "8e2a2edf58389259.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "incomplete",
+   "text": "Jefferson can't hang on. Incomplete.",
+   "spoken": "Jefferson can't hang on. Incomplete.",
+   "chars": 36,
+   "file": "9a4f57794cc343d0.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "sack",
+   "text": "Nowhere to go, and Jackson is SACKED! Lost 6.",
+   "spoken": "Nowhere to go, and Jackson is Sacked! Lost 6.",
+   "chars": 45,
+   "file": "837431e82059eec9.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "punt",
+   "text": "The Pythons punt it away. 41 yards net, Goblins ball.",
+   "spoken": "The Pythons punt it away. 41 yards net, Goblins ball.",
+   "chars": 53,
+   "file": "34f27a6f1f692bd9.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "gain",
+   "text": "Barkley for 5 yards.",
+   "spoken": "Barkley for 5 yards.",
+   "chars": 20,
+   "file": "4d901fd04eefef97.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "gain",
+   "text": "Barkley picks up 1 yard on the play.",
+   "spoken": "Barkley picks up 1 yard on the play.",
+   "chars": 36,
+   "file": "7541b481dbe558d3.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "big_gain",
+   "text": "Brown breaks free! Still going! 17 yards!",
+   "spoken": "[excited] Brown breaks free! Still going! 17 yards!",
+   "chars": 51,
+   "file": "e6918d3596244408.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "pen_holding",
+   "text": "Holding, Goblins. That costs them 10 yards.",
+   "spoken": "Holding, Goblins. That costs them 10 yards.",
+   "chars": 43,
+   "file": "8f4d988b3314c317.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "gain",
+   "text": "McBride moves it 6 yards.",
+   "spoken": "McBride moves it 6 yards.",
+   "chars": 25,
+   "file": "c4f0eac32d43cf56.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "gain",
+   "text": "Chase, 10 yards more.",
+   "spoken": "Chase, 10 yards more.",
+   "chars": 21,
+   "file": "8831f8f43a5d617a.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "fg_good",
+   "text": "Aubrey from 47... it's GOOD! Goblins 10, Pythons 0.",
+   "spoken": "[excited] Aubrey from 47... it's Good! Goblins 10, Pythons 0.",
+   "chars": 61,
+   "file": "887a6a0e2567197b.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "memory_need_answer",
+   "text": "The Pythons need an answer. Collins to the PYT 30.",
+   "spoken": "The Pythons need an answer. Collins to the Pythons 30.",
+   "chars": 54,
+   "file": "20cde9469c2bac32.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "first_down",
+   "text": "Jefferson picks up 12 yards. That's a first down.",
+   "spoken": "Jefferson picks up 12 yards. That's a first down.",
+   "chars": 49,
+   "file": "962288265f764e19.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "gain",
+   "text": "Robinson with a gain of 7 yards.",
+   "spoken": "Robinson with a gain of 7 yards.",
+   "chars": 32,
+   "file": "27f63f1ba69a44c2.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "first_down",
+   "text": "Robinson for 4 yards, enough for a first down.",
+   "spoken": "Robinson for 4 yards, enough for a first down.",
+   "chars": 46,
+   "file": "75ea31bde552213b.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "pen_offside",
+   "text": "Defense was early! Offside on the Goblins.",
+   "spoken": "Defense was early! Offside on the Goblins.",
+   "chars": 42,
+   "file": "083e6f55603beffe.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "memory_rz_enter",
+   "text": "Nabers gets the Pythons inside the twenty.",
+   "spoken": "Nabers gets the Pythons inside the twenty.",
+   "chars": 42,
+   "file": "029f1196767a8df6.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "gain",
+   "text": "Robinson for 3 yards.",
+   "spoken": "Robinson for 3 yards.",
+   "chars": 21,
+   "file": "4907c5789c0b3bab.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "incomplete",
+   "text": "Incomplete, intended for Kittle.",
+   "spoken": "Incomplete, intended for Kittle.",
+   "chars": 32,
+   "file": "819aeadc382c7cea.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "pen_dpi",
+   "text": "Contact, and a flag! Pass interference, 11.",
+   "spoken": "Contact, and a flag! Pass interference, 11.",
+   "chars": 43,
+   "file": "f07f6e4a9aa001c7.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "xp_good",
+   "text": "Butker adds the extra point. Goblins 10, Pythons 7.",
+   "spoken": "Butker adds the extra point. Goblins 10, Pythons 7.",
+   "chars": 51,
+   "file": "e03534918eeef03e.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "kickoff",
+   "text": "High and deep. Brown back to the GOB 25.",
+   "spoken": "High and deep. Brown back to the Goblins 25.",
+   "chars": 44,
+   "file": "116f71f119748c55.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "gain",
+   "text": "Nacua picks up 6 yards on the play.",
+   "spoken": "Nacua picks up 6 yards on the play.",
+   "chars": 35,
+   "file": "db95687121444d87.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "gain",
+   "text": "Barkley gets 3 yards before the tackle.",
+   "spoken": "Barkley gets 3 yards before the tackle.",
+   "chars": 39,
+   "file": "d39a3ac3460fb8c0.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "gain",
+   "text": "4 yards on the play by Robinson.",
+   "spoken": "4 yards on the play by Robinson.",
+   "chars": 32,
+   "file": "cc09fcaf729290c4.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "incomplete",
+   "text": "Jackson throws for Collins... incomplete.",
+   "spoken": "Jackson throws for Collins... incomplete.",
+   "chars": 41,
+   "file": "19805d143718654b.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "gain",
+   "text": "Kittle moves it 5 yards.",
+   "spoken": "Kittle moves it 5 yards.",
+   "chars": 24,
+   "file": "94ee89edc4c06ca2.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "fg_miss",
+   "text": "Butker hooks it from 47! Goblins 10, Pythons 7.",
+   "spoken": "Butker hooks it from 47! Goblins 10, Pythons 7.",
+   "chars": 47,
+   "file": "06af0969d75e2d44.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "half",
+   "text": "That'll bring us to halftime. Goblins 10, Pythons 7.",
+   "spoken": "That'll bring us to halftime. Goblins 10, Pythons 7.",
+   "chars": 52,
+   "file": "24d656fb42d5b6c9.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "kickoff",
+   "text": "Kick is away. Collins returns it to the PYT 28.",
+   "spoken": "Kick is away. Collins returns it to the Pythons 28.",
+   "chars": 51,
+   "file": "640412a465ae2223.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "gain",
+   "text": "6 yards on the play by Robinson.",
+   "spoken": "6 yards on the play by Robinson.",
+   "chars": 32,
+   "file": "99ad948f7c62c0fe.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "first_down",
+   "text": "First down Pythons! Jefferson gets 14 yards.",
+   "spoken": "First down Pythons! Jefferson gets 14 yards.",
+   "chars": 44,
+   "file": "bcff7657aaef9698.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "big_gain",
+   "text": "Big play! Chase for 24, the Goblins roll!",
+   "spoken": "[excited] Big play! Chase for 24, the Goblins roll!",
+   "chars": 51,
+   "file": "867cfef1e401a906.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "memory_rz_enter",
+   "text": "Barkley for 8 yards. Goblins in the red zone!",
+   "spoken": "Barkley for 8 yards. Goblins in the red zone!",
+   "chars": 45,
+   "file": "2f04a1d6b6b19c64.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "memory_answer",
+   "text": "The Goblins answer! Touchdown. Goblins 16, Pythons 7.",
+   "spoken": "[excited] The Goblins answer! Touchdown. Goblins 16, Pythons 7.",
+   "chars": 63,
+   "file": "bddf5588a5125ea7.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "xp_good",
+   "text": "Extra point is good. Goblins 17, Pythons 7.",
+   "spoken": "Extra point is good. Goblins 17, Pythons 7.",
+   "chars": 43,
+   "file": "ba9eaf606589a165.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "memory_need_answer",
+   "text": "Your move, Pythons. Collins brings it out.",
+   "spoken": "Your move, Pythons. Collins brings it out.",
+   "chars": 42,
+   "file": "367d415b6345782c.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "gain",
+   "text": "Collins moves it 9 yards.",
+   "spoken": "Collins moves it 9 yards.",
+   "chars": 25,
+   "file": "cd1220bfd6382ab8.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "first_down",
+   "text": "Robinson fights forward for 2 yards. First down!",
+   "spoken": "Robinson fights forward for 2 yards. First down!",
+   "chars": 48,
+   "file": "583b83948584830e.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "big_gain",
+   "text": "Nabers has room to run! 28 yards!",
+   "spoken": "[excited] Nabers has room to run! 28 yards!",
+   "chars": 43,
+   "file": "be08eff878c94abf.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "sack",
+   "text": "The Goblins get home! Jackson sacked for 5.",
+   "spoken": "The Goblins get home! Jackson sacked for 5.",
+   "chars": 43,
+   "file": "4212c1e38fbdc427.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "gain",
+   "text": "Kittle with a gain of 11 yards.",
+   "spoken": "Kittle with a gain of 11 yards.",
+   "chars": 31,
+   "file": "ecebae65741de9e8.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "first_down",
+   "text": "Robinson picks it up. First down, Pythons.",
+   "spoken": "Robinson picks it up. First down, Pythons.",
+   "chars": 42,
+   "file": "303ccb1c73c21c20.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "incomplete",
+   "text": "Intended for Collins, knocked away!",
+   "spoken": "Intended for Collins, knocked away!",
+   "chars": 35,
+   "file": "799f276565820c69.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "memory_answer",
+   "text": "Right back at them! Touchdown, Pythons.",
+   "spoken": "[excited] Right back at them! Touchdown, Pythons.",
+   "chars": 49,
+   "file": "3ae5c1c6d6128cac.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "kickoff",
+   "text": "Here's the kick. Brown brings it out to the GOB 24.",
+   "spoken": "Here's the kick. Brown brings it out to the Goblins 24.",
+   "chars": 55,
+   "file": "2a59f3da9beea3c0.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "incomplete",
+   "text": "Incomplete, intended for McBride.",
+   "spoken": "Incomplete, intended for McBride.",
+   "chars": 33,
+   "file": "293df1a2849af137.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "gain",
+   "text": "Brown, 4 yards more.",
+   "spoken": "Brown, 4 yards more.",
+   "chars": 20,
+   "file": "a91ecf4fe59638ac.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "punt",
+   "text": "Punt is high and deep, 44 yards. The Pythons take over.",
+   "spoken": "Punt is high and deep, 44 yards. The Pythons take over.",
+   "chars": 55,
+   "file": "712e453318f2e558.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "big_gain",
+   "text": "Jefferson breaks free! Still going! 15 yards!",
+   "spoken": "[excited] Jefferson breaks free! Still going! 15 yards!",
+   "chars": 55,
+   "file": "cb1811b765c5098a.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "incomplete",
+   "text": "Nabers can't hang on. Incomplete.",
+   "spoken": "Nabers can't hang on. Incomplete.",
+   "chars": 33,
+   "file": "cff15bd5340b5b8c.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "incomplete",
+   "text": "Jackson throws for Kittle... incomplete.",
+   "spoken": "Jackson throws for Kittle... incomplete.",
+   "chars": 40,
+   "file": "9192ad9fc411248b.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "downs",
+   "text": "The Pythons come up short on fourth down!",
+   "spoken": "[excited] The Pythons come up short on fourth down!",
+   "chars": 51,
+   "file": "f1294776d6367eda.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "kneel",
+   "text": "Allen takes a knee and lets the clock run.",
+   "spoken": "Allen takes a knee and lets the clock run.",
+   "chars": 42,
+   "file": "a8c6aa9562c0811e.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "kickoff",
+   "text": "Boot is away! Brown back to the GOB 27.",
+   "spoken": "Boot is away! Brown back to the Goblins 27.",
+   "chars": 43,
+   "file": "96e1d4d99087bbac.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "gain",
+   "text": "Nothing fancy, 4 yards for Barkley.",
+   "spoken": "Nothing fancy, 4 yards for Barkley.",
+   "chars": 35,
+   "file": "e48b7cde4590287d.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "first_down",
+   "text": "Chase gets the Goblins a fresh start!",
+   "spoken": "Chase gets the Goblins a fresh start!",
+   "chars": 37,
+   "file": "a1c0731b3bce6466.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "pen_false_start",
+   "text": "Flinch! The Goblins get flagged early.",
+   "spoken": "Flinch! The Goblins get flagged early.",
+   "chars": 38,
+   "file": "ec2b1c39c5efa0c6.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "gain",
+   "text": "Solid work by McBride, 13 yards more.",
+   "spoken": "Solid work by McBride, 13 yards more.",
+   "chars": 37,
+   "file": "a1f0ab6cac17c768.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "first_down",
+   "text": "3 yards for Barkley, and the sticks move!",
+   "spoken": "3 yards for Barkley, and the sticks move!",
+   "chars": 41,
+   "file": "98a63108aaeb5dfe.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "memory_rz_enter",
+   "text": "Knock knock! The Goblins are at the door!",
+   "spoken": "Knock knock! The Goblins are at the door!",
+   "chars": 41,
+   "file": "dd461ad2044e5dff.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "gain",
+   "text": "Barkley takes what's there, 2 yards.",
+   "spoken": "Barkley takes what's there, 2 yards.",
+   "chars": 36,
+   "file": "c8f373a83d75d4f8.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "incomplete",
+   "text": "Allen fires for Brown... off the fingertips!",
+   "spoken": "Allen fires for Brown... off the fingertips!",
+   "chars": 44,
+   "file": "201291410d9741eb.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "gain",
+   "text": "Robinson keeps the sticks in sight, 2 yards.",
+   "spoken": "Robinson keeps the sticks in sight, 2 yards.",
+   "chars": 44,
+   "file": "6838aa53fd7fb647.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "sack",
+   "text": "Nowhere to run for Jackson! That's 6 gone.",
+   "spoken": "Nowhere to run for Jackson! That's 6 gone.",
+   "chars": 42,
+   "file": "3ea7aede92aa6537.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "gain",
+   "text": "Barkley grinds out 5 yards. Every yard counts!",
+   "spoken": "Barkley grinds out 5 yards. Every yard counts!",
+   "chars": 46,
+   "file": "4ede049c6b50bd19.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "gain",
+   "text": "A little here, a little there. 1 yard for Barkley.",
+   "spoken": "A little here, a little there. 1 yard for Barkley.",
+   "chars": 50,
+   "file": "bd61ec408b962e2b.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "big_gain",
+   "text": "Brown takes off! 17 yards before anybody catches up!",
+   "spoken": "[excited] Brown takes off! 17 yards before anybody catches up!",
+   "chars": 62,
+   "file": "351659fcad98897c.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "pen_holding",
+   "text": "The ref saw that grab! Holding, back 10.",
+   "spoken": "The ref saw that grab! Holding, back 10.",
+   "chars": 40,
+   "file": "62a527fee974166d.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "gain",
+   "text": "McBride chips away, 6 yards on that one.",
+   "spoken": "McBride chips away, 6 yards on that one.",
+   "chars": 40,
+   "file": "4d136b97db2a1497.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "gain",
+   "text": "A little here, a little there. 10 yards for Chase.",
+   "spoken": "A little here, a little there. 10 yards for Chase.",
+   "chars": 50,
+   "file": "dee5af41921c4e9e.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "fg_good",
+   "text": "Split the uprights! Aubrey drills it from 47 yards!",
+   "spoken": "[excited] Split the uprights! Aubrey drills it from 47 yards!",
+   "chars": 61,
+   "file": "629de4a355b2df7b.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "memory_need_answer",
+   "text": "Time to answer, Pythons! Collins to the PYT 30!",
+   "spoken": "Time to answer, Pythons! Collins to the Pythons 30!",
+   "chars": 51,
+   "file": "f2ad27c1fa9bc179.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "first_down",
+   "text": "Jefferson picks up the first down!",
+   "spoken": "Jefferson picks up the first down!",
+   "chars": 34,
+   "file": "84c8c26b3112f578.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "gain",
+   "text": "Robinson keeps the sticks in sight, 7 yards.",
+   "spoken": "Robinson keeps the sticks in sight, 7 yards.",
+   "chars": 44,
+   "file": "60e2e9adc116d05b.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "first_down",
+   "text": "New set of downs, courtesy of Robinson!",
+   "spoken": "New set of downs, courtesy of Robinson!",
+   "chars": 39,
+   "file": "819caa19becf7c47.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "pen_offside",
+   "text": "Patience, Goblins! Offside, 5 for free.",
+   "spoken": "Patience, Goblins! Offside, 5 for free.",
+   "chars": 39,
+   "file": "1e06f044ecaff9cb.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "memory_rz_enter",
+   "text": "Nabers for 27 yards! Smell the end zone!",
+   "spoken": "Nabers for 27 yards! Smell the end zone!",
+   "chars": 40,
+   "file": "821bfdcdbfc30080.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "gain",
+   "text": "Robinson grinds out 3 yards. Every yard counts!",
+   "spoken": "Robinson grinds out 3 yards. Every yard counts!",
+   "chars": 47,
+   "file": "aac87ee35ea01052.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "incomplete",
+   "text": "Jackson and Kittle not on the same page.",
+   "spoken": "Jackson and Kittle not on the same page.",
+   "chars": 40,
+   "file": "2ebc1ff4d06e8f4f.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "pen_dpi",
+   "text": "You can't do that, Goblins! 11 yards!",
+   "spoken": "You can't do that, Goblins! 11 yards!",
+   "chars": 37,
+   "file": "f548d939aceec1fd.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "kickoff",
+   "text": "Brown takes the kick and scoots to the GOB 25!",
+   "spoken": "Brown takes the kick and scoots to the Goblins 25!",
+   "chars": 50,
+   "file": "985b5eb7c2de1cc1.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "gain",
+   "text": "Nacua takes what's there, 6 yards.",
+   "spoken": "Nacua takes what's there, 6 yards.",
+   "chars": 34,
+   "file": "741c2ffa07f03bff.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "gain",
+   "text": "Solid work by Barkley, 3 yards more.",
+   "spoken": "Solid work by Barkley, 3 yards more.",
+   "chars": 36,
+   "file": "574410d98ba7567e.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "gain",
+   "text": "Nothing fancy, 4 yards for Robinson.",
+   "spoken": "Nothing fancy, 4 yards for Robinson.",
+   "chars": 36,
+   "file": "18967f96be9768a0.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "incomplete",
+   "text": "So close, Collins! Incomplete.",
+   "spoken": "So close, Collins! Incomplete.",
+   "chars": 30,
+   "file": "9260a2890682f26b.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "gain",
+   "text": "Kittle chips away, 5 yards on that one.",
+   "spoken": "Kittle chips away, 5 yards on that one.",
+   "chars": 39,
+   "file": "064ea79c6426c095.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "fg_miss",
+   "text": "Wide! That 47 yard try sails off the mark.",
+   "spoken": "Wide! That 47 yard try sails off the mark.",
+   "chars": 42,
+   "file": "9ded0732037da1df.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "half",
+   "text": "Two quarters down, two to go. Goblins 10, Pythons 7!",
+   "spoken": "Two quarters down, two to go. Goblins 10, Pythons 7!",
+   "chars": 52,
+   "file": "4114cac81932c14c.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "kickoff",
+   "text": "Up it goes! Collins brings it to the PYT 28.",
+   "spoken": "Up it goes! Collins brings it to the Pythons 28.",
+   "chars": 48,
+   "file": "85f15ea43dbb6f5b.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "gain",
+   "text": "Nothing fancy, 6 yards for Robinson.",
+   "spoken": "Nothing fancy, 6 yards for Robinson.",
+   "chars": 36,
+   "file": "bc2d57b64e2c2d15.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "first_down",
+   "text": "Jefferson moves the chains! First down!",
+   "spoken": "Jefferson moves the chains! First down!",
+   "chars": 39,
+   "file": "719feb57ef08db1a.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "big_gain",
+   "text": "Look at Chase go! That's a 24 yard chunk!",
+   "spoken": "[excited] Look at Chase go! That's a 24 yard chunk!",
+   "chars": 51,
+   "file": "d835ed71be571b51.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "memory_rz_enter",
+   "text": "Red zone! Barkley gets the Goblins close!",
+   "spoken": "Red zone! Barkley gets the Goblins close!",
+   "chars": 41,
+   "file": "4528295885585e7a.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "memory_answer",
+   "text": "Tit for tat! Touchdown, Goblins!",
+   "spoken": "[excited] Tit for tat! Touchdown, Goblins!",
+   "chars": 42,
+   "file": "1717ef1cbd70a1da.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "memory_need_answer",
+   "text": "Down 10! Let's see what the Pythons have!",
+   "spoken": "Down 10! Let's see what the Pythons have!",
+   "chars": 41,
+   "file": "db03e3f0a1bdc3d9.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "gain",
+   "text": "Solid work by Collins, 9 yards more.",
+   "spoken": "Solid work by Collins, 9 yards more.",
+   "chars": 36,
+   "file": "61090bce724dda74.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "first_down",
+   "text": "Keep it rolling! Robinson gets a fresh set.",
+   "spoken": "Keep it rolling! Robinson gets a fresh set.",
+   "chars": 43,
+   "file": "e45382b50211e102.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "big_gain",
+   "text": "Big play Pythons! Nabers rips off 28!",
+   "spoken": "[excited] Big play Pythons! Nabers rips off 28!",
+   "chars": 47,
+   "file": "d08244d3c7f6b248.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "gain",
+   "text": "Kittle grinds out 11 yards. Every yard counts!",
+   "spoken": "Kittle grinds out 11 yards. Every yard counts!",
+   "chars": 46,
+   "file": "37e15451a354f25b.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "first_down",
+   "text": "Moving the chains! Thank you, Robinson!",
+   "spoken": "Moving the chains! Thank you, Robinson!",
+   "chars": 39,
+   "file": "360a5811e2bedd34.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "memory_answer",
+   "text": "Anything you can do! The Pythons answer!",
+   "spoken": "[excited] Anything you can do! The Pythons answer!",
+   "chars": 50,
+   "file": "bea1f879c5a189ca.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "kickoff",
+   "text": "Brown takes the kick and scoots to the GOB 24!",
+   "spoken": "Brown takes the kick and scoots to the Goblins 24!",
+   "chars": 50,
+   "file": "74cce58b374ecf4f.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "gain",
+   "text": "Barkley keeps the sticks in sight, 3 yards.",
+   "spoken": "Barkley keeps the sticks in sight, 3 yards.",
+   "chars": 43,
+   "file": "9f07a78c1ab7c7bd.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "incomplete",
+   "text": "Allen and McBride not on the same page.",
+   "spoken": "Allen and McBride not on the same page.",
+   "chars": 39,
+   "file": "474b07cc1e8f3ee2.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "gain",
+   "text": "Brown takes what's there, 4 yards.",
+   "spoken": "Brown takes what's there, 4 yards.",
+   "chars": 34,
+   "file": "edf977103bcd7f8f.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "punt",
+   "text": "Away it goes! A 44 yard punt.",
+   "spoken": "Away it goes! A 44 yard punt.",
+   "chars": 29,
+   "file": "60a6ada4971e3f20.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "big_gain",
+   "text": "Look at Jefferson go! That's a 15 yard chunk!",
+   "spoken": "[excited] Look at Jefferson go! That's a 15 yard chunk!",
+   "chars": 55,
+   "file": "66b8fb5f13452320.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "gain",
+   "text": "Robinson chips away, 3 yards on that one.",
+   "spoken": "Robinson chips away, 3 yards on that one.",
+   "chars": 41,
+   "file": "818c66078b6230b9.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "incomplete",
+   "text": "Jackson fires for Kittle... off the fingertips!",
+   "spoken": "Jackson fires for Kittle... off the fingertips!",
+   "chars": 47,
+   "file": "abcdc0e1e34784bc.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "downs",
+   "text": "They went for it and... NO! Goblins ball!",
+   "spoken": "[excited] They went for it and... No! Goblins ball!",
+   "chars": 51,
+   "file": "2f2f31c268eefde2.mp3"
+  },
+  {
+   "sport": "football",
+   "kind": "kneel",
+   "text": "Take a knee, Allen. Clock is your friend.",
+   "spoken": "Take a knee, Allen. Clock is your friend.",
+   "chars": 41,
+   "file": "18e85250facda3cc.mp3"
+  },
+  {
+   "sport": "soccer",
+   "kind": "kickoff_start",
+   "text": "The referee blows, and we're off.",
+   "spoken": "The referee blows, and we're off.",
+   "chars": 33,
+   "file": "f398b2054d6e532d.mp3"
+  },
+  {
+   "sport": "soccer",
+   "kind": "build",
+   "text": "Saliba to Kvaratskhelia. Lovely stuff.",
+   "spoken": "Saliba to Kvaratskhelia. Lovely stuff.",
+   "chars": 38,
+   "file": "6681e61f9b36a6bd.mp3"
+  },
+  {
+   "sport": "soccer",
+   "kind": "regain",
+   "text": "Turnover. Rudiger takes it for Red Harbour.",
+   "spoken": "Turnover. Rudiger takes it for Red Harbour.",
+   "chars": 43,
+   "file": "965bac945e6d4374.mp3"
+  },
+  {
+   "sport": "soccer",
+   "kind": "save",
+   "text": "Kane shoots... saved by Raya!",
+   "spoken": "Kane shoots... saved by Raya!",
+   "chars": 29,
+   "file": "ac545864d60b8157.mp3"
+  },
+  {
+   "sport": "soccer",
+   "kind": "build",
+   "text": "Patient build-up, Raya then Saka.",
+   "spoken": "Patient build-up, Raya then Saka.",
+   "chars": 33,
+   "file": "9379f88dd7906a2a.mp3"
+  },
+  {
+   "sport": "soccer",
+   "kind": "foul_yellow",
+   "text": "Mendes goes into the book. Yellow card.",
+   "spoken": "Mendes goes into the book. Yellow card.",
+   "chars": 39,
+   "file": "8683feb415eba5f9.mp3"
+  },
+  {
+   "sport": "soccer",
+   "kind": "freekick_direct",
+   "text": "Free kick to Ironside. Bellingham stands over it.",
+   "spoken": "Free kick to Ironside. Bellingham stands over it.",
+   "chars": 49,
+   "file": "d0b46df9568bd2fb.mp3"
+  },
+  {
+   "sport": "soccer",
+   "kind": "save",
+   "text": "Good save from Maignan! Bellingham denied.",
+   "spoken": "Good save from Maignan! Bellingham denied.",
+   "chars": 42,
+   "file": "bc0f565470a7ddc9.mp3"
+  },
+  {
+   "sport": "soccer",
+   "kind": "corner_to",
+   "text": "Corner to Ironside. Kvaratskhelia swings it in.",
+   "spoken": "Corner to Ironside. Kvaratskhelia swings it in.",
+   "chars": 47,
+   "file": "373b68cb52be92ce.mp3"
+  },
+  {
+   "sport": "soccer",
+   "kind": "goal_head",
+   "text": "Haaland rises... and heads it in! GOAL!",
+   "spoken": "[excited] Haaland rises... and heads it in! Goal!",
+   "chars": 49,
+   "file": "b4ae688d6930b64b.mp3"
+  },
+  {
+   "sport": "soccer",
+   "kind": "kickoff_restart",
+   "text": "Red Harbour kick off again.",
+   "spoken": "Red Harbour kick off again.",
+   "chars": 27,
+   "file": "406af2967b56e2cd.mp3"
+  },
+  {
+   "sport": "soccer",
+   "kind": "build",
+   "text": "Red Harbour keep it, Vitinha to Mbappe.",
+   "spoken": "Red Harbour keep it, Vitinha to Mbappe.",
+   "chars": 39,
+   "file": "7d9a75a167769c1e.mp3"
+  },
+  {
+   "sport": "soccer",
+   "kind": "offside",
+   "text": "Flag up. Kane is offside.",
+   "spoken": "Flag up. Kane is offside.",
+   "chars": 25,
+   "file": "d60f5a3c507d9630.mp3"
+  },
+  {
+   "sport": "soccer",
+   "kind": "build",
+   "text": "Patient build-up, Saliba then Bellingham.",
+   "spoken": "Patient build-up, Saliba then Bellingham.",
+   "chars": 41,
+   "file": "8a078672b26212b3.mp3"
+  },
+  {
+   "sport": "soccer",
+   "kind": "wide",
+   "text": "Saka shoots... just wide.",
+   "spoken": "Saka shoots... just wide.",
+   "chars": 25,
+   "file": "acea13a857a1dbd6.mp3"
+  },
+  {
+   "sport": "soccer",
+   "kind": "build",
+   "text": "Maignan to Salah. Lovely stuff.",
+   "spoken": "Maignan to Salah. Lovely stuff.",
+   "chars": 31,
+   "file": "051a9727423ef268.mp3"
+  },
+  {
+   "sport": "soccer",
+   "kind": "penalty_given",
+   "text": "Penalty to Red Harbour! Salah is down.",
+   "spoken": "[excited] Penalty to Red Harbour! Salah is down.",
+   "chars": 48,
+   "file": "f29f2421be64b22f.mp3"
+  },
+  {
+   "sport": "soccer",
+   "kind": "memory_equaliser",
+   "text": "And Red Harbour are level! Kane scores!",
+   "spoken": "[excited] And Red Harbour are level! Kane scores!",
+   "chars": 49,
+   "file": "79b3e975ee4ff5b3.mp3"
+  },
+  {
+   "sport": "soccer",
+   "kind": "kickoff_restart",
+   "text": "We restart. Ironside 1, Red Harbour 1.",
+   "spoken": "We restart. Ironside 1, Red Harbour 1.",
+   "chars": 38,
+   "file": "7324ae3fa975d8a6.mp3"
+  },
+  {
+   "sport": "soccer",
+   "kind": "build",
+   "text": "Ironside keep it, Wirtz to Haaland.",
+   "spoken": "Ironside keep it, Wirtz to Haaland.",
+   "chars": 35,
+   "file": "b509d19cbd1ec510.mp3"
+  },
+  {
+   "sport": "soccer",
+   "kind": "post",
+   "text": "Haaland hits the woodwork!",
+   "spoken": "Haaland hits the woodwork!",
+   "chars": 26,
+   "file": "4bff8cd93983deed.mp3"
+  },
+  {
+   "sport": "soccer",
+   "kind": "half",
+   "text": "That's half time. Ironside 1, Red Harbour 1.",
+   "spoken": "That's half time. Ironside 1, Red Harbour 1.",
+   "chars": 44,
+   "file": "ab760e96bd1ea262.mp3"
+  },
+  {
+   "sport": "soccer",
+   "kind": "kickoff_second",
+   "text": "Off we go again. Forty-five minutes left.",
+   "spoken": "Off we go again. Forty-five minutes left.",
+   "chars": 41,
+   "file": "327f458d8a4348b3.mp3"
+  },
+  {
+   "sport": "soccer",
+   "kind": "build",
+   "text": "Patient build-up, Rudiger then Mbappe.",
+   "spoken": "Patient build-up, Rudiger then Mbappe.",
+   "chars": 38,
+   "file": "c07f6305bd3c819d.mp3"
+  },
+  {
+   "sport": "soccer",
+   "kind": "blocked",
+   "text": "Mbappe shoots, and it's blocked.",
+   "spoken": "Mbappe shoots, and it's blocked.",
+   "chars": 32,
+   "file": "b5958d1ef5634119.mp3"
+  },
+  {
+   "sport": "soccer",
+   "kind": "corner_to",
+   "text": "Salah delivers the corner for Rudiger.",
+   "spoken": "Salah delivers the corner for Rudiger.",
+   "chars": 38,
+   "file": "84473153fa36ca96.mp3"
+  },
+  {
+   "sport": "soccer",
+   "kind": "save",
+   "text": "Raya gets down well to keep it out.",
+   "spoken": "Raya gets down well to keep it out.",
+   "chars": 35,
+   "file": "bcb93d8b7a17d304.mp3"
+  },
+  {
+   "sport": "soccer",
+   "kind": "build",
+   "text": "Saliba to Saka. Lovely stuff.",
+   "spoken": "Saliba to Saka. Lovely stuff.",
+   "chars": 29,
+   "file": "426852f8a41e8b6c.mp3"
+  },
+  {
+   "sport": "soccer",
+   "kind": "goal_disallowed",
+   "text": "Haaland scores... but it's ruled out!",
+   "spoken": "[excited] Haaland scores... but it's ruled out!",
+   "chars": 47,
+   "file": "8395dc0ba0af174c.mp3"
+  },
+  {
+   "sport": "soccer",
+   "kind": "build",
+   "text": "Red Harbour keep it, Gvardiol to Salah.",
+   "spoken": "Red Harbour keep it, Gvardiol to Salah.",
+   "chars": 39,
+   "file": "1dface0c09b0fa40.mp3"
+  },
+  {
+   "sport": "soccer",
+   "kind": "foul_yellow",
+   "text": "A booking for Bellingham for that one.",
+   "spoken": "A booking for Bellingham for that one.",
+   "chars": 38,
+   "file": "f7a38f407c47975f.mp3"
+  },
+  {
+   "sport": "soccer",
+   "kind": "freekick_to",
+   "text": "Salah chips the free kick to Gvardiol.",
+   "spoken": "Salah chips the free kick to Gvardiol.",
+   "chars": 38,
+   "file": "28a76cf01280e060.mp3"
+  },
+  {
+   "sport": "soccer",
+   "kind": "goal_head",
+   "text": "A header from Gvardiol! It's in!",
+   "spoken": "[excited] A header from Gvardiol! It's in!",
+   "chars": 42,
+   "file": "bf3f9c71cb794529.mp3"
+  },
+  {
+   "sport": "soccer",
+   "kind": "kickoff_restart",
+   "text": "Ironside get us going again.",
+   "spoken": "Ironside get us going again.",
+   "chars": 28,
+   "file": "3c23b4485edb18c1.mp3"
+  },
+  {
+   "sport": "soccer",
+   "kind": "build",
+   "text": "Patient build-up, Raya then Kvaratskhelia.",
+   "spoken": "Patient build-up, Raya then Kvaratskhelia.",
+   "chars": 42,
+   "file": "74c686426fad6065.mp3"
+  },
+  {
+   "sport": "soccer",
+   "kind": "memory_equaliser",
+   "text": "Bellingham levels it! Ironside 2, Red Harbour 2.",
+   "spoken": "[excited] Bellingham levels it! Ironside 2, Red Harbour 2.",
+   "chars": 58,
+   "file": "cb409e25dcc55d7b.mp3"
+  },
+  {
+   "sport": "soccer",
+   "kind": "build",
+   "text": "Red Harbour keep it, Valverde to Kane.",
+   "spoken": "Red Harbour keep it, Valverde to Kane.",
+   "chars": 38,
+   "file": "ca9718eaa15a5cea.mp3"
+  },
+  {
+   "sport": "soccer",
+   "kind": "memory_keeper_third",
+   "text": "Third save of the match for Raya.",
+   "spoken": "Third save of the match for Raya.",
+   "chars": 33,
+   "file": "0febb64df562e795.mp3"
+  },
+  {
+   "sport": "soccer",
+   "kind": "corner_cleared",
+   "text": "The corner comes to nothing.",
+   "spoken": "The corner comes to nothing.",
+   "chars": 28,
+   "file": "cac209b376fbbc1f.mp3"
+  },
+  {
+   "sport": "soccer",
+   "kind": "memory_late_winner",
+   "text": "88 minutes gone, and Saka scores!",
+   "spoken": "[excited] 88 minutes gone, and Saka scores!",
+   "chars": 43,
+   "file": "682b4bd9b5a7352d.mp3"
+  },
+  {
+   "sport": "soccer",
+   "kind": "kickoff_restart",
+   "text": "We restart. Ironside 3, Red Harbour 2.",
+   "spoken": "We restart. Ironside 3, Red Harbour 2.",
+   "chars": 38,
+   "file": "3f7160f39a971afb.mp3"
+  },
+  {
+   "sport": "soccer",
+   "kind": "build",
+   "text": "Patient build-up, Rudiger then Kane.",
+   "spoken": "Patient build-up, Rudiger then Kane.",
+   "chars": 36,
+   "file": "09b22d2a4cdfb11b.mp3"
+  },
+  {
+   "sport": "soccer",
+   "kind": "wide",
+   "text": "Wide from Kane. Goal kick.",
+   "spoken": "Wide from Kane. Goal kick.",
+   "chars": 26,
+   "file": "679bb3d305677f76.mp3"
+  },
+  {
+   "sport": "soccer",
+   "kind": "final",
+   "text": "Full time! Ironside win it!",
+   "spoken": "[excited] Full time! Ironside win it!",
+   "chars": 37,
+   "file": "f0c9b419b9d8b75d.mp3"
+  },
+  {
+   "sport": "soccer",
+   "kind": "kickoff_start",
+   "text": "And we're off! Let's have it!",
+   "spoken": "And we're off! Let's have it!",
+   "chars": 29,
+   "file": "b9d5ec5807f681b0.mp3"
+  },
+  {
+   "sport": "soccer",
+   "kind": "build",
+   "text": "Ironside are knocking it about nicely!",
+   "spoken": "Ironside are knocking it about nicely!",
+   "chars": 38,
+   "file": "940d8f6b34886f05.mp3"
+  },
+  {
+   "sport": "soccer",
+   "kind": "regain",
+   "text": "Rudiger reads it and takes it away!",
+   "spoken": "Rudiger reads it and takes it away!",
+   "chars": 35,
+   "file": "5fb0e057902c1df5.mp3"
+  },
+  {
+   "sport": "soccer",
+   "kind": "save",
+   "text": "Denied! Raya is having none of it!",
+   "spoken": "Denied! Raya is having none of it!",
+   "chars": 34,
+   "file": "a2d0a1f2725ede75.mp3"
+  },
+  {
+   "sport": "soccer",
+   "kind": "build",
+   "text": "Tiki-taka! Raya to Saka!",
+   "spoken": "Tiki-taka! Raya to Saka!",
+   "chars": 24,
+   "file": "fd4ededa49be4030.mp3"
+  },
+  {
+   "sport": "soccer",
+   "kind": "foul_yellow",
+   "text": "Yellow! Mendes is on thin ice now!",
+   "spoken": "Yellow! Mendes is on thin ice now!",
+   "chars": 34,
+   "file": "8282245519c04144.mp3"
+  },
+  {
+   "sport": "soccer",
+   "kind": "freekick_direct",
+   "text": "Shooting range! Bellingham lines it up!",
+   "spoken": "Shooting range! Bellingham lines it up!",
+   "chars": 39,
+   "file": "381bb4bec239aeca.mp3"
+  },
+  {
+   "sport": "soccer",
+   "kind": "save",
+   "text": "What a stop! Maignan says no!",
+   "spoken": "What a stop! Maignan says no!",
+   "chars": 29,
+   "file": "6dd27a87beb2d4e8.mp3"
+  },
+  {
+   "sport": "soccer",
+   "kind": "corner_to",
+   "text": "Set piece! Kvaratskhelia to Haaland!",
+   "spoken": "Set piece! Kvaratskhelia to Haaland!",
+   "chars": 36,
+   "file": "1431a1229f0d9f18.mp3"
+  },
+  {
+   "sport": "soccer",
+   "kind": "goal_head",
+   "text": "Head and shoulders above! Haaland scores!",
+   "spoken": "[excited] Head and shoulders above! Haaland scores!",
+   "chars": 51,
+   "file": "f43f04e5175d0069.mp3"
+  },
+  {
+   "sport": "soccer",
+   "kind": "kickoff_restart",
+   "text": "Back to the centre circle. Ironside 1, Red Harbour 0.",
+   "spoken": "Back to the centre circle. Ironside 1, Red Harbour 0.",
+   "chars": 53,
+   "file": "092e415c8105a980.mp3"
+  },
+  {
+   "sport": "soccer",
+   "kind": "build",
+   "text": "Pass and move! Vitinha finds Mbappe!",
+   "spoken": "Pass and move! Vitinha finds Mbappe!",
+   "chars": 36,
+   "file": "c31cd3d3e0a67548.mp3"
+  },
+  {
+   "sport": "soccer",
+   "kind": "offside",
+   "text": "The flag is up! Kane went early.",
+   "spoken": "The flag is up! Kane went early.",
+   "chars": 32,
+   "file": "98526ecfcc97b681.mp3"
+  },
+  {
+   "sport": "soccer",
+   "kind": "wide",
+   "text": "Oh, Saka! Into the stands!",
+   "spoken": "Oh, Saka! Into the stands!",
+   "chars": 26,
+   "file": "12e4c386a865c7ce.mp3"
+  },
+  {
+   "sport": "soccer",
+   "kind": "build",
+   "text": "Tiki-taka! Maignan to Salah!",
+   "spoken": "Tiki-taka! Maignan to Salah!",
+   "chars": 28,
+   "file": "71947d5903fcd922.mp3"
+  },
+  {
+   "sport": "soccer",
+   "kind": "penalty_given",
+   "text": "PENALTY! Dias takes out Salah!",
+   "spoken": "[excited] Penalty! Dias takes out Salah!",
+   "chars": 40,
+   "file": "10bd8b4824ddfc2a.mp3"
+  },
+  {
+   "sport": "soccer",
+   "kind": "memory_equaliser",
+   "text": "Back in it! Kane equalises!",
+   "spoken": "[excited] Back in it! Kane equalises!",
+   "chars": 37,
+   "file": "669ed8fbbd4930f6.mp3"
+  },
+  {
+   "sport": "soccer",
+   "kind": "kickoff_restart",
+   "text": "Off we go again. Ironside 1, Red Harbour 1!",
+   "spoken": "Off we go again. Ironside 1, Red Harbour 1!",
+   "chars": 43,
+   "file": "b724cf09b75a9ed0.mp3"
+  },
+  {
+   "sport": "soccer",
+   "kind": "build",
+   "text": "Pass and move! Wirtz finds Haaland!",
+   "spoken": "Pass and move! Wirtz finds Haaland!",
+   "chars": 35,
+   "file": "f5262d7a3234c40e.mp3"
+  },
+  {
+   "sport": "soccer",
+   "kind": "post",
+   "text": "The woodwork saves Red Harbour! Haaland!",
+   "spoken": "The woodwork saves Red Harbour! Haaland!",
+   "chars": 40,
+   "file": "5b873459fe4d32d3.mp3"
+  },
+  {
+   "sport": "soccer",
+   "kind": "half",
+   "text": "That's the half! Ironside 1, Red Harbour 1.",
+   "spoken": "That's the half! Ironside 1, Red Harbour 1.",
+   "chars": 43,
+   "file": "d47039da1a05effd.mp3"
+  },
+  {
+   "sport": "soccer",
+   "kind": "kickoff_second",
+   "text": "Round two! Back under way!",
+   "spoken": "Round two! Back under way!",
+   "chars": 26,
+   "file": "38377b6b2c365611.mp3"
+  },
+  {
+   "sport": "soccer",
+   "kind": "build",
+   "text": "Red Harbour are knocking it about nicely!",
+   "spoken": "Red Harbour are knocking it about nicely!",
+   "chars": 41,
+   "file": "d233f327436aa8bd.mp3"
+  },
+  {
+   "sport": "soccer",
+   "kind": "blocked",
+   "text": "Brave block from Ironside!",
+   "spoken": "Brave block from Ironside!",
+   "chars": 26,
+   "file": "dc5bef63c61c39e8.mp3"
+  },
+  {
+   "sport": "soccer",
+   "kind": "corner_to",
+   "text": "Here comes the delivery from Salah!",
+   "spoken": "Here comes the delivery from Salah!",
+   "chars": 35,
+   "file": "8c32671875ddb0cd.mp3"
+  },
+  {
+   "sport": "soccer",
+   "kind": "save",
+   "text": "Raya with the gloves of steel!",
+   "spoken": "Raya with the gloves of steel!",
+   "chars": 30,
+   "file": "8717d42e0f2b8248.mp3"
+  },
+  {
+   "sport": "soccer",
+   "kind": "build",
+   "text": "Tiki-taka! Saliba to Saka!",
+   "spoken": "Tiki-taka! Saliba to Saka!",
+   "chars": 26,
+   "file": "af0026ed4652ff65.mp3"
+  },
+  {
+   "sport": "soccer",
+   "kind": "goal_disallowed",
+   "text": "Oh, the flag! Heartbreak for Ironside!",
+   "spoken": "[excited] Oh, the flag! Heartbreak for Ironside!",
+   "chars": 48,
+   "file": "bbe2b54e3854852c.mp3"
+  },
+  {
+   "sport": "soccer",
+   "kind": "build",
+   "text": "Pass and move! Gvardiol finds Salah!",
+   "spoken": "Pass and move! Gvardiol finds Salah!",
+   "chars": 36,
+   "file": "3f6f90a05cae6a20.mp3"
+  },
+  {
+   "sport": "soccer",
+   "kind": "foul_yellow",
+   "text": "Into the book goes Bellingham!",
+   "spoken": "Into the book goes Bellingham!",
+   "chars": 30,
+   "file": "d87ec1f0bafbac1d.mp3"
+  },
+  {
+   "sport": "soccer",
+   "kind": "freekick_to",
+   "text": "Free kick! Salah picks out Gvardiol!",
+   "spoken": "Free kick! Salah picks out Gvardiol!",
+   "chars": 36,
+   "file": "35edca3acb5148d5.mp3"
+  },
+  {
+   "sport": "soccer",
+   "kind": "goal_head",
+   "text": "Gvardiol gets up highest... and it's IN!",
+   "spoken": "[excited] Gvardiol gets up highest... and it's In!",
+   "chars": 50,
+   "file": "0315d82fce48ba3d.mp3"
+  },
+  {
+   "sport": "soccer",
+   "kind": "kickoff_restart",
+   "text": "Restart! Ironside need a response.",
+   "spoken": "Restart! Ironside need a response.",
+   "chars": 34,
+   "file": "51a4045cd93817f5.mp3"
+  },
+  {
+   "sport": "soccer",
+   "kind": "memory_equaliser",
+   "text": "Game on! Bellingham levels it!",
+   "spoken": "[excited] Game on! Bellingham levels it!",
+   "chars": 40,
+   "file": "eb41d742c4332e67.mp3"
+  },
+  {
+   "sport": "soccer",
+   "kind": "kickoff_restart",
+   "text": "Back to the centre circle. Ironside 2, Red Harbour 2.",
+   "spoken": "Back to the centre circle. Ironside 2, Red Harbour 2.",
+   "chars": 53,
+   "file": "43084bd7a58f2df0.mp3"
+  },
+  {
+   "sport": "soccer",
+   "kind": "build",
+   "text": "Pass and move! Valverde finds Kane!",
+   "spoken": "Pass and move! Valverde finds Kane!",
+   "chars": 35,
+   "file": "e92ae64df10b24dd.mp3"
+  },
+  {
+   "sport": "soccer",
+   "kind": "memory_keeper_third",
+   "text": "Raya again! Give the keeper a raise!",
+   "spoken": "Raya again! Give the keeper a raise!",
+   "chars": 36,
+   "file": "b12c7d749508174a.mp3"
+  },
+  {
+   "sport": "soccer",
+   "kind": "corner_cleared",
+   "text": "Corner cleared! Big header from Ironside.",
+   "spoken": "Corner cleared! Big header from Ironside.",
+   "chars": 41,
+   "file": "a8ae9b2d59af1498.mp3"
+  },
+  {
+   "sport": "soccer",
+   "kind": "memory_late_winner",
+   "text": "Never in doubt! Saka wins it late!",
+   "spoken": "[excited] Never in doubt! Saka wins it late!",
+   "chars": 44,
+   "file": "91562c6451e32446.mp3"
+  },
+  {
+   "sport": "soccer",
+   "kind": "kickoff_restart",
+   "text": "Off we go again. Ironside 3, Red Harbour 2!",
+   "spoken": "Off we go again. Ironside 3, Red Harbour 2!",
+   "chars": 43,
+   "file": "4aa81a907d0a561c.mp3"
+  },
+  {
+   "sport": "soccer",
+   "kind": "wide",
+   "text": "Row Z! Kane will want that back.",
+   "spoken": "Row Z! Kane will want that back.",
+   "chars": 32,
+   "file": "7e8433dd3796b609.mp3"
+  },
+  {
+   "sport": "soccer",
+   "kind": "final",
+   "text": "That's that! Ironside win!",
+   "spoken": "[excited] That's that! Ironside win!",
+   "chars": 36,
+   "file": "733d6bfead69c0b3.mp3"
+  }
+ ]
+}
