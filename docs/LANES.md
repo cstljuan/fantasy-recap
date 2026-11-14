@@ -20,3 +20,5 @@ Everyone also owns their own `board/<github-username>.md`.
 `index.html` belongs to the boss. To load a new script, post `ASK "boss: add <script src=...> to index.html"`.
 
 Soccer lives in its own folder so that work on one sport can never break the other. The boss connects the two in the app once both run.
+
+Design rules for the screens: `docs/DESIGN.md`.

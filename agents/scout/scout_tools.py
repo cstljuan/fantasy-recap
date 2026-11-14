@@ -61,7 +61,7 @@ def start_run(label="run"):
     d = os.environ.get("SCOUT_RUNS_DIR", os.path.join(HERE, "runs"))
     os.makedirs(d, exist_ok=True)
     stamp = datetime.datetime.now(datetime.timezone.utc).strftime("%Y%m%d-%H%M%S")
-    path = os.path.join(d, "%s-%s.log" % (stamp, label))
+    path = os.path.join(d, "%s-%s.txt" % (stamp, label))
     _run["log"] = path
     open(path, "w", encoding="utf-8").close()
     return path

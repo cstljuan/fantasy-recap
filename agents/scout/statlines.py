@@ -30,8 +30,8 @@ def rosters_from_js():
 
 def line_from(stats):
     """Sleeper stat names to our eleven fields. A stat the source does not list for a player who played is 0."""
-    g = lambda k: stats.get(k, 0) or 0
-    fg_missed = stats["fgmiss"] if "fgmiss" in stats else max(0, g("fga") - g("fgm"))
+    g = lambda k: int(stats.get(k, 0) or 0)
+    fg_missed = int(stats["fgmiss"]) if "fgmiss" in stats else max(0, g("fga") - g("fgm"))
     return {"pass_yards": g("pass_yd"), "pass_td": g("pass_td"), "interceptions": g("pass_int"),
             "rush_yards": g("rush_yd"), "rush_td": g("rush_td"), "receptions": g("rec"), "rec_yards": g("rec_yd"),
             "rec_td": g("rec_td"), "fg_made": g("fgm"), "fg_missed": fg_missed, "xp_made": g("xpm")}

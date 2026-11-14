@@ -10,6 +10,17 @@ var Rules = require(path.join(root, 'js', 'rules.js'));
 var START = Date.parse('2026-11-15T18:00:00Z');
 var SPAN_MS = 3 * 60 * 60 * 1000;
 
+// Where the ball is, measured in yards from the offense's own goal line. `end` is where the offense got to on
+// this play: 100 for a touchdown, the kick spot for kicks and takeaways, otherwise the ball after the play.
+function ballOf(p) {
+  var e = p.st.e, r = p.r, pre = r.pre.ballOn, post = r.post.ballOn, end = post;
+  if (r.td) end = 100;
+  else if (e.t === 'fg' || e.t === 'punt' || e.t === 'int') end = pre;
+  else if (e.t === 'fumble') end = pre + (e.yds || 0);
+  else if (r.downs) end = pre + (typeof r.yds === 'number' ? r.yds : (e.yds || 0));
+  return { pre: pre, post: post, end: end, flip: !!r.flip, downs: !!r.downs };
+}
+
 function buildPlays(file) {
   var g = JSON.parse(fs.readFileSync(file, 'utf8'));
   var teams = g.teams;
@@ -26,6 +37,15 @@ function buildPlays(file) {
     var inHalf = list.filter(function (p) { return p.half === h; });
     var cut = Math.ceil(inHalf.length / 2);
     inHalf.forEach(function (p, i) { p.quarter = (h - 1) * 2 + (i < cut ? 1 : 2); });
+  });
+  // The game file has no clock either. Within a quarter the plays are spread evenly over 15:00 counting down.
+  [1, 2, 3, 4].forEach(function (q) {
+    var inQ = list.filter(function (p) { return p.quarter === q; });
+    inQ.forEach(function (p, k) {
+      var left = Math.round(900 * (1 - k / inQ.length));
+      p.clock = Math.floor(left / 60) + ':' + ('0' + (left % 60)).slice(-2);
+      p.secs = Math.round(900 / inQ.length * 10) / 10;
+    });
   });
   var plays = list.map(function (p, i) {
     var e = p.st.e, r = p.r, fp = r.fp || [], main = null;
@@ -44,8 +64,12 @@ function buildPlays(file) {
       quarter: p.quarter, team: team, slot: slot, player: player, kind: e.t,
       yards: e.yds !== undefined ? e.yds : (e.net !== undefined ? e.net : null),
       fantasy_points: pts,
-      detail: { event: e, text: r.text, score_after: p.score, drive: p.st.drive + 1,
-        fp: fp.map(function (f) { return { team: teams[f.team].id, slot: f.role, pts: f.pts }; }) },
+      detail: { event: e, text: r.text, score_after: p.score, drive: p.st.drive + 1, clock: p.clock, secs: p.secs, td: !!r.td,
+        off: teams[p.st.team].id, half: p.half, ball: ballOf(p),
+        fp: fp.map(function (f) {
+          var id = teams[f.team].id;
+          return { team: id, slot: f.role, name: f.role === 'DST' ? id + ' defense' : teams[f.team].roster[f.role] || null, pts: f.pts };
+        }) },
       why: e.why || {}
     };
   });

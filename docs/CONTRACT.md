@@ -29,6 +29,7 @@ Plays the engine decided by itself (sacks, penalties, kicks, turnovers, forced p
 - `on(fn)`: `fn(type, data)` is called for `start`, `snap`, `result`, `half`, `final`, `reset`. For `snap` and `result`, `data` is `{ res, play, step }`.
 - `start()`, `restart()`, `setActive(true or false)`, `ontap`.
 - Read only: `mode`, `active`, `plays`.
+- `seek(index)`: jump to the start of play number `index` (from 1, plays only). The plays before it run at once: listeners still get `reset`, `snap`, `result` and `half` for them so tallies stay right, but there is no sound, voice, floater or banner, and the announcer is not asked for lines. Returns `false` for an index that is not a play. Works before the game starts and after the final.
 - `setFloaters(true or false)`: show or hide the fantasy point numbers that float up from players. `floaters` reads it.
 - `setBackground(true or false)`: by default the game only advances while its view is open (`setActive(true)`). `setBackground(true)`, or `?bg=1`, lets it run behind the app. `background` reads it.
 
