@@ -18,14 +18,15 @@ var dir = path.join(__dirname, '..', 'statlines');
 var PLAYER = ['pass_yards', 'pass_td', 'interceptions', 'rush_yards', 'rush_td', 'receptions', 'rec_yards', 'rec_td', 'fg_made', 'fg_missed', 'xp_made'];
 var DEF = ['sacks', 'def_interceptions', 'fumble_recoveries', 'def_td', 'points_allowed'];
 // What a week must do, beyond adding up.
-var EXPECT = { 'week12.json': { winner: 'PYT', bothOver: 24 } };
+var EXPECT = { 'week12.json': { winner: 'PYT', bothOver: 24 }, 'week11-tur-owl.json': { winner: 'TUR' } };
 
 var problems = [], notes = [];
 function bad(f, m) { problems.push(f + ': ' + m); }
 function isCount(v) { return typeof v === 'number' && isFinite(v) && v >= 0 && Math.floor(v) === v; }
 function sum(obj, key) { return Object.keys(obj).reduce(function (a, s) { return a + (obj[s].line[key] || 0); }, 0); }
 
-var files = fs.readdirSync(dir).filter(function (f) { return /^week\d+(-real)?\.json$/.test(f); }).sort();
+// week<NN>.json, week<NN>-real.json, and week<NN>-<teams>.json for another matchup (week11-tur-owl.json).
+var files = fs.readdirSync(dir).filter(function (f) { return /^week\d+(-[a-z]+)*\.json$/.test(f); }).sort();
 if (!files.length) bad('data/statlines', 'no week files found');
 
 files.forEach(function (f) {

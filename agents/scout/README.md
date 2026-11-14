@@ -108,3 +108,7 @@ For the 22 players in `data/rosters/IRN.json` and `RHB.json` it finds each one i
 It also writes one real round of lines, `data/statlines/soccer-real-<date>.json`, in the shape of `soccer/data/week11-lines.json`: each player's line from his own league match in the last four days up to the latest match. A player with no league match in that round has an empty line. The players of one fantasy team play for different clubs, so the lines are not one match, and real keeper saves almost never equal the other fantasy team's saved shots: the file lists the match maker rules it breaks in `match_maker_rules`, and nothing was changed to make them fit.
 
 Live run on 2026-11-14: 21 of 22 players filled. William Saliba stays null: ESPN's game log for him only has season 2020 (Arsenal U21) and the 2026 Premier League statistics address answers 404. Round 2026-11-05 to 2026-11-08; Hakimi, Kvaratskhelia, Saka, Nuno Mendes and Kounde had no league match in it. Both keeper-saves rules are broken, so `soccer/engine/make-match.js` refuses the file as it is.
+
+## More teams
+
+`fill_profiles.py` and `form.py` take `--roster-files data/rosters/TUR.json,data/rosters/OWL.json` to fill teams that are not in `js/data.js`. Both merge into `data/rosters/season-2026.json` and `form-2026.json`, so a run for some teams keeps the others. Live run on 2026-11-14: all 14 Turtles and Owls players resolved and filled, with form.

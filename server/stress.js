@@ -118,6 +118,11 @@ var srv = createServer(db).listen(0, function () {
     function () { return c('story from the database', 'GET', '/games/week11-football/story', undefined, [200]).then(function (r) { if (r.body && r.body.source !== 'database') problems.push('story did not come from the database'); }); },
     function () { return c('story of a soccer match', 'GET', '/games/week11-soccer/story', undefined, [200, 404]); },
     function () { return c('health', 'GET', '/health', undefined, [200]); },
+    function () { return c('league', 'GET', '/league', undefined, [200]).then(function (r) {
+      var cur = r.body && r.body.current && r.body.current.matchups[0];
+      if (!cur || cur.optinsFrom !== 'database' || cur.optedIn.indexOf('GOB') < 0) problems.push('league does not show the opt-in sent before it');
+      if (r.body && r.body.weeks.some(function (w) { return !w.finished && w.matchups.some(function (m) { return m.final !== null; }); })) problems.push('league shows points of the current week');
+    }); },
     function () { return c('options', 'OPTIONS', '/games/week11-football/plays', undefined, [204]); },
     // football-only routes asked about a soccer match that IS in the database
     function () { return c('top plays of a soccer match', 'GET', '/games/week11-soccer/top-plays', undefined, [200, 404]); },
@@ -165,6 +170,8 @@ var srv = createServer(db).listen(0, function () {
     ['wrong method on plays', 'DELETE', '/games/g1/plays', undefined, [405]],
     ['wrong method on health', 'POST', '/health', undefined, [404, 405]],
     ['wrong method on top plays', 'PUT', '/games/g1/top-plays', undefined, [405]],
+    ['wrong method on league', 'POST', '/league', { x: 1 }, [405]],
+    ['league with a query', 'GET', '/league?week=99&x=%E0%A4%A', undefined, [200]],
     ['story: odd id', 'GET', '/games/..%2Fx/story', undefined, [404]],
     ['wrong method on story', 'POST', '/games/g1/story', undefined, [405]]
   ];
@@ -222,7 +229,7 @@ var srv = createServer(db).listen(0, function () {
   // 3. 200 requests at once
   steps.push(function () {
     var routes = ['/games/week11-football/plays', '/games/week11-football/top-plays?n=5', '/games/week11-football/drives',
-      '/games/week11-football/momentum', '/games/week11-football/story', '/games/week11-soccer/plays', '/health', '/games/week11-football/optins', '/games/nope/plays'];
+      '/games/week11-football/momentum', '/games/week11-football/story', '/league', '/games/week11-soccer/plays', '/health', '/games/week11-football/optins', '/games/nope/plays'];
     var all = [];
     for (var i = 0; i < 200; i++) {
       var p = routes[i % routes.length];

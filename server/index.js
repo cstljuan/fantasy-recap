@@ -14,6 +14,7 @@ var drivesModule = require('./drives.js');
 var momentumModule = require('./momentum.js');
 var storyModule = require('./story.js');
 var createParties = require('./party.js').createParties;
+var leagueModule = require('./league.js');
 var PARTY_BODY = 2048;
 
 function loadEnv(file) {
@@ -132,6 +133,43 @@ function createServer(db, opts) {
     send(res, 405, { error: 'method not allowed' });
   }
 
+  // The league home: data/league.json, with opt-ins and finished games from the database when it answers.
+  // The current week's points are never sent (server/league.js).
+  function league(res) {
+    var base;
+    try { base = leagueModule.fromFiles(); }
+    catch (e) { console.error('league: could not read data/league.json:', e.message); return send(res, 500, { error: 'could not read the league file' }); }
+    var doc = base.doc, curIds = [], doneIds = [];
+    (doc.weeks || []).forEach(function (w) {
+      (w.matchups || []).forEach(function (m) {
+        var id = leagueModule.gameIdOf(m);
+        if (id) (w.finished ? doneIds : curIds).push(id);
+      });
+    });
+    var optins = {}, finals = {}, fileFinals = {};
+    base.league.weeks.forEach(function (w) { w.matchups.forEach(function (m) { if (m.gameId && m.finalFrom === 'file' && m.final) fileFinals[m.gameId] = m.final; }); });
+    var asked = curIds.map(function (id) {
+      return db.query('SELECT game_id, manager, opted_in_at FROM optins WHERE game_id = $1 ORDER BY opted_in_at, manager', [id])
+        .then(function (r) { optins[id] = r.rows.map(function (x) { return x.manager; }); });
+    }).concat(doneIds.map(function (id) {
+      return db.query('SELECT seq, detail FROM plays WHERE game_id = $1 ORDER BY seq', [id]).then(function (r) {
+        return db.query('SELECT home, away FROM games WHERE id = $1', [id]).then(function (g) {
+          if (r.rows.length && g.rows[0]) finals[id] = leagueModule.finalFromRecords(r.rows, g.rows[0].home, g.rows[0].away);
+        });
+      });
+    }));
+    Promise.all(asked).then(function () {
+      var f = Object.assign({}, fileFinals, finals);
+      var L = leagueModule.fromLeague(doc, { optins: optins, finals: f, source: { optins: 'database', finals: Object.keys(finals).length ? 'database' : 'file' } });
+      L.source = { optins: curIds.length ? 'database' : 'file', finals: Object.keys(finals).length ? 'database' : 'file' };
+      send(res, 200, L);
+    }, function (e) {
+      console.error('league: database does not answer, using the files:', e.message);
+      var L = base.league; L.source = { optins: 'file', finals: 'file' };
+      send(res, 200, L);
+    }).catch(function (e) { console.error('league failed:', e && e.message); if (!res.headersSent) send(res, 500, { error: 'server error' }); });
+  }
+
   function route(req, res) {
     var url = new URL(req.url, 'http://localhost');
     if (req.method === 'OPTIONS') return send(res, 204, {});
@@ -140,6 +178,10 @@ function createServer(db, opts) {
         function (e) { console.error('health: database does not answer:', e.message); send(res, 503, { ok: false, database: false }); });
     }
     if (url.pathname === '/party' || url.pathname.indexOf('/party/') === 0) return party(req, res, url);
+    if (url.pathname === '/league') {
+      if (req.method !== 'GET') return send(res, 405, { error: 'method not allowed' });
+      return league(res);
+    }
     var m = url.pathname.match(/^\/games\/([^\/]+)\/(plays|summary|optin|optins|top-plays|drives|momentum|story)$/);
     if (!m) return send(res, 404, { error: 'not found' });
     var gameId;
