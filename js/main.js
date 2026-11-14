@@ -134,7 +134,7 @@
   function piece(name, score) {
     var ann = window.FF_ANNOUNCER;
     if (!ann || typeof ann[name] !== 'function') return '';
-    try { return ann[name]({ teams: TEAMS, score: score || [0, 0], style: ann.style, leaders: [], plays: results.slice() }) || ''; }
+    try { return ann[name]({ teams: TEAMS, score: score || [0, 0], style: ann.style, leaders: [], plays: results.slice(), hidden: !!(window.__app && window.__app.masked) }) || ''; }
     catch (err) { return ''; }
   }
 
@@ -449,7 +449,7 @@
       if (disp.poss === i) { g.fillStyle = '#ffe600'; g.fillRect(x + w - 10, ry + 4, 5, 5); }
     }
     g.textAlign = 'left'; g.fillStyle = 'rgba(255,255,255,0.75)'; g.font = 'bold 7px ' + FONT;
-    g.fillText('SAMPLE GAME, MOCK DATA', x + 5, y + h - 4);
+    g.fillText('SAMPLE GAME, MADE-UP STATS', x + 5, y + h - 4);
   }
 
   function drawBanner() {
@@ -484,7 +484,7 @@
     }
     g.textAlign = 'center';
     g.fillStyle = 'rgba(255,255,255,0.8)'; g.font = 'bold 10px ' + FONT;
-    g.fillText('Sample game. Mock data.', W / 2, by + 128);
+    g.fillText('Sample game. Real names, made-up stats.', W / 2, by + 128);
     g.fillText('Tap for the recap', W / 2, by + 148);
   }
 

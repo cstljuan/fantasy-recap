@@ -1,0 +1,26 @@
+{
+ "note": "Invented fantasy soccer stat lines for the demo. The player names are real; these numbers are not from a real match.",
+ "teams": [
+  {
+   "players": {
+    "GK": { "saves": 4 },
+    "CB1": {},
+    "CM1": { "yellow": 1 },
+    "CM2": { "sot": 1 },
+    "LW": { "assists": 1 },
+    "ST": { "goals": 1, "sot": 3 },
+    "RW": { "goals": 1, "sot": 2, "assists": 1 }
+   }
+  },
+  {
+   "players": {
+    "GK": { "saves": 4 },
+    "CB2": { "red": 1 },
+    "CM2": { "yellow": 1 },
+    "LW": { "sot": 1 },
+    "ST": { "sot": 2 },
+    "RW": { "sot": 1 }
+   }
+  }
+ ]
+}
