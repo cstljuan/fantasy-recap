@@ -108,7 +108,7 @@ STYLES.forEach(function (style) {
 
 // Rule explainers and the transcript.
 (function () {
-  var want = ['offside', 'corner', 'free_kick', 'penalty_kick', 'yellow', 'red', 'throw_in', 'goal_kick', 'extra_time'];
+  var want = ['offside', 'corner', 'free_kick', 'penalty_kick', 'yellow', 'red', 'throw_in', 'goal_kick', 'extra_time', 'stoppage_time', 'clean_sheet'];
   want.forEach(function (k) {
     var t = A.explain(k), n = (t.match(/[.!?](\s|$)/g) || []).length;
     if (!t) problems.push('explain(' + k + ') is empty');
@@ -130,6 +130,76 @@ STYLES.forEach(function (style) {
   A.reset();
   if (A.transcript().length) problems.push('reset() should empty the transcript');
   console.log('\nRules shown in the sample match: ' + Object.keys(shown).join(', '));
+})();
+
+// C20: catch-up and the big call, on the sample match and on made-up events (test only).
+(function () {
+  var teams = data.TEAMS, s = Rules.create(teams), res = [];
+  Rules.flatten(data.SAMPLE_GAME, teams).forEach(function (st) {
+    if (st.kind === 'half') { Rules.startHalf(s); return; }
+    if (st.kind === 'play') res.push(Rules.apply(s, st.e, st.team));
+  });
+  function ev(team, e, pre, post, extra) {
+    return Object.assign({ e: e, kind: e.t, team: team, min: e.min, half: e.min > 45 ? 2 : 1, pre: { score: pre }, post: { score: post }, fp: [] }, extra || {});
+  }
+  var red = ev(1, { t: 'foul', by: 'CB1', on: 'ST', card: 'red', min: 30 }, [0, 0], [0, 0], { card: 'red' });
+  var penSave = ev(0, { t: 'pen', by: 'ST', out: 'saved', min: 40 }, [0, 0], [0, 0]);
+  var plain = ev(0, { t: 'build', chain: ['CM1', 'ST'], min: 41 }, [0, 0], [0, 0]);
+  var leaders = [{ name: teams[0].roster.ST, points: 5.5 }];
+  var firstGoal = res.findIndex(function (r) { return r.goal; });
+  var cases = [
+    ['no skipped events', [], {}, function (t) { return t === ''; }],
+    ['a goal', res.slice(0, firstGoal + 1), {}, function (t) { return /goal/i.test(t); }],
+    ['a red card', [plain, red], {}, function (t) { return /sent off/.test(t); }],
+    ['a saved penalty', [plain, penSave], {}, function (t) { return /saved a pen/.test(t); }],
+    ['quiet, leader shown', [plain], { leaders: leaders }, function (t) { return /5\.5/.test(t); }],
+    ['hidden scores', [plain], { leaders: leaders, hidden: true }, function (t) { return t && !/fantasy|5\.5/.test(t); }]
+  ];
+  console.log('\n== Soccer catch-up ==');
+  cases.forEach(function (c) {
+    A.reset();
+    var t = A.catchUp(c[1], Object.assign({ teams: teams }, c[2]));
+    if (!c[3](t)) problems.push('catchUp, ' + c[0] + ': ' + JSON.stringify(t));
+    var n = (t.match(/[.!?](\s|$)/g) || []).length;
+    if (t && (n < 1 || n > 2)) problems.push('catchUp, ' + c[0] + ' has ' + n + ' sentences');
+    if (/\{\w+\}|undefined|NaN/.test(t)) problems.push('catchUp gap: ' + t);
+    if (t.length > A.maxLength) problems.push('catchUp too long (' + t.length + '): ' + t);
+    console.log('  ' + pad(c[0], 22) + (t || '(quiet)'));
+  });
+  A.reset(); A.catchUp(res.slice(0, 10), { teams: teams });
+  if (A.memory().log.length !== 10) problems.push('catchUp should add the skipped events to memory');
+
+  console.log('\n== Soccer big calls ==');
+  A.reset();
+  var s2 = Rules.create(teams), n = 0;
+  Rules.flatten(data.SAMPLE_GAME, teams).forEach(function (st) {
+    if (st.kind === 'half') { Rules.startHalf(s2); return; }
+    if (st.kind !== 'play') return;
+    var r = Rules.apply(s2, st.e, st.team);
+    A.line(r, { teams: teams });
+    var before = A.memory().log.length, b = A.bigCall(r, { teams: teams }), h = A.bigCall(r, { teams: teams, hidden: true });
+    if (A.memory().log.length !== before) problems.push('bigCall changed the memory');
+    if (r.goal && !b) problems.push('no big call for a goal at ' + st.e.min);
+    if (!r.goal && b) problems.push('big call for an ordinary event: ' + b);
+    if (/fantasy/i.test(h)) problems.push('hidden big call names fantasy points: ' + h);
+    if (b) { n++; if (n === 1) console.log('  goal: ' + b); }
+  });
+  [['red card', red], ['saved penalty', penSave]].forEach(function (c) {
+    var b = A.bigCall(c[1], { teams: teams });
+    if (!b) problems.push('no big call for a ' + c[0]); else console.log('  ' + c[0] + ': ' + b);
+  });
+  if (A.bigCall(plain, { teams: teams }) !== '') problems.push('big call for a passing move');
+  var worstLen = 0;
+  Object.keys(A._bigLines).forEach(function (k) {
+    STYLES.forEach(function (style) {
+      A._bigLines[k][style].forEach(function (t) {
+        worstLen = Math.max(worstLen, fill(t, worst).length + 1 + ('That makes it ' + worst.score + ', and ' + worst.team + ' lead by 3.').length + 1 +
+          ('That\'s 12.5 fantasy points for ' + worst.player + '.').length);
+      });
+    });
+  });
+  if (worstLen > A.bigCallMaxLength) problems.push('a soccer big call can reach ' + worstLen + ' characters, over ' + A.bigCallMaxLength);
+  console.log('  ' + n + ' big calls in the sample match, worst-case length ' + worstLen);
 })();
 
 if (problems.length) {

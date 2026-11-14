@@ -16,6 +16,16 @@
 //                   remarks wait at least 2 events after the last one.
 //   explain(kind)   one or two plain sentences on a soccer rule for the rule cards; '' for an
 //                   unknown kind. explainKinds lists them; explainFor(res) gives a result's kinds.
+//   catchUp(results, ctx)
+//                   after SC_GAME.seek skipped events: one or two short sentences (the goals and the
+//                   new score, then a red card, a saved penalty or the busiest keeper), at most
+//                   maxLength characters, '' when nothing was skipped. Same shapes as FF_ANNOUNCER.catchUp; ctx.hidden keeps fantasy
+//                   points out. It also adds the skipped events to the memory.
+//   bigCall(res, ctx)
+//                   two or three sentences for a goal, a red card or a saved penalty, '' otherwise:
+//                   the call with the player and the minute, what it did to the score, and one fact
+//                   from the memory (or the play's fantasy points when not hidden). Reads the
+//                   memory without changing it. bigCallMaxLength is the longest it gets.
 //   transcript()    every line said in this match: [ { t, text, kind, event } ]. reset() empties it.
 //   maxLength       56, one line of the captions strip at 375 pixels wide.
 //   reset()         a new match.
@@ -156,7 +166,9 @@
     red: "A red card sends a player off for the rest of the match, and the team cannot replace them. They play with ten.",
     throw_in: "When the ball goes out over the side line, the other team throws it back in with both hands from over the head.",
     goal_kick: "When an attacker sends the ball out over the goal line, the defending team restarts with a kick from its own box.",
-    extra_time: "A few minutes are added at the end of each half for time lost to stoppages. Tied knockout games can also play 30 more minutes."
+    extra_time: "A few minutes are added at the end of each half for time lost to stoppages. Tied knockout games can also play 30 more minutes.",
+    stoppage_time: "The referee adds a few minutes at the end of each half for time lost to injuries and substitutions. Shown as 90+3, for example.",
+    clean_sheet: "A team keeps a clean sheet when it concedes no goals. In fantasy that earns points for its keeper and defenders at full time."
   };
 
   function explainFor(res) {
@@ -170,7 +182,8 @@
     if (res.card === 'red') k.push('red');
     if (e.t === 'shot' && e.out === 'wide') k.push('goal_kick');
     if (e.t === 'throwin') k.push('throw_in');
-    if (e.min > 90 || (e.min > 45 && res.half === 1)) k.push('extra_time');
+    if (e.min > 90 || (e.min > 45 && res.half === 1)) k.push('stoppage_time');
+    if (res.kind === 'ft' && (res.fp || []).some(function (f) { return /clean sheet/i.test(f.why || ''); })) k.push('clean_sheet');
     return k;
   }
 
@@ -240,6 +253,107 @@
     if (!text || /\{\w+\}/.test(text) || text.length > api.maxLength) return null;
     mem.lastRemark = eventNo;
     return { kind: 'memory_' + kind, text: text };
+  }
+
+  // ---- Catch-up after a jump ----
+  // Short enough for one line of the captions strip: the first form that fits maxLength.
+  function r1(x) { return String(Math.round((+x || 0) * 10) / 10); }
+
+  function catchUp(results, ctx) {
+    try {
+      ctx = ctx || {};
+      var teams = ctx.teams, evs = (results || []).filter(function (r) { return r && r.e && r.pre && r.post && (r.team === 0 || r.team === 1); });
+      if (!teams || teams.length < 2 || !evs.length) return '';
+      var style = STYLES.indexOf(ctx.style) >= 0 ? ctx.style : api.style, fun = style === 'fun';
+      evs.forEach(function (r) { eventNo++; remember(r); });
+      var first = evs[0].pre.score, end = evs[evs.length - 1].post.score, score = ctx.score || end;
+      var goals = [], extra = '', saves = [0, 0];
+      evs.forEach(function (r) {
+        var e = r.e, R = teams[r.team].roster || {}, O = teams[1 - r.team].roster || {};
+        if (r.goal) goals.push(lastName(R[r.scorer]) + ' ' + e.min + "'");
+        if (!extra && r.card === 'red') extra = lastName(R[e.by]) + ' sent off';
+        if (!extra && e.t === 'pen' && e.out === 'saved') extra = lastName(O.GK) + ' saved a pen';
+        if ((e.t === 'shot' || e.t === 'pen') && e.out === 'saved') saves[1 - r.team]++;
+      });
+      if (!extra) {
+        var k = saves[0] >= saves[1] ? 0 : 1;
+        if (saves[k] >= 2) extra = lastName((teams[k].roster || {}).GK) + ' made ' + saves[k] + ' saves';
+      }
+      var end1 = fun ? '!' : '.', sc = score[0] + ' to ' + score[1], at = evs[evs.length - 1].e.min + "'";
+      var s2 = extra ? extra.charAt(0).toUpperCase() + extra.slice(1) + end1 : '';
+      if (!s2 && !ctx.hidden && ctx.leaders && ctx.leaders.length) {
+        var top = ctx.leaders.reduce(function (a, l) { return !a || (+l.points || 0) > (+a.points || 0) ? l : a; }, null);
+        if (top) s2 = lastName(top.name) + ': ' + r1(top.points) + ' fantasy pts' + end1;
+      }
+      var changed = (first[0] !== end[0] || first[1] !== end[1]) && goals.length;
+      var forms = changed ? ['Now ' + at + ': goal' + (goals.length > 1 ? 's' : '') + ' ' + goals.join(', ') + ', ' + sc + end1, 'Now ' + at + ', ' + sc + end1]
+                          : ['Now ' + at + ', still ' + sc + end1];
+      // The fullest form first, with the extra fact if it fits, then without it.
+      var text = '', tries = [];
+      forms.forEach(function (f) { if (s2) tries.push(f + ' ' + s2); tries.push(f); });
+      for (var i = 0; i < tries.length && !text; i++) if (tries[i].length <= api.maxLength) text = tries[i];
+      if (!text) text = forms[forms.length - 1].slice(0, api.maxLength);
+      announce(text, 'catch_up', style);
+      return text;
+    } catch (err) {
+      return '';
+    }
+  }
+
+  // ---- The big call ----
+  var BIG = {
+    goal: {
+      straight: ['{min} minutes, {player} shoots, and it\'s in! A goal for {team}!', '{player} finds the net in the {minth} minute! Goal, {team}!', 'GOAL! {player} scores for {team} in the {minth} minute!'],
+      fun: ['{player}! In the {minth} minute! Get in!', 'Oh, {player}, you beauty! {min} minutes, GOAL!', 'Back of the net! {player} in the {minth} minute!']
+    },
+    goal_pen: {
+      straight: ['{player} steps up in the {minth} minute and scores the penalty!', 'Penalty, {player}, and it\'s in! {minth} minute.', '{player} sends {keeper} the wrong way from the spot!'],
+      fun: ['Ice cold! {player} buries the penalty!', '{player} from the spot... GET IN!', 'No nerves at all from {player}! Penalty scored!']
+    },
+    red: {
+      straight: ['Red card! {player} is sent off in the {minth} minute!', '{player} is off! {team} are down to ten.', 'The referee shows red to {player}!'],
+      fun: ['RED! {player} takes an early bath!', 'Off you go, {player}! {team} down to ten!', 'Straight red for {player}! Huge moment!']
+    },
+    pen_save: {
+      straight: ['{keeper} saves the penalty from {player}!', 'Penalty saved! {keeper} guesses right against {player}!', '{player} steps up, and {keeper} keeps it out!'],
+      fun: ['{keeper} the hero! The penalty is SAVED!', 'What a stop! {keeper} denies {player} from the spot!', 'No way past {keeper}! Penalty saved!']
+    }
+  };
+
+  function bigCall(res, ctx) {
+    try {
+      ctx = ctx || {};
+      var teams = ctx.teams;
+      if (!res || !res.e || !res.post || !teams || teams.length < 2 || (res.team !== 0 && res.team !== 1)) return '';
+      var e = res.e, t = res.team, R = teams[t].roster || {}, O = teams[1 - t].roster || {};
+      var kind = res.goal ? (e.t === 'pen' ? 'goal_pen' : 'goal') : res.card === 'red' ? 'red' : (e.t === 'pen' && e.out === 'saved') ? 'pen_save' : '';
+      if (!kind) return '';
+      var style = STYLES.indexOf(ctx.style) >= 0 ? ctx.style : api.style;
+      var score = ctx.score || res.post.score;
+      var v = { team: teams[t].name, def: teams[1 - t].name, player: lastName(R[res.goal ? res.scorer : e.by]), keeper: lastName(O.GK),
+        min: e.min, minth: ordinal(e.min), score: scoreText(teams, score) };
+      var s1 = fill(pick(kind, style, BIG), v), s2, s3 = '';
+      if (res.goal) {
+        var d = score[0] - score[1];
+        s2 = d === 0 ? 'That makes it level, ' + v.score + '.' : 'That makes it ' + v.score + ', and ' + teams[d > 0 ? 0 : 1].name + ' lead by ' + Math.abs(d) + '.';
+        var g = mem.goals[t + '|' + res.scorer] || 0;
+        if (g >= 2) s3 = g === 2 ? 'That\'s a brace for ' + v.player + '.' : g === 3 ? 'That\'s a hat-trick for ' + v.player + '!' : v.player + ' has ' + g + ' today.';
+      } else if (kind === 'red') {
+        s2 = teams[t].name + ' play on with ten, and it\'s ' + v.score + '.';
+      } else {
+        s2 = 'It stays ' + v.score + '.';
+        var sv = mem.saves[1 - t] || 0;
+        if (sv >= 2) s3 = 'That\'s ' + sv + ' saves now for ' + v.keeper + '.';
+      }
+      if (!s3 && !ctx.hidden && res.fp && res.fp.length) {
+        var best = res.fp.reduce(function (a, f) { return !a || Math.abs(f.pts) > Math.abs(a.pts) ? f : a; }, null);
+        var who = best && (teams[best.team].roster || {})[best.role];
+        if (best && who && best.pts > 0) s3 = 'That\'s ' + r1(best.pts) + ' fantasy points for ' + lastName(who) + '.';
+      }
+      return [s1, s2, s3].filter(Boolean).join(' ');
+    } catch (err) {
+      return '';
+    }
   }
 
   // ---- Speech: British English first, one line at a time ----
@@ -351,6 +465,10 @@
       };
     },
 
+    catchUp: catchUp,
+    bigCall: bigCall,
+    bigCallMaxLength: 200,
+    _bigLines: BIG,
     explain: function (kind) { return Object.prototype.hasOwnProperty.call(EXPLAIN, kind) ? EXPLAIN[kind] : ''; },
     explainKinds: Object.keys(EXPLAIN),
     explainFor: explainFor,
