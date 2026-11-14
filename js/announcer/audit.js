@@ -16,8 +16,10 @@ var Rules = require('../rules.js');
 var ROOT = path.join(__dirname, '../..');
 var GAMES = ['data/games/week11-football.json', 'data/games/sample-football.json'];
 var STYLES = ['straight', 'fun'];
+var LANGS = ['en', 'es'];   // C24: the Spanish broadcast is audited too
+try { require('./lines-es.js'); } catch (err) { LANGS = ['en']; }
 var LONG_KINDS = { intro: 1, halftime: 1, wrap: 1, catch_up: 1 };   // longer by design
-var problems = [], said = {}, total = 0;
+var problems = [], said = {}, total = 0, lang = 'en';
 
 function bad(text) {
   if (/undefined|NaN|\bnull\b/.test(text)) return 'undefined, NaN or null';
@@ -30,21 +32,25 @@ function bad(text) {
 var heard = [];
 A.onLine(function (text, kind) { if (kind !== 'sound') heard.push({ text: text, kind: kind }); });
 
+LANGS.forEach(function (L) {
+lang = L; A.lang = L;
 GAMES.forEach(function (rel) {
   var file = path.join(ROOT, rel);
   if (!fs.existsSync(file)) { problems.push(rel + ' is missing'); return; }
   var game = JSON.parse(fs.readFileSync(file, 'utf8')), teams = game.teams;
   STYLES.forEach(function (style) {
     A.reset(); A.setStyle(style); heard.length = 0;
+    var tag = rel + ' ' + (lang === 'es' ? 'es ' : '') + style;
     var s = Rules.create(teams), results = [], silent = {}, count = {};
     function check(text, where) {
       if (!text) return;
-      total++; said[text] = true;
+      total++; if (lang === 'en') said[text] = true;
       count[text] = (count[text] || 0) + 1;
       var h = heard.filter(function (x) { return x.text === text; }).pop(), kind = h ? h.kind : '';
-      if (!LONG_KINDS[kind] && text.length > A.maxLength) problems.push(rel + ' ' + style + ', ' + where + ': ' + text.length + ' characters: ' + text);
+      if (!LONG_KINDS[kind] && text.length > A.maxLength) problems.push(tag + ', ' + where + ': ' + text.length + ' characters: ' + text);
       var why = bad(text);
-      if (why) problems.push(rel + ' ' + style + ', ' + where + ': ' + why + ': ' + JSON.stringify(text));
+      if (!why && lang === 'es' && /\b(the|yards|still|plays on|first down|lead by)\b/i.test(text)) why = 'English left in a Spanish line';
+      if (why) problems.push(tag + ', ' + where + ': ' + why + ': ' + JSON.stringify(text));
     }
     check(A.intro({ teams: teams, score: [0, 0], style: style, leaders: [], plays: [], hidden: false }), 'intro');
     var n = 0;
@@ -65,12 +71,14 @@ GAMES.forEach(function (rel) {
       if (!t) silent[st.e.t + (st.e.kind ? ' ' + st.e.kind : '')] = (silent[st.e.t] || 0) + 1;
       check(t, 'play ' + n + ' (' + st.e.t + ')');
     });
-    Object.keys(silent).forEach(function (k) { problems.push(rel + ' ' + style + ': no line for ' + k + ' plays'); });
-    Object.keys(count).forEach(function (t) { if (count[t] > 3) problems.push(rel + ' ' + style + ': said ' + count[t] + ' times: ' + t); });
+    Object.keys(silent).forEach(function (k) { problems.push(tag + ': no line for ' + k + ' plays'); });
+    Object.keys(count).forEach(function (t) { if (count[t] > 3) problems.push(tag + ': said ' + count[t] + ' times: ' + t); });
   });
 });
+});
+A.lang = 'en';
 
-// Recordings, once render.js has made them.
+// Recordings, once render.js has made them (English; the Spanish voice is the browser's).
 // render.js writes index.json and index.js with the same lines; read the JSON when it is there.
 var vdir = path.join(ROOT, 'assets/voice/football'), recorded = 0, idx = null;
 try {
@@ -95,6 +103,6 @@ if (problems.length) {
   problems.forEach(function (p) { console.log('  ' + p); });
   process.exit(1);
 }
-console.log('OK: ' + total + ' lines from ' + GAMES.length + ' games in ' + STYLES.length + ' styles, ' + Object.keys(said).length +
-  ' different, every play has a line, none too long, no gaps, none said more than 3 times' +
+console.log('OK: ' + total + ' lines from ' + GAMES.length + ' games in ' + STYLES.length + ' styles and ' + LANGS.length + ' languages, ' + Object.keys(said).length +
+  ' different in English, every play has a line, none too long, no gaps, none said more than 3 times' +
   (recorded ? ', all ' + recorded + ' recordings match.' : '; no recordings yet (assets/voice/football/index.js), so that part was skipped.'));

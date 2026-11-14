@@ -59,6 +59,10 @@
 //                   the kinds; explainFor(res) gives the kinds a finished play shows.
 //   transcript()    every line said in this game so far: [ { t, text, kind, play } ], t is
 //                   Date.now() when it was said. reset() empties it.
+//   lang            'en' (the default) or 'es'. In Spanish every kind of line, the rule explainers
+//                   and the sound captions come from js/announcer/lines-es.js (load it before this
+//                   file), and the browser voice is a Spanish one when installed. Anything missing in
+//                   Spanish falls back to English; a missing Spanish fun line to the Spanish straight.
 //   maxLength       the longest a play line may be (characters): what fits on one line of the
 //                   captions strip at 375 pixels wide. Tendency remarks are only added when the
 //                   whole line still fits. intro, halftime and wrap are longer on purpose.
@@ -76,6 +80,38 @@
   var LINES = root.FF_ANNOUNCER_LINES ||
     (typeof require === 'function' ? require('./lines.js') : null) || {};
   var STYLES = ['straight', 'fun'];
+  // Spanish tables (C24), from js/announcer/lines-es.js. Looked up each time, so the file can
+  // load before or after this one.
+  var esLoaded = null;
+  function ES() {
+    if (root.FF_ANNOUNCER_LINES_ES) return root.FF_ANNOUNCER_LINES_ES;
+    if (esLoaded === null) { try { esLoaded = typeof require === 'function' ? require('./lines-es.js') : false; } catch (err) { esLoaded = false; } }
+    return esLoaded || null;
+  }
+  function isEs() { return api.lang === 'es' && !!ES(); }
+  // The short pieces the code puts together itself, per language.
+  var MSG = {
+    yards1: '{n} yard', yardsN: '{n} yards', points1: '{n} point', pointsN: '{n} points',
+    how_td: 'Touchdown', how_fg: 'Field goal', how_xp: 'Extra point',
+    what_int: 'Intercepted', what_fumble: 'Fumble', what_fg: 'No good', what_downs: 'Stopped on fourth down', what_punt: 'They punt',
+    cu_changed: '{n} plays: {what}, {sc}', cu_now: '{lead}, now {sc}', cu_still: '{lead}, still {sc}',
+    cu_lead_on: '{n} plays on', cu_lead_later: '{n} plays later', cu_sc: '{a} to {b}',
+    td1: '{team} TD', tdN: '{n} {team} TDs', fg1: '{team} FG', fgN: '{n} {team} FGs',
+    cu_pick: '{qb} threw a pick', cu_fumble: '{name} fumbled', cu_downs: 'the {team} lost it on downs',
+    cu_big: 'Big gain: {name}, {yds}', cu_leader: '{name}: {pts} fantasy pts',
+    big_tie: 'That ties it at {n}.', big_lead: 'That makes it {score}, and the {team} lead by {d}.', big_take: 'The {def} take over, and it\'s still {score}.',
+    big_rz: 'That puts the {team} in the red zone.', big_terr: 'That puts the {team} in {def} territory.', big_flip: 'That flips the field for the {team}.',
+    fact_td2: 'That\'s a second touchdown today for {name}.', fact_td3: 'That\'s a third touchdown today for {name}.', fact_tdN: 'That\'s another touchdown today for {name}.',
+    fact_rec: '{name} is up to {n} receiving yards today.', fact_rush: '{name} is up to {n} rushing yards today.',
+    fact_catch: 'That\'s catch number {n} for {name}.', fact_leads: 'This game has already seen {n} lead changes.',
+    fact_drives: 'That\'s {n} scoring drives for the {team}.', fact_fp: 'That play is worth {pts} fantasy points to {name}.',
+    story_square: 'All square at the break.', story_lead: 'The {team} lead by {d}.', story_hold: 'the {team} defense holding on',
+    dec_pass: '{a} to {b} for {n}', dec_run: 'the {n} yard run by {a}'
+  };
+  function M(key, v) {
+    var es = isEs() && ES().msg, t = es && es[key] != null ? es[key] : MSG[key];
+    return fill(t || '', v || {});
+  }
   var decks = {};   // kind + style -> variants not used yet in this game
   var lastUsed = {}; // kind + style -> last variant index, so a reshuffle never repeats right away
   var rand = null;      // a test can set its own random source with _setRandom
@@ -99,11 +135,14 @@
 
   // Score a browser voice: English first, US or UK English next, then the voices that
   // usually sound best (network or enhanced voices), local voices as a tie breaker.
-  function voiceScore(v, style) {
+  // want: 'en' or 'es', the language of the line.
+  function voiceScore(v, style, want) {
     var lang = String(v.lang || '').toLowerCase().replace('_', '-'), name = String(v.name || '');
-    if (lang.indexOf('en') !== 0) return -1;
+    want = want || 'en';
+    if (lang.indexOf(want) !== 0) return -1;
     var sc = 10;
-    if (lang === 'en-us') sc += 4; else if (lang === 'en-gb') sc += 3;
+    if (want === 'en') { if (lang === 'en-us') sc += 4; else if (lang === 'en-gb') sc += 3; }
+    else if (lang === 'es-mx' || lang === 'es-us' || lang === 'es-419') sc += 4; else if (lang === 'es-es') sc += 3;
     if (/natural|neural|premium|enhanced|online/i.test(name)) sc += 6;
     if (/google/i.test(name)) sc += 4;
     if (/(daniel|alex|aaron|guy|davis|tony|ryan|george|fred)\b/i.test(name)) sc += style === 'straight' ? 2 : 1;
@@ -113,20 +152,25 @@
     return sc;
   }
 
+  // chosen.straight and chosen.fun are the English voices; chosen['es|straight'] and
+  // chosen['es|fun'] the Spanish ones (null when the browser has none).
   function chooseVoices() {
     var sy = synth(), list = [];
     try { list = sy && sy.getVoices ? sy.getVoices() || [] : []; } catch (err) { list = []; }
-    STYLES.forEach(function (style) {
-      var best = null, bestSc = -1;
-      list.forEach(function (v) { var sc = voiceScore(v, style); if (sc > bestSc) { best = v; bestSc = sc; } });
-      chosen[style] = best;
+    ['en', 'es'].forEach(function (want) {
+      function key(style) { return want === 'en' ? style : want + '|' + style; }
+      STYLES.forEach(function (style) {
+        var best = null, bestSc = -1;
+        list.forEach(function (v) { var sc = voiceScore(v, style, want); if (sc > bestSc) { best = v; bestSc = sc; } });
+        chosen[key(style)] = best;
+      });
+      // Two different voices when the browser has them, so the styles sound apart.
+      if (chosen[key('fun')] && chosen[key('fun')] === chosen[key('straight')]) {
+        var alt = null, altSc = -1;
+        list.forEach(function (v) { var sc = voiceScore(v, 'fun', want); if (v !== chosen[key('straight')] && sc > altSc) { alt = v; altSc = sc; } });
+        if (alt && altSc >= 10) chosen[key('fun')] = alt;
+      }
     });
-    // Two different voices when the browser has them, so the styles sound apart.
-    if (chosen.fun && chosen.straight && chosen.fun === chosen.straight) {
-      var alt = null, altSc = -1;
-      list.forEach(function (v) { var sc = voiceScore(v, 'fun'); if (v !== chosen.straight && sc > altSc) { alt = v; altSc = sc; } });
-      if (alt && altSc >= 10) chosen.fun = alt;
-    }
     return list.length;
   }
 
@@ -144,7 +188,9 @@
     if (!chosen.straight) chooseVoices();
     try {
       var u = new root.SpeechSynthesisUtterance(item.text), set = VOICE_SET[item.style] || VOICE_SET.straight;
-      if (chosen[item.style]) { u.voice = chosen[item.style]; u.lang = chosen[item.style].lang; }
+      var vk = item.lang === 'es' ? 'es|' + item.style : item.style;
+      if (chosen[vk]) { u.voice = chosen[vk]; u.lang = chosen[vk].lang; }
+      else if (item.lang === 'es') u.lang = 'es-MX';   // no Spanish voice found: let the browser pick one
       u.rate = set.rate; u.pitch = set.pitch;
       var done = function () { if (speaking === item) speakNext(); };
       u.onend = done; u.onerror = done;
@@ -285,7 +331,7 @@
       if (formSaid[fid] != null && playNo - formSaid[fid] < FORM_GAP) continue;
       var fwho = (profile.players[fs] && profile.players[fs].name) || (team.roster || {})[fs] || '';
       if (!fwho) continue;
-      var fnote = fill(pick(recent > season ? 'hot' : 'cold', 'form', FORM_TABLE), { name: lastName(fwho) });
+      var fnote = fill(pick(recent > season ? 'hot' : 'cold', 'form', FORM_TABLE, 'form'), { name: lastName(fwho) });
       if (fnote.length > room) continue;
       formSaid[fid] = playNo;
       return fnote;
@@ -299,7 +345,7 @@
       if (tendencySaid[id] != null && playNo - tendencySaid[id] < TENDENCY_GAP) continue;
       var who = (profile.players[slot] && profile.players[slot].name) || (team.roster || {})[slot] || '';
       if (!who) continue;
-      var note = fill(pick(key, v >= 0.7 ? 'high' : 'low', TENDENCY), { name: lastName(who) });
+      var note = fill(pick(key, v >= 0.7 ? 'high' : 'low', TENDENCY, 'tendency'), { name: lastName(who) });
       if (note.length > room) continue;
       tendencySaid[id] = playNo;
       return note;
@@ -402,7 +448,7 @@
 
     // Scores, lead changes and answers (touchdowns, field goals, extra points).
     if (sc >= 0) {
-      v.how = res.td ? 'Touchdown' : e.t === 'fg' ? 'Field goal' : 'Extra point';
+      v.how = M(res.td ? 'how_td' : e.t === 'fg' ? 'how_fg' : 'how_xp');
       var leadBefore = sign(pre[0] - pre[1]), leadAfter = sign(post[0] - post[1]), mine = sc === 0 ? 1 : -1;
       // Taking the lead from behind is a lead change; breaking a tie is going ahead. The game's
       // first score is neither.
@@ -421,7 +467,7 @@
     var endsEmpty = e.t === 'int' || e.t === 'fumble' || e.t === 'punt' || (e.t === 'fg' && !e.good) || res.downs;
     if (endsEmpty && (d.redZone || res.pre.ballOn >= 80) && !d.scored) {
       out.push('rz_empty');
-      v.what = e.t === 'int' ? 'Intercepted' : e.t === 'fumble' ? 'Fumble' : e.t === 'fg' ? 'No good' : res.downs ? 'Stopped on fourth down' : 'They punt';
+      v.what = M(e.t === 'int' ? 'what_int' : e.t === 'fumble' ? 'what_fumble' : e.t === 'fg' ? 'what_fg' : res.downs ? 'what_downs' : 'what_punt');
     }
 
     if (e.t === 'fg' && e.good && mem.kick[off].made >= 2) out.push('kicker_again');
@@ -457,7 +503,7 @@
     var v = {};
     Object.keys(base).forEach(function (k2) { v[k2] = base[k2]; });
     Object.keys(r.v).forEach(function (k2) { v[k2] = r.v[k2]; });
-    var text = fill(pick(kind, style, MEMORY), v);
+    var text = fill(pick(kind, style, MEMORY, 'memory'), v);
     if (!text || /\{\w+\}/.test(text) || text.length > api.maxLength) return null;
     mem.lastRemark = playNo;
     if (kind === 'near_hundred') mem.nearSaid[r.team + '|' + r.slot] = true;
@@ -484,29 +530,29 @@
         var R = teams[off].roster || {};
         if (r.td) tally[off].td++;
         if (e.t === 'fg' && e.good) tally[off].fg++;
-        if (!turn && e.t === 'int') turn = lastName(R.QB) + ' threw a pick';
-        if (!turn && e.t === 'fumble') turn = lastName(R[e.by]) + ' fumbled';
-        if (!turn && r.downs) turn = 'the ' + teams[off].name + ' lost it on downs';
+        if (!turn && e.t === 'int') turn = M('cu_pick', { qb: lastName(R.QB) });
+        if (!turn && e.t === 'fumble') turn = M('cu_fumble', { name: lastName(R[e.by]) });
+        if (!turn && r.downs) turn = M('cu_downs', { team: teams[off].name });
         if ((e.t === 'run' || e.t === 'pass') && e.yds >= 15 && (!big || e.yds > big.yds)) big = { yds: e.yds, name: lastName(R[e.t === 'pass' ? e.to : e.by]) };
       });
       var what = [];
       [0, 1].forEach(function (t) {
         var x = tally[t];
-        if (x.td) what.push((x.td > 1 ? x.td + ' ' : '') + teams[t].name + ' TD' + (x.td > 1 ? 's' : ''));
-        if (x.fg) what.push((x.fg > 1 ? x.fg + ' ' : '') + teams[t].name + ' FG' + (x.fg > 1 ? 's' : ''));
+        if (x.td) what.push(M(x.td > 1 ? 'tdN' : 'td1', { n: x.td, team: teams[t].name }));
+        if (x.fg) what.push(M(x.fg > 1 ? 'fgN' : 'fg1', { n: x.fg, team: teams[t].name }));
       });
-      var sc = score[0] + ' to ' + score[1], end1 = fun ? '!' : '.';
-      var lead = plays.length + (fun ? ' plays later' : ' plays on');
+      var sc = M('cu_sc', { a: score[0], b: score[1] }), end1 = fun ? '!' : '.';
+      var lead = M(fun ? 'cu_lead_later' : 'cu_lead_on', { n: plays.length });
       var changed = (first[0] !== end[0] || first[1] !== end[1]) && what.length;
       var s2 = '';
       if (turn) s2 = turn.charAt(0).toUpperCase() + turn.slice(1) + end1;
-      else if (big) s2 = 'Big gain: ' + big.name + ', ' + big.yds + end1;
+      else if (big) s2 = M('cu_big', { name: big.name, yds: big.yds }) + end1;
       else if (!ctx.hidden) {
         var top = topLeader(ctx.leaders);
-        if (top) s2 = lastName(top.name) + ': ' + pts(top.points) + ' fantasy pts' + end1;
+        if (top) s2 = M('cu_leader', { name: lastName(top.name), pts: pts(top.points) }) + end1;
       }
-      var forms = changed ? [plays.length + ' plays: ' + what.join(', ') + ', ' + sc + end1, lead + ', now ' + sc + end1]
-                          : [lead + ', still ' + sc + end1];
+      var forms = changed ? [M('cu_changed', { n: plays.length, what: what.join(', '), sc: sc }) + end1, M('cu_now', { lead: lead, sc: sc }) + end1]
+                          : [M('cu_still', { lead: lead, sc: sc }) + end1];
       // The fullest form first, with the extra fact if it fits, then without it.
       var text = '', tries = [];
       forms.forEach(function (f) { if (s2) tries.push(f + ' ' + s2); tries.push(f); });
@@ -565,16 +611,16 @@
   function bigFact(res, teams, off, slot, hidden) {
     var name = lastName((teams[off].roster || {})[slot]);
     var p = slot ? mem.players[off + '|' + slot] : null;
-    if (p && res.td && p.td >= 2) return 'That\'s ' + (p.td === 2 ? 'a second' : p.td === 3 ? 'a third' : 'another') + ' touchdown today for ' + name + '.';
-    if (p && p.recYds >= 60) return name + ' is up to ' + p.recYds + ' receiving yards today.';
-    if (p && p.rushYds >= 60) return name + ' is up to ' + p.rushYds + ' rushing yards today.';
-    if (p && p.rec >= 3) return 'That\'s catch number ' + p.rec + ' for ' + name + '.';
-    if (mem.leadChanges >= 2) return 'This game has already seen ' + mem.leadChanges + ' lead changes.';
-    if (mem.scoringDrives[off] >= 2 && res.td) return 'That\'s ' + mem.scoringDrives[off] + ' scoring drives for the ' + teams[off].name + '.';
+    if (p && res.td && p.td >= 2) return M(p.td === 2 ? 'fact_td2' : p.td === 3 ? 'fact_td3' : 'fact_tdN', { name: name });
+    if (p && p.recYds >= 60) return M('fact_rec', { name: name, n: p.recYds });
+    if (p && p.rushYds >= 60) return M('fact_rush', { name: name, n: p.rushYds });
+    if (p && p.rec >= 3) return M('fact_catch', { name: name, n: p.rec });
+    if (mem.leadChanges >= 2) return M('fact_leads', { n: mem.leadChanges });
+    if (mem.scoringDrives[off] >= 2 && res.td) return M('fact_drives', { n: mem.scoringDrives[off], team: teams[off].name });
     if (!hidden && res.fp && res.fp.length) {
       var best = res.fp.reduce(function (a, f) { return !a || Math.abs(f.pts) > Math.abs(a.pts) ? f : a; }, null);
       if (best && best.pts > 0 && best.role !== 'DST') {
-        return 'That play is worth ' + pts(best.pts) + ' fantasy points to ' + lastName((teams[best.team].roster || {})[best.role]) + '.';
+        return M('fact_fp', { pts: pts(best.pts), name: lastName((teams[best.team].roster || {})[best.role]) });
       }
     }
     return '';
@@ -594,17 +640,17 @@
       var slot = e.t === 'pass' ? e.to : e.t === 'run' || e.t === 'fumble' ? e.by : e.t === 'int' ? 'QB' : '';
       var v = { team: teams[off].name, def: teams[def].name, qb: lastName(R.QB), player: lastName(R[slot] || R.QB),
         yds: Math.abs(e.yds || 0), ret: e.ret || 0, score: scoreText(teams, score) };
-      var s1 = fill(pick(kind, style, BIG), v);
+      var s1 = fill(pick(kind, style, BIG, 'big'), v);
       // What it did to the score.
       var pre = res.pre.score, post = res.post.score, s2;
       if (post[0] !== pre[0] || post[1] !== pre[1]) {
         var d = score[0] - score[1];
-        s2 = d === 0 ? 'That ties it at ' + score[0] + '.' : 'That makes it ' + v.score + ', and the ' + teams[d > 0 ? 0 : 1].name + ' lead by ' + Math.abs(d) + '.';
+        s2 = d === 0 ? M('big_tie', { n: score[0] }) : M('big_lead', { score: v.score, team: teams[d > 0 ? 0 : 1].name, d: Math.abs(d) });
       } else if (kind === 'int' || kind === 'fumble' || kind === 'downs') {
-        s2 = 'The ' + teams[def].name + ' take over, and it\'s still ' + v.score + '.';
+        s2 = M('big_take', { def: teams[def].name, score: v.score });
       } else {
         var on = res.post.ballOn;
-        s2 = on >= 80 ? 'That puts the ' + v.team + ' in the red zone.' : on >= 50 ? 'That puts the ' + v.team + ' in ' + v.def + ' territory.' : 'That flips the field for the ' + v.team + '.';
+        s2 = M(on >= 80 ? 'big_rz' : on >= 50 ? 'big_terr' : 'big_flip', { team: v.team, def: v.def });
       }
       var s3 = bigFact(res, teams, off, slot, !!ctx.hidden);
       return [s1, s2, s3].filter(Boolean).join(' ');
@@ -812,11 +858,17 @@
     };
   }
 
-  function pick(kind, style, table) {
+  // esName: which Spanish table stands in for this one ('lines', 'stories', 'memory', ...).
+  function pick(kind, style, table, esName) {
     table = table || LINES;
-    var list = table[kind] && table[kind][style];
+    var prefix = table === LINES ? '' : 'story:';
+    if (esName && isEs()) {
+      var E = ES()[esName];
+      if (E && E[kind]) { table = E; prefix = 'es:' + esName + ':'; }
+    }
+    var entry = table[kind], list = entry && (entry[style] || (prefix.indexOf('es:') === 0 && entry.straight));
     if (!list || !list.length) return '';
-    var key = (table === LINES ? '' : 'story:') + kind + '|' + style;
+    var key = prefix + kind + '|' + style;
     if (!decks[key] || !decks[key].length) {
       rounds[key] = (rounds[key] || 0) + 1;
       var rnd = rand || seeded(hashStr(seedBase + '|' + key + '|' + rounds[key]));
@@ -836,6 +888,7 @@
     return text
       .replace(/\{(\w+)\}/g, function (m, k) { return v[k] == null ? m : String(v[k]); })
       .replace(/\b1 yards\b/g, '1 yard')
+      .replace(/\b1 yardas\b/g, '1 yarda')
       .replace(/\b1 (fantasy )?points\b/g, '1 $1point')
       .replace(/\b([Aa]) (8|11|18|8\d)\b/g, '$1n $2');   // "an 11 yard", "an 8 yard"
   }
@@ -844,7 +897,7 @@
     return teams[0].name + ' ' + score[0] + ', ' + teams[1].name + ' ' + score[1];
   }
 
-  function points(n) { return n + (n === 1 ? ' point' : ' points'); }
+  function points(n) { return M(n === 1 ? 'points1' : 'pointsN', { n: n }); }
 
   // Work out which kind of line a result needs and the values for its placeholders.
   function classify(res, teams, score) {
@@ -869,7 +922,7 @@
     var slot = e.by || e.to;
     v.player = slot && R[slot] ? lastName(R[slot]) : v.qb;
     v.yds = Math.abs(res.yds || e.yds || 0);
-    v.yards = v.yds + (v.yds === 1 ? ' yard' : ' yards');
+    v.yards = M(v.yds === 1 ? 'yards1' : 'yardsN', { n: v.yds });
 
     switch (e.t) {
       case 'kickoff':
@@ -930,8 +983,8 @@
     });
     if (!found) return '';
     return (found.desc || found.text || '').replace(/\s+/g, ' ').trim()
-      .replace(/^(\S+) pass to (\S+) for (\d+)$/, '$1 to $2 for $3')
-      .replace(/^(\S+) runs for (\d+)$/, 'the $2 yard run by $1');
+      .replace(/^(\S+) pass to (\S+) for (\d+)$/, function (m, a, b, n) { return M('dec_pass', { a: a, b: b, n: n }); })
+      .replace(/^(\S+) runs for (\d+)$/, function (m, a, n) { return M('dec_run', { a: a, n: n }); });
   }
 
   function story(kind, ctx) {
@@ -952,20 +1005,20 @@
         if (!top) return '';
         if (kind === 'halftime') {
           if (ctx.hidden) k = 'halftime_hidden';
-          v.lead = score[0] === score[1] ? 'All square at the break.' :
-            'The ' + teams[score[0] > score[1] ? 0 : 1].name + ' lead by ' + Math.abs(score[0] - score[1]) + '.';
+          v.lead = score[0] === score[1] ? M('story_square') :
+            M('story_lead', { team: teams[score[0] > score[1] ? 0 : 1].name, d: Math.abs(score[0] - score[1]) });
         }
         if (kind === 'wrap') {
           if (score[0] === score[1]) k = 'wrap_tie';
           else {
             var w = score[0] > score[1] ? 0 : 1;
             v.winner = teams[w].name;
-            v.decider = decider(ctx.plays, w) || ('the ' + teams[w].name + ' defense holding on');
+            v.decider = decider(ctx.plays, w) || M('story_hold', { team: teams[w].name });
           }
         }
       }
       // A filled-in value can start a sentence ("the 9 yard run by Barkley..."): capitalize it.
-      var text = fill(pick(k, style, STORIES), v).replace(/(^|[.!?]\s+)([a-z])/g, function (m, a, b) { return a + b.toUpperCase(); });
+      var text = fill(pick(k, style, STORIES, 'stories'), v).replace(/(^|[.!?]\s+)([a-záéíóúñ])/g, function (m, a, b) { return a + b.toUpperCase(); });
       if (text) announce(text, kind, style);
       return text;
     } catch (err) {
@@ -974,6 +1027,7 @@
   }
 
   var api = {
+    lang: 'en',
     // 337 pixels of text at 600 13px in the captions strip, about 5.9 pixels a character.
     maxLength: 56,
 
@@ -996,7 +1050,7 @@
         if (!c.kind) return '';
         var m = memoryLine(r, c.v, style);
         if (m) { announce(m.text, m.kind, style); return m.text; }
-        var text = fill(pick(c.kind, style), c.v);
+        var text = fill(pick(c.kind, style, null, 'lines'), c.v);
         var note = ctx.profiles && text ? tendencyNote(res, teams, ctx.profiles, api.maxLength - text.length - 1) : '';
         if (text && note && text.length + 1 + note.length <= api.maxLength) text += ' ' + note;
         if (text) announce(text, c.kind, style);
@@ -1009,7 +1063,7 @@
     speak: function (text) {
       if (!text || !synth()) return;
       if (tooFast()) { api.hush(); return; }
-      queue.push({ text: String(text), play: playNo, style: api.style });
+      queue.push({ text: String(text), play: playNo, style: api.style, lang: api.lang === 'es' ? 'es' : 'en' });
       if (!speaking) speakNext();
     },
 
@@ -1021,11 +1075,11 @@
 
     voices: function () {
       var n = synth() ? chooseVoices() : 0;
-      function info(style) {
-        var v = chosen[style], set = VOICE_SET[style];
+      function info(style, want) {
+        var v = chosen[want === 'es' ? 'es|' + style : style], set = VOICE_SET[style];
         return { name: v ? v.name : '(browser default)', lang: v ? v.lang : '', rate: set.rate, pitch: set.pitch };
       }
-      return { straight: info('straight'), fun: info('fun'), available: n };
+      return { straight: info('straight'), fun: info('fun'), es: { straight: info('straight', 'es'), fun: info('fun', 'es') }, available: n };
     },
 
     setStyle: function (name) {
@@ -1038,7 +1092,11 @@
     preview: preview,
     bigCallMaxLength: 200,   // the longest names in the data give 195; check.js tests it
     _bigLines: BIG,
-    explain: function (kind) { return Object.prototype.hasOwnProperty.call(EXPLAIN, kind) ? EXPLAIN[kind] : ''; },
+    explain: function (kind) {
+      if (!Object.prototype.hasOwnProperty.call(EXPLAIN, kind)) return '';
+      var es = isEs() && ES().explain;
+      return es && es[kind] ? es[kind] : EXPLAIN[kind];
+    },
     explainKinds: Object.keys(EXPLAIN),
     explainFor: explainFor,
     explainMaxLength: 160,
@@ -1074,6 +1132,7 @@
     kinds: function () { return Object.keys(LINES); },
     classify: classify,
     _memoryLines: MEMORY,
+    _msgKeys: Object.keys(MSG),
     seed: function (n) { seedBase = n == null ? 1 : n; decks = {}; lastUsed = {}; rounds = {}; return seedBase; },
     _setRandom: function (fn) { rand = fn || null; decks = {}; lastUsed = {}; rounds = {}; }
   };

@@ -564,6 +564,70 @@ console.log('line() with no teams is quiet: ' + (A.line({}, {}) === '' ? 'ok' : 
   console.log('  e.g. explain(first_down): ' + A.explain('first_down'));
 })();
 
+// C24: the Spanish broadcast. Same kinds as English, three variants or more, every play line
+// within maxLength with the longest names, no gaps, no player gendered, Spanish captions,
+// explainers and voice.
+(function () {
+  var ES = require('./lines-es.js');
+  var w = Object.assign({}, worst, { yards: '99 yardas', teamscore: '28 puntos', how: 'Gol de campo', what: 'Detenidos en cuarta', total: 199, made: 3, att: 3, diff: 14,
+    t0: worst.team, t1: worst.team, w0: worst.player, w1: worst.player, leader: worst.player, lpts: '12.5', lead: 'Los Goblins ganan por 3.',
+    decider: 'Allen con Chase por 24', ret: 99, name: worst.player });
+  function table(name, t, kinds, minN, limit) {
+    kinds.forEach(function (k) {
+      if (!t[k]) { problems.push('es ' + name + ': no ' + k); return; }
+      Object.keys(t[k]).forEach(function (style) {
+        var list = t[k][style];
+        if (list.length < minN) problems.push('es ' + name + ' ' + k + ' ' + style + ' has ' + list.length + ' variants');
+        list.forEach(function (x) {
+          var f = fill(x, w);
+          if (/\{\w+\}/.test(f)) problems.push('es ' + name + ' ' + k + ' unknown placeholder: ' + x);
+          if (limit && f.length > limit) problems.push('es ' + name + ' ' + k + ' ' + style + ' is ' + f.length + ' characters: ' + f);
+          if (/\u2014/.test(x)) problems.push('es ' + name + ' ' + k + ' has an em dash');
+          if (/(\{(player|qb|name|kicker)\} es [a-z]+(ado|ido)\b|\b(él|ella)\b|(ado|ido) \{(player|qb|name|kicker)\})/.test(x)) problems.push('es ' + name + ' ' + k + ' genders a player: ' + x);
+        });
+      });
+    });
+  }
+  table('lines', ES.lines, Object.keys(LINES), 3, A.maxLength);
+  table('stories', ES.stories, ['intro', 'halftime', 'halftime_hidden', 'wrap', 'wrap_tie'], 3, 0);
+  table('memory', ES.memory, Object.keys(A._memoryLines), 3, A.maxLength);
+  table('tendency', ES.tendency, ['deep_ball', 'short_pass', 'scramble', 'run_share', 'target_share', 'catch_rate', 'pass_catching', 'red_zone_use', 'kicker_range'], 3, 0);
+  table('form', ES.form, ['hot', 'cold'], 3, 0);
+  table('big', ES.big, Object.keys(A._bigLines), 3, 0);
+  A._msgKeys.forEach(function (k) { if (ES.msg[k] == null) problems.push('es msg: no ' + k); });
+  A.explainKinds.forEach(function (k) {
+    var t = ES.explain[k];
+    if (!t) { problems.push('es explain: no ' + k); return; }
+    if (t.length > A.explainMaxLength) problems.push('es explain ' + k + ' is ' + t.length + ' characters');
+    var n = (t.match(/[.!?](\s|$)/g) || []).length;
+    if (n < 1 || n > 2) problems.push('es explain ' + k + ' has ' + n + ' sentences');
+  });
+  // In use: lang switches every kind of output.
+  A.reset(); A.lang = 'es';
+  var teams = data.TEAMS, st = Rules.create(teams), n = 0, lines = [];
+  Rules.flatten(data.SAMPLE_GAME, teams).forEach(function (x) {
+    if (x.kind === 'half') { Rules.startHalf(st); lines.push(A.line({ kind: 'half' }, { teams: teams, score: st.score.slice() })); return; }
+    if (x.kind !== 'play') return;
+    var t = A.line(Rules.apply(st, x.e, x.team), { teams: teams });
+    lines.push(t); n++;
+    if (!t) problems.push('es: no line for a ' + x.e.t + ' play');
+    if (t.length > A.maxLength) problems.push('es line too long: ' + t);
+    if (/\{\w+\}|undefined|NaN|\b(the|yards|still)\b/.test(t)) problems.push('es line has a gap or English: ' + t);
+  });
+  if (!/[áéíóúñ¡]/.test(lines.join(' '))) problems.push('es lines do not look Spanish');
+  if (A.explain('sack') !== ES.explain.sack) problems.push('explain() is not Spanish with lang es');
+  require('../audio.js');
+  if (globalThis.FF_AUDIO.captionFor('crowd_roar') !== ES.sounds.crowd_roar) problems.push('sound captions are not Spanish with lang es');
+  // The browser voice: a Spanish one when installed.
+  globalThis.SpeechSynthesisUtterance = function (t) { this.text = t; };
+  globalThis.speechSynthesis = { getVoices: function () { return [{ name: 'Samantha', lang: 'en-US' }, { name: 'Paulina', lang: 'es-MX' }, { name: 'Monica', lang: 'es-ES' }]; }, speak: function () {}, cancel: function () {} };
+  var vs = A.voices();
+  if (!/^es/.test(vs.es.straight.lang)) problems.push('no Spanish voice chosen for lang es: ' + JSON.stringify(vs.es));
+  delete globalThis.speechSynthesis; delete globalThis.SpeechSynthesisUtterance;
+  console.log('\nSpanish: ' + n + ' plays of the sample game, e.g. "' + lines[3] + '" / "' + lines[10] + '"; captions "' + globalThis.FF_AUDIO.captionFor('crowd_roar') + '"; voice ' + vs.es.straight.name);
+  A.lang = 'en'; A.reset();
+})();
+
 // The soccer announcer (js/announcer/soccer/) has its own check; run it here too so one
 // command covers both sports.
 (function () {
