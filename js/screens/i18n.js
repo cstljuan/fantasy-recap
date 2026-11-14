@@ -126,6 +126,14 @@
     ['Each half starts with a kickoff, and so does play after every score: one team kicks the ball deep to the other.', 'Cada mitad empieza con un saque, y también el juego tras cada anotación: un equipo patea el balón lejos hacia el otro.'],
     ['A game has two halves. At halftime the teams rest, and the team that received the first kickoff kicks off to start the second.', 'Un partido tiene dos mitades. En el medio tiempo los equipos descansan, y el que recibió el primer saque patea para empezar la segunda.'],
     ['Nobody in this matchup has opted in yet.', 'Nadie en este partido participa todavía.'],
+    // commissioner
+    ['Commissioner', 'Comisionado'], ['Leave', 'Salir'], ['Recap released', 'Resumen publicado'],
+    ["Managers can watch this week's recap.", 'Los mánagers pueden ver el resumen de esta semana.'],
+    ['Not released: managers wait until it is.', 'Sin publicar: los mánagers esperan hasta que lo esté.'],
+    ['No opt-in record for this week.', 'No hay registro de participación para esta semana.'], ['Nobody has opted in.', 'Nadie participa.'],
+    ['No game to watch.', 'No hay partido para ver.'], ['No points are shown here, for any week.', 'Aquí no se muestran puntos, de ninguna semana.'],
+    ['Shared with the league through the service. There is no login: anyone who can reach the service can change these.', 'Compartido con la liga a través del servicio. No hay inicio de sesión: cualquiera que llegue al servicio puede cambiar esto.'],
+    ['On this device only. Open with ?api= and the service address to share it with the league.', 'Solo en este dispositivo. Abre con ?api= y la dirección del servicio para compartirlo con la liga.'],
     // watch party
     ['Watch party', 'Fiesta para ver'], ['Join a watch party', 'Unirse a una fiesta para ver'], ['Room code', 'Código de sala'], ['Join', 'Unirse'],
     ['Play', 'Jugar'], ['Hold', 'Pausar'], ['Release', 'Seguir'], ['Not started', 'Sin empezar'], ['Playing', 'Jugando'], ['Between plays', 'Entre jugadas'],
@@ -263,6 +271,8 @@
       return TENDENCY[m[1]] + ' ' + m[2] + ' en ' + (m[3] === 'recent weeks' ? 'las últimas semanas' : m[3].replace('weeks', 'las semanas')) + ', ' + m[4] + ' en la temporada';
     }],
     [/^Rule: (.+)$/, function (m) { return 'Regla: ' + tr(m[1]); }],
+    [/^Opted in: (.+)$/, function (m) { return 'Participan: ' + m[1]; }],
+    [/^Watched to the final: (\d+)$/, function (m) { return 'Vieron hasta el final: ' + m[1]; }],
     [/^Opted in, in the league: (.+)$/, function (m) { return 'Participan, en la liga: ' + m[1]; }],
     [/^Connected to room ([A-Z]{4})( on this computer)?\.$/, function (m) { return 'Conectado a la sala ' + m[1] + (m[2] ? ' en esta computadora' : '') + '.'; }]
   ];

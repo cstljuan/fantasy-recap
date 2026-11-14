@@ -581,6 +581,20 @@ body.in-game .a2hs { display: none; }
             padding: 2px var(--sp-1); background: var(--amber); color: var(--ink); pointer-events: none;
             font: 700 var(--fs-micro)/1.2 var(--body); letter-spacing: 0.12em; text-transform: uppercase; }
 
+/* ---------------------------------------------------------- commissioner */
+
+.commish-note { margin: 0 0 var(--sp-3); color: var(--dim); font-size: var(--fs-small); }
+.commish-release { display: flex; align-items: center; justify-content: space-between; gap: var(--sp-3); padding: var(--sp-3) var(--inset-x); margin-bottom: var(--sp-3); border-left: var(--edge) solid var(--amber); }
+.commish-release h3, .commish-m h3 { margin: 0; color: var(--text); font: 700 var(--fs-lead)/1.15 var(--display); letter-spacing: 0.03em; text-transform: uppercase; }
+.commish-release p, .commish-m p { margin: var(--sp-1) 0 0; color: var(--dim); font-size: var(--fs-small); }
+.commish-switch { flex: none; position: relative; width: 64px; height: 44px; padding: 0; background: transparent; border: 0; cursor: pointer; }
+.commish-switch span { position: absolute; left: 4px; right: 4px; top: 10px; height: 24px; background: var(--inset); border: 1px solid var(--rule); border-radius: 12px; }
+.commish-switch span::after { content: ""; position: absolute; top: 2px; left: 2px; width: 18px; height: 18px; border-radius: 9px; background: var(--dim); }
+.commish-switch[aria-checked="true"] span { background: var(--amber); border-color: var(--amber); }
+.commish-switch[aria-checked="true"] span::after { left: auto; right: 2px; background: var(--ink); }
+.commish-list { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--sp-3); }
+.commish-m { padding: var(--sp-3) var(--inset-x); }
+
 /* ------------------------------------------------------------ watch party */
 
 .party-chip { position: fixed; z-index: 45; left: 50%; transform: translateX(-50%); top: calc(4px + env(safe-area-inset-top, 0px));

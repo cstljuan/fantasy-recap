@@ -555,6 +555,23 @@
       leagueChanged();
     }).catch(function () { league$.state = 'down'; league$.saved = 'device'; leagueChanged(); });
   } else if (API) { league$.state = 'down'; }
+  // Reaching the final counts as watched, for the commissioner: to the service with ?api=, and
+  // on this device either way (once per manager and game).
+  function recordWatched() {
+    var gid = gameId(), who = managerName();
+    try {
+      var d = JSON.parse(window.localStorage.getItem('fr.commish') || '{}') || {};
+      d.watched = d.watched || {};
+      d.watched[gid] = d.watched[gid] || [];
+      if (d.watched[gid].indexOf(who) < 0) d.watched[gid].push(who);
+      window.localStorage.setItem('fr.commish', JSON.stringify(d));
+    } catch (err) { /* storage may be off */ }
+    // The service keeps this count in memory when its database does not answer, so send it whenever there is one.
+    if (API) {
+      apiFetch('/games/' + encodeURIComponent(gid) + '/watched', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ manager: who }) })
+        .catch(function () { /* the count is optional */ });
+    }
+  }
   function savedLine() {
     var t;
     if (league$.saved === 'league') {
@@ -2014,7 +2031,7 @@
       setTimeout(function () { if (!inGame) render(false); }, 1600); // lets the highlight on new points fade
     }
     else if (type === 'half') { m.feed.push({ divider: 'Halftime' }); m.now = 'Halftime'; closeDrive('End of half'); m.halfScore = m.field.slice(); }
-    else if (type === 'final') { m.status = 'final'; m.now = ''; closeDrive('End of game'); }
+    else if (type === 'final') { m.status = 'final'; m.now = ''; closeDrive('End of game'); recordWatched(); }
     syncFloaters();
     captionFor(type, d);
     ruleFor(type, d);
@@ -2079,6 +2096,13 @@
     window.FR_I18N.onchange = function () { markLang(); storyCache = null; if (!inGame) render(false); };
   };
   document.body.appendChild(i18nScript);
+
+  // Commissioner view (?commish=1): opt-ins, who watched, and the weekly release switch.
+  if (/[?&]commish=1(&|$)/.test(location.search)) {
+    var commishScript = document.createElement('script');
+    commishScript.src = 'js/screens/commish.js';
+    document.body.appendChild(commishScript);
+  }
 
   // Watch party: ?party=host makes this screen the host; any screen can join as a remote.
   var partyScript = document.createElement('script');
