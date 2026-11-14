@@ -43,6 +43,7 @@ var CHECKS = [
   { name: 'soccer rules and fantasy points', cmd: 'node', args: ['soccer/check.js'] },
   { name: 'plays service against a fake database', cmd: 'node', args: ['server/test.js'] },
   { name: 'plays service under load and bad input', cmd: 'node', args: ['server/stress.js'] },
+  { name: 'schema for a plain PostgreSQL can be made', cmd: 'node', args: ['db/make-plain.js'] },
   { name: 'league file and standings', cmd: 'node', args: ['data/checks/league.js'] },
   { name: 'league as the service gives it', cmd: 'node', args: ['server/league.js'] },
   { name: 'stat line sums', cmd: 'node', args: ['data/checks/statlines.js'] },

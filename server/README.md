@@ -1,5 +1,7 @@
 # Plays service
 
+Step by step from a clean clone, with what each command prints: `server/SETUP.md`.
+
 A small Node service with no framework. It saves plays to the database and returns them. The database is Tiger Data (PostgreSQL), set up by `db/schema.sql`.
 
 ## Run it

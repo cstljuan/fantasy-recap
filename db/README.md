@@ -29,6 +29,8 @@ It adds a `minute` column to `plays` (the match minute, empty for football) and 
 
 For the commissioner routes (release a week, count who watched), also apply `db/migrate-003-commissioner.sql`, safe to run again. Without it those routes keep their data in the service's memory.
 
+To try the service on a plain PostgreSQL without TimescaleDB, `node db/make-plain.js | psql "$DATABASE_URL"` applies the schema without the TimescaleDB parts (see `server/SETUP.md`).
+
 ## Notes
 
 - The app must keep working from the game file alone when the database cannot be reached (`docs/CONTRACT.md` section 5).
