@@ -29,3 +29,4 @@
 - 11-14 20:05 UTC | CLAIM | nexodv/work | C7 jingles: js/audio.js
 - 11-14 20:05 UTC | DONE | nexodv/work | C7 jingles, new names: jingle_kickoff (3.4 s) and jingle_final (4.0 s) in FF_AUDIO.play(); checked: rendered in headless Chromium, lengths measured, peak level close to the kick sound, no errors, old names unchanged; not checked: how they sound to a person
 - 11-14 20:05 UTC | NOTE | nexodv/work | boss: C7 is on nexodv/work. Call FF_AUDIO.play('jingle_kickoff') when the game starts and FF_AUDIO.play('jingle_final') at the final (with crowd_stop). Both are about as loud as the kick sound
+- 11-14 20:06 UTC | CLAIM | nexodv/work | C9 lines fit the captions strip: js/announcer/lines.js, js/announcer/index.js, js/announcer/check.js
