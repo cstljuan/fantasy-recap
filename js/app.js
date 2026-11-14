@@ -413,6 +413,134 @@
 
   // The reveal: the winner, shown large, opens the recap after the final.
   // Fantasy points decide the winner. Watch again replays the game and keeps the opt in choice.
+  // ------------------------------------------------------- result card
+  // A picture of the result, drawn on a canvas in the page: no network requests.
+  var CARD_W = 1080, CARD_H = 1350, CARD_FONT = '"Avenir Next Condensed", "DIN Condensed", "Roboto Condensed", "Arial Narrow", sans-serif';
+  var CARD_BODY = '-apple-system, "Segoe UI", Roboto, Arial, sans-serif';
+
+  function wrapText(g, text, maxW) {
+    var words = String(text).split(' '), lines = [], cur = '';
+    words.forEach(function (w) {
+      var next = cur ? cur + ' ' + w : w;
+      if (cur && g.measureText(next).width > maxW) { lines.push(cur); cur = w; } else cur = next;
+    });
+    if (cur) lines.push(cur);
+    return lines;
+  }
+
+  function drawResultCard() {
+    var c = document.createElement('canvas');
+    c.width = CARD_W; c.height = CARD_H;
+    var g = c.getContext('2d'), P = 72, inner = CARD_W - 2 * P;
+    var p0 = Number(f1(total(0))), p1 = Number(f1(total(1)));
+    var w = p0 === p1 ? -1 : p0 > p1 ? 0 : 1;
+    var order = ord(), top = leaders(1)[0];
+    var styles = getComputedStyle(document.documentElement);
+    var amber = styles.getPropertyValue('--amber').trim() || '#ffc21a';
+
+    g.fillStyle = '#0b0d0e'; g.fillRect(0, 0, CARD_W, CARD_H);
+    g.fillStyle = w < 0 ? amber : TEAMS[w].colors.jersey; g.fillRect(0, 0, CARD_W, 14);
+
+    // Header: the project name and the week.
+    g.textBaseline = 'alphabetic';
+    g.fillStyle = amber; g.fillRect(P, 92, 22, 22);
+    g.fillStyle = '#f3f1ea'; g.font = '700 44px ' + CARD_FONT; g.textAlign = 'left';
+    g.fillText('FANTASY RECAP', P + 38, 114);
+    g.fillStyle = '#8e9597'; g.font = '700 28px ' + CARD_BODY; g.textAlign = 'right';
+    g.fillText((WEEK + ' result').toUpperCase(), CARD_W - P, 112);
+
+    // The winner, large, with the team's player.
+    var y = 210;
+    if (w >= 0) {
+      try {
+        var spr = Spr.get(w, TEAMS[w].colors, 'f', 'stand', w ? 1 : 0);
+        g.imageSmoothingEnabled = false;
+        g.drawImage(spr, P, y, 120, 120 * spr.height / spr.width);
+      } catch (err) { /* the card works without the player */ }
+    }
+    var tx = w >= 0 ? P + 156 : P;
+    g.textAlign = 'left'; g.fillStyle = '#f3f1ea'; g.font = '700 112px ' + CARD_FONT;
+    var lines = wrapText(g, (w < 0 ? 'It is a tie' : TEAMS[w].full).toUpperCase(), CARD_W - P - tx);
+    lines.slice(0, 2).forEach(function (l, i) { g.fillText(l, tx, y + 92 + i * 104); });
+    var after = y + 92 + (Math.min(lines.length, 2) - 1) * 104;
+    if (w >= 0) { g.fillStyle = amber; g.font = '700 72px ' + CARD_FONT; g.fillText('WIN', tx, after + 86); after += 86; }
+
+    // Both fantasy totals, my team first when I have one.
+    y = Math.max(after + 70, 560);
+    var boxW = (inner - 24) / 2, boxH = 230;
+    order.forEach(function (t, i) {
+      var x = P + i * (boxW + 24);
+      g.fillStyle = '#1b1f21'; g.fillRect(x, y, boxW, boxH);
+      g.fillStyle = TEAMS[t].colors.jersey; g.fillRect(x, y, boxW, 10);
+      g.fillStyle = '#f3f1ea'; g.font = '700 128px ' + CARD_FONT; g.textAlign = 'left';
+      g.fillText(f1(total(t)), x + 28, y + 150);
+      g.fillStyle = '#8e9597';
+      var label = (TEAMS[t].name + (t === me ? ' (you)' : '') + ', fantasy pts').toUpperCase(), fs = 26;
+      g.font = '700 ' + fs + 'px ' + CARD_BODY;
+      while (fs > 18 && g.measureText(label).width > boxW - 56) { fs -= 1; g.font = '700 ' + fs + 'px ' + CARD_BODY; }
+      g.fillText(label, x + 28, y + 200);
+    });
+
+    // The score on the field.
+    y += boxH + 70;
+    g.fillStyle = '#8e9597'; g.font = '700 26px ' + CARD_BODY; g.textAlign = 'left';
+    g.fillText('ON THE FIELD', P, y);
+    g.fillStyle = '#f3f1ea'; g.font = '700 54px ' + CARD_FONT;
+    g.fillText(order.map(function (t) { return TEAMS[t].id + ' ' + m.field[t]; }).join('   '), P + 250, y + 6);
+
+    // The top performer.
+    y += 60;
+    g.fillStyle = '#131617'; g.fillRect(P, y, inner, 190);
+    g.strokeStyle = '#2b3033'; g.lineWidth = 2; g.strokeRect(P + 1, y + 1, inner - 2, 188);
+    g.fillStyle = '#8e9597'; g.font = '700 26px ' + CARD_BODY;
+    g.fillText('TOP PERFORMER', P + 32, y + 50);
+    if (top) {
+      g.fillStyle = '#f3f1ea'; g.font = '700 64px ' + CARD_FONT;
+      var nm = fullName(top.t, top.role);
+      while (g.measureText(nm).width > inner - 300 && nm.length > 4) nm = nm.slice(0, -2);
+      g.fillText(nm, P + 32, y + 122);
+      g.fillStyle = '#8e9597'; g.font = '600 28px ' + CARD_BODY;
+      g.fillText(TEAMS[top.t].id + ', ' + posOf(top.role), P + 32, y + 166);
+      g.fillStyle = amber; g.font = '700 96px ' + CARD_FONT; g.textAlign = 'right';
+      g.fillText(f1(top.pts), CARD_W - P - 32, y + 136);
+    }
+
+    // Footer.
+    g.textAlign = 'left'; g.fillStyle = '#8e9597'; g.font = '600 26px ' + CARD_BODY;
+    g.fillText('Sample league with mock data. Made with Fantasy Recap.', P, CARD_H - 70);
+    return c;
+  }
+
+  function cardFileName() {
+    return 'fantasy-recap-' + WEEK.toLowerCase().replace(/\s+/g, '-') + '.png';
+  }
+
+  // Share sheet when the browser has one for files, a download otherwise.
+  function shareResult(btn) {
+    var c = drawResultCard();
+    if (btn) btn.disabled = true;
+    function done() { if (btn) btn.disabled = false; }
+    function download(blob) {
+      var url = URL.createObjectURL(blob), a = document.createElement('a');
+      a.href = url; a.download = cardFileName();
+      document.body.appendChild(a); a.click(); a.remove();
+      setTimeout(function () { URL.revokeObjectURL(url); }, 4000);
+    }
+    c.toBlob(function (blob) {
+      if (!blob) { done(); return; }
+      var file = null;
+      try { file = new File([blob], cardFileName(), { type: 'image/png' }); } catch (err) { file = null; }
+      if (file && navigator.share && navigator.canShare && navigator.canShare({ files: [file] })) {
+        navigator.share({ files: [file], title: 'Fantasy Recap, ' + WEEK })
+          .catch(function (err) { if (!err || err.name !== 'AbortError') download(blob); })
+          .then(done, done);
+      } else {
+        download(blob);
+        done();
+      }
+    }, 'image/png');
+  }
+
   function winnerHero() {
     var p0 = Number(f1(total(0))), p1 = Number(f1(total(1)));
     var w = p0 === p1 ? -1 : p0 > p1 ? 0 : 1;
@@ -433,7 +561,7 @@
       '<div class="field"><span class="eyebrow">On the field</span>' +
         fieldScore() +
         '<span class="sit">Full time</span></div>' +
-      '<div class="actions">' + watchButton() + keep + '</div>' +
+      '<div class="actions">' + watchButton() + '<button type="button" class="cta ghost" data-act="share">Share result</button>' + keep + '</div>' +
       '</div>';
   }
 
@@ -703,6 +831,7 @@
     else if (act === 'again') { G.restart(); location.hash = 'game'; }
     else if (act === 'filter') { filter = el.getAttribute('data-f'); render(false); }
     else if (act === 'optin') { setOptin(el.getAttribute('data-v') === 'in' ? 'in' : 'out'); render(false); }
+    else if (act === 'share') { shareResult(el); }
     else if (act === 'me') { setMe(Number(el.getAttribute('data-v'))); render(false); }
   });
 
@@ -740,6 +869,7 @@
     get masked() { return masked(); },
     get paused() { return paused(); },
     get me() { return me; },
+    resultCard: function () { return drawResultCard().toDataURL('image/png'); },
     get caption() { return capEl.hidden ? '' : capEl.textContent; },
     totals: function () { return [f1(total(0)), f1(total(1))]; }
   };
