@@ -14,7 +14,7 @@ In this demo there is one viewer, not two accounts, and no real week of waiting.
 
 ## How we built it
 
-Four people, each directing AI coding agents on one part: the app screens, the announcer and sound, the soccer game, and the players and database. We agreed the interfaces in a written contract and coordinated through a board in the repository. The app is plain browser code with no frameworks and no build step. A rules engine works out downs, distance and score from the plays. The pixel players are drawn in code. A game maker builds a legal game from a week of stat lines, so every player ends with exactly those numbers. A play caller called Jev picked 40 of the 84 plays in the current game, and the rules engine refereed every play. For storage we designed a Tiger Data schema (PostgreSQL with the TimescaleDB extension): plays as a hypertable with two continuous aggregates. A small Node service saves and returns plays and has been run once against the real database. The app does not use the database yet.
+Four people, each directing AI coding agents on one part: the app screens, the announcer and sound, the soccer game, and the players and database. We agreed the interfaces in a written contract and coordinated through a board in the repository. The app is plain browser code with no frameworks and no build step. A rules engine works out downs, distance and score from the plays. The pixel players are drawn in code. A game maker builds a legal game from target stat lines, so every player ends with exactly those numbers. Today the targets come from our invented sample game. A play caller called Jev picked 40 of the 84 plays in the current game, and the rules engine refereed every play. For storage we designed a Tiger Data schema (PostgreSQL with the TimescaleDB extension): plays as a hypertable with two continuous aggregates. A small Node service saves and returns plays and has been run once against the real database. The app does not use the database yet.
 
 ## Challenges
 
@@ -22,7 +22,7 @@ Keeping four agents from stepping on each other. We gave each person their own f
 
 ## Accomplishments
 
-A full game that plays start to finish in a browser, tested at phone width in a headless browser, with scores hidden until the end if the viewer opts in. A rules engine checked against the sample game. Real rosters with real player names. A game maker that reproduces every stat line exactly. A database schema that applied cleanly on a real database. A second sport, soccer, on the same pattern, as a separate page not yet connected to the app.
+A full game that plays start to finish in a browser, tested at phone width in a headless browser, with scores hidden until the end if the viewer opts in. A rules engine checked against the sample game. Real rosters with real player names. A game maker that reproduces every stat line exactly. A database schema that applied cleanly on a real database. A second sport, soccer, on the same pattern, as shown in the app in a frame, with a scripted match.
 
 ## What we learned
 

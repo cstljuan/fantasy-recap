@@ -15,11 +15,11 @@ Written 2026-11-14 from the code and the DONE posts on the board. If something i
 - The league scoring rules (`data/scoring.json`) are real fantasy rules, half a point per reception. `agents/scout/score.js` turns a stat line into points, and three examples were worked by hand.
 - The database schema (`db/schema.sql`) was run on a real Tiger Data database by the boss: 10 statements, no failures, `plays` is a hypertable, both aggregates exist.
 - The game maker (`engine/make-game.js`) builds a full legal football game from stat lines. The rules engine replays it and the result matches every player's stat line (final GOB 17, PYT 14, 84 plays). 40 of the 84 plays were chosen by Jev, an outside play caller reached over the network, which returned real probabilities.
-- The soccer game (`soccer/`) plays a full match in a browser and has its own fantasy scoring. It is a separate page and is not connected to the main app.
+- The soccer game (`soccer/`) plays a full match in a browser and has its own fantasy scoring. It is shown in the main app inside a frame when you switch sport (`js/sport.js`), and its match is scripted, not built by the game maker.
 
 ## Simulated
 
-- The football game itself. The game the app plays is built from invented stat lines. No play in it happened in a real game, so the score does not match any real result. The older sample game in `js/data.js` is a scripted list that someone invented.
+- The football game itself. The game the app plays is built from the stat lines of the invented sample game (the game maker ran with `--from-sample`), not from `data/statlines/week11.json`. No play in it happened in a real game, so the score does not match any real result. The older sample game in `js/data.js` is a scripted list that someone invented.
 - Every stat line in `data/statlines/week11.json`. The file says it is invented. The numbers are not those players' real numbers.
 - The soccer match is scripted. Whether its teams and players are real was not checked here.
 - The player profiles have no real statistics. Every tendency is `null`, because no public stats source could be reached.
