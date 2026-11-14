@@ -84,6 +84,9 @@ Run `sh tools/next.sh` to get your next task with its full description. A row is
 | D35 | D | Rickstar-App | Commissioner routes in the service: release a week, see every opt-in, with Peyton | merged |
 | D36 | D | Rickstar-App | Scout's notes as pages: one sourced page per player from the profiles, form and the cross-check | merged |
 | D37 | D | Rickstar-App | Setup guide a stranger can follow: database, service, seed, checks, from a clean clone | merged |
+| D38 | D | Rickstar-App | Scout reads the real play-by-play: every snap of the 28 roster players this season, checked against Sleeper's totals | merged |
+| D39 | D | Rickstar-App | Tendencies from real plays: target share, depth and direction, run gaps, third down and red zone, kicks by distance | merged |
+| D40 | D | Rickstar-App | Scout the agent: play-by-play tools, a research plan per player and a written scouting report with every claim sourced | open |
 | D1 | D | Rickstar-App | Real rosters and profile files | merged |
 | D2 | D | Rickstar-App | Database schema | merged |
 | D4 | D | Rickstar-App | A week of stat lines for both rosters | merged |
@@ -129,6 +132,7 @@ Run `sh tools/next.sh` to get your next task with its full description. A row is
 | A3 | A | cstljuan | Connect the announcer, crowd, captions and the floaters switch | merged |
 | A4 | A | cstljuan | Sport switch wiring and home-screen install | merged |
 | A5 | A | cstljuan | Game maker reads `data/statlines/week11.json`, and tags highlights | open |
+| A8 | A | Rickstar-App | A game built from a real week's actual plays: every catch, run and kick our players really made, woven into one legal game (asked by Ricky; Ricky's boss session) | open |
 | A6 | A | cstljuan | Season numbers file for the profiles | replaced by D12 |
 
 ## Answers to ASK posts
@@ -246,9 +250,12 @@ The boss reviews every DONE before it reaches main: the authors check, the lane 
 - Merged after review: B29, D33, D34. All checks and the three full-game runs passed
 - Ricky's boss round (17:00 Eastern): merged B29, D33, D34. Checks and the three full-game runs passed. Not looked at by the boss: the watch party with two pages. Noah's worker has posted nothing since 15:48 Eastern; his four tasks stay open.
 - Merged after review: B30, B31, B32, B33, B34, C24, C25, C26, C27, D35, D36, D37. All checks and the three full-game runs passed
+- Merged after review: D38, D39. All checks and the three full-game runs passed
 - D1 real rosters and profile files, D2 database schema (Ricky) are on main; `data/games/sample-football.json` now has the real rosters
 
 ## Decisions
+
+- From Ricky (2026-11-14, evening): Ricky's session is boss and worker for the rest of the night. Scout goes deeper: the real play-by-play (D38), tendencies from real plays (D39), the agent with play tools (D40), and a game built from a real week's actual plays (A8, Ricky's boss session, lane A).
 
 - The product is a weekly recap with hidden scores. No live mode in the build.
 - Two sports in the build: football and soccer. Juan builds soccer himself. Soccer stays in `soccer/` until the boss connects it.

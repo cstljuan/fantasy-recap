@@ -79,7 +79,7 @@ function broadcast(style) {
   return out;
 }
 
-var straight = broadcast('straight'), fun = broadcast('fun');
+var straight = broadcast('straight');
 var final = game.game && Rules ? (function () {
   var s = Rules.create(teams);
   Rules.flatten(game.game, teams).forEach(function (x) { if (x.kind === 'half') Rules.startHalf(s); else if (x.kind === 'play') Rules.apply(s, x.e, x.team); });
@@ -96,15 +96,15 @@ var md = [
   'real season and recent numbers from `data/profiles/`. Crowd and music cues are in brackets, the way television captions show them. ' +
   'Big calls are the longer calls the app shows for the top plays.',
   '',
-  'Rebuild it with `node js/announcer/transcript.js`. The announcer has two styles; the app starts in Straight.',
+  'Rebuild it with `node js/announcer/transcript.js`.',
   '',
-  '## Straight',
+  '## The broadcast',
   ''
-].concat(straight, ['', '## Fun', ''], fun, ['']).join('\n');
+].concat(straight, ['']).join('\n');
 
 if (/—/.test(md)) { console.error('The transcript contains an em dash. Fix the line it comes from.'); process.exit(1); }
 if (process.argv.indexOf('--print') >= 0) { console.log(md); }
 else {
   fs.writeFileSync(OUT, md);
-  console.log('Wrote ' + path.relative(ROOT, OUT) + ': ' + straight.length + ' straight and ' + fun.length + ' fun entries.');
+  console.log('Wrote ' + path.relative(ROOT, OUT) + ': ' + straight.length + ' entries.');
 }

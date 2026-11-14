@@ -1,0 +1,1485 @@
+{
+ "version": 1,
+ "sport": "football",
+ "teams": [
+  {
+   "id": "PYT",
+   "name": "Pythons",
+   "full": "Pixel Pythons",
+   "colors": {
+    "jersey": "#f08a24",
+    "helmet": "#16324f",
+    "stripe": "#ffd166",
+    "pants": "#fff4e0",
+    "tile": "#c96a10",
+    "zone": "#b85f0c"
+   },
+   "roster": {
+    "QB": "Lamar Jackson",
+    "RB": "Bijan Robinson",
+    "WR1": "Justin Jefferson",
+    "WR2": "Malik Nabers",
+    "WR3": "Nico Collins",
+    "TE": "George Kittle",
+    "K": "Harrison Butker"
+   }
+  },
+  {
+   "id": "OWL",
+   "name": "Owls",
+   "full": "Midnight Owls",
+   "colors": {
+    "jersey": "#4a5bd0",
+    "helmet": "#e6e8f5",
+    "stripe": "#2a347f",
+    "pants": "#1d2350",
+    "tile": "#4a5bd0",
+    "zone": "#3b49aa"
+   },
+   "roster": {
+    "QB": "Patrick Mahomes",
+    "RB": "Derrick Henry",
+    "WR1": "Tee Higgins",
+    "WR2": "Jaxon Smith-Njigba",
+    "WR3": "Ladd McConkey",
+    "TE": "Tucker Kraft",
+    "K": "Ka'imi Fairbairn"
+   }
+  }
+ ],
+ "game": {
+  "note": "Built by the game maker from the week's stat lines. Every play was checked by the rules engine.",
+  "drives": [
+   {
+    "team": "OWL",
+    "plays": [
+     {
+      "t": "kickoff",
+      "to": 28
+     },
+     {
+      "t": "sack",
+      "yds": -7
+     },
+     {
+      "t": "pass",
+      "to": "WR2",
+      "yds": 4
+     },
+     {
+      "t": "pass",
+      "to": "WR1",
+      "yds": 5
+     },
+     {
+      "t": "punt",
+      "net": 45
+     }
+    ]
+   },
+   {
+    "team": "PYT",
+    "plays": [
+     {
+      "t": "inc",
+      "to": "WR3"
+     },
+     {
+      "t": "pass",
+      "to": "TE",
+      "yds": 4
+     },
+     {
+      "t": "pen",
+      "kind": "dpi",
+      "to": "WR2",
+      "spot": 25
+     },
+     {
+      "t": "inc",
+      "to": "WR2"
+     },
+     {
+      "t": "inc",
+      "to": "WR2"
+     },
+     {
+      "t": "pass",
+      "to": "WR3",
+      "yds": 9
+     },
+     {
+      "t": "pass",
+      "to": "WR3",
+      "yds": 14
+     },
+     {
+      "t": "run",
+      "by": "RB",
+      "yds": 4
+     },
+     {
+      "t": "run",
+      "by": "RB",
+      "yds": 4
+     },
+     {
+      "t": "pass",
+      "to": "RB",
+      "yds": 0
+     },
+     {
+      "t": "run",
+      "by": "RB",
+      "yds": 2
+     },
+     {
+      "t": "run",
+      "by": "RB",
+      "yds": 0
+     },
+     {
+      "t": "pass",
+      "to": "WR3",
+      "yds": 13
+     },
+     {
+      "t": "xp",
+      "good": true
+     }
+    ]
+   },
+   {
+    "team": "OWL",
+    "plays": [
+     {
+      "t": "kickoff",
+      "to": 49
+     },
+     {
+      "t": "pass",
+      "to": "WR2",
+      "yds": 8
+     },
+     {
+      "t": "pass",
+      "to": "WR1",
+      "yds": 8
+     },
+     {
+      "t": "run",
+      "by": "RB",
+      "yds": 6
+     },
+     {
+      "t": "inc",
+      "to": "TE"
+     },
+     {
+      "t": "run",
+      "by": "QB",
+      "yds": 1
+     },
+     {
+      "t": "pass",
+      "to": "WR2",
+      "yds": 18
+     },
+     {
+      "t": "pass",
+      "to": "WR2",
+      "yds": 2
+     },
+     {
+      "t": "pass",
+      "to": "WR1",
+      "yds": 8
+     },
+     {
+      "t": "xp",
+      "good": true
+     }
+    ]
+   },
+   {
+    "team": "PYT",
+    "plays": [
+     {
+      "t": "kickoff",
+      "to": 18
+     },
+     {
+      "t": "pass",
+      "to": "WR1",
+      "yds": 15
+     },
+     {
+      "t": "pass",
+      "to": "WR1",
+      "yds": 24
+     },
+     {
+      "t": "run",
+      "by": "RB",
+      "yds": 5
+     },
+     {
+      "t": "run",
+      "by": "RB",
+      "yds": 6
+     },
+     {
+      "t": "inc",
+      "to": "RB"
+     },
+     {
+      "t": "inc",
+      "to": "TE"
+     },
+     {
+      "t": "inc",
+      "to": "WR2"
+     },
+     {
+      "t": "punt",
+      "net": 37
+     }
+    ]
+   },
+   {
+    "team": "OWL",
+    "plays": [
+     {
+      "t": "inc",
+      "to": "RB"
+     },
+     {
+      "t": "inc",
+      "to": "WR2"
+     },
+     {
+      "t": "pass",
+      "to": "WR1",
+      "yds": 7
+     },
+     {
+      "t": "pen",
+      "kind": "dpi",
+      "to": "WR2",
+      "spot": 2
+     },
+     {
+      "t": "run",
+      "by": "RB",
+      "yds": 1
+     },
+     {
+      "t": "run",
+      "by": "RB",
+      "yds": 0
+     },
+     {
+      "t": "run",
+      "by": "RB",
+      "yds": 5
+     },
+     {
+      "t": "pen",
+      "kind": "dpi",
+      "to": "WR3",
+      "spot": 27
+     },
+     {
+      "t": "pen",
+      "kind": "dpi",
+      "to": "WR3",
+      "spot": 23
+     },
+     {
+      "t": "sack",
+      "yds": -10
+     },
+     {
+      "t": "inc",
+      "to": "TE"
+     },
+     {
+      "t": "inc",
+      "to": "RB"
+     },
+     {
+      "t": "fg",
+      "good": true
+     }
+    ]
+   },
+   {
+    "team": "PYT",
+    "plays": [
+     {
+      "t": "kickoff",
+      "to": 24
+     },
+     {
+      "t": "inc",
+      "to": "WR3"
+     },
+     {
+      "t": "inc",
+      "to": "WR1"
+     },
+     {
+      "t": "pass",
+      "to": "TE",
+      "yds": 37
+     },
+     {
+      "t": "run",
+      "by": "RB",
+      "yds": 2
+     },
+     {
+      "t": "run",
+      "by": "RB",
+      "yds": 4
+     },
+     {
+      "t": "inc",
+      "to": "WR2"
+     },
+     {
+      "t": "punt",
+      "net": 35
+     }
+    ]
+   },
+   {
+    "team": "OWL",
+    "plays": [
+     {
+      "t": "run",
+      "by": "RB",
+      "yds": 5
+     },
+     {
+      "t": "pen",
+      "kind": "dpi",
+      "to": "WR3",
+      "spot": 17
+     },
+     {
+      "t": "run",
+      "by": "RB",
+      "yds": 3
+     },
+     {
+      "t": "run",
+      "by": "RB",
+      "yds": 4
+     },
+     {
+      "t": "pen",
+      "kind": "dpi",
+      "to": "TE",
+      "spot": 2
+     },
+     {
+      "t": "inc",
+      "to": "WR2"
+     },
+     {
+      "t": "inc",
+      "to": "WR2"
+     },
+     {
+      "t": "run",
+      "by": "RB",
+      "yds": 5
+     },
+     {
+      "t": "pen",
+      "kind": "dpi",
+      "to": "WR3",
+      "spot": 27
+     },
+     {
+      "t": "run",
+      "by": "RB",
+      "yds": 3
+     },
+     {
+      "t": "inc",
+      "to": "WR2"
+     },
+     {
+      "t": "inc",
+      "to": "TE"
+     },
+     {
+      "t": "fg",
+      "good": true
+     }
+    ]
+   },
+   {
+    "team": "PYT",
+    "plays": [
+     {
+      "t": "kickoff",
+      "to": 12
+     },
+     {
+      "t": "pass",
+      "to": "WR3",
+      "yds": 19
+     },
+     {
+      "t": "inc",
+      "to": "WR3"
+     },
+     {
+      "t": "run",
+      "by": "RB",
+      "yds": 5
+     },
+     {
+      "t": "run",
+      "by": "RB",
+      "yds": 3
+     },
+     {
+      "t": "pass",
+      "to": "WR2",
+      "yds": 22
+     },
+     {
+      "t": "pass",
+      "to": "WR2",
+      "yds": 6
+     },
+     {
+      "t": "pass",
+      "to": "TE",
+      "yds": 5
+     },
+     {
+      "t": "pass",
+      "to": "TE",
+      "yds": 12
+     },
+     {
+      "t": "inc",
+      "to": "WR3"
+     },
+     {
+      "t": "inc",
+      "to": "TE"
+     },
+     {
+      "t": "pass",
+      "to": "RB",
+      "yds": 15
+     },
+     {
+      "t": "run",
+      "by": "RB",
+      "yds": 1
+     },
+     {
+      "t": "xp",
+      "good": true
+     }
+    ]
+   },
+   {
+    "team": "PYT",
+    "plays": [
+     {
+      "t": "kickoff",
+      "to": 37
+     },
+     {
+      "t": "inc",
+      "to": "RB"
+     },
+     {
+      "t": "pass",
+      "to": "WR1",
+      "yds": 19
+     },
+     {
+      "t": "run",
+      "by": "RB",
+      "yds": 8
+     },
+     {
+      "t": "run",
+      "by": "RB",
+      "yds": 3
+     },
+     {
+      "t": "inc",
+      "to": "WR1"
+     },
+     {
+      "t": "inc",
+      "to": "TE"
+     },
+     {
+      "t": "inc",
+      "to": "TE"
+     },
+     {
+      "t": "punt",
+      "net": 40
+     }
+    ],
+    "half": 2
+   },
+   {
+    "team": "OWL",
+    "plays": [
+     {
+      "t": "run",
+      "by": "QB",
+      "yds": 7
+     },
+     {
+      "t": "inc",
+      "to": "TE"
+     },
+     {
+      "t": "run",
+      "by": "RB",
+      "yds": -2
+     },
+     {
+      "t": "punt",
+      "net": 45
+     }
+    ]
+   },
+   {
+    "team": "PYT",
+    "plays": [
+     {
+      "t": "inc",
+      "to": "WR3"
+     },
+     {
+      "t": "run",
+      "by": "RB",
+      "yds": 21
+     },
+     {
+      "t": "inc",
+      "to": "WR1"
+     },
+     {
+      "t": "run",
+      "by": "RB",
+      "yds": 19
+     },
+     {
+      "t": "pass",
+      "to": "RB",
+      "yds": -3
+     },
+     {
+      "t": "inc",
+      "to": "WR2"
+     },
+     {
+      "t": "inc",
+      "to": "RB"
+     },
+     {
+      "t": "punt",
+      "net": 38
+     }
+    ]
+   },
+   {
+    "team": "OWL",
+    "plays": [
+     {
+      "t": "run",
+      "by": "RB",
+      "yds": 1
+     },
+     {
+      "t": "run",
+      "by": "RB",
+      "yds": 5
+     },
+     {
+      "t": "run",
+      "by": "TE",
+      "yds": 0
+     },
+     {
+      "t": "pass",
+      "to": "WR2",
+      "yds": 13
+     },
+     {
+      "t": "pen",
+      "kind": "dpi",
+      "to": "WR3",
+      "spot": 24
+     },
+     {
+      "t": "pass",
+      "to": "WR2",
+      "yds": 1
+     },
+     {
+      "t": "pen",
+      "kind": "dpi",
+      "to": "TE",
+      "spot": 24
+     },
+     {
+      "t": "pen",
+      "kind": "dpi",
+      "to": "WR3",
+      "spot": 8
+     },
+     {
+      "t": "pass",
+      "to": "WR1",
+      "yds": 4
+     },
+     {
+      "t": "xp",
+      "good": true
+     }
+    ]
+   },
+   {
+    "team": "PYT",
+    "plays": [
+     {
+      "t": "kickoff",
+      "to": 30
+     },
+     {
+      "t": "inc",
+      "to": "RB"
+     },
+     {
+      "t": "run",
+      "by": "RB",
+      "yds": 2
+     },
+     {
+      "t": "run",
+      "by": "RB",
+      "yds": 7
+     },
+     {
+      "t": "pass",
+      "to": "WR2",
+      "yds": 2
+     },
+     {
+      "t": "pass",
+      "to": "WR2",
+      "yds": 11
+     },
+     {
+      "t": "inc",
+      "to": "RB"
+     },
+     {
+      "t": "inc",
+      "to": "WR3"
+     },
+     {
+      "t": "inc",
+      "to": "RB"
+     },
+     {
+      "t": "punt",
+      "net": 52
+     }
+    ]
+   },
+   {
+    "team": "OWL",
+    "plays": [
+     {
+      "t": "inc",
+      "to": "RB"
+     },
+     {
+      "t": "pen",
+      "kind": "dpi",
+      "to": "WR1",
+      "spot": 1
+     },
+     {
+      "t": "inc",
+      "to": "TE"
+     },
+     {
+      "t": "inc",
+      "to": "WR2"
+     },
+     {
+      "t": "pen",
+      "kind": "dpi",
+      "to": "WR3",
+      "spot": 29
+     },
+     {
+      "t": "run",
+      "by": "RB",
+      "yds": 2
+     },
+     {
+      "t": "pass",
+      "to": "TE",
+      "yds": 1
+     },
+     {
+      "t": "run",
+      "by": "RB",
+      "yds": 8
+     },
+     {
+      "t": "run",
+      "by": "RB",
+      "yds": 4
+     },
+     {
+      "t": "inc",
+      "to": "WR1"
+     },
+     {
+      "t": "inc",
+      "to": "TE"
+     },
+     {
+      "t": "fg",
+      "good": true
+     }
+    ]
+   },
+   {
+    "team": "PYT",
+    "plays": [
+     {
+      "t": "kickoff",
+      "to": 32
+     },
+     {
+      "t": "pass",
+      "to": "RB",
+      "yds": 28
+     },
+     {
+      "t": "pass",
+      "to": "WR2",
+      "yds": 3
+     },
+     {
+      "t": "pass",
+      "to": "RB",
+      "yds": 2
+     },
+     {
+      "t": "run",
+      "by": "RB",
+      "yds": 2
+     },
+     {
+      "t": "pass",
+      "to": "RB",
+      "yds": 7
+     },
+     {
+      "t": "run",
+      "by": "RB",
+      "yds": 2
+     },
+     {
+      "t": "inc",
+      "to": "RB"
+     },
+     {
+      "t": "inc",
+      "to": "RB"
+     },
+     {
+      "t": "fg",
+      "good": false
+     }
+    ]
+   },
+   {
+    "team": "OWL",
+    "plays": [
+     {
+      "t": "inc",
+      "to": "WR3"
+     },
+     {
+      "t": "run",
+      "by": "RB",
+      "yds": 5
+     },
+     {
+      "t": "run",
+      "by": "RB",
+      "yds": 2
+     },
+     {
+      "t": "pass",
+      "to": "WR2",
+      "yds": 5
+     },
+     {
+      "t": "run",
+      "by": "TE",
+      "yds": 8
+     },
+     {
+      "t": "inc",
+      "to": "WR2"
+     },
+     {
+      "t": "inc",
+      "to": "WR3"
+     },
+     {
+      "t": "punt",
+      "net": 50
+     }
+    ]
+   }
+  ]
+ },
+ "report": {
+  "seedTried": 215,
+  "plays": 157,
+  "playsChosenByJev": 0,
+  "model": null,
+  "jev": {
+   "calls": 0,
+   "inputTokens": 0
+  },
+  "score": [
+   14,
+   23
+  ],
+  "points": [
+   {
+    "DST": 2,
+    "QB": 14.8,
+    "TE": 5.8,
+    "WR3": 11.5,
+    "RB": 20.9,
+    "K": 2,
+    "WR1": 5.8,
+    "WR2": 4.4
+   },
+   {
+    "QB": 12.1,
+    "WR2": 5.1,
+    "WR1": 15.2,
+    "RB": 5.7,
+    "K": 14,
+    "TE": 0.9
+   }
+  ],
+  "matchesTargets": true,
+  "source": {
+   "from": "plays",
+   "file": "data/rosters/plays-2026.json",
+   "week": 9,
+   "season": 2026,
+   "note": "every catch and run our players really made in week 9 (ESPN play-by-play), with real yards and touchdowns; field goals keep their real distance band and result; sacks and interceptions are real; drive starts, incompletions and penalties are filler; the quarterback's passing is the catches by our own receivers; extra points follow this game's touchdowns",
+   "used": [
+    {
+     "team": "PYT",
+     "plays": [
+      {
+       "slot": "RB",
+       "event": "401873038",
+       "q": 1,
+       "clock": "14:25",
+       "text": "B.Robinson left end pushed ob at CIN 49 for 19 yards (J.Battle)."
+      },
+      {
+       "slot": "RB",
+       "event": "401873038",
+       "q": 1,
+       "clock": "13:56",
+       "text": "M.Penix pass short right to B.Robinson to CIN 42 for 7 yards (J.Newton)."
+      },
+      {
+       "slot": "RB",
+       "event": "401873038",
+       "q": 1,
+       "clock": "13:13",
+       "text": "(Shotgun) B.Robinson left guard to CIN 40 for 2 yards (J.Battle)."
+      },
+      {
+       "slot": "RB",
+       "event": "401873038",
+       "q": 1,
+       "clock": "12:31",
+       "text": "B.Robinson left end to CIN 19 for 21 yards (M.Murphy; B.Carter)."
+      },
+      {
+       "slot": "RB",
+       "event": "401873038",
+       "q": 1,
+       "clock": "7:58",
+       "text": "B.Robinson right tackle to CIN 45 for no gain (D.Knight; B.Hill)."
+      },
+      {
+       "slot": "RB",
+       "event": "401873038",
+       "q": 1,
+       "clock": "6:31",
+       "text": "(Shotgun) B.Robinson left end pushed ob at CIN 13 for 4 yards (D.Knight)."
+      },
+      {
+       "slot": "RB",
+       "event": "401873038",
+       "q": 1,
+       "clock": "5:58",
+       "text": "B.Robinson up the middle to CIN 7 for 6 yards (B.Cook; D.Knight).  The first down was assisted by replay."
+      },
+      {
+       "slot": "RB",
+       "event": "401873038",
+       "q": 2,
+       "clock": "3:57",
+       "text": "B.Robinson left tackle to ATL 33 for 4 yards (B.Carter; B.Mafe)."
+      },
+      {
+       "slot": "RB",
+       "event": "401873038",
+       "q": 2,
+       "clock": "3:19",
+       "text": "B.Robinson left end to ATL 36 for 3 yards (J.Newton)."
+      },
+      {
+       "slot": "RB",
+       "event": "401873038",
+       "q": 2,
+       "clock": "2:16",
+       "text": "(Shotgun) M.Penix pass short right to B.Robinson to ATL 41 for 15 yards (B.Carter; D.Knight)."
+      },
+      {
+       "slot": "RB",
+       "event": "401873038",
+       "q": 2,
+       "clock": "2:00",
+       "text": "M.Penix pass short left to B.Robinson to ATL 43 for 2 yards (B.Carter). FUMBLES (B.Carter), touched at ATL 41, ball out of bounds at ATL 37."
+      },
+      {
+       "slot": "RB",
+       "event": "401873038",
+       "q": 3,
+       "clock": "12:50",
+       "text": "B.Robinson up the middle to ATL 35 for 2 yards (J.Allen; D.Lawrence)."
+      },
+      {
+       "slot": "RB",
+       "event": "401873038",
+       "q": 3,
+       "clock": "12:15",
+       "text": "B.Robinson left tackle to ATL 37 for 2 yards (B.Carter; B.Hill)."
+      },
+      {
+       "slot": "RB",
+       "event": "401873038",
+       "q": 3,
+       "clock": "11:31",
+       "text": "(Shotgun) B.Robinson up the middle to ATL 39 for 2 yards (B.Carter; B.Mafe)."
+      },
+      {
+       "slot": "RB",
+       "event": "401873038",
+       "q": 3,
+       "clock": "10:49",
+       "text": "(Shotgun) M.Penix pass deep left to B.Robinson pushed ob at CIN 33 for 28 yards (B.Cook)."
+      },
+      {
+       "slot": "RB",
+       "event": "401873038",
+       "q": 3,
+       "clock": "9:32",
+       "text": "(Shotgun) B.Robinson right tackle to CIN 21 for 5 yards (B.Hill; B.Carter)."
+      },
+      {
+       "slot": "RB",
+       "event": "401873038",
+       "q": 3,
+       "clock": "8:49",
+       "text": "B.Robinson left tackle to CIN 17 for 4 yards (J.Newton; T.Slaton)."
+      },
+      {
+       "slot": "RB",
+       "event": "401873038",
+       "q": 3,
+       "clock": "8:20",
+       "text": "B.Robinson up the middle to CIN 12 for 5 yards (B.Cook; K.Jenkins)."
+      },
+      {
+       "slot": "RB",
+       "event": "401873038",
+       "q": 3,
+       "clock": "6:18",
+       "text": "B.Robinson left end for 1 yard, TOUCHDOWN. N.Folk extra point is GOOD, Center-L.McCullough, Holder-J.Bailey."
+      },
+      {
+       "slot": "RB",
+       "event": "401873038",
+       "q": 3,
+       "clock": "1:59",
+       "text": "B.Robinson left end to ATL 31 for 3 yards (B.Mafe)."
+      },
+      {
+       "slot": "RB",
+       "event": "401873038",
+       "q": 3,
+       "clock": "1:22",
+       "text": "(Shotgun) B.Robinson left tackle to ATL 39 for 8 yards (D.Hill; B.Cook)."
+      },
+      {
+       "slot": "RB",
+       "event": "401873038",
+       "q": 4,
+       "clock": "15:00",
+       "text": "B.Robinson left end to CIN 32 for 7 yards (B.Cook; D.Turner)."
+      },
+      {
+       "slot": "RB",
+       "event": "401873038",
+       "q": 4,
+       "clock": "12:54",
+       "text": "B.Robinson up the middle to CIN 10 for 2 yards (B.Cook)."
+      },
+      {
+       "slot": "RB",
+       "event": "401873038",
+       "q": 4,
+       "clock": "12:08",
+       "text": "(Shotgun) M.Penix pass short right to B.Robinson to CIN 20 for no gain (D.Ivey; J.Newton)."
+      },
+      {
+       "slot": "RB",
+       "event": "401873038",
+       "q": 4,
+       "clock": "9:17",
+       "text": "(Shotgun) M.Penix pass short left to B.Robinson to ATL 4 for -3 yards (D.Hill)."
+      },
+      {
+       "slot": "WR1",
+       "event": "401873051",
+       "q": 2,
+       "clock": "0:40",
+       "text": "(Shotgun) C.Wentz pass deep middle to J.Jefferson to MIN 44 for 24 yards (C.Benford)."
+      },
+      {
+       "slot": "WR1",
+       "event": "401873051",
+       "q": 2,
+       "clock": "0:27",
+       "text": "(Shotgun) C.Wentz pass short left to J.Jefferson to BUF 34 for 15 yards (C.Benford)."
+      },
+      {
+       "slot": "WR1",
+       "event": "401873051",
+       "q": 4,
+       "clock": "3:50",
+       "text": "(Shotgun) M.Brosmer pass short right to J.Jefferson to BUF 22 for 19 yards (D.Hamlin)."
+      },
+      {
+       "slot": "WR2",
+       "event": "401873044",
+       "q": 1,
+       "clock": "7:41",
+       "text": "(Shotgun) J.McCarthy pass deep left to M.Nabers to PHI 27 for 22 yards (A.Mukuba).Penalty on PHI-Q.Mitchell, Defensive Holding, declined."
+      },
+      {
+       "slot": "WR2",
+       "event": "401873044",
+       "q": 2,
+       "clock": "1:57",
+       "text": "(Shotgun) J.McCarthy pass short right to M.Nabers to NYG 44 for 3 yards (N.Smith)."
+      },
+      {
+       "slot": "WR2",
+       "event": "401873044",
+       "q": 3,
+       "clock": "8:19",
+       "text": "(Shotgun) J.Winston pass short left to M.Nabers to NYG 37 for 2 yards (Q.Mitchell; S.Mondon)."
+      },
+      {
+       "slot": "WR2",
+       "event": "401873044",
+       "q": 4,
+       "clock": "14:47",
+       "text": "(Shotgun) J.McCarthy pass short middle to M.Nabers to NYG 42 for 11 yards (A.Mukuba)."
+      },
+      {
+       "slot": "WR2",
+       "event": "401873044",
+       "q": 4,
+       "clock": "12:42",
+       "text": "J.McCarthy pass short left to M.Nabers to PHI 41 for 6 yards (Q.Mitchell, J.Trotter). FUMBLES (J.Trotter), and recovers at PHI 42."
+      },
+      {
+       "slot": "WR3",
+       "event": "401873046",
+       "q": 1,
+       "clock": "14:55",
+       "text": "(Shotgun) C.Stroud pass short middle to N.Collins to HST 46 for 19 yards (E.Molden)."
+      },
+      {
+       "slot": "WR3",
+       "event": "401873046",
+       "q": 1,
+       "clock": "0:40",
+       "text": "(Shotgun) C.Stroud pass short right to N.Collins to HST 17 for 9 yards (C.Hart; M.Wax)."
+      },
+      {
+       "slot": "WR3",
+       "event": "401873046",
+       "q": 2,
+       "clock": "8:08",
+       "text": "(Shotgun) C.Stroud pass short middle to N.Collins to HST 45 for 14 yards (T.Still; M.Wax)."
+      },
+      {
+       "slot": "WR3",
+       "event": "401873046",
+       "q": 3,
+       "clock": "8:16",
+       "text": "(Shotgun) C.Stroud pass short left to N.Collins for 13 yards, TOUCHDOWN. K.Fairbairn extra point is GOOD, Center-A.Brinkman, Holder-K.Kroege"
+      },
+      {
+       "slot": "TE",
+       "event": "401873047",
+       "q": 1,
+       "clock": "13:26",
+       "text": "(Shotgun) B.Purdy pass short left to G.Kittle to LV 41 for 4 yards (T.Stukes)."
+      },
+      {
+       "slot": "TE",
+       "event": "401873047",
+       "q": 1,
+       "clock": "8:21",
+       "text": "(Shotgun) B.Purdy pass deep middle to G.Kittle pushed ob at SF 48 for 37 yards (J.Chinn)."
+      },
+      {
+       "slot": "TE",
+       "event": "401873047",
+       "q": 3,
+       "clock": "2:54",
+       "text": "(Shotgun) B.Purdy pass short left to G.Kittle pushed ob at LV 44 for 12 yards (J.Chinn)."
+      },
+      {
+       "slot": "TE",
+       "event": "401873047",
+       "q": 4,
+       "clock": "11:55",
+       "text": "(Shotgun) B.Purdy pass short right to G.Kittle to SF 25 for 5 yards (T.Stukes)."
+      },
+      {
+       "slot": "K",
+       "event": "401873045",
+       "q": 2,
+       "clock": "0:02",
+       "text": "H.Butker 51 yard field goal is No Good, Wide Right, Center-J.Winchester, Holder-M.Araiza."
+      }
+     ]
+    },
+    {
+     "team": "OWL",
+     "plays": [
+      {
+       "slot": "QB",
+       "event": "401873045",
+       "q": 2,
+       "clock": "2:00",
+       "text": "(Shotgun) P.Mahomes sacked at KC 32 for -7 yards (D.Bailey). FUMBLES (D.Bailey) [D.Bailey], recovered by KC-J.Moore at KC 32."
+      },
+      {
+       "slot": "QB",
+       "event": "401873045",
+       "q": 2,
+       "clock": "1:41",
+       "text": "(Shotgun) P.Mahomes sacked at KC 27 for -10 yards (D.Bailey). FUMBLES (D.Bailey) [D.Bailey], RECOVERED by NYJ-W.McDonald at KC 30. KC-P.Maho"
+      },
+      {
+       "slot": "QB",
+       "event": "401873045",
+       "q": 2,
+       "clock": "0:15",
+       "text": "(No Huddle, Shotgun) P.Mahomes scrambles up the middle to NYJ 38 for 7 yards (D.Davis; W.McDonald)."
+      },
+      {
+       "slot": "QB",
+       "event": "401873045",
+       "q": 3,
+       "clock": "10:58",
+       "text": "(Shotgun) P.Mahomes scrambles left end pushed ob at NYJ 1 for 1 yard (M.Fitzpatrick)."
+      },
+      {
+       "slot": "RB",
+       "event": "401873037",
+       "q": 1,
+       "clock": "11:14",
+       "text": "(Shotgun) Direct snap to D.Henry.  D.Henry right end to BLT 41 for 6 yards (K.Merriweather; T.Walker)."
+      },
+      {
+       "slot": "RB",
+       "event": "401873037",
+       "q": 1,
+       "clock": "10:31",
+       "text": "(Shotgun) C.Vinson reported in as eligible.  D.Henry right end to BLT 49 for 8 yards (F.Oluokun)."
+      },
+      {
+       "slot": "RB",
+       "event": "401873037",
+       "q": 1,
+       "clock": "9:06",
+       "text": "(Shotgun) D.Henry right tackle to JAX 39 for 3 yards (J.Hines-Allen)."
+      },
+      {
+       "slot": "RB",
+       "event": "401873037",
+       "q": 1,
+       "clock": "8:21",
+       "text": "(Shotgun) C.Vinson reported in as eligible. Direct snap to D.Henry.  D.Henry left end to JAX 34 for 5 yards (F.Oluokun)."
+      },
+      {
+       "slot": "RB",
+       "event": "401873037",
+       "q": 1,
+       "clock": "1:52",
+       "text": "(Shotgun) D.Henry right end to BLT 16 for 5 yards (D.Gardeck; T.Hunter)."
+      },
+      {
+       "slot": "RB",
+       "event": "401873037",
+       "q": 1,
+       "clock": "0:30",
+       "text": "(Shotgun) D.Henry left end to BLT 25 for 4 yards (T.Hunter)."
+      },
+      {
+       "slot": "RB",
+       "event": "401873037",
+       "q": 2,
+       "clock": "14:17",
+       "text": "(Shotgun) Direct snap to D.Henry.  D.Henry left tackle to BLT 35 for 3 yards (K.Merriweather)."
+      },
+      {
+       "slot": "RB",
+       "event": "401873037",
+       "q": 2,
+       "clock": "13:31",
+       "text": "(Shotgun) D.Henry right tackle to BLT 40 for 5 yards (V.Miller; A.Armstead)."
+      },
+      {
+       "slot": "RB",
+       "event": "401873037",
+       "q": 2,
+       "clock": "12:06",
+       "text": "(Shotgun) C.Vinson reported in as eligible. Direct snap to D.Henry.  D.Henry left end to BLT 49 for 5 yards (D.Gardeck; K.Merriweather)."
+      },
+      {
+       "slot": "RB",
+       "event": "401873037",
+       "q": 2,
+       "clock": "6:31",
+       "text": "(Shotgun) D.Henry right end to BLT 22 for 2 yards (A.Johnson; A.Regis)."
+      },
+      {
+       "slot": "RB",
+       "event": "401873037",
+       "q": 2,
+       "clock": "4:37",
+       "text": "C.Vinson reported in as eligible.  D.Henry right end to BLT 33 for 4 yards (R.Lane)."
+      },
+      {
+       "slot": "RB",
+       "event": "401873037",
+       "q": 2,
+       "clock": "2:58",
+       "text": "(Shotgun) D.Henry right end to BLT 45 for 1 yard (J.Lewis)."
+      },
+      {
+       "slot": "RB",
+       "event": "401873037",
+       "q": 3,
+       "clock": "14:55",
+       "text": "(Shotgun) C.Vinson reported in as eligible. Direct snap to D.Henry.  D.Henry left end to BLT 30 for 1 yard (A.Armstead; M.Dickerson)."
+      },
+      {
+       "slot": "RB",
+       "event": "401873037",
+       "q": 3,
+       "clock": "12:43",
+       "text": "(Shotgun) D.Henry left tackle to BLT 30 for no gain (A.Regis)."
+      },
+      {
+       "slot": "RB",
+       "event": "401873037",
+       "q": 3,
+       "clock": "6:51",
+       "text": "(Shotgun) D.Henry left end to BLT 30 for -2 yards (T.Walker)."
+      },
+      {
+       "slot": "RB",
+       "event": "401873037",
+       "q": 3,
+       "clock": "5:10",
+       "text": "(Shotgun) Direct snap to D.Henry.  D.Henry right end to JAX 45 for 5 yards (A.Johnson; D.Striggow)."
+      },
+      {
+       "slot": "RB",
+       "event": "401873037",
+       "q": 4,
+       "clock": "2:46",
+       "text": "(Shotgun) D.Henry left end to BLT 32 for 2 yards (A.Regis; B.Combs)."
+      },
+      {
+       "slot": "WR1",
+       "event": "401873038",
+       "q": 1,
+       "clock": "2:12",
+       "text": "(Shotgun) J.Burrow pass short right to T.Higgins pushed ob at CIN 35 for 5 yards (J.Bates)."
+      },
+      {
+       "slot": "WR1",
+       "event": "401873038",
+       "q": 1,
+       "clock": "2:01",
+       "text": "(Shotgun) J.Burrow pass short left to T.Higgins to CIN 42 for 7 yards (C.Henderson)."
+      },
+      {
+       "slot": "WR1",
+       "event": "401873038",
+       "q": 2,
+       "clock": "4:03",
+       "text": "(Shotgun) J.Burrow pass short right to T.Higgins for 4 yards, TOUCHDOWN. E.McPherson extra point is GOOD, Center-W.Wagner, Holder-R.Rehkow."
+      },
+      {
+       "slot": "WR1",
+       "event": "401873038",
+       "q": 3,
+       "clock": "5:26",
+       "text": "(Shotgun) J.Burrow pass short right to T.Higgins pushed ob at ATL 48 for 8 yards (A.Terrell)."
+      },
+      {
+       "slot": "WR1",
+       "event": "401873038",
+       "q": 3,
+       "clock": "2:05",
+       "text": "(Shotgun) J.Burrow pass short middle to T.Higgins for 8 yards, TOUCHDOWN [M.Smith]. E.McPherson extra point is GOOD, Center-W.Wagner, Holder"
+      },
+      {
+       "slot": "WR2",
+       "event": "401873048",
+       "q": 1,
+       "clock": "14:54",
+       "text": "(Shotgun) D.Lock pass short middle to J.Smith-Njigba to SEA 42 for 5 yards (Ma.Wilson) [W.Nolen]."
+      },
+      {
+       "slot": "WR2",
+       "event": "401873048",
+       "q": 1,
+       "clock": "8:41",
+       "text": "(Shotgun) D.Lock pass short right to J.Smith-Njigba to SEA 26 for 2 yards (D.Burke)."
+      },
+      {
+       "slot": "WR2",
+       "event": "401873048",
+       "q": 1,
+       "clock": "7:36",
+       "text": "D.Lock pass short middle to J.Smith-Njigba to ARZ 47 for 8 yards (A.Wingard)."
+      },
+      {
+       "slot": "WR2",
+       "event": "401873048",
+       "q": 2,
+       "clock": "10:22",
+       "text": "(Shotgun) D.Lock pass short left to J.Smith-Njigba to SEA 23 for 1 yard (K.King; J.Burch)."
+      },
+      {
+       "slot": "WR2",
+       "event": "401873048",
+       "q": 2,
+       "clock": "1:45",
+       "text": "(Shotgun) D.Lock pass short right to J.Smith-Njigba pushed ob at SEA 23 for 4 yards (K.King)."
+      },
+      {
+       "slot": "WR2",
+       "event": "401873048",
+       "q": 2,
+       "clock": "0:37",
+       "text": "(Shotgun) D.Lock pass short middle to J.Smith-Njigba to SEA 46 for 13 yards (B.Baker)."
+      },
+      {
+       "slot": "WR2",
+       "event": "401873048",
+       "q": 2,
+       "clock": "0:26",
+       "text": "(Shotgun) D.Lock pass short middle to J.Smith-Njigba pushed ob at ARZ 7 for 18 yards (B.Baker)."
+      },
+      {
+       "slot": "TE",
+       "event": "401873049",
+       "q": 2,
+       "clock": "2:22",
+       "text": "(Shotgun) T.Kraft left end to NE 42 for 8 yards (M.Jones; C.Woodson)."
+      },
+      {
+       "slot": "TE",
+       "event": "401873049",
+       "q": 3,
+       "clock": "8:44",
+       "text": "J.Love pass short right to T.Kraft to GB 23 for 1 yard (C.Elliss)."
+      },
+      {
+       "slot": "TE",
+       "event": "401873049",
+       "q": 4,
+       "clock": "12:42",
+       "text": "Direct snap to T.Kraft.  T.Kraft up the middle to NE 20 for no gain (R.Spillane; C.Elliss)."
+      },
+      {
+       "slot": "K",
+       "event": "401873046",
+       "q": 1,
+       "clock": "3:12",
+       "text": "K.Fairbairn 56 yard field goal is GOOD, Center-A.Brinkman, Holder-K.Kroeger."
+      },
+      {
+       "slot": "K",
+       "event": "401873046",
+       "q": 4,
+       "clock": "8:50",
+       "text": "K.Fairbairn 31 yard field goal is GOOD, Center-A.Brinkman, Holder-K.Kroeger."
+      },
+      {
+       "slot": "K",
+       "event": "401873046",
+       "q": 4,
+       "clock": "2:20",
+       "text": " K.Fairbairn 41 yard field goal is GOOD, Center-A.Brinkman, Holder-K.Kroeger."
+      }
+     ]
+    }
+   ]
+  }
+ },
+ "id": "week09-pyt-owl"
+}

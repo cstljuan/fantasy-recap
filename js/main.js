@@ -632,6 +632,7 @@
     get floaters() { return FLOATERS; },
     get background() { return BACKGROUND; },
     get mode() { return mode; },
+    get seeking() { return seeking; },   // true while seek() runs the skipped plays (for js/audio.js)
     get active() { return active; },
     get plays() { return steps.filter(function (st) { return st.kind === 'play'; }).length; }
   };

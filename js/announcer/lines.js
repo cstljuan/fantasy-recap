@@ -1,7 +1,5 @@
-// Announcer lines for football. Two styles:
-//   straight: the default. Spoken TV play-by-play: short bursts, the call as it happens.
-//   fun:      the same fact with some personality.
-// Each kind has at least three variants per style. index.js picks them so
+// Announcer lines for football: spoken TV play-by-play, short bursts, the call as it happens.
+// Each kind has at least three variants. index.js picks them so
 // the same game doesn't repeat a line until every variant has been used.
 //
 // Placeholders, filled in by index.js:
@@ -24,11 +22,6 @@
         'Here\'s the kick. {player} brings it out to the {spot}.',
         'Kick is away. {player} returns it to the {spot}.',
         'High and deep. {player} back to the {spot}.'
-      ],
-      fun: [
-        'Up it goes! {player} brings it to the {spot}.',
-        '{player} takes the kick and scoots to the {spot}!',
-        'Boot is away! {player} back to the {spot}.'
       ]
     },
     touchdown_run: {
@@ -36,11 +29,6 @@
         '{player} carries it in from {yds}! Touchdown {team}!',
         '{player} runs it in! Touchdown, {team}!',
         '{player}, {yards}... and in! Touchdown {team}!'
-      ],
-      fun: [
-        '{player} is GONE! {yds} yards to the house!',
-        'Get out of the way! {player} scores! {team}!',
-        'Hand it to {player}... TOUCHDOWN {team}!'
       ]
     },
     touchdown_pass: {
@@ -48,11 +36,6 @@
         '{qb} drops back, fires, CAUGHT! Touchdown, {team}!',
         '{qb} finds {player} open! {yds} yards, TOUCHDOWN!',
         '{player} goes up and gets it! Six for the {team}!'
-      ],
-      fun: [
-        '{qb} lets it fly, {player} hauls it in! Six!',
-        'Pitch and catch, {qb} to {player}! Touchdown!',
-        'What a catch by {player}! {score}!'
       ]
     },
     xp_good: {
@@ -60,11 +43,6 @@
         '{kicker} adds the extra point. {score}.',
         'Extra point is good. {score}.',
         '{kicker} knocks it through. The {team} have {teamscore}.'
-      ],
-      fun: [
-        '{kicker} makes it look easy. Point after is good!',
-        'Right down the middle from {kicker}. Add one more!',
-        'Automatic! {kicker} tacks on the extra point.'
       ]
     },
     xp_miss: {
@@ -72,11 +50,6 @@
         '{kicker} pushes it! Extra point NO good!',
         'Extra point... NO good! That could hurt.',
         '{kicker} misses the extra point! It stays {teamscore}.'
-      ],
-      fun: [
-        'Oh no, {kicker}! The easy one gets away!',
-        'Doink! {kicker} leaves a point out there.',
-        'Wide! {kicker} can\'t believe it.'
       ]
     },
     fg_good: {
@@ -84,11 +57,6 @@
         '{kicker} from {dist}... it\'s GOOD! {score}.',
         '{dist} yards for {kicker}, right down the middle!',
         'Snap, hold, kick... GOOD from {dist}! {teamscore}.'
-      ],
-      fun: [
-        '{kicker} from {dist}... it\'s GOOD! Three points!',
-        'Split the uprights! {kicker} drills it from {dist} yards!',
-        'Money from {dist}! {kicker} puts three on the board!'
       ]
     },
     fg_miss: {
@@ -96,11 +64,6 @@
         '{kicker} from {dist}... wide! No good!',
         'The {dist} yard try is up... and it\'s NO good!',
         '{kicker} hooks it from {dist}! {score}.'
-      ],
-      fun: [
-        '{kicker} pushes it from {dist}... no good!',
-        'Wide! That {dist} yard try sails off the mark.',
-        'So close! {kicker} misses from {dist}.'
       ]
     },
     interception: {
@@ -108,11 +71,6 @@
         '{qb} throws... INTERCEPTED! {def} ball!',
         '{qb} is picked off! {def} ball!',
         'Pass is up... picked off! Interception, {def}!'
-      ],
-      fun: [
-        'PICKED OFF! The {def} jump the route!',
-        '{qb} throws it to the wrong jersey! {def} ball!',
-        'Thief! The {def} snatch it out of the air!'
       ]
     },
     fumble: {
@@ -120,11 +78,6 @@
         '{player} fights for more... FUMBLE! {def} ball!',
         'It\'s loose, it\'s LOOSE! The {def} have it!',
         'Fumble! {player} coughs it up! {def} ball!'
-      ],
-      fun: [
-        'The ball is LOOSE! And the {def} fall on it!',
-        '{player} coughs it up! {def} ball!',
-        'Butterfingers! {player} drops it! {def} pounce!'
       ]
     },
     sack: {
@@ -132,11 +85,6 @@
         'Nowhere to go, and {qb} is SACKED! Lost {loss}.',
         '{qb} goes down! Sacked for a loss of {loss}.',
         'The {def} get home! {qb} sacked for {loss}.'
-      ],
-      fun: [
-        '{qb} goes DOWN! The {def} pass rush gets home!',
-        'Nowhere to run for {qb}! That\'s {loss} gone.',
-        'Boom! The {def} flatten {qb} for {loss}!'
       ]
     },
     big_gain: {
@@ -144,11 +92,6 @@
         '{player} breaks free! Still going! {yds} yards!',
         '{player} has room to run! {yds} yards!',
         'Big play! {player} for {yds}, the {team} roll!'
-      ],
-      fun: [
-        '{player} takes off! {yds} yards before anybody catches up!',
-        'Look at {player} go! That\'s a {yds} yard chunk!',
-        'Big play {team}! {player} rips off {yds}!'
       ]
     },
     first_down: {
@@ -160,15 +103,6 @@
         '{player} for {yards}, enough for a first down.',
         'Chains move! {player}, {yards}.',
         '{player} picks it up. First down, {team}.'
-      ],
-      fun: [
-        '{player} moves the chains! First down!',
-        '{yards} for {player}, and the sticks move!',
-        'Keep it rolling! {player} gets a fresh set.',
-        'Moving the chains! Thank you, {player}!',
-        '{player} picks up the first down!',
-        'New set of downs, courtesy of {player}!',
-        '{player} gets the {team} a fresh start!'
       ]
     },
     gain: {
@@ -180,15 +114,6 @@
         '{player}, {yards} more.',
         '{yards} on the play by {player}.',
         '{player} moves it {yards}.'
-      ],
-      fun: [
-        '{player} grinds out {yards}. Every yard counts!',
-        'Solid work by {player}, {yards} more.',
-        '{player} chips away, {yards} on that one.',
-        '{player} keeps the sticks in sight, {yards}.',
-        'A little here, a little there. {yards} for {player}.',
-        '{player} takes what\'s there, {yards}.',
-        'Nothing fancy, {yards} for {player}.'
       ]
     },
     no_gain: {
@@ -196,11 +121,6 @@
         '{player} is stuffed at the line! No gain.',
         '{player} has nowhere to go. No gain.',
         '{player} runs into a wall. Nothing there.'
-      ],
-      fun: [
-        'Stuffed! {player} runs into a wall of {def}!',
-        'Not today, {player}! The {def} slam the door.',
-        '{player} finds nothing but traffic.'
       ]
     },
     incomplete: {
@@ -212,15 +132,6 @@
         '{qb} misses {player}. Incomplete.',
         'Incomplete, intended for {player}.',
         'Broken up! Incomplete for {player}.'
-      ],
-      fun: [
-        '{qb} fires for {player}... off the fingertips!',
-        'That one hits the turf. Nobody home!',
-        'Close, but {player} can\'t reel it in.',
-        'Swing and a miss from {qb}!',
-        'So close, {player}! Incomplete.',
-        '{qb} and {player} not on the same page.',
-        'Into the grass. Try again, {qb}.'
       ]
     },
     pen_false_start: {
@@ -228,11 +139,6 @@
         'Flag before the snap. False start, {team}.',
         'Somebody moved early. False start, {team}.',
         'Whistle. False start on the {team}, {pen} yards.'
-      ],
-      fun: [
-        'Somebody got a little too excited! False start.',
-        'Jumpy, jumpy! False start, back {pen} yards.',
-        'Flinch! The {team} get flagged early.'
       ]
     },
     pen_holding: {
@@ -240,11 +146,6 @@
         'Flag on the play! Holding, {team}. {pen} yards.',
         'Flag. Offensive holding, {pen} yards.',
         'Holding, {team}. That costs them {pen} yards.'
-      ],
-      fun: [
-        'Hands off the jersey! Holding, {team}, {pen} yards.',
-        'The ref saw that grab! Holding, back {pen}.',
-        'Hugging is not blocking! Holding on the {team}.'
       ]
     },
     pen_offside: {
@@ -252,11 +153,6 @@
         'Flag! The {def} jumped. Offside, {pen} yards.',
         'Defense was early! Offside on the {def}.',
         'Offside, {def}. The {team} move up {pen}.'
-      ],
-      fun: [
-        'Too eager, {def}! Offside, {pen} free yards.',
-        'The {def} jump the gun! Offside!',
-        'Patience, {def}! Offside, {pen} for free.'
       ]
     },
     pen_dpi: {
@@ -264,11 +160,6 @@
         'Flag downfield! Pass interference, {def}.',
         'Contact, and a flag! Pass interference, {pen}.',
         'Pass interference! A big gain for the {team}.'
-      ],
-      fun: [
-        'Flag! The {def} were all over the receiver!',
-        'You can\'t do that, {def}! {pen} yards!',
-        'Too much contact! A gift of {pen} yards.'
       ]
     },
     punt: {
@@ -276,11 +167,6 @@
         'The {team} punt it away. {net} yards net, {def} ball.',
         'Punt is high and deep, {net} yards. The {def} take over.',
         'Fourth down, and the {team} will punt. A {net} yard boot.'
-      ],
-      fun: [
-        'Big boot! {net} yards, the {def} start over.',
-        'Punt team on, and that one flips the field.',
-        'Away it goes! A {net} yard punt.'
       ]
     },
     downs: {
@@ -288,11 +174,6 @@
         'Fourth down... and they\'re STOPPED! {def} ball!',
         'The {team} come up short on fourth down!',
         'Huge stop by the {def}! Turnover on downs!'
-      ],
-      fun: [
-        'They went for it and... NO! {def} ball!',
-        'Fourth down gamble fails! {def} ball!',
-        'The {def} defense holds! Turnover on downs!'
       ]
     },
     kneel: {
@@ -300,11 +181,6 @@
         "{qb} takes the knee. That's going to do it.",
         'Victory formation. {qb} kneels it down.',
         '{qb} takes a knee and lets the clock run.'
-      ],
-      fun: [
-        'Victory formation! {qb} takes a knee.',
-        'Nothing fancy, {qb} kneels it down.',
-        'Take a knee, {qb}. Clock is your friend.'
       ]
     },
     half: {
@@ -312,11 +188,6 @@
         'That\'ll bring us to halftime. {score}.',
         'Halftime here, and it\'s {score}.',
         'End of the first half. {score}.'
-      ],
-      fun: [
-        'Halftime! Grab a snack, it\'s {score}.',
-        'We take a breather at the half. {score}!',
-        'Two quarters down, two to go. {score}!'
       ]
     },
     final: {
@@ -324,11 +195,6 @@
         'That\'s the ballgame! {score}!',
         'Final! The {winner} win it, {score}!',
         'It\'s all over! {winner} win, {score}!'
-      ],
-      fun: [
-        'Game over! {winner} take it, {score}!',
-        'In the books! {winner} win, {score}!',
-        'That will do it! The {winner} get the W!'
       ]
     },
     final_tie: {
@@ -336,11 +202,6 @@
         'That\'s the final, a tie. {score}.',
         'It\'s over, and we\'re tied! {score}.',
         'All square at the end. {score}.'
-      ],
-      fun: [
-        'All square at the end! {score}!',
-        'Nobody blinks! It\'s a tie, {score}.',
-        'A tie! Half a trophy each. {score}.'
       ]
     }
   };

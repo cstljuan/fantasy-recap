@@ -440,7 +440,9 @@
     else if (e.t === 'pass') guess = e.yds >= 15 ? 'deep_pass' : 'short_pass';
     return guess && guess in opts ? guess : '';
   }
+  // "Why this play" was removed (Noah's call): no play carries a why card any more.
   function whyFor(e, res) {
+    return null;
     var why = e.why;
     if (!why && WHY_DEMO && SCRIMMAGE.indexOf(e.t) >= 0 && whyDemoUsed < 3) { whyDemoUsed += 1; why = WHY_SAMPLE; }
     if (!why || typeof why !== 'object') return null;
@@ -500,7 +502,6 @@
         (tags ? '<div class="play-tags">' + tags + '</div>' : '') +
       '</div>' +
       (fp ? '<div class="play-fp">' + fp + '</div>' : '') +
-      whyCard(p) +
       '</li>';
   }
 
@@ -1491,38 +1492,7 @@
     revealClose();
   });
 
-  // Announcer style switch, Straight or Fun, under the speed control. It calls
-  // FF_ANNOUNCER.setStyle and is saved under fr.style. Only built when the announcer is loaded.
-  var ANN = window.FF_ANNOUNCER, STYLE_KEY = 'fr.style';
-  var STYLE_NAMES = [['straight', 'Straight'], ['fun', 'Fun']];
-  var styleEl = null;
-  function markStyle() {
-    if (!styleEl) return;
-    Array.prototype.forEach.call(styleEl.children, function (b) {
-      b.setAttribute('aria-pressed', String(b.getAttribute('data-style') === ANN.style));
-    });
-  }
-  if (ANN && ANN.setStyle) {
-    styleEl = document.createElement('div');
-    styleEl.className = 'speed voice';
-    styleEl.setAttribute('role', 'group');
-    styleEl.setAttribute('aria-label', 'Announcer style');
-    styleEl.hidden = true;
-    styleEl.innerHTML = STYLE_NAMES.map(function (n) {
-      return '<button type="button" data-style="' + n[0] + '">' + n[1] + '</button>';
-    }).join('');
-    $('closeGame').parentNode.appendChild(styleEl);
-    try { var savedStyle = window.localStorage.getItem(STYLE_KEY); if (savedStyle) ANN.setStyle(savedStyle); } catch (err) { /* storage may be off */ }
-    markStyle();
-    styleEl.addEventListener('click', function (ev) {
-      var b = ev.target.closest ? ev.target.closest('[data-style]') : null;
-      if (!b) return;
-      ANN.setStyle(b.getAttribute('data-style'));
-      try { window.localStorage.setItem(STYLE_KEY, ANN.style); } catch (err) { /* storage may be off */ }
-      markStyle();
-      revealClose();
-    });
-  }
+  var ANN = window.FF_ANNOUNCER;
 
   // Captions: one line at the bottom of the game view with what the announcer just said.
   // It sits in the band past the end line, so it stays clear of the players and their names.
@@ -1792,8 +1762,6 @@
     if (on) markJump();
     speedEl.hidden = !on;
     learnEl.hidden = !on;
-    if (styleEl) styleEl.hidden = !on;
-    markStyle();
   }
 
   var closeTimer = 0;

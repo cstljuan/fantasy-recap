@@ -9,8 +9,9 @@
 //                   Lines wait their turn instead of cutting each other off. A line more
 //                   than two plays old by the time its turn comes is dropped. Silent when
 //                   window.__ff.speed is above 2.
-//   voices()        which browser voice each style uses: { straight, fun, available }.
-//   setStyle(name)  'straight' or 'fun'. style holds the current one.
+//   voices()        which browser voice is used: { straight, available }.
+//   setStyle(name)  kept for the code that calls it; there is one style, 'straight', and style
+//                   always reads 'straight'.
 //   reset()         starts a new game: every line becomes available again.
 //   onLine(fn)      fn(text, kind, style) is called for every line produced, spoken or not.
 //                   Returns a function that removes the listener.
@@ -86,14 +87,14 @@
 
   var LINES = root.FF_ANNOUNCER_LINES ||
     (typeof require === 'function' ? require('./lines.js') : null) || {};
-  var STYLES = ['straight', 'fun'];
+  var STYLES = ['straight'];   // one style; the 'fun' style was removed (Noah's call)
   // The short pieces the code puts together itself.
   var MSG = {
     yards1: '{n} yard', yardsN: '{n} yards', points1: '{n} point', pointsN: '{n} points',
     how_td: 'Touchdown', how_fg: 'Field goal', how_xp: 'Extra point',
     what_int: 'Intercepted', what_fumble: 'Fumble', what_fg: 'No good', what_downs: 'Stopped on fourth down', what_punt: 'They punt',
     cu_changed: '{n} plays: {what}, {sc}', cu_now: '{lead}, now {sc}', cu_still: '{lead}, still {sc}',
-    cu_lead_on: '{n} plays on', cu_lead_later: '{n} plays later', cu_sc: '{a} to {b}',
+    cu_lead_on: '{n} plays on', cu_sc: '{a} to {b}',
     td1: '{team} TD', tdN: '{n} {team} TDs', fg1: '{team} FG', fgN: '{n} {team} FGs',
     cu_pick: '{qb} threw a pick', cu_fumble: '{name} fumbled', cu_downs: 'the {team} lost it on downs',
     cu_big: 'Big gain: {name}, {yds}', cu_leader: '{name}: {pts} fantasy pts',
@@ -121,12 +122,8 @@
   var speakTimer = 0;
   var MAX_AGE = 2;      // plays
 
-  // Settings per style. fun is faster and a little higher.
-  var VOICE_SET = {
-    straight: { rate: 1.08, pitch: 1.0 },
-    fun: { rate: 1.2, pitch: 1.15 }
-  };
-  var chosen = { straight: null, fun: null };
+  var VOICE_SET = { straight: { rate: 1.08, pitch: 1.0 } };
+  var chosen = { straight: null };
 
   function synth() { return root.speechSynthesis && root.SpeechSynthesisUtterance ? root.speechSynthesis : null; }
 
@@ -139,8 +136,8 @@
     if (lang === 'en-us') sc += 4; else if (lang === 'en-gb') sc += 3;
     if (/natural|neural|premium|enhanced|online/i.test(name)) sc += 6;
     if (/google/i.test(name)) sc += 4;
-    if (/(daniel|alex|aaron|guy|davis|tony|ryan|george|fred)\b/i.test(name)) sc += style === 'straight' ? 2 : 1;
-    if (/(samantha|karen|moira|aria|jenny)\b/i.test(name)) sc += style === 'fun' ? 2 : 1;
+    if (/(daniel|alex|aaron|guy|davis|tony|ryan|george|fred)\b/i.test(name)) sc += 2;
+    if (/(samantha|karen|moira|aria|jenny)\b/i.test(name)) sc += 1;
     if (/compact|eloquence|whisper|bad news|bells|boing|bubbles|cellos|zarvox|trinoids|organ|jester|superstar/i.test(name)) sc -= 20;
     if (v.localService) sc += 1;
     return sc;
@@ -154,12 +151,6 @@
       list.forEach(function (v) { var sc = voiceScore(v, style); if (sc > bestSc) { best = v; bestSc = sc; } });
       chosen[style] = best;
     });
-    // Two different voices when the browser has them, so the styles sound apart.
-    if (chosen.fun && chosen.straight && chosen.fun === chosen.straight) {
-      var alt = null, altSc = -1;
-      list.forEach(function (v) { var sc = voiceScore(v, 'fun'); if (v !== chosen.straight && sc > altSc) { alt = v; altSc = sc; } });
-      if (alt && altSc >= 10) chosen.fun = alt;
-    }
     return list.length;
   }
 
@@ -344,44 +335,34 @@
   // Each line replaces the ordinary line for that play, so it still says what happened.
   var MEMORY = {
     lead_change: {
-      straight: ['{how} {team}, and they take the lead!', '{how}! The lead changes hands. {team} in front.', '{how}, and the {team} are back in front!'],
-      fun: ['Flip the script! {how}, and the {team} lead!', 'New leader! {team} on top, {score}!', 'Look who\'s in front now! {how}, {team}!']
+      straight: ['{how} {team}, and they take the lead!', '{how}! The lead changes hands. {team} in front.', '{how}, and the {team} are back in front!']
     },
     go_ahead: {
-      straight: ['{how}, and the {team} go ahead!', '{how} {team}. They break the tie.', '{how}! The {team} lead it now.'],
-      fun: ['Tie broken! {how}, {team}!', 'The {team} go ahead! {score}!', 'Not tied anymore! {how}, {team}!']
+      straight: ['{how}, and the {team} go ahead!', '{how} {team}. They break the tie.', '{how}! The {team} lead it now.']
     },
     answer: {
-      straight: ['{how}, and the {team} answer right back!', 'The {team} answer! {how}. {score}.', 'Right back at them! {how}, {team}.'],
-      fun: ['Anything you can do! The {team} answer!', 'Tit for tat! {how}, {team}!', 'The {team} hit right back! {how}!']
+      straight: ['{how}, and the {team} answer right back!', 'The {team} answer! {how}. {score}.', 'Right back at them! {how}, {team}.']
     },
     rz_empty: {
-      straight: ['{what}! A red zone trip with no points.', '{what}! The {team} come away empty.', '{what}! No points from the red zone.'],
-      fun: ['{what}! All that work, no points!', '{what}! The {def} bend, don\'t break!', '{what}! Red zone, zero points. Ouch.']
+      straight: ['{what}! A red zone trip with no points.', '{what}! The {team} come away empty.', '{what}! No points from the red zone.']
     },
     kicker_again: {
-      straight: ['{kicker} from {dist}, good! {made} for {att} today.', 'Good again! {kicker} is {made} for {att}.', '{kicker} does it again from {dist}! {made} for {att}.'],
-      fun: ['Automatic! {kicker} is {made} for {att} today!', '{kicker} again! That leg is money!', '{kicker} can\'t miss today! {made} for {att}!']
+      straight: ['{kicker} from {dist}, good! {made} for {att} today.', 'Good again! {kicker} is {made} for {att}.', '{kicker} does it again from {dist}! {made} for {att}.']
     },
     hundred: {
-      straight: ['{player} for {yards}, and that\'s 100 yards today.', '{player} again! Over 100 yards for the day.', '{player} for {yards}. That\'s {total} on the day.'],
-      fun: ['{player} hits triple digits! {total} yards!', '100 yards and counting for {player}!', '{player} is having a day! {total} yards!']
+      straight: ['{player} for {yards}, and that\'s 100 yards today.', '{player} again! Over 100 yards for the day.', '{player} for {yards}. That\'s {total} on the day.']
     },
     third_catch: {
-      straight: ['{player} again! Third catch on this drive.', '{qb} keeps going to {player}. That\'s three.', '{player} for {yards}, a third catch this drive.'],
-      fun: ['Can\'t stop {player}! Three catches this drive!', '{qb} has a favorite! {player} again!', 'Hat trick! Third catch this drive for {player}!']
+      straight: ['{player} again! Third catch on this drive.', '{qb} keeps going to {player}. That\'s three.', '{player} for {yards}, a third catch this drive.']
     },
     need_answer: {
-      straight: ['The {team} need an answer. {player} to the {spot}.', 'Down {diff}, the {team} need a response.', 'Your move, {team}. {player} brings it out.'],
-      fun: ['Time to answer, {team}! {player} to the {spot}!', 'Down {diff}! Let\'s see what the {team} have!', 'Gotta answer this one, {team}!']
+      straight: ['The {team} need an answer. {player} to the {spot}.', 'Down {diff}, the {team} need a response.', 'Your move, {team}. {player} brings it out.']
     },
     rz_enter: {
-      straight: ['{player} for {yards}. {team} in the red zone!', 'Inside the twenty now! {player} for {yards}.', '{player} gets the {team} inside the twenty.'],
-      fun: ['Red zone! {player} gets the {team} close!', 'Knock knock! The {team} are at the door!', '{player} for {yards}! Smell the end zone!']
+      straight: ['{player} for {yards}. {team} in the red zone!', 'Inside the twenty now! {player} for {yards}.', '{player} gets the {team} inside the twenty.']
     },
     near_hundred: {
-      straight: ['{player} for {yards}. That\'s {total} yards today.', '{player} again, up to {total} yards on the day.', '{player} is at {total} yards now.'],
-      fun: ['{player} is at {total}! Triple digits coming?', '{total} yards for {player}! Keep feeding that!', '{player} closing in on 100! {total} so far!']
+      straight: ['{player} for {yards}. That\'s {total} yards today.', '{player} again, up to {total} yards on the day.', '{player} is at {total} yards now.']
     }
   };
   var PAYOFF = ['lead_change', 'go_ahead', 'answer', 'rz_empty', 'kicker_again', 'hundred', 'third_catch'];
@@ -506,7 +487,7 @@
       ctx = ctx || {};
       var teams = ctx.teams, plays = (results || []).filter(function (r) { return r && r.e && r.pre && r.post; });
       if (!teams || teams.length < 2 || !plays.length) return '';
-      var style = STYLES.indexOf(ctx.style) >= 0 ? ctx.style : api.style, fun = style === 'fun';
+      var style = 'straight';
       // Keep the memory right for what comes after the jump.
       plays.forEach(function (r) { playNo++; remember(r); });
       var first = plays[0].pre.score, end = plays[plays.length - 1].post.score, score = ctx.score || end;
@@ -528,8 +509,8 @@
         if (x.td) what.push(M(x.td > 1 ? 'tdN' : 'td1', { n: x.td, team: teams[t].name }));
         if (x.fg) what.push(M(x.fg > 1 ? 'fgN' : 'fg1', { n: x.fg, team: teams[t].name }));
       });
-      var sc = M('cu_sc', { a: score[0], b: score[1] }), end1 = fun ? '!' : '.';
-      var lead = M(fun ? 'cu_lead_later' : 'cu_lead_on', { n: plays.length });
+      var sc = M('cu_sc', { a: score[0], b: score[1] }), end1 = '.';
+      var lead = M('cu_lead_on', { n: plays.length });
       var changed = (first[0] !== end[0] || first[1] !== end[1]) && what.length;
       var s2 = '';
       if (turn) s2 = turn.charAt(0).toUpperCase() + turn.slice(1) + end1;
@@ -555,32 +536,25 @@
   // ---- C18: the big call ----
   var BIG = {
     td_pass: {
-      straight: ['{qb} drops back, finds {player} for {yds} yards, and it\'s a touchdown!', '{qb} lets it go, {player} hauls it in, {yds} yards and into the end zone!', 'Touchdown! {qb} to {player}, {yds} yards!'],
-      fun: ['{qb} slings it, {player} snags it, {yds} yards to paydirt!', 'Are you kidding me? {qb} to {player}, {yds} yards, TOUCHDOWN!', '{player} catches it and keeps going, {yds} yards, six points!']
+      straight: ['{qb} drops back, finds {player} for {yds} yards, and it\'s a touchdown!', '{qb} lets it go, {player} hauls it in, {yds} yards and into the end zone!', 'Touchdown! {qb} to {player}, {yds} yards!']
     },
     td_run: {
-      straight: ['{player} takes it {yds} yards to the end zone for a touchdown!', '{player} carries it in from {yds} yards out! Touchdown!', 'Handoff to {player}, {yds} yards, and it\'s a touchdown!'],
-      fun: ['{player} is not stopping! {yds} yards to the house!', 'Hand {player} the ball and watch: {yds} yards, TOUCHDOWN!', '{player} rumbles {yds} yards into the end zone!']
+      straight: ['{player} takes it {yds} yards to the end zone for a touchdown!', '{player} carries it in from {yds} yards out! Touchdown!', 'Handoff to {player}, {yds} yards, and it\'s a touchdown!']
     },
     int: {
-      straight: ['{qb} throws, and it\'s picked off! The {def} take it back {ret} yards!', 'Intercepted! {qb}\'s pass belongs to the {def}!', '{qb} forces it, and the {def} come away with the interception!'],
-      fun: ['Thief! The {def} jump the route and steal it from {qb}!', '{qb} throws it straight to the {def}! Picked off!', 'What a pick! The {def} take it right out of the air!']
+      straight: ['{qb} throws, and it\'s picked off! The {def} take it back {ret} yards!', 'Intercepted! {qb}\'s pass belongs to the {def}!', '{qb} forces it, and the {def} come away with the interception!']
     },
     fumble: {
-      straight: ['{player} gains {yds}, but the ball comes loose, and the {def} recover!', 'Fumble! {player} loses it, and the {def} have the ball!', '{player} is stripped! The {def} pounce on it!'],
-      fun: ['Butterfingers! {player} coughs it up, {def} ball!', 'It\'s loose! It\'s LOOSE! And the {def} have it!', '{player} fumbles, and the {def} dive on it!']
+      straight: ['{player} gains {yds}, but the ball comes loose, and the {def} recover!', 'Fumble! {player} loses it, and the {def} have the ball!', '{player} is stripped! The {def} pounce on it!']
     },
     downs: {
-      straight: ['Fourth down, and the {def} defense stops the {team} cold!', 'The {team} go for it on fourth down, and they come up short!', 'Stopped on fourth down! The {def} take over!'],
-      fun: ['Fourth down gamble... DENIED! The {def} hold!', 'The {def} stand tall on fourth down!', 'Not today! The {def} stuff the fourth down try!']
+      straight: ['Fourth down, and the {def} defense stops the {team} cold!', 'The {team} go for it on fourth down, and they come up short!', 'Stopped on fourth down! The {def} take over!']
     },
     big: {
-      straight: ['{player} breaks free for {yds} yards!', 'A big play: {player} for {yds} yards!', '{player} finds room and goes {yds} yards!'],
-      fun: ['{player} is GONE! {yds} yards before anyone catches up!', 'Look at {player} go! {yds} yards!', 'Zoom! {player} rips off {yds} yards!']
+      straight: ['{player} breaks free for {yds} yards!', 'A big play: {player} for {yds} yards!', '{player} finds room and goes {yds} yards!']
     },
     big_pass: {
-      straight: ['{qb} to {player}, and that\'s a {yds} yard gain!', '{qb} finds {player} for {yds} yards!', 'A deep one, {qb} to {player}, {yds} yards!'],
-      fun: ['{qb} airs it out, {player} brings it down, {yds} yards!', 'Bombs away! {qb} to {player}, {yds}!', '{player} makes the grab! {yds} yards!']
+      straight: ['{qb} to {player}, and that\'s a {yds} yard gain!', '{qb} finds {player} for {yds} yards!', 'A deep one, {qb} to {player}, {yds} yards!']
     }
   };
 
@@ -659,16 +633,13 @@
   };
   var PREVIEW = {
     record: {
-      straight: ['The {a} ({ra}) take on the {b} ({rb}).', 'It\'s the {a} ({ra}) against the {b} ({rb}).', 'This week: the {a} ({ra}) and the {b} ({rb}).'],
-      fun: ['The {a} ({ra}) square off with the {b} ({rb})!', 'Showdown time: the {a} ({ra}) versus the {b} ({rb})!', 'Here we go: {a} ({ra}) against {b} ({rb})!']
+      straight: ['The {a} ({ra}) take on the {b} ({rb}).', 'It\'s the {a} ({ra}) against the {b} ({rb}).', 'This week: the {a} ({ra}) and the {b} ({rb}).']
     },
     hot: {
-      straight: ['Hot lately: {name} of the {team}, better at {what} in recent games.', 'In form: {name}, up on {what} lately for the {team}.', 'Trending up: {name} of the {team}, sharper at {what}.'],
-      fun: ['Red hot: {name} has been on fire at {what}!', '{name} of the {team} is heating up at {what}!', '{name} has been flying lately at {what}!']
+      straight: ['Hot lately: {name} of the {team}, better at {what} in recent games.', 'In form: {name}, up on {what} lately for the {team}.', 'Trending up: {name} of the {team}, sharper at {what}.']
     },
     cold: {
-      straight: ['Cooling off: {name}, down on {what} lately.', 'Out of form: {name} of the {team}, worse at {what} recently.', 'Something to fix for {name}: {what}.'],
-      fun: ['Ice cold: {name} has struggled with {what}!', '{name} needs a bounce back at {what}!', 'Rough patch for {name}: {what} is down!']
+      straight: ['Cooling off: {name}, down on {what} lately.', 'Out of form: {name} of the {team}, worse at {what} recently.', 'Something to fix for {name}: {what}.']
     }
   };
   var PLACES = ['', 'first', 'second', 'third', 'fourth', 'fifth', 'sixth', 'seventh', 'eighth', 'ninth', 'tenth'];
@@ -771,22 +742,14 @@
 
   // ---- C26: the spoken recap ----
   var RECAP = {
-    final: { straight: ['Final: the {winner} {w}, the {loser} {l}.', 'The {winner} beat the {loser}, {w} to {l}.', 'It finished {winner} {w}, {loser} {l}.'],
-             fun: ['Final whistle! The {winner} win it, {w} to {l}!', 'The {winner} take this one, {w} to {l}!', 'And the {winner} beat the {loser}, {w} to {l}!'] },
-    final_tie: { straight: ['It finished level, {w} to {l}.', 'A tie, {w} apiece.', 'Nobody won it: {w} to {l}.'],
-                 fun: ['All square at the end, {w} to {l}!', 'A tie! {w} apiece!', 'Nobody blinks: {w} to {l}!'] },
-    decider: { straight: ['The {team} went ahead for good in the {qth} quarter, at {clock}, to make it {s}.', 'The play that decided it came in the {qth} quarter at {clock}: {s}, and the {team} never looked back.', 'From {clock} of the {qth} quarter, when it became {s}, the {team} never trailed again.'],
-               fun: ['The {team} grabbed the lead for good at {clock} of the {qth} quarter, {s}, and held on!', 'At {clock} of the {qth}, {s}, and the {team} never let go!', 'The dagger: {qth} quarter, {clock}, {s}. The {team} never looked back!'] },
-    one_lead: { straight: ['The {team} scored first and never trailed.', 'The {team} led from their first score to the end.', 'Once the {team} scored, they never gave up the lead.'],
-                fun: ['The {team} got on the board first and never looked back!', 'Wire to wire for the {team}!', 'First to score, last to lead: the {team}!'] },
-    many_leads: { straight: ['The lead changed hands {n} times.', 'There were {n} lead changes in all.', 'The lead went back and forth {n} times.'],
-                  fun: ['{n} lead changes! What a game!', 'Back and forth, {n} times!', 'The lead flipped {n} times!'] },
-    drive: { straight: ['The longest drive belonged to the {team}: {plays} plays and {yards} yards, ending in {result}.', 'The {team} put together the longest drive, {plays} plays for {yards} yards, ending in {result}.', 'Longest drive: the {team}, {plays} plays, {yards} yards, ending in {result}.'],
-             fun: ['The {team} marched {plays} plays and {yards} yards, ending in {result}!', 'A {plays} play, {yards} yard grind by the {team}, ending in {result}!', 'Talk about a drive: {plays} plays, {yards} yards, the {team}, ending in {result}!'] },
-    swing: { straight: ['The biggest swing came in the {qth} quarter: a {fp} point fantasy run for the {team}.', 'In the {qth} quarter the {team} outscored the other side by {fp} fantasy points.', 'The momentum swung hardest in the {qth} quarter, {fp} fantasy points toward the {team}.'],
-             fun: ['The {qth} quarter belonged to the {team}: a {fp} point fantasy surge!', 'Big swing in the {qth}: {fp} fantasy points for the {team}!', 'The {team} caught fire in the {qth}, {fp} fantasy points!'] },
-    best: { straight: ['Top fantasy players: {a} with {pa} for the {ta}, and {b} with {pb} for the {tb}.', 'Best on each side: {a}, {pa} points, and {b}, {pb}.', '{a} led the {ta} with {pa} fantasy points; {b} led the {tb} with {pb}.'],
-            fun: ['Fantasy stars: {a} with {pa} and {b} with {pb}!', 'Shout out to {a}, {pa} points, and {b}, {pb}!', '{a} dropped {pa}, {b} dropped {pb}!'] }
+    final: { straight: ['Final: the {winner} {w}, the {loser} {l}.', 'The {winner} beat the {loser}, {w} to {l}.', 'It finished {winner} {w}, {loser} {l}.'] },
+    final_tie: { straight: ['It finished level, {w} to {l}.', 'A tie, {w} apiece.', 'Nobody won it: {w} to {l}.'] },
+    decider: { straight: ['The {team} went ahead for good in the {qth} quarter, at {clock}, to make it {s}.', 'The play that decided it came in the {qth} quarter at {clock}: {s}, and the {team} never looked back.', 'From {clock} of the {qth} quarter, when it became {s}, the {team} never trailed again.'] },
+    one_lead: { straight: ['The {team} scored first and never trailed.', 'The {team} led from their first score to the end.', 'Once the {team} scored, they never gave up the lead.'] },
+    many_leads: { straight: ['The lead changed hands {n} times.', 'There were {n} lead changes in all.', 'The lead went back and forth {n} times.'] },
+    drive: { straight: ['The longest drive belonged to the {team}: {plays} plays and {yards} yards, ending in {result}.', 'The {team} put together the longest drive, {plays} plays for {yards} yards, ending in {result}.', 'Longest drive: the {team}, {plays} plays, {yards} yards, ending in {result}.'] },
+    swing: { straight: ['The biggest swing came in the {qth} quarter: a {fp} point fantasy run for the {team}.', 'In the {qth} quarter the {team} outscored the other side by {fp} fantasy points.', 'The momentum swung hardest in the {qth} quarter, {fp} fantasy points toward the {team}.'] },
+    best: { straight: ['Top fantasy players: {a} with {pa} for the {ta}, and {b} with {pb} for the {tb}.', 'Best on each side: {a}, {pa} points, and {b}, {pb}.', '{a} led the {ta} with {pa} fantasy points; {b} led the {tb} with {pb}.'] }
   };
   // Drive results from server/drives.js, said as words.
   var RESULT = {
@@ -872,11 +835,6 @@
         "Welcome in. It's the {t0} against the {t1}. Watch {w0} for the {t0}, and {w1} for the {t1}.",
         "The {t0} and the {t1}, here we go. The {t0} will lean on {w0}. The {t1} need a big day from {w1}.",
         "Good afternoon and welcome. {t0} versus {t1}. Keys to this one: {w0} for the {t0}, {w1} for the {t1}."
-      ],
-      fun: [
-        "Buckle up, it's {t0} versus {t1}! If {w0} gets going, look out. And the {t1} have {w1} ready to cook.",
-        "Welcome to the show! {t0} and {t1}, let's go! Eyes on {w0} and {w1} today.",
-        "Game day! {t0} against {t1}. {w0} and {w1}, the stage is yours!"
       ]
     },
     halftime_hidden: {
@@ -884,11 +842,6 @@
         "That's halftime, and it's {score}. {leader} has been everywhere.",
         "Halftime here, {score}. {lead}",
         "We're at the half, {score}. Keep an eye on {leader}."
-      ],
-      fun: [
-        "Halftime! It's {score}, and {leader} is putting on a show!",
-        "Two quarters down! {score}. {leader} has been busy!",
-        "Grab a snack! {score} at the break. {lead}"
       ]
     },
     halftime: {
@@ -896,11 +849,6 @@
         "That's halftime, and it's {score}. In fantasy points {leader} leads the way with {lpts}.",
         "We're at the half with the score {score}. The best player so far has been {leader}, {lpts} fantasy points.",
         "Halftime: {score}. {leader} tops the fantasy board at {lpts}. {lead}"
-      ],
-      fun: [
-        "Halftime! It's {score}, and {leader} is putting on a show with {lpts} points!",
-        "Two quarters down! {score}. {leader} is the fantasy MVP so far with {lpts}!",
-        "Grab a snack! {score} at the break, and {leader} has {lpts} fantasy points already!"
       ]
     },
     wrap: {
@@ -908,11 +856,6 @@
         "Final score, {score}. The play that decided it: {decider}. Top performer, {leader} with {lpts} fantasy points.",
         "That's the final, {score}. {decider} turned out to be the difference. {leader} led everyone with {lpts}.",
         "It ends {score}. The {winner} won it on {decider}. {leader} had the best day, {lpts} fantasy points."
-      ],
-      fun: [
-        "Game over, {score}! The dagger: {decider}. And {leader} goes home with {lpts} points!",
-        "That's a wrap, {score}! {decider} won it. Shout out to {leader}, {lpts} points!",
-        "Put it in the books! {score}! {decider} sealed it, and {leader} was unstoppable with {lpts}!"
       ]
     },
     wrap_tie: {
@@ -920,11 +863,6 @@
         "It ends level, {score}. Top performer, {leader} with {lpts} fantasy points.",
         "A tie at {score}. {leader} led everyone with {lpts} fantasy points.",
         "Final score {score}, nobody wins it. {leader} had the best day with {lpts}."
-      ],
-      fun: [
-        "A tie! {score}! {leader} still went off for {lpts} points!",
-        "Nobody blinks! {score}! At least {leader} got {lpts}!",
-        "All square at {score}! {leader} takes home {lpts} points!"
       ]
     }
   };
@@ -1162,7 +1100,7 @@
         var v = chosen[style], set = VOICE_SET[style];
         return { name: v ? v.name : '(browser default)', lang: v ? v.lang : '', rate: set.rate, pitch: set.pitch };
       }
-      return { straight: info('straight'), fun: info('fun'), available: n };
+      return { straight: info('straight'), available: n };
     },
 
     setStyle: function (name) {
