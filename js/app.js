@@ -804,6 +804,52 @@
     if (brand) brand.setAttribute('href', '#league');
   })();
 
+  // Sport switch in the header: Football or Soccer, saved under fr.sport. It calls
+  // window.FR_SPORT_CHANGE(name) when the boss has connected soccer; until then
+  // Soccer shows a plain panel with a link to the soccer game on its own.
+  var SPORT_KEY = 'fr.sport', SPORTS = [['football', 'Football'], ['soccer', 'Soccer']];
+  var sport = 'football';
+  try { if (window.localStorage.getItem(SPORT_KEY) === 'soccer') sport = 'soccer'; } catch (err) { /* storage may be off */ }
+  var sportEl = document.createElement('div');
+  sportEl.className = 'sport';
+  sportEl.setAttribute('role', 'group');
+  sportEl.setAttribute('aria-label', 'Sport');
+  sportEl.innerHTML = SPORTS.map(function (x) { return '<button type="button" data-sport="' + x[0] + '">' + x[1] + '</button>'; }).join('');
+  (function () {
+    var bar = document.querySelector('.bar'), mock = bar && bar.querySelector('.mock');
+    if (bar) bar.insertBefore(sportEl, mock || null);
+  })();
+  var soccerEl = document.createElement('section');
+  soccerEl.className = 'screen'; soccerEl.id = 's-soccer'; soccerEl.setAttribute('aria-label', 'Soccer'); soccerEl.hidden = true;
+  soccerEl.innerHTML = '<div class="narrow"><div class="panel soccer-wait">' +
+    '<div class="panel-head"><h2>Soccer</h2></div>' +
+    '<p>Soccer is being built. It is not part of this app yet, but the match plays on its own page.</p>' +
+    '<div class="actions"><a class="cta" href="soccer/index.html">Open soccer</a>' +
+    '<button type="button" class="cta ghost" data-sport="football">Back to football</button></div>' +
+    '</div></div>';
+  $('s-league').parentNode.appendChild(soccerEl);
+
+  function soccerConnected() { return typeof window.FR_SPORT_CHANGE === 'function'; }
+  function markSport() {
+    Array.prototype.forEach.call(sportEl.children, function (b) {
+      b.setAttribute('aria-pressed', String(b.getAttribute('data-sport') === sport));
+    });
+    var waiting = sport === 'soccer' && !soccerConnected();
+    soccerEl.hidden = !waiting;
+    $('tabs').hidden = waiting;
+    if (waiting) TABS.forEach(function (t) { $('s-' + t).hidden = true; });
+  }
+  function setSport(name, tell) {
+    sport = name === 'soccer' ? 'soccer' : 'football';
+    try { window.localStorage.setItem(SPORT_KEY, sport); } catch (err) { /* storage may be off */ }
+    if (tell && soccerConnected()) { try { window.FR_SPORT_CHANGE(sport); } catch (err) { console.error(err); } }
+    if (sport === 'football') route(); else { markSport(); window.scrollTo(0, 0); }
+  }
+  document.addEventListener('click', function (ev) {
+    var b = ev.target.closest ? ev.target.closest('[data-sport]') : null;
+    if (b) setSport(b.getAttribute('data-sport'), true);
+  });
+
   function route() {
     var h = (location.hash || '#league').slice(1);
     if (h === 'game') {
@@ -821,6 +867,7 @@
       if (a.getAttribute('data-tab') === tab) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current');
     });
     render(false);
+    markSport();
     if (changed) window.scrollTo(0, 0);
   }
 
@@ -876,6 +923,7 @@
     get masked() { return masked(); },
     get paused() { return paused(); },
     get me() { return me; },
+    get sport() { return sport; },
     resultCard: function () { return drawResultCard().toDataURL('image/png'); },
     get caption() { return capEl.hidden ? '' : capEl.textContent; },
     totals: function () { return [f1(total(0)), f1(total(1))]; }
@@ -883,6 +931,7 @@
 
   m = blank();
   syncFloaters();
+  if (sport === 'soccer' && soccerConnected()) { try { window.FR_SPORT_CHANGE(sport); } catch (err) { console.error(err); } }
   if (location.hash === '#game') location.replace('#matchup');
   route();
 })();

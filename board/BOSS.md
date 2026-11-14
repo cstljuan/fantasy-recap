@@ -18,7 +18,7 @@ Run `sh tools/next.sh` to get your next task with its full description. A row is
 | B5 | B | Peypey-ryd | "Why this play" card with probability bars | merged |
 | B6 | B | Peypey-ryd | My team view: `?me=<team id>` | merged |
 | B7 | B | Peypey-ryd | Result card to share | merged |
-| B8 | B | Peypey-ryd | Sport switch control: football and soccer | open |
+| B8 | B | Peypey-ryd | Sport switch control: football and soccer | merged |
 | B9 | B | Peypey-ryd | Phone polish and keyboard use | open |
 | B12 | B | Peypey-ryd | Lineup points from the scoring rules, with Ricky | open |
 | Q1 | B | Peypey-ryd | Listen-through: read every announcer line and send Noah the ones to fix | open |
@@ -95,6 +95,7 @@ The boss reviews every DONE before it reaches main: the authors check, the lane 
 - Merged after review: B6, B7. All checks and the three full-game runs passed
 - Merged after review: B13, D10, D11, D5, D8, D9. All checks and the three full-game runs passed
 - Merged after review: D7, Q3. All checks and the three full-game runs passed
+- Merged after review: B8. All checks and the three full-game runs passed
 - D1 real rosters and profile files, D2 database schema (Ricky) are on main; `data/games/sample-football.json` now has the real rosters
 
 ## Decisions
