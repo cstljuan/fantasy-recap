@@ -29,6 +29,21 @@ node server/index.js
 - `GET /games/:id/momentum?bucket=120` returns `{ bucketSeconds, buckets: [{ start, quarter, fp: [home, away], score, fpTotal, scoreTotal }], source }`: each team's fantasy points and real points per bucket of game time (10 to 3600 seconds), with running totals. The last bucket equals the final score and the game's fantasy points. Time is the plays' own time, spread over three hours; empty buckets are listed with zeros. Shown only after the reveal. Command line: `node server/momentum.js data/games/week11-football.json 120`. The route buckets in JavaScript, not with `time_bucket`; the same buckets in SQL are in `db/queries.sql` (not run on any database).
 - `GET /games/:id/summary` returns `{ players, quarters }` from the two continuous aggregates: points per player and points per team per quarter. Numbers come back as strings, as PostgreSQL sends them.
 
+- `GET /games/:id/story` returns the turning points of a game as numbers: `{ game_id, source, home, away, final, winner, leadChanges: [{index, quarter, clock, team, score}], longestDrive: {drive, team, quarter, plays, yards, seconds, result, startIndex, endIndex} or null, biggestSwing: {start, quarter, team, fpSwing, index} or null, bestPlayers: [{team, slot, name, points, index}], decidingPlay: {index, quarter, clock, team, score} or null }`. `index` is the play number from 1, the same as `seq` and the top plays index. From the database when its rows have scores and points, from `data/games/<id>.json` when not. The meaning of each field is at the top of `server/story.js`. `node server/story.js <game file>` prints it.
+
+## In the browser
+
+`server/replay.js`, `server/drives.js`, `server/momentum.js` and `server/story.js` run in a page as well as in Node, with the same code. Load them after `js/rules.js` (and `soccer/js/fantasy.js`, `soccer/js/rules.js` for soccer):
+
+```html
+<script src="server/replay.js"></script>
+<script src="server/drives.js"></script>
+<script src="server/momentum.js"></script>
+<script src="server/story.js"></script>
+```
+
+Then `FR_REPLAY.buildFromGame(gameFile, id)` gives the play records the service stores, `FR_DRIVES.fromRecords(records)`, `FR_MOMENTUM.fromRecords(records, home, away, 120)` and `FR_STORY.fromGame(gameFile, id)` give what the routes give. Checked in headless Chromium: the page's story for `week11-football` and `week11-soccer` equals Node's, with no errors.
+
 ## Optional certificate check
 
 Set `DATABASE_CA_FILE` in `.env` to the path of the database's CA certificate file (a certificate is public, not a secret, but the path is still only in `.env`). The service then checks the database's certificate against it and refuses a connection that does not match. If it is not set, nothing changes: the connection string is used as given. With it set, the `sslmode` words in the connection string are ignored.

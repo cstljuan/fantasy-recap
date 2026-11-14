@@ -1,4 +1,3 @@
-'use strict';
 // One entry per drive, for the film room's drive chart. Works on play records, which come from a game file
 // (replayed with js/rules.js) or from the plays table, so both give the same answer.
 //   node server/drives.js data/games/week11-football.json
@@ -13,8 +12,11 @@
 //   yards      endYard minus startYard
 //   seconds    game time the drive took. Worked out the same way as quarters: plays share their quarter evenly
 //   result     touchdown, field goal, missed field goal, punt, interception, fumble, downs, half or end
-var path = require('path');
-var buildPlays = require('./replay.js').buildPlays;
+// Runs in Node and in the browser (<script src="server/drives.js"></script>, then window.FR_DRIVES.fromRecords(...)).
+(function (root) {
+'use strict';
+var isNode = typeof module !== 'undefined' && !!module.exports && typeof require === 'function';
+function buildPlays(file) { return require('./replay.js').buildPlays(file); }
 
 function usable(records) {
   return records.length > 0 && records.every(function (r) {
@@ -61,9 +63,12 @@ function fromRecords(records) {
 
 function drives(gameFile) { return fromRecords(buildPlays(gameFile).plays); }
 
-module.exports = { drives: drives, fromRecords: fromRecords, usable: usable };
+var api = { drives: drives, fromRecords: fromRecords, usable: usable };
+root.FR_DRIVES = api;
+if (isNode) module.exports = api;
 
-if (require.main === module) {
+if (isNode && require.main === module) {
+  var path = require('path');
   var file = process.argv[2];
   if (!file) { console.error('Usage: node server/drives.js <game file>'); process.exit(2); }
   drives(path.resolve(file)).forEach(function (d) {
@@ -71,3 +76,4 @@ if (require.main === module) {
       d.yards + ' yards, ' + d.seconds + ' s: ' + d.result);
   });
 }
+})(typeof window !== 'undefined' ? window : globalThis);

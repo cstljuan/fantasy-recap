@@ -235,6 +235,45 @@ var srv = createServer(fake).listen(0, function () {
         .then(function () { return call('GET', '/games/nope/momentum', undefined, undefined, noDb.address().port); })
         .then(function (r) { assert.equal(r.status, 404); withDb.close(); noDb.close(); });
     })
+    // story: the same numbers from the database and from the file, and the right turning points
+    .then(function () {
+      var st = require('./story.js'), rp = require('./replay.js');
+      var file = require('path').join(__dirname, '..', 'data', 'games', 'week11-football.json');
+      var game = rp.buildPlays(file), want = st.story(file);
+      assert.deepEqual(want.final, game.final); assert.equal(want.winner, 'GOB');
+      // every lead change is a play where the leader differs from the last leader, read straight from the scores
+      var lead = -1, changes = [];
+      game.plays.forEach(function (p) { var s = p.detail.score_after, l = s[0] > s[1] ? 0 : s[1] > s[0] ? 1 : -1; if (l !== -1 && l !== lead) { lead = l; changes.push(p.seq); } });
+      assert.deepEqual(want.leadChanges.map(function (c) { return c.index; }), changes);
+      // the deciding play: the winner leads at it and at every play after it, and did not lead just before it
+      var d = want.decidingPlay.index;
+      game.plays.forEach(function (p) { if (p.seq >= d) assert.ok(p.detail.score_after[0] > p.detail.score_after[1], 'GOB leads from the deciding play on'); });
+      var before = game.plays[d - 2].detail.score_after; assert.ok(!(before[0] > before[1]), 'GOB did not lead just before');
+      // the longest drive has the most snaps of all drives
+      var ds = require('./drives.js').drives(file);
+      assert.equal(want.longestDrive.plays, Math.max.apply(null, ds.map(function (x) { return x.plays; })));
+      assert.ok(want.longestDrive.startIndex <= want.longestDrive.endIndex);
+      // best players equal the top of the game's own fantasy points per team
+      var pts = require(file).report.points;
+      want.bestPlayers.forEach(function (b, i) {
+        var top = Math.max.apply(null, Object.keys(pts[i]).map(function (k) { return pts[i][k]; }));
+        assert.equal(b.points, top, b.team + ' best player points');
+      });
+      assert.ok(want.biggestSwing && want.biggestSwing.index >= 1 && want.biggestSwing.fpSwing > 0);
+      // soccer: no drives, the rest works
+      var sc = st.story(require('path').join(__dirname, '..', 'soccer', 'data', 'week11-soccer.json'));
+      assert.equal(sc.longestDrive, null); assert.equal(sc.winner, 'IRN'); assert.deepEqual(sc.final, [2, 0]);
+      var rows = game.plays.map(function (p) { return { seq: p.seq, quarter: p.quarter, played_at: p.played_at, team: p.team, kind: p.kind, yards: p.yards, detail: p.detail, why: p.why }; });
+      var withDb = createServer({ query: function (t) { return Promise.resolve({ rows: /FROM games/.test(t) ? [{ home: 'GOB', away: 'PYT' }] : rows }); } }).listen(0);
+      var noDb = createServer({ query: function () { return Promise.reject(new Error('down')); } }).listen(0);
+      function strip(b) { var x = Object.assign({}, b); delete x.source; delete x.game_id; return x; }
+      return call('GET', '/games/week11-football/story', undefined, undefined, withDb.address().port)
+        .then(function (r) { assert.equal(r.status, 200); assert.equal(r.body.source, 'database'); assert.deepEqual(strip(r.body), JSON.parse(JSON.stringify(want))); })
+        .then(function () { return call('GET', '/games/week11-football/story', undefined, undefined, noDb.address().port); })
+        .then(function (r) { assert.equal(r.body.source, 'file'); assert.deepEqual(strip(r.body), JSON.parse(JSON.stringify(want))); })
+        .then(function () { return call('GET', '/games/nope/story', undefined, undefined, noDb.address().port); })
+        .then(function (r) { assert.equal(r.status, 404); withDb.close(); noDb.close(); });
+    })
     .then(function () { console.log('OK'); srv.close(); })
     .catch(function (e) { console.error('FAIL', e.message); process.exit(1); });
 });

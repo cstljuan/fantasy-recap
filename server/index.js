@@ -12,6 +12,7 @@ var topPlaysModule = require('./top-plays.js');
 var topPlays = topPlaysModule.topPlays, rankPlays = topPlaysModule.rank;
 var drivesModule = require('./drives.js');
 var momentumModule = require('./momentum.js');
+var storyModule = require('./story.js');
 
 function loadEnv(file) {
   var text;
@@ -107,7 +108,7 @@ function createServer(db) {
       return db.query('SELECT 1 AS ok').then(function () { send(res, 200, { ok: true, database: true }); },
         function (e) { console.error('health: database does not answer:', e.message); send(res, 503, { ok: false, database: false }); });
     }
-    var m = url.pathname.match(/^\/games\/([^\/]+)\/(plays|summary|optin|optins|top-plays|drives|momentum)$/);
+    var m = url.pathname.match(/^\/games\/([^\/]+)\/(plays|summary|optin|optins|top-plays|drives|momentum|story)$/);
     if (!m) return send(res, 404, { error: 'not found' });
     var gameId;
     try { gameId = decodeURIComponent(m[1]); } catch (e) { return send(res, 400, { error: 'the game id is not valid' }); }
@@ -118,7 +119,24 @@ function createServer(db) {
     // A throw inside a callback below would otherwise leave the request open.
     function late(e) { console.error('request failed:', e && e.message); if (!res.headersSent) send(res, 500, { error: 'server error' }); }
 
-    if (req.method === 'GET' && what === 'momentum') {
+    if (req.method === 'GET' && what === 'story') {
+      var sFile = /^[A-Za-z0-9_-]+$/.test(gameId) ? path.join(__dirname, '..', 'data', 'games', gameId + '.json') : null;
+      var storyFromFile = function () {
+        if (!sFile || !fs.existsSync(sFile)) return send(res, 404, { error: 'no plays in the database and no game file for ' + gameId });
+        try { var st = storyModule.story(sFile); st.game_id = gameId; st.source = 'file'; send(res, 200, st); }
+        catch (e) { console.error('story from file failed:', e.message); send(res, 500, { error: 'could not read the game file' }); }
+      };
+      Promise.all([
+        db.query('SELECT seq, quarter, played_at, team, kind, yards, detail, why FROM plays WHERE game_id = $1 ORDER BY seq', [gameId]),
+        db.query('SELECT home, away FROM games WHERE id = $1', [gameId])
+      ]).then(function (r) {
+        var rows = r[0].rows, g = r[1].rows[0];
+        var ok = rows.length && g && rows.every(function (x) { return x.detail && x.detail.fp && x.detail.score_after && x.played_at; });
+        if (!ok) return storyFromFile();
+        var st = storyModule.fromRecords(rows, g.home, g.away); st.game_id = gameId; st.source = 'database';
+        send(res, 200, st);
+      }, function (e) { console.error('story: database does not answer, using the game file:', e.message); storyFromFile(); }).catch(late);
+    } else if (req.method === 'GET' && what === 'momentum') {
       var bucket = parseInt(url.searchParams.get('bucket') || '120', 10);
       if (!(bucket >= 10 && bucket <= 3600)) return send(res, 400, { error: 'bucket must be a whole number of seconds from 10 to 3600' });
       var mFile = /^[A-Za-z0-9_-]+$/.test(gameId) ? path.join(__dirname, '..', 'data', 'games', gameId + '.json') : null;
