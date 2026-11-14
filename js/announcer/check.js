@@ -20,7 +20,7 @@ A._setRandom(function () { seed = (seed * 16807) % 2147483647; return (seed - 1)
 // Sample values for every placeholder, for the catalogue below.
 var sample = {
   team: 'Goblins', def: 'Pythons', player: 'Vance', qb: 'Marlowe', kicker: 'Petrov',
-  yds: 12, loss: 7, dist: 44, net: 41, pen: 5, spot: 'GOB 27',
+  yds: 12, yards: '12 yards', loss: 7, dist: 44, net: 41, pen: 5, spot: 'GOB 27',
   score: 'Goblins 14, Pythons 10', teamscore: '14 points', winner: 'Goblins', loser: 'Pythons'
 };
 function fill(t, v) { return t.replace(/\{(\w+)\}/g, function (m, k) { return v[k] == null ? m : String(v[k]); }); }
@@ -35,7 +35,7 @@ var worst = (function () {
   });
   function longest(a) { return a.reduce(function (x, y) { return y.length > x.length ? y : x; }, ''); }
   var n = longest(names), t = longest(tnames);
-  return { team: t, def: t, player: n, qb: n, kicker: n, yds: 99, loss: 12, dist: 58, net: 62, pen: 15,
+  return { team: t, def: t, player: n, qb: n, kicker: n, yds: 99, yards: '99 yards', loss: 12, dist: 58, net: 62, pen: 15,
     spot: 'GOB 35', score: t + ' 28, ' + t + ' 24', teamscore: '28 points', winner: t, loser: t };
 })();
 
@@ -150,6 +150,15 @@ STYLES.forEach(function (style) {
         if (i === 0) console.log('  ' + pad(c[0], 9) + pad(style, 9) + t);
       }
     });
+  });
+  // Hidden scores: no fantasy numbers in the halftime piece.
+  STYLES.forEach(function (style) {
+    for (var i = 0; i < 3; i++) {
+      var t = A.halftime({ teams: teams, score: halfScore, leaders: halfLeaders, plays: plays, style: style, hidden: true }); made++;
+      var nums = (t.match(/\d+(\.\d+)?/g) || []).filter(function (x) { return halfScore.indexOf(+x) < 0 && +x !== Math.abs(halfScore[0] - halfScore[1]); });
+      if (/fantasy|points/i.test(t) || nums.length) problems.push('hidden halftime gives fantasy numbers away: ' + t);
+      if (i === 0) console.log('  ' + pad('half/hid', 9) + pad(style, 9) + t);
+    }
   });
   if (heard !== made) problems.push('onLine heard ' + heard + ' of ' + made + ' longer pieces');
   off();

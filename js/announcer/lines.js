@@ -2,7 +2,7 @@
 //   straight: the default. Spoken TV play-by-play: short bursts, the call as it happens.
 //   fun:      the same fact with some personality.
 // Each kind has at least three variants per style. index.js picks them so
-// the same game does not repeat a line until every variant has been used.
+// the same game doesn't repeat a line until every variant has been used.
 //
 // Placeholders, filled in by index.js:
 //   {team}    the team that had the ball (plural name, e.g. Goblins)
@@ -10,7 +10,7 @@
 //   {player}  last name of the player who made the play
 //   {qb}      last name of the quarterback
 //   {kicker}  last name of the kicker
-//   {yds}     yards gained, {loss} yards lost, {dist} field goal distance, {net} punt net
+//   {yds}     yards gained (a number), {yards} the same with its unit ("1 yard", "4 yards"), {loss} yards lost, {dist} field goal distance, {net} punt net
 //   {pen}     penalty yards, {spot} where the kickoff return ended (e.g. GOB 27)
 //   {score}   the score, e.g. "Goblins 14, Pythons 7"; {teamscore} the {team} total, e.g. "10 points"
 //   {winner} {loser}  at the final
@@ -26,16 +26,16 @@
         'High and deep. {player} back to the {spot}.'
       ],
       fun: [
-        'Up it goes! {player} to the {spot}. Let\'s play!',
+        'Up it goes! {player} brings it to the {spot}.',
         '{player} takes the kick and scoots to the {spot}!',
-        'Boot is away! {player} grabs it, off we go!'
+        'Boot is away! {player} back to the {spot}.'
       ]
     },
     touchdown_run: {
       straight: [
-        '{player} bounces outside, {yds} yards... TOUCHDOWN!',
-        '{player} hits the hole! Touchdown {team}!',
-        '{player} breaks one tackle, two... and in! {team}!'
+        '{player} carries it in from {yds}! Touchdown {team}!',
+        '{player} runs it in! Touchdown, {team}!',
+        '{player}, {yards}... and in! Touchdown {team}!'
       ],
       fun: [
         '{player} is GONE! {yds} yards to the house!',
@@ -76,7 +76,7 @@
       fun: [
         'Oh no, {kicker}! The easy one gets away!',
         'Doink! {kicker} leaves a point out there.',
-        'Wide! {kicker} cannot believe it.'
+        'Wide! {kicker} can\'t believe it.'
       ]
     },
     fg_good: {
@@ -86,7 +86,7 @@
         'Snap, hold, kick... GOOD from {dist}! {teamscore}.'
       ],
       fun: [
-        '{kicker} from {dist}... it is GOOD! Three points!',
+        '{kicker} from {dist}... it\'s GOOD! Three points!',
         'Split the uprights! {kicker} drills it from {dist} yards!',
         'Money from {dist}! {kicker} puts three on the board!'
       ]
@@ -106,7 +106,7 @@
     interception: {
       straight: [
         '{qb} throws... INTERCEPTED! {def} ball!',
-        '{qb} forces it, and it\'s PICKED! {def} ball!',
+        '{qb} is picked off! {def} ball!',
         'Pass is up... picked off! Interception, {def}!'
       ],
       fun: [
@@ -130,12 +130,12 @@
     sack: {
       straight: [
         'Nowhere to go, and {qb} is SACKED! Lost {loss}.',
-        'Pressure up the middle! {qb} goes down!',
+        '{qb} goes down! Sacked for a loss of {loss}.',
         'The {def} get home! {qb} sacked for {loss}.'
       ],
       fun: [
         '{qb} goes DOWN! The {def} pass rush gets home!',
-        'Nowhere to run for {qb}! That is {loss} gone.',
+        'Nowhere to run for {qb}! That\'s {loss} gone.',
         'Boom! The {def} flatten {qb} for {loss}!'
       ]
     },
@@ -147,32 +147,48 @@
       ],
       fun: [
         '{player} takes off! {yds} yards before anybody catches up!',
-        'Look at {player} go! That is a {yds} yard chunk!',
+        'Look at {player} go! That\'s a {yds} yard chunk!',
         'Big play {team}! {player} rips off {yds}!'
       ]
     },
     first_down: {
       straight: [
-        '{player} for {yds}, and that moves the chains.',
-        '{player} picks up {yds}. That\'s a first down.',
-        '{player} fights forward for {yds}. First down!'
+        '{player} for {yards}, and that moves the chains.',
+        '{player} picks up {yards}. That\'s a first down.',
+        '{player} fights forward for {yards}. First down!',
+        'First down {team}! {player} gets {yards}.',
+        '{player} for {yards}, enough for a first down.',
+        'Chains move! {player}, {yards}.',
+        '{player} picks it up. First down, {team}.'
       ],
       fun: [
         '{player} moves the chains! First down!',
-        '{yds} yards for {player}, and the sticks move!',
-        'Keep it rolling! {player} gets the {team} a fresh set.'
+        '{yards} for {player}, and the sticks move!',
+        'Keep it rolling! {player} gets a fresh set.',
+        'Moving the chains! Thank you, {player}!',
+        '{player} picks up the first down!',
+        'New set of downs, courtesy of {player}!',
+        '{player} gets the {team} a fresh start!'
       ]
     },
     gain: {
       straight: [
-        '{player} for {yds}.',
-        '{player} picks up {yds} on the play.',
-        "{player} gets {yds} before the {def} make the tackle."
+        '{player} for {yards}.',
+        '{player} picks up {yards} on the play.',
+        '{player} gets {yards} before the tackle.',
+        '{player} with a gain of {yards}.',
+        '{player}, {yards} more.',
+        '{yards} on the play by {player}.',
+        '{player} moves it {yards}.'
       ],
       fun: [
-        '{player} grinds out {yds}. Every yard counts!',
-        'Solid work by {player}, {yds} more yards.',
-        '{player} chips away, {yds} yards on that one.'
+        '{player} grinds out {yards}. Every yard counts!',
+        'Solid work by {player}, {yards} more.',
+        '{player} chips away, {yards} on that one.',
+        '{player} keeps the sticks in sight, {yards}.',
+        'A little here, a little there. {yards} for {player}.',
+        '{player} takes what\'s there, {yards}.',
+        'Nothing fancy, {yards} for {player}.'
       ]
     },
     no_gain: {
@@ -191,12 +207,20 @@
       straight: [
         '{qb} throws for {player}... incomplete.',
         'Intended for {player}, knocked away!',
-        '{player} can\'t hang on. Incomplete.'
+        '{player} can\'t hang on. Incomplete.',
+        'Pass falls incomplete, {player} the target.',
+        '{qb} misses {player}. Incomplete.',
+        'Incomplete, intended for {player}.',
+        'Broken up! Incomplete for {player}.'
       ],
       fun: [
         '{qb} fires for {player}... off the fingertips!',
         'That one hits the turf. Nobody home!',
-        'Close, but {player} cannot reel it in.'
+        'Close, but {player} can\'t reel it in.',
+        'Swing and a miss from {qb}!',
+        'So close, {player}! Incomplete.',
+        '{qb} and {player} not on the same page.',
+        'Into the grass. Try again, {qb}.'
       ]
     },
     pen_false_start: {
@@ -243,7 +267,7 @@
       ],
       fun: [
         'Flag! The {def} were all over the receiver!',
-        'You cannot do that, {def}! {pen} yards!',
+        'You can\'t do that, {def}! {pen} yards!',
         'Too much contact! A gift of {pen} yards.'
       ]
     },
@@ -290,7 +314,7 @@
         'End of the first half. {score}.'
       ],
       fun: [
-        'Halftime! Grab a snack, it is {score}.',
+        'Halftime! Grab a snack, it\'s {score}.',
         'We take a breather at the half. {score}!',
         'Two quarters down, two to go. {score}!'
       ]
