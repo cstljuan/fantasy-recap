@@ -1,0 +1,528 @@
+{
+  "team": "TUR",
+  "source": "Scout, season 2026 numbers from Sleeper's public stats API, read on 2026-11-14. The address and date of every number are in tendency_sources.",
+  "players": {
+    "QB": {
+      "name": "Jayden Daniels",
+      "position": "QB",
+      "tendencies": {
+        "deep_ball": 0.586,
+        "short_pass": 0.648,
+        "scramble": 0.157
+      },
+      "tendency_sources": {
+        "deep_ball": {
+          "source": "https://api.sleeper.com/stats/nfl/player/11566?season_type=regular&season=2026",
+          "date": "2026-11-14",
+          "how": "pass yards per attempt divided by 12, capped at 1"
+        },
+        "short_pass": {
+          "source": "https://api.sleeper.com/stats/nfl/player/11566?season_type=regular&season=2026",
+          "date": "2026-11-14",
+          "how": "completions divided by attempts"
+        },
+        "scramble": {
+          "source": "https://api.sleeper.com/stats/nfl/player/11566?season_type=regular&season=2026",
+          "date": "2026-11-14",
+          "how": "rush yards divided by pass plus rush yards"
+        }
+      },
+      "notes": "Season 2026 numbers through game week 7.0 (7.0 games). Filled by agents/scout/fill_profiles.py, no model.",
+      "form": {
+        "tendencies": {
+          "deep_ball": 0.636,
+          "short_pass": 0.649,
+          "scramble": 0.083
+        },
+        "tendency_sources": {
+          "deep_ball": {
+            "source": "https://api.sleeper.com/stats/nfl/player/11566?season_type=regular&season=2026&grouping=week",
+            "date": "2026-11-14",
+            "how": "pass yards per attempt divided by 12, capped at 1, over the weeks listed",
+            "weeks": [
+              8,
+              9,
+              10
+            ]
+          },
+          "short_pass": {
+            "source": "https://api.sleeper.com/stats/nfl/player/11566?season_type=regular&season=2026&grouping=week",
+            "date": "2026-11-14",
+            "how": "completions divided by attempts, over the weeks listed",
+            "weeks": [
+              8,
+              9,
+              10
+            ]
+          },
+          "scramble": {
+            "source": "https://api.sleeper.com/stats/nfl/player/11566?season_type=regular&season=2026&grouping=week",
+            "date": "2026-11-14",
+            "how": "rush yards divided by pass plus rush yards, over the weeks listed",
+            "weeks": [
+              8,
+              9,
+              10
+            ]
+          }
+        },
+        "weeks": [
+          8,
+          9,
+          10
+        ],
+        "skipped_weeks": [],
+        "source": "https://api.sleeper.com/stats/nfl/player/11566?season_type=regular&season=2026&grouping=week",
+        "date": "2026-11-14",
+        "notes": "Season 2026, weeks 8, 9, 10 added up."
+      }
+    },
+    "RB": {
+      "name": "Jahmyr Gibbs",
+      "position": "RB",
+      "tendencies": {
+        "run_share": 0.797,
+        "pass_catching": 0.756,
+        "red_zone_use": 0.243
+      },
+      "tendency_sources": {
+        "run_share": {
+          "source": "https://api.sleeper.com/stats/nfl/player/9221?season_type=regular&season=2026",
+          "date": "2026-11-14",
+          "how": "carries divided by carries plus targets"
+        },
+        "pass_catching": {
+          "source": "https://api.sleeper.com/stats/nfl/player/9221?season_type=regular&season=2026",
+          "date": "2026-11-14",
+          "how": "catches divided by targets"
+        },
+        "red_zone_use": {
+          "source": "https://api.sleeper.com/stats/nfl/player/9221?season_type=regular&season=2026",
+          "date": "2026-11-14",
+          "how": "red zone carries divided by carries"
+        }
+      },
+      "notes": "Season 2026 numbers through game week 8.0 (8.0 games). Filled by agents/scout/fill_profiles.py, no model.",
+      "form": {
+        "tendencies": {
+          "run_share": 0.867,
+          "pass_catching": 0.636,
+          "red_zone_use": 0.194
+        },
+        "tendency_sources": {
+          "run_share": {
+            "source": "https://api.sleeper.com/stats/nfl/player/9221?season_type=regular&season=2026&grouping=week",
+            "date": "2026-11-14",
+            "how": "carries divided by carries plus targets, over the weeks listed",
+            "weeks": [
+              7,
+              8,
+              9
+            ]
+          },
+          "pass_catching": {
+            "source": "https://api.sleeper.com/stats/nfl/player/9221?season_type=regular&season=2026&grouping=week",
+            "date": "2026-11-14",
+            "how": "catches divided by targets, over the weeks listed",
+            "weeks": [
+              7,
+              8,
+              9
+            ]
+          },
+          "red_zone_use": {
+            "source": "https://api.sleeper.com/stats/nfl/player/9221?season_type=regular&season=2026&grouping=week",
+            "date": "2026-11-14",
+            "how": "red zone carries divided by carries, over the weeks listed",
+            "weeks": [
+              7,
+              8,
+              9
+            ]
+          }
+        },
+        "weeks": [
+          7,
+          8,
+          9
+        ],
+        "skipped_weeks": [
+          10
+        ],
+        "source": "https://api.sleeper.com/stats/nfl/player/9221?season_type=regular&season=2026&grouping=week",
+        "date": "2026-11-14",
+        "notes": "Season 2026, weeks 7, 8, 9 added up, weeks 10 skipped (no stats in the source: a bye, an injury, or a game not played yet)."
+      }
+    },
+    "WR1": {
+      "name": "CeeDee Lamb",
+      "position": "WR",
+      "tendencies": {
+        "deep_ball": 0.646,
+        "catch_rate": 0.648,
+        "red_zone_use": 0.157
+      },
+      "tendency_sources": {
+        "deep_ball": {
+          "source": "https://api.sleeper.com/stats/nfl/player/6786?season_type=regular&season=2026",
+          "date": "2026-11-14",
+          "how": "receiving yards per catch divided by 20, capped at 1"
+        },
+        "catch_rate": {
+          "source": "https://api.sleeper.com/stats/nfl/player/6786?season_type=regular&season=2026",
+          "date": "2026-11-14",
+          "how": "catches divided by targets"
+        },
+        "red_zone_use": {
+          "source": "https://api.sleeper.com/stats/nfl/player/6786?season_type=regular&season=2026",
+          "date": "2026-11-14",
+          "how": "red zone targets divided by targets"
+        }
+      },
+      "notes": "Season 2026 numbers through game week 9.0 (9.0 games). Filled by agents/scout/fill_profiles.py, no model.",
+      "form": {
+        "tendencies": {
+          "deep_ball": 0.743,
+          "catch_rate": 0.564,
+          "red_zone_use": 0.205
+        },
+        "tendency_sources": {
+          "deep_ball": {
+            "source": "https://api.sleeper.com/stats/nfl/player/6786?season_type=regular&season=2026&grouping=week",
+            "date": "2026-11-14",
+            "how": "receiving yards per catch divided by 20, capped at 1, over the weeks listed",
+            "weeks": [
+              7,
+              8,
+              9
+            ]
+          },
+          "catch_rate": {
+            "source": "https://api.sleeper.com/stats/nfl/player/6786?season_type=regular&season=2026&grouping=week",
+            "date": "2026-11-14",
+            "how": "catches divided by targets, over the weeks listed",
+            "weeks": [
+              7,
+              8,
+              9
+            ]
+          },
+          "red_zone_use": {
+            "source": "https://api.sleeper.com/stats/nfl/player/6786?season_type=regular&season=2026&grouping=week",
+            "date": "2026-11-14",
+            "how": "red zone targets divided by targets, over the weeks listed",
+            "weeks": [
+              7,
+              8,
+              9
+            ]
+          }
+        },
+        "weeks": [
+          7,
+          8,
+          9
+        ],
+        "skipped_weeks": [
+          10
+        ],
+        "source": "https://api.sleeper.com/stats/nfl/player/6786?season_type=regular&season=2026&grouping=week",
+        "date": "2026-11-14",
+        "notes": "Season 2026, weeks 7, 8, 9 added up, weeks 10 skipped (no stats in the source: a bye, an injury, or a game not played yet)."
+      }
+    },
+    "WR2": {
+      "name": "Garrett Wilson",
+      "position": "WR",
+      "tendencies": {
+        "deep_ball": 0.613,
+        "catch_rate": 0.683,
+        "red_zone_use": 0.095
+      },
+      "tendency_sources": {
+        "deep_ball": {
+          "source": "https://api.sleeper.com/stats/nfl/player/8146?season_type=regular&season=2026",
+          "date": "2026-11-14",
+          "how": "receiving yards per catch divided by 20, capped at 1"
+        },
+        "catch_rate": {
+          "source": "https://api.sleeper.com/stats/nfl/player/8146?season_type=regular&season=2026",
+          "date": "2026-11-14",
+          "how": "catches divided by targets"
+        },
+        "red_zone_use": {
+          "source": "https://api.sleeper.com/stats/nfl/player/8146?season_type=regular&season=2026",
+          "date": "2026-11-14",
+          "how": "red zone targets divided by targets"
+        }
+      },
+      "notes": "Season 2026 numbers through game week 8.0 (8.0 games). Filled by agents/scout/fill_profiles.py, no model.",
+      "form": {
+        "tendencies": {
+          "deep_ball": 0.637,
+          "catch_rate": 0.571,
+          "red_zone_use": 0.19
+        },
+        "tendency_sources": {
+          "deep_ball": {
+            "source": "https://api.sleeper.com/stats/nfl/player/8146?season_type=regular&season=2026&grouping=week",
+            "date": "2026-11-14",
+            "how": "receiving yards per catch divided by 20, capped at 1, over the weeks listed",
+            "weeks": [
+              6,
+              7,
+              8
+            ]
+          },
+          "catch_rate": {
+            "source": "https://api.sleeper.com/stats/nfl/player/8146?season_type=regular&season=2026&grouping=week",
+            "date": "2026-11-14",
+            "how": "catches divided by targets, over the weeks listed",
+            "weeks": [
+              6,
+              7,
+              8
+            ]
+          },
+          "red_zone_use": {
+            "source": "https://api.sleeper.com/stats/nfl/player/8146?season_type=regular&season=2026&grouping=week",
+            "date": "2026-11-14",
+            "how": "red zone targets divided by targets, over the weeks listed",
+            "weeks": [
+              6,
+              7,
+              8
+            ]
+          }
+        },
+        "weeks": [
+          6,
+          7,
+          8
+        ],
+        "skipped_weeks": [
+          9,
+          10
+        ],
+        "source": "https://api.sleeper.com/stats/nfl/player/8146?season_type=regular&season=2026&grouping=week",
+        "date": "2026-11-14",
+        "notes": "Season 2026, weeks 6, 7, 8 added up, weeks 9, 10 skipped (no stats in the source: a bye, an injury, or a game not played yet)."
+      }
+    },
+    "WR3": {
+      "name": "Drake London",
+      "position": "WR",
+      "tendencies": {
+        "deep_ball": 0.786,
+        "catch_rate": 0.647,
+        "red_zone_use": 0.059
+      },
+      "tendency_sources": {
+        "deep_ball": {
+          "source": "https://api.sleeper.com/stats/nfl/player/8112?season_type=regular&season=2026",
+          "date": "2026-11-14",
+          "how": "receiving yards per catch divided by 20, capped at 1"
+        },
+        "catch_rate": {
+          "source": "https://api.sleeper.com/stats/nfl/player/8112?season_type=regular&season=2026",
+          "date": "2026-11-14",
+          "how": "catches divided by targets"
+        },
+        "red_zone_use": {
+          "source": "https://api.sleeper.com/stats/nfl/player/8112?season_type=regular&season=2026",
+          "date": "2026-11-14",
+          "how": "red zone targets divided by targets"
+        }
+      },
+      "notes": "Season 2026 numbers through game week 9.0 (9.0 games). Filled by agents/scout/fill_profiles.py, no model.",
+      "form": {
+        "tendencies": {
+          "deep_ball": 0.546,
+          "catch_rate": 0.619,
+          "red_zone_use": 0.095
+        },
+        "tendency_sources": {
+          "deep_ball": {
+            "source": "https://api.sleeper.com/stats/nfl/player/8112?season_type=regular&season=2026&grouping=week",
+            "date": "2026-11-14",
+            "how": "receiving yards per catch divided by 20, capped at 1, over the weeks listed",
+            "weeks": [
+              7,
+              8,
+              9
+            ]
+          },
+          "catch_rate": {
+            "source": "https://api.sleeper.com/stats/nfl/player/8112?season_type=regular&season=2026&grouping=week",
+            "date": "2026-11-14",
+            "how": "catches divided by targets, over the weeks listed",
+            "weeks": [
+              7,
+              8,
+              9
+            ]
+          },
+          "red_zone_use": {
+            "source": "https://api.sleeper.com/stats/nfl/player/8112?season_type=regular&season=2026&grouping=week",
+            "date": "2026-11-14",
+            "how": "red zone targets divided by targets, over the weeks listed",
+            "weeks": [
+              7,
+              8,
+              9
+            ]
+          }
+        },
+        "weeks": [
+          7,
+          8,
+          9
+        ],
+        "skipped_weeks": [
+          10
+        ],
+        "source": "https://api.sleeper.com/stats/nfl/player/8112?season_type=regular&season=2026&grouping=week",
+        "date": "2026-11-14",
+        "notes": "Season 2026, weeks 7, 8, 9 added up, weeks 10 skipped (no stats in the source: a bye, an injury, or a game not played yet)."
+      }
+    },
+    "TE": {
+      "name": "Brock Bowers",
+      "position": "TE",
+      "tendencies": {
+        "deep_ball": 0.685,
+        "catch_rate": 0.686,
+        "red_zone_use": 0.157
+      },
+      "tendency_sources": {
+        "deep_ball": {
+          "source": "https://api.sleeper.com/stats/nfl/player/11604?season_type=regular&season=2026",
+          "date": "2026-11-14",
+          "how": "receiving yards per catch divided by 20, capped at 1"
+        },
+        "catch_rate": {
+          "source": "https://api.sleeper.com/stats/nfl/player/11604?season_type=regular&season=2026",
+          "date": "2026-11-14",
+          "how": "catches divided by targets"
+        },
+        "red_zone_use": {
+          "source": "https://api.sleeper.com/stats/nfl/player/11604?season_type=regular&season=2026",
+          "date": "2026-11-14",
+          "how": "red zone targets divided by targets"
+        }
+      },
+      "notes": "Season 2026 numbers through game week 7.0 (7.0 games). Filled by agents/scout/fill_profiles.py, no model.",
+      "form": {
+        "tendencies": {
+          "deep_ball": 0.69,
+          "catch_rate": 0.769,
+          "red_zone_use": 0.154
+        },
+        "tendency_sources": {
+          "deep_ball": {
+            "source": "https://api.sleeper.com/stats/nfl/player/11604?season_type=regular&season=2026&grouping=week",
+            "date": "2026-11-14",
+            "how": "receiving yards per catch divided by 20, capped at 1, over the weeks listed",
+            "weeks": [
+              7,
+              8,
+              9
+            ]
+          },
+          "catch_rate": {
+            "source": "https://api.sleeper.com/stats/nfl/player/11604?season_type=regular&season=2026&grouping=week",
+            "date": "2026-11-14",
+            "how": "catches divided by targets, over the weeks listed",
+            "weeks": [
+              7,
+              8,
+              9
+            ]
+          },
+          "red_zone_use": {
+            "source": "https://api.sleeper.com/stats/nfl/player/11604?season_type=regular&season=2026&grouping=week",
+            "date": "2026-11-14",
+            "how": "red zone targets divided by targets, over the weeks listed",
+            "weeks": [
+              7,
+              8,
+              9
+            ]
+          }
+        },
+        "weeks": [
+          7,
+          8,
+          9
+        ],
+        "skipped_weeks": [
+          10
+        ],
+        "source": "https://api.sleeper.com/stats/nfl/player/11604?season_type=regular&season=2026&grouping=week",
+        "date": "2026-11-14",
+        "notes": "Season 2026, weeks 7, 8, 9 added up, weeks 10 skipped (no stats in the source: a bye, an injury, or a game not played yet)."
+      }
+    },
+    "K": {
+      "name": "Cameron Dicker",
+      "position": "K",
+      "tendencies": {
+        "kicker_range": 0.4,
+        "accuracy": 0.882
+      },
+      "tendency_sources": {
+        "kicker_range": {
+          "source": "https://api.sleeper.com/stats/nfl/player/8259?season_type=regular&season=2026",
+          "date": "2026-11-14",
+          "how": "field goals made from 40 yards or more divided by field goals made"
+        },
+        "accuracy": {
+          "source": "https://api.sleeper.com/stats/nfl/player/8259?season_type=regular&season=2026",
+          "date": "2026-11-14",
+          "how": "field goals made divided by attempted"
+        }
+      },
+      "notes": "Season 2026 numbers through game week 8.0 (8.0 games). Filled by agents/scout/fill_profiles.py, no model.",
+      "form": {
+        "tendencies": {
+          "kicker_range": 0.5,
+          "accuracy": 1.0
+        },
+        "tendency_sources": {
+          "kicker_range": {
+            "source": "https://api.sleeper.com/stats/nfl/player/8259?season_type=regular&season=2026&grouping=week",
+            "date": "2026-11-14",
+            "how": "field goals made from 40 yards or more divided by field goals made, over the weeks listed",
+            "weeks": [
+              6,
+              8,
+              9
+            ]
+          },
+          "accuracy": {
+            "source": "https://api.sleeper.com/stats/nfl/player/8259?season_type=regular&season=2026&grouping=week",
+            "date": "2026-11-14",
+            "how": "field goals made divided by attempted, over the weeks listed",
+            "weeks": [
+              6,
+              8,
+              9
+            ]
+          }
+        },
+        "weeks": [
+          6,
+          8,
+          9
+        ],
+        "skipped_weeks": [
+          7,
+          10
+        ],
+        "source": "https://api.sleeper.com/stats/nfl/player/8259?season_type=regular&season=2026&grouping=week",
+        "date": "2026-11-14",
+        "notes": "Season 2026, weeks 6, 8, 9 added up, weeks 7, 10 skipped (no stats in the source: a bye, an injury, or a game not played yet)."
+      }
+    }
+  }
+}

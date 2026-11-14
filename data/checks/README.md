@@ -18,7 +18,9 @@ It prints one line per check (OK, FAILED or SKIPPED with the reason) and a final
 | plays service | `node server/test.js` | every route of `server/` against a fake database, push of a football game and both soccer matches, top plays, drives, momentum |
 | service under load | `node server/stress.js` | both sports pushed and read back, bad input on every route, 200 requests at once: no 500, crash, hang, slow answer or missing CORS header |
 | league file | `node data/checks/league.js` | `data/league.json` parses, team ids exist, standings follow from the finished weeks |
-| stat line sums | `node data/checks/statlines.js` | invented stat line files add up (passing equals receiving, extra points equal touchdowns, points allowed) |
+| league from the service | `node server/league.js` | the standings `server/league.js` works out from the finished weeks equal the ones in `data/league.json`, and the current week shows no points |
+| stat line sums | `node data/checks/statlines.js` | invented stat line files add up (passing equals receiving, extra points equal touchdowns, points allowed), including matchup files like `week11-tur-owl.json` |
+| rosters | `node data/checks/rosters.js` | every league team has a seven-slot football roster, no player is on two teams, every profile slot matches its roster with a source for every number, matchup stat lines use the roster's names |
 | game vs lines | `node data/checks/game-vs-lines.js` | every football file in `data/games/` replayed through `js/rules.js` gives each player's catches, yards, touchdowns, passing, interceptions, fumbles, kicks by distance, extra points, both defenses' sacks and takeaways, fantasy points and the score exactly as the source lines (the sample game in `js/data.js`, the only source `engine/make-game.js` builds from) and the file's own report; tallied independently of the engine |
 | scoring file | `node agents/scout/check-scoring.js` | `data/scoring.json` says the same as `js/rules.js` and the sample game's points match |
 | Scout tools | `python3 agents/scout/check.py` | Scout's tools on saved samples in `agents/scout/fixtures/` |

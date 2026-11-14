@@ -31,6 +31,12 @@ node server/index.js
 
 - `GET /games/:id/story` returns the turning points of a game as numbers: `{ game_id, source, home, away, final, winner, leadChanges: [{index, quarter, clock, team, score}], longestDrive: {drive, team, quarter, plays, yards, seconds, result, startIndex, endIndex} or null, biggestSwing: {start, quarter, team, fpSwing, index} or null, bestPlayers: [{team, slot, name, points, index}], decidingPlay: {index, quarter, clock, team, score} or null }`. `index` is the play number from 1, the same as `seq` and the top plays index. From the database when its rows have scores and points, from `data/games/<id>.json` when not. The meaning of each field is at the top of `server/story.js`. `node server/story.js <game file>` prints it.
 
+## League
+
+- `GET /league` returns the league home's data: `{ name, week, invented, release, weeks: [{ week, finished, matchups: [{ teams: [{id, full, tile}, x2], final: [a, b] or null, gameId, finalFrom }] }], standings: [{ id, full, wins, losses, ties, pointsFor, pointsAgainst }], current: { week, matchups: [{ teams, gameId, optedIn: [team ids], optinsFrom }] }, note, source: { optins, finals } }`.
+
+It starts from `data/league.json` (an invented league). Standings are worked out from the finished weeks, best first. For this week, `optedIn` comes from the `optins` table when the database answers (only managers equal to one of the matchup's team ids count; a matchup without a game id keeps the file's list) and from the file when it does not; `optinsFrom` says which. A finished week whose game is in the database gets its fantasy points from the plays. **The current week's points are always null**, even when the database or a game file holds them, so the league home can never show hidden points before the final. In a page: `<script src="server/league.js"></script>` and `FR_LEAGUE.fromLeague(leagueJson)` gives the same without the service (checked in headless Chromium). `node server/league.js` prints it and checks the standings against the file.
+
 ## Watch party relay
 
 A phone can be the remote for a game playing on another screen. The rooms live in the service's memory only (no database) and end two hours after they are made; at most 200 are open at once (429 after that). Bodies are limited to 2 KB. Same CORS rule as the other routes.
