@@ -1158,4 +1158,10 @@
   if (sport === 'soccer' && soccerConnected()) { try { window.FR_SPORT_CHANGE(sport); } catch (err) { console.error(err); } }
   if (location.hash === '#game') location.replace('#matchup');
   route();
+
+  // First run walkthrough and the install hint live in their own file. index.html is
+  // not ours, so the app loads it.
+  var installScript = document.createElement('script');
+  installScript.src = 'js/screens/install.js';
+  document.body.appendChild(installScript);
 })();
