@@ -44,8 +44,8 @@ Run `sh tools/next.sh` to get your next task with its full description. A row is
 | C11 | C | nexodv | Commentary that remembers the game | merged |
 | C12 | C | nexodv | The soccer broadcast, with Juan's soccer agent | merged |
 | C13 | C | nexodv | The mix: volumes, mute, crowd ducking under the voice | merged |
-| C10 | C | nexodv | ElevenLabs voice: playback, the render script, and audio for the current games | open |
-| C8 | C | nexodv | Soccer lines | open |
+| C10 | C | nexodv | ElevenLabs voice: playback, the render script, and audio for the current games | merged |
+| C8 | C | nexodv | Soccer lines | merged |
 | C14 | C | nexodv | Rule explainer lines for Peyton's rule cards, and a full broadcast transcript | open |
 | D1 | D | Rickstar-App | Real rosters and profile files | merged |
 | D2 | D | Rickstar-App | Database schema | merged |
@@ -170,6 +170,7 @@ The boss reviews every DONE before it reaches main: the authors check, the lane 
 - Merged after review: C13. All checks and the three full-game runs passed
 - Merged after review: B17. All checks and the three full-game runs passed
 - Merged after review: B18. All checks and the three full-game runs passed
+- Merged after review: C10, C8. All checks and the three full-game runs passed
 - D1 real rosters and profile files, D2 database schema (Ricky) are on main; `data/games/sample-football.json` now has the real rosters
 
 ## Decisions
