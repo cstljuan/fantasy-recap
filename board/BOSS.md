@@ -32,7 +32,7 @@ Run `sh tools/next.sh` to get your next task with its full description. A row is
 | B20 | B | Peypey-ryd | Screen reader and reduced motion pass | merged |
 | B21 | B | Peypey-ryd | Rule cards: explain each football rule the first time it comes up, with Noah | merged |
 | B22 | B | Peypey-ryd | Jump bar in the game view: next score, previous play, any play, on `FF_GAME.seek` and `hold`, with Noah | merged |
-| B23 | B | Peypey-ryd | Top play card as a picture to save or share, with Ricky | open |
+| B23 | B | Peypey-ryd | Top play card as a picture to save or share, with Ricky | merged |
 | B24 | B | Peypey-ryd | Demo mode: `?demo=1` walks the two-minute demo script by itself | open |
 | B25 | B | Peypey-ryd | Hot and cold on the lineup: recent form next to each player, with Ricky and Noah | open |
 | B26 | B | Peypey-ryd | Soccer gets the same extras: jump bar, rule cards and share card in the soccer app, with Juan and Noah | open |
@@ -57,7 +57,7 @@ Run `sh tools/next.sh` to get your next task with its full description. A row is
 | C17 | C | nexodv | Sound captions: every crowd, whistle and jingle as caption text, with Peyton | merged |
 | C18 | C | nexodv | The big call: a longer, louder call for a game's top plays, with Ricky and Peyton | merged |
 | C19 | C | nexodv | Line audit: every line both game files can produce, checked for length, blanks and recordings | merged |
-| C20 | C | nexodv | Soccer, same depth as football: rule explainers, the catch-up line and the big call for soccer | open |
+| C20 | C | nexodv | Soccer, same depth as football: rule explainers, the catch-up line and the big call for soccer | merged |
 | C21 | C | nexodv | The broadcast as a page: `pitch/BROADCAST.md`, the full transcript of the week 11 game in both styles | open |
 | C22 | C | nexodv | Sound check without ears: a node test of the mix (levels, ducking, mute, no clipping, no overlap of voice lines) | open |
 | D27 | D | Rickstar-App | Soccer numbers that are real: profiles and one real match's lines for the soccer rosters, with sources | open |
@@ -86,7 +86,7 @@ Run `sh tools/next.sh` to get your next task with its full description. A row is
 | D22 | D | Rickstar-App | Soccer in the service: push a soccer match and read it back | merged |
 | D23 | D | Rickstar-App | Devpost text, refreshed against main, with one honest paragraph per sponsor track | merged |
 | D24 | D | Rickstar-App | Recent form: last three weeks of tendencies next to the season, live from Sleeper | merged |
-| D25 | D | Rickstar-App | One command that runs every check in Ricky's lane and the whole repository | open |
+| D25 | D | Rickstar-App | One command that runs every check in Ricky's lane and the whole repository | merged |
 | D26 | D | Rickstar-App | Cross-check Sleeper against ESPN for the 14 players and report every disagreement | open |
 | D7 | D | Rickstar-App | Soccer rosters and profiles | merged |
 | S1 | S | cstljuan | The soccer game | merged |
@@ -201,6 +201,7 @@ The boss reviews every DONE before it reaches main: the authors check, the lane 
 - Merged after review: B21. All checks and the three full-game runs passed
 - Merged after review: B22, C18, C19, D24. All checks and the three full-game runs passed
 - Ricky's boss rounds (to 16:00 Eastern): merged B21, B22, C18, C19, D24. Checks and the three full-game runs passed each time; the line audit and `python3 agents/scout/check_form.py` print OK. Not looked at in a browser by the boss: the rule cards and the jump bar.
+- Merged after review: B23, C20, D25. All checks and the three full-game runs passed
 - D1 real rosters and profile files, D2 database schema (Ricky) are on main; `data/games/sample-football.json` now has the real rosters
 
 ## Decisions
