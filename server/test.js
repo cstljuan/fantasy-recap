@@ -3,6 +3,20 @@
 var http = require('http');
 var assert = require('assert');
 var createServer = require('./index.js').createServer;
+var poolConfig = require('./index.js').poolConfig;
+
+var url = 'postgres://u:p@host.example:5432/db?sslmode=require&uselibpqcompat=true';
+var none = poolConfig(url);
+assert.equal(none.connectionString, url);
+assert.equal(none.ssl, undefined);
+var caPath = require('path').join(__dirname, 'test-ca.tmp');
+require('fs').writeFileSync(caPath, 'FAKE CERTIFICATE TEXT');
+var withCa = poolConfig(url, caPath);
+require('fs').unlinkSync(caPath);
+assert.equal(withCa.ssl.rejectUnauthorized, true);
+assert.equal(withCa.ssl.ca, 'FAKE CERTIFICATE TEXT');
+assert.ok(withCa.connectionString.indexOf('sslmode') === -1 && withCa.connectionString.indexOf('uselibpqcompat') === -1);
+assert.ok(withCa.connectionString.indexOf('host.example:5432/db') > -1);
 
 var log = [];
 var fake = {

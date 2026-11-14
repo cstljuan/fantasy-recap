@@ -10,7 +10,9 @@ for b in $(git for-each-ref --format='%(refname:short)' refs/remotes/origin | gr
   n=$(git rev-list --count --no-merges "origin/main..$b"); [ "$n" = 0 ] && continue
   if sh tools/boss-check.sh "$b" >/tmp/fr-check.txt 2>&1; then
     files="$(git diff --name-only "origin/main...$b" 2>/dev/null | grep -v '^board/' | cut -d/ -f1-2 | sort -u | tr '\n' ' ')"
-    if git merge -q --no-ff --no-edit -m "Merge ${b#origin/}: ${files:-board posts}" "$b" 2>/dev/null; then merged="$merged ${b#origin/}"; else git merge --abort; echo "CONFLICT, not merged: $b"; fi
+    who="$(git log -1 --format=%an "$b")"
+    # The message names the person, never the branch: a branch a tool named would trip the commit check.
+    if git merge -q --no-ff --no-edit -m "Merge $who's work: ${files:-board posts}" "$b" 2>/tmp/fr-merge.txt; then merged="$merged $who"; else git merge --abort 2>/dev/null; echo "NOT MERGED: $b"; head -3 /tmp/fr-merge.txt; fi
   else echo "REJECTED by boss-check: $b"; cat /tmp/fr-check.txt; fi
 done
 echo "merged:${merged:- nothing new}"

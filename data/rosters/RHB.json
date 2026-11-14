@@ -1,0 +1,29 @@
+{
+  "team": "RHB",
+  "sport": "soccer",
+  "name": "Red Harbour",
+  "full": "Red Harbour SC",
+  "note": "Fantasy roster of real players. The team name and colors are made up. Same names as soccer/js/data.js.",
+  "roster": {
+    "GK": "Mike Maignan",
+    "LB": "Nuno Mendes",
+    "CB1": "Josko Gvardiol",
+    "CB2": "Antonio Rudiger",
+    "RB": "Jules Kounde",
+    "CM1": "Federico Valverde",
+    "CM2": "Vitinha",
+    "CM3": "Cole Palmer",
+    "LW": "Kylian Mbappe",
+    "ST": "Harry Kane",
+    "RW": "Mohamed Salah"
+  },
+  "fantasy": [
+    "GK",
+    "CB1",
+    "CB2",
+    "CM2",
+    "LW",
+    "ST",
+    "RW"
+  ]
+}
