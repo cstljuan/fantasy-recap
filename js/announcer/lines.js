@@ -59,7 +59,7 @@
       straight: [
         '{kicker} adds the extra point. {score}.',
         'Extra point is good. {score}.',
-        '{kicker} knocks it through. {teamscore}.'
+        '{kicker} knocks it through. The {team} have {teamscore}.'
       ],
       fun: [
         '{kicker} makes it look easy. Point after is good!',

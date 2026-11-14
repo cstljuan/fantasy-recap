@@ -1,73 +1,189 @@
 {
   "team": "GOB",
-  "source": "No statistics filled. On 2026-11-14 this session could not reach any public stats source (requests to ESPN, Pro Football Reference and Sleeper were refused by the network), so every tendency stays null. Player names and positions were picked by hand.",
+  "source": "Scout, season 2026 numbers from Sleeper's public stats API, read on 2026-11-14. The address and date of every number are in tendency_sources.",
   "players": {
     "QB": {
       "name": "Josh Allen",
       "position": "QB",
       "tendencies": {
-        "deep_ball": null,
-        "short_pass": null,
-        "scramble": null
+        "deep_ball": 0.716,
+        "short_pass": 0.661,
+        "scramble": 0.123
       },
-      "notes": "Tendency numbers are null because no public source could be read on 2026-11-14. Nothing was estimated from memory. Current team and roster status were not checked."
+      "tendency_sources": {
+        "deep_ball": {
+          "source": "https://api.sleeper.com/stats/nfl/player/4984?season_type=regular&season=2026",
+          "date": "2026-11-14",
+          "how": "pass yards per attempt divided by 12, capped at 1"
+        },
+        "short_pass": {
+          "source": "https://api.sleeper.com/stats/nfl/player/4984?season_type=regular&season=2026",
+          "date": "2026-11-14",
+          "how": "completions divided by attempts"
+        },
+        "scramble": {
+          "source": "https://api.sleeper.com/stats/nfl/player/4984?season_type=regular&season=2026",
+          "date": "2026-11-14",
+          "how": "rush yards divided by pass plus rush yards"
+        }
+      },
+      "notes": "Season 2026 numbers through game week 8.0 (8.0 games). Filled by agents/scout/fill_profiles.py, no model."
     },
     "RB": {
       "name": "Saquon Barkley",
       "position": "RB",
       "tendencies": {
-        "run_share": null,
-        "target_share": null,
-        "red_zone_use": null
+        "run_share": 0.863,
+        "pass_catching": 0.636,
+        "red_zone_use": 0.174
       },
-      "notes": "Tendency numbers are null because no public source could be read on 2026-11-14. Nothing was estimated from memory. Current team and roster status were not checked."
+      "tendency_sources": {
+        "run_share": {
+          "source": "https://api.sleeper.com/stats/nfl/player/4866?season_type=regular&season=2026",
+          "date": "2026-11-14",
+          "how": "carries divided by carries plus targets"
+        },
+        "pass_catching": {
+          "source": "https://api.sleeper.com/stats/nfl/player/4866?season_type=regular&season=2026",
+          "date": "2026-11-14",
+          "how": "catches divided by targets"
+        },
+        "red_zone_use": {
+          "source": "https://api.sleeper.com/stats/nfl/player/4866?season_type=regular&season=2026",
+          "date": "2026-11-14",
+          "how": "red zone carries divided by carries"
+        }
+      },
+      "notes": "Season 2026 numbers through game week 7.0 (7.0 games). Filled by agents/scout/fill_profiles.py, no model."
     },
     "WR1": {
       "name": "Ja'Marr Chase",
       "position": "WR",
       "tendencies": {
-        "target_share": null,
-        "deep_ball": null,
-        "red_zone_use": null
+        "deep_ball": 0.61,
+        "catch_rate": 0.726,
+        "red_zone_use": 0.178
       },
-      "notes": "Tendency numbers are null because no public source could be read on 2026-11-14. Nothing was estimated from memory. Current team and roster status were not checked."
+      "tendency_sources": {
+        "deep_ball": {
+          "source": "https://api.sleeper.com/stats/nfl/player/7564?season_type=regular&season=2026",
+          "date": "2026-11-14",
+          "how": "receiving yards per catch divided by 20, capped at 1"
+        },
+        "catch_rate": {
+          "source": "https://api.sleeper.com/stats/nfl/player/7564?season_type=regular&season=2026",
+          "date": "2026-11-14",
+          "how": "catches divided by targets"
+        },
+        "red_zone_use": {
+          "source": "https://api.sleeper.com/stats/nfl/player/7564?season_type=regular&season=2026",
+          "date": "2026-11-14",
+          "how": "red zone targets divided by targets"
+        }
+      },
+      "notes": "Season 2026 numbers through game week 8.0 (8.0 games). Filled by agents/scout/fill_profiles.py, no model."
     },
     "WR2": {
       "name": "Puka Nacua",
       "position": "WR",
       "tendencies": {
-        "target_share": null,
-        "deep_ball": null,
-        "red_zone_use": null
+        "deep_ball": 0.511,
+        "catch_rate": 0.753,
+        "red_zone_use": 0.129
       },
-      "notes": "Tendency numbers are null because no public source could be read on 2026-11-14. Nothing was estimated from memory. Current team and roster status were not checked."
+      "tendency_sources": {
+        "deep_ball": {
+          "source": "https://api.sleeper.com/stats/nfl/player/9493?season_type=regular&season=2026",
+          "date": "2026-11-14",
+          "how": "receiving yards per catch divided by 20, capped at 1"
+        },
+        "catch_rate": {
+          "source": "https://api.sleeper.com/stats/nfl/player/9493?season_type=regular&season=2026",
+          "date": "2026-11-14",
+          "how": "catches divided by targets"
+        },
+        "red_zone_use": {
+          "source": "https://api.sleeper.com/stats/nfl/player/9493?season_type=regular&season=2026",
+          "date": "2026-11-14",
+          "how": "red zone targets divided by targets"
+        }
+      },
+      "notes": "Season 2026 numbers through game week 7.0 (7.0 games). Filled by agents/scout/fill_profiles.py, no model."
     },
     "WR3": {
       "name": "Amon-Ra St. Brown",
       "position": "WR",
       "tendencies": {
-        "target_share": null,
-        "deep_ball": null,
-        "red_zone_use": null
+        "deep_ball": 0.539,
+        "catch_rate": 0.709,
+        "red_zone_use": 0.209
       },
-      "notes": "Tendency numbers are null because no public source could be read on 2026-11-14. Nothing was estimated from memory. Current team and roster status were not checked."
+      "tendency_sources": {
+        "deep_ball": {
+          "source": "https://api.sleeper.com/stats/nfl/player/7547?season_type=regular&season=2026",
+          "date": "2026-11-14",
+          "how": "receiving yards per catch divided by 20, capped at 1"
+        },
+        "catch_rate": {
+          "source": "https://api.sleeper.com/stats/nfl/player/7547?season_type=regular&season=2026",
+          "date": "2026-11-14",
+          "how": "catches divided by targets"
+        },
+        "red_zone_use": {
+          "source": "https://api.sleeper.com/stats/nfl/player/7547?season_type=regular&season=2026",
+          "date": "2026-11-14",
+          "how": "red zone targets divided by targets"
+        }
+      },
+      "notes": "Season 2026 numbers through game week 8.0 (8.0 games). Filled by agents/scout/fill_profiles.py, no model."
     },
     "TE": {
       "name": "Trey McBride",
       "position": "TE",
       "tendencies": {
-        "target_share": null,
-        "red_zone_use": null
+        "deep_ball": 0.41,
+        "catch_rate": 0.777,
+        "red_zone_use": 0.213
       },
-      "notes": "Tendency numbers are null because no public source could be read on 2026-11-14. Nothing was estimated from memory. Current team and roster status were not checked."
+      "tendency_sources": {
+        "deep_ball": {
+          "source": "https://api.sleeper.com/stats/nfl/player/8130?season_type=regular&season=2026",
+          "date": "2026-11-14",
+          "how": "receiving yards per catch divided by 20, capped at 1"
+        },
+        "catch_rate": {
+          "source": "https://api.sleeper.com/stats/nfl/player/8130?season_type=regular&season=2026",
+          "date": "2026-11-14",
+          "how": "catches divided by targets"
+        },
+        "red_zone_use": {
+          "source": "https://api.sleeper.com/stats/nfl/player/8130?season_type=regular&season=2026",
+          "date": "2026-11-14",
+          "how": "red zone targets divided by targets"
+        }
+      },
+      "notes": "Season 2026 numbers through game week 9.0 (9.0 games). Filled by agents/scout/fill_profiles.py, no model."
     },
     "K": {
       "name": "Brandon Aubrey",
       "position": "K",
       "tendencies": {
-        "kicker_range": null
+        "kicker_range": 0.412,
+        "accuracy": 0.773
       },
-      "notes": "Tendency numbers are null because no public source could be read on 2026-11-14. Nothing was estimated from memory. Current team and roster status were not checked."
+      "tendency_sources": {
+        "kicker_range": {
+          "source": "https://api.sleeper.com/stats/nfl/player/11533?season_type=regular&season=2026",
+          "date": "2026-11-14",
+          "how": "field goals made from 40 yards or more divided by field goals made"
+        },
+        "accuracy": {
+          "source": "https://api.sleeper.com/stats/nfl/player/11533?season_type=regular&season=2026",
+          "date": "2026-11-14",
+          "how": "field goals made divided by attempted"
+        }
+      },
+      "notes": "Season 2026 numbers through game week 9.0 (9.0 games). Filled by agents/scout/fill_profiles.py, no model."
     }
   }
 }

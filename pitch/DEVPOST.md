@@ -30,4 +30,4 @@ Writing the interface down first saves more time than any single feature. Saying
 
 ## What is next
 
-Feed the game maker a real week's stat lines. Fill the player tendencies from real season numbers (they are empty today). Connect the app to the database service. Connect soccer to the app. Bring in real fantasy league data and real accounts. Real phone testing.
+Feed the game maker a real week's stat lines. Run the Scout agent with a model key and rebuild the game with the real player tendencies (the profiles are filled from real 2026 numbers, but the game was built before). Connect the app to the database service. Connect soccer to the app. Bring in real fantasy league data and real accounts. Real phone testing.

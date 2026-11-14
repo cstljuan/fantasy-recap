@@ -1,0 +1,72 @@
+20:20:18 | fill_profiles starts (no model, fixed order). season=2026
+20:20:18 | starting GOB QB Josh Allen: find the player
+20:20:19 | find_player(Josh Allen) -> 2 match(es)
+20:20:19 | season_stats(4984) -> 74 stat keys
+20:20:19 | write_profile(GOB QB Josh Allen)
+20:20:19 | Josh Allen: wrote deep_ball=0.716, short_pass=0.661, scramble=0.123
+20:20:19 | starting GOB RB Saquon Barkley: find the player
+20:20:19 | find_player(Saquon Barkley) -> 1 match(es)
+20:20:19 | season_stats(4866) -> 53 stat keys
+20:20:19 | write_profile(GOB RB Saquon Barkley)
+20:20:19 | Saquon Barkley: wrote run_share=0.863, pass_catching=0.636, red_zone_use=0.174
+20:20:19 | starting GOB WR1 Ja'Marr Chase: find the player
+20:20:19 | find_player(Ja'Marr Chase) -> 1 match(es)
+20:20:20 | season_stats(7564) -> 51 stat keys
+20:20:20 | write_profile(GOB WR1 Ja'Marr Chase)
+20:20:20 | Ja'Marr Chase: wrote deep_ball=0.61, catch_rate=0.726, red_zone_use=0.178
+20:20:20 | starting GOB WR2 Puka Nacua: find the player
+20:20:20 | find_player(Puka Nacua) -> 1 match(es)
+20:20:20 | season_stats(9493) -> 63 stat keys
+20:20:20 | write_profile(GOB WR2 Puka Nacua)
+20:20:20 | Puka Nacua: wrote deep_ball=0.511, catch_rate=0.753, red_zone_use=0.129
+20:20:20 | starting GOB WR3 Amon-Ra St. Brown: find the player
+20:20:20 | find_player(Amon-Ra St. Brown) -> 1 match(es)
+20:20:20 | season_stats(7547) -> 63 stat keys
+20:20:20 | write_profile(GOB WR3 Amon-Ra St. Brown)
+20:20:20 | Amon-Ra St. Brown: wrote deep_ball=0.539, catch_rate=0.709, red_zone_use=0.209
+20:20:20 | starting GOB TE Trey McBride: find the player
+20:20:20 | find_player(Trey McBride) -> 1 match(es)
+20:20:20 | season_stats(8130) -> 47 stat keys
+20:20:20 | write_profile(GOB TE Trey McBride)
+20:20:20 | Trey McBride: wrote deep_ball=0.41, catch_rate=0.777, red_zone_use=0.213
+20:20:20 | starting GOB K Brandon Aubrey: find the player
+20:20:20 | find_player(Brandon Aubrey) -> 1 match(es)
+20:20:20 | season_stats(11533) -> 37 stat keys
+20:20:20 | write_profile(GOB K Brandon Aubrey)
+20:20:20 | Brandon Aubrey: wrote kicker_range=0.412, accuracy=0.773
+20:20:20 | starting PYT QB Lamar Jackson: find the player
+20:20:20 | find_player(Lamar Jackson) -> 2 match(es)
+20:20:20 | season_stats(4881) -> 60 stat keys
+20:20:20 | write_profile(PYT QB Lamar Jackson)
+20:20:20 | Lamar Jackson: wrote deep_ball=0.831, short_pass=0.701, scramble=0.13
+20:20:20 | starting PYT RB Bijan Robinson: find the player
+20:20:20 | find_player(Bijan Robinson) -> 1 match(es)
+20:20:21 | season_stats(9509) -> 65 stat keys
+20:20:21 | write_profile(PYT RB Bijan Robinson)
+20:20:21 | Bijan Robinson: wrote run_share=0.809, pass_catching=0.775, red_zone_use=0.172
+20:20:21 | starting PYT WR1 Justin Jefferson: find the player
+20:20:21 | find_player(Justin Jefferson) -> 2 match(es)
+20:20:21 | season_stats(6794) -> 50 stat keys
+20:20:21 | write_profile(PYT WR1 Justin Jefferson)
+20:20:21 | Justin Jefferson: wrote deep_ball=0.634, catch_rate=0.608, red_zone_use=0.137
+20:20:21 | starting PYT WR2 Malik Nabers: find the player
+20:20:21 | find_player(Malik Nabers) -> 1 match(es)
+20:20:21 | season_stats(11632) -> 49 stat keys
+20:20:21 | write_profile(PYT WR2 Malik Nabers)
+20:20:21 | Malik Nabers: wrote deep_ball=0.597, catch_rate=0.682, red_zone_use=0.106
+20:20:21 | starting PYT WR3 Nico Collins: find the player
+20:20:21 | find_player(Nico Collins) -> 1 match(es)
+20:20:21 | season_stats(7569) -> 51 stat keys
+20:20:21 | write_profile(PYT WR3 Nico Collins)
+20:20:21 | Nico Collins: wrote deep_ball=0.686, catch_rate=0.718, red_zone_use=0.128
+20:20:21 | starting PYT TE George Kittle: find the player
+20:20:21 | find_player(George Kittle) -> 1 match(es)
+20:20:21 | season_stats(4217) -> 51 stat keys
+20:20:21 | write_profile(PYT TE George Kittle)
+20:20:21 | George Kittle: wrote deep_ball=0.636, catch_rate=0.717, red_zone_use=0.208
+20:20:21 | starting PYT K Harrison Butker: find the player
+20:20:21 | find_player(Harrison Butker) -> 1 match(es)
+20:20:22 | season_stats(4227) -> 34 stat keys
+20:20:22 | write_profile(PYT K Harrison Butker)
+20:20:22 | Harrison Butker: wrote kicker_range=0.5, accuracy=0.632
+20:20:22 | fill_profiles finished: 14 of 14 players filled
