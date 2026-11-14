@@ -47,6 +47,9 @@ Run `sh tools/next.sh` to get your next task with its full description. A row is
 | C10 | C | nexodv | ElevenLabs voice: playback, the render script, and audio for the current games | merged |
 | C8 | C | nexodv | Soccer lines | merged |
 | C14 | C | nexodv | Rule explainer lines for Peyton's rule cards, and a full broadcast transcript | open |
+| C15 | C | nexodv | Catch-up line after a jump: one sentence for the plays FF_GAME.seek skipped, with Peyton | open |
+| C16 | C | nexodv | Hot and cold: lines from each player's recent form against the season, with Ricky | open |
+| C17 | C | nexodv | Sound captions: every crowd, whistle and jingle as caption text, with Peyton | open |
 | D1 | D | Rickstar-App | Real rosters and profile files | merged |
 | D2 | D | Rickstar-App | Database schema | merged |
 | D4 | D | Rickstar-App | A week of stat lines for both rosters | merged |
