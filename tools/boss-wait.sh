@@ -7,7 +7,7 @@ max="${1:-540}"; t=0
 min="${2:-0}"; [ "$min" -gt 0 ] 2>/dev/null && { sleep "$min"; }
 snap() { git for-each-ref --format='%(refname) %(objectname)' refs/remotes/origin | grep -v -e '/HEAD ' -e '/main ' | sort; }
 git fetch -q origin --prune 2>/dev/null; before="$(snap)"
-pending() { for b in $(git for-each-ref --format='%(refname:short)' refs/remotes/origin | grep -v -e '^origin$' -e 'origin/main$' -e 'origin/HEAD$' -e "origin/$(git branch --show-current)\$"); do [ "$(git rev-list --count --no-merges "origin/main..$b")" != "0" ] && { echo yes; return; }; done; }
+pending() { for b in $(git for-each-ref --format='%(refname:short)' refs/remotes/origin | grep -v -e '^origin$' -e 'origin/main$' -e 'origin/HEAD$' -e '/boss$' ); do [ "$(git rev-list --count --no-merges "origin/main..$b")" != "0" ] && { echo yes; return; }; done; }
 if [ -n "$(pending)" ]; then echo "WORK IS WAITING. Run: sh tools/boss-round.sh"; exit 0; fi
 while [ "$t" -lt "$max" ]; do
   sleep 20; t=$((t+20))

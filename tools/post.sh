@@ -15,7 +15,7 @@ case "$state" in READY|CLAIM|DONE|BLOCKED|ASK|ANSWER|NOTE|STOP) ;; *) echo "Stat
 sh tools/check-authors.sh --ident >/dev/null || { sh tools/check-authors.sh --ident; exit 1; }
 u="$(git config user.name)"
 branch="$(git branch --show-current)"
-if [ "$branch" = "main" ] && [ "$u" != "cstljuan" ]; then echo "You are on main. Switch to your own branch first."; exit 1; fi
+if [ "$branch" = "main" ] && ! grep -q -x -F "$u" tools/bosses.txt 2>/dev/null; then echo "You are on main. Switch to your own branch first."; exit 1; fi
 mkdir -p board
 [ -f "board/$u.md" ] || printf '# %s\n\n' "$u" > "board/$u.md"
 printf -- '- %s | %s | %s | %s\n' "$(date -u '+%m-%d %H:%M UTC')" "$state" "$branch" "$text" >> "board/$u.md"

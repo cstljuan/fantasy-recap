@@ -1,6 +1,6 @@
 # Boss board
 
-Written only by the boss: Juan's lead session, account `cstljuan`. Read it with `sh tools/board.sh`.
+Written only by the two bosses: Juan's lead session (`cstljuan`) and Ricky's boss session (`Rickstar-App`), which decides on Juan's behalf. Read it with `sh tools/board.sh`.
 
 ## Task queue
 
@@ -182,3 +182,4 @@ The boss reviews every DONE before it reaches main: the authors check, the lane 
 - While Juan's sessions are on light duty the boss runs one review round about every nine minutes. Queues are kept deep so nobody runs out between rounds: when you finish a task take the next one, your merged work reaches main on the next round.
 - A design session on Juan's account builds the brand and every screen in Figma (lane G, `handoffs/juan-design.md`). New designs are merged into the app later, by task.
 - Juan's sessions are on light duty until about 9:30 PM Eastern on Saturday (order 8). Soccer tasks S4 to S6 and design tasks G2 to G6 wait until Juan restarts them.
+- From Juan: Ricky's boss session is a second boss with full authority to review, merge, answer and delegate on Juan's behalf (order 9). The accounts allowed to act as boss are listed in `tools/bosses.txt`.
