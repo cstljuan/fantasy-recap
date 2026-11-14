@@ -13,13 +13,14 @@
   tag.setAttribute('role', 'status');
   tag.textContent = 'Demo';
   document.body.appendChild(tag);
+  document.body.classList.add('demo-on');
 
   function stop(why) {
     if (stopped) return;
     stopped = true;
     timers.forEach(clearTimeout);
     tag.textContent = 'Demo stopped';
-    setTimeout(function () { tag.remove(); }, 1500);
+    setTimeout(function () { tag.remove(); document.body.classList.remove('demo-on'); }, 1500);
     if (G.hold) G.hold(false);
     window.__demo.stoppedBy = why || '';
   }

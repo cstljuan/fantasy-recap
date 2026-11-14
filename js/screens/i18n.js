@@ -10,7 +10,7 @@
   var TABLE = [
     // header, tabs, sport and language
     ['Match Viewer', 'Visor de partidos'], ['Sample games', 'Partidos de muestra'], ['Mock data', 'Datos de muestra'],
-    ['League', 'Liga'], ['Matchup', 'Partido'], ['Lineups', 'Alineaciones'], ['Plays', 'Jugadas'], ['Recap', 'Resumen'],
+    ['League', 'Liga'], ['Matchup', 'Partido'], ['Lineups', 'Equipos'], ['Plays', 'Jugadas'], ['Recap', 'Resumen'],
     ['Screens', 'Pantallas'], ['Sections', 'Secciones'], ['Sport', 'Deporte'], ['Football', 'Fútbol americano'], ['Soccer', 'Fútbol'],
     ['Soccer match', 'Partido de fútbol'], ['Language', 'Idioma'],
     ['Sample league. Real player names. The games, stats and scores are made up for the demo.', 'Liga de muestra. Nombres de jugadores reales. Los partidos, las estadísticas y los marcadores son inventados para la demostración.'],

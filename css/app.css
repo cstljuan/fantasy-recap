@@ -585,7 +585,6 @@ body.in-game .a2hs { display: none; }
 .party-chip { position: fixed; z-index: 45; left: 50%; transform: translateX(-50%); top: calc(4px + env(safe-area-inset-top, 0px));
               max-width: calc(100% - 140px); padding: var(--sp-1) var(--sp-2); background: var(--overlay); color: var(--on-field);
               border: 1px solid var(--amber); font: 600 var(--fs-meta)/1.3 var(--body); text-align: center; }
-@media (max-width: 759px) { .party-chip { left: 112px; right: 80px; transform: none; max-width: none; } }
 body.in-game .party-note { display: none; }
 .party-chip b { color: var(--amber); text-transform: uppercase; letter-spacing: 0.1em; font-size: var(--fs-micro); }
 .party-code { font: 700 var(--fs-title)/1 var(--mono); letter-spacing: 0.2em; margin-left: var(--sp-1); }
@@ -614,6 +613,43 @@ body.in-game .party-note { display: none; }
 .party-pts { display: flex; justify-content: space-between; gap: var(--sp-3); font-size: var(--fs-body); }
 .party-pts b { font-size: var(--fs-num); margin-left: var(--sp-1); }
 .party-small { margin-top: var(--sp-1) !important; color: var(--dim); font-size: var(--fs-meta); }
+
+/* --------------------------------------------- four widths (B30 fixes) */
+
+/* The language buttons are at least 44 pixels wide too. */
+.sport.lang button { min-width: 44px; }
+/* Between phone and desktop the header does not fit on one line: the tabs take their own row. */
+@media (min-width: 760px) and (max-width: 1099px) {
+  .bar { flex-wrap: wrap; height: auto; padding: var(--sp-2) 0 0; row-gap: var(--sp-1); }
+  .tabs { order: 5; width: 100%; height: 48px; }
+  .tabs a { display: inline-flex; align-items: center; }
+}
+/* The watch party chip and the demo tag stay off the header: above the tab bar on phones, in the
+   bottom right corner on wider screens, and over the field (clear of the score and Close) in the game. */
+.party-chip { top: auto; bottom: calc(var(--tabs-h) + env(safe-area-inset-bottom, 0px) + 8px); left: 8px; right: 8px; transform: none; max-width: none; }
+body.in-game .party-chip { top: calc(4px + env(safe-area-inset-top, 0px)); bottom: auto; left: 112px; right: 80px; }
+.demo-tag { top: auto; bottom: calc(var(--tabs-h) + env(safe-area-inset-bottom, 0px) + 8px); left: 8px; }
+body.in-game .demo-tag { top: calc(64px + env(safe-area-inset-top, 0px)); bottom: auto; }
+@media (min-width: 760px) {
+  .party-chip { left: auto; right: 24px; bottom: 24px; max-width: 360px; }
+  body.in-game .party-chip { left: 50%; right: auto; transform: translateX(-50%); top: 8px; bottom: auto; max-width: 220px; }
+  .demo-tag { bottom: 24px; left: 24px; }
+}
+/* With the chip or the tag up, the page can scroll its last content clear of them. */
+body.party-host #app, body.demo-on #app { padding-bottom: calc(var(--tabs-h) + env(safe-area-inset-bottom, 0px) + 96px); }
+/* Longer words (Spanish) must still fit: tabs keep 44 pixels and shrink their type on the
+   narrowest phones, the header may wrap at any width, and rows of chips wrap. */
+.tabs a { min-width: 44px; }
+@media (max-width: 359px) { .tabs a { font-size: var(--fs-label); letter-spacing: 0.02em; padding: 0 2px; } }
+@media (min-width: 1100px) { .bar { flex-wrap: wrap; height: auto; min-height: 60px; row-gap: var(--sp-1); } }
+.lg-weeks { flex-wrap: wrap; overflow: visible; }
+.filters { flex-wrap: wrap; }
+.lg-back { min-width: 44px; justify-content: flex-end; }
+/* The comparison table fits 320 wide. */
+@media (max-width: 359px) {
+  .compare td { padding: var(--sp-2); }
+  .compare td:first-child, .compare td:last-child { font-size: var(--fs-lead); }
+}
 
 /* --------------------------------------------------------- phone polish */
 /* Safe areas for the notch and the home indicator, and tap targets of at least 44 pixels. */
