@@ -108,18 +108,36 @@
     },
     result: function (res, p) {
       disp.score = res.post.score.slice();
-      res.fp.forEach(function (f, i) {
+      if (FLOATERS) res.fp.forEach(function (f, i) {
         var a = f.role === 'DST' ? (p.playmaker || teams[f.team].D.LB2) : teams[f.team].O[f.role];
         if (!a || !a.onField) return;
         disp.floaters.push({ x: a.x, y: a.y, text: (f.pts > 0 ? '+' : '') + f.pts.toFixed(1), t0: clock + i * 0.25, good: f.pts > 0 });
       });
-      if (res.say) say(res.say);
+      say(announce(res, res.post.score) || res.say || '');
+      var crowd = Snd.crowdFor ? Snd.crowdFor(res) : '';
+      if (crowd) fx.sound(crowd);
       emit('result', { res: res, play: p.name, step: si });
     }
   };
 
+  // The fantasy point numbers that float up from a player. The app turns them off
+  // while a manager has opted in to hidden scores.
+  var FLOATERS = true;
+  // The game stops while its view is closed, so nobody misses a play. setBackground(true)
+  // lets it keep running behind the app screens.
+  var BACKGROUND = q.get('bg') === '1';
+
+  // The line for a finished play, from js/announcer/ when it is loaded.
+  function announce(res, score) {
+    var ann = window.FF_ANNOUNCER;
+    if (!ann || !ann.line) return '';
+    try { return ann.line(res, { teams: TEAMS, score: score, style: ann.style }) || ''; }
+    catch (err) { return ''; }
+  }
+
   function say(text) {
-    if (!active || !VOICE || SPEED > 2 || !('speechSynthesis' in window)) return;
+    if (!text || !active || !VOICE || SPEED > 2 || !('speechSynthesis' in window)) return;
+    if (window.FF_ANNOUNCER && window.FF_ANNOUNCER.speak) { window.FF_ANNOUNCER.speak(text); return; }
     try {
       window.speechSynthesis.cancel();
       var u = new SpeechSynthesisUtterance(text);
@@ -156,14 +174,16 @@
       Rules.startHalf(state);
       mode = 'inter'; interUntil = clock + 3.2; disp.lines = null;
       fx.banner('HALFTIME', scoreText(), 3);
-      say('Halftime. ' + spokenScore());
+      fx.sound('crowd_stop');
+      say(announce({ kind: 'half' }, disp.score.slice()) || 'Halftime. ' + spokenScore());
       log.push({ step: si, text: 'HALFTIME', score: disp.score.slice() });
       emit('half', { score: disp.score.slice() });
       return;
     }
     if (st.kind === 'final') {
       mode = 'final'; disp.lines = null; disp.banner = null;
-      say('That is the final. ' + spokenScore());
+      fx.sound('crowd_stop');
+      say(announce({ kind: 'final' }, state.score.slice()) || 'That is the final. ' + spokenScore());
       log.push({ step: si, text: 'FINAL', score: state.score.slice() });
       emit('final', { score: state.score.slice() });
       return;
@@ -186,6 +206,7 @@
       };
     }
     log.push({ step: si, play: p.name, text: res.text, score: res.post.score.slice() });
+    fx.sound('crowd_murmur');
     emit('snap', { res: res, play: p.name, step: si });
   }
 
@@ -482,8 +503,8 @@
     var real = Math.min(0.05, Math.max(0, (now - lastNow) / 1000));
     lastNow = now;
     try {
-      update(mode === 'ready' ? 0 : real * SPEED);
-      // The game keeps running while the app screens are showing. It is only drawn when visible.
+      update(mode === 'ready' || (!active && !BACKGROUND) ? 0 : real * SPEED);
+      // The game is only drawn when visible, and only advances then unless setBackground(true).
       if (active) { updateCamera(real); draw(); }
     } catch (err) {
       errors.push(String(err && err.stack || err));
@@ -514,6 +535,10 @@
       if (active) { camSet = false; resize(); }
       else if ('speechSynthesis' in window) { try { window.speechSynthesis.cancel(); } catch (err) { /* optional */ } }
     },
+    setFloaters: function (on) { FLOATERS = !!on; if (!FLOATERS) disp.floaters = []; },
+    setBackground: function (on) { BACKGROUND = !!on; },
+    get floaters() { return FLOATERS; },
+    get background() { return BACKGROUND; },
     get mode() { return mode; },
     get active() { return active; },
     get plays() { return steps.filter(function (st) { return st.kind === 'play'; }).length; }

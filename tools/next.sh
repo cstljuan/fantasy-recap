@@ -10,6 +10,9 @@ mine="board/$u.md"
 git show origin/main:board/BOSS.md 2>/dev/null | grep -E '^\| [A-Z][0-9]+ \|' | while IFS='|' read -r _ id l person task status _; do
   id="$(echo $id)"; l="$(echo $l)"; person="$(echo $person)"; status="$(echo $status)"
   [ "$person" = "$u" ] || continue
+  case "$status" in
+    changes*) echo "FIX FIRST: $id was reviewed and needs changes before anything else."; echo "What to change: ${status#changes}"; echo "Then: commit, push, sh tools/post.sh DONE \"$id fixed: <what you changed>\""; exit 9 ;;
+  esac
   [ "$status" = "open" ] || continue
   [ -n "$lane" ] && [ "$l" != "$lane" ] && continue
   [ -z "$lane" ] && [ "$u" = "cstljuan" ] && [ "$l" != "S" ] && continue

@@ -64,3 +64,7 @@ A two-way control in the header, Football and Soccer, built from JavaScript. It 
 ## Task B9: phone polish
 
 Safe areas for the notch and the home indicator, tap targets at least 44 pixels, visible focus outlines, the tab bar reachable by keyboard, reduced motion respected. List in your DONE post anything that only a real phone can confirm.
+
+## Task B10: floaters and the paused game
+
+Two changes on the game side are now on main (see `docs/CONTRACT.md` section 2). In `js/app.js`: call `window.FF_GAME.setFloaters(false)` whenever the manager is opted in and the game has not reached the final, and `setFloaters(true)` at the final and for "No thanks". The game now pauses while its view is closed, so anything on the app screens that said or assumed the game keeps playing in the background must be made true again (wording, the "latest plays" list, the progress on the recap screen). Check at 375 wide: opt in, watch at `?speed=20`, no point numbers on the field before the final.

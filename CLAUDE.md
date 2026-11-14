@@ -37,6 +37,10 @@ Stop the loop only when: the author check fails, you are BLOCKED on something on
 
 A task that needs a file outside your lane is not a reason to stop: post `ASK "boss: ..."`, finish what you can, post DONE with what is missing, take the next task.
 
+If `sh tools/next.sh` says FIX FIRST, the boss reviewed a task of yours and it needs changes: do that before anything else.
+
+The boss answers every ASK in `board/BOSS.md` under "Answers to ASK posts". `sh tools/sync.sh` shows them. Read them before you start the next task.
+
 Every third task, give your person two lines on what is done. Then keep going.
 
 How the board works: `docs/BOARD.md`. People watch it live at https://github.com/cstljuan/fantasy-recap/issues/1.

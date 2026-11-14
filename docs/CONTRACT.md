@@ -20,6 +20,8 @@ Coming in v1 (boss): the same shape saved as `data/games/<id>.json`, loaded inst
 - `on(fn)`: `fn(type, data)` is called for `start`, `snap`, `result`, `half`, `final`, `reset`. For `snap` and `result`, `data` is `{ res, play, step }`.
 - `start()`, `restart()`, `setActive(true or false)`, `ontap`.
 - Read only: `mode`, `active`, `plays`.
+- `setFloaters(true or false)`: show or hide the fantasy point numbers that float up from players. `floaters` reads it.
+- `setBackground(true or false)`: by default the game only advances while its view is open (`setActive(true)`). `setBackground(true)`, or `?bg=1`, lets it run behind the app. `background` reads it.
 
 Speed: `window.__ff.speed = 2` sets the speed while the game runs (0.25 to 40). `window.__ff.speed` reads it.
 
@@ -31,7 +33,7 @@ Speed: `window.__ff.speed = 2` sets the speed while the game runs (0.25 to 40). 
 - `speak(text)` says it out loud with the browser's speech voice and does nothing if speech is not available.
 - `setStyle(name)` and `style`.
 
-Until it is connected, `js/main.js` keeps using its own `say()`.
+It is connected: `js/main.js` calls `line` for every play result, for halftime with `{ kind: 'half' }` and for the final with `{ kind: 'final' }`, and speaks through `speak`. If the announcer returns an empty string the game falls back to its own short line.
 
 ## 4. Profiles (lane D writes them, the game maker reads them)
 
