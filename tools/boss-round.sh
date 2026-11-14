@@ -28,6 +28,7 @@ fail=0
 find js soccer/js server agents engine tools -name "*.js" -not -path "*/node_modules/*" | while read f; do node --check "$f" || echo "SYNTAX $f"; done | grep -q SYNTAX && { echo "FAIL: a file does not parse"; fail=1; }
 node tools/validate.js | tail -1 | grep -q OK || { echo "FAIL: football rules check"; fail=1; }
 node js/announcer/check.js 2>&1 | tail -1 | grep -q OK || { echo "FAIL: announcer check"; fail=1; }
+[ -f js/announcer/audit.js ] && { node js/announcer/audit.js >/dev/null 2>&1 || { echo "FAIL: announcer line audit"; fail=1; }; }
 node soccer/check.js >/dev/null 2>&1 || { echo "FAIL: soccer check"; fail=1; }
 [ -f server/test.js ] && { node server/test.js 2>&1 | tail -1 | grep -q OK || { echo "FAIL: server test"; fail=1; }; }
 if sh tools/smoke.sh 2>/dev/null | grep -q 'no Chrome'; then echo "smoke: skipped, no browser on this machine"; else
