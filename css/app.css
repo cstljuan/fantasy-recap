@@ -228,6 +228,22 @@ h2 { margin: 0; font: 700 11px/1 var(--body); letter-spacing: 0.14em; text-trans
 .play-fp .mine { color: var(--amber); }
 .play-fp .mine b { color: var(--amber); }
 
+/* ---------------------------------------------------------- sport switch */
+
+.sport { display: flex; flex: none; margin-left: auto; border: 1px solid var(--rule); border-radius: 2px; }
+.sport + .mock { margin-left: 0; }
+.sport button { min-height: 32px; padding: 0 10px; background: transparent; border: 0; cursor: pointer; color: var(--dim);
+                font: 700 11px/1 var(--body); letter-spacing: 0.1em; text-transform: uppercase; }
+.sport button + button { border-left: 1px solid var(--rule); }
+.sport button[aria-pressed="true"] { background: var(--text); color: #111; }
+.soccer-wait p { margin: 0; padding: 16px 14px; color: var(--text); }
+@media (max-width: 479px) {
+  .bar { flex-wrap: wrap; height: auto; min-height: 52px; padding: 10px 0; row-gap: 10px; }
+  .sport { order: 3; width: 100%; margin-left: 0; }
+  .sport button { flex: 1; min-height: 36px; }
+  .sport + .mock { margin-left: auto; }
+}
+
 /* ---------------------------------------------------------------- recap */
 
 /* The winner reveal at the top of the recap. */
