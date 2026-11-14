@@ -12,12 +12,13 @@ Run `sh tools/next.sh` to get your next task with its full description. A row is
 | B2 | B | Peypey-ryd | Speed control | merged |
 | B3 | B | Peypey-ryd | Recap reveal | merged |
 | B10 | B | Peypey-ryd | Hide the point floaters while opted in, and check the screens now that the game pauses when closed | merged |
-| B11 | B | Peypey-ryd | Captions strip and the Straight or Fun switch, with Noah | open |
-| B4 | B | Peypey-ryd | League home: this week's matchups and the Tuesday release | open |
-| B5 | B | Peypey-ryd | "Why this play" card with probability bars | open |
-| B6 | B | Peypey-ryd | My team view: `?me=<team id>` | open |
-| B7 | B | Peypey-ryd | Result card to share | open |
-| B8 | B | Peypey-ryd | Sport switch control: football and soccer | open |
+| B11 | B | Peypey-ryd | Captions strip and the Straight or Fun switch, with Noah | merged |
+| B13 | B | Peypey-ryd | Why card from the real game file: read `e.why.picked`, name options by player | merged |
+| B4 | B | Peypey-ryd | League home: this week's matchups and the Tuesday release | merged |
+| B5 | B | Peypey-ryd | "Why this play" card with probability bars | merged |
+| B6 | B | Peypey-ryd | My team view: `?me=<team id>` | merged |
+| B7 | B | Peypey-ryd | Result card to share | merged |
+| B8 | B | Peypey-ryd | Sport switch control: football and soccer | merged |
 | B9 | B | Peypey-ryd | Phone polish and keyboard use | open |
 | B12 | B | Peypey-ryd | Lineup points from the scoring rules, with Ricky | open |
 | Q1 | B | Peypey-ryd | Listen-through: read every announcer line and send Noah the ones to fix | open |
@@ -32,25 +33,29 @@ Run `sh tools/next.sh` to get your next task with its full description. A row is
 | C9 | C | nexodv | Fit lines to the captions strip, with Peyton | open |
 | Q2 | C | nexodv | Walk the reveal flow at phone width and send Peyton what breaks | open |
 | P2 | C | nexodv | Shot list for the demo video | open |
+| C10 | C | nexodv | ElevenLabs voice: playback, the render script, and audio for the current games | open |
 | C8 | C | nexodv | Soccer lines | open |
 | D1 | D | Rickstar-App | Real rosters and profile files | merged |
 | D2 | D | Rickstar-App | Database schema | merged |
-| D4 | D | Rickstar-App | A week of stat lines for both rosters | open |
-| D5 | D | Rickstar-App | Fantasy scoring rules as data plus a small module | open |
-| D6 | D | Rickstar-App | Fill the profile tendencies from real season numbers, with sources | open |
-| D8 | D | Rickstar-App | Devpost text and the "what is real, what is simulated" list | open |
-| D3 | D | Rickstar-App | The database service | changes: the boss ran it against the real database and every route answered 500, `self-signed certificate in certificate chain`. The `pg` driver treats `sslmode=require` in the connection string as full certificate verification. In `server/index.js` build the pool so that `sslmode=require` means encrypted without verifying the chain (pass `ssl: { rejectUnauthorized: false }` when the URL asks for ssl, or add `uselibpqcompat=true` to the connection string in code), keep `DATABASE_URL` itself untouched, cover it in `server/test.js`, and say it in `server/README.md` |
-| D9 | D | Rickstar-App | Sample league file for the League screen, with Peyton | open |
-| D10 | D | Rickstar-App | Seed file: the sample game as database rows | open |
-| Q3 | D | Rickstar-App | Check the README and Devpost text against the code and send each owner what is overstated | open |
-| D7 | D | Rickstar-App | Soccer rosters and profiles | open |
+| D4 | D | Rickstar-App | A week of stat lines for both rosters | merged |
+| D5 | D | Rickstar-App | Fantasy scoring rules as data plus a small module | merged |
+| D6 | D | Rickstar-App | Fill the profile tendencies from real season numbers, with sources | waiting: a season numbers file from the boss |
+| D8 | D | Rickstar-App | Devpost text and the "what is real, what is simulated" list | merged |
+| D3 | D | Rickstar-App | The database service | merged |
+| D11 | D | Rickstar-App | Optional certificate check for the database service | merged |
+| D9 | D | Rickstar-App | Sample league file for the League screen, with Peyton | merged |
+| D10 | D | Rickstar-App | Seed file: the sample game as database rows | merged |
+| Q3 | D | Rickstar-App | Check the README and Devpost text against the code and send each owner what is overstated | merged |
+| D7 | D | Rickstar-App | Soccer rosters and profiles | merged |
 | S1 | S | cstljuan | The soccer game | merged |
 | S2 | S | cstljuan | Fantasy soccer on top | merged |
-| S3 | S | cstljuan | Soccer polish: celebrations, replays of goals, set pieces | open |
-| A1 | A | cstljuan | Load the game from `data/games/<id>.json`; contract v1 | open |
-| A2 | A | cstljuan | The football game maker with the play caller | open |
+| S3 | S | cstljuan | Soccer polish: celebrations, replays of goals, set pieces | merged |
+| A1 | A | cstljuan | Load the game from `data/games/<id>.json`; contract v1 | merged |
+| A2 | A | cstljuan | The football game maker with the play caller | merged |
 | A3 | A | cstljuan | Connect the announcer, crowd, captions and the floaters switch | merged |
 | A4 | A | cstljuan | Sport switch wiring and home-screen install | open |
+| A5 | A | cstljuan | Game maker reads `data/statlines/week11.json`, and tags highlights | open |
+| A6 | A | cstljuan | Season numbers file for the profiles: `data/rosters/season-2026.json`, with the source | open |
 
 ## Answers to ASK posts
 
@@ -65,6 +70,17 @@ Newest at the bottom. The boss answers every ASK here. If the answer is "yes, do
 
 - NOTE to all (play caller): the boss called Jev from `engine/jev.js` for the first time: one call, 0.28 seconds, probabilities back for a play call. The football game maker is being built on it now.
 
+- ANSWER to Peypey-ryd (B5, which option was chosen): contract v1 is live. A play chosen by the play caller carries `e.why = { play: { "<option>": probability, ... }, picked: "<option>", highlight: 0 to 1, by: "jev" }`. Options are calls, named `pass_<slot>` and `run_<slot>` (for example `pass_WR1`, `run_RB`); read the chosen one from `e.why.picked`, not `e.chosen`. Label an option with the player's name from the roster slot. Plays the engine decided by itself (sacks, penalties, kicks, turnovers, forced plays) have no `why`. `e.tags` may contain `highlight`. The app now plays `data/games/week11-football.json`, which has 40 such plays; `?game=sample` plays the old sample. Follow-up is task B13.
+- ANSWER to Rickstar-App (D3 certificate): your permission check was right to refuse, and no code change is needed. The boss set it in the connection string on the laptop instead (`uselibpqcompat=true`, so `sslmode=require` means encrypted, as `psql` treats it). With that, the boss ran your service against the real database: POST 201, repeat POST 201 with no duplicates, GET plays returns the rows. The summary came back empty because the aggregates had not refreshed yet. D3 is merged. Your safer option is welcome as task D11: an optional `DATABASE_CA_FILE` that, when set, verifies the server against that certificate.
+- ANSWER to nexodv (ElevenLabs): recorded under Decisions. Playback code goes in `js/announcer/voice/`, the generated audio in `assets/voice/football/` and `assets/voice/soccer/` (both are yours now), and the script that makes the audio in `js/announcer/voice/render.js`, reading `ELEVENLABS_API_KEY` from the environment only. Render the lines of the game the app plays (`data/games/week11-football.json`, and the soccer sample), keep the total under 15 MB, and keep the browser voice as the fallback whenever a clip is missing so the demo is never silent.
+- NOTE to all (the game maker works): `node engine/make-game.js --from-sample --out data/games/week11-football.json` builds a full legal game that reproduces every player's stat line: 84 plays, 40 of them chosen by Jev 1.14.0 from real probabilities, final GOB 17, PYT 14. The boss played it, the old sample and the soccer match start to finish in headless Chrome with `sh tools/smoke.sh`: no errors in any of the three.
+
+- ANSWER to Rickstar-App (D3 and the CA certificate): D3 is merged and works against the real database as it is. Build the certificate option as task D11 with the name `DATABASE_CA_FILE`; the boss will add the file path on the laptop when it exists.
+- ANSWER to Rickstar-App (D6 stats source): do not guess and do not wait on it. The boss will fetch season numbers from here and put them in `data/rosters/season-2026.json` with the source. D6 is on hold until that file is on main; take your next task.
+
+- ANSWER to Peypey-ryd (footer): done. The footer now says "Sample league. Real player names. The games, stats and scores are made up for the demo." and the header tag says "Sample games".
+- NOTE to Rickstar-App (README): all five points taken. `README.md` is rewritten: it says this is a one-viewer demo of the reveal, soccer is a separate page, the app does not use the database yet, the stat lines are invented and no play is a real result, and it credits Jev 1.14.0, the pg driver and Tiger Data by name. It links `pitch/REAL-AND-SIMULATED.md`.
+
 ## Review
 
 The boss reviews every DONE before it reaches main: the authors check, the lane check (`sh tools/boss-check.sh`), the project's own checks, and a run in a browser where it applies. Then either the task is merged, or its Status becomes `changes: <what to fix>` and `sh tools/next.sh` gives it back to its owner first.
@@ -75,6 +91,11 @@ The boss reviews every DONE before it reaches main: the authors check, the lane 
 - C1 announcer `FF_ANNOUNCER`, C2 crowd sounds (Noah) are on main; the boss still has to connect them in `index.html` and `js/main.js`
 - B10 floaters off while opted in, and the screens say Paused while the game view is closed (Peyton) is on main. Boss check: floaters off and scores masked while opted in, no errors; the reveal at the final rests on Peyton's own run
 - S1 the soccer game and S2 fantasy soccer (Juan) are on main in `soccer/`. Boss check: `node soccer/check.js` OK, all files parse; not run in a browser by the boss. Open `soccer/index.html` to see it. C8 soccer lines and D7 soccer rosters are now open
+- Merged in this round: B11, B4, B5, D3, D4, S3. Checks: every file parses, football rules OK, announcer check OK, soccer check OK, service test OK, three full games in headless Chrome with no errors
+- Merged after review: B6, B7. All checks and the three full-game runs passed
+- Merged after review: B13, D10, D11, D5, D8, D9. All checks and the three full-game runs passed
+- Merged after review: D7, Q3. All checks and the three full-game runs passed
+- Merged after review: B8. All checks and the three full-game runs passed
 - D1 real rosters and profile files, D2 database schema (Ricky) are on main; `data/games/sample-football.json` now has the real rosters
 
 ## Decisions
@@ -89,3 +110,5 @@ The boss reviews every DONE before it reaches main: the authors check, the lane 
 - Work branches whose name was given by a tool are deleted before the repository goes public.
 - The game pauses while its view is closed. Nobody misses a play of a recap they opted in to watch.
 - Agents talk to each other directly: `sh tools/post.sh ASK "<name>: ..."`, answered once with ANSWER. `sh tools/sync.sh` shows each agent its inbox.
+- Voices: ElevenLabs for the announcer in both sports, on Noah's account (Noah's call). Audio is rendered ahead of time into `assets/voice/`; no key in the repo; the browser voice stays as the fallback.
+- The app plays the game file chosen with `node tools/use-game.js <file>`. Today that is the Jev-built `data/games/week11-football.json`.

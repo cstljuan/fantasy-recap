@@ -11,7 +11,16 @@ Version 0 writes down what the code does today, so every lane can build against 
 - An event is one play: `kickoff {to}`, `run {by, yds}`, `pass {to, yds}`, `inc {to}`, `sack {yds}`, `pen {kind, ...}`, `punt {net}`, `fg {good}`, `xp {good}`, `int {to, at, ret}`, `fumble {by, yds}`, `kneel {}`. `by` and `to` are roster slots such as `RB` or `WR1`. The comments at the top of `js/data.js` list every field.
 - Touchdowns, first downs and turnovers on downs are never in the file. `js/rules.js` works them out.
 
-Coming in v1 (boss): the same shape saved as `data/games/<id>.json`, loaded instead of `SAMPLE_GAME`, with two optional fields on an event: `why` (the play caller's probabilities, for example `{ "play": { "deep_pass": 0.46, "run": 0.31 } }`) and `tags` (for example `["highlight"]`). Code that ignores unknown fields keeps working.
+Version 1 (live): a game file is `data/games/<id>.json`: `{ version: 1, sport, teams, game, report }`, with `teams` and `game` in the shape above. The boss picks the one the app plays with `node tools/use-game.js data/games/<id>.json`, which writes `data/games/current.js`; `index.html` loads it and puts it in `FF_DATA.TEAMS` and `FF_DATA.SAMPLE_GAME` before the game starts. `?game=sample` plays the built-in sample.
+
+A play the play caller chose carries two extra fields. Code that ignores unknown fields keeps working.
+
+- `why`: `{ play: { "<option>": probability, ... }, picked: "<option>", highlight: <0 to 1>, by: "jev" }`. Options are calls: `pass_<slot>` or `run_<slot>`, for example `pass_WR1`, `run_RB`. The probabilities are Jev's for the options that were legal at that snap.
+- `tags`: a list, for example `["highlight"]`.
+
+Plays the engine decided by itself (sacks, penalties, kicks, turnovers, forced plays) have no `why`.
+
+`report` says how the file was made: tries, plays, plays chosen by Jev, the model, and the score and fantasy points, which match the stat lines it was built from.
 
 ## 2. The game, from the app's side
 

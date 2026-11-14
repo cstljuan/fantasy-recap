@@ -24,3 +24,17 @@ The file can be run again safely: every statement skips what already exists.
 - The app must keep working from the game file alone when the database cannot be reached (`docs/CONTRACT.md` section 5).
 - The aggregates group plays by day, so read them with a `sum` over the buckets, as the example queries do.
 - This file was written without a database to test against, so it has not been run.
+
+## Seed data
+
+`seed.sql` puts the invented sample game (`data/games/sample-football.json`) into `games` and `plays`: one game and one row per play, spread over three hours. Regenerate it with `node db/make-seed.js` from the repository root. Apply it after the schema, the same way:
+
+```bash
+psql "$DATABASE_URL" -f db/seed.sql
+```
+
+It can be run twice safely. Things to know:
+
+- The game file has no clock. Quarters are worked out by splitting each half in two by play count, and times are spaced evenly. Both are invented.
+- Each play is one row, credited to the player with the biggest fantasy move on that play. A pass that scores for both the quarterback and the receiver is credited to the receiver, and the quarterback's points are in `detail.fp`. So the two continuous aggregates do not count the second scorer of a play.
+- It has not been run on any database.

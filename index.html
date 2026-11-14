@@ -20,7 +20,7 @@
       <a href="#plays" data-tab="plays">Plays</a>
       <a href="#recap" data-tab="recap">Recap</a>
     </nav>
-    <span class="mock">Mock data</span>
+    <span class="mock">Sample games</span>
   </header>
 
   <main>
@@ -30,17 +30,22 @@
     <section class="screen" id="s-recap" aria-label="Recap" hidden></section>
   </main>
 
-  <footer class="note">Sample league. Every team, player, score and play in this app is made up for the demo.</footer>
+  <footer class="note">Sample league. Real player names. The games, stats and scores are made up for the demo.</footer>
 </div>
 
 <div id="gameView" hidden>
   <div class="stage">
-    <canvas id="game" aria-label="The game, seen from above. Sample game with mock data."></canvas>
+    <canvas id="game" aria-label="The game, seen from above. A sample game."></canvas>
     <button type="button" id="closeGame" class="close" hidden>Close</button>
   </div>
 </div>
 
 <script src="js/data.js"></script>
+<script src="data/games/current.js"></script>
+<script>
+// Play the game file the boss selected (tools/use-game.js). ?game=sample plays the built-in sample.
+if (window.FF_GAME_FILE && !window.FF_USE_SAMPLE && !/[?&]game=sample/.test(location.search)) { FF_DATA.TEAMS = FF_GAME_FILE.teams; FF_DATA.SAMPLE_GAME = FF_GAME_FILE.game; }
+</script>
 <script src="js/rules.js"></script>
 <script src="js/plays.js"></script>
 <script src="js/sprites.js"></script>

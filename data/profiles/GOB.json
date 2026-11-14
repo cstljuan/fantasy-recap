@@ -1,6 +1,6 @@
 {
   "team": "GOB",
-  "source": "Player names and positions only, picked by hand on 2026-11-14 from general knowledge. No statistics were looked up, so every tendency is null.",
+  "source": "No statistics filled. On 2026-11-14 this session could not reach any public stats source (requests to ESPN, Pro Football Reference and Sleeper were refused by the network), so every tendency stays null. Player names and positions were picked by hand.",
   "players": {
     "QB": {
       "name": "Josh Allen",
@@ -10,7 +10,7 @@
         "short_pass": null,
         "scramble": null
       },
-      "notes": "Tendencies are null: not verified against a stats source. Current team and roster status not checked either."
+      "notes": "Tendency numbers are null because no public source could be read on 2026-11-14. Nothing was estimated from memory. Current team and roster status were not checked."
     },
     "RB": {
       "name": "Saquon Barkley",
@@ -20,7 +20,7 @@
         "target_share": null,
         "red_zone_use": null
       },
-      "notes": "Tendencies are null: not verified against a stats source. Current team and roster status not checked either."
+      "notes": "Tendency numbers are null because no public source could be read on 2026-11-14. Nothing was estimated from memory. Current team and roster status were not checked."
     },
     "WR1": {
       "name": "Ja'Marr Chase",
@@ -30,7 +30,7 @@
         "deep_ball": null,
         "red_zone_use": null
       },
-      "notes": "Tendencies are null: not verified against a stats source. Current team and roster status not checked either."
+      "notes": "Tendency numbers are null because no public source could be read on 2026-11-14. Nothing was estimated from memory. Current team and roster status were not checked."
     },
     "WR2": {
       "name": "Puka Nacua",
@@ -40,7 +40,7 @@
         "deep_ball": null,
         "red_zone_use": null
       },
-      "notes": "Tendencies are null: not verified against a stats source. Current team and roster status not checked either."
+      "notes": "Tendency numbers are null because no public source could be read on 2026-11-14. Nothing was estimated from memory. Current team and roster status were not checked."
     },
     "WR3": {
       "name": "Amon-Ra St. Brown",
@@ -50,7 +50,7 @@
         "deep_ball": null,
         "red_zone_use": null
       },
-      "notes": "Tendencies are null: not verified against a stats source. Current team and roster status not checked either."
+      "notes": "Tendency numbers are null because no public source could be read on 2026-11-14. Nothing was estimated from memory. Current team and roster status were not checked."
     },
     "TE": {
       "name": "Trey McBride",
@@ -59,7 +59,7 @@
         "target_share": null,
         "red_zone_use": null
       },
-      "notes": "Tendencies are null: not verified against a stats source. Current team and roster status not checked either."
+      "notes": "Tendency numbers are null because no public source could be read on 2026-11-14. Nothing was estimated from memory. Current team and roster status were not checked."
     },
     "K": {
       "name": "Brandon Aubrey",
@@ -67,7 +67,7 @@
       "tendencies": {
         "kicker_range": null
       },
-      "notes": "Tendencies are null: not verified against a stats source. Current team and roster status not checked either."
+      "notes": "Tendency numbers are null because no public source could be read on 2026-11-14. Nothing was estimated from memory. Current team and roster status were not checked."
     }
   }
 }
