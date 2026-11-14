@@ -27,7 +27,7 @@ Run `sh tools/next.sh` to get your next task with its full description. A row is
 | B15 | B | Peypey-ryd | First run walkthrough and install | merged |
 | B16 | B | Peypey-ryd | The season: standings and past weeks, with Ricky | merged |
 | B17 | B | Peypey-ryd | One look for the whole app | merged |
-| B18 | B | Peypey-ryd | This week in the league: every matchup's biggest plays, with Ricky | open |
+| B18 | B | Peypey-ryd | This week in the league: every matchup's biggest plays, with Ricky | merged |
 | B19 | B | Peypey-ryd | Save the opt-in to the service when it answers, with Ricky | open |
 | B20 | B | Peypey-ryd | Screen reader and reduced motion pass | open |
 | B21 | B | Peypey-ryd | Rule cards: explain each football rule the first time it comes up, with Noah | open |
@@ -169,6 +169,7 @@ The boss reviews every DONE before it reaches main: the authors check, the lane 
 - Merged after review: B14, B15, B16, C11, C12, D18, D19, D20, D21, P2. All checks and the three full-game runs passed
 - Merged after review: C13. All checks and the three full-game runs passed
 - Merged after review: B17. All checks and the three full-game runs passed
+- Merged after review: B18. All checks and the three full-game runs passed
 - D1 real rosters and profile files, D2 database schema (Ricky) are on main; `data/games/sample-football.json` now has the real rosters
 
 ## Decisions

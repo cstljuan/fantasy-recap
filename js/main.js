@@ -92,6 +92,7 @@
   var disp = { score: [0, 0], poss: -1, banner: null, lines: null, floaters: [] };
   var log = [], errors = [];
   var active = false;   // true while the game view is on screen
+  var seeking = false;  // true while seek() runs the skipped plays: no sound, no voice, no floaters, no banners
   var listeners = [];   // the app shell listens here for plays as they happen
 
   function emit(type, data) {
@@ -102,13 +103,14 @@
   }
 
   var fx = {
-    sound: function (name) { if (active) Snd.play(name); },
+    sound: function (name) { if (active && !seeking) Snd.play(name); },
     banner: function (text, sub, secs, color) {
+      if (seeking) return;
       disp.banner = { text: text, sub: sub || '', until: clock + secs, color: color || '#ffffff' };
     },
     result: function (res, p) {
       disp.score = res.post.score.slice();
-      if (FLOATERS) res.fp.forEach(function (f, i) {
+      if (FLOATERS && !seeking) res.fp.forEach(function (f, i) {
         var a = f.role === 'DST' ? (p.playmaker || teams[f.team].D.LB2) : teams[f.team].O[f.role];
         if (!a || !a.onField) return;
         disp.floaters.push({ x: a.x, y: a.y, text: (f.pts > 0 ? '+' : '') + f.pts.toFixed(1), t0: clock + i * 0.25, good: f.pts > 0 });
@@ -133,7 +135,7 @@
   // The intro, the halftime report and the wrap, from js/announcer/ when it has them.
   function piece(name, score) {
     var ann = window.FF_ANNOUNCER;
-    if (!ann || typeof ann[name] !== 'function') return '';
+    if (seeking || !ann || typeof ann[name] !== 'function') return '';
     try { return ann[name]({ teams: TEAMS, score: score || [0, 0], style: ann.style, leaders: [], plays: results.slice(), hidden: !!(window.__app && window.__app.masked) }) || ''; }
     catch (err) { return ''; }
   }
@@ -141,13 +143,13 @@
   // The line for a finished play, from js/announcer/ when it is loaded.
   function announce(res, score) {
     var ann = window.FF_ANNOUNCER;
-    if (!ann || !ann.line) return '';
+    if (seeking || !ann || !ann.line) return '';
     try { return ann.line(res, { teams: TEAMS, score: score, style: ann.style }) || ''; }
     catch (err) { return ''; }
   }
 
   function say(text) {
-    if (!text || !active || !VOICE || SPEED > 2 || !('speechSynthesis' in window)) return;
+    if (seeking || !text || !active || !VOICE || SPEED > 2 || !('speechSynthesis' in window)) return;
     if (window.FF_ANNOUNCER && window.FF_ANNOUNCER.speak) { window.FF_ANNOUNCER.speak(text); return; }
     try {
       window.speechSynthesis.cancel();
@@ -227,6 +229,7 @@
     si = 0; clock = 0; camSet = false;
     disp.score = [0, 0]; disp.poss = -1; disp.banner = null; disp.lines = null; disp.floaters = [];
     log.length = 0; results.length = 0;
+    if (window.FF_ANNOUNCER && window.FF_ANNOUNCER.reset) { try { window.FF_ANNOUNCER.reset(); } catch (err) { /* optional */ } }
     all.forEach(function (a) { a.onField = false; });
     emit('reset');
     startStep();
@@ -551,6 +554,37 @@
         if (window.FF_ANNOUNCER && window.FF_ANNOUNCER.hush) { try { window.FF_ANNOUNCER.hush(); } catch (err) { /* optional */ } }
         if ('speechSynthesis' in window) { try { window.speechSynthesis.cancel(); } catch (err) { /* optional */ } }
       }
+    },
+    // Jump to the start of play number `index` (from 1, counting plays only, not halftime). The plays before it
+    // run at once: the app's listeners still get reset, snap, result and half for them, so its numbers stay
+    // right, but there is no sound, voice, floater or banner. The game then plays on from that play at the
+    // chosen speed. Returns true, or false if the index is not a play of this game. Seeking works before the
+    // game has started (it starts it) and after the final (it plays that play again).
+    seek: function (index) {
+      var target = -1, n = 0;
+      for (var k = 0; k < steps.length; k++) {
+        if (steps[k].kind === 'play' && ++n === index) { target = k; break; }
+      }
+      if (target < 0 || index !== Math.floor(index)) return false;
+      var wasReady = mode === 'ready';
+      Snd.init();
+      seeking = true;
+      try {
+        reset();
+        if (wasReady) emit('start');
+        while (si < target) {
+          if (mode === 'play') {
+            var cues = play.cues;
+            for (var c = 0; c < cues.length; c++) { if (!cues[c].done) { cues[c].done = true; cues[c].fn(); } }
+          }
+          si++;
+          if (si < target) startStep();
+          else break;
+        }
+      } finally { seeking = false; }
+      disp.banner = null; disp.floaters = []; camSet = false;
+      if (si === target && steps[si] && (mode !== 'play' || log.length === 0 || log[log.length - 1].step !== si)) startStep();
+      return true;
     },
     setFloaters: function (on) { FLOATERS = !!on; if (!FLOATERS) disp.floaters = []; },
     setBackground: function (on) { BACKGROUND = !!on; },
