@@ -19,6 +19,11 @@
 //                   or goes against it (0.3 or less), line() adds one short sentence. Only
 //                   tendencies with a real number count; null is never guessed. The same
 //                   player and tendency is mentioned at most once every 6 plays.
+//                   Hot and cold (C16): when the profile also has the player's recent form for that
+//                   tendency (players.<slot>.form.tendencies.<key>, or players.<slot>.form.<key>)
+//                   and it is 0.15 or more above the season number, the remark says the player has
+//                   been hot lately; 0.15 or more below, cold. Once per player and tendency every
+//                   8 plays, real numbers only, and only when the whole line fits maxLength.
 //   memory()        what the announcer remembers about the game so far (see C11 below).
 //                   line() uses it for setups and payoffs: a team that needs an answer and
 //                   then answers, a red zone trip and whether it scored, a player closing in
@@ -167,7 +172,7 @@
       low: ['{name} running it, you do not see that often.', 'A rare run from {name}.', '{name} taking off, not something {name} usually does.']
     },
     run_share: {
-      high: ['The offense runs through {name}.', 'Feed {name}, it works.', '{name} is the engine of this ground game.'],
+      high: ['The offense runs through {name}.', 'They keep feeding {name}.', '{name} is the engine of this ground game.'],
       low: ['A carry for {name}, not a usual sight.', 'Rare to see {name} with the ball on the ground.', '{name} does not get many of these.']
     },
     target_share: {
@@ -185,6 +190,19 @@
   };
   var tendencySaid = {};   // "team|slot|key" -> play number when it was last said
   var TENDENCY_GAP = 6;
+  var FORM = {
+    hot: ['{name} has been hot lately.', '{name} is on a roll lately.', 'Hot streak for {name}.'],
+    cold: ['{name} needed that one.', '{name} has been quiet lately.', 'Rare lately from {name}.']
+  };
+  var FORM_TABLE = { hot: { form: FORM.hot }, cold: { form: FORM.cold } };
+  var formSaid = {}, FORM_GAP = 8, FORM_DIFF = 0.15;
+
+  function formValue(profile, slot, key) {
+    var p = profile && profile.players && profile.players[slot], f = p && p.form;
+    if (!f) return null;
+    var v = f.tendencies && typeof f.tendencies === 'object' ? f.tendencies[key] : f[key];
+    return typeof v === 'number' && isFinite(v) && v >= 0 && v <= 1 ? v : null;
+  }
 
   function profileFor(profiles, team) {
     if (!profiles) return null;
@@ -222,13 +240,30 @@
     return t;
   }
 
-  function tendencyNote(res, teams, profiles) {
+  // room: how many characters the note may use so the whole line still fits maxLength.
+  function tendencyNote(res, teams, profiles, room) {
+    if (room == null) room = Infinity;
     if (!profiles || !res || !res.e || !res.pre) return '';
     var off = res.pre.poss;
     if (off !== 0 && off !== 1) return '';
     var team = teams[off], profile = profileFor(profiles, team);
     if (!profile) return '';
     var topics = tendencyTopics(res);
+    // Hot or cold first: recent form clearly above or below the season.
+    for (var h = 0; h < topics.length; h++) {
+      var fs = topics[h][0], fk = topics[h][1];
+      if (!fs) continue;
+      var season = tendencyValue(profile, fs, fk), recent = formValue(profile, fs, fk);
+      if (season === null || recent === null || Math.abs(recent - season) < FORM_DIFF) continue;
+      var fid = team.id + '|' + fs + '|' + fk;
+      if (formSaid[fid] != null && playNo - formSaid[fid] < FORM_GAP) continue;
+      var fwho = (profile.players[fs] && profile.players[fs].name) || (team.roster || {})[fs] || '';
+      if (!fwho) continue;
+      var fnote = fill(pick(recent > season ? 'hot' : 'cold', 'form', FORM_TABLE), { name: lastName(fwho) });
+      if (fnote.length > room) continue;
+      formSaid[fid] = playNo;
+      return fnote;
+    }
     for (var i = 0; i < topics.length; i++) {
       var slot = topics[i][0], key = topics[i][1];
       if (!slot || !TENDENCY[key]) continue;
@@ -236,10 +271,12 @@
       if (v === null || (v > 0.3 && v < 0.7)) continue;
       var id = team.id + '|' + slot + '|' + key;
       if (tendencySaid[id] != null && playNo - tendencySaid[id] < TENDENCY_GAP) continue;
-      tendencySaid[id] = playNo;
       var who = (profile.players[slot] && profile.players[slot].name) || (team.roster || {})[slot] || '';
       if (!who) continue;
-      return fill(pick(key, v >= 0.7 ? 'high' : 'low', TENDENCY), { name: lastName(who) });
+      var note = fill(pick(key, v >= 0.7 ? 'high' : 'low', TENDENCY), { name: lastName(who) });
+      if (note.length > room) continue;
+      tendencySaid[id] = playNo;
+      return note;
     }
     return '';
   }
@@ -780,7 +817,7 @@
         var m = memoryLine(r, c.v, style);
         if (m) { announce(m.text, m.kind, style); return m.text; }
         var text = fill(pick(c.kind, style), c.v);
-        var note = ctx.profiles ? tendencyNote(res, teams, ctx.profiles) : '';
+        var note = ctx.profiles && text ? tendencyNote(res, teams, ctx.profiles, api.maxLength - text.length - 1) : '';
         if (text && note && text.length + 1 + note.length <= api.maxLength) text += ' ' + note;
         if (text) announce(text, c.kind, style);
         return text;
@@ -823,7 +860,7 @@
     explainMaxLength: 160,
     transcript: function () { return said.map(function (x) { return { t: x.t, text: x.text, kind: x.kind, play: x.play }; }); },
 
-    reset: function () { said = []; decks = {}; lastUsed = {}; rounds = {}; last = null; playNo = 0; tendencySaid = {}; mem = freshMemory(); api.hush(); },
+    reset: function () { said = []; decks = {}; lastUsed = {}; rounds = {}; last = null; playNo = 0; tendencySaid = {}; formSaid = {}; mem = freshMemory(); api.hush(); },
 
     memory: function () {
       var players = Object.keys(mem.players).map(function (k) {
@@ -832,6 +869,13 @@
       return { players: players, kickers: mem.kick.map(function (k) { return { made: k.made, att: k.att }; }),
         leadChanges: mem.leadChanges, lastScoreTeam: mem.lastScoreTeam, scoringDrives: mem.scoringDrives.slice(),
         playsSinceRemark: playNo - mem.lastRemark, playsSinceScore: playsSinceScore(), log: mem.log.slice() };
+    },
+
+    // For other modules (js/audio.js sound captions): tell the onLine listeners about a text
+    // that is not an announcer line. It does not go into caption() or the transcript.
+    notify: function (text, kind, style) {
+      if (!text) return;
+      for (var i = 0; i < listeners.length; i++) { try { listeners[i](String(text), kind || 'sound', style || api.style); } catch (err) { /* optional */ } }
     },
 
     onLine: function (fn) {

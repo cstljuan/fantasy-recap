@@ -41,6 +41,14 @@ node server/push-game.js data/games/week11-football.json
 
 It replays the game file with `js/rules.js` and sends every play to the service (default `http://localhost:3001`, or `--url`), in batches of 40. Each play carries the time it happened in the game, its fantasy points and its `why`. The game file has no clock, so quarters and times are worked out the same way `db/seed.sql` does (`server/replay.js` does both). `--id` sets the game id, which otherwise is the file name. Each play is credited to the player with the biggest fantasy move on it. Other scorers on that play are in `detail.fp`, not in the aggregates.
 
+A soccer match file works the same way:
+
+```bash
+node server/push-game.js soccer/data/week11-soccer.json
+```
+
+When the file says `sport: "soccer"`, `server/replay.js` replays it with `soccer/js/rules.js` and `soccer/js/fantasy.js` and sends one row per event plus one `full_time` row with the clean sheets. Each row has `minute` (the match minute), `quarter` set to the half, and `kind` set to the event type, or `goal` for a shot or penalty that went in, so the goal rows of a team equal its score. A goal row is the scorer's. Other rows are credited to the biggest fantasy award of the event, and every award (goal, assist, save, card, clean sheet, with `why`) is in `detail.fp`. Times are the match minute from an invented kickoff with a 15 minute half time. Soccer rows need `db/migrate-002-soccer.sql` applied first, for the `minute` column. The top plays, drives and momentum routes are football only and answer 404 for a soccer id.
+
 ## Browsers on another port
 
 A page served from `http://localhost:<port>` or `http://127.0.0.1:<port>` may call the service. Other origins get no CORS header. Opening the page straight from a file sends no usable origin and is not covered.
@@ -51,8 +59,8 @@ A page served from `http://localhost:<port>` or `http://127.0.0.1:<port>` may ca
 node server/test.js
 ```
 
-This runs every route against a fake database, plus the CORS rules, a database that is down, and `push-game.js` sending all 73 plays of the sample game. It checks routing, input checks and the data sent, not the SQL.
+This runs every route against a fake database, plus the CORS rules, a database that is down, `push-game.js` sending all 73 plays of the sample game, and both soccer match files (goal rows equal the final score, every player's fantasy points equal the soccer breakdown and the match report, and the minute is sent). It checks routing, input checks and the data sent, not the SQL.
 
 ## Not checked
 
-The service has not been run against the real database. This session cannot reach it: the connection string is only on Juan's laptop. The aggregates may also lag behind new plays until they refresh, see `db/schema.sql`.
+The service has not been run against the real database, and neither has `db/migrate-002-soccer.sql`. This session cannot reach it: the connection string is only on Juan's laptop. The aggregates may also lag behind new plays until they refresh, see `db/schema.sql`.

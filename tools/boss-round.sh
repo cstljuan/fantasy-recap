@@ -11,6 +11,8 @@ me="$(git branch --show-current)"
 if [ "$me" = "main" ]; then git pull -q --ff-only origin main || exit 1; else git merge -q --ff-only origin/main 2>/dev/null || git merge -q --no-edit origin/main || exit 1; fi
 start="$(git rev-parse HEAD)"; merged=""
 for b in $(git for-each-ref --format='%(refname:short)' refs/remotes/origin | grep -v -e '^origin$' -e 'origin/main$' -e 'origin/HEAD$' -e '/boss$'); do
+  # A branch that shares no history with main (an old start branch) can never be merged: skip it.
+  git merge-base origin/main "$b" >/dev/null 2>&1 || continue
   n=$(git rev-list --count --no-merges "origin/main..$b"); [ "$n" = 0 ] && continue
   if sh tools/boss-check.sh "$b" >/tmp/fr-check.txt 2>&1; then
     # Only the files this person's own commits touched (a branch that merged main would otherwise list
