@@ -1,0 +1,73 @@
+{
+  "team": "GOB",
+  "source": "Player names and positions only, picked by hand on 2026-11-14 from general knowledge. No statistics were looked up, so every tendency is null.",
+  "players": {
+    "QB": {
+      "name": "Josh Allen",
+      "position": "QB",
+      "tendencies": {
+        "deep_ball": null,
+        "short_pass": null,
+        "scramble": null
+      },
+      "notes": "Tendencies are null: not verified against a stats source. Current team and roster status not checked either."
+    },
+    "RB": {
+      "name": "Saquon Barkley",
+      "position": "RB",
+      "tendencies": {
+        "run_share": null,
+        "target_share": null,
+        "red_zone_use": null
+      },
+      "notes": "Tendencies are null: not verified against a stats source. Current team and roster status not checked either."
+    },
+    "WR1": {
+      "name": "Ja'Marr Chase",
+      "position": "WR",
+      "tendencies": {
+        "target_share": null,
+        "deep_ball": null,
+        "red_zone_use": null
+      },
+      "notes": "Tendencies are null: not verified against a stats source. Current team and roster status not checked either."
+    },
+    "WR2": {
+      "name": "Puka Nacua",
+      "position": "WR",
+      "tendencies": {
+        "target_share": null,
+        "deep_ball": null,
+        "red_zone_use": null
+      },
+      "notes": "Tendencies are null: not verified against a stats source. Current team and roster status not checked either."
+    },
+    "WR3": {
+      "name": "Amon-Ra St. Brown",
+      "position": "WR",
+      "tendencies": {
+        "target_share": null,
+        "deep_ball": null,
+        "red_zone_use": null
+      },
+      "notes": "Tendencies are null: not verified against a stats source. Current team and roster status not checked either."
+    },
+    "TE": {
+      "name": "Trey McBride",
+      "position": "TE",
+      "tendencies": {
+        "target_share": null,
+        "red_zone_use": null
+      },
+      "notes": "Tendencies are null: not verified against a stats source. Current team and roster status not checked either."
+    },
+    "K": {
+      "name": "Brandon Aubrey",
+      "position": "K",
+      "tendencies": {
+        "kicker_range": null
+      },
+      "notes": "Tendencies are null: not verified against a stats source. Current team and roster status not checked either."
+    }
+  }
+}

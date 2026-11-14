@@ -1,5 +1,5 @@
-// Mock data. Every team, player and event in this file is made up for the demo.
-// Nothing here comes from a real league, a real team or a real player.
+// Demo data. The player names are real NFL players, picked for two fantasy rosters.
+// The sample game (SAMPLE_GAME) is still invented: no play in it really happened.
 (function (root) {
   'use strict';
 
@@ -10,13 +10,13 @@
       full: 'Gridiron Goblins',
       colors: { jersey: '#7a4fd8', helmet: '#c9f24b', stripe: '#3a1d7a', pants: '#efeaff', tile: '#5b34b8', zone: '#4b2a99' },
       roster: {
-        QB: 'Dex Marlowe',
-        RB: 'Kofi Brandt',
-        WR1: 'Milo Vance',
-        WR2: 'Rafa Quill',
-        WR3: 'Jun Okoro',
-        TE: 'Bram Holt',
-        K: 'Nils Petrov'
+        QB: 'Josh Allen',
+        RB: 'Saquon Barkley',
+        WR1: "Ja'Marr Chase",
+        WR2: 'Puka Nacua',
+        WR3: 'Amon-Ra St. Brown',
+        TE: 'Trey McBride',
+        K: 'Brandon Aubrey'
       }
     },
     {
@@ -25,13 +25,13 @@
       full: 'Pixel Pythons',
       colors: { jersey: '#f08a24', helmet: '#16324f', stripe: '#ffd166', pants: '#fff4e0', tile: '#c96a10', zone: '#b85f0c' },
       roster: {
-        QB: 'Cal Whitlock',
-        RB: 'Zeke Mbeki',
-        WR1: 'Leo Santoro',
-        WR2: 'Andre Pike',
-        WR3: 'Hugo Lind',
-        TE: 'Sam Oduya',
-        K: 'Ivo Kranz'
+        QB: 'Lamar Jackson',
+        RB: 'Bijan Robinson',
+        WR1: 'Justin Jefferson',
+        WR2: 'Malik Nabers',
+        WR3: 'Nico Collins',
+        TE: 'George Kittle',
+        K: 'Harrison Butker'
       }
     }
   ];
