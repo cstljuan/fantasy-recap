@@ -431,6 +431,17 @@ h2 { margin: 0; font: 700 var(--fs-label)/1 var(--body); letter-spacing: 0.14em;
   .captions span.scroll { animation: none; }
 }
 
+/* Learn the game: the switch under the announcer style, and the rule card above the captions. */
+.speed.learn { top: calc(164px + env(safe-area-inset-top, 0px)); }
+.rule-card { position: absolute; left: calc(8px + env(safe-area-inset-left, 0px)); right: calc(8px + env(safe-area-inset-right, 0px));
+             bottom: calc(44px + env(safe-area-inset-top, 0px) + env(safe-area-inset-bottom, 0px));
+             display: flex; align-items: center; gap: var(--sp-3); padding: var(--sp-3); background: var(--overlay);
+             border: 1px solid var(--on-field-edge); border-left: var(--edge) solid var(--amber); color: var(--on-field); line-height: 1.35; }
+.rule-card p { margin: 0; flex: 1; font: 600 var(--fs-small)/1.35 var(--body); }
+.rule-card b { color: var(--amber); }
+.rule-card button { flex: none; min-width: 44px; min-height: 44px; padding: 0 var(--sp-3); background: transparent; color: var(--on-field);
+                    border: 1px solid var(--on-field-edge); border-radius: var(--radius); cursor: pointer; font: 700 var(--fs-meta)/1 var(--mono); }
+
 /* --------------------------------------------------------------- larger */
 
 @media (min-width: 760px) {

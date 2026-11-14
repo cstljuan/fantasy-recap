@@ -1170,13 +1170,13 @@
   liveEl.setAttribute('aria-live', 'polite');
   liveEl.setAttribute('role', 'status');
   $('closeGame').parentNode.appendChild(liveEl);
-  var livePending = { text: '', score: '' }, liveTimer = 0;
+  var livePending = { text: '', score: '', rule: '' }, liveTimer = 0;
   function liveSay(part, value) {
     livePending[part] = value;
     clearTimeout(liveTimer);
     liveTimer = setTimeout(function () {
-      var t = [livePending.text, livePending.score].filter(Boolean).join(' ');
-      livePending = { text: '', score: '' };
+      var t = [livePending.text, livePending.score, livePending.rule].filter(Boolean).join(' ');
+      livePending = { text: '', score: '', rule: '' };
       if (t && inGame) liveEl.textContent = t;
     }, 60);
   }
@@ -1214,9 +1214,117 @@
     } catch (err) { /* captions are optional */ }
   }
 
+  // ------------------------------------------------------------ rule cards
+  // "Learn the game": the first time each rule comes up in a game, a small card explains
+  // it. Off by default, saved under fr.learn. The text comes from FF_ANNOUNCER.explain
+  // (Noah, C14) when it is there, otherwise from the short text below, by the same kinds.
+  var LEARN_KEY = 'fr.learn', learn = false;
+  try { learn = window.localStorage.getItem(LEARN_KEY) === '1'; } catch (err) { learn = false; }
+  var RULES_TEXT = {
+    kickoff: 'Play starts with a kickoff: one team kicks the ball deep and the other runs it back.',
+    first_down: 'The offense has four tries, called downs, to gain 10 yards. Make it and they get four new tries.',
+    downs: 'Four tries and no 10 yards: the other team takes the ball where it stopped. A turnover on downs.',
+    touchdown: 'Get the ball into the other end zone: 6 points, then a try for 1 more.',
+    extra_point: 'After a touchdown, a short kick through the posts adds 1 point.',
+    field_goal: 'A kick through the posts from the field is worth 3 points.',
+    punt: 'On fourth down far from the goal, teams kick the ball away so the other team starts far back.',
+    interception: 'A defender catches the pass, and the defense takes the ball.',
+    fumble: 'The ball carrier drops the ball. Whoever falls on it keeps it.',
+    sack: 'The quarterback is tackled before he can throw. The offense loses yards and a down.',
+    penalty: 'A player broke a rule. A yellow flag, and the ball moves 5 to 15 yards.',
+    halftime: 'The game has two halves. At halftime the teams switch who kicks off.'
+  };
+  function explainText(kind) {
+    var A = window.FF_ANNOUNCER, t = '';
+    if (A && typeof A.explain === 'function') { try { t = A.explain(kind) || ''; } catch (err) { t = ''; } }
+    return t || RULES_TEXT[kind] || '';
+  }
+  function kindsFor(res) {
+    var A = window.FF_ANNOUNCER;
+    if (A && typeof A.explainFor === 'function') { try { var k = A.explainFor(res); if (Array.isArray(k)) return k; } catch (err) { /* own list below */ } }
+    if (res.kind === 'half') return ['halftime'];
+    var e = res.e || {}, out = [];
+    if (e.t === 'kickoff') out.push('kickoff');
+    if (res.td) out.push('touchdown');
+    if (e.t === 'xp') out.push('extra_point');
+    if (e.t === 'fg') out.push('field_goal');
+    if (e.t === 'punt') out.push('punt');
+    if (e.t === 'int') out.push('interception');
+    if (e.t === 'fumble') out.push('fumble');
+    if (e.t === 'sack') out.push('sack');
+    if (e.t === 'pen') out.push('penalty');
+    if (res.downs) out.push('downs');
+    if (res.first && !res.td) out.push('first_down');
+    return out;
+  }
+  var ruleSeen = {}, ruleQueue = [], ruleTimer = 0, ruleSlowed = null;
+  var learnEl = document.createElement('div');
+  learnEl.className = 'speed learn';
+  learnEl.hidden = true;
+  learnEl.innerHTML = '<button type="button" data-learn="1" aria-pressed="false">Learn the game</button>';
+  $('closeGame').parentNode.appendChild(learnEl);
+  var ruleEl = document.createElement('div');
+  ruleEl.className = 'rule-card';
+  ruleEl.hidden = true;
+  $('closeGame').parentNode.appendChild(ruleEl);
+  function markLearn() { learnEl.firstChild.setAttribute('aria-pressed', String(learn)); }
+  markLearn();
+  learnEl.addEventListener('click', function () {
+    learn = !learn;
+    try { window.localStorage.setItem(LEARN_KEY, learn ? '1' : '0'); } catch (err) { /* storage may be off */ }
+    markLearn();
+    if (!learn) hideRule(true);
+    revealClose();
+  });
+  // At 2x or slower the game nearly stops while a card is up (0.25x, the slowest it goes),
+  // so there is time to read; faster than 2x it keeps going. FF_GAME.hold is used if it appears.
+  function slowFor(on) {
+    var ff = window.__ff;
+    if (G.hold) { try { G.hold(on); return; } catch (err) { /* slow down instead */ } }
+    if (!ff) return;
+    if (on && ruleSlowed === null && ff.speed <= 2) { ruleSlowed = ff.speed; ff.speed = 0.25; }
+    else if (!on && ruleSlowed !== null) { ff.speed = ruleSlowed; ruleSlowed = null; }
+  }
+  function showNextRule() {
+    var kind = ruleQueue.shift();
+    if (!kind) return;
+    var text = explainText(kind);
+    if (!text || ruleSeen[kind]) { showNextRule(); return; }
+    ruleSeen[kind] = true;
+    var title = kind.replace(/_/g, ' ');
+    ruleEl.innerHTML = '<p><b>' + esc(title.charAt(0).toUpperCase() + title.slice(1)) + '.</b> ' + esc(text) + '</p>' +
+      '<button type="button" data-rule="close" aria-label="Close the rule card">OK</button>';
+    ruleEl.hidden = false;
+    liveSay('rule', 'Rule: ' + text);
+    slowFor(true);
+    clearTimeout(ruleTimer);
+    var fast = window.__ff && window.__ff.speed > 2;
+    ruleTimer = setTimeout(function () { hideRule(false); }, fast ? 4000 : 7000);
+  }
+  function hideRule(all) {
+    clearTimeout(ruleTimer);
+    ruleEl.hidden = true;
+    if (all) ruleQueue = [];
+    if (ruleQueue.length) showNextRule(); else slowFor(false);
+  }
+  ruleEl.addEventListener('click', function (ev) { ev.stopPropagation(); hideRule(false); });
+  ruleEl.addEventListener('pointerdown', function (ev) { ev.stopPropagation(); });
+  function ruleFor(type, d) {
+    if (type === 'reset') { ruleSeen = {}; hideRule(true); return; }
+    if (!learn || !inGame) return;
+    var res = type === 'half' ? { kind: 'half' } : type === 'result' ? d.res : null;
+    if (!res) return;
+    kindsFor(res).forEach(function (k) {
+      if (ruleSeen[k] || ruleQueue.indexOf(k) >= 0 || !explainText(k)) return;
+      ruleQueue.push(k);
+    });
+    if (ruleEl.hidden && ruleQueue.length) showNextRule();
+  }
+
   function setControls(on) {
     $('closeGame').hidden = !on;
     speedEl.hidden = !on;
+    learnEl.hidden = !on;
     if (styleEl) styleEl.hidden = !on;
     markStyle();
   }
@@ -1226,6 +1334,7 @@
     inGame = on;
     $('gameView').hidden = !on;
     setControls(false);
+    if (!on && typeof hideRule === 'function') hideRule(true);
     document.body.classList.toggle('in-game', on);
     // The screens behind the game view take no focus or taps while it is open.
     $('app').inert = on;
@@ -1432,6 +1541,7 @@
     else if (type === 'final') { m.status = 'final'; m.now = ''; closeDrive('End of game'); }
     syncFloaters();
     captionFor(type, d);
+    ruleFor(type, d);
     if (type === 'result' && !masked()) {
       var sc = d.res.post.score, pr = d.res.pre.score;
       if (sc[0] !== pr[0] || sc[1] !== pr[1]) liveSay('score', TEAMS[0].name + ' ' + sc[0] + ', ' + TEAMS[1].name + ' ' + sc[1] + '.');
@@ -1464,6 +1574,8 @@
     },
     resultCard: function () { return drawResultCard().toDataURL('image/png'); },
     get live() { return liveEl.textContent; },
+    get learn() { return learn; },
+    get rule() { return ruleEl.hidden ? '' : ruleEl.textContent; },
     get caption() { return capEl.hidden ? '' : capEl.textContent; },
     totals: function () { return [f1(total(0)), f1(total(1))]; }
   };
