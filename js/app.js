@@ -41,6 +41,22 @@
 
   var m, tab = 'matchup', filter = 'all', inGame = false, fresh = false, prevTotals = ['0.0', '0.0'];
 
+  // Hidden scores. 'in' means the manager opted in, 'out' means no thanks,
+  // null means no choice yet. Saved in localStorage under fr.optin.
+  var OPTIN_KEY = 'fr.optin', MASK = '--.-';
+  function readOptin() {
+    try { var v = window.localStorage.getItem(OPTIN_KEY); return v === 'in' || v === 'out' ? v : null; }
+    catch (err) { return null; }
+  }
+  var optin = readOptin();
+  function setOptin(v) {
+    optin = v;
+    try { window.localStorage.setItem(OPTIN_KEY, v); } catch (err) { /* storage may be off */ }
+  }
+  // True while every fantasy number and stat line must stay masked.
+  function masked() { return optin === 'in' && m.status !== 'final'; }
+  function pts1(n) { return masked() ? MASK : f1(n); }
+
   function blank() {
     var o = {
       status: 'pre',           // pre | live | final
@@ -158,8 +174,8 @@
   }
 
   function side(t, withWin) {
-    var tot = f1(total(t)), tick = fresh && tot !== prevTotals[t] ? ' tick' : '';
-    var win = withWin && total(t) > total(1 - t) ? '<span class="won">Win</span>' : '';
+    var tot = pts1(total(t)), tick = fresh && tot !== prevTotals[t] ? ' tick' : '';
+    var win = withWin && !masked() && total(t) > total(1 - t) ? '<span class="won">Win</span>' : '';
     return '<div class="side" style="--c: var(--t' + t + ')">' +
       '<div class="side-id"><img class="sprite" src="' + marks[t] + '" alt=""><div class="team-name">' + esc(TEAMS[t].full) + '</div></div>' +
       '<div class="window"><span class="num' + tick + '">' + tot + '</span><span class="unit">Fantasy pts' + win + '</span></div>' +
@@ -180,13 +196,14 @@
   }
 
   function playerRow(t, role, rank) {
-    var pts = m.pts[t][role], hot = m.flash[t + role] && Date.now() - m.flash[t + role] < 1500;
+    var pts = m.pts[t][role], hot = !masked() && m.flash[t + role] && Date.now() - m.flash[t + role] < 1500;
     return '<div class="row' + (hot ? ' flash' : '') + '">' +
       (rank ? '<span class="rank">' + rank + '</span>' : '') +
       '<span class="tile" style="--c: ' + TEAMS[t].colors.tile + '">' + initials(t, role) + '</span>' +
       '<div class="who"><div class="name">' + esc(fullName(t, role)) + '</div>' +
-      '<div class="sub"><span class="pos">' + posOf(role) + '</span>' + (rank ? TEAMS[t].id + ', ' : '') + esc(statLine(t, role)) + '</div></div>' +
-      '<span class="pts num' + (pts === 0 ? ' zero' : '') + '">' + f1(pts) + '</span>' +
+      '<div class="sub"><span class="pos">' + posOf(role) + '</span>' +
+        (masked() ? (rank ? TEAMS[t].id : '') : (rank ? TEAMS[t].id + ', ' : '') + esc(statLine(t, role))) + '</div></div>' +
+      '<span class="pts num' + (pts === 0 || masked() ? ' zero' : '') + '">' + pts1(pts) + '</span>' +
       '</div>';
   }
 
@@ -195,6 +212,7 @@
     var tags = p.tags.map(function (t) { return '<span class="tag t-' + t[0] + '">' + t[1] + '</span>'; }).join('');
     if (p.scoring) tags += '<span class="play-score">' + TEAMS[0].id + ' ' + p.score[0] + ', ' + TEAMS[1].id + ' ' + p.score[1] + '</span>';
     var fp = p.fp.map(function (f) {
+      if (masked()) return '<div><b>' + MASK + '</b> ' + esc(f.who) + '</div>';
       return '<div' + (f.pts < 0 ? ' class="neg"' : '') + '><b>' + (f.pts > 0 ? '+' : '') + f1(f.pts) + '</b> ' + esc(f.who) + '</div>';
     }).join('');
     return '<li class="play' + (isNew ? ' is-new' : '') + '" style="--c: var(--t' + p.team + ')">' +
@@ -212,6 +230,26 @@
       (m.status === 'final' ? 'Watch again' : 'Watch the game') + '</button>';
   }
 
+  // The opt in card shows on the matchup screen before kickoff, until a choice is made.
+  // Once opted in, a short line says so and lets the manager take it back.
+  function optinCard() {
+    if (m.status !== 'pre') return '';
+    if (optin === null) {
+      return '<div class="panel optin">' +
+        '<div class="optin-text"><h2>Hide my score until the recap</h2>' +
+        '<p>Fantasy points and stat lines stay hidden while you watch. Everything shows at the final.</p></div>' +
+        '<div class="optin-btns">' +
+          '<button type="button" class="cta" data-act="optin" data-v="in">Opt in</button>' +
+          '<button type="button" class="cta ghost" data-act="optin" data-v="out">No thanks</button>' +
+        '</div></div>';
+    }
+    if (optin === 'in') {
+      return '<div class="panel optin is-on"><div class="optin-text"><p>Your score is hidden until the final.</p></div>' +
+        '<button type="button" class="optin-undo" data-act="optin" data-v="out">Show scores</button></div>';
+    }
+    return '';
+  }
+
   // ----------------------------------------------------------- screens
 
   function renderMatchup() {
@@ -219,15 +257,16 @@
       ? '<a class="cta" href="#recap">See the recap</a>' + watchButton(' ghost')
       : watchButton();
     var plays = m.feed.filter(function (p) { return !p.divider; }).slice(-3).reverse();
-    var top = leaders(3);
-    return board(actions, WEEK + ' matchup') +
+    var top = masked() ? [] : leaders(3);
+    var noLeaders = masked() ? 'Leaders are hidden until the final.' : 'No fantasy points yet.';
+    return optinCard() + board(actions, WEEK + ' matchup') +
       '<div class="grid two">' +
         '<div class="panel"><div class="panel-head"><h2>Latest plays</h2><a href="#plays">All plays</a></div>' +
           (plays.length ? '<ul class="feed">' + plays.map(function (p, i) { return playItem(p, fresh && i === 0); }).join('') + '</ul>'
                         : '<div class="empty">Plays show up here once the game kicks off.</div>') + '</div>' +
         '<div class="panel"><div class="panel-head"><h2>Leaders</h2><a href="#lineups">Lineups</a></div>' +
           (top.length ? top.map(function (p, i) { return playerRow(p.t, p.role, i + 1); }).join('')
-                      : '<div class="empty">No fantasy points yet.</div>') + '</div>' +
+                      : '<div class="empty">' + noLeaders + '</div>') + '</div>' +
       '</div>';
   }
 
@@ -235,7 +274,7 @@
     function team(t) {
       return '<div class="panel">' +
         '<div class="lineup-head" style="--c: var(--t' + t + ')"><img class="sprite" src="' + marks[t] + '" alt="">' +
-        '<div class="team-name">' + esc(TEAMS[t].full) + '</div><span class="num">' + f1(total(t)) + '</span></div>' +
+        '<div class="team-name">' + esc(TEAMS[t].full) + '</div><span class="num">' + pts1(total(t)) + '</span></div>' +
         SLOTS.map(function (s) { return playerRow(t, s.role, 0); }).join('') +
         '</div>';
     }
@@ -269,7 +308,8 @@
     if (m.status !== 'final') {
       return '<div class="narrow"><div class="panel">' +
         '<div class="panel-head"><h2>Recap</h2>' + statusChip() + '</div>' +
-        '<div class="empty">The recap is ready at the final whistle: final score, top performers and every scoring play.' +
+        '<div class="empty">' + (masked() ? 'Scores are hidden. Watch the game to find out.'
+                                         : 'The recap is ready at the final whistle: final score, top performers and every scoring play.') +
         '<div class="progress"><i style="width:' + Math.round(100 * m.done / G.plays) + '%"></i></div>' +
         '<div style="margin-top:8px;font-size:12px">' + m.done + ' of ' + G.plays + ' plays so far</div></div>' +
         '<div class="actions">' + watchButton() + '</div>' +
@@ -303,7 +343,7 @@
   function render(isFresh) {
     fresh = !!isFresh;
     $('s-' + tab).innerHTML = RENDER[tab]();
-    prevTotals = [f1(total(0)), f1(total(1))];
+    prevTotals = [pts1(total(0)), pts1(total(1))];
     fresh = false;
   }
 
@@ -353,6 +393,7 @@
     if (act === 'watch') { G.start(); location.hash = 'game'; }
     else if (act === 'again') { G.restart(); location.hash = 'game'; }
     else if (act === 'filter') { filter = el.getAttribute('data-f'); render(false); }
+    else if (act === 'optin') { setOptin(el.getAttribute('data-v') === 'in' ? 'in' : 'out'); render(false); }
   });
 
   $('closeGame').addEventListener('click', function () { leaveGame(tab); });
@@ -383,6 +424,8 @@
     get model() { return m; },
     get tab() { return tab; },
     get inGame() { return inGame; },
+    get optin() { return optin; },
+    get masked() { return masked(); },
     totals: function () { return [f1(total(0)), f1(total(1))]; }
   };
 
