@@ -3,7 +3,7 @@
 // ('en' or 'es'). Text is translated in place as the app draws it: whole text nodes and the
 // names screen readers hear (aria-label, title, aria-valuetext). Player and team names are
 // never in the table, so they stay as they are. What the announcer says (captions) is Noah's:
-// it is left alone here. Loaded by js/app.js.
+// it is left alone here and stays English (Noah's call). Loaded by js/app.js.
 (function () {
   'use strict';
 
@@ -360,15 +360,11 @@
     lang = l === 'es' ? 'es' : 'en';
     try { window.localStorage.setItem('fr.lang', lang); } catch (err) { /* storage may be off */ }
     document.documentElement.lang = lang;
-    var A = window.FF_ANNOUNCER;
-    if (A) { if (typeof A.setLang === 'function') { try { A.setLang(lang); } catch (err) { /* optional */ } } else A.lang = lang; }
     busy = true;
     try { walk(document.body); } finally { busy = false; }
     if (window.FR_I18N.onchange) window.FR_I18N.onchange(lang);
   }
 
   window.FR_I18N = { tr: tr, setLang: setLang, get lang() { return lang; }, table: TABLE, onchange: null };
-  var A0 = window.FF_ANNOUNCER;
-  if (A0 && lang === 'es') { if (typeof A0.setLang === 'function') { try { A0.setLang('es'); } catch (err) { /* optional */ } } else A0.lang = 'es'; }
   start();
 })();
