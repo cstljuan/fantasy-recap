@@ -6,3 +6,4 @@
 - 11-14 19:08 UTC | DONE | claude/ricky-handoff-setup-ypc3q5 | D1 real players and profiles, checked: validate.js OK, index.html loads with no console errors, profiles have the contract shape, not checked: any player's current team or status, any statistic (all tendencies are null), whether names show on screen
 - 11-14 19:08 UTC | CLAIM | claude/ricky-handoff-setup-ypc3q5 | D2 database schema: db/schema.sql, db/README.md
 - 11-14 19:09 UTC | DONE | claude/ricky-handoff-setup-ypc3q5 | D2 database schema, checked: files written, reread against the task list, not checked: schema.sql has not been run on any database (no connection, no TimescaleDB here), so syntax and the aggregate policies are untested
+- 11-14 19:42 UTC | CLAIM | claude/ricky-handoff-setup-ypc3q5 | D3 database service: server/
