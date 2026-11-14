@@ -27,6 +27,8 @@ psql "$DATABASE_URL" -f db/migrate-002-soccer.sql
 
 It adds a `minute` column to `plays` (the match minute, empty for football) and a view `plays_with_sport` that joins each play to its game's sport. `schema.sql` itself is not changed. For soccer rows `quarter` holds the half, `kind` is `goal` for a goal and `full_time` for the clean sheet row, and `yards` is empty. The football service keeps working before the migration: the minute is only written for rows that have one.
 
+For the commissioner routes (release a week, count who watched), also apply `db/migrate-003-commissioner.sql`, safe to run again. Without it those routes keep their data in the service's memory.
+
 ## Notes
 
 - The app must keep working from the game file alone when the database cannot be reached (`docs/CONTRACT.md` section 5).
