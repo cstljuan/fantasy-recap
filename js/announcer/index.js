@@ -54,6 +54,12 @@
 //                   tendencies). Says each team's record and place, the player most up and most
 //                   down in recent form (0.10 or more off the season), and one tendency to watch.
 //                   Nothing from the game file, no score. '' when there is nothing true to say.
+//   recap(story, ctx)
+//                   the spoken recap after the reveal: four to six sentences read from Ricky's story
+//                   data (server/story.js, FR_STORY.fromGame) only: the final, when the winner went
+//                   ahead for good, the lead changes, the longest drive, the biggest fantasy swing and
+//                   each team's best fantasy player. ctx is { teams, style, hidden }; '' while hidden
+//                   or without a story. Goes to onLine (kind 'recap') like every line.
 //   explain(kind)   one or two plain sentences on a football rule for someone who has never
 //                   watched, for the app's rule cards; '' for an unknown kind. explainKinds lists
 //                   the kinds; explainFor(res) gives the kinds a finished play shows.
@@ -741,6 +747,69 @@
     }
   }
 
+  // ---- C26: the spoken recap ----
+  var RECAP = {
+    final: { straight: ['Final: the {winner} {w}, the {loser} {l}.', 'The {winner} beat the {loser}, {w} to {l}.', 'It finished {winner} {w}, {loser} {l}.'],
+             fun: ['Final whistle! The {winner} win it, {w} to {l}!', 'The {winner} take this one, {w} to {l}!', 'And the {winner} beat the {loser}, {w} to {l}!'] },
+    final_tie: { straight: ['It finished level, {w} to {l}.', 'A tie, {w} apiece.', 'Nobody won it: {w} to {l}.'],
+                 fun: ['All square at the end, {w} to {l}!', 'A tie! {w} apiece!', 'Nobody blinks: {w} to {l}!'] },
+    decider: { straight: ['The {team} went ahead for good in the {qth} quarter, at {clock}, to make it {s}.', 'The play that decided it came in the {qth} quarter at {clock}: {s}, and the {team} never looked back.', 'From {clock} of the {qth} quarter, when it became {s}, the {team} never trailed again.'],
+               fun: ['The {team} grabbed the lead for good at {clock} of the {qth} quarter, {s}, and held on!', 'At {clock} of the {qth}, {s}, and the {team} never let go!', 'The dagger: {qth} quarter, {clock}, {s}. The {team} never looked back!'] },
+    one_lead: { straight: ['The {team} scored first and never trailed.', 'The {team} led from their first score to the end.', 'Once the {team} scored, they never gave up the lead.'],
+                fun: ['The {team} got on the board first and never looked back!', 'Wire to wire for the {team}!', 'First to score, last to lead: the {team}!'] },
+    many_leads: { straight: ['The lead changed hands {n} times.', 'There were {n} lead changes in all.', 'The lead went back and forth {n} times.'],
+                  fun: ['{n} lead changes! What a game!', 'Back and forth, {n} times!', 'The lead flipped {n} times!'] },
+    drive: { straight: ['The longest drive belonged to the {team}: {plays} plays and {yards} yards, ending in {result}.', 'The {team} put together the longest drive, {plays} plays for {yards} yards, ending in {result}.', 'Longest drive: the {team}, {plays} plays, {yards} yards, ending in {result}.'],
+             fun: ['The {team} marched {plays} plays and {yards} yards, ending in {result}!', 'A {plays} play, {yards} yard grind by the {team}, ending in {result}!', 'Talk about a drive: {plays} plays, {yards} yards, the {team}, ending in {result}!'] },
+    swing: { straight: ['The biggest swing came in the {qth} quarter: a {fp} point fantasy run for the {team}.', 'In the {qth} quarter the {team} outscored the other side by {fp} fantasy points.', 'The momentum swung hardest in the {qth} quarter, {fp} fantasy points toward the {team}.'],
+             fun: ['The {qth} quarter belonged to the {team}: a {fp} point fantasy surge!', 'Big swing in the {qth}: {fp} fantasy points for the {team}!', 'The {team} caught fire in the {qth}, {fp} fantasy points!'] },
+    best: { straight: ['Top fantasy players: {a} with {pa} for the {ta}, and {b} with {pb} for the {tb}.', 'Best on each side: {a}, {pa} points, and {b}, {pb}.', '{a} led the {ta} with {pa} fantasy points; {b} led the {tb} with {pb}.'],
+            fun: ['Fantasy stars: {a} with {pa} and {b} with {pb}!', 'Shout out to {a}, {pa} points, and {b}, {pb}!', '{a} dropped {pa}, {b} dropped {pb}!'] }
+  };
+  // Drive results from server/drives.js, said as words.
+  var RESULT = {
+    en: { touchdown: 'a touchdown', 'field goal': 'a field goal', 'missed field goal': 'a missed field goal', punt: 'a punt',
+      interception: 'an interception', fumble: 'a fumble', downs: 'a turnover on downs', half: 'the end of the half', end: 'the end of the game' },
+    es: { touchdown: 'touchdown', 'field goal': 'gol de campo', 'missed field goal': 'gol de campo fallado', punt: 'despeje',
+      interception: 'intercepción', fumble: 'balón perdido', downs: 'pérdida por downs', half: 'el final de la mitad', end: 'el final del partido' }
+  };
+  var QTH = { en: ['', 'first', 'second', 'third', 'fourth'], es: ['', 'primer', 'segundo', 'tercer', 'cuarto'] };
+
+  function recap(story, ctx) {
+    try {
+      ctx = ctx || {};
+      if (ctx.hidden || !story || !story.final) return '';
+      var teams = ctx.teams || [], style = STYLES.indexOf(ctx.style) >= 0 ? ctx.style : api.style;
+      var q = isEs() ? QTH.es : QTH.en;
+      function name(id) { for (var i = 0; i < teams.length; i++) if (teams[i].id === id) return teams[i].name; return id; }
+      function qth(n) { return q[n] || String(n); }
+      function sc(arr) { return arr[0] + '-' + arr[1]; }
+      var out = [], f = story.final, home = story.home, away = story.away;
+      function say(kind, v) { var t = fill(pick(kind, style, RECAP, 'recap'), v); if (t) out.push(t); }
+      if (story.winner) {
+        var hw = story.winner === home;
+        say('final', { winner: name(story.winner), loser: name(hw ? away : home), w: hw ? f[0] : f[1], l: hw ? f[1] : f[0] });
+      } else say('final_tie', { w: f[0], l: f[1] });
+      var d = story.decidingPlay;
+      if (d) say('decider', { team: name(d.team), qth: qth(d.quarter), clock: d.clock, s: sc(d.score) });
+      var lc = story.leadChanges || [];
+      if (lc.length === 1 && story.winner && lc[0].team === story.winner) say('one_lead', { team: name(lc[0].team) });
+      else if (lc.length >= 2) say('many_leads', { n: lc.length });
+      var dr = story.longestDrive;
+      var rw = (isEs() ? RESULT.es : RESULT.en)[dr && dr.result];
+      if (dr && dr.plays && rw) say('drive', { team: name(dr.team), plays: dr.plays, yards: dr.yards, result: rw });
+      var sw = story.biggestSwing;
+      if (sw && sw.fpSwing) say('swing', { team: name(sw.team), qth: qth(sw.quarter), fp: pts(sw.fpSwing) });
+      var bp = story.bestPlayers || [];
+      if (bp.length >= 2) say('best', { a: lastName(bp[0].name), pa: pts(bp[0].points), ta: name(bp[0].team), b: lastName(bp[1].name), pb: pts(bp[1].points), tb: name(bp[1].team) });
+      var text = out.slice(0, 6).join(' ').replace(/(^|[.!?]\s+)([a-záéíóúñ])/g, function (m, a, b) { return a + b.toUpperCase(); });
+      if (text) announce(text, 'recap', style);
+      return text;
+    } catch (err) {
+      return '';
+    }
+  }
+
   // ---- C14: rule explainers ----
   var EXPLAIN = {
     first_down: "The offense gets four tries, called downs, to move the ball 10 yards. If they make it, that is a first down and they get four new tries.",
@@ -1090,6 +1159,8 @@
     catchUp: catchUp,
     bigCall: bigCall,
     preview: preview,
+    recap: recap,
+    _recapLines: RECAP,
     bigCallMaxLength: 200,   // the longest names in the data give 195; check.js tests it
     _bigLines: BIG,
     explain: function (kind) {

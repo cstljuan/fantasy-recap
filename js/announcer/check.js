@@ -564,6 +564,41 @@ console.log('line() with no teams is quiet: ' + (A.line({}, {}) === '' ? 'ok' : 
   console.log('  e.g. explain(first_down): ' + A.explain('first_down'));
 })();
 
+// C26: the spoken recap, from Ricky's story data only.
+(function () {
+  var fs = require('fs'), path = require('path'), S;
+  try { S = require(path.join(__dirname, '../../server/story.js')); } catch (err) { console.log('\n(server/story.js missing, recap check skipped)'); return; }
+  var g = JSON.parse(fs.readFileSync(path.join(__dirname, '../../data/games/week11-football.json'), 'utf8'));
+  var story = S.fromGame(g, 'week11-football'), teams = g.teams;
+  function sentences(t) { return (t.match(/[.!?](\s|$)/g) || []).length; }
+  // Every number said must come from the story.
+  var known = {};
+  JSON.stringify(story).replace(/\d+(\.\d+)?/g, function (n) { known[n] = 1; return n; });
+  console.log('\n== Spoken recap ==');
+  STYLES.forEach(function (style) {
+    var t = A.recap(story, { teams: teams, style: style }), n = sentences(t);
+    console.log('  ' + pad(style, 9) + t);
+    if (n < 4 || n > 6) problems.push('recap ' + style + ' has ' + n + ' sentences');
+    (t.match(/\d+(\.\d+)?/g) || []).forEach(function (x) { if (!known[x]) problems.push('recap ' + style + ' says ' + x + ', which is not in the story: ' + t); });
+    if (/\{\w+\}|undefined|NaN|'s:|s's\b|\b(he|him|his|she|her)\b/.test(t)) problems.push('recap gap or grammar: ' + t);
+  });
+  if (A.recap(story, { teams: teams, hidden: true }) !== '') problems.push('recap must be empty while scores are hidden');
+  if (A.recap(null, { teams: teams }) !== '') problems.push('recap without a story must be empty');
+  // A tie with lead changes back and forth, and a drive result nobody knows.
+  var tie = JSON.parse(JSON.stringify(story));
+  tie.final = [14, 14]; tie.winner = null; tie.decidingPlay = null; tie.longestDrive.result = 'something new';
+  tie.leadChanges = [{ team: 'GOB' }, { team: 'PYT' }, { team: 'GOB' }];
+  var tt = A.recap(tie, { teams: teams });
+  if (!/14/.test(tt) || /beat|win it|take this/.test(tt)) problems.push('recap of a tie: ' + tt);
+  if (!/3 times|3 lead changes|changed hands 3/.test(tt)) problems.push('recap should count 3 lead changes: ' + tt);
+  if (/longest drive|Longest drive|marched|grind/.test(tt)) problems.push('recap said a drive result it does not know: ' + tt);
+  A.lang = 'es';
+  var es = A.recap(story, { teams: teams });
+  A.lang = 'en';
+  if (!es || /\b(the|field goal|quarter|yards|plays)\b/.test(es)) problems.push('Spanish recap has English: ' + es);
+  console.log('  es       ' + es);
+})();
+
 // C24: the Spanish broadcast. Same kinds as English, three variants or more, every play line
 // within maxLength with the longest names, no gaps, no player gendered, Spanish captions,
 // explainers and voice.

@@ -234,6 +234,18 @@
       big_pass: { straight: ["¡{qb} con {player}, ganancia de {yds} yardas!", "¡{qb} encuentra a {player} por {yds} yardas!", "Uno profundo, {qb} con {player}, {yds} yardas."] }
     },
 
+    // ---- The spoken recap (C26) ----
+    recap: {
+      final: { straight: ["Final: {winner} {w}, {loser} {l}.", "Los {winner} vencieron a los {loser}, {w} a {l}.", "Terminó {winner} {w}, {loser} {l}."] },
+      final_tie: { straight: ["Terminó empatado, {w} a {l}.", "Empate, {w} a {w}.", "Nadie ganó: {w} a {l}."] },
+      decider: { straight: ["Los {team} se pusieron adelante para siempre en el {qth} cuarto, a los {clock}, con {s}.", "La jugada decisiva llegó en el {qth} cuarto, a los {clock}: {s}, y los {team} no miraron atrás.", "Desde los {clock} del {qth} cuarto, con {s}, los {team} ya no perdieron la ventaja."] },
+      one_lead: { straight: ["Los {team} anotaron primero y nunca estuvieron abajo.", "Los {team} mandaron desde su primera anotación hasta el final.", "Cuando anotaron los {team}, ya no soltaron la ventaja."] },
+      many_leads: { straight: ["El liderato cambió de manos {n} veces.", "Hubo {n} cambios de liderato.", "La ventaja fue y vino {n} veces."] },
+      drive: { straight: ["La serie más larga fue de los {team}: {plays} jugadas y {yards} yardas, terminando en {result}.", "Los {team} armaron la serie más larga, {plays} jugadas y {yards} yardas, con {result}.", "Serie más larga: los {team}, {plays} jugadas, {yards} yardas, terminando en {result}."] },
+      swing: { straight: ["El mayor vuelco llegó en el {qth} cuarto: {fp} puntos de fantasía de ventaja para los {team}.", "En el {qth} cuarto los {team} sacaron {fp} puntos de fantasía de ventaja.", "El impulso se inclinó más en el {qth} cuarto, {fp} puntos de fantasía para los {team}."] },
+      best: { straight: ["Mejores en fantasía: {a} con {pa} por los {ta}, y {b} con {pb} por los {tb}.", "Los mejores de cada lado: {a}, {pa} puntos, y {b}, {pb}.", "{a} lideró a los {ta} con {pa} puntos de fantasía; {b} a los {tb} con {pb}."] }
+    },
+
     // ---- Rule explainers (C14) ----
     explain: {
       first_down: "La ofensiva tiene cuatro intentos, llamados downs, para avanzar 10 yardas. Si lo logra, es primero y diez y tiene cuatro intentos nuevos.",
