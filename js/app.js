@@ -341,6 +341,53 @@
       '</div>';
   }
 
+  // ------------------------------------------------------- hot and cold
+  // Recent form from data/profiles/<team>.json (Ricky, D24). The same rule as Noah's hot and
+  // cold lines (C16): recent 0.15 or more above the season number is hot, 0.15 or more below
+  // is cold, otherwise steady; the tendency with the biggest gap decides. Nothing shows when
+  // form is missing or null, or when the files cannot be read (opened from a file).
+  var FORM_DIFF = 0.15, profiles = {};
+  var TENDENCY_WORDS = { deep_ball: 'deep ball rate', short_pass: 'short pass rate', scramble: 'scramble rate', run_share: 'run share',
+    pass_catching: 'pass catching', red_zone_use: 'red zone use', catch_rate: 'catch rate', kicker_range: 'long kick share', accuracy: 'accuracy' };
+  if (window.fetch) {
+    TEAMS.forEach(function (T) {
+      fetch('data/profiles/' + encodeURIComponent(T.id) + '.json').then(function (r) { return r.ok ? r.json() : null; }).then(function (d) {
+        if (d && d.players && typeof d.players === 'object') { profiles[T.id] = d; if (tab === 'lineups' && !inGame) render(false); }
+      }).catch(function () { /* no form then */ });
+    });
+  }
+  function num01(v) { return typeof v === 'number' && isFinite(v) && v >= 0 && v <= 1 ? v : null; }
+  function formFor(t, role) {
+    var prof = profiles[TEAMS[t].id], pl = prof && prof.players && prof.players[role], f = pl && pl.form;
+    if (!f || !pl.tendencies) return null;
+    var best = null;
+    Object.keys(pl.tendencies).forEach(function (k) {
+      var season = num01(pl.tendencies[k]), recent = num01(f.tendencies && typeof f.tendencies === 'object' ? f.tendencies[k] : f[k]);
+      if (season === null || recent === null) return;
+      if (!best || Math.abs(recent - season) > Math.abs(best.recent - best.season)) best = { key: k, season: season, recent: recent };
+    });
+    if (!best) return null;
+    var d = best.recent - best.season;
+    best.mark = d >= FORM_DIFF - 1e-9 ? 'hot' : d <= -FORM_DIFF + 1e-9 ? 'cold' : 'steady';
+    best.weeks = Array.isArray(f.weeks) ? f.weeks : [];
+    best.date = f.date || '';
+    return best;
+  }
+  function formLine(t, role) {
+    var f = formFor(t, role);
+    if (!f) return '';
+    var what = TENDENCY_WORDS[f.key] || f.key.replace(/_/g, ' ');
+    var weeks = f.weeks.length ? 'weeks ' + f.weeks.join(', ') : 'recent weeks';
+    var why = what + ' ' + f.recent.toFixed(2) + ' over ' + weeks + ', ' + f.season.toFixed(2) + ' on the season';
+    return '<div class="form is-' + f.mark + '"><span class="form-mark">' + f.mark + '</span><span class="form-why">' + esc(why) + '</span></div>';
+  }
+  function formSource(t) {
+    var prof = profiles[TEAMS[t].id];
+    if (!prof || !prof.source) return '';
+    var any = SLOTS.some(function (s) { return !!formFor(t, s.role); });
+    return any ? '<p class="form-source">Recent form: ' + esc(prof.source) + '</p>' : '';
+  }
+
   function playerRow(t, role, rank) {
     var pts = playerPts(t, role), hot = !masked() && m.flash[t + role] && Date.now() - m.flash[t + role] < 1500;
     return '<div class="row' + (hot ? ' flash' : '') + (t === me ? ' is-mine' : '') + '">' +
@@ -348,7 +395,8 @@
       '<span class="tile" style="--c: ' + TEAMS[t].colors.tile + '">' + initials(t, role) + '</span>' +
       '<div class="who"><div class="name">' + esc(fullName(t, role)) + '</div>' +
       '<div class="sub"><span class="pos">' + posOf(role) + '</span>' +
-        (masked() ? (rank ? TEAMS[t].id : '') : (rank ? TEAMS[t].id + ', ' : '') + esc(statLine(t, role))) + '</div></div>' +
+        (masked() ? (rank ? TEAMS[t].id : '') : (rank ? TEAMS[t].id + ', ' : '') + esc(statLine(t, role))) + '</div>' +
+        (rank ? '' : formLine(t, role)) + '</div>' +
       '<span class="pts num' + (pts === 0 || masked() ? ' zero' : '') + '">' + pts1(pts) + '</span>' +
       '</div>';
   }
@@ -547,7 +595,7 @@
         '<div class="lineup-head" style="--c: var(--t' + t + ')"><img class="sprite" src="' + marks[t] + '" alt="">' +
         '<h2 class="team-name">' + esc(TEAMS[t].full) + '</h2><span class="num">' + pts1(total(t)) + '</span></div>' +
         SLOTS.map(function (s) { return playerRow(t, s.role, 0); }).join('') +
-        '</div>';
+        formSource(t) + '</div>';
     }
     return '<div class="grid two is-first">' + ord().map(team).join('') + '</div>' +
       '<p class="note is-plain">' + rulesNote() + '</p>';
@@ -1770,6 +1818,7 @@
     topPlayCard: function () { return drawTopPlayCard().toDataURL('image/png'); },
     get live() { return liveEl.textContent; },
     get learn() { return learn; },
+    formFor: function (team, slot) { return formFor(teamByName(team), slot); },
     setOptin: function (v) { setOptin(v === 'in' ? 'in' : 'out'); if (!inGame) render(false); },
     jumpTo: function (n) { return jumpTo(n); },
     get currentPlay() { return currentPlay(); },

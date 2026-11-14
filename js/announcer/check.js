@@ -355,6 +355,41 @@ console.log('\nStyle switch: ' + A.setStyle('fun') + ', ' + A.setStyle('nonsense
 console.log('speak() without a speech voice does nothing: ' + (A.speak('test') === undefined ? 'ok' : 'unexpected'));
 console.log('line() with no teams is quiet: ' + (A.line({}, {}) === '' ? 'ok' : 'unexpected'));
 
+// C23: the pre-game show.
+(function () {
+  var fs = require('fs'), path = require('path');
+  var league = JSON.parse(fs.readFileSync(path.join(__dirname, '../../data/league.json'), 'utf8')), profiles = {};
+  ['GOB', 'PYT'].forEach(function (id) {
+    var f = path.join(__dirname, '../../data/profiles/' + id + '.json');
+    if (fs.existsSync(f)) profiles[id] = JSON.parse(fs.readFileSync(f, 'utf8'));
+  });
+  function sentences(t) { return (t.match(/[.!?](\s|$)/g) || []).length; }
+  console.log('\n== Pre-game show ==');
+  STYLES.forEach(function (style) {
+    var ours = A.preview(league.matchups[0], { league: league, profiles: profiles, style: style });
+    var other = A.preview(league.matchups[1], { league: league, profiles: profiles, style: style });
+    console.log('  ' + pad(style, 9) + ours);
+    console.log('  ' + pad(style, 9) + other);
+    if (sentences(ours) < 3 || sentences(ours) > 4) problems.push('preview of our matchup has ' + sentences(ours) + ' sentences: ' + ours);
+    if (!/1-1/.test(ours) || !/third|second/.test(ours)) problems.push('preview misses the records: ' + ours);
+    if (/\b(17|14)\b|fantasy|score/i.test(ours)) problems.push('preview gives away something from the game: ' + ours);
+    var hot = ours.match(/(?:Hot lately|In form|Trending up|Red hot): (\S+?)\b/), cold = ours.match(/(?:Cooling off|Out of form|Ice cold|Rough patch for): (\S+?)\b/);
+    if (hot && cold && hot[1] === cold[1]) problems.push('preview names the same player hot and cold: ' + ours);
+    if (sentences(other) !== 1 || !/0-2/.test(other)) problems.push('preview of a matchup with no profiles should be the records only: ' + other);
+    if (/\{\w+\}|undefined|NaN|\b(he|him|his|she|her)\b/i.test(ours + other)) problems.push('preview gap or pronoun: ' + ours + ' ' + other);
+  });
+  if (A.preview(league.matchups[0], {}) !== '') problems.push('preview with no league and no profiles should be empty');
+  if (A.preview(null, { league: league }) !== '') problems.push('preview with no matchup should be empty');
+  // Profiles whose numbers are all null add nothing; only the records are left.
+  var nulls = JSON.parse(JSON.stringify(profiles));
+  Object.keys(nulls).forEach(function (id) { var ps = nulls[id].players; Object.keys(ps).forEach(function (sl) {
+    Object.keys(ps[sl].tendencies || {}).forEach(function (k) { ps[sl].tendencies[k] = null; });
+    if (ps[sl].form) ps[sl].form.tendencies = {};
+  }); });
+  var onlyRecords = A.preview(league.matchups[0], { league: league, profiles: nulls });
+  if (sentences(onlyRecords) !== 1) problems.push('preview with null numbers should be the records only: ' + onlyRecords);
+})();
+
 // C18: the big call.
 (function () {
   var fs = require('fs'), path = require('path');
@@ -436,6 +471,8 @@ console.log('line() with no teams is quiet: ' + (A.line({}, {}) === '' ? 'ok' : 
     return f;
   }
   [false, true].forEach(function (shapeB) {
+    // Its own fixed random sequence, so what ran before this test cannot change its wording.
+    var sd = 99; A._setRandom(function () { sd = (sd * 16807) % 2147483647; return (sd - 1) / 2147483646; });
     A.reset();
     var st = Rules.create(teams), hot = [], cold = [], lastAt = {}, n = 0;
     Rules.flatten(data.SAMPLE_GAME, teams).forEach(function (x) {
