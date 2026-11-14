@@ -1049,7 +1049,7 @@
 
   var api = {
     // 337 pixels of text at 600 13px in the captions strip, about 5.9 pixels a character.
-    maxLength: 56,
+    maxLength: 60,
 
     intro: function (ctx) { return story('intro', ctx); },
     halftime: function (ctx) { return story('halftime', ctx); },
