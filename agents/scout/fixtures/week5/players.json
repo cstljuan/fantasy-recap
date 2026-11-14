@@ -1,0 +1,7 @@
+{
+  "FX1": { "full_name": "Test Quarterback", "position": "QB", "team": "AAA", "status": "Active" },
+  "FX2": { "full_name": "Test Runner", "position": "RB", "team": "BBB", "status": "Active" },
+  "FX3": { "full_name": "Test Receiver", "position": "WR", "team": "CCC", "status": "Active" },
+  "FX4": { "full_name": "Test Kicker", "position": "K", "team": "DDD", "status": "Active" },
+  "FX5": { "full_name": "Test Quarterback", "position": "QB", "team": "EEE", "status": "Inactive" }
+}

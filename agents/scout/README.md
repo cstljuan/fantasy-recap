@@ -51,3 +51,17 @@ python3 agents/scout/check_agent.py    # same tools through the real deepagents 
 ```
 
 `check.py` reads the samples in `fixtures/`. They are made up (fake players, fake numbers) and follow the shape expected from Sleeper, which was not confirmed against a live response. `check_agent.py` proves the tools are callable by an agent, not that a real model plans well.
+
+## Real week of stat lines
+
+`statlines.py` reads one NFL week of real numbers for the 14 players from the same source and writes `data/statlines/week<NN>-real.json` in the shape of `data/statlines/week11.json`:
+
+```bash
+python3 agents/scout/statlines.py --week 11
+python3 agents/scout/check_statlines.py   # offline check, no network, no key, no packages
+```
+
+- Extra top-level fields: `season`, `source`, `date`, and `unresolved` (every player it could not read, with the reason).
+- A player who played but has no listing for a stat gets 0 for it. A player with no entry for that week, or a name the source does not know, gets `null` for every field and appears in `unresolved`. Nothing is guessed.
+- Defense is not read: those five fields are `null`, because the roster defenses are made up and not real NFL teams. The game maker does not read stat lines from this file yet, so check that before relying on it.
+- Not run against the live source yet, same reason as Scout above. The samples in `fixtures/week5/` are hand-written.
