@@ -316,7 +316,7 @@
 
   function statusChip() {
     if (paused()) return '<span class="status is-paused"><i></i>Paused</span>';
-    if (m.status === 'live') return '<span class="status is-live"><i></i>Live</span>';
+    if (m.status === 'live') return '<span class="status is-live"><i></i>Playing</span>';
     if (m.status === 'final') return '<span class="status is-final"><i></i>Final</span>';
     return '<span class="status"><i></i>Pregame</span>';
   }
@@ -555,6 +555,23 @@
       leagueChanged();
     }).catch(function () { league$.state = 'down'; league$.saved = 'device'; leagueChanged(); });
   } else if (API) { league$.state = 'down'; }
+  // Reaching the final counts as watched, for the commissioner: to the service with ?api=, and
+  // on this device either way (once per manager and game).
+  function recordWatched() {
+    var gid = gameId(), who = managerName();
+    try {
+      var d = JSON.parse(window.localStorage.getItem('fr.commish') || '{}') || {};
+      d.watched = d.watched || {};
+      d.watched[gid] = d.watched[gid] || [];
+      if (d.watched[gid].indexOf(who) < 0) d.watched[gid].push(who);
+      window.localStorage.setItem('fr.commish', JSON.stringify(d));
+    } catch (err) { /* storage may be off */ }
+    // The service keeps this count in memory when its database does not answer, so send it whenever there is one.
+    if (API) {
+      apiFetch('/games/' + encodeURIComponent(gid) + '/watched', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ manager: who }) })
+        .catch(function () { /* the count is optional */ });
+    }
+  }
   function savedLine() {
     var t;
     if (league$.saved === 'league') {
@@ -1092,12 +1109,43 @@
   function validLeague(d) {
     return !!(d && typeof d.week === 'number' && Array.isArray(d.matchups) && d.matchups.every(function (x) { return x.ours || (Array.isArray(x.teams) && x.teams.length === 2); }));
   }
-  if (window.fetch) {
+  function loadLeagueFile() {
     fetch('data/league.json').then(function (r) { return r.ok ? r.json() : null; }).then(function (d) {
       if (!validLeague(d)) return;
       leagueData = d;
       if (tab === 'league' && !inGame) render(false);
     }).catch(function () { /* the built-in sample stays */ });
+  }
+  // With ?api=, Ricky's GET /league (server/league.js) gives the same league with the opt-ins
+  // from the database. It is turned into the shape data/league.json has, and points are kept
+  // only for finished weeks. No answer in two seconds: the file, and nothing is said about it.
+  function fromService(j) {
+    if (!j || typeof j.week !== 'number' || !j.current || !Array.isArray(j.current.matchups) || !Array.isArray(j.weeks)) return null;
+    var ours = TEAMS.map(function (T) { return T.id; }).sort().join('|');
+    function gameFile(id) { return typeof id === 'string' && id ? id + '.json' : null; }
+    return {
+      fromService: true, name: j.name, week: j.week, release: j.release, invented: j.invented,
+      matchups: j.current.matchups.map(function (m) {
+        var ids = (m.teams || []).map(function (t) { return t.id; }).sort().join('|');
+        return { ours: ids === ours, teams: m.teams, optedIn: Array.isArray(m.optedIn) ? m.optedIn : [], gameFile: gameFile(m.gameId) };
+      }),
+      weeks: j.weeks.map(function (w) {
+        return { week: w.week, finished: !!w.finished, matchups: (w.matchups || []).map(function (m) {
+          return { teams: m.teams, final: w.finished && Array.isArray(m.final) ? m.final : null, gameFile: gameFile(m.gameId) };
+        }) };
+      }),
+      standings: (j.standings || []).map(function (r) { return { id: r.id, full: r.full, wins: r.wins, losses: r.losses, ties: r.ties || 0, pointsFor: r.pointsFor }; })
+    };
+  }
+  if (window.fetch) {
+    if (API) {
+      apiFetch('/league').then(function (r) { return r.ok ? r.json() : null; }).then(function (j) {
+        var L = fromService(j);
+        if (!L || !validLeague(L)) { loadLeagueFile(); return; }
+        leagueData = L;
+        if (tab === 'league' && !inGame) render(false);
+      }).catch(loadLeagueFile);
+    } else loadLeagueFile();
   }
   function league() { return leagueData || FALLBACK_LEAGUE; }
   function releaseText() { var L = league(); return (L.release && L.release.text) || 'Recap drops Tuesday'; }
@@ -1120,7 +1168,16 @@
       '<div class="lg-top"><span class="eyebrow">Your matchup</span>' + statusChip() + '</div>' +
       '<div class="lg-teams">' + ord().map(function (t) { return leagueTeam(TEAMS[t].full + (t === me ? ' (you)' : ''), '', marks[t]); }).join('<span class="lg-vs">vs</span>') + '</div>' +
       '<div class="lg-foot">' + optMark(optin === 'in') + '<span class="lg-drop">' + esc(releaseText()) + '</span><span class="lg-go">Open</span></div>' +
+      leagueOptins() +
       '</a>';
+  }
+  // From the service: who in our matchup has opted in, as the league's database has it.
+  function leagueOptins() {
+    if (!leagueData || !leagueData.fromService) return '';
+    var ours = leagueData.matchups.filter(function (x) { return x.ours; })[0];
+    if (!ours) return '';
+    var who = ours.optedIn || [];
+    return '<p class="lg-optins">' + esc(who.length ? 'Opted in, in the league: ' + who.join(', ') : 'Nobody in this matchup has opted in yet.') + '</p>';
   }
   function otherCard(x) {
     var all = Array.isArray(x.optedIn) && x.teams.every(function (t) { return x.optedIn.indexOf(t.id) >= 0; });
@@ -1974,7 +2031,7 @@
       setTimeout(function () { if (!inGame) render(false); }, 1600); // lets the highlight on new points fade
     }
     else if (type === 'half') { m.feed.push({ divider: 'Halftime' }); m.now = 'Halftime'; closeDrive('End of half'); m.halfScore = m.field.slice(); }
-    else if (type === 'final') { m.status = 'final'; m.now = ''; closeDrive('End of game'); }
+    else if (type === 'final') { m.status = 'final'; m.now = ''; closeDrive('End of game'); recordWatched(); }
     syncFloaters();
     captionFor(type, d);
     ruleFor(type, d);
@@ -2013,6 +2070,7 @@
     get live() { return liveEl.textContent; },
     get learn() { return learn; },
     get lang() { return lang(); },
+    get leagueFromService() { return !!(leagueData && leagueData.fromService); },
     story: function () { return storyOf(); },
     formFor: function (team, slot) { return formFor(teamByName(team), slot); },
     setOptin: function (v) { setOptin(v === 'in' ? 'in' : 'out'); if (!inGame) render(false); },
@@ -2038,6 +2096,18 @@
     window.FR_I18N.onchange = function () { markLang(); storyCache = null; if (!inGame) render(false); };
   };
   document.body.appendChild(i18nScript);
+
+  // Commissioner view (?commish=1): opt-ins, who watched, and the weekly release switch.
+  if (/[?&]commish=1(&|$)/.test(location.search)) {
+    var commishScript = document.createElement('script');
+    commishScript.src = 'js/screens/commish.js';
+    document.body.appendChild(commishScript);
+  }
+
+  // The stadium: fans around the field and a louder crowd (js/screens/crowd.js).
+  var crowdScript = document.createElement('script');
+  crowdScript.src = 'js/screens/crowd.js';
+  document.body.appendChild(crowdScript);
 
   // Watch party: ?party=host makes this screen the host; any screen can join as a remote.
   var partyScript = document.createElement('script');
