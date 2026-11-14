@@ -1,0 +1,1 @@
+Made-up profiles and cross-check for check_notes.py. TST is a football team with a quarterback whose form dropped, a kicker with no numbers who was not found on ESPN, and a receiver with no form and no cross-check. SOC is not football and must be skipped.

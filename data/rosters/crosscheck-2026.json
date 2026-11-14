@@ -977,6 +977,975 @@
         }
       },
       "notes": ""
+    },
+    "TUR.QB": {
+      "name": "Jayden Daniels",
+      "sleeper_id": "11566",
+      "sleeper_source": "https://api.sleeper.com/stats/nfl/player/11566?season_type=regular&season=2026",
+      "sleeper_date": "2026-11-14",
+      "espn_id": "4426348",
+      "espn_source": "https://sports.core.api.espn.com/v2/sports/football/leagues/nfl/seasons/2026/types/2/athletes/4426348/statistics",
+      "espn_date": "2026-11-14",
+      "games": {
+        "sleeper": 7.0,
+        "espn": 7.0
+      },
+      "stats": {
+        "pass_yards": {
+          "sleeper": 1499.0,
+          "espn": 1499.0,
+          "difference": 0.0,
+          "disagree": false
+        },
+        "pass_td": {
+          "sleeper": 10.0,
+          "espn": 10.0,
+          "difference": 0.0,
+          "disagree": false
+        },
+        "rush_yards": {
+          "sleeper": 280.0,
+          "espn": 280.0,
+          "difference": 0.0,
+          "disagree": false
+        },
+        "rush_td": {
+          "sleeper": 2.0,
+          "espn": 2.0,
+          "difference": 0.0,
+          "disagree": false
+        },
+        "receptions": {
+          "sleeper": 0.0,
+          "espn": 0.0,
+          "difference": 0.0,
+          "disagree": false,
+          "sleeper_missing": true
+        },
+        "rec_yards": {
+          "sleeper": 0.0,
+          "espn": 0.0,
+          "difference": 0.0,
+          "disagree": false,
+          "sleeper_missing": true
+        },
+        "rec_td": {
+          "sleeper": 0.0,
+          "espn": 0.0,
+          "difference": 0.0,
+          "disagree": false,
+          "sleeper_missing": true
+        },
+        "fg_made": {
+          "sleeper": 0.0,
+          "espn": null,
+          "difference": null,
+          "disagree": false,
+          "sleeper_missing": true,
+          "note": "ESPN has no kicking category for this player"
+        }
+      },
+      "notes": ""
+    },
+    "TUR.RB": {
+      "name": "Jahmyr Gibbs",
+      "sleeper_id": "9221",
+      "sleeper_source": "https://api.sleeper.com/stats/nfl/player/9221?season_type=regular&season=2026",
+      "sleeper_date": "2026-11-14",
+      "espn_id": "4429795",
+      "espn_source": "https://sports.core.api.espn.com/v2/sports/football/leagues/nfl/seasons/2026/types/2/athletes/4429795/statistics",
+      "espn_date": "2026-11-14",
+      "games": {
+        "sleeper": 8.0,
+        "espn": 8.0
+      },
+      "stats": {
+        "pass_yards": {
+          "sleeper": 0.0,
+          "espn": 0.0,
+          "difference": 0.0,
+          "disagree": false,
+          "sleeper_missing": true
+        },
+        "pass_td": {
+          "sleeper": 0.0,
+          "espn": 0.0,
+          "difference": 0.0,
+          "disagree": false,
+          "sleeper_missing": true
+        },
+        "rush_yards": {
+          "sleeper": 847.0,
+          "espn": 847.0,
+          "difference": 0.0,
+          "disagree": false
+        },
+        "rush_td": {
+          "sleeper": 9.0,
+          "espn": 9.0,
+          "difference": 0.0,
+          "disagree": false
+        },
+        "receptions": {
+          "sleeper": 34.0,
+          "espn": 34.0,
+          "difference": 0.0,
+          "disagree": false
+        },
+        "rec_yards": {
+          "sleeper": 285.0,
+          "espn": 285.0,
+          "difference": 0.0,
+          "disagree": false
+        },
+        "rec_td": {
+          "sleeper": 2.0,
+          "espn": 2.0,
+          "difference": 0.0,
+          "disagree": false
+        },
+        "fg_made": {
+          "sleeper": 0.0,
+          "espn": null,
+          "difference": null,
+          "disagree": false,
+          "sleeper_missing": true,
+          "note": "ESPN has no kicking category for this player"
+        }
+      },
+      "notes": ""
+    },
+    "TUR.WR1": {
+      "name": "CeeDee Lamb",
+      "sleeper_id": "6786",
+      "sleeper_source": "https://api.sleeper.com/stats/nfl/player/6786?season_type=regular&season=2026",
+      "sleeper_date": "2026-11-14",
+      "espn_id": "4241389",
+      "espn_source": "https://sports.core.api.espn.com/v2/sports/football/leagues/nfl/seasons/2026/types/2/athletes/4241389/statistics",
+      "espn_date": "2026-11-14",
+      "games": {
+        "sleeper": 9.0,
+        "espn": 9.0
+      },
+      "stats": {
+        "pass_yards": {
+          "sleeper": 0.0,
+          "espn": 0.0,
+          "difference": 0.0,
+          "disagree": false,
+          "sleeper_missing": true
+        },
+        "pass_td": {
+          "sleeper": 0.0,
+          "espn": 0.0,
+          "difference": 0.0,
+          "disagree": false,
+          "sleeper_missing": true
+        },
+        "rush_yards": {
+          "sleeper": -6.0,
+          "espn": -6.0,
+          "difference": 0.0,
+          "disagree": false
+        },
+        "rush_td": {
+          "sleeper": 0.0,
+          "espn": 0.0,
+          "difference": 0.0,
+          "disagree": false,
+          "sleeper_missing": true
+        },
+        "receptions": {
+          "sleeper": 70.0,
+          "espn": 70.0,
+          "difference": 0.0,
+          "disagree": false
+        },
+        "rec_yards": {
+          "sleeper": 904.0,
+          "espn": 904.0,
+          "difference": 0.0,
+          "disagree": false
+        },
+        "rec_td": {
+          "sleeper": 7.0,
+          "espn": 7.0,
+          "difference": 0.0,
+          "disagree": false
+        },
+        "fg_made": {
+          "sleeper": 0.0,
+          "espn": null,
+          "difference": null,
+          "disagree": false,
+          "sleeper_missing": true,
+          "note": "ESPN has no kicking category for this player"
+        }
+      },
+      "notes": ""
+    },
+    "TUR.WR2": {
+      "name": "Garrett Wilson",
+      "sleeper_id": "8146",
+      "sleeper_source": "https://api.sleeper.com/stats/nfl/player/8146?season_type=regular&season=2026",
+      "sleeper_date": "2026-11-14",
+      "espn_id": "4569618",
+      "espn_source": "https://sports.core.api.espn.com/v2/sports/football/leagues/nfl/seasons/2026/types/2/athletes/4569618/statistics",
+      "espn_date": "2026-11-14",
+      "games": {
+        "sleeper": 8.0,
+        "espn": 8.0
+      },
+      "stats": {
+        "pass_yards": {
+          "sleeper": 0.0,
+          "espn": 0.0,
+          "difference": 0.0,
+          "disagree": false,
+          "sleeper_missing": true
+        },
+        "pass_td": {
+          "sleeper": 0.0,
+          "espn": 0.0,
+          "difference": 0.0,
+          "disagree": false,
+          "sleeper_missing": true
+        },
+        "rush_yards": {
+          "sleeper": 0.0,
+          "espn": 0.0,
+          "difference": 0.0,
+          "disagree": false,
+          "sleeper_missing": true
+        },
+        "rush_td": {
+          "sleeper": 0.0,
+          "espn": 0.0,
+          "difference": 0.0,
+          "disagree": false,
+          "sleeper_missing": true
+        },
+        "receptions": {
+          "sleeper": 43.0,
+          "espn": 43.0,
+          "difference": 0.0,
+          "disagree": false
+        },
+        "rec_yards": {
+          "sleeper": 527.0,
+          "espn": 527.0,
+          "difference": 0.0,
+          "disagree": false
+        },
+        "rec_td": {
+          "sleeper": 3.0,
+          "espn": 3.0,
+          "difference": 0.0,
+          "disagree": false
+        },
+        "fg_made": {
+          "sleeper": 0.0,
+          "espn": null,
+          "difference": null,
+          "disagree": false,
+          "sleeper_missing": true,
+          "note": "ESPN has no kicking category for this player"
+        }
+      },
+      "notes": ""
+    },
+    "TUR.WR3": {
+      "name": "Drake London",
+      "sleeper_id": "8112",
+      "sleeper_source": "https://api.sleeper.com/stats/nfl/player/8112?season_type=regular&season=2026",
+      "sleeper_date": "2026-11-14",
+      "espn_id": "4426502",
+      "espn_source": "https://sports.core.api.espn.com/v2/sports/football/leagues/nfl/seasons/2026/types/2/athletes/4426502/statistics",
+      "espn_date": "2026-11-14",
+      "games": {
+        "sleeper": 9.0,
+        "espn": 9.0
+      },
+      "stats": {
+        "pass_yards": {
+          "sleeper": 0.0,
+          "espn": 0.0,
+          "difference": 0.0,
+          "disagree": false,
+          "sleeper_missing": true
+        },
+        "pass_td": {
+          "sleeper": 0.0,
+          "espn": 0.0,
+          "difference": 0.0,
+          "disagree": false,
+          "sleeper_missing": true
+        },
+        "rush_yards": {
+          "sleeper": 4.0,
+          "espn": 4.0,
+          "difference": 0.0,
+          "disagree": false
+        },
+        "rush_td": {
+          "sleeper": 0.0,
+          "espn": 0.0,
+          "difference": 0.0,
+          "disagree": false,
+          "sleeper_missing": true
+        },
+        "receptions": {
+          "sleeper": 44.0,
+          "espn": 44.0,
+          "difference": 0.0,
+          "disagree": false
+        },
+        "rec_yards": {
+          "sleeper": 692.0,
+          "espn": 692.0,
+          "difference": 0.0,
+          "disagree": false
+        },
+        "rec_td": {
+          "sleeper": 1.0,
+          "espn": 1.0,
+          "difference": 0.0,
+          "disagree": false
+        },
+        "fg_made": {
+          "sleeper": 0.0,
+          "espn": null,
+          "difference": null,
+          "disagree": false,
+          "sleeper_missing": true,
+          "note": "ESPN has no kicking category for this player"
+        }
+      },
+      "notes": ""
+    },
+    "TUR.TE": {
+      "name": "Brock Bowers",
+      "sleeper_id": "11604",
+      "sleeper_source": "https://api.sleeper.com/stats/nfl/player/11604?season_type=regular&season=2026",
+      "sleeper_date": "2026-11-14",
+      "espn_id": "4432665",
+      "espn_source": "https://sports.core.api.espn.com/v2/sports/football/leagues/nfl/seasons/2026/types/2/athletes/4432665/statistics",
+      "espn_date": "2026-11-14",
+      "games": {
+        "sleeper": 7.0,
+        "espn": 7.0
+      },
+      "stats": {
+        "pass_yards": {
+          "sleeper": 0.0,
+          "espn": 0.0,
+          "difference": 0.0,
+          "disagree": false,
+          "sleeper_missing": true
+        },
+        "pass_td": {
+          "sleeper": 0.0,
+          "espn": 0.0,
+          "difference": 0.0,
+          "disagree": false,
+          "sleeper_missing": true
+        },
+        "rush_yards": {
+          "sleeper": 2.0,
+          "espn": 2.0,
+          "difference": 0.0,
+          "disagree": false
+        },
+        "rush_td": {
+          "sleeper": 0.0,
+          "espn": 0.0,
+          "difference": 0.0,
+          "disagree": false,
+          "sleeper_missing": true
+        },
+        "receptions": {
+          "sleeper": 48.0,
+          "espn": 48.0,
+          "difference": 0.0,
+          "disagree": false
+        },
+        "rec_yards": {
+          "sleeper": 658.0,
+          "espn": 658.0,
+          "difference": 0.0,
+          "disagree": false
+        },
+        "rec_td": {
+          "sleeper": 6.0,
+          "espn": 6.0,
+          "difference": 0.0,
+          "disagree": false
+        },
+        "fg_made": {
+          "sleeper": 0.0,
+          "espn": null,
+          "difference": null,
+          "disagree": false,
+          "sleeper_missing": true,
+          "note": "ESPN has no kicking category for this player"
+        }
+      },
+      "notes": ""
+    },
+    "TUR.K": {
+      "name": "Cameron Dicker",
+      "sleeper_id": "8259",
+      "sleeper_source": "https://api.sleeper.com/stats/nfl/player/8259?season_type=regular&season=2026",
+      "sleeper_date": "2026-11-14",
+      "espn_id": "4362081",
+      "espn_source": "https://sports.core.api.espn.com/v2/sports/football/leagues/nfl/seasons/2026/types/2/athletes/4362081/statistics",
+      "espn_date": "2026-11-14",
+      "games": {
+        "sleeper": 8.0,
+        "espn": 8.0
+      },
+      "stats": {
+        "pass_yards": {
+          "sleeper": 0.0,
+          "espn": 0.0,
+          "difference": 0.0,
+          "disagree": false,
+          "sleeper_missing": true
+        },
+        "pass_td": {
+          "sleeper": 0.0,
+          "espn": 0.0,
+          "difference": 0.0,
+          "disagree": false,
+          "sleeper_missing": true
+        },
+        "rush_yards": {
+          "sleeper": 0.0,
+          "espn": 0.0,
+          "difference": 0.0,
+          "disagree": false,
+          "sleeper_missing": true
+        },
+        "rush_td": {
+          "sleeper": 0.0,
+          "espn": 0.0,
+          "difference": 0.0,
+          "disagree": false,
+          "sleeper_missing": true
+        },
+        "receptions": {
+          "sleeper": 0.0,
+          "espn": 0.0,
+          "difference": 0.0,
+          "disagree": false,
+          "sleeper_missing": true
+        },
+        "rec_yards": {
+          "sleeper": 0.0,
+          "espn": 0.0,
+          "difference": 0.0,
+          "disagree": false,
+          "sleeper_missing": true
+        },
+        "rec_td": {
+          "sleeper": 0.0,
+          "espn": 0.0,
+          "difference": 0.0,
+          "disagree": false,
+          "sleeper_missing": true
+        },
+        "fg_made": {
+          "sleeper": 15.0,
+          "espn": 15.0,
+          "difference": 0.0,
+          "disagree": false
+        }
+      },
+      "notes": ""
+    },
+    "OWL.QB": {
+      "name": "Patrick Mahomes",
+      "sleeper_id": "4046",
+      "sleeper_source": "https://api.sleeper.com/stats/nfl/player/4046?season_type=regular&season=2026",
+      "sleeper_date": "2026-11-14",
+      "espn_id": "3139477",
+      "espn_source": "https://sports.core.api.espn.com/v2/sports/football/leagues/nfl/seasons/2026/types/2/athletes/3139477/statistics",
+      "espn_date": "2026-11-14",
+      "games": {
+        "sleeper": 8.0,
+        "espn": 8.0
+      },
+      "stats": {
+        "pass_yards": {
+          "sleeper": 2037.0,
+          "espn": 2037.0,
+          "difference": 0.0,
+          "disagree": false
+        },
+        "pass_td": {
+          "sleeper": 14.0,
+          "espn": 14.0,
+          "difference": 0.0,
+          "disagree": false
+        },
+        "rush_yards": {
+          "sleeper": 85.0,
+          "espn": 85.0,
+          "difference": 0.0,
+          "disagree": false
+        },
+        "rush_td": {
+          "sleeper": 1.0,
+          "espn": 1.0,
+          "difference": 0.0,
+          "disagree": false
+        },
+        "receptions": {
+          "sleeper": 0.0,
+          "espn": 0.0,
+          "difference": 0.0,
+          "disagree": false,
+          "sleeper_missing": true
+        },
+        "rec_yards": {
+          "sleeper": 0.0,
+          "espn": 0.0,
+          "difference": 0.0,
+          "disagree": false,
+          "sleeper_missing": true
+        },
+        "rec_td": {
+          "sleeper": 0.0,
+          "espn": 0.0,
+          "difference": 0.0,
+          "disagree": false,
+          "sleeper_missing": true
+        },
+        "fg_made": {
+          "sleeper": 0.0,
+          "espn": null,
+          "difference": null,
+          "disagree": false,
+          "sleeper_missing": true,
+          "note": "ESPN has no kicking category for this player"
+        }
+      },
+      "notes": ""
+    },
+    "OWL.RB": {
+      "name": "Derrick Henry",
+      "sleeper_id": "3198",
+      "sleeper_source": "https://api.sleeper.com/stats/nfl/player/3198?season_type=regular&season=2026",
+      "sleeper_date": "2026-11-14",
+      "espn_id": "3043078",
+      "espn_source": "https://sports.core.api.espn.com/v2/sports/football/leagues/nfl/seasons/2026/types/2/athletes/3043078/statistics",
+      "espn_date": "2026-11-14",
+      "games": {
+        "sleeper": 9.0,
+        "espn": 9.0
+      },
+      "stats": {
+        "pass_yards": {
+          "sleeper": -3.0,
+          "espn": -3.0,
+          "difference": 0.0,
+          "disagree": false
+        },
+        "pass_td": {
+          "sleeper": 0.0,
+          "espn": 0.0,
+          "difference": 0.0,
+          "disagree": false,
+          "sleeper_missing": true
+        },
+        "rush_yards": {
+          "sleeper": 689.0,
+          "espn": 689.0,
+          "difference": 0.0,
+          "disagree": false
+        },
+        "rush_td": {
+          "sleeper": 8.0,
+          "espn": 8.0,
+          "difference": 0.0,
+          "disagree": false
+        },
+        "receptions": {
+          "sleeper": 12.0,
+          "espn": 12.0,
+          "difference": 0.0,
+          "disagree": false
+        },
+        "rec_yards": {
+          "sleeper": 75.0,
+          "espn": 75.0,
+          "difference": 0.0,
+          "disagree": false
+        },
+        "rec_td": {
+          "sleeper": 1.0,
+          "espn": 1.0,
+          "difference": 0.0,
+          "disagree": false
+        },
+        "fg_made": {
+          "sleeper": 0.0,
+          "espn": null,
+          "difference": null,
+          "disagree": false,
+          "sleeper_missing": true,
+          "note": "ESPN has no kicking category for this player"
+        }
+      },
+      "notes": ""
+    },
+    "OWL.WR1": {
+      "name": "Tee Higgins",
+      "sleeper_id": "6801",
+      "sleeper_source": "https://api.sleeper.com/stats/nfl/player/6801?season_type=regular&season=2026",
+      "sleeper_date": "2026-11-14",
+      "espn_id": "4239993",
+      "espn_source": "https://sports.core.api.espn.com/v2/sports/football/leagues/nfl/seasons/2026/types/2/athletes/4239993/statistics",
+      "espn_date": "2026-11-14",
+      "games": {
+        "sleeper": 8.0,
+        "espn": 8.0
+      },
+      "stats": {
+        "pass_yards": {
+          "sleeper": 0.0,
+          "espn": 0.0,
+          "difference": 0.0,
+          "disagree": false,
+          "sleeper_missing": true
+        },
+        "pass_td": {
+          "sleeper": 0.0,
+          "espn": 0.0,
+          "difference": 0.0,
+          "disagree": false,
+          "sleeper_missing": true
+        },
+        "rush_yards": {
+          "sleeper": 0.0,
+          "espn": 0.0,
+          "difference": 0.0,
+          "disagree": false,
+          "sleeper_missing": true
+        },
+        "rush_td": {
+          "sleeper": 0.0,
+          "espn": 0.0,
+          "difference": 0.0,
+          "disagree": false,
+          "sleeper_missing": true
+        },
+        "receptions": {
+          "sleeper": 48.0,
+          "espn": 48.0,
+          "difference": 0.0,
+          "disagree": false
+        },
+        "rec_yards": {
+          "sleeper": 758.0,
+          "espn": 758.0,
+          "difference": 0.0,
+          "disagree": false
+        },
+        "rec_td": {
+          "sleeper": 6.0,
+          "espn": 6.0,
+          "difference": 0.0,
+          "disagree": false
+        },
+        "fg_made": {
+          "sleeper": 0.0,
+          "espn": null,
+          "difference": null,
+          "disagree": false,
+          "sleeper_missing": true,
+          "note": "ESPN has no kicking category for this player"
+        }
+      },
+      "notes": ""
+    },
+    "OWL.WR2": {
+      "name": "Jaxon Smith-Njigba",
+      "sleeper_id": "9488",
+      "sleeper_source": "https://api.sleeper.com/stats/nfl/player/9488?season_type=regular&season=2026",
+      "sleeper_date": "2026-11-14",
+      "espn_id": "4430878",
+      "espn_source": "https://sports.core.api.espn.com/v2/sports/football/leagues/nfl/seasons/2026/types/2/athletes/4430878/statistics",
+      "espn_date": "2026-11-14",
+      "games": {
+        "sleeper": 9.0,
+        "espn": 9.0
+      },
+      "stats": {
+        "pass_yards": {
+          "sleeper": 14.0,
+          "espn": 14.0,
+          "difference": 0.0,
+          "disagree": false
+        },
+        "pass_td": {
+          "sleeper": 0.0,
+          "espn": 0.0,
+          "difference": 0.0,
+          "disagree": false,
+          "sleeper_missing": true
+        },
+        "rush_yards": {
+          "sleeper": 29.0,
+          "espn": 29.0,
+          "difference": 0.0,
+          "disagree": false
+        },
+        "rush_td": {
+          "sleeper": 0.0,
+          "espn": 0.0,
+          "difference": 0.0,
+          "disagree": false,
+          "sleeper_missing": true
+        },
+        "receptions": {
+          "sleeper": 71.0,
+          "espn": 71.0,
+          "difference": 0.0,
+          "disagree": false
+        },
+        "rec_yards": {
+          "sleeper": 1036.0,
+          "espn": 1036.0,
+          "difference": 0.0,
+          "disagree": false
+        },
+        "rec_td": {
+          "sleeper": 9.0,
+          "espn": 9.0,
+          "difference": 0.0,
+          "disagree": false
+        },
+        "fg_made": {
+          "sleeper": 0.0,
+          "espn": null,
+          "difference": null,
+          "disagree": false,
+          "sleeper_missing": true,
+          "note": "ESPN has no kicking category for this player"
+        }
+      },
+      "notes": ""
+    },
+    "OWL.WR3": {
+      "name": "Ladd McConkey",
+      "sleeper_id": "11635",
+      "sleeper_source": "https://api.sleeper.com/stats/nfl/player/11635?season_type=regular&season=2026",
+      "sleeper_date": "2026-11-14",
+      "espn_id": "4612826",
+      "espn_source": "https://sports.core.api.espn.com/v2/sports/football/leagues/nfl/seasons/2026/types/2/athletes/4612826/statistics",
+      "espn_date": "2026-11-14",
+      "games": {
+        "sleeper": 6.0,
+        "espn": 6.0
+      },
+      "stats": {
+        "pass_yards": {
+          "sleeper": 0.0,
+          "espn": 0.0,
+          "difference": 0.0,
+          "disagree": false,
+          "sleeper_missing": true
+        },
+        "pass_td": {
+          "sleeper": 0.0,
+          "espn": 0.0,
+          "difference": 0.0,
+          "disagree": false,
+          "sleeper_missing": true
+        },
+        "rush_yards": {
+          "sleeper": 0.0,
+          "espn": 0.0,
+          "difference": 0.0,
+          "disagree": false,
+          "sleeper_missing": true
+        },
+        "rush_td": {
+          "sleeper": 0.0,
+          "espn": 0.0,
+          "difference": 0.0,
+          "disagree": false,
+          "sleeper_missing": true
+        },
+        "receptions": {
+          "sleeper": 17.0,
+          "espn": 17.0,
+          "difference": 0.0,
+          "disagree": false
+        },
+        "rec_yards": {
+          "sleeper": 286.0,
+          "espn": 286.0,
+          "difference": 0.0,
+          "disagree": false
+        },
+        "rec_td": {
+          "sleeper": 1.0,
+          "espn": 1.0,
+          "difference": 0.0,
+          "disagree": false
+        },
+        "fg_made": {
+          "sleeper": 0.0,
+          "espn": null,
+          "difference": null,
+          "disagree": false,
+          "sleeper_missing": true,
+          "note": "ESPN has no kicking category for this player"
+        }
+      },
+      "notes": ""
+    },
+    "OWL.TE": {
+      "name": "Tucker Kraft",
+      "sleeper_id": "9484",
+      "sleeper_source": "https://api.sleeper.com/stats/nfl/player/9484?season_type=regular&season=2026",
+      "sleeper_date": "2026-11-14",
+      "espn_id": "4572680",
+      "espn_source": "https://sports.core.api.espn.com/v2/sports/football/leagues/nfl/seasons/2026/types/2/athletes/4572680/statistics",
+      "espn_date": "2026-11-14",
+      "games": {
+        "sleeper": 9.0,
+        "espn": 9.0
+      },
+      "stats": {
+        "pass_yards": {
+          "sleeper": 0.0,
+          "espn": 0.0,
+          "difference": 0.0,
+          "disagree": false,
+          "sleeper_missing": true
+        },
+        "pass_td": {
+          "sleeper": 0.0,
+          "espn": 0.0,
+          "difference": 0.0,
+          "disagree": false,
+          "sleeper_missing": true
+        },
+        "rush_yards": {
+          "sleeper": 13.0,
+          "espn": 13.0,
+          "difference": 0.0,
+          "disagree": false
+        },
+        "rush_td": {
+          "sleeper": 0.0,
+          "espn": 0.0,
+          "difference": 0.0,
+          "disagree": false,
+          "sleeper_missing": true
+        },
+        "receptions": {
+          "sleeper": 36.0,
+          "espn": 36.0,
+          "difference": 0.0,
+          "disagree": false
+        },
+        "rec_yards": {
+          "sleeper": 351.0,
+          "espn": 351.0,
+          "difference": 0.0,
+          "disagree": false
+        },
+        "rec_td": {
+          "sleeper": 3.0,
+          "espn": 3.0,
+          "difference": 0.0,
+          "disagree": false
+        },
+        "fg_made": {
+          "sleeper": 0.0,
+          "espn": null,
+          "difference": null,
+          "disagree": false,
+          "sleeper_missing": true,
+          "note": "ESPN has no kicking category for this player"
+        }
+      },
+      "notes": ""
+    },
+    "OWL.K": {
+      "name": "Ka'imi Fairbairn",
+      "sleeper_id": "3451",
+      "sleeper_source": "https://api.sleeper.com/stats/nfl/player/3451?season_type=regular&season=2026",
+      "sleeper_date": "2026-11-14",
+      "espn_id": "2971573",
+      "espn_source": "https://sports.core.api.espn.com/v2/sports/football/leagues/nfl/seasons/2026/types/2/athletes/2971573/statistics",
+      "espn_date": "2026-11-14",
+      "games": {
+        "sleeper": 8.0,
+        "espn": 8.0
+      },
+      "stats": {
+        "pass_yards": {
+          "sleeper": 0.0,
+          "espn": 0.0,
+          "difference": 0.0,
+          "disagree": false,
+          "sleeper_missing": true
+        },
+        "pass_td": {
+          "sleeper": 0.0,
+          "espn": 0.0,
+          "difference": 0.0,
+          "disagree": false,
+          "sleeper_missing": true
+        },
+        "rush_yards": {
+          "sleeper": 0.0,
+          "espn": 0.0,
+          "difference": 0.0,
+          "disagree": false,
+          "sleeper_missing": true
+        },
+        "rush_td": {
+          "sleeper": 0.0,
+          "espn": 0.0,
+          "difference": 0.0,
+          "disagree": false,
+          "sleeper_missing": true
+        },
+        "receptions": {
+          "sleeper": 0.0,
+          "espn": 0.0,
+          "difference": 0.0,
+          "disagree": false,
+          "sleeper_missing": true
+        },
+        "rec_yards": {
+          "sleeper": 0.0,
+          "espn": 0.0,
+          "difference": 0.0,
+          "disagree": false,
+          "sleeper_missing": true
+        },
+        "rec_td": {
+          "sleeper": 0.0,
+          "espn": 0.0,
+          "difference": 0.0,
+          "disagree": false,
+          "sleeper_missing": true
+        },
+        "fg_made": {
+          "sleeper": 18.0,
+          "espn": 18.0,
+          "difference": 0.0,
+          "disagree": false
+        }
+      },
+      "notes": ""
     }
   },
   "disagreements": [],
@@ -1052,6 +2021,78 @@
       "name": "George Kittle",
       "stat": "fg_made",
       "why": "ESPN has no kicking category for this player"
+    },
+    {
+      "player": "TUR.QB",
+      "name": "Jayden Daniels",
+      "stat": "fg_made",
+      "why": "ESPN has no kicking category for this player"
+    },
+    {
+      "player": "TUR.RB",
+      "name": "Jahmyr Gibbs",
+      "stat": "fg_made",
+      "why": "ESPN has no kicking category for this player"
+    },
+    {
+      "player": "TUR.WR1",
+      "name": "CeeDee Lamb",
+      "stat": "fg_made",
+      "why": "ESPN has no kicking category for this player"
+    },
+    {
+      "player": "TUR.WR2",
+      "name": "Garrett Wilson",
+      "stat": "fg_made",
+      "why": "ESPN has no kicking category for this player"
+    },
+    {
+      "player": "TUR.WR3",
+      "name": "Drake London",
+      "stat": "fg_made",
+      "why": "ESPN has no kicking category for this player"
+    },
+    {
+      "player": "TUR.TE",
+      "name": "Brock Bowers",
+      "stat": "fg_made",
+      "why": "ESPN has no kicking category for this player"
+    },
+    {
+      "player": "OWL.QB",
+      "name": "Patrick Mahomes",
+      "stat": "fg_made",
+      "why": "ESPN has no kicking category for this player"
+    },
+    {
+      "player": "OWL.RB",
+      "name": "Derrick Henry",
+      "stat": "fg_made",
+      "why": "ESPN has no kicking category for this player"
+    },
+    {
+      "player": "OWL.WR1",
+      "name": "Tee Higgins",
+      "stat": "fg_made",
+      "why": "ESPN has no kicking category for this player"
+    },
+    {
+      "player": "OWL.WR2",
+      "name": "Jaxon Smith-Njigba",
+      "stat": "fg_made",
+      "why": "ESPN has no kicking category for this player"
+    },
+    {
+      "player": "OWL.WR3",
+      "name": "Ladd McConkey",
+      "stat": "fg_made",
+      "why": "ESPN has no kicking category for this player"
+    },
+    {
+      "player": "OWL.TE",
+      "name": "Tucker Kraft",
+      "stat": "fg_made",
+      "why": "ESPN has no kicking category for this player"
     }
   ],
   "matched": [
@@ -1068,7 +2109,21 @@
     "PYT.WR2",
     "PYT.WR3",
     "PYT.TE",
-    "PYT.K"
+    "PYT.K",
+    "TUR.QB",
+    "TUR.RB",
+    "TUR.WR1",
+    "TUR.WR2",
+    "TUR.WR3",
+    "TUR.TE",
+    "TUR.K",
+    "OWL.QB",
+    "OWL.RB",
+    "OWL.WR1",
+    "OWL.WR2",
+    "OWL.WR3",
+    "OWL.TE",
+    "OWL.K"
   ],
   "unmatched": []
 }

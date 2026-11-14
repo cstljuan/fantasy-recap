@@ -1,0 +1,37 @@
+{
+ "players": {
+  "TST.QB": {
+   "name": "Test Quarterback",
+   "espn_id": "901",
+   "espn_source": "https://example.test/espn/901",
+   "espn_date": "2026-11-14",
+   "sleeper_source": "https://example.test/season/FX1",
+   "sleeper_date": "2026-11-14",
+   "games": {
+    "sleeper": 8,
+    "espn": 8
+   },
+   "stats": {
+    "pass_yards": {
+     "sleeper": 2000,
+     "espn": 2100,
+     "difference": 100,
+     "disagree": true
+    },
+    "rush_td": {
+     "sleeper": 2,
+     "espn": 2,
+     "difference": 0,
+     "disagree": false
+    }
+   }
+  },
+  "TST.K": {
+   "name": "Test Kicker Jr.",
+   "espn_id": null,
+   "notes": "Not compared: no NFL PK named Test Kicker Jr.",
+   "games": {},
+   "stats": {}
+  }
+ }
+}
