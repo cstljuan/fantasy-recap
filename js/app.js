@@ -7,7 +7,7 @@
   var G = window.FF_GAME, D = window.FF_DATA, Rules = window.FF_RULES, Spr = window.FF_SPRITES;
   var TEAMS = D.TEAMS;
   var WEEK = 'Week 11';
-  var TABS = ['league', 'matchup', 'lineups', 'plays', 'recap', 'film'];
+  var TABS = ['league', 'matchup', 'lineups', 'plays', 'recap', 'film', 'week'];
   var SLOTS = [
     { role: 'QB', pos: 'QB' }, { role: 'RB', pos: 'RB' }, { role: 'WR1', pos: 'WR' }, { role: 'WR2', pos: 'WR' },
     { role: 'WR3', pos: 'FLEX' }, { role: 'TE', pos: 'TE' }, { role: 'K', pos: 'K' }, { role: 'DST', pos: 'D/ST' }
@@ -816,7 +816,8 @@
     var body, count;
     if (weekSel === L.week) {
       var others = L.matchups.filter(function (x) { return !x.ours; });
-      body = oursCard() + others.map(otherCard).join('');
+      body = oursCard() + others.map(otherCard).join('') +
+        '<a class="cta ghost lg-top-link" href="#week">This week\'s biggest plays</a>';
       count = (1 + others.length) + ' matchups, 4 teams';
     } else {
       var wk = pastWeeks().filter(function (w) { return w.week === weekSel; })[0];
@@ -830,6 +831,112 @@
       '<p class="note is-plain">Sample league, made up for the demo: the other teams, past scores and standings are invented. ' +
       'Each recap is released on Tuesday, after the week is over. Only your week ' + L.week + ' matchup has a game to watch.</p>' +
       '</div>';
+  }
+
+  // ------------------------------------------------- this week in the league
+  // The biggest plays of each matchup this week. Same list as Ricky's server/top-plays.js
+  // (replayed as in server/replay.js, ranked by points, then highlight, then the earlier
+  // play), worked out here from the game the app plays, so it needs no service.
+  var topCache = null;
+  function topPlaysLocal(n) {
+    if (topCache) return topCache.slice(0, n);
+    var list = [], half = 1;
+    try {
+      var state = Rules.create(TEAMS);
+      Rules.flatten(D.SAMPLE_GAME, TEAMS).forEach(function (st) {
+        if (st.kind === 'half') { Rules.startHalf(state); half = 2; return; }
+        if (st.kind === 'final') return;
+        list.push({ st: st, r: Rules.apply(state, st.e, st.team), half: half });
+      });
+    } catch (err) { return []; }
+    [1, 2].forEach(function (h) {
+      var inHalf = list.filter(function (x) { return x.half === h; }), cut = Math.ceil(inHalf.length / 2);
+      inHalf.forEach(function (x, i) { x.quarter = (h - 1) * 2 + (i < cut ? 1 : 2); });
+    });
+    [1, 2, 3, 4].forEach(function (q) {
+      var inQ = list.filter(function (x) { return x.quarter === q; });
+      inQ.forEach(function (x, k) { var left = Math.round(900 * (1 - k / inQ.length)); x.clock = Math.floor(left / 60) + ':' + ('0' + (left % 60)).slice(-2); });
+    });
+    topCache = list.map(function (x, i) {
+      var fp = x.r.fp || [], main = null, names = [];
+      fp.forEach(function (f) {
+        if (!main || Math.abs(f.pts) > Math.abs(main.pts)) main = f;
+        var nm = f.role === 'DST' ? TEAMS[f.team].id + ' defense' : TEAMS[f.team].roster[f.role];
+        if (nm && names.indexOf(nm) < 0) names.push(nm);
+      });
+      var text = String(x.r.text || x.st.e.t);
+      if (x.r.td && !/touchdown/i.test(text)) text += ', touchdown';
+      var why = x.st.e.why;
+      return { index: i + 1, quarter: x.quarter, clock: x.clock, team: TEAMS[main ? main.team : x.st.team].id, kind: x.st.e.t,
+        players: names, points: Math.round(fp.reduce(function (a, f) { return a + Math.abs(f.pts); }, 0) * 10) / 10,
+        highlight: why && typeof why.highlight === 'number' ? why.highlight : 0, text: text };
+    }).filter(function (x) { return x.points > 0; }).sort(function (a, b) {
+      return b.points - a.points || b.highlight - a.highlight || a.index - b.index;
+    });
+    return topCache.slice(0, n);
+  }
+
+  // Watch this play: FF_GAME.seek when the game has it; otherwise run the game silently in
+  // the background at top speed until that play is next, then open the view at the chosen speed.
+  var seeking = 0;
+  function watchPlay(index, btn) {
+    if (G.seek) { try { G.seek(index); location.hash = 'game'; return; } catch (err) { /* fall back below */ } }
+    if (seeking) return;
+    var ff = window.__ff, speed0 = ff ? ff.speed : 1;
+    seeking = index;
+    if (btn) { btn.disabled = true; btn.textContent = 'Finding the play'; }
+    if (m.status === 'final' || m.done > index - 1) G.restart(); else G.start();
+    function arrive() {
+      if (!seeking || m.done < seeking - 1) return false;
+      seeking = 0;
+      if (ff) ff.speed = speed0;
+      if (G.setBackground) G.setBackground(false);
+      location.hash = 'game';
+      return true;
+    }
+    if (arrive()) return;
+    if (G.setBackground) G.setBackground(true);
+    if (ff) ff.speed = 40;
+    var timer = setInterval(function () { if (arrive() || !seeking) clearInterval(timer); }, 50);
+  }
+
+  function topCard(x) {
+    var where = '', text = x.text, mm = /^(.+? at (?:the )?[A-Z0-9 ]+|1st and goal[^:]*): (.*)$/.exec(x.text);
+    if (mm) { where = mm[1]; text = mm[2]; }
+    text = text.charAt(0).toUpperCase() + text.slice(1).replace(/TOUCHDOWN/g, 'touchdown') + '.';
+    var t = teamByName(x.team);
+    return '<li class="panel top-play" style="--c: var(--t' + (t < 0 ? 0 : t) + ')">' +
+      '<div class="top-meta"><span class="eyebrow">Q' + x.quarter + ' ' + esc(x.clock) + '</span><b>' + esc(x.team) + '</b>' + (where ? '<span>' + esc(where) + '</span>' : '') + '</div>' +
+      '<p class="top-text">' + esc(text) + '</p>' +
+      '<div class="top-foot"><span class="top-who">' + esc(x.players.join(', ')) + '</span><span class="num">' + f1(x.points) + '</span><span class="unit">pts</span></div>' +
+      '<button type="button" class="cta ghost" data-act="seek" data-i="' + x.index + '">Watch this play</button></li>';
+  }
+  function hiddenCard(i) {
+    return '<li class="panel top-play is-hidden"><div class="top-meta"><span class="eyebrow">Play ' + i + '</span></div>' +
+      '<p class="top-text">Hidden until the final.</p>' +
+      '<div class="top-foot"><span class="top-who"></span><span class="num">' + MASK + '</span><span class="unit">pts</span></div></li>';
+  }
+
+  function renderWeek() {
+    var L = league(), hide = masked();
+    var groups = L.matchups.map(function (x) {
+      if (x.ours) {
+        var title = TEAMS[ord()[0]].full + ' against ' + TEAMS[ord()[1]].full;
+        var cards = hide ? [1, 2, 3].map(hiddenCard).join('') : topPlaysLocal(3).map(topCard).join('');
+        return '<section class="top-group" aria-label="' + esc(title) + '"><h3 class="top-title">' + esc(title) + '</h3>' +
+          (hide ? '<p class="top-why">Your score is hidden, so this game\'s biggest plays stay hidden until the final. ' +
+                  'Watch the game to see them.</p><div class="actions top-actions">' + watchButton() + '</div>' : '') +
+          '<ol class="top-list">' + cards + '</ol></section>';
+      }
+      var t2 = x.teams[0].full + ' against ' + x.teams[1].full;
+      return '<section class="top-group" aria-label="' + esc(t2) + '"><h3 class="top-title">' + esc(t2) + '</h3>' +
+        '<div class="panel"><div class="empty">No game file for this matchup, so there are no plays to show. Only the score will be kept.</div></div></section>';
+    }).join('');
+    return '<div class="narrow">' +
+      '<div class="lg-head"><h2>Week ' + L.week + ', biggest plays</h2><a class="lg-back" href="#league">League</a></div>' +
+      groups +
+      '<p class="note is-plain">The three plays that moved the most fantasy points in each game, from the game file. ' +
+      'Quarters and clock times are worked out from the order of the plays, since the game file has none.</p></div>';
   }
 
   var filmSel = 0; // the play number open in the film room
@@ -912,7 +1019,7 @@
       '</div></div>';
   }
 
-  var RENDER = { film: renderFilm, league: renderLeague, matchup: renderMatchup, lineups: renderLineups, plays: renderPlays, recap: renderRecap };
+  var RENDER = { week: renderWeek, film: renderFilm, league: renderLeague, matchup: renderMatchup, lineups: renderLineups, plays: renderPlays, recap: renderRecap };
 
   function render(isFresh) {
     fresh = !!isFresh;
@@ -1077,6 +1184,9 @@
     sec.className = 'screen'; sec.id = 's-league'; sec.setAttribute('aria-label', 'League'); sec.hidden = true;
     var first = $('s-matchup');
     first.parentNode.insertBefore(sec, first);
+    var wk = document.createElement('section');
+    wk.className = 'screen'; wk.id = 's-week'; wk.setAttribute('aria-label', 'This week in the league'); wk.hidden = true;
+    sec.parentNode.insertBefore(wk, sec.nextSibling);
     // The film room has no tab: it is reached from the recap after the final.
     var film = document.createElement('section');
     film.className = 'screen'; film.id = 's-film'; film.setAttribute('aria-label', 'Film room'); film.hidden = true;
@@ -1167,6 +1277,7 @@
     else if (act === 'filter') { filter = el.getAttribute('data-f'); render(false); }
     else if (act === 'optin') { setOptin(el.getAttribute('data-v') === 'in' ? 'in' : 'out'); render(false); }
     else if (act === 'share') { shareResult(el); }
+    else if (act === 'seek') { watchPlay(Number(el.getAttribute('data-i')), el); }
     else if (act === 'week') { weekSel = Number(el.getAttribute('data-w')); render(false); }
     else if (act === 'film') {
       filmSel = Number(el.getAttribute('data-n'));
@@ -1228,6 +1339,8 @@
     get me() { return me; },
     get sport() { return sport; },
     get drives() { return m.drives; },
+    topPlays: function (n) { return topPlaysLocal(n || 3); },
+    get seeking() { return seeking; },
     get scoringFromFile() { return useFile(); },
     // Each player's points from the game and, when the file is loaded, from data/scoring.json.
     comparePoints: function () {
