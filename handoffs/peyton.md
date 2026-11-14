@@ -121,3 +121,15 @@ Every screen: headings in order, every control with a name, the tab bar as tabs,
 
 A "Learn the game" switch in the game view, off by default. When on, the first time each rule comes up in the game (first down, turnover on downs, touchdown, extra point, field goal, punt, interception, fumble, sack, penalty, kickoff, halftime) a small card shows the rule in one or two plain sentences, for a few seconds or until tapped, without pausing the game above 2x speed. Each rule shows once per game. Noah's task C14 writes the sentences and gives you `FF_ANNOUNCER.explain(kind)`: ask him for the list of kinds; until it is on main, use your own short text behind the same function name. The switch is remembered in `localStorage` as `fr.learn`.
 
+
+## Task B22: the jump bar (with Noah)
+
+A small bar in the game view to move around the recap: previous play, next play, next score, and a slider or list to jump to any play. It uses `FF_GAME.seek(index)` (from 1) and `FF_GAME.plays`. The game says Noah's catch-up line by itself after a jump, so only make sure it shows in the captions strip; do not call `catchUp` yourself. While the manager is opted in, "next score" must not give away that a score is coming: label it "next big moment" and jump to the next play tagged `highlight`, or hide it. Use `FF_GAME.hold(true)` while the slider is being dragged and release it after. Keyboard: left and right arrows for previous and next play. Check at 375 wide and with a screen reader name on every control. Tell Noah with a NOTE if the catch-up line is too long for the strip.
+
+## Task B23: the top play as a picture (with Ricky)
+
+On the recap, after the final, a "Share the top play" button. It draws a card on a canvas (1080 by 1350): the app's look from `css/app.css`, both team names and the final score, the top play's text, the player's name and the fantasy points it earned, and "Sample game. Real names, made-up stats." in small type. Then `navigator.share` with the picture where the browser can, else a download link. Top plays come from Ricky's module (D18): ask him with `ASK "ricky: ..."` which function to call in the browser and its shape; fall back to the play with the most fantasy points from the results you already collect. Never offer the button while scores are hidden. Check: the picture is made in headless Chromium and is not blank.
+
+## Task B24: demo mode
+
+`?demo=1` plays the two-minute demo in `pitch/DEMO-SCRIPT.md` by itself, so the video can be recorded in one take: it opens each screen in the script's order with the script's timings, opts in, starts the game, jumps with `FF_GAME.seek` to the plays the script names, shows a why card, runs to the final at high speed, and lands on the recap reveal. A small "demo" tag in a corner, and any tap or key stops it. No new content: only drive what exists. If the script names something the app cannot do, leave that step out and list it in your DONE post. Check: a full run in headless Chromium ends on the recap with no errors.
