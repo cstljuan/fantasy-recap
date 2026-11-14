@@ -274,6 +274,71 @@ var srv = createServer(fake).listen(0, function () {
         .then(function () { return call('GET', '/games/nope/story', undefined, undefined, noDb.address().port); })
         .then(function (r) { assert.equal(r.status, 404); withDb.close(); noDb.close(); });
     })
+    // watch party relay: rooms, commands, long poll, host state, expiry, limits
+    .then(function () {
+      var t = 1000000, parties = require('./party.js').createParties({ now: function () { return t; }, maxRooms: 3 });
+      var ps = createServer(fake, { parties: parties }).listen(0), pp = ps.address().port, ORIGIN = 'http://localhost:5173';
+      function pc(method, p, body) { return call(method, p, body, { Origin: ORIGIN }, pp); }
+      var room;
+      return pc('POST', '/party').then(function (r) {
+        assert.equal(r.status, 201); assert.ok(/^[A-Z]{4}$/.test(r.body.code)); assert.ok(/^[0-9a-f]{24}$/.test(r.body.host));
+        assert.equal(r.headers['access-control-allow-origin'], ORIGIN); room = r.body;
+        return pc('GET', '/party/' + room.code + '/state');
+      }).then(function (r) {
+        assert.equal(r.status, 200); assert.equal(r.body.state, null);
+        return pc('POST', '/party/' + room.code.toLowerCase() + '/command', { cmd: 'start' });
+      }).then(function (r) {
+        assert.equal(r.status, 201); assert.equal(r.body.command.n, 1); assert.equal(r.body.command.value, null);
+        return pc('POST', '/party/' + room.code + '/command', { cmd: 'seek', value: 14 });
+      }).then(function (r) {
+        assert.equal(r.body.command.n, 2);
+        return pc('GET', '/party/' + room.code + '/commands?after=1');
+      }).then(function (r) {
+        assert.equal(r.status, 200); assert.deepEqual(r.body.commands.map(function (c) { return [c.n, c.cmd, c.value]; }), [[2, 'seek', 14]]); assert.equal(r.body.last, 2);
+        // long poll: waits, then answers as soon as a command comes in
+        var t0 = Date.now(), waiting = pc('GET', '/party/' + room.code + '/commands?after=2&wait=5');
+        setTimeout(function () { pc('POST', '/party/' + room.code + '/command', { cmd: 'speed', value: 2 }); }, 150);
+        return waiting.then(function (w) {
+          assert.equal(w.status, 200); assert.deepEqual(w.body.commands.map(function (c) { return c.cmd; }), ['speed']);
+          assert.ok(Date.now() - t0 >= 100 && Date.now() - t0 < 2000, 'the long poll answered when the command came');
+        });
+      }).then(function () {
+        return pc('POST', '/party/' + room.code + '/state', { host: room.host, index: 14, mode: 'play', speed: 2 });
+      }).then(function (r) {
+        assert.equal(r.status, 200);
+        return pc('GET', '/party/' + room.code + '/state');
+      }).then(function (r) {
+        assert.deepEqual(r.body.state, { index: 14, mode: 'play', speed: 2 });
+        return Promise.all([
+          pc('POST', '/party/' + room.code + '/state', { host: 'wrong', index: 1, mode: 'play', speed: 1 }),
+          pc('POST', '/party/' + room.code + '/state', { host: room.host, index: -1, mode: 'play', speed: 1 }),
+          pc('POST', '/party/' + room.code + '/state', { host: room.host, index: 1, mode: 'DROP TABLE', speed: 1 }),
+          pc('POST', '/party/' + room.code + '/command', { cmd: 'explode' }),
+          pc('POST', '/party/' + room.code + '/command', { cmd: 'seek', value: 0 }),
+          pc('POST', '/party/' + room.code + '/command', { cmd: 'speed', value: 100 }),
+          pc('POST', '/party/' + room.code + '/command', { cmd: 'hold', value: 'x' }),
+          pc('POST', '/party/' + room.code + '/command', { cmd: 'start', pad: new Array(3000).join('x') }),
+          pc('GET', '/party/' + room.code + '/commands?after=-1'),
+          pc('GET', '/party/' + room.code + '/commands?wait=99'),
+          pc('GET', '/party/AB1/state'),
+          pc('GET', '/party/ZZZZ/state'),
+          pc('DELETE', '/party/' + room.code + '/state'),
+          pc('GET', '/party')
+        ]);
+      }).then(function (rs) {
+        assert.deepEqual(rs.map(function (r) { return r.status; }), [403, 400, 400, 400, 400, 400, 400, 413, 400, 400, 400, 404, 405, 405]);
+        rs.forEach(function (r) { assert.equal(r.headers['access-control-allow-origin'], ORIGIN, 'CORS on every party answer'); });
+        // room limit (3 here), then expiry after two hours frees them
+        return pc('POST', '/party').then(function () { return pc('POST', '/party'); }).then(function () { return pc('POST', '/party'); });
+      }).then(function (r) {
+        assert.equal(r.status, 429);
+        t += 2 * 60 * 60 * 1000;
+        return pc('GET', '/party/' + room.code + '/state');
+      }).then(function (r) {
+        assert.equal(r.status, 404); assert.equal(parties.count(), 0);
+        return pc('POST', '/party');
+      }).then(function (r) { assert.equal(r.status, 201); ps.close(); });
+    })
     .then(function () { console.log('OK'); srv.close(); })
     .catch(function (e) { console.error('FAIL', e.message); process.exit(1); });
 });

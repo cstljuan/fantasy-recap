@@ -31,6 +31,18 @@ node server/index.js
 
 - `GET /games/:id/story` returns the turning points of a game as numbers: `{ game_id, source, home, away, final, winner, leadChanges: [{index, quarter, clock, team, score}], longestDrive: {drive, team, quarter, plays, yards, seconds, result, startIndex, endIndex} or null, biggestSwing: {start, quarter, team, fpSwing, index} or null, bestPlayers: [{team, slot, name, points, index}], decidingPlay: {index, quarter, clock, team, score} or null }`. `index` is the play number from 1, the same as `seq` and the top plays index. From the database when its rows have scores and points, from `data/games/<id>.json` when not. The meaning of each field is at the top of `server/story.js`. `node server/story.js <game file>` prints it.
 
+## Watch party relay
+
+A phone can be the remote for a game playing on another screen. The rooms live in the service's memory only (no database) and end two hours after they are made; at most 200 are open at once (429 after that). Bodies are limited to 2 KB. Same CORS rule as the other routes.
+
+- `POST /party` makes a room: `201 { code, host, created_at, expires_at }`. `code` is four letters (no I or O) to show on the screen; `host` is a key only the host screen keeps.
+- `POST /party/:code/command` with `{ cmd, value }` from a remote: `cmd` is `start`, `hold`, `release`, `seek` (value: play index from 1) or `speed` (value: 0.25 to 8); the others take no value. Answers `201 { code, command: { n, cmd, value, at } }`. `n` counts from 1 in each room.
+- `GET /party/:code/commands?after=<n>&wait=<seconds>` for the host: `{ code, commands: [...with n above after], last, expires_at }`. With `wait` (1 to 25) the answer waits until a command comes in or the time is up, so the host can poll in a loop without a delay. Only the last 200 commands of a room are kept.
+- `POST /party/:code/state` with `{ host, index, mode, speed }` from the host: `index` the play number (0 before the first), `mode` one lower-case word (`ready`, `play`, `inter`, `final`, ...), `speed` 0.25 to 8. A wrong `host` key gets 403.
+- `GET /party/:code/state` for the remotes: `{ code, state: { index, mode, speed } or null, updated_at, expires_at }`.
+
+Codes are not case sensitive. An unknown or ended room answers 404, a malformed code 400. `node server/test.js` covers every route, the long poll, the host key, the limits and expiry; `node server/stress.js` sends bad input and 30 party requests inside the 200 at once.
+
 ## In the browser
 
 `server/replay.js`, `server/drives.js`, `server/momentum.js` and `server/story.js` run in a page as well as in Node, with the same code. Load them after `js/rules.js` (and `soccer/js/fantasy.js`, `soccer/js/rules.js` for soccer):

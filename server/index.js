@@ -13,6 +13,8 @@ var topPlays = topPlaysModule.topPlays, rankPlays = topPlaysModule.rank;
 var drivesModule = require('./drives.js');
 var momentumModule = require('./momentum.js');
 var storyModule = require('./story.js');
+var createParties = require('./party.js').createParties;
+var PARTY_BODY = 2048;
 
 function loadEnv(file) {
   var text;
@@ -52,12 +54,13 @@ function send(res, status, body) {
   res.end(text);
 }
 
-function readJson(req, cb) {
+function readJson(req, cb, limit) {
+  var max = limit || MAX_BODY;
   var size = 0, chunks = [], done = false;
   function fail(code, msg) { if (!done) { done = true; cb({ status: code, message: msg }); } }
   req.on('data', function (c) {
     size += c.length;
-    if (size > MAX_BODY) { fail(413, 'body too large'); req.destroy(); return; }
+    if (size > max) { fail(413, 'body too large'); req.destroy(); return; }
     chunks.push(c);
   });
   req.on('end', function () {
@@ -93,13 +96,41 @@ var SPORTS = ['football', 'soccer'];
 var MAX_ID = 200, MAX_MANAGER = 100;
 
 // db needs query(text, params) -> Promise<{rows}> and, for POST, connect() -> client with query and release.
-function createServer(db) {
+// opts.parties: a watch party store (server/party.js); one is made when it is not given.
+function createServer(db, opts) {
+  var parties = (opts && opts.parties) || createParties();
   return http.createServer(function (req, res) {
     res.originHeader = req.headers.origin;
     // Anything thrown while handling a request answers 500 instead of leaving the request open.
     try { route(req, res); }
     catch (e) { console.error('request failed:', e.message); if (!res.headersSent) send(res, 500, { error: 'server error' }); }
   });
+
+  // Watch party relay (server/party.js). In memory only; no database.
+  function party(req, res, url) {
+    function answer(r) { send(res, r.error || r.status, r.error ? { error: r.message } : r.body); }
+    if (url.pathname === '/party') {
+      if (req.method !== 'POST') return send(res, 405, { error: 'method not allowed' });
+      // drain any body, then make the room
+      return readJson(req, function (err) { if (err && err.status === 413) return send(res, 413, { error: err.message }); answer(parties.create()); }, PARTY_BODY);
+    }
+    var pm = url.pathname.match(/^\/party\/([^\/]+)\/(command|commands|state)$/);
+    if (!pm) return send(res, 404, { error: 'not found' });
+    var code = pm[1], what = pm[2];
+    if (what === 'command' && req.method === 'POST') {
+      return readJson(req, function (err, body) { if (err) return send(res, err.status, { error: err.message }); answer(parties.command(code, body)); }, PARTY_BODY);
+    }
+    if (what === 'commands' && req.method === 'GET') {
+      var cancel = parties.commands(code, url.searchParams.get('after'), url.searchParams.get('wait'), function (r) { if (!res.headersSent && !res.writableEnded) answer(r); });
+      if (typeof cancel === 'function') res.on('close', cancel);
+      return;
+    }
+    if (what === 'state' && req.method === 'POST') {
+      return readJson(req, function (err, body) { if (err) return send(res, err.status, { error: err.message }); answer(parties.setState(code, body)); }, PARTY_BODY);
+    }
+    if (what === 'state' && req.method === 'GET') return answer(parties.getState(code));
+    send(res, 405, { error: 'method not allowed' });
+  }
 
   function route(req, res) {
     var url = new URL(req.url, 'http://localhost');
@@ -108,6 +139,7 @@ function createServer(db) {
       return db.query('SELECT 1 AS ok').then(function () { send(res, 200, { ok: true, database: true }); },
         function (e) { console.error('health: database does not answer:', e.message); send(res, 503, { ok: false, database: false }); });
     }
+    if (url.pathname === '/party' || url.pathname.indexOf('/party/') === 0) return party(req, res, url);
     var m = url.pathname.match(/^\/games\/([^\/]+)\/(plays|summary|optin|optins|top-plays|drives|momentum|story)$/);
     if (!m) return send(res, 404, { error: 'not found' });
     var gameId;

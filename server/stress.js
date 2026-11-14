@@ -170,6 +170,48 @@ var srv = createServer(db).listen(0, function () {
   ];
   bad.forEach(function (b) { steps.push(function () { return c(b[0], b[1], b[2], b[3], b[4], b[5]); }); });
 
+  // the watch party relay: a room, every route, bad input
+  var room = null;
+  steps.push(function () { return c('party: make a room', 'POST', '/party', undefined, [201]).then(function (r) { room = r.body; }); });
+  steps.push(function () { return c('party: command', 'POST', '/party/' + room.code + '/command', { cmd: 'seek', value: 14 }, [201]); });
+  steps.push(function () { return c('party: commands', 'GET', '/party/' + room.code + '/commands?after=0', undefined, [200]); });
+  steps.push(function () { return c('party: state', 'POST', '/party/' + room.code + '/state', { host: room.host, index: 14, mode: 'play', speed: 1 }, [200]); });
+  steps.push(function () { return c('party: read state', 'GET', '/party/' + room.code + '/state', undefined, [200]); });
+  [
+    ['party: body is a list', 'POST', '/command', [1, 2], [400]],
+    ['party: cmd is a number', 'POST', '/command', { cmd: 5 }, [400]],
+    ['party: seek is text', 'POST', '/command', { cmd: 'seek', value: '14' }, [400]],
+    ['party: speed is huge', 'POST', '/command', { cmd: 'speed', value: 1e308 }, [400]],
+    ['party: SQL in cmd', 'POST', '/command', { cmd: "start'; DROP TABLE plays;--" }, [400]],
+    ['party: broken JSON', 'POST', '/command', undefined, [400], '{"cmd":'],
+    ['party: body over 2 KB', 'POST', '/command', undefined, [413], JSON.stringify({ cmd: 'start', pad: new Array(4000).join('x') })],
+    ['party: state without the host key', 'POST', '/state', { index: 1, mode: 'play', speed: 1 }, [403]],
+    ['party: state with an object index', 'POST', '/state', { host: '*', index: { a: 1 }, mode: 'play', speed: 1 }, [400]],
+    ['party: after is text', 'GET', '/commands?after=abc', undefined, [400]],
+    ['party: wait is too long', 'GET', '/commands?wait=600', undefined, [400]]
+  ].forEach(function (b) {
+    steps.push(function () {
+      var body = b[3] && b[3].host === '*' ? Object.assign({}, b[3], { host: room.host }) : b[3];
+      return c(b[0], b[1], '/party/' + room.code + b[2], body, b[4], b[5]);
+    });
+  });
+  [
+    ['party: code too short', 'GET', '/party/ABC/state', undefined, [400]],
+    ['party: code with digits', 'GET', '/party/AB12/commands', undefined, [400]],
+    ['party: broken percent code', 'GET', '/party/%E0%A4%A/state', undefined, [400, 404]],
+    ['party: unknown room', 'POST', '/party/QQQQ/command', { cmd: 'start' }, [404]],
+    ['party: unknown route', 'GET', '/party/QQQQ/other', undefined, [404]],
+    ['party: wrong method', 'PUT', '/party', undefined, [405]]
+  ].forEach(function (b) { steps.push(function () { return c(b[0], b[1], b[2], b[3], b[4]); }); });
+  // a long poll whose phone goes away must not leave anything behind
+  steps.push(function () {
+    return new Promise(function (ok) {
+      var r = http.request({ port: srv.address().port, method: 'GET', path: '/party/' + room.code + '/commands?after=999&wait=20', headers: { Origin: ORIGIN } });
+      r.on('error', function () {}); r.end();
+      setTimeout(function () { r.destroy(); setTimeout(ok, 50); }, 100);
+    }).then(function () { return c('party: command after a phone left', 'POST', '/party/' + room.code + '/command', { cmd: 'hold' }, [201]); });
+  });
+
   // the SQL strings must have been stored as plain values, and the tables must still be there
   steps.push(function () {
     return c('read back after SQL strings', 'GET', '/games/week11-football/plays', undefined, [200]).then(function (r) {
@@ -185,6 +227,8 @@ var srv = createServer(db).listen(0, function () {
     for (var i = 0; i < 200; i++) {
       var p = routes[i % routes.length];
       if (i % 10 === 9) all.push(c('burst optin ' + i, 'POST', '/games/week11-football/optin', { manager: 'm' + i }, [201]));
+      else if (i % 10 === 4) all.push(c('burst party command ' + i, 'POST', '/party/' + room.code + '/command', { cmd: 'seek', value: i }, [201]));
+      else if (i % 10 === 6) all.push(c('burst party poll ' + i, 'GET', '/party/' + room.code + '/commands?after=' + i, undefined, [200]));
       else all.push(c('burst ' + p, 'GET', p, undefined, [200]));
     }
     var t0 = Date.now();
