@@ -135,7 +135,7 @@
     m.field = res.post.score.slice();
     m.done += 1;
     m.feed.push({
-      n: m.done, team: off, where: res.where || '', desc: describe(res), tags: tags,
+      n: m.done, team: off, where: res.where || '', desc: describe(res), tags: tags, why: whyFor(e, res),
       scoring: changed, flag: e.t === 'pen', score: res.post.score.slice(),
       fp: res.fp.map(function (f) { return { pts: f.pts, who: shortName(f.team, f.role) }; })
     });
@@ -214,6 +214,66 @@
       '</div>';
   }
 
+  // "Why this play": the play caller's probabilities for a play, from the event's
+  // optional why field (contract v1). ?whydemo=1 attaches a sample to the first
+  // three plays from scrimmage so the card can be seen before real data exists.
+  var WHY_DEMO = /[?&]whydemo=1(&|$)/.test(location.search);
+  var WHY_SAMPLE = { play: { deep_pass: 0.46, run: 0.31, short_pass: 0.17, screen: 0.06 } };
+  var WHY_QUESTIONS = { play: 'Which play to call' };
+  var SCRIMMAGE = ['run', 'pass', 'inc', 'sack', 'int', 'fumble'];
+  var whyDemoUsed = 0, whyOpen = {};
+
+  function isProbMap(o) {
+    if (!o || typeof o !== 'object') return false;
+    var ks = Object.keys(o);
+    return ks.length > 0 && ks.every(function (k) { return typeof o[k] === 'number' && isFinite(o[k]); });
+  }
+  // Which option the play turned out to be: e.chosen if the game file says, else read from what happened.
+  function chosenFor(q, opts, e, res) {
+    if (e.chosen && typeof e.chosen === 'object' && typeof e.chosen[q] === 'string') return e.chosen[q];
+    if (typeof e.chosen === 'string' && q === 'play') return e.chosen;
+    if (q !== 'play') return '';
+    var guess = '';
+    if (e.t === 'run' || e.t === 'fumble') guess = 'run';
+    else if (e.t === 'pass') guess = e.yds >= 15 ? 'deep_pass' : 'short_pass';
+    return guess && guess in opts ? guess : '';
+  }
+  function whyFor(e, res) {
+    var why = e.why;
+    if (!why && WHY_DEMO && SCRIMMAGE.indexOf(e.t) >= 0 && whyDemoUsed < 3) { whyDemoUsed += 1; why = WHY_SAMPLE; }
+    if (!why || typeof why !== 'object') return null;
+    var out = [];
+    Object.keys(why).forEach(function (q) {
+      if (!isProbMap(why[q])) return;
+      var opts = why[q], sum = 0;
+      Object.keys(opts).forEach(function (k) { sum += Math.max(0, opts[k]); });
+      if (!(sum > 0)) return;
+      var chosen = chosenFor(q, opts, e, res);
+      out.push({
+        q: q, chosen: chosen,
+        opts: Object.keys(opts).map(function (k) { return { k: k, p: Math.max(0, opts[k]) / sum }; })
+                .sort(function (a, b) { return b.p - a.p; })
+      });
+    });
+    return out.length ? out : null;
+  }
+  function humanize(k) { var t = String(k).replace(/_/g, ' '); return t.charAt(0).toUpperCase() + t.slice(1); }
+  function whyCard(p) {
+    if (!p.why) return '';
+    var body = p.why.map(function (w) {
+      return '<div class="why-q">' + esc(WHY_QUESTIONS[w.q] || humanize(w.q)) + '?</div>' +
+        '<ul class="why-bars">' + w.opts.map(function (o) {
+          var pct = Math.round(o.p * 100), on = o.k === w.chosen;
+          return '<li' + (on ? ' class="is-chosen"' : '') + '>' +
+            '<span class="why-name">' + esc(humanize(o.k)) + (on ? '<b>Called</b>' : '') + '</span>' +
+            '<span class="why-bar"><i style="width:' + pct + '%"></i></span>' +
+            '<span class="why-pct">' + pct + '%</span></li>';
+        }).join('') + '</ul>';
+    }).join('');
+    return '<details class="why" data-n="' + p.n + '"' + (whyOpen[p.n] ? ' open' : '') + '>' +
+      '<summary>Why this play</summary>' + body + '</details>';
+  }
+
   function playItem(p, isNew) {
     if (p.divider) return '<li class="divider">' + esc(p.divider) + '</li>';
     var tags = p.tags.map(function (t) { return '<span class="tag t-' + t[0] + '">' + t[1] + '</span>'; }).join('');
@@ -229,6 +289,7 @@
         (tags ? '<div class="play-tags">' + tags + '</div>' : '') +
       '</div>' +
       (fp ? '<div class="play-fp">' + fp + '</div>' : '') +
+      whyCard(p) +
       '</li>';
   }
 
@@ -585,6 +646,12 @@
     if (changed) window.scrollTo(0, 0);
   }
 
+  // Keep a why card open when the feed is drawn again after the next play.
+  document.addEventListener('toggle', function (ev) {
+    var el = ev.target;
+    if (el && el.classList && el.classList.contains('why')) whyOpen[el.getAttribute('data-n')] = el.open;
+  }, true);
+
   document.addEventListener('click', function (ev) {
     var el = ev.target.closest ? ev.target.closest('[data-act]') : null;
     if (!el) return;
@@ -606,7 +673,7 @@
   };
 
   G.on(function (type, d) {
-    if (type === 'reset') m = blank();
+    if (type === 'reset') { m = blank(); whyDemoUsed = 0; whyOpen = {}; }
     else if (type === 'start') m.status = 'live';
     else if (type === 'snap') m.now = d.res.e.t === 'kickoff' ? 'Kickoff' : d.res.e.t === 'xp' ? 'Extra point try' : d.res.where;
     else if (type === 'result') {

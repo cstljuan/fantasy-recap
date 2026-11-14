@@ -190,6 +190,26 @@ h2 { margin: 0; font: 700 11px/1 var(--body); letter-spacing: 0.14em; text-trans
 .lg-go::after { content: " \203A"; }
 @media (max-width: 400px) { .tabs a { font-size: 13px; letter-spacing: 0.06em; } }
 
+/* ------------------------------------------------------ why this play */
+
+.play { flex-wrap: wrap; }
+.why { flex: 1 0 100%; min-width: 0; margin-top: -4px; }
+.why summary { display: inline-flex; align-items: center; gap: 6px; min-height: 32px; cursor: pointer; list-style: none;
+               font: 700 11px/1 var(--body); letter-spacing: 0.1em; text-transform: uppercase; color: var(--amber); }
+.why summary::-webkit-details-marker { display: none; }
+.why summary::before { content: "+"; display: inline-block; width: 10px; font-family: var(--mono); }
+.why[open] summary::before { content: "-"; }
+.why-q { margin: 4px 0 6px; font-size: 13px; color: var(--text); }
+.why-bars { list-style: none; margin: 0; padding: 0; display: grid; gap: 5px; }
+.why-bars li { display: grid; grid-template-columns: minmax(0, 10em) minmax(0, 1fr) 3.2em; align-items: center; gap: 8px; font-size: 12px; color: var(--dim); }
+.why-name { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.why-name b { margin-left: 6px; font: 700 9px/1 var(--body); letter-spacing: 0.12em; text-transform: uppercase; color: #111; background: var(--amber); padding: 2px 4px; }
+.why-bar { height: 8px; background: var(--inset); }
+.why-bar i { display: block; height: 100%; background: var(--dim); }
+.why-pct { text-align: right; font: 700 13px/1 var(--display); font-variant-numeric: tabular-nums; }
+.why-bars li.is-chosen { color: var(--text); }
+.why-bars li.is-chosen .why-bar i { background: var(--amber); }
+
 /* ---------------------------------------------------------------- recap */
 
 /* The winner reveal at the top of the recap. */
