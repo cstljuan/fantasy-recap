@@ -107,3 +107,11 @@ Ricky's task D24 adds `form` to each player in `data/profiles/<team>.json`: the 
 
 Every sound the game plays (crowd murmur, swell, roar, groan, whistle, jingles) gets a short caption text, the way television captions show [crowd roars]. Add `FF_AUDIO.captionFor(name)` returning the text or '' for sounds that need none, and fire it through the same `onLine` listeners as the announcer (kind `sound`) so Peyton's captions strip can show it. Respect mute: muted sounds still get captions, since the captions are for people who cannot hear them. Add a check. Post `NOTE "peyton: ..."` with the kind and the texts, for her screen reader pass (B20).
 
+
+## Task C18: the big call (with Ricky and Peyton)
+
+A game's top plays deserve more than the normal one line. Add `FF_ANNOUNCER.bigCall(res, ctx)`: two or three sentences in the chosen style for a touchdown, a turnover or a gain of 20 or more, naming the player, the distance, what it did to the score, and one fact from the game so far from the announcer's memory. Empty string for an ordinary play. `ctx.hidden` true means no fantasy points. Peyton's "this week in the league" screen (B18) and her share card (B23) can show it as text: post `NOTE "peyton: ..."` with the function and its longest length. Ask Ricky which plays his top plays module (D18) ranks first, so your idea of big and his agree. Add cases to `js/announcer/check.js`.
+
+## Task C19: line audit
+
+A script `js/announcer/audit.js` (run with node) that plays both football game files (`data/games/week11-football.json` and `data/games/sample-football.json`) through the announcer in both styles and reports: every line longer than `maxLength`, every line with `undefined`, `NaN`, `null`, a double space or an empty name, every kind of play that got no line, any line repeated word for word more than three times in one game, and, when `assets/voice/football/index.js` exists, every line the game says that has no recording and every recording no game says. It prints OK or the list, and exits non zero on a problem. Fix what it finds in your files. Post `NOTE "boss: ..."` with the command so it can join the review round.
