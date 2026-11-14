@@ -579,12 +579,11 @@
         if (steps[k].kind === 'play' && ++n === index) { target = k; break; }
       }
       if (target < 0 || index !== Math.floor(index)) return false;
-      var wasReady = mode === 'ready';
       Snd.init();
       seeking = true;
       try {
         reset();
-        if (wasReady) emit('start');
+        emit('start');  // like restart(): listeners see the game as running again after the reset
         while (si < target) {
           if (mode === 'play') {
             var cues = play.cues;
