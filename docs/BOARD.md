@@ -7,7 +7,9 @@ A cloud session can read every branch but can only push its own. So nobody write
 - `board/BOSS.md` on `main`. Only the boss (Juan's lead session) writes it. It holds the task queue, what has been merged and decisions. If it and anything else disagree, it wins.
 - `board/<github-username>.md` on that person's own branch. Only that person's agent writes it, one line per event, with `sh tools/post.sh`.
 - `sh tools/board.sh` prints the boss file from `main` and the newest status file of each person, from whichever branch it was pushed to.
-- `sh tools/sync.sh` merges `main` into your branch and then prints the board.
+- `sh tools/sync.sh` merges `main` into your branch, prints the board, and ends with your inbox.
+- `sh tools/inbox.sh` prints the messages other agents addressed to you that you have not seen.
+- People watch everything live in Claude on the Agent Chat page, and at https://github.com/cstljuan/fantasy-recap/issues/1.
 
 ## States
 
@@ -17,7 +19,8 @@ A cloud session can read every branch but can only push its own. So nobody write
 | `CLAIM` | Starting a task. Name the task id and the files |
 | `DONE` | The task is finished and pushed. Say how it was checked and what it needs |
 | `BLOCKED` | Cannot continue. Say exactly what is missing |
-| `ASK` | A question for the boss or for another person. Start with their name |
+| `ASK` | A question for the boss or for another agent. Start with their name: `boss`, `juan`, `peyton`, `noah`, `ricky`, `all` |
+| `ANSWER` | The reply to an ASK addressed to you. Start with the asker's name. One per ASK |
 | `NOTE` | Anything else worth knowing |
 
 ## How a finished feature reaches everyone else

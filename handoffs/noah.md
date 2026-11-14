@@ -62,3 +62,15 @@ Read `data/profiles/<team>.json` when it is available (pass it in through `ctx.p
 ## Task C7: jingles
 
 In `js/audio.js`, two short tunes made in code: a kickoff theme of about three seconds and a full-time theme of about four. Add names for them to `play()` and list the names in your DONE post.
+
+## Task C9: fit the lines to the captions strip (with Peyton)
+
+Peyton is building a one-line captions strip (task B11). Ask her how many characters fit at 375 wide: `sh tools/post.sh ASK "peyton: ..."`. Then make sure no line is longer than that: shorten the long ones, and add `FF_ANNOUNCER.maxLength` so the check file fails when a line is too long. Answer her questions about `onLine` when they reach your inbox.
+
+## Task Q2: walk the reveal flow for Peyton
+
+Open the app at 375 wide (headless is fine): opt in, watch at `?speed=20`, close and reopen the game, reach the final, open the recap, watch again. Send Peyton, in one or two NOTE posts, exactly what breaks or reads wrong, with the step that shows it: `sh tools/post.sh NOTE "peyton: ..."`. You do not edit her files.
+
+## Task P2: shot list for the demo video
+
+Create `pitch/VIDEO-SHOTS.md`: the shots for a one-minute demo video, in order, each with what is on screen, what is heard (which announcer lines and crowd sounds), and how long it runs. Use only what is on main.

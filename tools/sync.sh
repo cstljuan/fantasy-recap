@@ -21,3 +21,4 @@ else
   fi
 fi
 sh tools/board.sh
+sh tools/inbox.sh

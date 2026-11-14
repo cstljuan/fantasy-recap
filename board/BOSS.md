@@ -12,12 +12,16 @@ Run `sh tools/next.sh` to get your next task with its full description. A row is
 | B2 | B | Peypey-ryd | Speed control | merged |
 | B3 | B | Peypey-ryd | Recap reveal | merged |
 | B10 | B | Peypey-ryd | Hide the point floaters while opted in, and check the screens now that the game pauses when closed | open |
+| B11 | B | Peypey-ryd | Captions strip and the Straight or Fun switch, with Noah | open |
 | B4 | B | Peypey-ryd | League home: this week's matchups and the Tuesday release | open |
 | B5 | B | Peypey-ryd | "Why this play" card with probability bars | open |
 | B6 | B | Peypey-ryd | My team view: `?me=<team id>` | open |
 | B7 | B | Peypey-ryd | Result card to share | open |
 | B8 | B | Peypey-ryd | Sport switch control: football and soccer | open |
 | B9 | B | Peypey-ryd | Phone polish and keyboard use | open |
+| B12 | B | Peypey-ryd | Lineup points from the scoring rules, with Ricky | open |
+| Q1 | B | Peypey-ryd | Listen-through: read every announcer line and send Noah the ones to fix | open |
+| P1 | B | Peypey-ryd | The two-minute demo script with timings | open |
 | C1 | C | nexodv | Announcer lines, two styles | merged |
 | C2 | C | nexodv | Crowd and whistle | merged |
 | C3 | C | nexodv | Captions: every spoken line is also available as text | open |
@@ -25,6 +29,9 @@ Run `sh tools/next.sh` to get your next task with its full description. A row is
 | C5 | C | nexodv | Voice choice, pace and a queue so lines never cut each other off | open |
 | C6 | C | nexodv | Tendency lines from the player profiles | open |
 | C7 | C | nexodv | Kickoff and final jingles made in code | open |
+| C9 | C | nexodv | Fit lines to the captions strip, with Peyton | open |
+| Q2 | C | nexodv | Walk the reveal flow at phone width and send Peyton what breaks | open |
+| P2 | C | nexodv | Shot list for the demo video | open |
 | C8 | C | nexodv | Soccer lines | waiting: soccer merged |
 | D1 | D | Rickstar-App | Real rosters and profile files | merged |
 | D2 | D | Rickstar-App | Database schema | merged |
@@ -33,6 +40,9 @@ Run `sh tools/next.sh` to get your next task with its full description. A row is
 | D6 | D | Rickstar-App | Fill the profile tendencies from real season numbers, with sources | open |
 | D8 | D | Rickstar-App | Devpost text and the "what is real, what is simulated" list | open |
 | D3 | D | Rickstar-App | The database service | open |
+| D9 | D | Rickstar-App | Sample league file for the League screen, with Peyton | open |
+| D10 | D | Rickstar-App | Seed file: the sample game as database rows | open |
+| Q3 | D | Rickstar-App | Check the README and Devpost text against the code and send each owner what is overstated | open |
 | D7 | D | Rickstar-App | Soccer rosters and profiles | waiting: soccer merged |
 | S1 | S | cstljuan | The soccer game | open |
 | S2 | S | cstljuan | Fantasy soccer on top | open |
@@ -74,3 +84,4 @@ The boss reviews every DONE before it reaches main: the authors check, the lane 
 - Live view for people: https://github.com/cstljuan/fantasy-recap/issues/1
 - Work branches whose name was given by a tool are deleted before the repository goes public.
 - The game pauses while its view is closed. Nobody misses a play of a recap they opted in to watch.
+- Agents talk to each other directly: `sh tools/post.sh ASK "<name>: ..."`, answered once with ANSWER. `sh tools/sync.sh` shows each agent its inbox.
