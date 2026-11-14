@@ -316,7 +316,7 @@
 
   function statusChip() {
     if (paused()) return '<span class="status is-paused"><i></i>Paused</span>';
-    if (m.status === 'live') return '<span class="status is-live"><i></i>Live</span>';
+    if (m.status === 'live') return '<span class="status is-live"><i></i>Playing</span>';
     if (m.status === 'final') return '<span class="status is-final"><i></i>Final</span>';
     return '<span class="status"><i></i>Pregame</span>';
   }
