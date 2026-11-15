@@ -1,0 +1,83 @@
+{
+ "key": "GOB-RB",
+ "name": "Saquon Barkley",
+ "researched": "2026-11-15",
+ "background": [
+  {"fact": "Saquon Rasul Quevis Barkley was born February 9, 1997 in the Bronx, New York, and the family moved to the Lehigh Valley in Pennsylvania in 2001; they settled in Coplay in 2005.", "source": "https://en.wikipedia.org/wiki/Saquon_Barkley", "date": null, "confidence": "from Wikipedia"},
+  {"fact": "At Whitehall High School he rushed for 3,646 yards and 63 touchdowns from sophomore to senior year, was co-winner of Mr. Pennsylvania Football in 2014, and also lettered in basketball and track (100 meters in 10.90 seconds).", "source": "https://en.wikipedia.org/wiki/Saquon_Barkley", "date": null, "confidence": "from Wikipedia"},
+  {"fact": "At Penn State he set school records for career all-purpose yards (5,538) and rushing touchdowns (43), finished fourth in the 2017 Heisman voting, and left after three seasons.", "source": "https://en.wikipedia.org/wiki/Saquon_Barkley", "date": null, "confidence": "from Wikipedia"},
+  {"fact": "The Giants drafted him second overall in 2018; he was Offensive Rookie of the Year, went to the Pro Bowl in 2018 and 2022, and signed a three-year deal with the Eagles after the 2023 season.", "source": "https://en.wikipedia.org/wiki/Saquon_Barkley", "date": null, "confidence": "from Wikipedia"},
+  {"fact": "In 2024 he ran for over 2,000 yards (2,005 in the data file) with Philadelphia, helped win Super Bowl LIX, and was named AP Offensive Player of the Year.", "source": "https://en.wikipedia.org/wiki/Saquon_Barkley", "date": null, "confidence": "confirmed by two sources (Wikipedia and research/data/GOB-RB.json career by_season)"},
+  {"fact": "Listed at 6 ft 0 in, 233 lb, age 29, jersey 26, in his ninth NFL season; career regular season totals are 8,652 rushing yards, 58 rushing touchdowns, 365 catches in 113 games.", "source": "research/data/GOB-RB.json (bio, career)", "date": "2026-11-15", "confidence": "from the data file"}
+ ],
+ "family": [
+  {"fact": "His father Alibay Barkley is a former boxer, his mother is Tonya Johnson, he has three brothers and two sisters, his brother Alibay Jr. was drafted by the Los Angeles Angels, and his great uncle is former WBC middleweight champion Iran Barkley.", "source": "https://en.wikipedia.org/wiki/Saquon_Barkley", "date": null, "confidence": "from Wikipedia"},
+  {"fact": "On February 2, 2025 he announced his engagement to Anna Congdon, his college sweetheart. Wikipedia says the couple have two children; nothing further about the children is recorded here.", "source": "https://en.wikipedia.org/wiki/Saquon_Barkley", "date": null, "confidence": "from Wikipedia"},
+  {"fact": "He is an investor in Ramp (he starred in its 2025 Super Bowl commercial) and other startups, and was the Madden 26 cover athlete.", "source": "https://en.wikipedia.org/wiki/Saquon_Barkley", "date": null, "confidence": "from Wikipedia"}
+ ],
+ "recent_events": [
+  {"fact": "Barkley hurt his hamstring on a carry against the Rams on October 4 (Week 4) and left that game; the data file shows him Out in the Week 5 and Week 6 injury reports.", "source": "https://6abc.com/post/eagles-rb-saquon-barkley-leaves-game-hamstring-injury/19907776/", "date": "date not shown", "confidence": "confirmed by two sources (also research/data/GOB-RB.json injury_reports)"},
+  {"fact": "He returned in Week 7 (62 yards and a touchdown at Dallas, a 38-21 loss), where a back problem emerged that reports describe as a side effect of the hamstring issue; he said he planned to play through it.", "source": "https://www.thefantasyfootballers.com/news/644640/saquon-barkley-plans-to-play-through-back-hamstring-issues/", "date": "date not shown", "confidence": "one source plus the data file"},
+  {"fact": "In Week 9 he was active despite hamstring and back injuries and a limited practice week; he ran 13 times for 22 yards and a touchdown and had one target with no catch in a 19-11 loss to the Giants. ESPN notes only 2.0 yards per carry over his last two games, with both Eagles touchdowns in that span.", "source": "research/data/GOB-RB.json (status.espn, log)", "date": "2026-11-08", "confidence": "from the data file (ESPN text)"},
+  {"fact": "Philadelphia is 2-7 and has lost seven straight after winning its first two games; Week 10 is their bye.", "source": "https://www.philadelphiaeagles.com/news/steelers-vs-eagles-moves-to-1-pm-kickoff-2026-nfl-week-11-salute-to-service", "date": "date not shown", "confidence": "confirmed by two sources (search summary and the ESPN text in the data file)"},
+  {"fact": "Quarterback Jalen Hurts is out for the season: reporting describes a left calf blood clot problem that later became deep vein thrombosis, and he is on injured reserve. Tanner McKee and then Joe Milton III have started since; the NFL and NFLPA are reviewing how the team handled the diagnosis.", "source": "https://atozsports.com/?p=504069", "date": "date not shown", "confidence": "confirmed by two sources (also ESPN text in the data file for IR and calf)"},
+  {"fact": "Receivers DeVonta Smith (hamstring) and Dontayvion Wicks (ankle) were out in Week 9, leaving the passing game thin; the top target in 2026 is Makai Lemon with 54 targets.", "source": "research/data/GOB-RB.json (status.espn, teammates_2026)", "date": "2026-11-15", "confidence": "from the data file"},
+  {"fact": "Trade talk: the Eagles reportedly told him he would not be traded this season, NFL Network's Ian Rapoport reported he would not be dealt before the November 10 deadline, and the deadline has now passed. Commentators have floated an offseason trade.", "source": "https://roundtable.io/sports/nfl/eagles/news/eagles-told-saquon-barkley-he-will-not-be-traded", "date": "2026-11-01", "confidence": "confirmed by two sources (NFL.com and ESPN headlines in the data file news list)"},
+  {"fact": "Depth: headlines on November 11 and 12 say the Eagles waived their last backup running back and ended a practice squad contract, leaving Barkley as the only running back on the roster. A search could not confirm the full current depth chart.", "source": "research/data/GOB-RB.json (news.recent, Heavy.com and Yahoo Sports headlines)", "date": "2026-11-12", "confidence": "headlines only, article text not read"},
+  {"fact": "Off the field in late October, he said the NFL told him to sell his stake in the prediction market Polymarket; on November 13 headlines covered his comments about life after football.", "source": "research/data/GOB-RB.json (news.recent, Yahoo Sports and New York Post headlines)", "date": "2026-10-29", "confidence": "headlines only"}
+ ],
+ "quotes": [
+  {"fact": "NFL.com headline from November 2 quotes him on the trade talk: 'I want to be one of the reasons why we fix it.' The full article was not read.", "source": "https://www.nfl.com/news/eagles-rb-saquon-barkley-assured-he-won-t-be-traded-i-want-to-be-one-of-the-reasons-why-we-fix-it", "date": "2026-11-02", "confidence": "headline quote only; URL taken from the headline list, page not fetched"},
+  {"fact": "A TSN headline says he said his hamstring felt great on his return and that he was not sweating the back issue. The article text was not read.", "source": "https://www.tsn.ca/nfl/article/eagles-barkley-says-hamstring-great-in-return-not-sweating-back-issue-n1-50294604/", "date": "date not shown", "confidence": "headline only"}
+ ],
+ "team_context": [
+  {"fact": "Barkley has 69 carries for 296 yards (4.3 a carry) and 3 touchdowns in 7 games in 2026, plus 7 catches for 41 yards, averaging 7.4 fantasy points a game under league scoring against 19.8 in 2024. He has 39 percent of the team carries.", "source": "research/data/GOB-RB.json (season_2026, career by_season, teammates_2026)", "date": "2026-11-15", "confidence": "from the data file"},
+  {"fact": "His 2026 games: 8.0 points in Week 1 (83 yards), 2.0, 8.0 (82 yards), 1.0 (left injured), then 13.1 at Dallas, 11.4 at Washington (30 yards, touchdown, 24 receiving) and 8.2 vs the Giants. Best game 13.1, no game above 14.", "source": "research/data/GOB-RB.json (log)", "date": "2026-11-15", "confidence": "from the data file"},
+  {"fact": "The 2026 snap share was 71 and 72 percent in the healthy early games, 32 percent at Washington and 59 percent against the Giants, so the workload has been trimmed since the injury.", "source": "research/data/GOB-RB.json (log snap_pct)", "date": "2026-11-15", "confidence": "from the data file"},
+  {"fact": "Philadelphia scored 11 points or fewer in two of its last three games; the quarterback has changed from Hurts to McKee to Milton.", "source": "research/data/GOB-RB.json (log, teammates_2026 passers_by_week)", "date": "2026-11-15", "confidence": "from the data file"},
+  {"fact": "Head coach and offensive coordinator names for 2026 were not confirmed from a current source: not found.", "source": "not found", "date": null, "confidence": "not found"}
+ ],
+ "next_opponent": [
+  {"fact": "The Eagles are on bye in Week 10 (today). Their next game is Week 11 at home against the Pittsburgh Steelers at Lincoln Financial Field, outdoors on grass, on CBS.", "source": "research/data/GOB-RB.json (next_games)", "date": "2026-11-15", "confidence": "from the data file"},
+  {"fact": "The Eagles site says the NFL moved the Steelers game to a 1 pm ET kickoff; the data file still lists 4:25 pm ET on Sunday November 22.", "source": "https://www.philadelphiaeagles.com/news/steelers-vs-eagles-moves-to-1-pm-kickoff-2026-nfl-week-11-salute-to-service", "date": "date not shown", "confidence": "two sources disagree on time; the team site is newer"},
+  {"fact": "Line in the data file: Pittsburgh favored by 4.5, total 38.5, which implies about 17 points for Philadelphia; forecast mostly sunny and 63 F. Wind not found.", "source": "research/data/GOB-RB.json (next_games)", "date": "2026-11-15", "confidence": "from the data file"},
+  {"fact": "Pittsburgh's 2026 defense, injuries and form were not found in the searches: not found.", "source": "not found", "date": null, "confidence": "not found"},
+  {"fact": "After Pittsburgh, the Eagles play at Dallas on Thursday November 26 (indoors, four days of rest) and at Arizona on December 6.", "source": "research/data/GOB-RB.json (next_games)", "date": "2026-11-15", "confidence": "from the data file"}
+ ],
+ "style": [
+  {"fact": "Known for burst and elusiveness, with 4.4 forty time, 41 inch vertical and 29 bench reps at the combine. Madden week 8 rating is 99 overall with 97 carrying, 96 jukes, 94 acceleration and 91 injury (durability).", "source": "research/data/GOB-RB.json (bio.combine, bio.madden)", "date": "2026-11-15", "confidence": "from the data file"},
+  {"fact": "In 2026 he has not been used much in the passing game: 11 targets and 7 catches in 7 games, 10 of the 11 targets short.", "source": "research/data/GOB-RB.json (plays_2026)", "date": "2026-11-15", "confidence": "from the data file"},
+  {"fact": "Goal line usage is steady: 12 carries in the red zone and 3 touchdowns in 7 games, including a wildcat touchdown on Sunday Night Football against Washington per an NFL.com headline.", "source": "research/data/GOB-RB.json (season_2026.sleeper_sums, news.recent)", "date": "2026-11-02", "confidence": "data file plus a headline"}
+ ],
+ "availability": {
+  "status": "On bye, no Week 11 designation yet; hamstring and back issues",
+  "detail": "He played through hamstring and back injuries in Week 9 on limited practice. The bye gives two weeks of rest before Pittsburgh (rest 14 days per the schedule). No official Week 11 injury report or report of a setback was found. ESPN raised the chance that he could eventually be shut down if the season is lost, but nothing confirms that.",
+  "expected_return": "Not applicable; expected to be available in Week 11 unless the team rests him",
+  "source": "research/data/GOB-RB.json (status.espn, injury_reports, next_games)",
+  "date": "2026-11-15"
+ },
+ "outlook_next_game": {
+  "lean": "no points this week (bye); in Week 11 a modest game, around 8 to 12 fantasy points, with some chance of a touchdown",
+  "confidence": "low",
+  "reasons": [
+    "Philadelphia is on bye now, so he scores zero for the Week 10 matchup unless the league treats the week differently.",
+    "He is the only running back left on the roster per headlines and gets the goal line work, but the offense is weak (implied 17 points) and his best 2026 game was 13.1.",
+    "Two weeks of rest should help the hamstring and back, but a shutdown in a lost season is a risk."
+  ]
+ },
+ "scouts_read": "Barkley is on the bye this week, so he will not score for the Week 10 matchup. When the Eagles return to face Pittsburgh in Week 11, he should have had two weeks to heal a hamstring and back problem that has cut his snaps and his yards per carry. He looks like the only real running back on the roster, which helps his volume, but a team total near 17 points and a quarterback change makes big days unlikely. His best 2026 game is only 13.1 points, so I would expect a modest game in the 8 to 12 range with a touchdown as the main upside. The main risk is the team resting him in a lost season.",
+ "open_questions": [
+  "Whether the bye counts as zero points for the fantasy matchup and who the roster owner starts instead (not found).",
+  "Official Week 11 injury report and Pittsburgh's defense (not found).",
+  "Full current Eagles running back depth chart (headlines only).",
+  "Head coach and offensive coordinator for 2026 (not found).",
+  "Whether the 1 pm or 4:25 pm kickoff is right (team site says 1 pm)."
+ ],
+ "searches": [
+  "Saquon Barkley hamstring back injury Eagles bye week Steelers Week 11",
+  "Eagles waive running back Saquon Barkley only running back Tank Bigsby practice squad November 2026",
+  "Saquon Barkley won't be traded fix it Eagles 2-7 Jalen Hurts calf injured reserve",
+  "Eagles Steelers Week 11 preview Barkley bye week injury update",
+  "Page fetches were not used; Wikipedia text came from the sections stored in research/data/GOB-RB.json"
+ ]
+}
