@@ -1,0 +1,212 @@
+{
+ "key": "GOB-WR3",
+ "name": "Amon-Ra St. Brown",
+ "researched": "2026-11-15",
+ "background": [
+  {
+   "fact": "Born October 24, 1999; grew up in Anaheim Hills, California. He went to Servite High School as a freshman, then Mater Dei High School in Santa Ana, where as a senior in 2017 he had 72 catches for 1,320 yards and 20 touchdowns, and was a five-star recruit who committed to USC.",
+   "source": "https://en.wikipedia.org/wiki/Amon-Ra_St._Brown",
+   "date": null,
+   "confidence": "from Wikipedia (sections stored in research/data/GOB-WR3.json)"
+  },
+  {
+   "fact": "At USC he caught 60 passes for 750 yards as a freshman (2018), 77 for 1,042 as a sophomore (2019) and 41 for 478 with seven touchdowns in six games as a junior (2020).",
+   "source": "https://en.wikipedia.org/wiki/Amon-Ra_St._Brown",
+   "date": null,
+   "confidence": "from Wikipedia"
+  },
+  {
+   "fact": "Detroit drafted him in the fourth round (pick 112) of the 2021 draft. He has made the Pro Bowl four times from 2022 to 2025 and was first-team All-Pro in 2023 and 2024.",
+   "source": "https://en.wikipedia.org/wiki/Amon-Ra_St._Brown",
+   "date": null,
+   "confidence": "from Wikipedia (draft slot also in the data file)"
+  },
+  {
+   "fact": "Listed at 6 ft 0 in, 202 lb, age 27, jersey 14, in his sixth NFL season, all with Detroit. Combine: 4.51 forty, 38.5 inch vertical.",
+   "source": "research/data/GOB-WR3.json (bio)",
+   "date": "2026-11-15",
+   "confidence": "one source (ESPN and Sleeper pulls)"
+  },
+  {
+   "fact": "Career regular season through Week 9 of 2026: 90 games, 608 catches, 6,909 yards, 49 receiving touchdowns; 2025 was 117 catches, 1,401 yards, 11 touchdowns on 172 targets.",
+   "source": "research/data/GOB-WR3.json (career)",
+   "date": "2026-11-15",
+   "confidence": "from the data file"
+  }
+ ],
+ "family": [
+  {
+   "fact": "His mother Miriam (born Steyer) is from Leverkusen, Germany; his father John Brown was a bodybuilder in the 1980s and a two-time amateur Mr. Universe.",
+   "source": "https://en.wikipedia.org/wiki/Amon-Ra_St._Brown",
+   "date": null,
+   "confidence": "from Wikipedia"
+  },
+  {
+   "fact": "He has two brothers: Equanimeous (the oldest, a wide receiver) and Osiris (played college football at Stanford). All three brothers hold dual American and German citizenship. He speaks English, German and French.",
+   "source": "https://en.wikipedia.org/wiki/Amon-Ra_St._Brown",
+   "date": null,
+   "confidence": "from Wikipedia; German national and German and French also in an NFL operations item"
+  },
+  {
+   "fact": "The NFL and IFAF named Amon-Ra and Equanimeous to their Global Flag Football Ambassadors team. The brothers also worked together on a football camp for children in Cologne.",
+   "source": "https://operations.nfl.com/updates/the-game/nfl-ifaf-continue-expansion-of-global-flag-football-ambassadors-team-in-advance-of-germany-and-mexico-games",
+   "date": "date not shown",
+   "confidence": "from a search result summary, page not opened"
+  },
+  {
+   "fact": "Marriage, partner or children: not found in the sources reached.",
+   "source": "not found",
+   "date": null,
+   "confidence": "not found"
+  }
+ ],
+ "recent_events": [
+  {
+   "fact": "In Week 9 Detroit beat Miami 19-9 on the road; St. Brown caught 8 passes for 86 yards on a team-high 10 targets, 8.6 fantasy points under league scoring, while playing through the same rib injury and questionable tag.",
+   "source": "research/data/GOB-WR3.json (status.espn.long and log)",
+   "date": "2026-11-15",
+   "confidence": "from the data file (ESPN report and game log agree)"
+  },
+  {
+   "fact": "He has not scored a touchdown since Week 3 against the Jets (5 touchdowns in 2026: 2 in Week 1, 2 in Week 2, 1 in Week 3, none in the five games since). Bleacher Report ran a headline that he teased a Germany celebration if he scores his first touchdown since September.",
+   "source": "research/data/GOB-WR3.json (log); Bleacher Report headline listed in news.recent",
+   "date": "2026-11-14",
+   "confidence": "two sources (log and a headline, article not read)"
+  },
+  {
+   "fact": "2026 totals through 8 games: 86 targets, 61 catches, 657 yards, 5 touchdowns, 12.07 fantasy points a game, a 32 percent share of Detroit's targets, leading the team in all three receiving categories.",
+   "source": "research/data/GOB-WR3.json (season_2026, teammates_2026)",
+   "date": "2026-11-15",
+   "confidence": "from the data file"
+  },
+  {
+   "fact": "Last five games with a log (Weeks 5, 7, 8, 9 plus Week 4): 7.5, 6.9, 15.2, 5.6 and 8.6 fantasy points. Targets were 11, 11, 11, 8 and 10; snap share was 96, 86, 78, 72 and 75 percent. Week 6 was a bye.",
+   "source": "research/data/GOB-WR3.json (log)",
+   "date": "2026-11-15",
+   "confidence": "from the data file"
+  },
+  {
+   "fact": "Headlines from November 13 and 14: he wants to play flag football for Germany at the 2028 Los Angeles Olympics, and ESPN, CBS News, Detroit Free Press and The Detroit News ran stories on his German heritage ahead of the Munich game.",
+   "source": "https://sidelionreport.com/amon-ra-st-brown-expresses-interest-in-joining-team-germany-for-the-2028-olympics-01kgj8r2369x",
+   "date": "2026-11-13",
+   "confidence": "headlines and a search summary, articles not read; reporting on Olympic eligibility is described as speculative"
+  }
+ ],
+ "quotes": [
+  {
+   "fact": "Detroit Free Press headline: St. Brown embraces being football ambassador to Germany, 'It's my duty'. The full text was not read.",
+   "source": "Detroit Free Press headline in research/data/GOB-WR3.json (news.recent)",
+   "date": "2026-11-14",
+   "confidence": "headline only"
+  },
+  {
+   "fact": "Quote from him or the coach about his ribs this week: not found.",
+   "source": "not found",
+   "date": null,
+   "confidence": "not found"
+  }
+ ],
+ "team_context": [
+  {
+   "fact": "Detroit is 6-2 in 2026, scoring 27.8 and allowing 23.6 points a game; the search summaries say the Lions are looking for a fifth straight win.",
+   "source": "research/data/GOB-WR3.json (season_2026.team); https://www.fox2detroit.com/news/how-watch-lions-vs-patriots-munich-germany",
+   "date": "2026-11-15",
+   "confidence": "two sources"
+  },
+  {
+   "fact": "Jared Goff threw every pass to him in 2026 (86 targets, 664 yards by play-by-play). Other top targets: Sam LaPorta 49, Jameson Williams 46, Jahmyr Gibbs 45, Isaac TeSlaa 23. Gibbs has 177 carries and 847 rushing yards, 84 percent of the team's rushes.",
+   "source": "research/data/GOB-WR3.json (teammates_2026, plays_2026)",
+   "date": "2026-11-15",
+   "confidence": "from the data file"
+  },
+  {
+   "fact": "Pass protection is a concern: a preview says Goff faced heavy pressure for a second straight game and was sacked four times against Minnesota. Detroit also plays three games in 12 days, with Tampa Bay at home November 22 and Chicago at home November 26.",
+   "source": "https://www.fox2detroit.com/news/how-watch-lions-vs-patriots-munich-germany",
+   "date": "date not shown",
+   "confidence": "one search summary, not read in full; schedule dates also in the data file"
+  },
+  {
+   "fact": "Usage detail: 21 of 86 targets were deep (13.8 yards a target, 2 touchdowns); 65 were short (75 percent catch rate, 3 touchdowns). 5 targets came inside the 5 yard line and produced 3 touchdowns. His average separation is 2.93 yards and yards after the catch are 0.23 below expectation in 2026.",
+   "source": "research/data/GOB-WR3.json (plays_2026, season_2026.tracking)",
+   "date": "2026-11-15",
+   "confidence": "from the data file"
+  },
+  {
+   "fact": "Head coach is Dan Campbell (quoted on the trip). A Bleacher Report headline says Goff talked about a new offensive coordinator and changes to the offense; the coordinator's name was not confirmed: not found.",
+   "source": "https://www.tsn.ca/nfl/article/campbell-is-focused-on-patriots-not-travel-as-lions-prepare-for-trip-to-germany/",
+   "date": "date not shown",
+   "confidence": "search result titles only"
+  }
+ ],
+ "next_opponent": [
+  {
+   "fact": "Detroit hosts New England on Sunday, November 15 at 9:30 am ET (14:30 UTC) at the stadium in Munich, Germany, on Fox. The data file lists the roof as a dome and the surface as fieldturf, but no temperature or wind (not found).",
+   "source": "research/data/GOB-WR3.json (next_games)",
+   "date": "2026-11-15",
+   "confidence": "from the data file; time and Fox also in the Fox2 Detroit article"
+  },
+  {
+   "fact": "Line: Detroit -2.5, total 49.5, implied Detroit total 26.0; the Lions have seven days of rest.",
+   "source": "research/data/GOB-WR3.json (next_games)",
+   "date": "2026-11-15",
+   "confidence": "one source"
+  },
+  {
+   "fact": "Preview notes: New England quarterback Drake Maye leads the league in passing yards (2,282, 18 touchdowns); the Patriots run defense allows 96.7 yards a game (ninth) but they have allowed explosive pass plays and gave up 45 points in a recent loss.",
+   "source": "https://www.espn.com/nfl/game/_/gameId/401873053",
+   "date": "date not shown",
+   "confidence": "one search summary, page not opened"
+  },
+  {
+   "fact": "Past meeting in the data file: one earlier game against New England in 2022, 4 catches on 6 targets for 18 yards. Patriots defensive numbers against wide receivers in 2026 were not checked beyond the preview: not found.",
+   "source": "research/data/GOB-WR3.json (log)",
+   "date": "2026-11-15",
+   "confidence": "from the data file"
+  }
+ ],
+ "style": [
+  {
+   "fact": "Slot-oriented possession receiver: Madden 96 overall with 99 catching, 98 awareness, 97 short and medium route running and 94 catch in traffic, but speed 90 and deep route running 88.",
+   "source": "research/data/GOB-WR3.json (bio.madden, Week 8 ratings)",
+   "date": "2026-11-15",
+   "confidence": "one source"
+  },
+  {
+   "fact": "He has worn a German flag on his helmet and is described as an ambassador for football in Germany.",
+   "source": "https://www.profootballnetwork.com/?p=1156160",
+   "date": "date not shown",
+   "confidence": "search result title and summary, page not opened"
+  }
+ ],
+ "availability": {
+  "status": "Questionable (ribs), expected to play",
+  "detail": "ESPN and the Lions' site (Tim Twentyman) report he was limited in Friday's practice and is listed questionable. He has been limited in every practice since hurting his ribs in the Week 8 win over Minnesota, and played Week 9 with the same tag. The inactive list comes out at 8:00 am ET on Sunday and was not seen. Yahoo Sports and Sporting News ran headlines on November 14 and 15 about his status (articles not read, one says an ESPN insider all but guarantees his status).",
+  "expected_return": "Not applicable, likely playing",
+  "source": "research/data/GOB-WR3.json (status.espn)",
+  "date": "2026-11-13"
+ },
+ "outlook_next_game": {
+  "lean": "plays; around 11 to 15 fantasy points with a touchdown as the swing",
+  "confidence": "medium",
+  "reasons": [
+    "He is questionable with ribs but played through the same injury last week with 10 targets, and reports lean toward him playing.",
+    "Detroit is a 2.5 point favorite with an implied total of 26, and he gets 32 percent of the targets, usually 8 to 11 a game.",
+    "Under this league scoring there is no point per catch, so his 2026 average is only 12.1 and his last five games were 7.5, 6.9, 15.2, 5.6 and 8.6, all without a touchdown.",
+    "Risks are a rib setback or a lighter snap share, heavy pressure on Goff, and a Gibbs-heavy script; the upside is a touchdown, which he has not had in five games."
+  ]
+ },
+ "scouts_read": "St. Brown is questionable with ribs but has been limited all week and played through the same tag last Sunday, so I expect him on the field. Goff has thrown him every target this year, and he is still the main target at about 32 percent. The catch is the scoring: with no point per catch, his yards and touchdowns carry everything, and he has not scored since Week 3. Detroit is a small favorite with a 26 point team total, which fits a normal game of about 8 catches. I would project roughly 11 to 15 points, with a touchdown pushing him past 20 and a rib issue or a slow script dropping him under 8.",
+ "open_questions": [
+  "Official Sunday inactive list (released 8:00 am ET) and whether the ribs limit his snaps.",
+  "Weather in Munich, wind and temperature (not found; the data file shows none).",
+  "Detroit's 2026 offensive coordinator by name and any change in play calling (not found).",
+  "Personal life such as marriage or children (not found).",
+  "How New England defends wide receivers and slot targets in 2026 (not found)."
+ ],
+ "searches": [
+  "Amon-Ra St. Brown ribs questionable Patriots Lions Munich (returned mostly 2022 articles)",
+  "Lions Patriots Munich preview Week 10 2026 Goff Gibbs",
+  "Amon-Ra St. Brown flag football Germany Olympics family brother Equanimeous",
+  "Page fetches were not attempted for Wikipedia and SI; Wikipedia text came from the sections stored in research/data/GOB-WR3.json (the Personal life section was not stored)"
+ ]
+}
