@@ -4,7 +4,7 @@ Resume from this list after any pause. One unit at a time, each pushed to `cstlj
 
 ## Pauses
 
-(none yet)
+2026-11-15: cloud network refuses ESPN, Sleeper, Google News, Wikipedia, EA and github.com (nflverse), so the raw cache could not be built here and `dataset.py` could not run. The committed `data/` files stay as they are. Remaining work handed to Ricky, Peyton and Noah: see `handoffs/`.
 
 ## 1. Data
 

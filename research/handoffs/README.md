@@ -40,7 +40,11 @@ python3 research/tools/pull_wiki.py
 python3 research/tools/dataset.py
 ```
 
-`pull.py` takes several minutes, `pull_wiki.py` is slow on purpose. In Juan's cloud session many ESPN addresses came back refused (they are listed as `research/raw/*.missing` files). That is fine: the committed `research/data/*.json` files already hold the data. If `dataset.py` changes any committed `research/data/` file on your branch, do NOT commit that change (`git checkout research/data`); Juan owns those files.
+`pull.py` takes several minutes, `pull_wiki.py` is slow on purpose.
+
+IMPORTANT, found in Juan's cloud session on 2026-11-15: the cloud network refused these hosts (proxy 403 on connect), so `pull.py` and `pull_wiki.py` got almost nothing and `dataset.py` stopped at the missing `research/raw/nflverse/games.csv`:
+`site.web.api.espn.com`, `site.api.espn.com`, `sports.core.api.espn.com`, `api.sleeper.app`, `api.sleeper.com`, `news.google.com`, `en.wikipedia.org`, `drop-api.ea.com`, `github.com` (nflverse releases, which also redirect to `objects.githubusercontent.com`).
+So either run the pull on a laptop (Claude Code local session, where these hosts are reachable; the laptop session built the committed files this way), or add exactly those hosts to your cloud environment's allowed hosts first. Without the raw cache you still have the committed `research/data/*.json` files (every game of each of the 28 players with its closing line, RotoWire projections, splits) and `research/data/league.json` (`defense_2026`). Ricky: the week by week defense tables of `defense_tables` need the league-wide nflverse files, and the week 10 results check needs `pull.py --fresh`, so do those on a laptop or with the hosts allowed; if neither is possible, approximate the backtest opponent factor from `defense_2026` and say so plainly in BACKTEST.md. If `dataset.py` changes any committed `research/data/` file on your branch, do NOT commit that change (`git checkout research/data`); Juan owns those files.
 
 ## Dependencies and order
 
