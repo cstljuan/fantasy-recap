@@ -442,7 +442,7 @@ console.log('line() with no teams is quiet: ' + (A.line({}, {}) === '' ? 'ok' : 
   var got = [], off = A.onLine(function (text, kind) { if (kind === 'sound') got.push(text); });
   ['crowd_murmur', 'crowd_murmur', 'pass', 'catch', 'tackle', 'kick', 'whistle', 'crowd_roar', 'crowd_groan', 'crowd_swell',
    'crowd_stop', 'crowd_murmur', 'whistle_long', 'jingle_kickoff', 'jingle_final'].forEach(function (n) { Snd.play(n); });
-  var want = ['[crowd murmurs]', '[crowd roars]', '[crowd groans]', '[crowd rises]', '[crowd murmurs]', '[long whistle]',
+  var want = ['[crowd murmurs]', '[crowd roars]', '[crowd groans]', '[crowd rises]', '[crowd murmurs]', '[half-time whistle]',
     '[kickoff theme plays]', '[full-time theme plays]'];
   if (got.join('|') !== want.join('|')) problems.push('sound captions: got ' + JSON.stringify(got));
   // Muted: the captions still come, they are for people who cannot hear.
