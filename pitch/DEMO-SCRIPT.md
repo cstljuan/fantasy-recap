@@ -2,6 +2,17 @@
 
 Refreshed 2026-11-15 against `main` (C34). Every claim below is something the app on `main` does today. A line marked **(if merged)** depends on work that was on a branch when this was written: say it only if it is on `main` and checked by demo time, otherwise skip it.
 
+## Check before you rehearse (night of 2026-11-14, Eastern)
+
+Checked against `main` after this script was written. The table below is unchanged; these are the differences.
+
+- **The address.** `main` now opens on the real week 9 game (Goblins against Turtles, real plays, 204 plays, 27 to 30, fantasy 106.3 to 108.7, the Turtles win). This script is written for the week 11 game. To demo the week 11 game, open `http://<laptop>:8000/?intro=0&game=week11-football`. To demo the week 9 game, keep `?intro=0` and use the adapted lines in `pitch/practice/index.html` (opt in, the reveal, how it works, what is next).
+- **The League screen** reads "Week 9 matchups", not "Week 11 matchups", with either address.
+- **How it works (1:25 to 1:37)** is about 70 words for 12 seconds. `pitch/practice/index.html` has a short line that keeps the three facts.
+- **Soccer** has the jump bar on `main` (C32), so "With the same jump bar" can be said.
+- **Tiger Data.** The whole service ran on the real Tiger Data database (`db/runs/laptop-2026-11-15-rerun.txt`: 22 steps OK, momentum answered by `time_bucket`, 19 checks). The app still plays from a file. "Next" is the app reading plays from the database, not the database itself.
+- **Who says what** (Juan's decision): Juan 0:00 to 0:15 and 1:25 to 1:45, Peyton 0:15 to 0:27 and 0:50 to 1:25, Noah 0:27 to 0:50, Ricky 1:45 to 2:00. Practice page with a timer: `pitch/practice/index.html`.
+
 Total: 2:00. Problem 0:00 to 0:15, demo 0:15 to 1:25, how it works 1:25 to 1:45, what is next 1:45 to 2:00. About 150 spoken words a minute; the demo part leaves room for the game's own sound.
 
 ## Before you start
@@ -33,7 +44,7 @@ One tab is enough now: the jump bar takes you to any play, so nothing has to be 
 
 - Say "invented stat lines for real players". The stat lines and every play are made up; the player names are real.
 - One viewer, one device, no accounts. The opt-in is kept in the browser.
-- The database schema runs on a real Tiger Data database, but this demo plays from a file and reads no plays from it. With `?api=` the page also sends the opt-in, reads the league and can use the commissioner and watch party routes; this demo does not use `?api=`. The momentum, trend and Scout routes exist in the service and no screen reads them. Nothing beyond the schema has run on Tiger Data itself. Say "next", not "built in".
+- The database schema runs on a real Tiger Data database, but this demo plays from a file and reads no plays from it. With `?api=` the page also sends the opt-in, reads the league and can use the commissioner and watch party routes; this demo does not use `?api=`. The momentum, trend and Scout routes exist in the service and no screen reads them. Since the laptop run on 2026-11-14 the whole service has run on Tiger Data itself (see the check above); what is "next" is the app reading from it.
 - Scout: say "28 scouting reports with the plays behind every claim", not "an AI wrote them": they were written with Scout's tools in a Claude Code session, and the deepagents run itself has happened once, for one player.
 - The announcer has one style and speaks English only. The screens can be switched to Spanish; the voice and captions stay English.
 - The announcer's remarks about a player's season tendencies and recent form come from the player profiles. The game itself was built before the profiles were filled, so the profiles do not shape the play calls. Do not say they do.
