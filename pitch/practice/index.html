@@ -266,7 +266,7 @@
     { who: 'peyton', role: 'Reveal flow and screens', done: 48,
       items: ['Every app screen: League, Matchup, Lineups, Plays, Recap (js/app.js, js/screens/, css/)', 'Hidden scores: opt in masks points and stat lines until the final', 'The jump bar, speed control, Paused and Keep watching', 'The recap: winner, top performers, story of the game, share card', 'First-run walkthrough, the phone layout, the stadium look'] },
     { who: 'noah', role: 'Announcer and sound', done: 38,
-      items: ['The announcer: a line for every play from templates, in one style (js/announcer/)', 'Pre-game intro, halftime report, full-time wrap, big calls for the top plays', 'The ElevenLabs recordings: about 560 football lines (Ninja) and 190 soccer lines (Nathaniel)', 'The soccer broadcast and the stadium sound: crowd, whistle, jingles (js/audio.js)', 'The captions strip: every spoken line is also on screen'] },
+      items: ['The announcer: a line for every play from templates, in one style (js/announcer/)', 'Pre-game intro, halftime report, full-time wrap, big calls for the top plays', 'The ElevenLabs recordings: about 740 football lines (Ninja) and 280 soccer lines (Nathaniel)', 'The soccer broadcast and the stadium sound: crowd, whistle, jingles (js/audio.js)', 'The captions strip: every spoken line is also on screen'] },
     { who: 'ricky', role: 'Players, profiles, database', done: 62,
       items: ['Rosters of real players, stat lines, the scoring rules, the sample league (data/)', 'Season tendencies and recent form from Sleeper, cross-checked with ESPN: 28 of 28 players agree', 'The real play-by-play: 3,177 plays from 116 games, and the real week 7, 8 and 9 games built from it', 'The Tiger Data schema, migrations and the service (db/, server/)', 'Scout, the deepagents research team, and its tools (agents/scout/)', 'The one-command checks (node data/checks/all.js)'] }
   ];
@@ -305,7 +305,7 @@
       a: 'Not yet. The profiles hold real numbers, and the game maker and the announcer can read them. But no game has been rebuilt with the profiles. The game view passes them to the announcer for its tendency and hot or cold remarks, and the Lineups screen shows hot, cold or steady marks from recent form. Nobody has counted how often the announcer says them.',
       proof: 'engine/make-game.js (player_tendencies); js/announcer/index.js; data/profiles/' },
     { who: 'noah', q: 'How does the announcer make its lines?',
-      a: 'From templates, not from a model. Each kind of play has several variants in one style. The announcer fills in names, yards and the spot from the rules engine\'s result and avoids repeats. It also has a pre-game intro, a halftime report that leaves out the points while scores are hidden, a full-time wrap and big calls for the top plays. The lines are spoken from ElevenLabs recordings, about 560 football and 190 soccer lines. A line without a recording falls back to the browser\'s voice.',
+      a: 'From templates, not from a model. Each kind of play has several variants in one style. The announcer fills in names, yards and the spot from the rules engine\'s result and avoids repeats. It also has a pre-game intro, a halftime report that leaves out the points while scores are hidden, a full-time wrap and big calls for the top plays. The lines are spoken from ElevenLabs recordings, about 740 football and 280 soccer lines. A line without a recording falls back to the browser\'s voice.',
       proof: 'js/announcer/lines.js; js/announcer/index.js; node js/announcer/check.js; node js/announcer/audit.js' },
     { who: 'juan', q: 'What does soccer share with football?',
       a: 'The same pattern: a game is a list of events, a rules file works out goals and score, every result carries fantasy points, and the app, the announcer, the speed control and the jump bar work for both. Soccer has its own pitch, plays, players and scoring. Its match was built by its own match maker from invented lines, with equal weights: Jev was not used for soccer.',
@@ -323,7 +323,7 @@
       'The player names. The game the app opens on: real catches and runs from NFL week 9 (204 plays). Weeks 7 and 8 are built the same way.',
       'Fantasy points of the week 9 game: within 0.25 of the real line for 19 players.',
       'Hidden scores until the final, the jump bar, the speed control, the recap and share card.',
-      'The announcer: templates plus ElevenLabs recordings (about 560 football, 190 soccer lines).',
+      'The announcer: templates plus ElevenLabs recordings (about 740 football, 280 soccer lines).',
       'Jev chose 40 of 84 plays in the week 11 game and 97 of 184 in Turtles against Owls.',
       'Season tendencies and recent form, live from Sleeper, cross-checked with ESPN: 28 of 28 agree.',
       '3,177 real plays from 116 games; 28 scouting reports and 4 team profiles with the plays behind every claim.',

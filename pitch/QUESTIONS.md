@@ -47,7 +47,7 @@ Not yet. The profiles hold real numbers now, and the game maker and the announce
 Proof: `engine/make-game.js` line 337 onward (`player_tendencies`); `js/announcer/index.js` lines 17 to 20; `data/profiles/PYT.json`; `data/games/week11-football.json` (`report`).
 
 ## 12. How does the announcer make its lines?
-From templates, not from a model. Each kind of play has several variants in one style (the Straight and Fun switch is gone). The announcer fills in names, yards and the spot from the rules engine's result and avoids repeats. It also writes a pre-game intro, a halftime report, a full-time wrap and big calls for the top plays. The lines are spoken from ElevenLabs recordings (about 560 football and 190 soccer lines); a line without a recording falls back to the browser's voice.
+From templates, not from a model. Each kind of play has several variants in one style (the Straight and Fun switch is gone). The announcer fills in names, yards and the spot from the rules engine's result and avoids repeats. It also writes a pre-game intro, a halftime report, a full-time wrap and big calls for the top plays. The lines are spoken from ElevenLabs recordings (about 740 football and 280 soccer lines); a line without a recording falls back to the browser's voice.
 Proof: `js/announcer/lines.js` lines 1 to 14; `js/announcer/index.js` lines 1 to 25; `js/announcer/voices.js` line 1; `js/announcer/check.js` (script check).
 
 ## 13. What does soccer share with football?
