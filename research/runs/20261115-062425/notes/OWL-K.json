@@ -1,0 +1,195 @@
+{
+ "key": "OWL-K",
+ "name": "Ka'imi Fairbairn",
+ "researched": "2026-11-15",
+ "background": [
+  {
+   "fact": "Born January 29, 1994 in Kailua, Hawaii, to John and Rochelle Fairbairn; his full given name is John Christian Ka'iminoeauloameka'ikeokekumupa'a Fairbairn and he has gone by Ka'imi since childhood. In Hawaiian the name means 'seeker of wisdom'.",
+   "source": "https://en.wikipedia.org/wiki/Ka%CA%BBimi_Fairbairn",
+   "date": null,
+   "confidence": "from Wikipedia"
+  },
+  {
+   "fact": "At Punahou School he was a two-sport star in football and soccer (two-time first-team all-state central defender, two state titles); he tried water polo first, nearly drowned, and went back to football. Teammate DeForest Buckner; ranked the No. 4 kicking recruit nationally.",
+   "source": "https://en.wikipedia.org/wiki/Ka%CA%BBimi_Fairbairn",
+   "date": null,
+   "confidence": "from Wikipedia"
+  },
+  {
+   "fact": "At UCLA he won the kicking job as a true freshman in 2012, was the first Bruin to score 100 points in each of four seasons, was a consensus first-team All-American as a senior and won the 2015 Lou Groza Award. He became the Pac-12 career scoring record holder.",
+   "source": "https://en.wikipedia.org/wiki/Ka%CA%BBimi_Fairbairn",
+   "date": null,
+   "confidence": "from Wikipedia"
+  },
+  {
+   "fact": "Signed with Houston as an undrafted free agent in 2016 and became the starting kicker in 2017. Career field goal rate of 87.9 percent, called the fourth most accurate kicker in NFL history.",
+   "source": "https://en.wikipedia.org/wiki/Ka%CA%BBimi_Fairbairn",
+   "date": null,
+   "confidence": "from Wikipedia"
+  },
+  {
+   "fact": "Listed at 6 ft 0 in, 183 lb, age 32, jersey 15, in his 11th NFL season, depth chart K1. Contract data in the file shows a 2020 deal of 4 years and 17.65 million dollars, but newer extensions are missing from that file.",
+   "source": "research/data/OWL-K.json (bio)",
+   "date": "2026-11-15",
+   "confidence": "from the data file"
+  },
+  {
+   "fact": "Career regular season (data file): 273 of 310 field goals, 57 makes from 50 to 59 yards and 1 from 60 or more, 289 of 308 extra points, 8.83 fantasy points a game over 146 games.",
+   "source": "research/data/OWL-K.json (career)",
+   "date": "2026-11-15",
+   "confidence": "from the data file"
+  }
+ ],
+ "family": [
+  {
+   "fact": "Parents are John and Rochelle Fairbairn. Nothing else about his family was found in the sources reached.",
+   "source": "https://en.wikipedia.org/wiki/Ka%CA%BBimi_Fairbairn",
+   "date": null,
+   "confidence": "from Wikipedia; nothing else found"
+  }
+ ],
+ "recent_events": [
+  {
+   "fact": "Week 9, Sunday November 8: Texans beat the Chargers 44-22. Fairbairn went 3 for 3 on field goals (56, 31 and 41 yards) and 5 for 5 on extra points for 17 fantasy points.",
+   "source": "research/data/OWL-K.json (status.espn and log), ESPN note dated 2026-11-09",
+   "date": "2026-11-09",
+   "confidence": "from the data file"
+  },
+  {
+   "fact": "On the season he is 18 of 19 on field goals, including 7 of 8 from 50 or more yards, and 21 of 21 on extra points over 8 games; 93 fantasy points, 11.62 a game. His one miss was from 50 to 59 yards.",
+   "source": "research/data/OWL-K.json (season_2026 and status.espn)",
+   "date": "2026-11-15",
+   "confidence": "from the data file"
+  },
+  {
+   "fact": "Season log by week: W1 vs BUF 1 of 1 (long 58), W2 CIN 2 of 3, W3 IND 1 of 1, W4 DAL 3 of 3, W5 TEN 4 of 4, W6 JAX 2 of 2, W7 NYG 2 of 2 (long 58), W9 LAC 3 of 3. Houston was off in Week 8.",
+   "source": "research/data/OWL-K.json (log)",
+   "date": "2026-11-15",
+   "confidence": "from the data file"
+  },
+  {
+   "fact": "Named AFC Special Teams Player of the Month after a perfect October (headlines from the Texans, Athlon Sports and Texans Wire).",
+   "source": "research/data/OWL-K.json (news.recent), headlines dated 2026-11-05 and 2026-11-06; articles not opened",
+   "date": "2026-11-06",
+   "confidence": "headline only"
+  },
+  {
+   "fact": "Week 6 (October 18, Wembley): his last-second 49-yard field goal gave Houston a 34-31 win over Jacksonville.",
+   "source": "research/data/OWL-K.json (news.quotes headline, Orlando Sentinel)",
+   "date": "2026-10-18",
+   "confidence": "headline only"
+  },
+  {
+   "fact": "Week 7: sank a 57-yard field goal in a 27-21 home loss to the Giants (NFL.com and CBS headlines), 2 of 2 for the game.",
+   "source": "research/data/OWL-K.json (news.recent and log)",
+   "date": "2026-10-25",
+   "confidence": "from the data file"
+  },
+  {
+   "fact": "Week 1 at Buffalo: his only attempt was a 58-yard field goal, made.",
+   "source": "research/data/OWL-K.json (log)",
+   "date": "2026-11-15",
+   "confidence": "from the data file"
+  }
+ ],
+ "quotes": [
+  {
+   "fact": "A Yahoo Sports piece dated November 15 is titled 'DeMeco Ryans Has High Praise for Texans Kicker Ka'imi Fairbairn'. The page could not be opened, so the words of the quote are not found.",
+   "source": "research/data/OWL-K.json (news.quotes headline, Yahoo Sports)",
+   "date": "2026-11-15",
+   "confidence": "headline only; quote text not found"
+  }
+ ],
+ "team_context": [
+  {
+   "fact": "Houston is 3-5 and averaging 26.1 points scored and 24.0 allowed per game; the offense is a steady source of field goal and extra point chances (528 offensive snaps, 230 special teams snaps).",
+   "source": "research/data/OWL-K.json (season_2026.team)",
+   "date": "2026-11-15",
+   "confidence": "from the data file"
+  },
+  {
+   "fact": "A BetMGM preview lists the Texans at 3-5 and the Browns at 5-4, and says the Texans rank eighth in offensive DVOA, fifth through the air.",
+   "source": "https://sports.betmgm.com/en/blog/nfl/browns-vs-texans-prediction-odds-picks-week-10-2026-bm16/ (seen in search summary only, page not reachable)",
+   "date": "not shown",
+   "confidence": "one source via search summary"
+  }
+ ],
+ "next_opponent": [
+  {
+   "fact": "Houston plays at Cleveland on Sunday November 15, 1 pm ET, Huntington Bank Field, outdoors on grass, on Fox.",
+   "source": "research/data/OWL-K.json (next_games)",
+   "date": "2026-11-15",
+   "confidence": "from the data file"
+  },
+  {
+   "fact": "Lines in the data file: Houston -4.5, total 40.5, implied Houston score 22.5. Forecast in the file: showers, 46 F; wind not given.",
+   "source": "research/data/OWL-K.json (next_games)",
+   "date": "2026-11-15",
+   "confidence": "from the data file"
+  },
+  {
+   "fact": "Per the BetMGM preview summary, the Browns lost 34-10 at Jacksonville and posted their worst pass defense DVOA of the season (80.3 percent).",
+   "source": "https://sports.betmgm.com/en/blog/nfl/browns-vs-texans-prediction-odds-picks-week-10-2026-bm16/ (search summary)",
+   "date": "not shown",
+   "confidence": "one source via search summary"
+  },
+  {
+   "fact": "Next game after this one: Thursday November 19 at home against Indianapolis, Houston -10.0, total 44.5, implied 27.25, on four days rest.",
+   "source": "research/data/OWL-K.json (next_games)",
+   "date": "2026-11-15",
+   "confidence": "from the data file"
+  }
+ ],
+ "style": [
+  {
+   "fact": "Strong leg: Madden week 8 rating of 81 overall with kick power 96 and kick accuracy 89.",
+   "source": "research/data/OWL-K.json (bio.madden)",
+   "date": "2026-11-15",
+   "confidence": "one source"
+  },
+  {
+   "fact": "Long range is a strength in 2026: 7 of 8 from 50-plus, with makes of 58, 58, 57, 56 and 54 yards in the log.",
+   "source": "research/data/OWL-K.json (season_2026 and log)",
+   "date": "2026-11-15",
+   "confidence": "from the data file"
+  },
+  {
+   "fact": "Notable weather history: in the 2020 Texans at Browns game, wind and a delay played into a 46-yard miss. That was a different season and a different roster and is context only.",
+   "source": "https://houstontexans.com/news/rapid-reaction-texans-fall-10-7-in-cleveland-after-weather-delay",
+   "date": "not shown",
+   "confidence": "one source via search summary"
+  }
+ ],
+ "availability": {
+  "status": "Active, expected to kick",
+  "detail": "Sleeper status Active, no injury designation in 2026, ESPN status Active on 2026-11-09. Past injury reports in the file are from 2025 (quadricep, out Weeks 10 and 11 of 2025, back to full practice Week 12). No Week 10 report was found.",
+  "expected_return": "Not applicable",
+  "source": "research/data/OWL-K.json (status and injury_reports)",
+  "date": "2026-11-15"
+ },
+ "outlook_next_game": {
+  "lean": "plays and kicks; expected about 8 to 11 fantasy points",
+  "confidence": "medium",
+  "reasons": [
+   "Active with a perfect-looking 2026 (18 of 19 FG, 21 of 21 XP) and 11.62 points a game.",
+   "Houston is a 4.5 point favorite with an implied total of only 22.5, which means a modest number of scoring chances.",
+   "Showers and 46 F in Cleveland could hurt long attempts, though wind is not found.",
+   "A Browns pass defense that struggled last week may let Houston drive for touchdowns instead of field goals, which trims kicker volume."
+  ]
+ },
+ "scouts_read": "Fairbairn is healthy and has been close to perfect, so the question is volume, not form. Houston is favored by 4.5 but the implied team total is a low 22.5, and showers in Cleveland could limit his long range. His average of 11.6 points leans on 50-plus makes, which are the first thing a wet, cold day takes away. I would project a typical kicker day of 8 to 10 points with a floor of 5 if the Texans score touchdowns instead.",
+ "open_questions": [
+  "Wind and final weather at kickoff (not found).",
+  "Quote text from DeMeco Ryans (only the headline was seen).",
+  "Official Week 10 injury report and any 2026 contract details (not found).",
+  "Wikipedia 2025 and 2026 season sections were not stored in the data file (only Intro, Early life, College career); the Wikipedia page itself could not be fetched.",
+  "Search results were mostly from older seasons (2020 and 2025); only facts matching the 2026 data file were used.",
+  "sports.betmgm.com could not be fetched (host not allowed)."
+ ],
+ "searches": [
+  "Texans Browns Week 10 Ka'imi Fairbairn (old seasons only)",
+  "Browns defense Week 10 Texans preview Huntington Bank Field weather wind (found BetMGM 2026 summary, no forecast)",
+  "DeMeco Ryans praise kicker Ka'imi Fairbairn special teams player of the month (no 2026 article text)",
+  "Fetch of sports.betmgm.com failed (host not allowed)"
+ ]
+}
