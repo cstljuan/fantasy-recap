@@ -151,7 +151,32 @@
     ['Sample game. Real names, made-up stats.', 'Partido de muestra. Nombres reales, estadísticas inventadas.'], ['No play moved any points.', 'Ninguna jugada movió puntos.'],
     // the football view's broadcast graphics (B35)
     ['SAMPLE GAME', 'PARTIDO DE MUESTRA'], ['MADE-UP STATS', 'DATOS INVENTADOS'], ['HALF', 'MT'], ['HALFTIME', 'MEDIO TIEMPO'],
-    ['NO POINTS', 'SIN PUNTOS'], ['KICKOFF', 'SAQUE INICIAL'], ['EXTRA POINT', 'PUNTO EXTRA'], ['Tap for the recap', 'Toca para ver el resumen']
+    ['NO POINTS', 'SIN PUNTOS'], ['KICKOFF', 'SAQUE INICIAL'], ['EXTRA POINT', 'PUNTO EXTRA'], ['Tap for the recap', 'Toca para ver el resumen'],
+    // soccer (C32, asked by Noah): the soccer page's labels, its canvas and its banners
+    ['Sample match', 'Partido de muestra'], ['Watch the match', 'Ver el partido'], ['On the pitch', 'En el campo'],
+    ['Fantasy points and stat lines stay hidden while you watch. Everything shows at full time.', 'Los puntos de fantasía y las estadísticas se ocultan mientras ves el partido. Todo se muestra al final.'],
+    ['Plays show up here once the match kicks off.', 'Las jugadas aparecen aquí cuando empieza el partido.'],
+    ['Sample league. Real player names. The match, stats and scores are made up for the demo.', 'Liga de muestra. Nombres de jugadores reales. El partido, las estadísticas y los marcadores son inventados para la demostración.'],
+    ['The match, seen from above. A sample match.', 'El partido, visto desde arriba. Un partido de muestra.'], ['Match speed', 'Velocidad del partido'],
+    ['DEF', 'DEF'], ['MID', 'MED'], ['FWD', 'DEL'], ['GK', 'POR'],
+    ['Scoring: goal 4 for a forward, 5 for a midfielder, 6 for a defender or keeper. Assist 3. Save 1. Clean sheet 4 for a keeper or defender, 1 for a midfielder. Yellow card -1, red card -3.',
+     'Puntuación: gol 4 para un delantero, 5 para un centrocampista, 6 para un defensa o portero. Asistencia 3. Parada 1. Portería a cero 4 para un portero o defensa, 1 para un centrocampista. Tarjeta amarilla -1, tarjeta roja -3.'],
+    ['Goals', 'Goles'], ['Cards and flags', 'Tarjetas y banderas'],
+    ['The recap is ready at the final whistle: final score, top performers and every goal.', 'El resumen está listo con el pitido final: el marcador, los mejores jugadores y cada gol.'],
+    ['Your score is hidden until full time.', 'Tu puntuación está oculta hasta el final del partido.'],
+    ['Leaders are hidden until full time.', 'Los líderes están ocultos hasta el final del partido.'],
+    ['Scores are hidden. Watch the match to find out.', 'Las puntuaciones están ocultas. Mira el partido para descubrirlas.'],
+    ['Scores are hidden. Watch the match to find out. The match is paused while you are away, so you will not miss a play.', 'Las puntuaciones están ocultas. Mira el partido para descubrirlas. El partido se pausa mientras no estás, así no te pierdes ninguna jugada.'],
+    ['Goal', 'Gol'], ['Penalty goal', 'Gol de penalti'], ['Save', 'Parada'], ['Offside', 'Fuera de juego'], ['Yellow card', 'Tarjeta amarilla'], ['Red card', 'Tarjeta roja'],
+    ['Clean sheet', 'Portería a cero'], ['Half time', 'Descanso'], ['Full time', 'Final del partido'], ['Share result', 'Compartir resultado'],
+    ['Score on the pitch', 'Marcador en el campo'], ['Shots', 'Tiros'], ['On target', 'A puerta'], ['Corners', 'Córners'], ['Fouls', 'Faltas'], ['Offsides', 'Fueras de juego'],
+    ['Yellow / red cards', 'Tarjetas amarillas / rojas'],
+    ['SAMPLE MATCH', 'PARTIDO DE MUESTRA'], ['FULL TIME', 'FINAL'], ['HALF TIME', 'DESCANSO'], ['1ST HALF', '1ER TIEMPO'], ['2ND HALF', '2DO TIEMPO'],
+    ['TAP FOR THE RECAP', 'TOCA PARA EL RESUMEN'], ['SAMPLE MATCH. MADE-UP STATS FOR THE DEMO.', 'PARTIDO DE MUESTRA. DATOS INVENTADOS PARA LA DEMO.'],
+    ['GOAL', 'GOL'], ['SECOND HALF', 'SEGUNDO TIEMPO'], ['NO GOAL', 'GOL ANULADO'], ['SAVE', 'PARADA'], ['MISSED', 'FALLADO'], ['WIDE', 'FUERA'],
+    ['OFF THE POST', 'AL POSTE'], ['BLOCKED', 'BLOQUEADO'], ['CORNER', 'CÓRNER'], ['FREE KICK', 'TIRO LIBRE'], ['PENALTY', 'PENALTI'], ['FOUL', 'FALTA'],
+    ['RED CARD', 'TARJETA ROJA'], ['YELLOW CARD', 'TARJETA AMARILLA'], ['OFFSIDE', 'FUERA DE JUEGO'],
+    ['NO GOALS', 'SIN GOLES'], ['FANTASY PTS', 'PTS DE FANTASÍA'], ['FT', 'FIN'], ['HT', 'DES'],
   ];
 
   // The profiles' source line, as data/profiles/*.json give it.
@@ -213,10 +238,57 @@
     if (t === null) return null;
     return t + ends.map(function (e) { return ', ' + e; }).join('') + (/\.$/.test(s) ? '.' : '');
   }
+
+  // Soccer play-by-play (soccer/js/rules.js r.text, as the soccer feed shows it).
+  function soccerPlay(t) {
+    var m, x = t.replace(/\.$/, ''), end = /\.$/.test(t) ? '.' : '';
+    var N = "[A-ZÀ-Ý][A-Za-zÀ-ÿ'\\-]+";   // a player's last name, capitalized
+    function re(src) { return new RegExp('^' + src.replace(/N/g, '(' + N + ')') + '$'); }
+    var rules = [
+      [/^(.+) kick off$/, function (m) { return 'Saque inicial de ' + m[1]; }],
+      [re('N to N, (\\d+) passes'), function (m) { return 'De ' + m[1] + ' a ' + m[2] + ', ' + m[3] + ' pases'; }],
+      [re('N to N to N'), function (m) { return 'De ' + m[1] + ' a ' + m[2] + ' a ' + m[3]; }],
+      [re('N to N'), function (m) { return 'De ' + m[1] + ' a ' + m[2]; }],
+      [re('N scores the penalty, assist N'), function (m) { return m[1] + ' marca el penalti, asistencia de ' + m[2]; }],
+      [re('N scores the penalty'), function (m) { return m[1] + ' marca el penalti'; }],
+      [re('N scores, assist N'), function (m) { return 'Gol de ' + m[1] + ', asistencia de ' + m[2]; }],
+      [re('N scores'), function (m) { return 'Gol de ' + m[1]; }],
+      [re('N goal ruled out, offside'), function (m) { return 'Gol de ' + m[1] + ' anulado por fuera de juego'; }],
+      [re('N saves from N'), function (m) { return m[1] + ' detiene el tiro de ' + m[2]; }],
+      [re('N shoots wide'), function (m) { return m[1] + ' tira fuera'; }],
+      [re('N misses the penalty'), function (m) { return m[1] + ' falla el penalti'; }],
+      [re('N hits the post'), function (m) { return m[1] + ' da en el poste'; }],
+      [re('Shot by N, blocked'), function (m) { return 'Tiro de ' + m[1] + ', bloqueado'; }],
+      [re('N shoots'), function (m) { return m[1] + ' tira'; }],
+      [re("N's corner to N"), function (m) { return 'Córner de ' + m[1] + ' para ' + m[2]; }],
+      [re("N's corner, cleared"), function (m) { return 'Córner de ' + m[1] + ', despejado'; }],
+      [re("N's free kick to N"), function (m) { return 'Tiro libre de ' + m[1] + ' para ' + m[2]; }],
+      [re('N over the free kick'), function (m) { return m[1] + ' se prepara para el tiro libre'; }],
+      [re('N fouls N, (penalty|yellow|red)'), function (m) { return 'Falta de ' + m[1] + ' sobre ' + m[2] + ', ' + { penalty: 'penalti', yellow: 'amarilla', red: 'roja' }[m[3]]; }],
+      [re('N fouls N'), function (m) { return 'Falta de ' + m[1] + ' sobre ' + m[2]; }],
+      [re('N caught offside'), function (m) { return m[1] + ' en fuera de juego'; }],
+      [/^Full time\. Clean sheet points for (.+)$/, function (m) { return 'Final del partido. Puntos por portería a cero para ' + m[1]; }],
+      // banner subtitles on the canvas
+      [/^OFFSIDE, (.+)$/, function (m) { return 'FUERA DE JUEGO, ' + m[1]; }],
+      [/^(.+) (\d+)', ASSIST (.+)$/, function (m) { return m[1] + ' ' + m[2] + "', ASISTENCIA " + m[3]; }],
+      [re('N on N'), function (m) { return m[1] + ' sobre ' + m[2]; }]
+    ];
+    for (var i = 0; i < rules.length; i++) { if ((m = rules[i][0].exec(x))) return rules[i][1](m) + end; }
+    return null;
+  }
   var TENDENCY = { 'deep ball rate': 'tasa de pase largo', 'short pass rate': 'tasa de pase corto', 'scramble rate': 'tasa de escapadas', 'run share': 'parte de carreras',
     'pass catching': 'recepción de pases', 'red zone use': 'uso en zona roja', 'catch rate': 'tasa de recepción', 'long kick share': 'parte de patadas largas', 'accuracy': 'precisión' };
   function stat(part) {
     var m;
+    // soccer (soccer/js/app.js statLine)
+    if ((m = /^(\d+) (goal|goals|assist|assists|save|saves)$/i.exec(part))) {
+      var one = m[1] === '1', k = m[2].toLowerCase().replace(/s$/, '');
+      return m[1] + ' ' + { goal: one ? 'gol' : 'goles', assist: one ? 'asistencia' : 'asistencias', save: one ? 'parada' : 'paradas' }[k];
+    }
+    if ((m = /^(\d+) shots? \((\d+) on target\)$/i.exec(part))) return m[1] + (m[1] === '1' ? ' tiro' : ' tiros') + ' (' + m[2] + ' a puerta)';
+    if (/^clean sheet$/i.test(part)) return part.charAt(0) === 'C' ? 'Portería a cero' : 'portería a cero';
+    if (/^yellow card$/i.test(part)) return part.charAt(0) === 'Y' ? 'Tarjeta amarilla' : 'tarjeta amarilla';
+    if (/^red card$/i.test(part)) return part.charAt(0) === 'R' ? 'Tarjeta roja' : 'tarjeta roja';
     if ((m = /^(\d+) of (\d+)$/.exec(part))) return m[1] + ' de ' + m[2];
     if ((m = /^(\d+) of (\d+) (FG|XP)$/.exec(part))) return m[1] + ' de ' + m[2] + (m[3] === 'FG' ? ' GC' : ' PE');
     if ((m = /^(-?\d+) yds$/.exec(part))) return m[1] + ' yds';
@@ -293,7 +365,7 @@
     if (Object.prototype.hasOwnProperty.call(ES, t)) return lead + ES[t] + trail;
     var w = where(t);
     if (w) return lead + w + trail;
-    var pl = play(t) || short(t);
+    var pl = soccerPlay(t) || play(t) || short(t);
     if (pl) return lead + pl + trail;
     // A stat line: "10 of 21, 136 yds, 1 TD"
     if (/,/.test(t) || /^\d/.test(t)) {
