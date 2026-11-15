@@ -1,0 +1,110 @@
+Fantasy Recap, laptop run against the real Tiger Data service
+==============================================================
+Run from Juan's MacBook on 2026-11-15 02:55 UTC (2026-11-14 21:55 Eastern) with: sh db/laptop.sh
+Code: origin/main at 5734216. Database: Tiger Data (PostgreSQL with the timescaledb extension 2.32.0).
+Host, user, password and the connection string are not in this file. Port numbers below are local ports on the laptop.
+
+Short version
+-------------
+- Ran for real on Tiger Data: migrations and seed, the service, 11 game files pushed, 16 routes answered, the party room.
+- momentum engine did NOT say time_bucket. The service answered with date_bin. See "Why the engine says date_bin".
+- Step 6 (server/test-db.js) FAILED at the trend check. See "Why step 6 failed".
+- Step 7 (Scout with a model) was skipped: there is no model key on the laptop.
+- Separate check, also on Tiger Data: the service's own momentum query with time_bucket named explicitly runs and
+  gives the same buckets as the JavaScript buckets. See "time_bucket, run directly".
+
+Two things about the laptop that were needed to run it (no repository file was changed)
+----------------------------------------------------------------------------------------
+1. psql was not installed. Installed the PostgreSQL client (Homebrew libpq, psql 18.7).
+2. The connection string in .env ends with a query parameter that only the Node driver knows (uselibpqcompat), and it
+   holds an "&" without quotes. So "set -a; . ./.env" in db/laptop.sh and db/migrate.sh leaves DATABASE_URL empty, and
+   psql refuses the parameter. For this run DATABASE_URL was exported in the shell and psql was called through a small
+   wrapper that drops that one parameter. The service got the string unchanged.
+
+Output of sh db/laptop.sh, as printed
+-------------------------------------
+Fantasy Recap laptop night. 2026-11-15 02:55 UTC
+  OK       1 migrations and seed: database ready
+  OK       2 service install: 
+  OK       3 service start: answering on port 50198, database true
+  OK       4 push game files: 11 games pushed
+  OK       5 health: 200 {"ok":true,"database":true}
+  OK       5 plays: 200 {"game_id":"week11-football","plays":[{"game_id":"week11-football","seq":1,"played_at":"20
+  OK       5 soccer plays: 200 {"game_id":"week11-soccer","plays":[{"game_id":"week11-soccer","seq":1,"played_at":"2026-1
+  OK       5 summary: 200 {"game_id":"week11-football","players":[],"quarters":[]}
+  OK       5 top plays: 200 {"game_id":"week11-football","source":"database","plays":[{"index":14,"quarter":1,"clock":
+  OK       5 drives: 200 {"game_id":"week11-football","source":"database","drives":[{"index":1,"team":"PYT","quarte
+  OK       5 momentum: 200 {"bucketSeconds":120,"buckets":[{"start":0,"quarter":1,"fp":[0,0],"score":[0,0],"fpTotal":
+  OK       5 story: 200 {"home":"GOB","away":"PYT","final":[17,14],"winner":"GOB","leadChanges":[{"index":14,"quar
+  OK       5 optins: 200 {"game_id":"week11-football","optins":[]}
+  OK       5 trend: 200 {"player":"Josh Allen","team":"GOB","slot":"QB","weeks":[{"week":7,"points":28.2,"awards":
+  OK       5 scout list: 200 {"players":[{"player":"GOB.K","name":"Brandon Aubrey","made_by":"model Claude Code session
+  OK       5 scout report: 200 {"player":"GOB.QB","report":{"title":"Josh Allen","team":"GOB","slot":"QB","made_by":"mode
+  OK       5 league: 200 {"name":"Sample League","week":9,"invented":true,"release":{"day":"Tuesday","text":"Recap 
+  OK       5 commissioner week 9: 200 {"week":9,"finished":false,"matchups":[{"teams":["GOB","TUR"],"gameId":"week09-gob-tur","o
+  OK       5 release week 9: 200 {"week":9,"released":false,"changed_at":null,"source":"database"}
+  OK       5 party: 201 room made
+  CHECK    5 momentum engine: answered by: date_bin (time_bucket is Tiger Data; date_bin or javascript means the TimescaleDB query did not run)
+  (not called on purpose: the opt-in, watched and release writes; step 6 does them on its own rows)
+  FAILED   6 real-database test:   ok top plays from the database   ok fp_awards holds the 70 awards of the game once, after a repeat push FAILED: 'file' == 'database' 
+  SKIPPED  7 Scout: no GOOGLE_API_KEY or ANTHROPIC_API_KEY in the environment
+
+Report
+------
+SKIPPED: 1  CHECK: 1  FAILED: 1  OK: 20  
+  FAILED: 6 real-database test | FAILED |   ok top plays from the database   ok fp_awards holds the 70 awards of the game once, after a repeat push FAILED: 'file' == 'database' 
+  CHECK:  5 momentum engine | CHECK | answered by: date_bin (time_bucket is Tiger Data; date_bin or javascript means the TimescaleDB query did not run)
+  SKIPPED: 7 Scout | SKIPPED | no GOOGLE_API_KEY or ANTHROPIC_API_KEY in the environment
+Some steps failed: copy the lines above (they hold no secrets) and send them to Ricky.
+
+Why the engine says date_bin
+----------------------------
+server/timescale.js fn() asks: SELECT to_regproc('time_bucket') IS NOT NULL.
+On Tiger Data there are 20 functions named time_bucket (one per argument type). to_regproc returns NULL when a name
+matches more than one function, so the answer is false and the service picks date_bin, which is plain PostgreSQL.
+The momentum numbers are right, but they were not computed by the TimescaleDB function.
+A check that works on both databases: SELECT EXISTS (SELECT 1 FROM pg_proc WHERE proname = 'time_bucket').
+On this database it answers true. server/ is Ricky's lane, so the file was not changed here.
+
+time_bucket, run directly (same database, same minute)
+------------------------------------------------------
+The momentum function of server/timescale.js, unchanged, called with 'time_bucket' instead of the detected name:
+timescaledb extension version on this database: 2.32.0
+to_regproc('time_bucket') IS NOT NULL: false (the check in server/timescale.js fn())
+functions named time_bucket in pg_proc: 20; EXISTS check: true
+server/timescale.js fn() answers: date_bin
+time_bucket momentum query, bucket 120s: 89 buckets, equal to the JavaScript buckets from the game file; last fpTotal [47.8,43.1]
+time_bucket momentum query, bucket 300s: 36 buckets, equal to the JavaScript buckets from the game file; last fpTotal [47.8,43.1]
+RESULT: the time_bucket query runs on this database and its buckets match.
+
+Why step 6 failed
+-----------------
+The failing line is the trend check: GET /players/Josh Allen/trend answered source "file", the test wants "database".
+The route falls back to the game files when the weekly aggregate has no rows. Asked the database right after the run:
+  fp_awards rows: 1218
+  player_points_per_week rows: 0
+  player_points_per_game rows: 14
+  team_points_per_quarter rows: 8
+  all three continuous aggregates: materialized_only = true, refresh policy every 1 hour
+So the continuous aggregates do not include rows that are not refreshed yet (db/README.md says they do). The weekly
+aggregate stays empty until its hourly refresh, and even after a refresh the test pushes new rows and expects to see
+them at once, which needs: ALTER MATERIALIZED VIEW <name> SET (timescaledb.materialized_only = false) for each
+aggregate, in a migration. db/ is Ricky's lane, so nothing was altered in the database or the files here.
+Everything in step 6 before that line passed (push, repeat push, soccer minute, seq order, top plays, fp_awards count).
+This also explains "summary: players [], quarters []" above: the per-game aggregates had no rows for week11-football yet.
+
+Rows in plays after the run
+---------------------------
+sample-football 73, sample-soccer 66, week07-gob-owl 177, week07-pyt-tur 204, week08-gob-pyt 189, week08-tur-owl 178,
+week09-gob-tur 204, week09-pyt-owl 157, week11-football 84, week11-soccer 83, week11-tur-owl 187
+Hypertables: plays, fp_awards. Continuous aggregates: player_points_per_game, team_points_per_quarter, player_points_per_week.
+
+What can be said truthfully after this run
+------------------------------------------
+- The schema, the four migrations and the seed are applied on a real Tiger Data service.
+- The service ran against it and every game file (football and soccer) was pushed through it and read back.
+- The TimescaleDB time_bucket momentum query runs there and matches the JavaScript buckets (run directly, not through
+  the route: the route used date_bin because of the detection bug above).
+- Not true yet: "the momentum route is answered by time_bucket", "the trend route reads the weekly aggregate",
+  "the real-database test passes on Tiger Data".
+- The app's demo still plays from a file and reads nothing from the database.

@@ -15,6 +15,7 @@ var out = sql
   .replace(/CREATE MATERIALIZED VIEW IF NOT EXISTS (\w+)\s+WITH \(timescaledb\.continuous\) AS/g, 'CREATE OR REPLACE VIEW $1 AS')
   .replace(/time_bucket\(INTERVAL '1 day', played_at\)/g, "date_trunc('day', played_at)")
   .replace(/time_bucket\(INTERVAL '7 days', played_at, (TIMESTAMPTZ '[^']*')\)/g, "date_bin(INTERVAL '7 days', played_at, $1)")
+  .replace(/^ALTER MATERIALIZED VIEW \w+ SET \(timescaledb\.materialized_only = false\);\s*$/gm, '-- (plain PostgreSQL: views are always up to date)')
   .replace(/\n(\s*)WITH NO DATA;/g, ';');
 // plain PostgreSQL has no create_hypertable, and a non-aggregate comment may mention the words; only code lines are checked below
 ['timescaledb', 'create_hypertable', 'time_bucket', 'continuous_aggregate'].forEach(function (w) {
