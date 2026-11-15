@@ -1,6 +1,6 @@
 {
   "team": "PYT",
-  "source": "Scout, season 2026 numbers from Sleeper's public stats API, read on 2026-11-14. The address and date of every number are in tendency_sources.",
+  "source": "Scout, season 2026 numbers from Sleeper's public stats API, read on 2026-11-14. The address and date of every number are in tendency_sources. Researched with Scout's tools in Juan's laptop session (no model run of scout.py).",
   "players": {
     "QB": {
       "name": "Lamar Jackson",
@@ -27,7 +27,7 @@
           "how": "rush yards divided by pass plus rush yards"
         }
       },
-      "notes": "Season 2026 numbers through game week 6.0 (5.0 games). Filled by agents/scout/fill_profiles.py, no model.",
+      "notes": "Efficient passer at every depth who scores over the middle and adds explosive runs. Third down is his weak spot, and he has barely played since week 4. Season 2026 numbers through game week 6.0 (5.0 games). Made by Scout's tools, researched in Juan's laptop session: stats step with find_player, season_stats, compute_tendencies and write_profile; film room and fact-check in data/profiles/notes/PYT-QB-report.md.",
       "form": {
         "tendencies": {
           "deep_ball": 0.881,
@@ -267,7 +267,7 @@
           "how": "targets divided by the team's throws in the games played (from the real plays)"
         }
       },
-      "notes": "Season 2026 numbers through game week 9.0 (9.0 games). Filled by agents/scout/fill_profiles.py, no model.",
+      "notes": "Workhorse back who runs best to the left edge, owns the goal line and catches passes. Yards per carry have dropped over the last three games on the same workload. Season 2026 numbers through game week 9.0 (9.0 games). Made by Scout's tools, researched in Juan's laptop session: stats step with find_player, season_stats, compute_tendencies and write_profile; film room and fact-check in data/profiles/notes/PYT-RB-report.md.",
       "form": {
         "tendencies": {
           "run_share": 0.817,
@@ -525,7 +525,7 @@
           "how": "targets divided by the team's throws in the games played (from the real plays)"
         }
       },
-      "notes": "Season 2026 numbers through game week 7.0 (7.0 games). Filled by agents/scout/fill_profiles.py, no model.",
+      "notes": "Third down and red zone receiver whose targets are up but whose production per target has fallen sharply over the last three games. Season 2026 numbers through game week 7.0 (7.0 games). Made by Scout's tools, researched in Juan's laptop session: stats step with find_player, season_stats, compute_tendencies and write_profile; film room and fact-check in data/profiles/notes/PYT-WR1-report.md.",
       "form": {
         "tendencies": {
           "deep_ball": 0.562,
@@ -765,7 +765,7 @@
           "how": "targets divided by the team's throws in the games played (from the real plays)"
         }
       },
-      "notes": "Season 2026 numbers through game week 9.0 (9.0 games). Filled by agents/scout/fill_profiles.py, no model.",
+      "notes": "Deep threat who is best over the middle and on first down. Not a red zone scorer, and his targets are down over the last three games. Season 2026 numbers through game week 9.0 (9.0 games). Made by Scout's tools, researched in Juan's laptop session: stats step with find_player, season_stats, compute_tendencies and write_profile; film room and fact-check in data/profiles/notes/PYT-WR2-report.md.",
       "form": {
         "tendencies": {
           "deep_ball": 0.582,
@@ -1023,7 +1023,7 @@
           "how": "targets divided by the team's throws in the games played (from the real plays)"
         }
       },
-      "notes": "Season 2026 numbers through game week 6.0 (6.0 games). Filled by agents/scout/fill_profiles.py, no model.",
+      "notes": "Efficient receiver over the middle and to the right who scores in the red zone. His targets and yards have roughly halved over his last three games. Season 2026 numbers through game week 6.0 (6.0 games). Made by Scout's tools, researched in Juan's laptop session: stats step with find_player, season_stats, compute_tendencies and write_profile; film room and fact-check in data/profiles/notes/PYT-WR3-report.md.",
       "form": {
         "tendencies": {
           "deep_ball": 0.75,
@@ -1255,7 +1255,7 @@
           "how": "targets divided by the team's throws in the games played (from the real plays)"
         }
       },
-      "notes": "Season 2026 numbers through game week 8.0 (8.0 games). Filled by agents/scout/fill_profiles.py, no model.",
+      "notes": "First down and red zone tight end who also gets downfield. Targets and yards a game are up over his last three games. Season 2026 numbers through game week 8.0 (8.0 games). Made by Scout's tools, researched in Juan's laptop session: stats step with find_player, season_stats, compute_tendencies and write_profile; film room and fact-check in data/profiles/notes/PYT-TE-report.md.",
       "form": {
         "tendencies": {
           "deep_ball": 0.632,
@@ -1493,7 +1493,7 @@
           "how": "field goals made divided by attempted"
         }
       },
-      "notes": "Season 2026 numbers through game week 8.0 (8.0 games). Filled by agents/scout/fill_profiles.py, no model.",
+      "notes": "Reliable inside 40 and from 40 to 49, poor from 50 and out, and cold over his last three weeks. Season 2026 numbers through game week 8.0 (8.0 games). Made by Scout's tools, researched in Juan's laptop session: stats step with find_player, season_stats, compute_tendencies and write_profile; film room and fact-check in data/profiles/notes/PYT-K-report.md.",
       "form": {
         "tendencies": {
           "kicker_range": 1.0,

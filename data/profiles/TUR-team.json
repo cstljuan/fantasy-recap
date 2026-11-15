@@ -1,0 +1,315 @@
+{
+  "team": "TUR",
+  "name": "Turbo Turtles",
+  "made_by": "Scout's tools, researched in Juan's laptop session",
+  "date": "2026-11-14",
+  "note": "A fantasy roster: the seven players play for different NFL teams, so this describes how these players are used, not one real offense.",
+  "source": "Scout's research tools (agents/scout/research.py) over data/rosters/plays-2026.json: https://site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event={event}. Season weeks 1 to 10, read on 2026-11-14. Trend labels and the summary are judgment, written by hand from the per-player reports in data/profiles/notes/.",
+  "summary": "Gibbs is the center of the offense: 22.1 carries a game, almost every goal line carry and a first down receiving role. Daniels throws short, with no deep touchdown all season, and runs in the open field. Lamb is the volume and deep target, Bowers is the third down and red zone tight end, and London gains yards deep but not in the red zone.",
+  "how_the_offense_moves": {
+    "how": "plays and yards per player and role, added over the week split",
+    "players": [
+      {
+        "slot": "QB",
+        "name": "Jayden Daniels",
+        "what": "throws",
+        "total": 227,
+        "per_game": 32.4,
+        "yards": 1503,
+        "yards_per_play": 6.6,
+        "games": 7,
+        "how": "split(TUR.QB, week, passer): 227 throws for 1503 yards in 7 games with at least one"
+      },
+      {
+        "slot": "QB",
+        "name": "Jayden Daniels",
+        "what": "carries",
+        "total": 36,
+        "per_game": 5.1,
+        "yards": 284,
+        "yards_per_play": 7.9,
+        "games": 7,
+        "how": "split(TUR.QB, week, rusher): 36 carries for 284 yards in 7 games with at least one"
+      },
+      {
+        "slot": "RB",
+        "name": "Jahmyr Gibbs",
+        "what": "carries",
+        "total": 177,
+        "per_game": 22.1,
+        "yards": 849,
+        "yards_per_play": 4.8,
+        "games": 8,
+        "how": "split(TUR.RB, week, rusher): 177 carries for 849 yards in 8 games with at least one"
+      },
+      {
+        "slot": "RB",
+        "name": "Jahmyr Gibbs",
+        "what": "targets",
+        "total": 45,
+        "per_game": 5.6,
+        "yards": 276,
+        "yards_per_play": 6.1,
+        "games": 8,
+        "how": "split(TUR.RB, week, target): 45 targets for 276 yards in 8 games with at least one"
+      },
+      {
+        "slot": "WR1",
+        "name": "CeeDee Lamb",
+        "what": "targets",
+        "total": 108,
+        "per_game": 12.0,
+        "yards": 904,
+        "yards_per_play": 8.4,
+        "games": 9,
+        "how": "split(TUR.WR1, week, target): 108 targets for 904 yards in 9 games with at least one"
+      },
+      {
+        "slot": "WR2",
+        "name": "Garrett Wilson",
+        "what": "targets",
+        "total": 63,
+        "per_game": 7.9,
+        "yards": 527,
+        "yards_per_play": 8.4,
+        "games": 8,
+        "how": "split(TUR.WR2, week, target): 63 targets for 527 yards in 8 games with at least one"
+      },
+      {
+        "slot": "WR3",
+        "name": "Drake London",
+        "what": "targets",
+        "total": 67,
+        "per_game": 7.4,
+        "yards": 692,
+        "yards_per_play": 10.3,
+        "games": 9,
+        "how": "split(TUR.WR3, week, target): 67 targets for 692 yards in 9 games with at least one"
+      },
+      {
+        "slot": "TE",
+        "name": "Brock Bowers",
+        "what": "targets",
+        "total": 69,
+        "per_game": 9.9,
+        "yards": 658,
+        "yards_per_play": 9.5,
+        "games": 7,
+        "how": "split(TUR.TE, week, target): 69 targets for 658 yards in 7 games with at least one"
+      }
+    ]
+  },
+  "red_zone": {
+    "how": "plays inside the 20 (red zone and goal line rows of the zone split), most touchdowns first",
+    "players": [
+      {
+        "slot": "RB",
+        "name": "Jahmyr Gibbs",
+        "what": "carries",
+        "inside_20": 44,
+        "inside_5": 15,
+        "touchdowns": 8,
+        "how": "split(TUR.RB, zone, rusher): rows red zone and goal line added"
+      },
+      {
+        "slot": "QB",
+        "name": "Jayden Daniels",
+        "what": "throws",
+        "inside_20": 28,
+        "inside_5": 9,
+        "touchdowns": 8,
+        "how": "split(TUR.QB, zone, passer): rows red zone and goal line added"
+      },
+      {
+        "slot": "WR1",
+        "name": "CeeDee Lamb",
+        "what": "targets",
+        "inside_20": 18,
+        "inside_5": 3,
+        "touchdowns": 5,
+        "how": "split(TUR.WR1, zone, target): rows red zone and goal line added"
+      },
+      {
+        "slot": "TE",
+        "name": "Brock Bowers",
+        "what": "targets",
+        "inside_20": 11,
+        "inside_5": 2,
+        "touchdowns": 5,
+        "how": "split(TUR.TE, zone, target): rows red zone and goal line added"
+      },
+      {
+        "slot": "RB",
+        "name": "Jahmyr Gibbs",
+        "what": "targets",
+        "inside_20": 9,
+        "inside_5": 0,
+        "touchdowns": 2,
+        "how": "split(TUR.RB, zone, target): rows red zone and goal line added"
+      },
+      {
+        "slot": "WR2",
+        "name": "Garrett Wilson",
+        "what": "targets",
+        "inside_20": 6,
+        "inside_5": 2,
+        "touchdowns": 1,
+        "how": "split(TUR.WR2, zone, target): rows red zone and goal line added"
+      },
+      {
+        "slot": "QB",
+        "name": "Jayden Daniels",
+        "what": "carries",
+        "inside_20": 6,
+        "inside_5": 1,
+        "touchdowns": 0,
+        "how": "split(TUR.QB, zone, rusher): rows red zone and goal line added"
+      },
+      {
+        "slot": "WR3",
+        "name": "Drake London",
+        "what": "targets",
+        "inside_20": 4,
+        "inside_5": 0,
+        "touchdowns": 0,
+        "how": "split(TUR.WR3, zone, target): rows red zone and goal line added"
+      }
+    ]
+  },
+  "third_down": {
+    "how": "the third down row of the down split, most plays first; success means the play gained the distance needed or scored",
+    "players": [
+      {
+        "slot": "QB",
+        "name": "Jayden Daniels",
+        "what": "throws",
+        "plays": 63,
+        "first_downs": 21,
+        "success_rate": 0.333,
+        "touchdowns": 5,
+        "how": "split(TUR.QB, down, passer): row 3"
+      },
+      {
+        "slot": "WR1",
+        "name": "CeeDee Lamb",
+        "what": "targets",
+        "plays": 32,
+        "first_downs": 15,
+        "success_rate": 0.469,
+        "touchdowns": 2,
+        "how": "split(TUR.WR1, down, target): row 3"
+      },
+      {
+        "slot": "TE",
+        "name": "Brock Bowers",
+        "what": "targets",
+        "plays": 26,
+        "first_downs": 16,
+        "success_rate": 0.615,
+        "touchdowns": 3,
+        "how": "split(TUR.TE, down, target): row 3"
+      },
+      {
+        "slot": "WR3",
+        "name": "Drake London",
+        "what": "targets",
+        "plays": 24,
+        "first_downs": 13,
+        "success_rate": 0.542,
+        "touchdowns": 0,
+        "how": "split(TUR.WR3, down, target): row 3"
+      },
+      {
+        "slot": "WR2",
+        "name": "Garrett Wilson",
+        "what": "targets",
+        "plays": 20,
+        "first_downs": 9,
+        "success_rate": 0.45,
+        "touchdowns": 0,
+        "how": "split(TUR.WR2, down, target): row 3"
+      },
+      {
+        "slot": "RB",
+        "name": "Jahmyr Gibbs",
+        "what": "carries",
+        "plays": 12,
+        "first_downs": 7,
+        "success_rate": 0.583,
+        "touchdowns": 0,
+        "how": "split(TUR.RB, down, rusher): row 3"
+      },
+      {
+        "slot": "RB",
+        "name": "Jahmyr Gibbs",
+        "what": "targets",
+        "plays": 11,
+        "first_downs": 3,
+        "success_rate": 0.273,
+        "touchdowns": 1,
+        "how": "split(TUR.RB, down, target): row 3"
+      },
+      {
+        "slot": "QB",
+        "name": "Jayden Daniels",
+        "what": "carries",
+        "plays": 6,
+        "first_downs": 4,
+        "success_rate": 0.667,
+        "touchdowns": 1,
+        "how": "split(TUR.QB, down, rusher): row 3"
+      }
+    ]
+  },
+  "form": {
+    "how": "last three weeks with a play against the weeks before (week split); the label is a judgment and the reason is next to it",
+    "hot": [
+      {
+        "slot": "QB",
+        "name": "Jayden Daniels",
+        "why": "passing yards a game and yards per throw are up in the last three games, rushing is down",
+        "report": "data/profiles/notes/TUR-QB-report.md"
+      },
+      {
+        "slot": "WR1",
+        "name": "CeeDee Lamb",
+        "why": "targets, yards a game and touchdowns are up in the last three games",
+        "report": "data/profiles/notes/TUR-WR1-report.md"
+      },
+      {
+        "slot": "TE",
+        "name": "Brock Bowers",
+        "why": "success rate and yards per target are up in the last three games, with three touchdowns",
+        "report": "data/profiles/notes/TUR-TE-report.md"
+      },
+      {
+        "slot": "K",
+        "name": "Cameron Dicker",
+        "why": "made every kick in his last three weeks with a kick",
+        "report": "data/profiles/notes/TUR-K-report.md"
+      }
+    ],
+    "cold": [
+      {
+        "slot": "WR2",
+        "name": "Garrett Wilson",
+        "why": "fewer yards a game and no touchdown in his last three games",
+        "report": "data/profiles/notes/TUR-WR2-report.md"
+      },
+      {
+        "slot": "WR3",
+        "name": "Drake London",
+        "why": "yards per target and yards a game are about half of what they were",
+        "report": "data/profiles/notes/TUR-WR3-report.md"
+      }
+    ],
+    "steady": [
+      {
+        "slot": "RB",
+        "name": "Jahmyr Gibbs",
+        "why": "more carries and the same yards per carry, but fewer targets and touchdowns",
+        "report": "data/profiles/notes/TUR-RB-report.md"
+      }
+    ]
+  }
+}

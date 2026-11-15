@@ -1,0 +1,48 @@
+03:15:52 | film room by hand in Juan's laptop session (no model): research_plan, every split in the plan, player_plays for the role splits, team_context
+03:15:52 | research_plan(OWL.QB) -> depth, direction, down, zone, week
+03:15:52 | split(OWL.QB, depth) -> 2 rows
+03:15:52 | split(OWL.QB, direction) -> 3 rows
+03:15:52 | split(OWL.QB, direction) -> 3 rows
+03:15:52 | split(OWL.QB, down) -> 4 rows
+03:15:52 | split(OWL.QB, down) -> 3 rows
+03:15:52 | split(OWL.QB, zone) -> 4 rows
+03:15:52 | split(OWL.QB, zone) -> 4 rows
+03:15:52 | split(OWL.QB, week) -> 8 rows
+03:15:52 | split(OWL.QB, week) -> 8 rows
+03:15:52 | player_plays(OWL.QB, {"kind": "int", "limit": 1}) -> 4 plays
+03:15:52 | player_plays(OWL.QB, {"kind": "sack", "limit": 1}) -> 11 plays
+03:15:52 | research_plan(OWL.RB) -> gap, down, zone, week
+03:15:52 | split(OWL.RB, gap) -> 7 rows
+03:15:52 | split(OWL.RB, down) -> 4 rows
+03:15:52 | split(OWL.RB, down) -> 3 rows
+03:15:52 | split(OWL.RB, zone) -> 4 rows
+03:15:52 | split(OWL.RB, zone) -> 3 rows
+03:15:52 | split(OWL.RB, week) -> 9 rows
+03:15:52 | split(OWL.RB, week) -> 8 rows
+03:15:52 | research_plan(OWL.WR1) -> depth, direction, down, zone, week
+03:15:52 | split(OWL.WR1, depth) -> 2 rows
+03:15:52 | split(OWL.WR1, direction) -> 3 rows
+03:15:52 | split(OWL.WR1, down) -> 3 rows
+03:15:52 | split(OWL.WR1, zone) -> 4 rows
+03:15:52 | split(OWL.WR1, week) -> 8 rows
+03:15:52 | research_plan(OWL.WR2) -> depth, direction, down, zone, week
+03:15:52 | split(OWL.WR2, depth) -> 2 rows
+03:15:52 | split(OWL.WR2, direction) -> 3 rows
+03:15:52 | split(OWL.WR2, down) -> 4 rows
+03:15:52 | split(OWL.WR2, zone) -> 4 rows
+03:15:52 | split(OWL.WR2, week) -> 9 rows
+03:15:52 | research_plan(OWL.WR3) -> depth, direction, down, zone, week
+03:15:52 | split(OWL.WR3, depth) -> 2 rows
+03:15:52 | split(OWL.WR3, direction) -> 3 rows
+03:15:52 | split(OWL.WR3, down) -> 3 rows
+03:15:52 | split(OWL.WR3, zone) -> 3 rows
+03:15:52 | split(OWL.WR3, week) -> 6 rows
+03:15:52 | research_plan(OWL.TE) -> depth, down, zone, week
+03:15:52 | split(OWL.TE, depth) -> 2 rows
+03:15:52 | split(OWL.TE, down) -> 4 rows
+03:15:52 | split(OWL.TE, zone) -> 4 rows
+03:15:52 | split(OWL.TE, week) -> 9 rows
+03:15:52 | research_plan(OWL.K) -> zone, week
+03:15:52 | split(OWL.K, zone) -> 2 rows
+03:15:52 | split(OWL.K, week) -> 8 rows
+03:15:52 | player_plays(OWL.K, {"kind": "fg", "limit": 60}) -> 19 plays

@@ -1,0 +1,115 @@
+03:13:47 | crosscheck starts (no model, fixed order). season=2026
+03:13:47 | plan: for each player read Sleeper's numbers from data/rosters/season-2026.json, find the player on ESPN, read ESPN's season totals, compare 8 stats
+03:13:47 | starting GOB.QB Josh Allen: find on ESPN
+03:13:47 | espn_find(Josh Allen, QB) -> 1 match(es)
+03:13:47 | espn_stats(3918298) -> defensive, defensiveInterceptions, general, passing, receiving, rushing, scoring
+03:13:47 | Josh Allen: ESPN 3918298, games Sleeper 8.0 ESPN 8.0, every compared stat agrees
+03:13:47 | starting GOB.RB Saquon Barkley: find on ESPN
+03:13:47 | espn_find(Saquon Barkley, RB) -> 1 match(es)
+03:13:47 | espn_stats(3929630) -> general, passing, receiving, rushing, scoring
+03:13:47 | Saquon Barkley: ESPN 3929630, games Sleeper 7.0 ESPN 7.0, every compared stat agrees
+03:13:47 | starting GOB.WR1 Ja'Marr Chase: find on ESPN
+03:13:47 | espn_find(Ja'Marr Chase, WR) -> 1 match(es)
+03:13:47 | espn_stats(4362628) -> defensive, defensiveInterceptions, general, passing, receiving, rushing, scoring
+03:13:47 | Ja'Marr Chase: ESPN 4362628, games Sleeper 8.0 ESPN 8.0, every compared stat agrees
+03:13:47 | starting GOB.WR2 Puka Nacua: find on ESPN
+03:13:48 | espn_find(Puka Nacua, WR) -> 1 match(es)
+03:13:48 | espn_stats(4426515) -> defensive, defensiveInterceptions, general, passing, receiving, rushing, scoring
+03:13:48 | Puka Nacua: ESPN 4426515, games Sleeper 7.0 ESPN 7.0, every compared stat agrees
+03:13:48 | starting GOB.WR3 Amon-Ra St. Brown: find on ESPN
+03:13:48 | espn_find(Amon-Ra St. Brown, WR) -> 1 match(es)
+03:13:48 | espn_stats(4374302) -> defensive, defensiveInterceptions, general, passing, receiving, returning, rushing, scoring
+03:13:48 | Amon-Ra St. Brown: ESPN 4374302, games Sleeper 8.0 ESPN 8.0, every compared stat agrees
+03:13:48 | starting GOB.TE Trey McBride: find on ESPN
+03:13:48 | espn_find(Trey McBride, TE) -> 1 match(es)
+03:13:48 | espn_stats(4361307) -> defensive, defensiveInterceptions, general, passing, receiving, rushing, scoring
+03:13:48 | Trey McBride: ESPN 4361307, games Sleeper 9.0 ESPN 9.0, every compared stat agrees
+03:13:48 | starting GOB.K Brandon Aubrey: find on ESPN
+03:13:48 | espn_find(Brandon Aubrey, PK) -> 1 match(es)
+03:13:48 | espn_stats(3953687) -> general, kicking, passing, receiving, rushing, scoring
+03:13:48 | Brandon Aubrey: ESPN 3953687, games Sleeper 9.0 ESPN 9.0, every compared stat agrees
+03:13:48 | starting PYT.QB Lamar Jackson: find on ESPN
+03:13:48 | espn_find(Lamar Jackson, QB) -> 1 match(es)
+03:13:48 | espn_stats(3916387) -> general, passing, receiving, rushing, scoring
+03:13:48 | Lamar Jackson: ESPN 3916387, games Sleeper 5.0 ESPN 5.0, every compared stat agrees
+03:13:48 | starting PYT.RB Bijan Robinson: find on ESPN
+03:13:48 | espn_find(Bijan Robinson, RB) -> 1 match(es)
+03:13:48 | espn_stats(4430807) -> defensive, defensiveInterceptions, general, passing, receiving, rushing, scoring
+03:13:48 | Bijan Robinson: ESPN 4430807, games Sleeper 9.0 ESPN 9.0, every compared stat agrees
+03:13:48 | starting PYT.WR1 Justin Jefferson: find on ESPN
+03:13:49 | espn_find(Justin Jefferson, WR) -> 1 match(es)
+03:13:49 | espn_stats(4262921) -> general, passing, receiving, rushing, scoring
+03:13:49 | Justin Jefferson: ESPN 4262921, games Sleeper 7.0 ESPN 7.0, every compared stat agrees
+03:13:49 | starting PYT.WR2 Malik Nabers: find on ESPN
+03:13:49 | espn_find(Malik Nabers, WR) -> 1 match(es)
+03:13:49 | espn_stats(4595348) -> defensive, defensiveInterceptions, general, passing, receiving, rushing, scoring
+03:13:49 | Malik Nabers: ESPN 4595348, games Sleeper 9.0 ESPN 9.0, every compared stat agrees
+03:13:49 | starting PYT.WR3 Nico Collins: find on ESPN
+03:13:49 | espn_find(Nico Collins, WR) -> 1 match(es)
+03:13:49 | espn_stats(4258173) -> general, passing, receiving, rushing, scoring
+03:13:49 | Nico Collins: ESPN 4258173, games Sleeper 6.0 ESPN 6.0, every compared stat agrees
+03:13:49 | starting PYT.TE George Kittle: find on ESPN
+03:13:49 | espn_find(George Kittle, TE) -> 1 match(es)
+03:13:49 | espn_stats(3040151) -> defensive, defensiveInterceptions, general, passing, receiving, rushing, scoring
+03:13:49 | George Kittle: ESPN 3040151, games Sleeper 8.0 ESPN 8.0, every compared stat agrees
+03:13:49 | starting PYT.K Harrison Butker: find on ESPN
+03:13:49 | espn_find(Harrison Butker, PK) -> 1 match(es)
+03:13:49 | espn_stats(3055899) -> defensive, defensiveInterceptions, general, kicking, passing, receiving, rushing, scoring
+03:13:49 | Harrison Butker: ESPN 3055899, games Sleeper 8.0 ESPN 8.0, every compared stat agrees
+03:13:49 | starting TUR.QB Jayden Daniels: find on ESPN
+03:13:49 | espn_find(Jayden Daniels, QB) -> 1 match(es)
+03:13:49 | espn_stats(4426348) -> general, passing, receiving, rushing, scoring
+03:13:49 | Jayden Daniels: ESPN 4426348, games Sleeper 7.0 ESPN 7.0, every compared stat agrees
+03:13:49 | starting TUR.RB Jahmyr Gibbs: find on ESPN
+03:13:50 | espn_find(Jahmyr Gibbs, RB) -> 1 match(es)
+03:13:50 | espn_stats(4429795) -> general, passing, receiving, rushing, scoring
+03:13:50 | Jahmyr Gibbs: ESPN 4429795, games Sleeper 8.0 ESPN 8.0, every compared stat agrees
+03:13:50 | starting TUR.WR1 CeeDee Lamb: find on ESPN
+03:13:50 | espn_find(CeeDee Lamb, WR) -> 1 match(es)
+03:13:50 | espn_stats(4241389) -> general, passing, receiving, rushing, scoring
+03:13:50 | CeeDee Lamb: ESPN 4241389, games Sleeper 9.0 ESPN 9.0, every compared stat agrees
+03:13:50 | starting TUR.WR2 Garrett Wilson: find on ESPN
+03:13:50 | espn_find(Garrett Wilson, WR) -> 1 match(es)
+03:13:50 | espn_stats(4569618) -> general, passing, receiving, rushing, scoring
+03:13:50 | Garrett Wilson: ESPN 4569618, games Sleeper 8.0 ESPN 8.0, every compared stat agrees
+03:13:50 | starting TUR.WR3 Drake London: find on ESPN
+03:13:50 | espn_find(Drake London, WR) -> 1 match(es)
+03:13:50 | espn_stats(4426502) -> defensive, defensiveInterceptions, general, passing, receiving, rushing, scoring
+03:13:50 | Drake London: ESPN 4426502, games Sleeper 9.0 ESPN 9.0, every compared stat agrees
+03:13:50 | starting TUR.TE Brock Bowers: find on ESPN
+03:13:50 | espn_find(Brock Bowers, TE) -> 1 match(es)
+03:13:50 | espn_stats(4432665) -> general, passing, receiving, rushing, scoring
+03:13:50 | Brock Bowers: ESPN 4432665, games Sleeper 7.0 ESPN 7.0, every compared stat agrees
+03:13:50 | starting TUR.K Cameron Dicker: find on ESPN
+03:13:51 | espn_find(Cameron Dicker, PK) -> 1 match(es)
+03:13:51 | espn_stats(4362081) -> general, kicking, passing, receiving, rushing, scoring
+03:13:51 | Cameron Dicker: ESPN 4362081, games Sleeper 8.0 ESPN 8.0, every compared stat agrees
+03:13:51 | starting OWL.QB Patrick Mahomes: find on ESPN
+03:13:51 | espn_find(Patrick Mahomes, QB) -> 1 match(es)
+03:13:51 | espn_stats(3139477) -> defensive, defensiveInterceptions, general, passing, receiving, rushing, scoring
+03:13:51 | Patrick Mahomes: ESPN 3139477, games Sleeper 8.0 ESPN 8.0, every compared stat agrees
+03:13:51 | starting OWL.RB Derrick Henry: find on ESPN
+03:13:51 | espn_find(Derrick Henry, RB) -> 1 match(es)
+03:13:51 | espn_stats(3043078) -> general, passing, receiving, rushing, scoring
+03:13:51 | Derrick Henry: ESPN 3043078, games Sleeper 9.0 ESPN 9.0, every compared stat agrees
+03:13:51 | starting OWL.WR1 Tee Higgins: find on ESPN
+03:13:51 | espn_find(Tee Higgins, WR) -> 1 match(es)
+03:13:51 | espn_stats(4239993) -> general, passing, receiving, rushing, scoring
+03:13:51 | Tee Higgins: ESPN 4239993, games Sleeper 8.0 ESPN 8.0, every compared stat agrees
+03:13:51 | starting OWL.WR2 Jaxon Smith-Njigba: find on ESPN
+03:13:51 | espn_find(Jaxon Smith-Njigba, WR) -> 1 match(es)
+03:13:51 | espn_stats(4430878) -> defensive, defensiveInterceptions, general, passing, receiving, rushing, scoring
+03:13:51 | Jaxon Smith-Njigba: ESPN 4430878, games Sleeper 9.0 ESPN 9.0, every compared stat agrees
+03:13:51 | starting OWL.WR3 Ladd McConkey: find on ESPN
+03:13:51 | espn_find(Ladd McConkey, WR) -> 1 match(es)
+03:13:51 | espn_stats(4612826) -> general, passing, receiving, rushing, scoring
+03:13:51 | Ladd McConkey: ESPN 4612826, games Sleeper 6.0 ESPN 6.0, every compared stat agrees
+03:13:51 | starting OWL.TE Tucker Kraft: find on ESPN
+03:13:52 | espn_find(Tucker Kraft, TE) -> 1 match(es)
+03:13:52 | espn_stats(4572680) -> defensive, defensiveInterceptions, general, passing, receiving, rushing, scoring
+03:13:52 | Tucker Kraft: ESPN 4572680, games Sleeper 9.0 ESPN 9.0, every compared stat agrees
+03:13:52 | starting OWL.K Ka'imi Fairbairn: find on ESPN
+03:13:52 | espn_find(Ka'imi Fairbairn, PK) -> 1 match(es)
+03:13:52 | espn_stats(2971573) -> defensive, defensiveInterceptions, general, kicking, passing, receiving, rushing, scoring
+03:13:52 | Ka'imi Fairbairn: ESPN 2971573, games Sleeper 8.0 ESPN 8.0, every compared stat agrees
+03:13:52 | crosscheck finished: 28 of 28 players agree on every compared stat, 0 disagreements

@@ -9,7 +9,7 @@ TUR, K (K). Written by `agents/scout/notes.py` on 2026-11-14 from the data files
 | long kicks | 0.4 | field goals made from 40 yards or more divided by field goals made | https://api.sleeper.com/stats/nfl/player/8259?season_type=regular&season=2026 | 2026-11-14 |
 | accuracy | 0.882 | field goals made divided by attempted | https://api.sleeper.com/stats/nfl/player/8259?season_type=regular&season=2026 | 2026-11-14 |
 
-Season 2026 numbers through game week 8.0 (8.0 games). Filled by agents/scout/fill_profiles.py, no model.
+Accurate kicker used mostly inside 50 yards. Perfect over his last three weeks with a kick. Season 2026 numbers through game week 8.0 (8.0 games). Made by Scout's tools, researched in Juan's laptop session: stats step with find_player, season_stats, compute_tendencies and write_profile; film room and fact-check in data/profiles/notes/TUR-K-report.md.
 
 ## From the real plays
 
