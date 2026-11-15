@@ -231,3 +231,7 @@ Use what TimescaleDB adds over plain PostgreSQL, so the Tiger Data part is real 
 ## Task D45: Scout through the service
 
 Add a route that returns the newest sourced scouting report per player from `agents/scout/runs/` (and the pages from D36), and, only when a model key is in the environment, runs Scout for one player and stores the result. Without a key it answers the stored report and says it was not refreshed. Test both paths offline. No key in any file.
+
+## Task D46: the second football game
+
+Boss task A5 is moved to you. For this task you may edit `engine/make-game.js` and add files under `data/games/`. Make the game maker read a stat lines file and team files (`--lines data/statlines/week11-tur-owl.json --teams data/rosters/TUR.json,data/rosters/OWL.json`, your own shape) besides `--from-sample`, and tag highlights in `e.tags` (touchdowns, turnovers, gains of 20 or more). Build Turtles against Owls with `--no-jev` (Juan rebuilds it with Jev on the laptop later) as `data/games/week11-tur-owl.json`; it must replay to the exact stat lines and pass `node tools/validate.js`. Do not change `data/games/current.js` or `index.html`; NOTE peyton when the file exists so the league home can open it.

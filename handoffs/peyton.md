@@ -204,3 +204,11 @@ After B35. The soccer jump bar, rule cards and share card stay hidden until `SC_
 ## Task B37: bugs from the test lead
 
 Fix every bug Noah's test lead (C28) sends you, one by one, and post DONE with the list.
+
+## Task B38: calmer football stands
+
+Review of B35 (looks good, merged): at 1280 wide the stands on both sides are a dense field of bright pixels and pull the eye away from the play; the soccer page reads calmer. Tone the stands down (darker, fewer bright pixels, closer to the soccer stadium palette) and keep the caption box (`[crowd murmurs]`) from covering the bottom ticker and the end zone. Same files as B35. Check at 375 and 1280 with screenshots and `sh tools/smoke.sh`.
+
+## Task B39: momentum and trends from the service
+
+Ricky's D44 adds `GET /games/:id/momentum` and `GET /players/:id/trend` (see `db/README.md` and `server/index.js` on main). When the app is opened with `?api=<address>`, show them in the film room (momentum) and next to players on the lineups (trend); without `?api=` use the same numbers from the game file, as today. Ask ricky for the exact shapes.

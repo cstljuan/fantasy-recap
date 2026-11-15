@@ -131,12 +131,14 @@ Run `sh tools/next.sh` to get your next task with its full description. A row is
 | A2 | A | cstljuan | The football game maker with the play caller | merged |
 | A3 | A | cstljuan | Connect the announcer, crowd, captions and the floaters switch | merged |
 | A4 | A | cstljuan | Sport switch wiring and home-screen install | merged |
-| A5 | A | cstljuan | Game maker reads `data/statlines/week11.json`, and tags highlights | open |
+| A5 | A | cstljuan | Game maker reads `data/statlines/week11.json`, and tags highlights | moved to D46 |
 | A8 | A | Rickstar-App | A game built from a real week's actual plays: every catch, run and kick our players really made, woven into one legal game (asked by Ricky; Ricky's boss session) | merged |
 | A6 | A | cstljuan | Season numbers file for the profiles | replaced by D12 |
 | B35 | B | Peypey-ryd | TOP PRIORITY: the football field gets the soccer stadium look (stands, crowd, score bug, banners, palette, pixel style) | merged |
 | B36 | B | Peypey-ryd | Football and soccer screens consistent side by side | merged |
 | B37 | B | Peypey-ryd | Fix every bug the test lead (C28) sends | open |
+| B38 | B | Peypey-ryd | Football stands calmer, closer to the soccer look, and the caption box clear of the ticker | open |
+| B39 | B | Peypey-ryd | Momentum and player trends from the service (D44) on the film room and lineups when `?api=` is set, file fallback otherwise | open |
 | C28 | C | nexodv | Test lead: run every check, walk both apps in a browser, one command in tests/, send bugs to owners | open |
 | C29 | C | nexodv | Stadium sound for football to match the soccer broadcast, with Peyton's B35 | merged |
 | C30 | C | nexodv | Soccer voice and captions, Noah's half of S6 | merged |
@@ -145,6 +147,7 @@ Run `sh tools/next.sh` to get your next task with its full description. A row is
 | D43 | D | Rickstar-App | Fix every bug the test lead (C28) sends | open |
 | D44 | D | Rickstar-App | Tiger Data that shows: time_bucket and continuous aggregate queries for momentum, hot streaks and week trends, served by the service, with a test | merged |
 | D45 | D | Rickstar-App | Scout through the service: a route that returns the newest sourced scouting report per player, and runs Scout when a key is present | merged |
+| D46 | D | Rickstar-App | The second football game: the game maker reads a stat lines file (A5, moved to Ricky), builds Turtles against Owls without Jev, tags highlights | open |
 
 ## Answers to ASK posts
 
