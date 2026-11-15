@@ -144,9 +144,9 @@ Run `sh tools/next.sh` to get your next task with its full description. A row is
 | B41 | B | Peypey-ryd | Demo path at phone size, both sports, after tonight's changes: league, matchup, opt in, watch, jump, recap, share; fix what breaks | dropped: Juan, focus on data |
 | B42 | B | Peypey-ryd | Phone speed: first load on a throttled phone profile, what blocks the first screen, lazy loading where it is yours, a short report with numbers | dropped: Juan, focus on data |
 | C28 | C | nexodv | Test lead: run every check, walk both apps in a browser, one command in tests/, send bugs to owners | merged |
-| C32 | C | nexodv | Soccer seek and hold (S7, moved to Noah), then the jump bar, rule cards and share card on the soccer page, with Peyton | open |
+| C32 | C | nexodv | Soccer seek and hold (S7, moved to Noah), then the jump bar, rule cards and share card on the soccer page, with Peyton | merged |
 | C33 | C | nexodv | Voice for the second football game (Turtles against Owls, D46) once its file is on main | dropped (Noah's call) |
-| C34 | C | nexodv | The demo video shot list and two-minute script, refreshed against main tonight (new stadium, soccer in the same tab bar, recordings), with Peyton | open |
+| C34 | C | nexodv | The demo video shot list and two-minute script, refreshed against main tonight (new stadium, soccer in the same tab bar, recordings), with Peyton | merged |
 | C37 | C | nexodv | The announcer for the real week 9 games: fix js/announcer/check.js for the new current week (Ricky's ASK), pre-game show for Goblins against Turtles, every line fits, then the recording count for Noah to approve | open |
 | C35 | C | nexodv | Sound starts right on a real phone: first tap unlocks audio, iPhone silent switch and background tab rules, resume after the tab returns, both sports, with a check | dropped: Juan, focus on data |
 | C36 | C | nexodv | The second football game with the browser voice: every line fits, names and numbers said right for the Turtles and Owls rosters, audit covers it | dropped: Juan, focus on data |
