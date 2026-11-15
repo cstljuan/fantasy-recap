@@ -56,7 +56,7 @@
   // ------------------------------------------------------------- the recording
   // The clip is 15 seconds that fade in and out at its ends, so only its steady middle is used,
   // in copies that overlap and crossfade, which keeps the crowd at one level with no gap.
-  var LEVEL = 0.35;                   // medium, before js/audio.js's master and crowd volumes
+  var LEVEL = 0.28;                   // medium (2 dB under the first 0.35, Peyton's ask), before js/audio.js's master and crowd volumes
   var FROM = 2.5, TO = 9.5, FADE = 2;   // seconds of the clip; this keeps the loop within about 2 dB
   var ac = null, bus = null, buf = null, loading = false, nextAt = 0, timer = 0;
   function level() {
