@@ -1,0 +1,205 @@
+{
+ "key": "TUR-WR2",
+ "name": "Garrett Wilson",
+ "researched": "2026-11-15",
+ "background": [
+  {
+   "fact": "Born July 22, 2000; Wikipedia says he was born in Chicago and grew up in Dublin, Ohio until age 11, while the ESPN and Sleeper data lists Austin, Texas as the birthplace.",
+   "source": "https://en.wikipedia.org/wiki/Garrett_Wilson",
+   "date": null,
+   "confidence": "two sources disagree on birthplace"
+  },
+  {
+   "fact": "He attended Lake Travis High School in Austin, Texas, won a 6A state title in 2016, set school receiving records (204 catches, 3,359 yards, 55 touchdowns) and played in the 2019 All-American Bowl as a five-star recruit.",
+   "source": "https://en.wikipedia.org/wiki/Garrett_Wilson",
+   "date": null,
+   "confidence": "from Wikipedia"
+  },
+  {
+   "fact": "At Ohio State he caught 30 passes for 432 yards and 5 touchdowns as a true freshman in 2019, moved to the slot in 2020, and became the second player in school history with four straight 100-yard games (Nov 21, 2020).",
+   "source": "https://en.wikipedia.org/wiki/Garrett_Wilson",
+   "date": null,
+   "confidence": "from Wikipedia"
+  },
+  {
+   "fact": "The Jets drafted him 10th overall in 2022 and he was named NFL Offensive Rookie of the Year.",
+   "source": "https://en.wikipedia.org/wiki/Garrett_Wilson",
+   "date": null,
+   "confidence": "confirmed by two sources (also the data file bio)"
+  },
+  {
+   "fact": "Listed at 6 ft 0 in, 183 lb, age 26, jersey 5, in his fifth NFL season; 2026 depth chart slot is left wide receiver 1.",
+   "source": "research/data/TUR-WR2.json (bio)",
+   "date": "2026-11-15",
+   "confidence": "one source"
+  },
+  {
+   "fact": "Combine: 4.38 forty, 36 inch vertical, 123 inch broad jump. Madden Week 8 rating is 87 overall with the abilities Slot-O-Matic and Mid In Elite.",
+   "source": "research/data/TUR-WR2.json (bio.combine, bio.madden)",
+   "date": "2026-11-15",
+   "confidence": "one source"
+  },
+  {
+   "fact": "Career regular season through Week 9 2026: 66 games, 591 targets, 358 catches, 4,171 yards, 21 touchdowns (about 8.1 fantasy points a game under league scoring).",
+   "source": "research/data/TUR-WR2.json (career)",
+   "date": "2026-11-15",
+   "confidence": "from the data file"
+  },
+  {
+   "fact": "A report says he is under contract through 2030 (the Jets view him as a core player); contract value not found from a current source.",
+   "source": "https://www.espn.com/nfl/story/_/id/50454225/jets-2026-trade-deadline-garrett-wilson-geno-smith",
+   "date": "2026-11-12",
+   "confidence": "one source (search summary, page not read)"
+  }
+ ],
+ "family": [
+  {
+   "fact": "His father, Kenny Wilson, played basketball at Davidson College, and he has been friends since childhood with New York Mets third baseman Brett Baty.",
+   "source": "https://en.wikipedia.org/wiki/Garrett_Wilson",
+   "date": null,
+   "confidence": "from Wikipedia"
+  },
+  {
+   "fact": "Anything further about his family, partner or children: not found.",
+   "source": "not found",
+   "date": null,
+   "confidence": "not found"
+  }
+ ],
+ "recent_events": [
+  {
+   "fact": "Wilson was held out of the Jets' 35-12 Week 9 loss to the Chiefs while in the concussion protocol after a head injury in Week 8.",
+   "source": "https://www.nbcsports.com/fantasy/football/player-news/2026-11-13/glenn-confident-wilson-will-play-vs-bills",
+   "date": "2026-11-13",
+   "confidence": "confirmed by two sources (also ESPN note in the data file)"
+  },
+  {
+   "fact": "Coach Aaron Glenn said he was confident Wilson will play against Buffalo and that Wilson had one more step of the protocol to clear.",
+   "source": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/aaron-glenn-expects-garrett-wilson-to-clear-concussion-protocol-play-vs-bills",
+   "date": "2026-11-13",
+   "confidence": "confirmed by two sources (also Fox Sports and Yahoo headlines in the data file)"
+  },
+  {
+   "fact": "Before the 2026 trade deadline the Chiefs and 49ers showed interest in trading for him; ESPN's Rich Cimini reported a deal never was a realistic possibility and that Wilson did not want to leave.",
+   "source": "https://www.nbcsports.com/fantasy/football/player-news/2026-11-12/jets-and-chiefs-were-interested-in-garrett-wilson",
+   "date": "2026-11-12",
+   "confidence": "confirmed by several outlets (NBC Sports, Yahoo Sports, ESPN)"
+  },
+  {
+   "fact": "2026 season through Week 8 (8 games, 8 starts): 63 targets, 43 catches, 527 yards, 3 touchdowns, 8.8 fantasy points a game; 24.4 percent of Jets targets and 32.0 percent of intended air yards.",
+   "source": "research/data/TUR-WR2.json (season_2026, teammates_2026)",
+   "date": "2026-11-15",
+   "confidence": "from the data file"
+  },
+  {
+   "fact": "Best 2026 games: Week 3 vs Detroit (10 catches on 13 targets, 107 yards, a touchdown, 16.7 points) and Week 5 vs Cleveland (104 yards, a touchdown, 16.4); lowest: Week 7 at Miami (2 catches, 26 yards, 2.6) and Week 4 vs Chicago (2.7).",
+   "source": "research/data/TUR-WR2.json (log)",
+   "date": "2026-11-15",
+   "confidence": "from the data file"
+  },
+  {
+   "fact": "Of his 63 targets, 47 were short (72 percent catch rate, 6.7 yards a target) and 16 were deep (56 percent, 13.2 yards); 6 were in the red zone.",
+   "source": "research/data/TUR-WR2.json (plays_2026, season_2026)",
+   "date": "2026-11-15",
+   "confidence": "from the data file"
+  }
+ ],
+ "quotes": [
+  {
+   "fact": "Glenn's headline quote: 'I am confident' Wilson will be back against the Bills.",
+   "source": "https://www.foxsports.com/",
+   "date": "2026-11-13",
+   "confidence": "headline only from the data file (Fox Sports); full article not read, exact URL not found"
+  }
+ ],
+ "team_context": [
+  {
+   "fact": "The Jets are 2-7, averaging 20.2 points for and allowing 24.8; Geno Smith has thrown every pass for them in 2026 and has been sacked 28 times through nine games, third most in the league.",
+   "source": "https://www.fantasypros.com/2026/11/the-primer-week-10-edition-2026-fantasy-football/3/",
+   "date": "2026-11-14",
+   "confidence": "confirmed by two sources (also the data file, season_2026.team)"
+  },
+  {
+   "fact": "Other Jets targets in 2026: Adonai Mitchell 34 targets in 5 games, tight end Kenyon Sadiq 31, Mason Taylor 25, running back Braelon Allen 24. Mitchell (knee) and Omar Cooper (ankle) were reported expected to play in Week 10.",
+   "source": "https://www.draftsharks.com/fantasy-football-news/84203/jets-wr-corps-at-full-strength-for-week-10",
+   "date": "2026-11-14",
+   "confidence": "one source for injuries; targets from the data file"
+  },
+  {
+   "fact": "Jets head coach is Aaron Glenn (named in the news above); offensive coordinator not found.",
+   "source": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/aaron-glenn-expects-garrett-wilson-to-clear-concussion-protocol-play-vs-bills",
+   "date": "2026-11-13",
+   "confidence": "one source"
+  }
+ ],
+ "next_opponent": [
+  {
+   "fact": "The Jets host Buffalo on Sunday, November 15, 1 pm ET at MetLife Stadium (outdoors, turf), on CBS; a division game with a week of rest.",
+   "source": "research/data/TUR-WR2.json (next_games)",
+   "date": "2026-11-15",
+   "confidence": "from the data file"
+  },
+  {
+   "fact": "Buffalo is a 7.5 point favorite, total about 50.5 (Covers) or 51.5 (data file); the Jets' implied total is 22. The forecast is 50 F and intermittent clouds; wind not found.",
+   "source": "https://www.covers.com/nfl/bills-vs-jets-prediction-picks-nov-15-2026",
+   "date": "2026-11-15",
+   "confidence": "two sources, totals differ slightly"
+  },
+  {
+   "fact": "Buffalo is 7-1 with four straight wins, first in the NFL in yards (386.4 a game) and points (32 a game); Yahoo projects Buffalo 27, Jets 23.",
+   "source": "https://www.covers.com/nfl/bills-vs-jets-prediction-picks-nov-15-2026",
+   "date": "2026-11-15",
+   "confidence": "one source"
+  },
+  {
+   "fact": "Buffalo's pass defense and who covers Wilson: not found.",
+   "source": "not found",
+   "date": null,
+   "confidence": "not found"
+  }
+ ],
+ "style": [
+  {
+   "fact": "A slot-capable receiver with quick separation traits (Madden 93 acceleration, 93 agility, 92 catching, 91 spectacular catch); in 2026 his average separation is 2.62 yards, his cushion is 4.2 yards and he averages 10.6 intended air yards.",
+   "source": "research/data/TUR-WR2.json (bio.madden, season_2026.tracking)",
+   "date": "2026-11-15",
+   "confidence": "one source"
+  },
+  {
+   "fact": "He plays mostly short, with his best catch rate to the right side (79 percent) and the left side weakest (56 percent).",
+   "source": "research/data/TUR-WR2.json (plays_2026)",
+   "date": "2026-11-15",
+   "confidence": "from the data file"
+  }
+ ],
+ "availability": {
+  "status": "Questionable, concussion (expected to play)",
+  "detail": "ESPN lists him Questionable on 2026-11-14 for a concussion, saying he was a full participant in Friday's practice and the Jets appear confident he will clear the protocol. Glenn said on 2026-11-13 he is confident Wilson plays. Reports conflict on whether protocol was already fully cleared (one report said cleared Friday, others said one step remained). He missed Week 9. He is not on injured reserve. The official inactive list was not seen.",
+  "expected_return": "2026-11-15 (Week 10 vs Buffalo)",
+  "source": "https://www.nbcsports.com/fantasy/football/player-news/2026-11-13/glenn-confident-wilson-will-play-vs-bills",
+  "date": "2026-11-14"
+ },
+ "outlook_next_game": {
+  "lean": "likely plays and leads the Jets in targets; expected around 8 to 12 fantasy points",
+  "confidence": "medium",
+  "reasons": [
+   "He is questionable with a concussion but was a full participant Friday and the coach is confident he plays.",
+   "He has 24.4 percent of Jets targets, far above any teammate, with Geno Smith the only passer.",
+   "Buffalo is a 7.5 point favorite, which could push the Jets to pass more, but the Jets' implied total is only 22.",
+   "Risks: a late scratch, a limited role on return, and his 8.8 point average with a 2.6 to 16.7 range."
+  ]
+ },
+ "scouts_read": "Wilson is questionable with a concussion, but he practiced fully on Friday and coach Aaron Glenn said he is confident Wilson plays, so the main risk is a late scratch. If he plays, he is the clear top target for a Jets offense that has relied on Geno Smith for every pass, with about a quarter of all targets. Buffalo is a 7.5 point favorite, so the Jets may be chasing points, which helps his volume. His production has been uneven, from 2.6 to 16.7 points a game, and most of his catches are short. I would project a middling game of 8 to 12 points with a modest touchdown chance, and I would check the inactive list before kickoff.",
+ "open_questions": [
+  "Official Sunday inactive list and whether he fully cleared the protocol (reports conflict).",
+  "Any snap or role limit on his return from the concussion (not found).",
+  "Wind and final weather (not found); Buffalo's pass defense and coverage assignment (not found).",
+  "Contract details and the Jets offensive coordinator for 2026 (not found; only a report of a deal through 2030)."
+ ],
+ "searches": [
+  "Garrett Wilson concussion protocol Jets Bills Week 10 Aaron Glenn",
+  "Chiefs 49ers interest Garrett Wilson trade deadline Jets",
+  "Jets vs Bills Week 10 2026 preview Garrett Wilson Geno Smith",
+  "Page fetches were not attempted; Wikipedia text came from the sections stored in research/data/TUR-WR2.json"
+ ]
+}
