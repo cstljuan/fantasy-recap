@@ -1,0 +1,207 @@
+{
+ "key": "GOB-K",
+ "name": "Brandon Aubrey",
+ "researched": "2026-11-15",
+ "background": [
+  {
+   "fact": "Brandon Scott Aubrey was born March 14, 1995. He plays placekicker for the Dallas Cowboys and has also played professional soccer as a center back.",
+   "source": "https://en.wikipedia.org/wiki/Brandon_Aubrey",
+   "date": null,
+   "confidence": "from Wikipedia (section stored in research/data/GOB-K.json)"
+  },
+  {
+   "fact": "He played four years of college soccer at Notre Dame (2013 to 2016); the 2013 team won a national championship and in 2016 he was a third team All-American and first team All-ACC.",
+   "source": "https://en.wikipedia.org/wiki/Brandon_Aubrey",
+   "date": null,
+   "confidence": "from Wikipedia"
+  },
+  {
+   "fact": "Toronto FC drafted him in 2017 and he played for its reserve side and then Bethlehem Steel FC, before switching to football with the USFL Birmingham Stallions in 2022 and 2023. The Cowboys signed him in 2023.",
+   "source": "https://en.wikipedia.org/wiki/Brandon_Aubrey",
+   "date": null,
+   "confidence": "from Wikipedia"
+  },
+  {
+   "fact": "He has a 88.2 percent career field goal rate (fifth best in NFL history per Wikipedia), has been All-Pro in each of his first three seasons, and holds the NFL record for career field goals of 60 yards or longer, with seven.",
+   "source": "https://en.wikipedia.org/wiki/Brandon_Aubrey",
+   "date": null,
+   "confidence": "from Wikipedia; the 7 kicks of 60 or more also match research/data/GOB-K.json (career)"
+  },
+  {
+   "fact": "Listed at 6 ft 3 in, 218 lb, age 31, jersey 17, Plano Senior High (Texas), Notre Dame, depth chart K1, fourth year of experience.",
+   "source": "research/data/GOB-K.json (bio, from ESPN and Sleeper pulls)",
+   "date": "2026-11-15",
+   "confidence": "one source"
+  }
+ ],
+ "family": [
+  {
+   "fact": "He met his wife Jenn in high school and they married on January 4, 2019. Their son Colton was born in 2024.",
+   "source": "https://en.wikipedia.org/wiki/Brandon_Aubrey",
+   "date": null,
+   "confidence": "from Wikipedia"
+  },
+  {
+   "fact": "A Yahoo Sports story headline from November 8, 2026 says he told how his wife urged him to leave a software job for the NFL (headline only, article not read). Nothing further about family is recorded here.",
+   "source": "research/data/GOB-K.json (news.recent, Yahoo Sports and JournalArta headlines)",
+   "date": "2026-11-08",
+   "confidence": "headline only"
+  }
+ ],
+ "recent_events": [
+  {
+   "fact": "Week 9 at Indianapolis, Dallas won 27-23 on Sunday, November 8. Aubrey made 2 of 3 field goals (45 and 28 yards made) and 3 of 3 extra points for 10 fantasy points. He pulled a 50-yard try wide left late in the fourth quarter.",
+   "source": "research/data/GOB-K.json (status.espn and log)",
+   "date": "2026-11-09",
+   "confidence": "confirmed by two parts of the data file (ESPN note and game log)"
+  },
+  {
+   "fact": "Over 9 games in 2026 he is 17 of 22 on field goals (3 of 8 from 50 or longer) and 23 of 24 on extra points, with 84.0 fantasy points, 9.33 a game under league scoring. His 2025 average was 11.04 and his career average is 10.74.",
+   "source": "research/data/GOB-K.json (season_2026, career)",
+   "date": "2026-11-15",
+   "confidence": "from the data file"
+  },
+  {
+   "fact": "Sleeper stats show 2 blocked field goals and 5 misses in 2026, including 3 misses of 60 or longer. One blocked kick was a 59-yard try against Baltimore, per a search summary of CBS Sports coverage (article not read).",
+   "source": "https://cbssports.com/nfl/news/cowboys-blocked-field-goals-2026",
+   "date": "date not shown",
+   "confidence": "stats from the data file; the Baltimore detail is one search summary"
+  },
+  {
+   "fact": "Week 2 vs Washington he made a 60-yard field goal (16 points, his best game of 2026); the next best were 14 at Philadelphia (long of 55) and 13 vs Arizona. His worst were 1 point at Green Bay (no field goal tries), 2 at the Giants in Week 1 (no tries) and 5 vs Tampa Bay.",
+   "source": "research/data/GOB-K.json (log)",
+   "date": "2026-11-15",
+   "confidence": "from the data file"
+  },
+  {
+   "fact": "Coverage this week is about his long range struggles. Headlines from November 11 to 13 include Yahoo Sports 'It's Official: Cowboys Have A Brandon Aubrey Problem', Dallas News 'Cowboys giving Brandon Aubrey benefit of the doubt amid uncharacteristic struggles', and Dallas News 'Cowboys owner Jerry Jones backs Brandon Aubrey after latest FG miss vs. Colts' (headlines only, articles not read).",
+   "source": "research/data/GOB-K.json (news.recent)",
+   "date": "2026-11-13",
+   "confidence": "headlines only"
+  },
+  {
+   "fact": "Despite that, fantasy outlets still rank him near the top for Week 10: Sports Illustrated headline 'Week 10 Fantasy Football Kicker Rankings: Brandon Aubrey Leads The Way' (November 11) and Pro Football Network lists him among its top options (November 12). A search summary of RotoBaller rankings also puts him second, 99 percent rostered.",
+   "source": "research/data/GOB-K.json (news.recent)",
+   "date": "2026-11-12",
+   "confidence": "headlines and a search summary only"
+  }
+ ],
+ "quotes": [
+  {
+   "fact": "No 2026 quote from Aubrey or the coaches was reachable. Older context: in a December 2025 loss to Minnesota, a search summary says he blamed variance, saying 'If you play the game long enough you're gonna have some days like this.' Not found for this week.",
+   "source": "https://roundtable.io/sports/nfl/cowboys/players/cowboys-k-brandon-aubrey-addresses-two-miss-performance-vs-vikings",
+   "date": "date not shown",
+   "confidence": "search summary only, older game"
+  }
+ ],
+ "team_context": [
+  {
+   "fact": "Dallas is 4-5 and averages 27.3 points for and 26.2 against, a high scoring team that plays close games: two of its five losses were by 3 points (31-34 vs Baltimore, 30-33 vs Arizona).",
+   "source": "research/data/GOB-K.json (season_2026 team, log)",
+   "date": "2026-11-15",
+   "confidence": "from the data file"
+  },
+  {
+   "fact": "Dak Prescott has thrown every Dallas pass in 2026, with 27 to 54 attempts a game. CeeDee Lamb leads targets (108, 904 yards), then George Pickens (62 targets, 533 yards) and Ryan Flournoy; Javonte Williams has 154 carries for 629 yards.",
+   "source": "research/data/GOB-K.json (teammates_2026)",
+   "date": "2026-11-15",
+   "confidence": "from the data file"
+  },
+  {
+   "fact": "Aubrey has scored more at home (11.25 a game, 4 games) than away (7.8, 5 games), more in wins (13.0) than losses (6.4), and more in day games (12.4) than prime time (5.5).",
+   "source": "research/data/GOB-K.json (splits_2026)",
+   "date": "2026-11-15",
+   "confidence": "from the data file, small samples"
+  },
+  {
+   "fact": "Head coach and special teams coordinator for 2026 were not confirmed from a current source: not found. Older reports name Trent Sieg as long snapper and Bryan Anger as holder.",
+   "source": "https://www.cbssports.com/nfl/news/cowboys-brandon-aubrey-nearly-ties-nfl-record-for-longest-field-goal-almost-tried-from-71",
+   "date": "date not shown",
+   "confidence": "older search summary, 2026 roles not confirmed"
+  }
+ ],
+ "next_opponent": [
+  {
+   "fact": "Dallas hosts San Francisco on Sunday, November 15, kickoff 4:25 pm ET (3:25 pm CT) on Fox at AT&T Stadium (indoor, artificial turf, 48 F listed, cloudy).",
+   "source": "research/data/GOB-K.json (next_games)",
+   "date": "2026-11-15",
+   "confidence": "from the data file; time also in a search result for the Fox Sports box score page"
+  },
+  {
+   "fact": "Lines: the data file has San Francisco -3.5, total 55.5, Dallas implied team total 26.0. A search result mentioned a different line (Dallas -1.5, total 52.5) and conflicting records, so the line is not settled.",
+   "source": "https://www.sharpfootballanalysis.com/fantasy/49ers-cowboys-week-10-fantasy-football-preview-nfl-worksheet-rich-hribar-2026/amp/",
+   "date": "2026-11-15",
+   "confidence": "two sources disagree on the line"
+  },
+  {
+   "fact": "Aubrey's two past games at San Francisco (both away): 2023 Week 5, 1 of 1 FG (50 yards), 6 points, Dallas lost 10-42; 2024 Week 8, 1 of 1 FG (29 yards), 6 points, Dallas lost 24-30.",
+   "source": "research/data/GOB-K.json (log)",
+   "date": "2026-11-15",
+   "confidence": "from the data file"
+  },
+  {
+   "fact": "Next games after this: Tennessee at home Week 11 (Dallas -7.5, total 51.5) and Philadelphia at home on Thursday, Week 12.",
+   "source": "research/data/GOB-K.json (next_games)",
+   "date": "2026-11-15",
+   "confidence": "from the data file"
+  },
+  {
+   "fact": "San Francisco's current injuries and a game-day forecast were not found; a search result listed only older absences (Brandon Aiyuk, Garret Wallow). The roof makes weather a small factor.",
+   "source": "https://www.audacy.com/957thegame/sports/san-francisco-49-ers/49ers-cowboys-injuries-key-absences-on-either-side",
+   "date": "date not shown",
+   "confidence": "not found for this week"
+  }
+ ],
+ "style": [
+  {
+   "fact": "Soccer-trained kicker with a huge leg: Madden week 8 rating is 88 overall with 99 kick power and 99 kick accuracy, ability 'Zen Kicker'.",
+   "source": "research/data/GOB-K.json (bio.madden)",
+   "date": "2026-11-15",
+   "confidence": "one source"
+  },
+  {
+   "fact": "Career regular season: 129 of 149 field goals (32 from 40 to 49, 31 from 50 to 59, 7 from 60 or longer) and 149 of 154 extra points in 60 games. Season lines: 2023 36/38, 2024 40/47, 2025 36/42, 2026 17/22.",
+   "source": "research/data/GOB-K.json (career)",
+   "date": "2026-11-15",
+   "confidence": "from the data file"
+  },
+  {
+   "fact": "Under league scoring, a field goal is worth 3 points, 4 from 40 to 49 yards and 5 from 50 or longer, so his long kicks are worth the most and his 2026 long range misses cost him real points.",
+   "source": "research/data/scoring.json and research/README.md",
+   "date": "2026-11-15",
+   "confidence": "from project files"
+  }
+ ],
+ "availability": {
+  "status": "Active, expected to play",
+  "detail": "Sleeper status Active, no injury status or designation for 2026, and ESPN lists him Active (note dated 2026-11-09). The only injury report rows in the data file are from 2024 (a practice absence and one for jury duty). No Week 10 injury report row was found. The team publicly backs him despite the long range misses, per headlines.",
+  "expected_return": "Not applicable",
+  "source": "research/data/GOB-K.json (status, injury_reports)",
+  "date": "2026-11-15"
+ },
+ "outlook_next_game": {
+  "lean": "kicks in a high-scoring indoor home game; expected around 9 to 12 fantasy points",
+  "confidence": "medium",
+  "reasons": [
+   "He is active and the game is indoors at home, where he averages 11.25 points in 2026 versus 7.8 away.",
+   "The total is 55.5 with Dallas implied at 26.0 in the data file, which points to a good number of scoring drives.",
+   "Dallas is a small underdog, and the 2026 sample says he does better in wins (13.0) than losses (6.4), but his two underdog games averaged 11.5.",
+   "Risks are more long range misses (3 of 8 from 50 or longer), touchdowns instead of field goals in a shootout, and a line that sources do not agree on."
+  ]
+ },
+ "scouts_read": "Aubrey is healthy and set to kick, so the question is volume and range. Dallas plays at home indoors in a game with a total near 55, and the Cowboys score about 27 points a game, so he should get several extra points and likely two or three field goal tries. His long kicks have been shaky this year, 3 of 8 from 50 or longer, which has lowered his average to 9.33 against 11.04 last season. Dallas has publicly backed him, and the home, indoor setting is the best one he has had. I would project a solid game of 9 to 12 points with a chance of a 14 point day if he hits one from 50 or more.",
+ "open_questions": [
+  "Official Week 10 injury report and the final inactive list for Dallas and San Francisco (not found).",
+  "The agreed betting line and total: the data file has SF -3.5 and 55.5, a search result had different numbers.",
+  "The content of the 2026 articles on the Cowboys backing Aubrey and any explanation for the long range misses, such as snap, hold or technique (headlines only, not found).",
+  "Current head coach and special teams coordinator for Dallas in 2026, and any contract news (not found; one search result headline said talks with Aubrey had made no progress, date not shown)."
+ ],
+ "searches": [
+  "Brandon Aubrey Cowboys 49ers Week 10 field goal struggles Jerry Jones benefit of the doubt (mixed seasons, little current detail)",
+  "Cowboys vs 49ers Week 10 2026 preview injury report weather AT&T Stadium (game time confirmed, no weather or current injuries)",
+  "Brandon Aubrey long snapper holder 50-yard misses why Cowboys (no reported cause)",
+  "Cowboys giving Brandon Aubrey benefit of the doubt uncharacteristic struggles Dallas News (article itself not found)",
+  "Brandon Aubrey Week 10 outlook fantasy kicker 49ers Cowboys Sunday (ranking summaries only)",
+  "Page fetches were not used; Wikipedia text came from the sections stored in research/data/GOB-K.json"
+ ]
+}
