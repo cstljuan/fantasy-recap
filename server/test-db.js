@@ -17,7 +17,9 @@ if (!process.env.DATABASE_URL) { console.log('SKIPPED: DATABASE_URL is not set, 
 
 var Pool = require('pg').Pool;
 var pool = new Pool(poolConfig(process.env.DATABASE_URL, process.env.DATABASE_CA_FILE));
-var ID = 'dbtest-' + Date.now().toString(36), SOC = ID + '-soc';
+var ID = 'dbtest-' + Date.now().toString(36), SOC = ID + '-soc', W9 = ID + '-w9';
+var trendLib = require('./trend.js'), momLib = require('./momentum.js'), root = path.join(__dirname, '..');
+var before = null;
 var srv = createServer(pool);
 var steps = 0;
 
@@ -38,6 +40,7 @@ function cleanup() {
   var like = 'dbtest-%';
   return pool.query('DELETE FROM watched WHERE game_id LIKE $1', [like]).catch(function () {})
     .then(function () { return pool.query('DELETE FROM optins WHERE game_id LIKE $1', [like]); })
+    .then(function () { return pool.query('DELETE FROM fp_awards WHERE game_id LIKE $1', [like]).catch(function () {}); })
     .then(function () { return pool.query('DELETE FROM plays WHERE game_id LIKE $1', [like]); })
     .then(function () { return pool.query('DELETE FROM games WHERE id LIKE $1', [like]); });
 }
@@ -53,6 +56,8 @@ pool.query("SELECT to_regclass('plays') AS p, to_regclass('optins') AS o, to_reg
   .then(function () { return new Promise(function (res) { srv.listen(0, function () { port = srv.address().port; res(); }); }); })
   .then(function () { return call(port, 'GET', '/health'); })
   .then(function (r) { assert.equal(r.status, 200); assert.equal(r.body.database, true); ok('health answers from the database'); })
+  .then(function () { return call(port, 'GET', '/players/Josh%20Allen/trend'); })
+  .then(function (r) { before = r.status === 200 ? r.body.weeks : []; })
   // push a football game and a soccer match, twice (a repeat must not duplicate)
   .then(function () { return pushGame(path.join(__dirname, '..', 'data', 'games', 'week11-football.json'), 'http://127.0.0.1:' + port, ID); })
   .then(function (p) { assert.ok(p.plays > 50); return pushGame(path.join(__dirname, '..', 'data', 'games', 'week11-football.json'), 'http://127.0.0.1:' + port, ID).then(function () { return p; }); })
@@ -64,6 +69,31 @@ pool.query("SELECT to_regclass('plays') AS p, to_regclass('optins') AS o, to_reg
   .then(function (r) { var q = r.body.plays.map(function (p) { return p.seq; }); assert.deepEqual(q, q.slice().sort(function (a, b) { return a - b; })); ok('plays come back in seq order'); })
   .then(function () { return call(port, 'GET', '/games/' + ID + '/top-plays?n=3'); })
   .then(function (r) { assert.equal(r.status, 200); assert.equal(r.body.source, 'database'); assert.equal(r.body.plays ? r.body.plays.length : r.body.top.length, 3); ok('top plays from the database'); })
+  .then(function () { return pushGame(path.join(root, 'data', 'games', 'week09-gob-tur.json'), 'http://127.0.0.1:' + port, W9); })
+  .then(function () { return pool.query('SELECT count(*)::int AS n FROM fp_awards WHERE game_id = $1', [ID]); })
+  .then(function (r) {
+    var want = 0; require('./replay.js').buildPlays(path.join(root, 'data', 'games', 'week11-football.json')).plays.forEach(function (p) { want += p.detail.fp.length; });
+    assert.equal(r.rows[0].n, want, 'every award of every play is in fp_awards, once');
+    ok('fp_awards holds the ' + want + ' awards of the game once, after a repeat push');
+  })
+  .then(function () { return call(port, 'GET', '/players/Josh%20Allen/trend'); })
+  .then(function (r) {
+    assert.equal(r.status, 200); assert.equal(r.body.source, 'database');
+    function pts(weeks, wk) { var w = weeks.filter(function (x) { return x.week === wk; })[0]; return w ? w.points : 0; }
+    var f9 = trendLib.fromFiles('Josh Allen', root + '/data/games').weeks, g = function (wk) { return f9.filter(function (x) { return x.week === wk; })[0].points; };
+    assert.ok(Math.abs(pts(r.body.weeks, 9) - pts(before, 9) - g(9)) < 0.05, 'week 9 gained what the file says');
+    assert.ok(Math.abs(pts(r.body.weeks, 11) - pts(before, 11) - g(11)) < 0.05, 'week 11 gained what the file says');
+    ok('trend from the weekly aggregate: week 9 and week 11 gained exactly what the game files give');
+  })
+  .then(function () { return call(port, 'GET', '/players/GOB.QB/trend'); })
+  .then(function (r) { assert.equal(r.status, 200); assert.ok(r.body.weeks.length >= 2 && ['up', 'down', 'flat'].indexOf(r.body.summary.direction) >= 0); ok('trend by TEAM.SLOT'); })
+  .then(function () { return call(port, 'GET', '/games/' + ID + '/momentum?bucket=120'); })
+  .then(function (r) {
+    var want = momLib.momentum(path.join(root, 'data', 'games', 'week11-football.json'), 120).buckets;
+    assert.equal(r.body.source, 'database'); assert.ok(r.body.engine === 'time_bucket' || r.body.engine === 'date_bin', 'engine ' + r.body.engine);
+    assert.deepEqual(r.body.buckets, want, 'the SQL buckets equal the JavaScript buckets');
+    ok('momentum bucketed by the database (' + r.body.engine + ') equals the JavaScript buckets, ' + want.length + ' buckets');
+  })
   .then(function () { return call(port, 'GET', '/games/' + ID + '/story'); })
   .then(function (r) { assert.equal(r.status, 200); assert.equal(r.body.source, 'database'); ok('story from the database'); })
   .then(function () { return call(port, 'GET', '/games/' + ID + '/momentum?bucket=300'); })

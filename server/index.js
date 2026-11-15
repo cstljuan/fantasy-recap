@@ -12,6 +12,8 @@ var topPlaysModule = require('./top-plays.js');
 var topPlays = topPlaysModule.topPlays, rankPlays = topPlaysModule.rank;
 var drivesModule = require('./drives.js');
 var momentumModule = require('./momentum.js');
+var timescale = require('./timescale.js');
+var trendModule = require('./trend.js');
 var storyModule = require('./story.js');
 var createParties = require('./party.js').createParties;
 var leagueModule = require('./league.js');
@@ -38,6 +40,9 @@ var INSERT_PLAY =
 var INSERT_PLAY_MINUTE =
   'INSERT INTO plays (game_id, seq, played_at, quarter, team, slot, player, kind, yards, fantasy_points, detail, why, minute) ' +
   'VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13) ON CONFLICT DO NOTHING';
+
+var INSERT_AWARD =
+  'INSERT INTO fp_awards (game_id, seq, n, played_at, team, slot, player, pts) VALUES ($1,$2,$3,$4,$5,$6,$7,$8) ON CONFLICT DO NOTHING';
 
 // A browser page on another port may call the service only from http://localhost:<port> or http://127.0.0.1:<port>.
 var LOCAL_ORIGIN = /^http:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/;
@@ -196,6 +201,26 @@ function createServer(db, opts) {
       if (req.method !== 'GET') return send(res, 405, { error: 'method not allowed' });
       return league(res);
     }
+    var pt = url.pathname.match(/^\/players\/([^\/]+)\/trend$/);
+    if (pt) {
+      if (req.method !== 'GET') return send(res, 405, { error: 'method not allowed' });
+      var pid;
+      try { pid = decodeURIComponent(pt[1]).trim(); } catch (e) { return send(res, 400, { error: 'the player id is not valid' }); }
+      if (!pid || pid.length > 100) return send(res, 400, { error: 'the player id is empty or longer than 100 characters' });
+      var trendFromFile = function () {
+        var t = null;
+        try { t = trendModule.fromFiles(pid); } catch (e) { console.error('trend from files failed:', e.message); return send(res, 500, { error: 'could not read the game files' }); }
+        if (!t) return send(res, 404, { error: 'no weeks found for ' + pid });
+        t.source = 'file'; send(res, 200, t);
+      };
+      return timescale.hasAwards(db).then(function (has) {
+        if (!has) return trendFromFile();
+        return timescale.trend(db, pid).then(function (r) {
+          if (!r.rows.length) return trendFromFile();
+          var t = trendModule.fromRows(r.rows, pid); t.source = 'database'; send(res, 200, t);
+        });
+      }).catch(function (e) { console.error('trend: database does not answer, using the game files:', e.message); trendFromFile(); }).catch(late);
+    }
     var m = url.pathname.match(/^\/games\/([^\/]+)\/(plays|summary|optin|optins|top-plays|drives|momentum|story|watched)$/);
     if (!m) return send(res, 404, { error: 'not found' });
     var gameId;
@@ -236,19 +261,36 @@ function createServer(db, opts) {
       var mFile = /^[A-Za-z0-9_-]+$/.test(gameId) ? path.join(__dirname, '..', 'data', 'games', gameId + '.json') : null;
       var momFromFile = function () {
         if (!mFile || !fs.existsSync(mFile)) return send(res, 404, { error: 'no plays in the database and no game file for ' + gameId });
-        try { var m = momentumModule.momentum(mFile, bucket); m.game_id = gameId; m.source = 'file'; send(res, 200, m); }
+        try { var m = momentumModule.momentum(mFile, bucket); m.game_id = gameId; m.source = 'file'; m.engine = 'javascript'; send(res, 200, m); }
         catch (e) { console.error('momentum from file failed:', e.message); send(res, 500, { error: 'could not read the game file' }); }
       };
-      Promise.all([
-        db.query('SELECT seq, quarter, played_at, detail FROM plays WHERE game_id = $1 ORDER BY seq', [gameId]),
-        db.query('SELECT home, away FROM games WHERE id = $1', [gameId])
-      ]).then(function (r) {
-        var rows = r[0].rows, g = r[1].rows[0];
-        var ok = rows.length && g && rows.every(function (x) { return x.detail && x.detail.fp && x.detail.score_after && x.played_at; });
-        if (!ok) return momFromFile();
-        var m = momentumModule.fromRecords(rows, g.home, g.away, bucket); m.game_id = gameId; m.source = 'database';
-        send(res, 200, m);
-      }, function (e) { console.error('momentum: database does not answer, using the game file:', e.message); momFromFile(); }).catch(late);
+      // First choice: the database buckets the fantasy awards itself with time_bucket (migration 004). Otherwise (or if that
+      // fails) the service buckets the plays in JavaScript, then the game file. `engine` says which one answered.
+      var momFromRows = function () {
+        return Promise.all([
+          db.query('SELECT seq, quarter, played_at, detail FROM plays WHERE game_id = $1 ORDER BY seq', [gameId]),
+          db.query('SELECT home, away FROM games WHERE id = $1', [gameId])
+        ]).then(function (r) {
+          var rows = r[0].rows, g = r[1].rows[0];
+          var ok = rows.length && g && rows.every(function (x) { return x.detail && x.detail.fp && x.detail.score_after && x.played_at; });
+          if (!ok) return momFromFile();
+          var m = momentumModule.fromRecords(rows, g.home, g.away, bucket); m.game_id = gameId; m.source = 'database'; m.engine = 'javascript';
+          send(res, 200, m);
+        });
+      };
+      db.query('SELECT home, away FROM games WHERE id = $1', [gameId]).then(function (g) {
+        if (!g.rows[0]) return momFromFile();
+        return timescale.hasAwards(db).then(function (has) {
+          if (!has) return momFromRows();
+          return timescale.fn(db).then(function (f) {
+            return timescale.momentum(db, f, gameId, g.rows[0].home, g.rows[0].away, bucket).then(function (m) {
+              if (!m) return momFromRows();
+              m.game_id = gameId; m.source = 'database'; m.engine = f;
+              send(res, 200, m);
+            });
+          }).catch(function (e) { console.error('momentum: time_bucket query failed, bucketing in JavaScript:', e.message); return momFromRows(); });
+        });
+      }).catch(function (e) { console.error('momentum: database does not answer, using the game file:', e.message); momFromFile(); }).catch(late);
     } else if (req.method === 'GET' && what === 'drives') {
       var dFile = /^[A-Za-z0-9_-]+$/.test(gameId) ? path.join(__dirname, '..', 'data', 'games', gameId + '.json') : null;
       var driveFromFile = function () {
@@ -313,10 +355,12 @@ function createServer(db, opts) {
           return send(res, 400, { error: 'game needs sport, home and away as strings' });
         }
         if (g && SPORTS.indexOf(g.sport) < 0) return send(res, 400, { error: 'sport must be football or soccer' });
-        var client;
+        var client, awards = false;
         db.connect().then(function (c) {
           client = c;
           return client.query('BEGIN');
+        }).then(function () {
+          return timescale.hasAwards(client).then(function (h) { awards = h; }, function () { awards = false; });
         }).then(function () {
           if (g) return client.query('INSERT INTO games (id, sport, home, away) VALUES ($1,$2,$3,$4) ON CONFLICT (id) DO NOTHING', [gameId, g.sport, g.home, g.away]);
         }).then(function () {
@@ -325,8 +369,13 @@ function createServer(db, opts) {
               var vals = [gameId, p.seq, p.played_at, p.quarter, p.team, p.slot || null, p.player || null,
                 p.kind, p.yards == null ? null : p.yards, p.fantasy_points == null ? 0 : p.fantasy_points,
                 JSON.stringify(p.detail || {}), JSON.stringify(p.why || {})];
-              if (p.minute != null) return client.query(INSERT_PLAY_MINUTE, vals.concat([p.minute]));
-              return client.query(INSERT_PLAY, vals);
+              return (p.minute != null ? client.query(INSERT_PLAY_MINUTE, vals.concat([p.minute])) : client.query(INSERT_PLAY, vals)).then(function () {
+                var fp = awards && p.detail && Array.isArray(p.detail.fp) ? p.detail.fp : [];
+                return fp.reduce(function (c2, f, n) {
+                  if (!f || typeof f.name !== 'string' || typeof f.team !== 'string' || typeof f.pts !== 'number') return c2;
+                  return c2.then(function () { return client.query(INSERT_AWARD, [gameId, p.seq, n, p.played_at, f.team, f.slot == null ? null : String(f.slot), f.name, f.pts]); });
+                }, Promise.resolve());
+              });
             });
           }, Promise.resolve());
         }).then(function () {

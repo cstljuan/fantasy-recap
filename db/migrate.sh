@@ -1,5 +1,5 @@
 #!/bin/sh
-# Applies the database in order: schema.sql, then every db/migrate-NNN-*.sql by number, then (with --seed) seed.sql.
+# Applies the database in order: schema.sql, then every db/migrate-NNN-*.sql by number, then (with --seed) seed.sql, which goes right after the schema so that migration 004 unrolls its awards.
 # Needs only DATABASE_URL in the environment (or in .env at the repository root) and psql. Safe to run again.
 #   sh db/migrate.sh            Tiger Data (PostgreSQL with TimescaleDB)
 #   sh db/migrate.sh --seed     also loads the sample game (game id sample-football)
@@ -22,6 +22,13 @@ if [ $plain = 1 ]; then
 else
   run schema.sql db/schema.sql
 fi
-for f in $(ls db/migrate-*.sql | sort); do run "$(basename "$f")" "$f"; done
 [ $seed = 1 ] && run seed.sql db/seed.sql
+for f in $(ls db/migrate-*.sql | sort); do
+  if [ $plain = 1 ] && grep -q "timescaledb" "$f"; then
+    node db/make-plain.js "$(basename "$f")" > /tmp/migrate-plain.sql || exit 1
+    run "$(basename "$f") (plain)" /tmp/migrate-plain.sql
+  else
+    run "$(basename "$f")" "$f"
+  fi
+done
 echo "database ready"
