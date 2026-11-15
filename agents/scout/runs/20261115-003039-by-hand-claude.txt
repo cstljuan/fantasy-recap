@@ -1,0 +1,5 @@
+00:30:39 | research_plan(GOB.QB) -> depth, direction, down, zone, week
+00:30:39 | split(GOB.QB, down) -> 4 rows
+00:30:39 | split(GOB.QB, zone) -> 4 rows
+00:30:39 | split(GOB.QB, depth) -> 2 rows
+00:30:39 | split(GOB.QB, direction) -> 3 rows

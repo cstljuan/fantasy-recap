@@ -1,0 +1,8 @@
+00:31:00 | split(GOB.QB, depth) -> 2 rows
+00:31:00 | split(GOB.QB, down) -> 4 rows
+00:31:00 | split(GOB.QB, zone) -> 4 rows
+00:31:00 | split(GOB.QB, direction) -> 3 rows
+00:31:00 | split(GOB.QB, week) -> 8 rows
+00:31:00 | verify_evidence(GOB.QB) -> 26 of 26 real
+00:31:00 | by hand: verify_evidence(GOB.QB) {"player": "GOB.QB", "checked": 26, "real": 26, "not_real": []}
+00:31:00 | write_report(GOB.QB) -> 6 claims, 26 plays cited
