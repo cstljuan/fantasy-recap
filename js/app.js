@@ -1743,18 +1743,28 @@
     else if (a === 'next') jumpTo(cur + 1);
     else if (a === 'moment') { var to = Number(b.getAttribute('data-to')); if (to) jumpTo(to); }
   });
-  // Dragging holds the game; letting go jumps and releases it.
-  var dragging = false;
+  // Dragging holds the game; letting go jumps and releases it. On a phone a swipe that starts on
+  // the slider can fire 'input' and never 'change', so lifting the finger, a cancelled touch or
+  // losing focus also releases it (Noah: the players stopped while the sound went on).
+  var dragging = false, dragFrom = 0;
+  function endDrag() {
+    if (!dragging) return;
+    dragging = false;
+    if (Number(slider.value) !== dragFrom) jumpTo(Number(slider.value));
+    if (G.hold) G.hold(false);
+  }
+  ['pointerup', 'pointercancel', 'touchend', 'touchcancel', 'blur'].forEach(function (t) { slider.addEventListener(t, function () { setTimeout(endDrag, 0); }); });
   slider.addEventListener('input', function () {
-    if (!dragging && G.hold) { G.hold(true); dragging = true; }
+    if (!dragging && G.hold) { G.hold(true); dragging = true; dragFrom = currentPlay(); }
     atEl.textContent = 'Play ' + slider.value + ' of ' + G.plays;
     slider.setAttribute('aria-valuetext', playLabel(Number(slider.value)));
     revealClose();
   });
   slider.addEventListener('change', function () {
-    jumpTo(Number(slider.value));
-    if (dragging && G.hold) { G.hold(false); }
+    var was = dragging;
     dragging = false;
+    jumpTo(Number(slider.value));
+    if (was && G.hold) { G.hold(false); }
   });
 
   function setControls(on) {
@@ -1770,6 +1780,9 @@
   function showGame(on) {
     inGame = on;
     $('gameView').hidden = !on;
+    // No page scrolling or pull-to-refresh behind the game (Noah: on a phone the page scrolled,
+    // and a refresh closed the game).
+    document.documentElement.classList.toggle('in-game', on);
     setControls(false);
     if (!on && typeof hideRule === 'function') hideRule(true);
     document.body.classList.toggle('in-game', on);
@@ -2060,6 +2073,9 @@
   });
 
   $('closeGame').addEventListener('click', function () { leaveGame(tab); });
+  $('gameView').addEventListener('touchmove', function (ev) {
+    if (!(ev.target.closest && ev.target.closest('input[type=range]'))) ev.preventDefault();
+  }, { passive: false });
   $('gameView').addEventListener('pointermove', function (ev) { if (ev.pointerType === 'mouse') revealClose(); });
   window.addEventListener('keydown', function (ev) {
     if (!inGame) return;
