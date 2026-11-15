@@ -1,0 +1,236 @@
+{
+ "key": "OWL-WR3",
+ "name": "Ladd McConkey",
+ "researched": "2026-11-15",
+ "background": [
+  {
+   "fact": "Born November 11, 2001 (age 25); grew up in Chatsworth, Georgia, and attended North Murray High School, where he played quarterback, running back, defensive back and punter and returned kicks.",
+   "source": "https://en.wikipedia.org/wiki/Ladd_McConkey",
+   "date": null,
+   "confidence": "from Wikipedia"
+  },
+  {
+   "fact": "In his senior year he led North Murray to a 9-1 record and its first region championship, with 36 total touchdowns and 3,051 total yards; North Murray retired his number 15 in 2023.",
+   "source": "https://en.wikipedia.org/wiki/Ladd_McConkey",
+   "date": null,
+   "confidence": "from Wikipedia"
+  },
+  {
+   "fact": "He was a three-star recruit whose only Power Five offer was Georgia; he won two national championships there, graduated in 2023 with a finance degree, and won the 2023 Wuerffel Trophy.",
+   "source": "https://en.wikipedia.org/wiki/Ladd_McConkey",
+   "date": null,
+   "confidence": "from Wikipedia"
+  },
+  {
+   "fact": "In the January 2023 national title game he caught 5 passes for 88 yards and 2 touchdowns in a 65-7 win.",
+   "source": "https://en.wikipedia.org/wiki/Ladd_McConkey",
+   "date": null,
+   "confidence": "from Wikipedia"
+  },
+  {
+   "fact": "Chargers drafted him in round 2, pick 34 of the 2024 draft; he is a third-year receiver listed at 6 ft 0 in, 185 lb, jersey 15, with a 4.39 forty at the combine.",
+   "source": "research/data/OWL-WR3.json (bio)",
+   "date": "2026-11-15",
+   "confidence": "one source"
+  },
+  {
+   "fact": "Career regular season: 38 games, 165 catches on 242 targets, 2,224 yards, 14 touchdowns. 2024: 82 catches, 1,149 yards, 7 touchdowns; 2025: 66 catches, 789 yards, 6 touchdowns.",
+   "source": "research/data/OWL-WR3.json (career)",
+   "date": "2026-11-15",
+   "confidence": "from the data file"
+  },
+  {
+   "fact": "Madden week 8 rating is 84 overall with Slot-O-Matic and Short In Elite abilities.",
+   "source": "research/data/OWL-WR3.json (bio.madden)",
+   "date": "2026-11-15",
+   "confidence": "one source"
+  }
+ ],
+ "family": [
+  {
+   "fact": "His father Benji McConkey was a star high school quarterback at Dalton High; his brother Hinton McConkey played quarterback at West Georgia in 2018. He is a middle child and grew up a Tennessee Volunteers fan.",
+   "source": "https://en.wikipedia.org/wiki/Ladd_McConkey",
+   "date": null,
+   "confidence": "from Wikipedia"
+  },
+  {
+   "fact": "He married his high school sweetheart Sydney Horne on April 12, 2025.",
+   "source": "https://en.wikipedia.org/wiki/Ladd_McConkey",
+   "date": null,
+   "confidence": "from Wikipedia"
+  },
+  {
+   "fact": "He writes 1-20-16 on his towel before games to honor his late grandfather Vic McConkey.",
+   "source": "https://en.wikipedia.org/wiki/Ladd_McConkey",
+   "date": null,
+   "confidence": "from Wikipedia"
+  }
+ ],
+ "recent_events": [
+  {
+   "fact": "McConkey was active for the Chargers' Week 9 game against Houston but played no snaps because of back spasms that came on in pregame warmups; Los Angeles lost 44-22. He was not on the Friday injury report and not among the inactives.",
+   "source": "https://www.thefantasyfootballers.com/news/646812/ladd-mcconkey-pregame-back-spasms-lead-to-week-9-absence/",
+   "date": "2026-11-09",
+   "confidence": "headline and search summary only"
+  },
+  {
+   "fact": "Chargers coach Jim Harbaugh called him day to day with back spasms on Monday after that game.",
+   "source": "https://www.thefantasyfootballers.com/news/646859/ladd-mcconkey-deemed-day-to-day-by-harbaugh/",
+   "date": "2026-11-09",
+   "confidence": "headline and search summary only"
+  },
+  {
+   "fact": "The data file shows he did not practice Thursday or Friday of Week 10 (back), and ESPN lists him questionable for Monday night.",
+   "source": "research/data/OWL-WR3.json (injury_reports and news)",
+   "date": "2026-11-14",
+   "confidence": "confirmed by two sources (also Yahoo Sports headline, Nov 13)"
+  },
+  {
+   "fact": "Reports before the trade deadline said the Chargers turned down at least one inquiry about McConkey, with teams believing the Rams made the call after injuries to Puka Nacua and Davante Adams. This was reported by ESPN's Jeremy Fowler; the Rams have not confirmed it. Earlier reports said general manager Joe Hortiz was not entertaining trades for Justin Herbert or McConkey.",
+   "source": "https://clutchpoints.com/nfl/los-angeles-rams/nfl-rumors-rams-called-chargers-about-ladd-mcconkey-trade",
+   "date": "2026-11-11",
+   "confidence": "one search summary, anonymous team sources"
+  },
+  {
+   "fact": "2026 line so far: 6 games, 17 catches on 24 targets for 286 yards and 1 touchdown (5.8 fantasy points a game, 10.3 percent target share); he made 3 starts and has 2 drops.",
+   "source": "research/data/OWL-WR3.json (season_2026, teammates_2026)",
+   "date": "2026-11-15",
+   "confidence": "from the data file"
+  },
+  {
+   "fact": "His 2026 games: Week 1 vs ARI 5 for 82 and a touchdown (14.2); Week 2 3 for 35; Week 3 at BUF 4 for 66; Week 4 at SEA 0 catches; Week 6 vs KC 1 for 17 on 12 percent of snaps; Week 8 vs LA 4 for 86 on 90 percent of snaps (8.6).",
+   "source": "research/data/OWL-WR3.json (log)",
+   "date": "2026-11-15",
+   "confidence": "from the data file"
+  },
+  {
+   "fact": "Other 2026 injury report entries in the data file: ribs (Week 2), foot (Weeks 4 and 5), concussion (Week 8 report), back (Week 10). A search summary also says he left games early in Weeks 1, 4 and 6; the sources disagree on the Week 6 and Week 8 labels.",
+   "source": "https://www.thefantasyfootballers.com/news/646859/ladd-mcconkey-deemed-day-to-day-by-harbaugh/",
+   "date": "2026-11-09",
+   "confidence": "two sources partly disagree"
+  }
+ ],
+ "quotes": [
+  {
+   "fact": "Harbaugh's wording from the search summary: McConkey is day to day with back spasms. The full quote and any quote from McConkey were not reachable.",
+   "source": "https://www.thefantasyfootballers.com/news/646859/ladd-mcconkey-deemed-day-to-day-by-harbaugh/",
+   "date": "2026-11-09",
+   "confidence": "headline and search summary only"
+  },
+  {
+   "fact": "No direct quote from McConkey about his back this week: not found.",
+   "source": "not found",
+   "date": null,
+   "confidence": "not found"
+  }
+ ],
+ "team_context": [
+  {
+   "fact": "The Chargers are 0-8 (the data file shows 15.1 points scored and 27.4 allowed a game); Squawka says they score 1.4 touchdowns a game, fewest in the NFL.",
+   "source": "https://www.squawka.com/us/?p=91973",
+   "date": "2026-11-15",
+   "confidence": "confirmed by two sources (data file also)"
+  },
+  {
+   "fact": "Justin Herbert has started every game; he threw for 193 yards and a touchdown in the 44-22 loss to Houston. Backup DJ Uiagalelei took 7 attempts in Week 9.",
+   "source": "https://www.squawka.com/us/?p=91973",
+   "date": "2026-11-15",
+   "confidence": "confirmed by two sources (data file passer logs)"
+  },
+  {
+   "fact": "Top 2026 targets: Tre Harris 35 (262 yards), Quentin Johnston 30 (260), Oronde Gadsden II 29 (172), McConkey 24 (286), Keaton Mitchell 22. Omarion Hampton leads rushers with 102 carries for 369 yards.",
+   "source": "research/data/OWL-WR3.json (teammates_2026)",
+   "date": "2026-11-15",
+   "confidence": "from the data file"
+  },
+  {
+   "fact": "If McConkey is out or limited, the ESPN note says Quentin Johnston, Tre' Harris and KeAndre Lambert-Smith would be the top wideouts.",
+   "source": "research/data/OWL-WR3.json (status.espn (ESPN, Nov 14))",
+   "date": "2026-11-14",
+   "confidence": "one source"
+  },
+  {
+   "fact": "Offensive coordinator and play-calling details for 2026: not found (the Chargers coach is Jim Harbaugh per the search summaries).",
+   "source": "not found",
+   "date": null,
+   "confidence": "not found"
+  }
+ ],
+ "next_opponent": [
+  {
+   "fact": "Los Angeles plays at the Baltimore Ravens on Monday, November 16, 8:15 pm ET at M&T Bank Stadium (outdoors, grass), on ESPN; Los Angeles is on 8 days of rest.",
+   "source": "research/data/OWL-WR3.json (next_games)",
+   "date": "2026-11-15",
+   "confidence": "from the data file"
+  },
+  {
+   "fact": "Baltimore is 4-5 and coming off a Thursday night loss, its fourth straight loss; this is the Chargers' first trip to M&T Bank Stadium since 2021.",
+   "source": "https://www.squawka.com/us/?p=91973",
+   "date": "2026-11-15",
+   "confidence": "one search summary"
+  },
+  {
+   "fact": "The data file has Baltimore -4.5, total 38.5, so the Chargers' implied total is 17.0; the forecast is clear and 41 F. Wind not found. SI also lists the Chargers as underdogs.",
+   "source": "research/data/OWL-WR3.json (next_games)",
+   "date": "2026-11-15",
+   "confidence": "from the data file"
+  },
+  {
+   "fact": "McConkey's one career game against Baltimore (2024 Week 12): 6 catches on 6 targets for 83 yards, no touchdown, 8.3 fantasy points.",
+   "source": "research/data/OWL-WR3.json (log)",
+   "date": "2026-11-15",
+   "confidence": "from the data file"
+  },
+  {
+   "fact": "Baltimore pass defense ranking and its injury list: not found.",
+   "source": "not found",
+   "date": null,
+   "confidence": "not found"
+  }
+ ],
+ "style": [
+  {
+   "fact": "Slot-heavy route runner: Madden gives him 93 change of direction, 94 acceleration, 89 catching and 88 short route running.",
+   "source": "research/data/OWL-WR3.json (bio.madden)",
+   "date": "2026-11-15",
+   "confidence": "one source"
+  },
+  {
+   "fact": "In 2026 about 7 of his 24 targets are deep (23.1 yards a target, 86 percent caught) while 17 are short (7.3 yards a target); in 2025 his average separation was 3.3 yards.",
+   "source": "research/data/OWL-WR3.json (plays_2026, season_2026.tracking)",
+   "date": "2026-11-15",
+   "confidence": "from the data file"
+  }
+ ],
+ "availability": {
+  "status": "Questionable (back spasms)",
+  "detail": "ESPN lists him questionable for Monday night; he did not practice Thursday or Friday and had limited reps in Week 10 prep. A decision may only come with the inactive list about 90 minutes before the 8:15 pm ET kickoff. No official report of him being ruled out or cleared was found as of today.",
+  "expected_return": "Possibly Monday, November 16 (the data file lists a return date of 2026-11-16); not confirmed",
+  "source": "research/data/OWL-WR3.json (status.espn, ESPN note dated 2026-11-14 attributing the questionable tag to The Athletic)",
+  "date": "2026-11-14"
+ },
+ "outlook_next_game": {
+  "lean": "uncertain; if he plays, a modest 8 to 12 fantasy points; real chance he is out",
+  "confidence": "low",
+  "reasons": [
+   "He missed two straight practices with back spasms and is questionable, so the inactive list decides.",
+   "Even when healthy in 2026 he averaged 5.8 points a game on an offense scoring 15 points a game, with a 17 point implied total.",
+   "If he sits, Johnston and Harris would absorb targets, and Harris already leads the team with 35.",
+   "Upside is his role in the slot and his 90 percent snap share in Week 8; risk is a limited snap count after back spasms."
+  ]
+ },
+ "scouts_read": "McConkey's status is the whole story: he is questionable with back spasms after sitting out Week 9 and missing practice Thursday and Friday, and the call may not come until about 90 minutes before kickoff. The Chargers are 0-8, score the fewest touchdowns in the league, and are a 4.5 point underdog with an implied total of 17. Even a healthy McConkey has been quiet this season, with 286 yards in 6 games. If he is limited or out, Harris and Johnston become the main targets for Herbert. I would treat him as a risky flex play and keep a backup ready.",
+ "open_questions": [
+  "Whether McConkey is active Monday (official inactive list not seen).",
+  "Quotes from McConkey or Harbaugh this week (not found; Harbaugh's day to day comment seen only in a summary).",
+  "Wind and final weather at M&T Bank Stadium (not found).",
+  "Baltimore defensive strengths and injuries (not found)."
+ ],
+ "searches": [
+  "Ladd McConkey back questionable Monday night Ravens Chargers (returned mostly 2024 articles)",
+  "Chargers Ravens Week 10 preview Monday Night Football Herbert",
+  "Rams Chargers Ladd McConkey trade inquiry turned down",
+  "The Injury That Kept Ladd McConkey Out of Sunday's Game May Not Be a Big Concern back spasms Texans",
+  "Page fetch of chargers.com failed (host not allowed); Wikipedia text came from the sections stored in research/data/OWL-WR3.json"
+ ]
+}
