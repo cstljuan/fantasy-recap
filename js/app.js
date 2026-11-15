@@ -1020,8 +1020,18 @@
       g.fillText(tr('FANTASY POINTS'), CARD_W - P - 40, py + 60);
     }
     g.textAlign = 'left'; g.fillStyle = C.dim; g.font = '600 26px ' + CARD_BODY;
-    g.fillText(tr('Sample game. Real names, made-up stats.'), P, CARD_H - 70);
+    g.fillText(tr(gameNote()), P, CARD_H - 70);
     return c;
+  }
+  // One honest sentence about where the game's plays come from, from the game file's source and
+  // source_note (docs/CONTRACT.md section 1). Only a sample or stat-line game says made-up.
+  function gameNote() {
+    var f = window.FF_GAME_FILE, src = f && !/[?&]game=sample/.test(location.search) && !window.FF_USE_SAMPLE ? f.source : 'sample';
+    var note = f && typeof f.source_note === 'string' ? f.source_note.replace(/\.$/, '') : '';
+    if (src === 'real-plays') return (note || 'Real plays') + '. Real names, real stats.';
+    if (src === 'jev') return 'Plays chosen by Jev from real stat lines. Real names.';
+    if (src === 'equal-weights') return (note || 'Built from stat lines') + '. Real names, made-up stats.';
+    return 'Sample game. Real names, made-up stats.';
   }
   function shareTopPlay(btn) {
     if (masked()) return; // never while scores are hidden
@@ -1392,7 +1402,7 @@
         '<div class="lg-top"><span class="eyebrow">' + (x.ours ? 'Your matchup' : 'Other matchup') + '</span></div>' + teams + sourceLine(file) +
         '<div class="lg-foot">' + optMark(all) + '<span class="lg-drop">' + esc(releaseText()) + '</span><span class="lg-go">Open this game</span></div></a>';
     }
-    return '<div class="panel lg-match">' + teams +
+    return '<div class="panel lg-match">' + teams + sourceLine(file) +
       '<div class="lg-foot">' + optMark(all) + '<span class="lg-drop">' + esc(releaseText()) + '</span></div>' +
       '</div>';
   }
@@ -1463,9 +1473,12 @@
       weekPicker() +
       '<div class="lg-head"><h2>Week ' + sel + ' matchups</h2><span class="lg-count">' + count + '</span></div>' +
       body + standingsTable() +
-      '<p class="note is-plain">Sample league, made up for the demo: the other teams, past scores and standings are invented. ' +
-      'Each recap is released on Tuesday, after the week is over. ' +
-      (canPick() ? 'A matchup with a game file opens its own game, and its card says where the plays come from.' : 'Only your week ' + L.week + ' matchup has a game to watch.') + '</p>' +
+      // One span per sentence, so the Spanish table can translate each one.
+      '<p class="note is-plain"><span>' + (leagueData && !leagueData.fromService
+        ? 'Sample league with real games: the league, its teams and who opted in are made up for the demo; the players and their plays are real.'
+        : 'Sample league, made up for the demo: the other teams, past scores and standings are invented.') + '</span> ' +
+      '<span>Each recap is released on Tuesday, after the week is over.</span> <span>' +
+      (canPick() ? 'A matchup with a game file opens its own game, and its card says where the plays come from.' : 'Only your week ' + L.week + ' matchup has a game to watch.') + '</span></p>' +
       '</div>';
   }
 

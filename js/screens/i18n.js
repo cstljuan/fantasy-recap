@@ -149,6 +149,21 @@
     ['ON THE FIELD', 'EN EL CAMPO'], ['TOP PERFORMER', 'MEJOR JUGADOR'], ['WIN', 'GANAN'], ['FINAL', 'FINAL'], ['FANTASY POINTS', 'PUNTOS DE FANTASÍA'],
     ['TOP PLAY', 'MEJOR JUGADA'], ['Sample league with mock data. Made with Fantasy Recap.', 'Liga de muestra con datos inventados. Hecho con Fantasy Recap.'],
     ['Sample game. Real names, made-up stats.', 'Partido de muestra. Nombres reales, estadísticas inventadas.'], ['No play moved any points.', 'Ninguna jugada movió puntos.'],
+    // real games: the boss's header, footer and canvas tags, the league cards (B40) and notes
+    ['Real NFL players and their real plays from weeks 7 to 9 of the 2026 season. The fantasy league and its teams are made up for the demo, and so are the soccer match and the Jev game\'s stats.',
+     'Jugadores reales de la NFL y sus jugadas reales de las semanas 7 a 9 de la temporada 2026. La liga de fantasía y sus equipos son inventados para la demo, igual que el partido de fútbol y las estadísticas del partido de Jev.'],
+    ['REAL PLAYS', 'JUGADAS REALES'], ['REAL STATS', 'DATOS REALES'],
+    ['Real plays', 'Jugadas reales'], ['Jev called the plays', 'Jev eligió las jugadas'], ['Built from stat lines', 'Hecho con líneas de estadísticas'],
+    ['Sample game', 'Partido de muestra'], ['Your matchup', 'Tu enfrentamiento'], ['Other matchup', 'Otro enfrentamiento'], ['Now playing', 'En juego'],
+    ['Open this game', 'Abrir este partido'], ['Reading the game file', 'Leyendo el archivo del partido'],
+    ['Sample league, made up for the demo: the other teams, past scores and standings are invented.',
+     'Liga de muestra, inventada para la demostración: los otros equipos, los marcadores pasados y la clasificación son inventados.'],
+    ['Each recap is released on Tuesday, after the week is over.', 'Cada resumen sale el martes, cuando termina la semana.'],
+    ['Plays chosen by Jev from real stat lines. Real names.', 'Jugadas elegidas por Jev con líneas de estadísticas reales. Nombres reales.'],
+    ['Sample league with real games: the league, its teams and who opted in are made up for the demo; the players and their plays are real.',
+     'Liga de muestra con partidos reales: la liga, sus equipos y quién participa son inventados para la demo; los jugadores y sus jugadas son reales.'],
+    ['A matchup with a game file opens its own game, and its card says where the plays come from.',
+     'Un enfrentamiento con archivo de partido abre su propio partido, y su tarjeta dice de dónde vienen las jugadas.'],
     // the football view's broadcast graphics (B35)
     ['SAMPLE GAME', 'PARTIDO DE MUESTRA'], ['MADE-UP STATS', 'DATOS INVENTADOS'], ['HALF', 'MT'], ['HALFTIME', 'MEDIO TIEMPO'],
     ['NO POINTS', 'SIN PUNTOS'], ['KICKOFF', 'SAQUE INICIAL'], ['EXTRA POINT', 'PUNTO EXTRA'], ['Tap for the recap', 'Toca para ver el resumen'],
@@ -349,7 +364,14 @@
     [/^Opted in: (.+)$/, function (m) { return 'Participan: ' + m[1]; }],
     [/^Watched to the final: (\d+)$/, function (m) { return 'Vieron hasta el final: ' + m[1]; }],
     [/^Opted in, in the league: (.+)$/, function (m) { return 'Participan, en la liga: ' + m[1]; }],
-    [/^Connected to room ([A-Z]{4})( on this computer)?\.$/, function (m) { return 'Conectado a la sala ' + m[1] + (m[2] ? ' en esta computadora' : '') + '.'; }]
+    [/^Connected to room ([A-Z]{4})( on this computer)?\.$/, function (m) { return 'Conectado a la sala ' + m[1] + (m[2] ? ' en esta computadora' : '') + '.'; }],
+    // real games: 'Real plays, week 9', 'WEEK 9, 2026', 'Real plays from week 9 of the 2026 season[. Real names, real stats.]'
+    [/^Real plays, week (\d+)$/, function (m) { return 'Jugadas reales, semana ' + m[1]; }],
+    [/^Only your week (\d+) matchup has a game to watch\.$/, function (m) { return 'Solo tu partido de la semana ' + m[1] + ' tiene un partido para ver.'; }],
+    [/^WEEK (\d+), (\d{4})$/, function (m) { return 'SEMANA ' + m[1] + ', ' + m[2]; }],
+    [/^Real plays from week (\d+) of the (\d{4}) season\.?( Real names, real stats\.)?$/, function (m) {
+      return 'Jugadas reales de la semana ' + m[1] + ' de la temporada ' + m[2] + '.' + (m[3] ? ' Nombres reales, datos reales.' : '');
+    }]
   ];
 
   var ES = {};
