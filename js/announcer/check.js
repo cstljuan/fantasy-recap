@@ -366,7 +366,8 @@ console.log('line() with no teams is quiet: ' + (A.line({}, {}) === '' ? 'ok' : 
   console.log('\n== Pre-game show ==');
   STYLES.forEach(function (style) {
     var ours = A.preview(league.matchups[0], { league: league, profiles: profiles, style: style });
-    var other = A.preview(league.matchups[1], { league: league, profiles: profiles, style: style });
+    // The no-profiles case on purpose: since week 9 every team has a profile, so pass none here.
+    var other = A.preview(league.matchups[1], { league: league, profiles: {}, style: style });
     console.log('  ' + pad(style, 9) + ours);
     console.log('  ' + pad(style, 9) + other);
     if (sentences(ours) < 3 || sentences(ours) > 4) problems.push('preview of our matchup has ' + sentences(ours) + ' sentences: ' + ours);

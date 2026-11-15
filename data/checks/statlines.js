@@ -48,11 +48,12 @@ files.forEach(function (f) {
     slots.forEach(function (s) {
       var line = T.players[s].line;
       if (Object.keys(line).join() !== PLAYER.join()) bad(where, s + ' needs exactly the fields ' + PLAYER.join(', ') + ' in that order');
-      PLAYER.forEach(function (k) { if (!isCount(line[k])) bad(where, s + '.' + k + ' must be a whole number from 0, got ' + line[k]); });
+      // real lines may hold a negative passing or rushing yard figure (a lateral, a loss); only invented lines must be counts from 0
+      PLAYER.forEach(function (k) { if (real && /_yards$/.test(k) && Number.isInteger(line[k])) return; if (!isCount(line[k])) bad(where, s + '.' + k + ' must be a whole number from 0, got ' + line[k]); });
       if (line.rec_yards > 0 && line.receptions < 1) bad(where, s + ' has receiving yards but no catches');
       if (line.receptions > 0) {
         var ypr = line.rec_yards / line.receptions;
-        if (ypr < 2 || ypr > 35) bad(where, s + ' has ' + Math.round(ypr * 10) / 10 + ' yards a catch, not plausible');
+        if (!real && (ypr < 2 || ypr > 35)) bad(where, s + ' has ' + Math.round(ypr * 10) / 10 + ' yards a catch, not plausible');
       }
       if (line.rec_td > line.receptions) bad(where, s + ' has more receiving touchdowns than catches');
     });

@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>Devpost thumbnail B: the sealed board</title>
+<link rel="stylesheet" href="pitch.css">
+<style>
+body { width: 1500px; height: 1000px; background: var(--amber); color: #0b0d0e; }
+.wm { left: 80px; top: 70px; font-size: 56px; color: #0b0d0e; }
+.wm i { background: #0b0d0e; }
+.wm b { color: #0b0d0e; }
+.event { right: 80px; top: 84px; font: 400 22px/1 var(--pixel); letter-spacing: 0.08em; }
+.board { left: 80px; top: 180px; width: 1340px; height: 420px; background: #0b0d0e; display: grid; grid-template-columns: 1fr 150px 1fr; align-items: stretch; box-shadow: 18px 18px 0 rgba(0, 0, 0, 0.28); }
+.side { padding: 34px 44px 30px; color: var(--text); }
+.side .who { display: flex; align-items: center; gap: 14px; font: 800 44px/1 var(--display); letter-spacing: 0.05em; text-transform: uppercase; }
+.side .who i { width: 26px; height: 26px; background: var(--c); display: block; }
+.side .win { margin-top: 22px; background: var(--inset); border-top: 6px solid var(--c); padding: 22px 26px 16px; }
+.side .mask { display: block; font-size: 250px; line-height: 0.72; color: var(--amber); }
+.side .unit { margin-top: 18px; font: 700 18px/1 var(--display); letter-spacing: 0.16em; text-transform: uppercase; color: var(--dim); }
+.vs { display: grid; place-items: center; color: var(--dim); font: 800 60px/1 var(--display); letter-spacing: 0.06em; border-left: 1px solid var(--rule); border-right: 1px solid var(--rule); }
+.h1 { left: 76px; top: 676px; font-size: 122px; }
+.sub { left: 80px; top: 820px; width: 900px; color: #0b0d0e; font: 600 32px/1.3 var(--body); }
+.tusk { right: 80px; top: 690px; width: 200px; height: 200px; background: #0b0d0e; display: grid; place-items: center; box-shadow: 14px 14px 0 rgba(0, 0, 0, 0.28); }
+.tusk img { width: 164px; }
+</style></head>
+<body>
+<div class="abs wm"><i></i>Fantasy Recap</div>
+<div class="abs event">HackPrinceton Fall 2026</div>
+<div class="abs board">
+  <div class="side" style="--c:var(--t0)"><div class="who"><i></i>Gridiron Goblins</div><div class="win"><span class="mask">--.-</span><div class="unit">Fantasy pts, hidden</div></div></div>
+  <div class="vs">VS</div>
+  <div class="side" style="--c:var(--t1)"><div class="who"><i></i>Pixel Pythons</div><div class="win"><span class="mask">--.-</span><div class="unit">Fantasy pts, hidden</div></div></div>
+</div>
+<h1 class="abs h1">Your score is sealed.</h1>
+<p class="abs sub">Watch your two rosters play it out in an 8-bit game. The final whistle tells you who won.</p>
+<div class="abs tusk"><img class="px" src="../assets/mascot/tusk-watching.svg" alt=""></div>
+</body></html>

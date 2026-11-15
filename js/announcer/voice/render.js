@@ -135,13 +135,14 @@ function collect(A, Rules, matches) {
 
 // Football: every game file in data/games/ (the app plays current.js, a copy of one of them, or
 // the built-in sample with ?game=sample), or --game <file>.
-// Game files that are not recorded (Noah's call, C33 dropped): they use the browser voice.
-var UNVOICED = ['week11-tur-owl.json'];
+// Only the game files that have been recorded; every other game uses the browser voice until
+// Noah renders it (C37 for the real week 9 games, with Noah's OK on the credits).
+var VOICED = ['sample-football.json', 'week11-football.json', 'week09-gob-tur.json', 'week09-pyt-owl.json'];
 function collectFootball() {
   var A = require(path.join(ROOT, 'js/announcer/index.js'));
   var Rules = require(path.join(ROOT, 'js/rules.js'));
   var dir = path.join(ROOT, 'data/games');
-  var files = arg('game', null) ? [arg('game')] : fs.readdirSync(dir).filter(function (f) { return /\.json$/.test(f) && UNVOICED.indexOf(f) < 0; }).sort().map(function (f) { return path.join(dir, f); });
+  var files = arg('game', null) ? [arg('game')] : fs.readdirSync(dir).filter(function (f) { return /\.json$/.test(f) && VOICED.indexOf(f) >= 0; }).sort().map(function (f) { return path.join(dir, f); });
   var matches = files.filter(function (f) { return fs.existsSync(f); }).map(function (f) { var g = readGameFile(f); return { id: g.id || path.basename(f, '.json'), teams: g.teams, game: g.game }; });
   return collect(A, Rules, matches);
 }

@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>Gallery 06: what is real, what is simulated</title>
+<link rel="stylesheet" href="pitch.css">
+<style>
+body { width: 1500px; height: 1000px; }
+.col { --tw: 1000px; --hs: 112px; }
+.tusk { right: 80px; top: 76px; width: 230px; background: var(--panel); border: 1px solid var(--rule); border-top: 6px solid var(--amber); }
+.tusk img { width: 170px; margin: 22px 30px 16px; }
+.tusk div { border-top: 1px solid var(--rule); padding: 11px 14px 10px; font: 700 17px/1.15 var(--display); letter-spacing: 0.12em; text-transform: uppercase; color: var(--dim); }
+.cols { left: 80px; right: 80px; top: 400px; display: grid; grid-template-columns: 1.15fr 1fr 1fr; gap: 20px; }
+.box { background: var(--panel); border: 1px solid var(--rule); border-top: 5px solid var(--c); min-height: 470px; }
+.box h3 { margin: 0; padding: 18px 22px 16px; border-bottom: 1px solid var(--rule); font: 800 34px/1 var(--display); letter-spacing: 0.08em; text-transform: uppercase; color: var(--c); }
+.box ul { list-style: none; margin: 0; padding: 6px 22px 14px; }
+.box li { padding: 12px 0 11px; border-bottom: 1px solid var(--rule); font: 500 21px/1.3 var(--body); color: var(--text); }
+.box li:last-child { border-bottom: 0; }
+.box li b { font-weight: 600; color: var(--c); }
+</style></head>
+<body>
+<div class="grid"></div>
+<div class="col">
+  <div class="eyebrow">06 / Honest scoreboard</div>
+  <h1 class="h1">What is real.<br><em>What is not.</em></h1>
+</div>
+<div class="abs tusk"><img class="px" src="../assets/mascot/tusk-cold.svg" alt=""><div>The scorekeeper does not lie about the score</div></div>
+<div class="abs cols">
+  <div class="box" style="--c:var(--amber)">
+    <h3>Real</h3>
+    <ul>
+      <li>The <b>rules engine</b>, and a check that replays every game and compares every number.</li>
+      <li>The <b>player names</b> and rosters.</li>
+      <li><b>3,177 real plays</b>, and two week 9 games built from them.</li>
+      <li>Season tendencies read from Sleeper, cross-checked against ESPN.</li>
+      <li>About <b>750 recorded lines</b> for the announcers.</li>
+    </ul>
+  </div>
+  <div class="box" style="--c:var(--text)">
+    <h3>Simulated</h3>
+    <ul>
+      <li>Every play of the main football game and of the soccer match: <b>invented stat lines</b>, real names.</li>
+      <li>The league, the standings and the second manager.</li>
+      <li>The week of waiting. The demo is one viewer on one device.</li>
+    </ul>
+  </div>
+  <div class="box" style="--c:var(--dim)">
+    <h3>Not checked</h3>
+    <ul>
+      <li>Sound and speed on a real phone.</li>
+      <li>The database beyond its schema and saving and reading plays.</li>
+      <li>A model run for 27 of the 28 scouted players.</li>
+    </ul>
+  </div>
+</div>
+<div class="foot"><div class="wm"><i></i>Fantasy <b>Recap</b></div><span>From pitch/REAL-AND-SIMULATED.md</span></div>
+</body></html>
