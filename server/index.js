@@ -16,6 +16,7 @@ var timescale = require('./timescale.js');
 var trendModule = require('./trend.js');
 var storyModule = require('./story.js');
 var createParties = require('./party.js').createParties;
+var createScout = require('./scout.js').createScout;
 var leagueModule = require('./league.js');
 var createCommish = require('./commish.js').createCommish;
 var PARTY_BODY = 2048;
@@ -104,9 +105,11 @@ var MAX_ID = 200, MAX_MANAGER = 100;
 
 // db needs query(text, params) -> Promise<{rows}> and, for POST, connect() -> client with query and release.
 // opts.parties: a watch party store (server/party.js); one is made when it is not given.
+// opts.scout: Scout's reports (server/scout.js); the default reads the repository's files and, with a model key, runs Scout.
 function createServer(db, opts) {
   var parties = (opts && opts.parties) || createParties();
   var commish = createCommish(db);
+  var scout = (opts && opts.scout) || createScout();
   return http.createServer(function (req, res) {
     res.originHeader = req.headers.origin;
     // Anything thrown while handling a request answers 500 instead of leaving the request open.
@@ -200,6 +203,23 @@ function createServer(db, opts) {
     if (url.pathname === '/league') {
       if (req.method !== 'GET') return send(res, 405, { error: 'method not allowed' });
       return league(res);
+    }
+    if (url.pathname === '/scout' || /^\/scout\//.test(url.pathname)) {
+      var sm = url.pathname.match(/^\/scout(?:\/([^\/]+)(\/refresh)?)?$/);
+      if (!sm) return send(res, 404, { error: 'not found' });
+      var sid = null;
+      try { sid = sm[1] ? decodeURIComponent(sm[1]) : null; } catch (e) { return send(res, 400, { error: 'the player is not valid' }); }
+      var asAnswer = function (r) { send(res, r.status, r.body); };
+      if (!sid) { if (req.method !== 'GET') return send(res, 405, { error: 'method not allowed' }); return send(res, 200, scout.list()); }
+      if (sm[2]) {
+        if (req.method !== 'POST') return send(res, 405, { error: 'method not allowed' });
+        return readJson(req, function (err) {
+          if (err && err.status === 413) return send(res, 413, { error: err.message });
+          scout.refresh(sid).then(asAnswer, function (e) { console.error('scout refresh failed:', e.message); send(res, 500, { error: 'server error' }); });
+        }, PARTY_BODY);
+      }
+      if (req.method !== 'GET') return send(res, 405, { error: 'method not allowed' });
+      return asAnswer(scout.get(sid));
     }
     var pt = url.pathname.match(/^\/players\/([^\/]+)\/trend$/);
     if (pt) {

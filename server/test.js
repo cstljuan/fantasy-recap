@@ -515,6 +515,69 @@ var srv = createServer(fake).listen(0, function () {
         .then(function () { return call('GET', '/games/week11-football/momentum?bucket=300', undefined, undefined, noDb.address().port); })
         .then(function (r) { assert.equal(r.body.source, 'file'); assert.equal(r.body.engine, 'javascript'); assert.deepEqual(r.body.buckets, mom.momentum(file, 300).buckets); withDb.close(); noDb.close(); noMig.close(); });
     })
+    // Scout through the service: stored reports without a key, a refresh only with one (a stand-in runs in place of the model)
+    .then(function () {
+      var fs = require('fs'), os = require('os'), pth = require('path');
+      var root = fs.mkdtempSync(pth.join(os.tmpdir(), 'scout-svc-'));
+      fs.mkdirSync(pth.join(root, 'data', 'profiles', 'notes'), { recursive: true });
+      fs.mkdirSync(pth.join(root, 'agents', 'scout', 'runs'), { recursive: true });
+      var reportFile = pth.join(root, 'data', 'profiles', 'notes', 'ZZZ-WR1-report.md');
+      function report(text, by) {
+        return '# Scouting report: Test Receiver\n\nZZZ, WR1. Made by ' + by + ' on 2026-11-14, from the real play-by-play.\n\n1. ' + text + ' [1, 2]\n2. Second claim. [2]\n\n## Evidence\n\n' +
+          '1. Week 3, Q2 9:15: Q.Back pass short right to T.Receiver for 8 yards. ([game](https://example.test/game/1))\n' +
+          '2. Week 4, Q4 0:45: Q.Back pass deep left to T.Receiver for 31 yards, TOUCHDOWN. ([game](https://example.test/game/2))\n';
+      }
+      fs.writeFileSync(reportFile, report('Receiver had 2 catches on third down.', 'rules, no model (agents/scout/research.py)'));
+      fs.writeFileSync(pth.join(root, 'data', 'profiles', 'notes', 'ZZZ-WR1.md'), '# Notes: Test Receiver\n');
+      fs.writeFileSync(pth.join(root, 'data', 'profiles', 'notes', 'ZZZ-QB-report.md'), report('Back threw.', 'rules, no model'));
+      fs.writeFileSync(pth.join(root, 'agents', 'scout', 'runs', '20261114-100000-research.txt'), '10:00:00 | write_report(ZZZ.WR1) -> 2 claims, 3 plays cited\n');
+      fs.writeFileSync(pth.join(root, 'agents', 'scout', 'runs', '20261114-120000-scout.txt'), '12:00:00 | split(ZZZ.WR1, down)\n12:00:05 | write_report(ZZZ.WR1) -> 2 claims, 3 plays cited\n');
+      var asked = [], mode = 'ok', release = null;
+      var runner = function (key) {
+        asked.push(key);
+        if (mode === 'hang') return new Promise(function (ok) { release = ok; });
+        if (mode === 'fail') return Promise.resolve({ code: 2, output: 'NOT READY: cannot reach api.sleeper.app (URLError)' });
+        fs.writeFileSync(reportFile, report('Receiver had 5 catches on third down.', 'model test-model'));
+        return Promise.resolve({ code: 0, output: '' });
+      };
+      var KEY = 'sk-test-not-a-real-key-123';
+      var noKey = createServer({ query: function () { return Promise.reject(new Error('down')); } }, { scout: require('./scout.js').createScout({ root: root, env: {}, runner: runner }) }).listen(0);
+      var withKey = createServer({ query: function () { return Promise.reject(new Error('down')); } }, { scout: require('./scout.js').createScout({ root: root, env: { ANTHROPIC_API_KEY: KEY }, runner: runner }) }).listen(0);
+      var pn = noKey.address().port, pk = withKey.address().port;
+      return call('GET', '/scout', undefined, undefined, pn).then(function (r) {
+        assert.equal(r.status, 200); assert.deepEqual(r.body.players.map(function (p) { return p.player; }), ['ZZZ.QB', 'ZZZ.WR1']); assert.equal(r.body.canRefresh, false);
+        return call('GET', '/scout/zzz.wr1', undefined, undefined, pn);
+      }).then(function (r) {
+        assert.equal(r.status, 200); assert.equal(r.body.player, 'ZZZ.WR1'); assert.equal(r.body.refreshed, false);
+        assert.equal(r.body.report.made_by, 'rules, no model (agents/scout/research.py)'); assert.equal(r.body.report.modelMade, false);
+        assert.equal(r.body.report.claims.length, 2); assert.equal(r.body.report.claims[0].evidence.length, 2);
+        assert.deepEqual(r.body.report.claims[0].evidence[1], { n: 2, week: 4, quarter: '4', clock: '0:45', text: 'Q.Back pass deep left to T.Receiver for 31 yards, TOUCHDOWN.', game: 'https://example.test/game/2' });
+        r.body.report.claims.forEach(function (c) { assert.ok(c.evidence.length > 0 && c.evidence.every(function (e) { return /^https:/.test(e.game); }), 'every claim cites plays with a source'); });
+        assert.equal(r.body.run.log, 'agents/scout/runs/20261114-120000-scout.txt', 'the newest run that wrote it');
+        assert.ok(/Notes: Test Receiver/.test(r.body.notes.markdown));
+        return call('GET', '/scout/ZZZ.K', undefined, undefined, pn);
+      }).then(function (r) { assert.equal(r.status, 404); return call('GET', '/scout/..%2f..%2fpackage', undefined, undefined, pn); })
+        .then(function (r) { assert.equal(r.status, 400); return call('POST', '/scout/ZZZ.WR1/refresh', {}, undefined, pn); })
+        .then(function (r) {
+          assert.equal(r.status, 200); assert.equal(r.body.refreshed, false); assert.ok(/no model key/.test(r.body.reason)); assert.equal(asked.length, 0, 'no key: the model is never started');
+          assert.equal(r.body.report.claims[0].text, 'Receiver had 2 catches on third down.');
+          return call('POST', '/scout/ZZZ.WR1', {}, undefined, pn);
+        }).then(function (r) { assert.equal(r.status, 405); return call('POST', '/scout/ZZZ.WR1/refresh', {}, undefined, pk); })
+        .then(function (r) {
+          assert.equal(r.status, 200); assert.equal(r.body.refreshed, true); assert.deepEqual(asked, ['ZZZ.WR1']);
+          assert.equal(r.body.report.claims[0].text, 'Receiver had 5 catches on third down.'); assert.equal(r.body.report.modelMade, true);
+          assert.ok(JSON.stringify(r.body).indexOf(KEY) < 0, 'the key is never in an answer');
+          mode = 'fail'; return call('POST', '/scout/ZZZ.WR1/refresh', {}, undefined, pk);
+        }).then(function (r) {
+          assert.equal(r.status, 502); assert.equal(r.body.refreshed, false); assert.ok(/NOT READY: cannot reach api.sleeper.app/.test(r.body.reason));
+          assert.equal(r.body.report.claims[0].text, 'Receiver had 5 catches on third down.', 'a failed run still answers the stored report');
+          mode = 'hang';
+          var first = call('POST', '/scout/ZZZ.WR1/refresh', {}, undefined, pk);
+          return new Promise(function (ok) { setTimeout(ok, 50); }).then(function () { return call('POST', '/scout/ZZZ.WR1/refresh', {}, undefined, pk); }).then(function (r2) {
+            assert.equal(r2.status, 409); release({ code: 0, output: '' }); return first;
+          });
+        }).then(function (r) { assert.equal(r.status, 200); noKey.close(); withKey.close(); fs.rmSync(root, { recursive: true, force: true }); });
+    })
     .then(function () { console.log('OK'); srv.close(); })
     .catch(function (e) { console.error('FAIL', e.message); process.exit(1); });
 });
