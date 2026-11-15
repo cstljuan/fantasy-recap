@@ -136,7 +136,7 @@ Run `sh tools/next.sh` to get your next task with its full description. A row is
 | A6 | A | cstljuan | Season numbers file for the profiles | replaced by D12 |
 | B35 | B | Peypey-ryd | TOP PRIORITY: the football field gets the soccer stadium look (stands, crowd, score bug, banners, palette, pixel style) | merged |
 | B36 | B | Peypey-ryd | Football and soccer screens consistent side by side | merged |
-| B37 | B | Peypey-ryd | Fix every bug the test lead (C28) sends | open |
+| B37 | B | Peypey-ryd | Fix every bug the test lead (C28) sends | closed: C28 sent none |
 | B38 | B | Peypey-ryd | Polish the football stadium Juan chose (Noah's, built from the soccer stadium): check it at 375 and 1280 with your screens, crowd layer and captions, fix what overlaps | open |
 | B39 | B | Peypey-ryd | Momentum and player trends from the service (D44) on the film room and lineups when `?api=` is set, file fallback otherwise | open |
 | B40 | B | Peypey-ryd | League home: the Turtles against Owls matchup opens its own game once D46's file is on main | open |
@@ -149,12 +149,14 @@ Run `sh tools/next.sh` to get your next task with its full description. A row is
 | C30 | C | nexodv | Soccer voice and captions, Noah's half of S6 | merged |
 | D41 | D | Rickstar-App | Deep agents finished: Scout ready for a real run, offline test of the subagents and the evidence guard | merged |
 | D42 | D | Rickstar-App | Tiger Data finished: schema, migrations, seed, every route, a test against a real database when DATABASE_URL is set | merged |
-| D43 | D | Rickstar-App | Fix every bug the test lead (C28) sends | open |
+| D43 | D | Rickstar-App | Fix every bug the test lead (C28) sends | closed: C28 sent none |
 | D44 | D | Rickstar-App | Tiger Data that shows: time_bucket and continuous aggregate queries for momentum, hot streaks and week trends, served by the service, with a test | merged |
 | D45 | D | Rickstar-App | Scout through the service: a route that returns the newest sourced scouting report per player, and runs Scout when a key is present | merged |
 | D46 | D | Rickstar-App | The second football game: the game maker reads a stat lines file (A5, moved to Ricky), builds Turtles against Owls without Jev, tags highlights | merged |
 | D47 | D | Rickstar-App | Honesty pass three: README and every file in pitch/ against main as it is now (stadium, one announcer style, no Spanish voice, Scout reports by hand, voice recordings, service routes) | open |
 | D48 | D | Rickstar-App | Scout runs with whichever model key is present (Gemini or Claude), one command, an offline test of both paths, so the real run is one step for Juan | merged |
+| D49 | D | Rickstar-App | Juan's laptop night in one command: migrations, seed, push every game file, check the routes, then Scout if a key is set, with a clear report | open |
+| D50 | D | Rickstar-App | The app reads the service for real: a browser test with `?api=` against a local database (league, opt-in, momentum, trend, scout), and NOTE peyton with every shape her screens need | open |
 
 ## Answers to ASK posts
 
