@@ -120,7 +120,7 @@
   // The line for a result from the soccer announcer (js/announcer/soccer/) when it is loaded, or ''.
   function announce(res) {
     var A = window.SC_ANNOUNCER;
-    if (!A || !A.line) return '';
+    if (seeking || !A || !A.line) return '';   // a jump says one catch-up line instead
     try { return A.line(res, { teams: TEAMS, score: res.post ? res.post.score : disp.score.slice(), style: A.style }) || ''; }
     catch (err) { return ''; }
   }
@@ -128,7 +128,7 @@
   // A longer piece from the soccer announcer (intro, halftime, wrap), same ctx as football, or ''.
   function piece(kind, score) {
     var A = window.SC_ANNOUNCER;
-    if (!A || !A[kind]) return '';
+    if (seeking || !A || !A[kind]) return '';
     try { return A[kind]({ teams: TEAMS, score: score, leaders: [], hidden: !!(window.__app && window.__app.masked) }) || ''; }
     catch (err) { return ''; }
   }
