@@ -209,8 +209,16 @@ def write_profile(team, slot, profile):
             raise ValueError("tendency %s must be a number from 0 to 1 or null" % k)
         tend[k] = val
         tsrc[k] = {"source": profile.get("source"), "date": date, "how": v.get("how") if isinstance(v, dict) else None}
-    doc["players"][slot] = {"name": profile["name"], "position": profile["position"], "tendencies": tend,
-                            "tendency_sources": tsrc, "notes": profile.get("notes", "")}
+    # Merge into what is already there: recent form (players.<slot>.form), tendencies from real plays and any other field
+    # that a run did not compute stay as they were. Only the numbers this run computed are replaced.
+    old = doc["players"].get(slot) or {}
+    merged = dict(old)
+    merged.update({"name": profile["name"], "position": profile["position"], "notes": profile.get("notes", "")})
+    # A null never replaces a number that is already there (a failed or partial computation must not erase real data).
+    kept = {k: v for k, v in tend.items() if v is not None or (old.get("tendencies") or {}).get(k) is None}
+    merged["tendencies"] = dict(old.get("tendencies") or {}, **kept)
+    merged["tendency_sources"] = dict(old.get("tendency_sources") or {}, **{k: v for k, v in tsrc.items() if k in kept})
+    doc["players"][slot] = merged
     doc["source"] = ("Scout, season %d numbers from Sleeper's public stats API, read on %s. "
                      "The address and date of every number are in tendency_sources." % (season(), date))
     _write(path, doc)

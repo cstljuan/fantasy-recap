@@ -45,3 +45,12 @@ The scoring rules in D5 only list offense, so defense numbers are there for the 
 - `week11.json`: GOB 34, PYT 17. `week12.json`: GOB 27, PYT 31 (the Pythons win a high scoring game). Both are invented.
 - Week 11 was changed on 2026-11-14 so its lines add up. The first version did not: receiving yards were more than the quarterback's passing yards. Anything that read the old numbers should read these.
 - `node data/checks/statlines.js` checks every week file: a quarterback's passing yards and touchdowns equal the team's receiving yards and touchdowns, receptions fit the yards, extra points equal touchdowns, the other defense's points allowed equal the team's score, and the quarterback's interceptions equal the other defense's interceptions. Scores count 6 per touchdown, 1 per extra point, 3 per field goal. It prints OK or what is wrong.
+
+## Building a game from this file
+
+```bash
+node engine/make-game.js --lines data/statlines/week11-tur-owl.json --teams TUR,OWL --no-jev --out data/games/week11-tur-owl.json
+node data/checks/game-vs-lines.js
+```
+
+The file has no carries, no field goal distances and no missed extra points, so the maker chooses them the same way every time (carries are rushing yards over 4.2, kicks come from 32, 41, 28, 47, 52 and 36 yards, a touchdown without a made extra point is a missed kick). The check then replays the finished game and compares every number the file states, plus both defenses and the score, with the file. Touchdowns, turnovers and gains of 20 yards or more are tagged in `e.tags` (`highlight` plus `touchdown`, `turnover` or `big-play`).

@@ -1,0 +1,1142 @@
+{
+ "version": 1,
+ "sport": "football",
+ "teams": [
+  {
+   "id": "TUR",
+   "name": "Turtles",
+   "full": "Turbo Turtles",
+   "colors": {
+    "jersey": "#2f8f6b",
+    "helmet": "#f2e94e",
+    "stripe": "#1b5a43",
+    "pants": "#e8f5ee",
+    "tile": "#2f8f6b",
+    "zone": "#24745a"
+   },
+   "roster": {
+    "QB": "Jayden Daniels",
+    "RB": "Jahmyr Gibbs",
+    "WR1": "CeeDee Lamb",
+    "WR2": "Garrett Wilson",
+    "WR3": "Drake London",
+    "TE": "Brock Bowers",
+    "K": "Cameron Dicker"
+   }
+  },
+  {
+   "id": "OWL",
+   "name": "Owls",
+   "full": "Midnight Owls",
+   "colors": {
+    "jersey": "#4a5bd0",
+    "helmet": "#e6e8f5",
+    "stripe": "#2a347f",
+    "pants": "#1d2350",
+    "tile": "#4a5bd0",
+    "zone": "#3b49aa"
+   },
+   "roster": {
+    "QB": "Patrick Mahomes",
+    "RB": "Derrick Henry",
+    "WR1": "Tee Higgins",
+    "WR2": "Jaxon Smith-Njigba",
+    "WR3": "Ladd McConkey",
+    "TE": "Tucker Kraft",
+    "K": "Ka'imi Fairbairn"
+   }
+  }
+ ],
+ "game": {
+  "note": "Built by the game maker from the week's stat lines. Every play was checked by the rules engine.",
+  "drives": [
+   {
+    "team": "OWL",
+    "plays": [
+     {
+      "t": "kickoff",
+      "to": 26
+     },
+     {
+      "t": "run",
+      "by": "RB",
+      "yds": 11
+     },
+     {
+      "t": "pass",
+      "to": "WR3",
+      "yds": 14
+     },
+     {
+      "t": "run",
+      "by": "RB",
+      "yds": 5
+     },
+     {
+      "t": "inc",
+      "to": "TE"
+     },
+     {
+      "t": "inc",
+      "to": "WR3"
+     },
+     {
+      "t": "punt",
+      "net": 39
+     }
+    ]
+   },
+   {
+    "team": "TUR",
+    "plays": [
+     {
+      "t": "run",
+      "by": "RB",
+      "yds": 40,
+      "tags": [
+       "highlight",
+       "big-play"
+      ]
+     },
+     {
+      "t": "pass",
+      "to": "WR2",
+      "yds": 42,
+      "tags": [
+       "highlight",
+       "big-play"
+      ]
+     },
+     {
+      "t": "int",
+      "to": "WR3",
+      "at": 7,
+      "ret": 1,
+      "tags": [
+       "highlight",
+       "turnover"
+      ]
+     }
+    ]
+   },
+   {
+    "team": "OWL",
+    "plays": [
+     {
+      "t": "inc",
+      "to": "TE"
+     },
+     {
+      "t": "inc",
+      "to": "WR3"
+     },
+     {
+      "t": "pass",
+      "to": "WR2",
+      "yds": 7
+     },
+     {
+      "t": "run",
+      "by": "RB",
+      "yds": 17
+     },
+     {
+      "t": "run",
+      "by": "RB",
+      "yds": 13
+     },
+     {
+      "t": "pass",
+      "to": "WR1",
+      "yds": 30,
+      "tags": [
+       "highlight",
+       "big-play"
+      ]
+     },
+     {
+      "t": "inc",
+      "to": "WR1"
+     },
+     {
+      "t": "pass",
+      "to": "WR2",
+      "yds": 3
+     },
+     {
+      "t": "pass",
+      "to": "WR2",
+      "yds": 13
+     },
+     {
+      "t": "inc",
+      "to": "WR1"
+     },
+     {
+      "t": "inc",
+      "to": "WR3"
+     },
+     {
+      "t": "inc",
+      "to": "RB"
+     },
+     {
+      "t": "fg",
+      "good": true
+     }
+    ]
+   },
+   {
+    "team": "TUR",
+    "plays": [
+     {
+      "t": "kickoff",
+      "to": 24
+     },
+     {
+      "t": "pass",
+      "to": "WR2",
+      "yds": 5
+     },
+     {
+      "t": "pass",
+      "to": "WR1",
+      "yds": 11
+     },
+     {
+      "t": "run",
+      "by": "RB",
+      "yds": 9
+     },
+     {
+      "t": "sack",
+      "yds": -8
+     },
+     {
+      "t": "sack",
+      "yds": -3
+     },
+     {
+      "t": "punt",
+      "net": 37
+     }
+    ]
+   },
+   {
+    "team": "OWL",
+    "plays": [
+     {
+      "t": "inc",
+      "to": "WR3"
+     },
+     {
+      "t": "run",
+      "by": "RB",
+      "yds": 4
+     },
+     {
+      "t": "run",
+      "by": "RB",
+      "yds": 19
+     },
+     {
+      "t": "run",
+      "by": "RB",
+      "yds": 8
+     },
+     {
+      "t": "inc",
+      "to": "WR1"
+     },
+     {
+      "t": "inc",
+      "to": "TE"
+     },
+     {
+      "t": "punt",
+      "net": 40
+     }
+    ]
+   },
+   {
+    "team": "TUR",
+    "plays": [
+     {
+      "t": "pass",
+      "to": "WR1",
+      "yds": 15
+     },
+     {
+      "t": "inc",
+      "to": "TE"
+     },
+     {
+      "t": "pass",
+      "to": "RB",
+      "yds": 19
+     },
+     {
+      "t": "run",
+      "by": "RB",
+      "yds": 12
+     },
+     {
+      "t": "run",
+      "by": "RB",
+      "yds": 1
+     },
+     {
+      "t": "run",
+      "by": "RB",
+      "yds": 8
+     },
+     {
+      "t": "pass",
+      "to": "TE",
+      "yds": 13
+     },
+     {
+      "t": "pass",
+      "to": "WR3",
+      "yds": 13
+     },
+     {
+      "t": "inc",
+      "to": "TE"
+     },
+     {
+      "t": "pass",
+      "to": "WR2",
+      "yds": 9
+     },
+     {
+      "t": "pass",
+      "to": "TE",
+      "yds": 6,
+      "tags": [
+       "highlight",
+       "touchdown"
+      ]
+     },
+     {
+      "t": "xp",
+      "good": true
+     }
+    ]
+   },
+   {
+    "team": "OWL",
+    "plays": [
+     {
+      "t": "kickoff",
+      "to": 23
+     },
+     {
+      "t": "inc",
+      "to": "WR2"
+     },
+     {
+      "t": "run",
+      "by": "QB",
+      "yds": 11
+     },
+     {
+      "t": "run",
+      "by": "RB",
+      "yds": 5
+     },
+     {
+      "t": "pass",
+      "to": "WR1",
+      "yds": 16
+     },
+     {
+      "t": "pass",
+      "to": "TE",
+      "yds": 20,
+      "tags": [
+       "highlight",
+       "big-play"
+      ]
+     },
+     {
+      "t": "run",
+      "by": "RB",
+      "yds": 6
+     },
+     {
+      "t": "run",
+      "by": "QB",
+      "yds": 4
+     },
+     {
+      "t": "pass",
+      "to": "WR2",
+      "yds": 15,
+      "tags": [
+       "highlight",
+       "touchdown"
+      ]
+     },
+     {
+      "t": "xp",
+      "good": true
+     }
+    ]
+   },
+   {
+    "team": "TUR",
+    "plays": [
+     {
+      "t": "kickoff",
+      "to": 26
+     },
+     {
+      "t": "run",
+      "by": "QB",
+      "yds": 7
+     },
+     {
+      "t": "pass",
+      "to": "WR2",
+      "yds": 1
+     },
+     {
+      "t": "run",
+      "by": "RB",
+      "yds": 3
+     },
+     {
+      "t": "inc",
+      "to": "TE"
+     },
+     {
+      "t": "inc",
+      "to": "WR2"
+     },
+     {
+      "t": "inc",
+      "to": "WR3"
+     },
+     {
+      "t": "punt",
+      "net": 39
+     }
+    ]
+   },
+   {
+    "team": "OWL",
+    "plays": [
+     {
+      "t": "inc",
+      "to": "TE"
+     },
+     {
+      "t": "sack",
+      "yds": -7
+     },
+     {
+      "t": "run",
+      "by": "RB",
+      "yds": 1
+     },
+     {
+      "t": "pass",
+      "to": "WR2",
+      "yds": 32,
+      "tags": [
+       "highlight",
+       "big-play"
+      ]
+     },
+     {
+      "t": "run",
+      "by": "RB",
+      "yds": 1
+     },
+     {
+      "t": "inc",
+      "to": "TE"
+     },
+     {
+      "t": "inc",
+      "to": "WR1"
+     },
+     {
+      "t": "punt",
+      "net": 36
+     }
+    ]
+   },
+   {
+    "team": "TUR",
+    "plays": [
+     {
+      "t": "inc",
+      "to": "WR2"
+     },
+     {
+      "t": "inc",
+      "to": "RB"
+     },
+     {
+      "t": "pass",
+      "to": "WR1",
+      "yds": 8
+     },
+     {
+      "t": "run",
+      "by": "QB",
+      "yds": 7
+     },
+     {
+      "t": "run",
+      "by": "QB",
+      "yds": 2
+     },
+     {
+      "t": "inc",
+      "to": "RB"
+     },
+     {
+      "t": "inc",
+      "to": "WR2"
+     },
+     {
+      "t": "punt",
+      "net": 52
+     }
+    ]
+   },
+   {
+    "team": "OWL",
+    "plays": [
+     {
+      "t": "run",
+      "by": "RB",
+      "yds": 1
+     },
+     {
+      "t": "inc",
+      "to": "RB"
+     },
+     {
+      "t": "pass",
+      "to": "WR2",
+      "yds": 11
+     },
+     {
+      "t": "inc",
+      "to": "RB"
+     },
+     {
+      "t": "inc",
+      "to": "WR3"
+     },
+     {
+      "t": "inc",
+      "to": "WR3"
+     },
+     {
+      "t": "punt",
+      "net": 47
+     }
+    ]
+   },
+   {
+    "team": "TUR",
+    "plays": [
+     {
+      "t": "pass",
+      "to": "RB",
+      "yds": 1
+     },
+     {
+      "t": "run",
+      "by": "QB",
+      "yds": 17
+     },
+     {
+      "t": "inc",
+      "to": "WR2"
+     },
+     {
+      "t": "pass",
+      "to": "WR3",
+      "yds": 18
+     },
+     {
+      "t": "pass",
+      "to": "WR1",
+      "yds": 28,
+      "tags": [
+       "highlight",
+       "big-play"
+      ]
+     },
+     {
+      "t": "run",
+      "by": "RB",
+      "yds": 1
+     },
+     {
+      "t": "inc",
+      "to": "WR2"
+     },
+     {
+      "t": "run",
+      "by": "RB",
+      "yds": 1
+     },
+     {
+      "t": "fg",
+      "good": true
+     }
+    ]
+   },
+   {
+    "team": "TUR",
+    "plays": [
+     {
+      "t": "kickoff",
+      "to": 45
+     },
+     {
+      "t": "run",
+      "by": "RB",
+      "yds": 1
+     },
+     {
+      "t": "pass",
+      "to": "TE",
+      "yds": 10
+     },
+     {
+      "t": "pass",
+      "to": "WR3",
+      "yds": 17
+     },
+     {
+      "t": "run",
+      "by": "QB",
+      "yds": 1
+     },
+     {
+      "t": "pass",
+      "to": "WR1",
+      "yds": 9
+     },
+     {
+      "t": "run",
+      "by": "RB",
+      "yds": 1
+     },
+     {
+      "t": "run",
+      "by": "RB",
+      "yds": 1
+     },
+     {
+      "t": "run",
+      "by": "RB",
+      "yds": 1
+     },
+     {
+      "t": "pass",
+      "to": "WR1",
+      "yds": 14,
+      "tags": [
+       "highlight",
+       "touchdown"
+      ]
+     },
+     {
+      "t": "xp",
+      "good": true
+     }
+    ],
+    "half": 2
+   },
+   {
+    "team": "OWL",
+    "plays": [
+     {
+      "t": "kickoff",
+      "to": 27
+     },
+     {
+      "t": "inc",
+      "to": "WR1"
+     },
+     {
+      "t": "run",
+      "by": "RB",
+      "yds": 1
+     },
+     {
+      "t": "run",
+      "by": "RB",
+      "yds": 1
+     },
+     {
+      "t": "pass",
+      "to": "WR3",
+      "yds": 31,
+      "tags": [
+       "highlight",
+       "big-play"
+      ]
+     },
+     {
+      "t": "inc",
+      "to": "TE"
+     },
+     {
+      "t": "pass",
+      "to": "WR1",
+      "yds": 16
+     },
+     {
+      "t": "run",
+      "by": "QB",
+      "yds": 5
+     },
+     {
+      "t": "pass",
+      "to": "WR2",
+      "yds": 18
+     },
+     {
+      "t": "run",
+      "by": "RB",
+      "yds": 1,
+      "tags": [
+       "highlight",
+       "touchdown"
+      ]
+     },
+     {
+      "t": "xp",
+      "good": true
+     }
+    ]
+   },
+   {
+    "team": "TUR",
+    "plays": [
+     {
+      "t": "kickoff",
+      "to": 38
+     },
+     {
+      "t": "pass",
+      "to": "WR2",
+      "yds": 1
+     },
+     {
+      "t": "pass",
+      "to": "TE",
+      "yds": 1
+     },
+     {
+      "t": "run",
+      "by": "RB",
+      "yds": 1
+     },
+     {
+      "t": "punt",
+      "net": 44
+     }
+    ]
+   },
+   {
+    "team": "OWL",
+    "plays": [
+     {
+      "t": "pass",
+      "to": "WR1",
+      "yds": 1
+     },
+     {
+      "t": "run",
+      "by": "RB",
+      "yds": 1
+     },
+     {
+      "t": "pass",
+      "to": "WR1",
+      "yds": 1
+     },
+     {
+      "t": "punt",
+      "net": 39
+     }
+    ]
+   },
+   {
+    "team": "TUR",
+    "plays": [
+     {
+      "t": "pass",
+      "to": "RB",
+      "yds": 1
+     },
+     {
+      "t": "run",
+      "by": "RB",
+      "yds": 1
+     },
+     {
+      "t": "run",
+      "by": "RB",
+      "yds": 1
+     },
+     {
+      "t": "punt",
+      "net": 45
+     }
+    ]
+   },
+   {
+    "team": "OWL",
+    "plays": [
+     {
+      "t": "run",
+      "by": "RB",
+      "yds": 1
+     },
+     {
+      "t": "run",
+      "by": "RB",
+      "yds": 1
+     },
+     {
+      "t": "run",
+      "by": "RB",
+      "yds": 1
+     },
+     {
+      "t": "punt",
+      "net": 49
+     }
+    ]
+   },
+   {
+    "team": "TUR",
+    "plays": [
+     {
+      "t": "run",
+      "by": "QB",
+      "yds": 1
+     },
+     {
+      "t": "run",
+      "by": "QB",
+      "yds": 1
+     },
+     {
+      "t": "pass",
+      "to": "WR3",
+      "yds": 1
+     },
+     {
+      "t": "punt",
+      "net": 35
+     }
+    ]
+   },
+   {
+    "team": "OWL",
+    "plays": [
+     {
+      "t": "run",
+      "by": "RB",
+      "yds": 1
+     },
+     {
+      "t": "pass",
+      "to": "WR2",
+      "yds": 5
+     },
+     {
+      "t": "run",
+      "by": "QB",
+      "yds": 1
+     },
+     {
+      "t": "punt",
+      "net": 37
+     }
+    ]
+   },
+   {
+    "team": "TUR",
+    "plays": [
+     {
+      "t": "inc",
+      "to": "RB"
+     },
+     {
+      "t": "run",
+      "by": "RB",
+      "yds": 1
+     },
+     {
+      "t": "run",
+      "by": "RB",
+      "yds": 1
+     },
+     {
+      "t": "pen",
+      "kind": "dpi",
+      "to": "TE",
+      "spot": 6
+     },
+     {
+      "t": "pen",
+      "kind": "dpi",
+      "to": "WR1",
+      "spot": 12
+     },
+     {
+      "t": "pass",
+      "to": "TE",
+      "yds": 12
+     },
+     {
+      "t": "pass",
+      "to": "TE",
+      "yds": 20,
+      "tags": [
+       "highlight",
+       "big-play"
+      ]
+     },
+     {
+      "t": "inc",
+      "to": "WR3"
+     },
+     {
+      "t": "inc",
+      "to": "TE"
+     },
+     {
+      "t": "run",
+      "by": "QB",
+      "yds": 1
+     },
+     {
+      "t": "pass",
+      "to": "WR1",
+      "yds": 11
+     },
+     {
+      "t": "run",
+      "by": "RB",
+      "yds": 1
+     },
+     {
+      "t": "run",
+      "by": "RB",
+      "yds": 1
+     },
+     {
+      "t": "run",
+      "by": "RB",
+      "yds": 1,
+      "tags": [
+       "highlight",
+       "touchdown"
+      ]
+     },
+     {
+      "t": "xp",
+      "good": true
+     }
+    ]
+   },
+   {
+    "team": "OWL",
+    "plays": [
+     {
+      "t": "kickoff",
+      "to": 58
+     },
+     {
+      "t": "inc",
+      "to": "WR3"
+     },
+     {
+      "t": "pass",
+      "to": "WR3",
+      "yds": 1
+     },
+     {
+      "t": "run",
+      "by": "RB",
+      "yds": 1
+     },
+     {
+      "t": "pass",
+      "to": "TE",
+      "yds": 12
+     },
+     {
+      "t": "sack",
+      "yds": -5
+     },
+     {
+      "t": "run",
+      "by": "QB",
+      "yds": 1
+     },
+     {
+      "t": "run",
+      "by": "RB",
+      "yds": 1
+     },
+     {
+      "t": "fg",
+      "good": true
+     }
+    ]
+   },
+   {
+    "team": "TUR",
+    "plays": [
+     {
+      "t": "kickoff",
+      "to": 36
+     },
+     {
+      "t": "run",
+      "by": "RB",
+      "yds": 1
+     },
+     {
+      "t": "run",
+      "by": "QB",
+      "yds": 1
+     },
+     {
+      "t": "sack",
+      "yds": -5
+     },
+     {
+      "t": "punt",
+      "net": 47
+     }
+    ]
+   },
+   {
+    "team": "OWL",
+    "plays": [
+     {
+      "t": "pass",
+      "to": "RB",
+      "yds": 6
+     },
+     {
+      "t": "pass",
+      "to": "TE",
+      "yds": 1
+     },
+     {
+      "t": "pass",
+      "to": "WR1",
+      "yds": 7
+     },
+     {
+      "t": "pen",
+      "kind": "dpi",
+      "to": "WR2",
+      "spot": 12
+     },
+     {
+      "t": "run",
+      "by": "RB",
+      "yds": 1
+     },
+     {
+      "t": "run",
+      "by": "RB",
+      "yds": 1
+     },
+     {
+      "t": "run",
+      "by": "RB",
+      "yds": 1
+     },
+     {
+      "t": "pen",
+      "kind": "dpi",
+      "to": "WR3",
+      "spot": 21
+     },
+     {
+      "t": "pass",
+      "to": "WR3",
+      "yds": 1
+     },
+     {
+      "t": "inc",
+      "to": "WR3"
+     },
+     {
+      "t": "inc",
+      "to": "TE"
+     },
+     {
+      "t": "fg",
+      "good": false
+     }
+    ]
+   }
+  ]
+ },
+ "report": {
+  "seedTried": 1,
+  "plays": 187,
+  "playsChosenByJev": 0,
+  "model": null,
+  "jev": {
+   "calls": 0,
+   "inputTokens": 0
+  },
+  "score": [
+   24,
+   20
+  ],
+  "points": [
+   {
+    "RB": 16.9,
+    "QB": 21,
+    "WR2": 5.8,
+    "WR1": 15.6,
+    "TE": 12.2,
+    "WR3": 4.9,
+    "K": 6,
+    "DST": 2
+   },
+   {
+    "RB": 17,
+    "QB": 16.3,
+    "WR3": 4.7,
+    "DST": 5,
+    "WR2": 16.4,
+    "WR1": 7.1,
+    "K": 9,
+    "TE": 3.3
+   }
+  ],
+  "matchesTargets": true,
+  "highlights": 14,
+  "source": {
+   "from": "statlines",
+   "file": "data/statlines/week11-tur-owl.json",
+   "week": 11,
+   "invented": true,
+   "note": "built from the stat lines in data/statlines/week11-tur-owl.json (invented numbers; the player names are real); carries, field goal distances and the order of everything else are chosen by the maker"
+  }
+ }
+}
