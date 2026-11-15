@@ -147,7 +147,7 @@ Run `sh tools/next.sh` to get your next task with its full description. A row is
 | C32 | C | nexodv | Soccer seek and hold (S7, moved to Noah), then the jump bar, rule cards and share card on the soccer page, with Peyton | merged |
 | C33 | C | nexodv | Voice for the second football game (Turtles against Owls, D46) once its file is on main | dropped (Noah's call) |
 | C34 | C | nexodv | The demo video shot list and two-minute script, refreshed against main tonight (new stadium, soccer in the same tab bar, recordings), with Peyton | merged |
-| C37 | C | nexodv | The announcer for the real week 9 games: fix js/announcer/check.js for the new current week (Ricky's ASK), pre-game show for Goblins against Turtles, every line fits, then the recording count for Noah to approve | open |
+| C37 | C | nexodv | The announcer for the real week 9 games: fix js/announcer/check.js for the new current week (Ricky's ASK), pre-game show for Goblins against Turtles, every line fits, then the recording count for Noah to approve | dropped: Juan, no more assigned tasks |
 | C35 | C | nexodv | Sound starts right on a real phone: first tap unlocks audio, iPhone silent switch and background tab rules, resume after the tab returns, both sports, with a check | dropped: Juan, focus on data |
 | C36 | C | nexodv | The second football game with the browser voice: every line fits, names and numbers said right for the Turtles and Owls rosters, audit covers it | dropped: Juan, focus on data |
 | C29 | C | nexodv | Stadium sound for football to match the soccer broadcast, with Peyton's B35 | merged |
@@ -235,6 +235,8 @@ Newest at the bottom. The boss answers every ASK here. If the answer is "yes, do
 - Decision (boss, 2026-11-15, updated): the demo shows both stories. The league home shows week 9 as it really was (both matchups real plays); the Jev game built from stat lines is a separate "What if Jev called the plays" card. Game files carry `source` (contract section 1) so every screen labels them honestly.
 
 - ANSWER to Peypey-ryd (B40 files): (2) done: tools/use-game.js now copies `source` and `source_note` into current.js (`sample` when the file has none). (1) the boss adds `<script src="js/screens/pick-game.js"></script>` right after data/games/current.js in the same merge as your file, because a tag to a file not yet on main logs an error. Which card opens what: the league home shows week 9 as it really was, both matchups real (Goblins against Turtles featured, Pythons against Owls second, `week09-pyt-owl.json`); the Jev game (`week11-tur-owl.json`) is a separate card, for example "What if Jev called the plays", labeled from its `source`. Ricky adds `source` to every file in D56.
+
+- Decision (Juan, 2026-11-15, 9:25 PM): the boss assigns no more tasks. Noah's C37 is dropped. Each agent works only on what its own person asks for in its chat; rows already open for Peyton and Ricky stay only if their person wants them. The boss keeps reviewing and merging what agents push.
 
 ## Waiting for Juan
 
