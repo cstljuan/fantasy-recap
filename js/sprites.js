@@ -243,7 +243,12 @@
     }
     // Stands: rows of fans, home colors on the west side, away on the east.
     var c0 = teams[0].colors, c1 = teams[1].colors;
-    var fans0 = [hex(c0.jersey), hex(c0.helmet), hex(c0.jersey), [42, 45, 48]], fans1 = [hex(c1.jersey), hex(c1.helmet), hex(c1.jersey), [42, 45, 48]];
+    // Team colors toned toward the dark of the stand (B38): the football kits are brighter than the
+    // soccer ones, and at full strength the stands pulled the eye away from the play. The helmet
+    // color (the brightest) is used for one fan in five instead of one in three.
+    function calm(c, t) { return mix(hex(c), [30, 33, 36], t); }
+    var fans0 = [calm(c0.jersey, 0.45), calm(c0.jersey, 0.45), calm(c0.jersey, 0.55), calm(c0.helmet, 0.6), [42, 45, 48]];
+    var fans1 = [calm(c1.jersey, 0.45), calm(c1.jersey, 0.45), calm(c1.jersey, 0.55), calm(c1.helmet, 0.6), [42, 45, 48]];
     var neutral = [[58, 61, 64], [90, 86, 80], [37, 40, 43], [107, 98, 88], [29, 32, 35]];
     var EMPTY = [16, 18, 20], AISLE = [27, 30, 33], SEAT = [22, 25, 27];
     var sx0 = X(-RUN - BOARD), sx1 = X(FIELD_W + RUN + BOARD), sy0 = Y(-10 - RUN - BOARD), sy1 = Y(110 + RUN + BOARD);
@@ -258,7 +263,7 @@
         else if (across % 6 === 4) col = SEAT;
         else {
           var r = rnd(), pal = west ? fans0 : east ? fans1 : neutral;
-          col = r < 0.28 ? EMPTY : r < 0.72 ? pal[Math.floor(rnd() * pal.length)] : neutral[Math.floor(rnd() * neutral.length)];
+          col = r < 0.32 ? EMPTY : r < 0.68 ? pal[Math.floor(rnd() * pal.length)] : neutral[Math.floor(rnd() * neutral.length)];
         }
         // The far rows fall away into the dark.
         var f = 1 - 0.55 * Math.min(1, across / (STAND * S));
