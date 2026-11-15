@@ -1,0 +1,199 @@
+{
+ "key": "PYT-K",
+ "name": "Harrison Butker",
+ "researched": "2026-11-15",
+ "background": [
+  {
+   "fact": "Born July 14, 1995 in Decatur, Georgia, to Harrison Butker Sr. and Elizabeth Keller Butker; he has an older sister, and his mother is a clinical medical physicist at Emory.",
+   "source": "https://en.wikipedia.org/wiki/Harrison_Butker",
+   "date": null,
+   "confidence": "from Wikipedia"
+  },
+  {
+   "fact": "At The Westminster Schools he played football (picked up as a sophomore), basketball and soccer, won three state soccer titles, and played tuba in the symphonic band.",
+   "source": "https://en.wikipedia.org/wiki/Harrison_Butker",
+   "date": null,
+   "confidence": "from Wikipedia"
+  },
+  {
+   "fact": "He played at Georgia Tech from 2013 to 2016, became the school's all-time leading scorer, was a senior captain, and graduated in industrial engineering.",
+   "source": "https://en.wikipedia.org/wiki/Harrison_Butker",
+   "date": null,
+   "confidence": "from Wikipedia"
+  },
+  {
+   "fact": "Carolina took him in the seventh round (pick 233) of the 2017 draft; he has been a Chiefs kicker since 2017 and has won three Super Bowls with them.",
+   "source": "https://en.wikipedia.org/wiki/Harrison_Butker",
+   "date": null,
+   "confidence": "from Wikipedia"
+  },
+  {
+   "fact": "He led the NFL in scoring in 2019, and Wikipedia lists his career field goal rate as 87.3 percent, fifth best in NFL history (the page does not say as of when).",
+   "source": "https://en.wikipedia.org/wiki/Harrison_Butker",
+   "date": null,
+   "confidence": "from Wikipedia"
+  },
+  {
+   "fact": "Listed at 6 ft 4 in, 205 lb, age 31, jersey 7, depth chart K1.",
+   "source": "research/data/PYT-K.json (bio)",
+   "date": "2026-11-15",
+   "confidence": "one source"
+  }
+ ],
+ "family": [
+  {
+   "fact": "Wikipedia says he is married. Nothing further about family is recorded here.",
+   "source": "https://en.wikipedia.org/wiki/Harrison_Butker",
+   "date": null,
+   "confidence": "from Wikipedia"
+  },
+  {
+   "fact": "He is co-founder, president and chief operating officer of MDKeller, whose subsidiaries include the menswear company Shepherd's.",
+   "source": "https://en.wikipedia.org/wiki/Harrison_Butker",
+   "date": null,
+   "confidence": "from Wikipedia"
+  }
+ ],
+ "recent_events": [
+  {
+   "fact": "Butker is 12 of 19 on field goals and 22 of 23 on extra points through 8 games in 2026, for 66 fantasy points (8.25 a game); 6 of his 7 misses came from 50 yards or more.",
+   "source": "research/data/PYT-K.json (season_2026)",
+   "date": "2026-11-15",
+   "confidence": "from the data file"
+  },
+  {
+   "fact": "Chiefs coach Andy Reid said Wednesday, \"I'm gonna stick with Butker this week,\" and Justin Tucker remains on the practice squad as an option; the team appears to be evaluating the kicker weekly.",
+   "source": "research/data/PYT-K.json (status.espn, ESPN report dated Nov 11)",
+   "date": "2026-11-11",
+   "confidence": "confirmed by two sources (also Yahoo Sports and Fox News headlines in the news list)"
+  },
+  {
+   "fact": "Coverage says Butker leads the NFL with seven missed field goals and has missed kicks in four straight games; he was 35 of 53 from 50+ yards before 2026 and is at 25 percent this season.",
+   "source": "https://kctv5.com/2026/11/12/heres-reason-dave-toub-says-harrison-butker-is-still-chiefs-kicker",
+   "date": "2026-11-12",
+   "confidence": "one search summary, not read in full"
+  },
+  {
+   "fact": "Special teams coordinator Dave Toub said the Chiefs are confident Butker will come through it, that Tucker looks good, that the team hopes Butker starts a streak this weekend, and that the slump bothers Butker a lot.",
+   "source": "https://nbcsports.com/nfl/profootballtalk/rumor-mill/news/chiefs-sts-coordinator-dave-toub-were-confident-harrison-butker-will-come-through-it",
+   "date": "2026-11-13",
+   "confidence": "confirmed by two sources (also Yahoo Sports and Arrowhead Pride)"
+  },
+  {
+   "fact": "Kansas City signed Justin Tucker to the practice squad around Week 7 or 8 after Butker missed two field goals in the Week 7 loss at Seattle; reports differ on the exact timing, and Tucker has not played in a game for the Chiefs.",
+   "source": "https://www.kctv5.com/2026/10/28/reports-chiefs-sign-former-all-pro-kicker-justin-tucker-butkers-struggles-continue/",
+   "date": "2026-10-28",
+   "confidence": "two sources disagree on timing"
+  },
+  {
+   "fact": "His 2026 log: 1 of 1 FG and 4 XP in Week 1, 4 of 5 (long 46) in Week 2, 3 of 4 (long 50) in Week 6, 1 of 3 (long 50) in Week 7, 1 of 2 (long 45) in Week 8, and 0 of 1 FG with 5 XP in Week 9 vs the Jets (5.0 points).",
+   "source": "research/data/PYT-K.json (log)",
+   "date": "2026-11-15",
+   "confidence": "from the data file"
+  }
+ ],
+ "quotes": [
+  {
+   "fact": "Andy Reid: \"I'm gonna stick with Butker this week.\"",
+   "source": "research/data/PYT-K.json (status.espn)",
+   "date": "2026-11-11",
+   "confidence": "one source, quoted by ESPN/RotoWire"
+  },
+  {
+   "fact": "Dave Toub on Butker's slump: \"It bothers him, it bothers him a lot.\"",
+   "source": "https://sports.yahoo.com/articles/chiefs-remain-confident-kicker-harrison-194218031.html",
+   "date": "2026-11-12",
+   "confidence": "one search summary, not read in full"
+  }
+ ],
+ "team_context": [
+  {
+   "fact": "Kansas City is 6-2, scoring 25.2 points and allowing 17.9 a game, with Patrick Mahomes at quarterback in every game.",
+   "source": "research/data/PYT-K.json (season_2026.team, teammates_2026)",
+   "date": "2026-11-15",
+   "confidence": "from the data file"
+  },
+  {
+   "fact": "Kenneth Walker III has 159 carries for 872 yards (83 percent of team rushing); Travis Kelce leads targets with 48 and Xavier Worthy has 47.",
+   "source": "research/data/PYT-K.json (teammates_2026)",
+   "date": "2026-11-15",
+   "confidence": "from the data file"
+  },
+  {
+   "fact": "Chiefs Week 10 injury reports: Mahomes was a full participant despite an elbow or knee note, Kelce is no longer limited, RT Jaylon Moore is out, and Walker did not practice Friday, leaving two healthy backs.",
+   "source": "https://atozsports.com/nfl/kansas-city-chiefs-news/chiefs-final-injury-report-week-10-falcons-kenneth-walker/",
+   "date": "2026-11-14",
+   "confidence": "one search summary, sources differ on Mahomes' ailment"
+  }
+ ],
+ "next_opponent": [
+  {
+   "fact": "Kansas City plays at Atlanta on Sunday, Nov 15, 1 pm ET at Mercedes-Benz Stadium (indoor, fieldturf), on CBS; forecast shown as 54 F, mostly sunny, which does not matter inside.",
+   "source": "research/data/PYT-K.json (next_games)",
+   "date": "2026-11-15",
+   "confidence": "from the data file"
+  },
+  {
+   "fact": "Line: KC -3, total 47.5, implied Chiefs total 25.25; the Chiefs then host Arizona (KC -14, total 42.5) in Week 11 and visit Buffalo on Thursday Nov 26.",
+   "source": "research/data/PYT-K.json (next_games)",
+   "date": "2026-11-15",
+   "confidence": "from the data file"
+  },
+  {
+   "fact": "Atlanta defensive end Cameron Thomas (groin) was added to the Falcons injury report as limited on Thursday.",
+   "source": "https://sports.yahoo.com/articles/chiefs-falcons-week-10-thursday-214500153.html",
+   "date": "2026-11-13",
+   "confidence": "one search summary"
+  },
+  {
+   "fact": "Falcons record, kicker matchup history and Atlanta's defensive rank were not found in the sources reached.",
+   "source": "not found",
+   "date": null,
+   "confidence": "not found"
+  }
+ ],
+ "style": [
+  {
+   "fact": "Madden week 8 rating is 81 overall with kick power 96 and kick accuracy 87.",
+   "source": "research/data/PYT-K.json (bio.madden)",
+   "date": "2026-11-15",
+   "confidence": "one source"
+  },
+  {
+   "fact": "His career kicking: 263 of 303 field goals in the regular season (35 from 50 to 59, 2 from 60 or more) at 9.09 fantasy points a game, and 9.09 is above his 2026 pace of 8.25.",
+   "source": "research/data/PYT-K.json (career)",
+   "date": "2026-11-15",
+   "confidence": "from the data file"
+  }
+ ],
+ "availability": {
+  "status": "Active, expected to kick",
+  "detail": "No injury designation for 2026 (Sleeper Active; his only listed injury report is a left knee in 2024). Reid said he is staying with Butker for the Falcons game, with Tucker on the practice squad. The job is being reviewed weekly, so another miss could end it. No official inactive list seen yet.",
+  "expected_return": "Not applicable",
+  "source": "https://sports.yahoo.com/articles/chiefs-remain-confident-kicker-harrison-194218031.html",
+  "date": "2026-11-12"
+ },
+ "outlook_next_game": {
+  "lean": "kicks, modest output; expected around 6 to 9 fantasy points with a job-security risk",
+  "confidence": "low",
+  "reasons": [
+   "He is the starter this week by Reid's word, and the game is indoors, which removes weather as a factor.",
+   "Kansas City is a 3 point favorite with an implied total near 25, so a normal number of attempts is likely.",
+   "His 2026 average is 8.25 points, below his 9.09 career regular season rate, driven by misses from 50 yards or more.",
+   "A bad day could bring Tucker in, and KC played a game last week with only 5 extra points and 0 of 1 on field goals (5.0 points)."
+  ]
+ },
+ "scouts_read": "Butker is set to kick on Sunday, but his hold on the job is the real story. Reid and Toub backed him publicly, while Tucker waits on the practice squad. The game is indoors in Atlanta with Kansas City a field goal favorite, so conditions are fair and the volume should be normal. His 2026 trouble is mostly long kicks, with 6 of his 7 misses from 50 or more, so the shape of the drives matters more than the weather. I would project about 7 points with a floor near 3 if he misses early and a ceiling around 13 if the offense stalls near midfield.",
+ "open_questions": [
+  "Falcons record and defensive strength (not found).",
+  "Official Sunday inactive list and whether any in-game switch to Tucker happens (not found yet).",
+  "Exact date Tucker was signed (sources differ between Week 7 and Week 8).",
+  "Whether Butker's career field goal percentage on Wikipedia is current (not dated on the page)."
+ ],
+ "searches": [
+  "Harrison Butker Chiefs Falcons Week 10 Justin Tucker practice squad Andy Reid",
+  "Chiefs vs Falcons Week 10 2026 preview Mercedes-Benz Stadium Mahomes injury report",
+  "Dave Toub Harrison Butker confident come through missed field goals 50 yards",
+  "Wikipedia text came from the sections stored in research/data/PYT-K.json; no page fetches were attempted"
+ ]
+}
