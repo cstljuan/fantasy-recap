@@ -1,0 +1,224 @@
+{
+ "key": "TUR-QB",
+ "name": "Jayden Daniels",
+ "researched": "2026-11-15",
+ "background": [
+  {
+   "fact": "Born December 18, 2000 in Fontana, California and raised in nearby San Bernardino; he played at Cajon High School, setting California Interscholastic Federation Southern Section records with 210 touchdowns and over 17,600 total yards in 53 games.",
+   "source": "https://en.wikipedia.org/wiki/Jayden_Daniels",
+   "date": null,
+   "confidence": "from Wikipedia"
+  },
+  {
+   "fact": "He played three seasons at Arizona State and two at LSU; at LSU in 2023 he won the Heisman Trophy after leading the FBS in total yards and setting the single season passer rating record.",
+   "source": "https://en.wikipedia.org/wiki/Jayden_Daniels",
+   "date": null,
+   "confidence": "from Wikipedia"
+  },
+  {
+   "fact": "Washington drafted him second overall in 2024; he set several rookie records, led the Commanders to their most wins in a season and first NFC Championship Game since 1991, and was named Offensive Rookie of the Year.",
+   "source": "https://en.wikipedia.org/wiki/Jayden_Daniels",
+   "date": null,
+   "confidence": "from Wikipedia"
+  },
+  {
+   "fact": "His walk-off Hail Mary touchdown pass in 2024, known as the Hail Maryland, was named the season's Moment of the Year.",
+   "source": "https://en.wikipedia.org/wiki/Jayden_Daniels",
+   "date": null,
+   "confidence": "from Wikipedia"
+  },
+  {
+   "fact": "Listed at 6 ft 4 in, 210 lb, age 25, jersey 5, third NFL season, depth chart QB1.",
+   "source": "research/data/TUR-QB.json (bio, from ESPN and Sleeper pulls)",
+   "date": "2026-11-15",
+   "confidence": "from the data file"
+  },
+  {
+   "fact": "Described as a dual-threat quarterback with a drop-back passer's accuracy and field awareness plus the speed to scramble; known for composure in late-game moments. He warms up with a basketball, a routine learned from childhood friend C. J. Stroud.",
+   "source": "https://en.wikipedia.org/wiki/Jayden_Daniels",
+   "date": null,
+   "confidence": "from Wikipedia"
+  }
+ ],
+ "family": [
+  {
+   "fact": "His father Javon Daniels played college cornerback at Washington and Iowa State; his mother Regina Jackson works as his business manager and agent; he has an older sister, Bianca.",
+   "source": "https://en.wikipedia.org/wiki/Jayden_Daniels",
+   "date": null,
+   "confidence": "from Wikipedia"
+  },
+  {
+   "fact": "His mother Regina was among those who posted public comments when ABC named Washington backup Sam Hartman the new Bachelor (headline only seen; article text not read).",
+   "source": "research/data/TUR-QB.json (news, EssentiallySports headline)",
+   "date": "2026-11-14",
+   "confidence": "headline only"
+  },
+  {
+   "fact": "His maternal great-grandmother emigrated from Japan; Wikipedia calls him the first starting NFL quarterback with Japanese ancestry since 1928. He earned a business communications degree from Arizona State in December 2021. No spouse or children found: not found.",
+   "source": "https://en.wikipedia.org/wiki/Jayden_Daniels",
+   "date": null,
+   "confidence": "from Wikipedia"
+  }
+ ],
+ "recent_events": [
+  {
+   "fact": "Washington beat the Giants 24-21 on Thursday night, Week 10: Daniels was 23 of 33 for 249 yards, 3 touchdowns and 2 interceptions, plus 11 carries for 28 yards.",
+   "source": "research/data/TUR-QB.json (status.espn, ESPN recap)",
+   "date": "2026-11-13",
+   "confidence": "confirmed by two sources (ESPN recap, NFL.com and Yahoo headlines in news)"
+  },
+  {
+   "fact": "He threw both interceptions in the fourth quarter on back-to-back possessions, the first at the Giants' two-yard line, then threw the game-winning 32-yard touchdown to Stefon Diggs; it was his first three-touchdown game of 2026.",
+   "source": "research/data/TUR-QB.json (status.espn long); ESPN story titled Jayden Daniels finds redemption with game-winning drive: https://espn.com/nfl/story/_/id/50469451/commanders-jayden-daniels-redemption-game-winning-drive",
+   "date": "2026-11-13",
+   "confidence": "confirmed by two sources"
+  },
+  {
+   "fact": "Earlier touchdown passes in that game went to Ben Sinnott (1 yard) and Antonio Williams (31 yards), which put Washington up 17-14 in the third quarter.",
+   "source": "research/data/TUR-QB.json (status.espn long)",
+   "date": "2026-11-13",
+   "confidence": "one source"
+  },
+  {
+   "fact": "Season to date: 7 games, 138 of 213 passing for 1,499 yards, 10 touchdowns, 2 interceptions, 17 sacks, 42 rushes for 280 yards and 2 rushing touchdowns, 19.1 fantasy points a game.",
+   "source": "research/data/TUR-QB.json (season_2026)",
+   "date": "2026-11-15",
+   "confidence": "from the data file"
+  },
+  {
+   "fact": "He did not play in Weeks 3 and 4 (Marcus Mariota threw 31 passes in Week 3; Athan Kaliakmanis threw 33 in Week 4) and has been the lone passer in Weeks 5, 6, 8, 9 and 10.",
+   "source": "research/data/TUR-QB.json (teammates_2026)",
+   "date": "2026-11-15",
+   "confidence": "from the data file"
+  },
+  {
+   "fact": "NBC Sports ran a fantasy item headed 'Daniels, Commanders keep season alive in win' about the Giants game.",
+   "source": "https://nbcsports.com/fantasy/football/player-news/2026-11-12/daniels-commanders-keep-season-alive-in-win",
+   "date": "2026-11-12",
+   "confidence": "headline seen in search; page not read"
+  },
+  {
+   "fact": "Headlines after the game said Stefon Diggs gave him a nickname, compared his late-game calm to Kobe Bryant, and that Giants wide receiver Malik Nabers joked about not answering Daniels' phone call (headline level only).",
+   "source": "research/data/TUR-QB.json (news: Yahoo Sports, Bleacher Report)",
+   "date": "2026-11-14",
+   "confidence": "headlines only"
+  }
+ ],
+ "quotes": [
+  {
+   "fact": "Coach Dan Quinn on the Giants win: 'This is one we had to have, and our guys made sure we had it.' On the interceptions: 'when you come back, it said a lot about him.'",
+   "source": "https://sports.yahoo.com/articles/dan-quinn-sends-strong-message-120000536.html",
+   "date": "2026-11-13",
+   "confidence": "from search result excerpts; full page not read"
+  },
+  {
+   "fact": "Quinn after the win, as titled by the NFL: 'We needed that.'",
+   "source": "https://www.nfl.com/news/commanders-dan-quinn-on-win-over-giants-we-needed-that",
+   "date": "date not shown",
+   "confidence": "headline and excerpt only"
+  }
+ ],
+ "team_context": [
+  {
+   "fact": "Washington averages 21.8 points scored and 24.8 allowed in the data file's 9 team games, with a listed record of 3-5 before the Giants game; the win's effect on the record was reported inconsistently, so the current record is not confirmed.",
+   "source": "research/data/TUR-QB.json (season_2026.team)",
+   "date": "2026-11-15",
+   "confidence": "from the data file"
+  },
+  {
+   "fact": "Top 2026 targets: Stefon Diggs 59 (36 catches, 386 yards), Antonio Williams 41, tight end Chig Okonkwo 39, Terry McLaurin 27 in 5 games, Treylon Burks 25.",
+   "source": "research/data/TUR-QB.json (teammates_2026.top_targets)",
+   "date": "2026-11-15",
+   "confidence": "from the data file"
+  },
+  {
+   "fact": "Backs: Jacory Croskey-Merritt 67 carries, Rachaad White 65, Austin Ekeler 33.",
+   "source": "research/data/TUR-QB.json (teammates_2026.top_rushers)",
+   "date": "2026-11-15",
+   "confidence": "from the data file"
+  },
+  {
+   "fact": "Backup quarterback Sam Hartman was cast as the new Bachelor, per ABC, reported by ClutchPoints and EssentiallySports.",
+   "source": "research/data/TUR-QB.json (news headlines)",
+   "date": "2026-11-14",
+   "confidence": "headlines only"
+  }
+ ],
+ "next_opponent": [
+  {
+   "fact": "Next game: home against Cincinnati, Monday November 23, 8:15 pm ET at Northwest Stadium on ESPN, Week 11, after 11 days of rest.",
+   "source": "research/data/TUR-QB.json (next_games)",
+   "date": "2026-11-15",
+   "confidence": "from the data file"
+  },
+  {
+   "fact": "Lines in the data file: Cincinnati favored by 3.5, total 51.5, Washington implied about 24; forecast rain and 51 F.",
+   "source": "research/data/TUR-QB.json (next_games)",
+   "date": "2026-11-15",
+   "confidence": "from the data file"
+  },
+  {
+   "fact": "Bengals play at 6-2 with Joe Burrow leading qualified quarterbacks in passing yards per game (298.3), touchdown passes (23) and passer rating (114.8), per a search summary; a prediction site had the Bengals by 4 as of November 12.",
+   "source": "https://predictionmarketspicks.com/nfl/bengals-vs-commanders-week-11-2026",
+   "date": "2026-11-12",
+   "confidence": "one source, secondary"
+  },
+  {
+   "fact": "The two quarterbacks met on Monday night in 2024: Daniels was 21 of 23 for 254 yards and two touchdowns in a 38-33 Washington win.",
+   "source": "https://www.hogshaven.com/the-5-oclock-club/422673/commanders-bengals-meet-part-2-24-mnf-thriller-week-11",
+   "date": "date not shown",
+   "confidence": "one source"
+  }
+ ],
+ "style": [
+  {
+   "fact": "Dual-threat passer with composure late in games; uses virtual reality training and warms up with a basketball.",
+   "source": "https://en.wikipedia.org/wiki/Jayden_Daniels",
+   "date": null,
+   "confidence": "from Wikipedia"
+  },
+  {
+   "fact": "Madden week 8 rating 83 overall, 92 throw power, 90 mid accuracy, 91 speed, 93 toughness, 90 injury (durability).",
+   "source": "research/data/TUR-QB.json (bio.madden)",
+   "date": "2026-11-15",
+   "confidence": "from the data file"
+  },
+  {
+   "fact": "2026 tracking: 2.78 seconds average time to throw, passer rating 97.1, completion rate 64.8 percent, pressured on 51 dropbacks, blitzed 62 times.",
+   "source": "research/data/TUR-QB.json (season_2026.tracking and advanced)",
+   "date": "2026-11-15",
+   "confidence": "from the data file"
+  }
+ ],
+ "availability": {
+  "status": "Active; expected to play Week 11 (no 2026 injury designation this week), with a left elbow history",
+  "detail": "ESPN lists him Active as of 2026-11-13 and Sleeper shows no injury status. He played the full Thursday game. The injury report data lists an elbow issue all season: Out in Weeks 3 and 4 of 2026, then full practice participation with no game designation in Weeks 5, 6, 8, 9 and 10. Nothing for Week 11 has been published yet (Washington plays Monday the 23rd). He is not on injured reserve per the sources seen. A search summary also cited a Rapoport 'not 100 percent' report and a brace, but those items could not be tied to a 2026 date, so they are not relied on.",
+  "expected_return": "Not applicable (playing)",
+  "source": "research/data/TUR-QB.json (status, injury_reports); https://nbcsports.com/fantasy/football/player-news/2026-11-12/daniels-commanders-keep-season-alive-in-win",
+  "date": "2026-11-13"
+ },
+ "outlook_next_game": {
+  "lean": "plays; volatile but usable, roughly 18 to 24 fantasy points",
+  "confidence": "low to medium",
+  "reasons": [
+   "Active and a full practice participant in recent weeks, with 11 days of rest, so health risk is lower than usual, but the elbow history is a standing risk.",
+   "The game is a Monday night home game with a 51.5 total and Washington implied near 24, which supports a passing-heavy script.",
+   "His 2026 average is 19.1 points, helped by 10 touchdown passes and low rushing production (2 rushing touchdowns).",
+   "Risks: rain forecast, Burrow driving a high-scoring Cincinnati offense, and interceptions after a two-pick game."
+  ]
+ },
+ "scouts_read": "Daniels is active and had a full week of practice before the Giants game, and he now gets 11 days to rest before Cincinnati. The elbow kept him out of two games earlier this year, so a setback is the main thing to watch, but nothing is reported for Week 11 yet. The Monday night total is above 51, which suggests Washington will have to throw to keep pace with Burrow. His rushing has been modest, so his floor depends on touchdown passes to Diggs and Williams. I would project a decent game near 20 points with a real chance of a big one if the game turns into a shootout.",
+ "open_questions": [
+  "Official Week 11 injury report and any game designation (not found; the game is November 23).",
+  "Whether he wears a brace for the rest of the season and any surgery plan (search summaries mixed 2025 and 2026 items; not confirmed).",
+  "Current Washington record after the Giants win (sources conflicted: 3-5, 3-5-1, 2-5-1).",
+  "Wind and final game-time weather (not found)."
+ ],
+ "searches": [
+  "Jayden Daniels Giants Thursday night elbow injury status Bengals Week 11",
+  "Commanders Bengals Week 11 preview Jayden Daniels Monday Night Football",
+  "Jayden Daniels not 100 percent elbow 2026 returns after missing two games",
+  "Dan Quinn after Giants win interceptions Daniels",
+  "Bengals 2026 opponent preview Washington Commanders Week 11"
+ ]
+}
