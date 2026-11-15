@@ -7,6 +7,7 @@
 | | |
 |---|---|
 | Live app | https://fantasyrecap.club |
+| Demo video (1:54) | https://youtu.be/7eyQpJyGEM8 |
 | Devpost | https://devpost.com/software/fantasy-recap |
 | Design file (Figma) | https://www.figma.com/design/JY7bLNHcuiDyEBLCpwWiba |
 | Hackathon | HackPrinceton Fall 2026 |
