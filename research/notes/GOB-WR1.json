@@ -1,0 +1,202 @@
+{
+ "key": "GOB-WR1",
+ "name": "Ja'Marr Chase",
+ "researched": "2026-11-15",
+ "background": [
+  {
+   "fact": "Born March 1, 2000 in Harvey, Louisiana; attended Archbishop Rummel High School in Metairie, Louisiana, where he had 115 receptions for 2,152 yards and 30 touchdowns, and was a 4 star recruit ranked 84th overall.",
+   "source": "https://en.wikipedia.org/wiki/Ja'Marr_Chase",
+   "date": "date not shown",
+   "confidence": "from Wikipedia"
+  },
+  {
+   "fact": "He committed to Kansas, then Florida, then LSU. At LSU in 2019 he led the FBS with 1,780 receiving yards and 20 touchdowns, won the Fred Biletnikoff Award and the national championship, and set a playoff championship game record with 221 yards against Clemson.",
+   "source": "https://en.wikipedia.org/wiki/Ja'Marr_Chase",
+   "date": "date not shown",
+   "confidence": "from Wikipedia"
+  },
+  {
+   "fact": "He opted out of the 2020 college season to prepare for the NFL, reportedly on the advice of agents so he would not risk injury.",
+   "source": "https://en.wikipedia.org/wiki/Ja'Marr_Chase",
+   "date": "date not shown",
+   "confidence": "from Wikipedia"
+  },
+  {
+   "fact": "Cincinnati drafted him fifth overall in 2021. He was NFL Offensive Rookie of the Year, a second-team All-Pro, played in Super Bowl LVI, and in 2024 won the receiving triple crown (most receptions, yards and touchdowns).",
+   "source": "https://en.wikipedia.org/wiki/Ja'Marr_Chase",
+   "date": "date not shown",
+   "confidence": "from Wikipedia"
+  },
+  {
+   "fact": "Listed at 6 ft 0 in, 205 lb, age 26, jersey 1; combine 40-yard dash 4.34 and 41 inch vertical; Madden week 8 overall rating 99.",
+   "source": "research/data/GOB-WR1.json (bio)",
+   "date": "2026-11-15",
+   "confidence": "one source"
+  },
+  {
+   "fact": "Contract: the Bengals signed him to a four-year extension reported at $161 million (about $112 million guaranteed per Jordan Schultz), running through 2029, the largest deal for a non-quarterback at the time. The data file's contract record only shows his 2021 rookie deal, so this comes from the news report.",
+   "source": "https://www.nfl.com/news/bengals-agree-to-terms-with-wrs-ja-marr-chase-tee-higgins-on-four-year-contract-extensions",
+   "date": "date not shown",
+   "confidence": "from search result summaries (NFL.com, SI, Newsweek, WCPO headlines); exact signing date not shown"
+  }
+ ],
+ "family": [
+  {
+   "fact": "No public reporting on his parents, siblings, partner or children was found in the searches or in the Wikipedia sections stored in the data file (only Intro, Early life and College career are stored): not found.",
+   "source": "not found",
+   "date": "date not shown",
+   "confidence": "not found"
+  }
+ ],
+ "recent_events": [
+  {
+   "fact": "In Week 9 Cincinnati beat Atlanta 34-17 in Madrid on November 8. Chase caught 10 of 12 targets for 155 yards and a touchdown (a 47-yard catch from Joe Burrow on the first drive), a season high in yards and his fourth straight game with a touchdown.",
+   "source": "research/data/GOB-WR1.json (status.espn, ESPN recap)",
+   "date": "2026-11-08",
+   "confidence": "from the data file; also 21.5 fantasy points in the game log"
+  },
+  {
+   "fact": "Over those four straight touchdown games he has 32 catches for 435 yards and 4 touchdowns on 45 targets.",
+   "source": "research/data/GOB-WR1.json (status.espn, ESPN recap)",
+   "date": "2026-11-08",
+   "confidence": "one source"
+  },
+  {
+   "fact": "2026 season so far: 8 games, 73 targets, 53 catches, 647 yards, 7 touchdowns, 106.7 fantasy points, 13.3 a game under league scoring; he plays about 84 to 100 percent of snaps except Week 4 (20 percent, 15 snaps) when he left the Jacksonville game with a concussion.",
+   "source": "research/data/GOB-WR1.json (season_2026, log)",
+   "date": "2026-11-15",
+   "confidence": "from the data file; the concussion link comes from the WLWT headline below"
+  },
+  {
+   "fact": "He was diagnosed with a concussion during the Bengals' loss to Jacksonville (Week 4) and was officially listed questionable ahead of Week 5; the data file shows he then played Week 5 at Miami (6 catches, 77 yards, 1 touchdown).",
+   "source": "https://www.wlwt.com/article/jamarr-chase-diagnosed-with-a-concussion/74019559",
+   "date": "date not shown",
+   "confidence": "headline plus NBC Sports item dated 2026-10-09 and the data file injury log"
+  },
+  {
+   "fact": "Around Week 8 he had an ankle issue; Ian Rapoport reported it was not considered a major deal and Chase was a full practice participant on Thursday. He played Week 8 against Tennessee with 11 catches, 141 yards and a touchdown.",
+   "source": "https://sports.yahoo.com/articles/ja-marr-chase-injury-latest-144803960.html",
+   "date": "date not shown",
+   "confidence": "from a search summary plus the data file game log"
+  },
+  {
+   "fact": "This week Chase said the 2026 Bengals are better than the 2021 Super Bowl team and 'by far' the best team he has been on, and he ranked the Chiefs ahead of the Steelers as his top rival ('It's up there. I wouldn't put it number one').",
+   "source": "research/data/GOB-WR1.json (news, Yahoo Sports and RG.org headlines)",
+   "date": "2026-11-12",
+   "confidence": "headlines in the data file news list (Yahoo Sports, RG.org, Sports Illustrated); article text not read"
+  }
+ ],
+ "quotes": [
+  {
+   "fact": "Chase on the Steelers rivalry: 'It's up there. I wouldn't put it number one.' Steelers cornerback Jalen Ramsey, asked on a podcast whether Chase is currently the best receiver, answered 'No' and picked Jaxon Smith-Njigba; on this week's game Ramsey said 'it's a challenge.'",
+   "source": "https://steelersnow.com/steelers-cb-jalen-ramsey-has-clear-message-for-jamarr-chase/",
+   "date": "date not shown",
+   "confidence": "from a search result summary of Steelers Now; not read in full"
+  }
+ ],
+ "team_context": [
+  {
+   "fact": "Cincinnati is 6-2, has scored at least 31 points in four straight games, and Chase has said this team is his best.",
+   "source": "https://lastwordonsports.com/nfl/2026/11/13/steelers-vs-bengals-week-10/",
+   "date": "2026-11-13",
+   "confidence": "from a search result summary"
+  },
+  {
+   "fact": "Joe Burrow has thrown every pass to Chase this season (29 to 54 attempts a game). Tee Higgins has 67 targets, 48 catches and 758 yards against Chase's 73, 53 and 647; Chase Brown has 45 targets, Mike Gesicki 26 and Dohnte Meyers 26.",
+   "source": "research/data/GOB-WR1.json (teammates_2026)",
+   "date": "2026-11-15",
+   "confidence": "from the data file"
+  },
+  {
+   "fact": "Chase's career touchdown receptions total 61, two shy of Carl Pickens for third on the Bengals' all-time list. One preview calls Higgins a player having a career year.",
+   "source": "https://lastwordonsports.com/nfl/2026/11/13/steelers-vs-bengals-week-10/",
+   "date": "2026-11-13",
+   "confidence": "from a search result summary; the data file shows 61 regular season touchdowns through 2025 and 7 more in 2026 for a larger total, so the preview figure may be out of date"
+  },
+  {
+   "fact": "Coaching staff names for the Bengals for 2026 were not confirmed from a current source in these searches: not found.",
+   "source": "not found",
+   "date": "date not shown",
+   "confidence": "not found"
+  }
+ ],
+ "next_opponent": [
+  {
+   "fact": "Cincinnati hosts Pittsburgh on Sunday, November 15 at 8:20 pm ET (Sunday Night Football, NBC) at Paycor Stadium, outdoors on FieldTurf; the data file shows 39 F, partly cloudy, wind not found.",
+   "source": "research/data/GOB-WR1.json (next_games)",
+   "date": "2026-11-15",
+   "confidence": "from the data file"
+  },
+  {
+   "fact": "Both teams are 6-2 and tied for first in the AFC North. Cincinnati is a 3.5 point favorite with a total of 49.5 (implied about 26.5 points); Pittsburgh won the first meeting 30-27 in Week 3 and comes off a bye.",
+   "source": "https://www.covers.com/nfl/steelers-vs-bengals-prediction-picks-nov-15-2026",
+   "date": "2026-11-15",
+   "confidence": "from search result summary plus the data file (line and score)"
+  },
+  {
+   "fact": "Chase against Pittsburgh recently: 6-86-1 (2024-12-01), 10-96-1 (2025-01-04), 16-161-1 (2025-10-16), 3-30-0 (2025-11-16), 9-98-1 (2026-09-27, 15.8 points).",
+   "source": "research/data/GOB-WR1.json (log)",
+   "date": "2026-11-15",
+   "confidence": "from the data file"
+  },
+  {
+   "fact": "History with Jalen Ramsey: in the November 2025 meeting Ramsey was ejected after a punch, Chase was suspended one game for spitting on him and later apologized without naming Ramsey. Pittsburgh defensive coordinator Patrick Graham leans on zone coverage against Burrow's offense, and a previewer expects two Steelers defensive backs to be back from injury (not named).",
+   "source": "https://www.nfl.com/news/bengals-wr-ja-marr-chase-issues-apology-for-spitting-on-steelers-db-jalen-ramsey",
+   "date": "date not shown",
+   "confidence": "from search result summaries (NFL.com, Steelers Depot, Yahoo Sports); not read in full"
+  }
+ ],
+ "style": [
+  {
+   "fact": "In 2026 his targets are 59 short (7.0 yards a target, 2 touchdowns) and 14 deep (16.6 yards, 5 touchdowns, 57 percent catch rate); right side is 36 targets for 5 touchdowns. His average depth of target is 10.2 yards and he has 2 drops.",
+   "source": "research/data/GOB-WR1.json (plays_2026, season_2026 tracking and advanced)",
+   "date": "2026-11-15",
+   "confidence": "from the data file"
+  },
+  {
+   "fact": "Madden's week 8 abilities list Double Me, Mid In Elite, Runoff Elite, Mid Out Elite and Acrobat, with catching 98, deep route running 98 and awareness 99.",
+   "source": "research/data/GOB-WR1.json (bio.madden)",
+   "date": "2026-11-15",
+   "confidence": "one source"
+  },
+  {
+   "fact": "Chase has said he loves late games ahead of the Steelers matchup (Cincinnati Enquirer headline); details not read.",
+   "source": "research/data/GOB-WR1.json (news, Cincinnati Enquirer headline)",
+   "date": "2026-11-13",
+   "confidence": "headline only in the data file news list"
+  }
+ ],
+ "availability": {
+  "status": "Active, no injury designation found",
+  "detail": "The data file shows Sleeper status Active with no injury designation and ESPN status Active. A search found no Week 10 designation (page checked November 11, so it may predate the final report). The final Friday injury report and the official inactive list were not found. His 2026 reports in the data file: knee (Week 1, did not practice, no game status), concussion (Week 5, questionable), and a rest day (Week 8).",
+  "expected_return": "Not applicable",
+  "source": "https://fantasyfootballcalculator.com/players/ja'marr-chase/injury",
+  "date": "2026-11-11"
+ },
+ "outlook_next_game": {
+  "lean": "plays and produces; expected around 13 to 17 fantasy points with a real chance of 20 plus",
+  "confidence": "medium",
+  "reasons": [
+    "He has no injury designation found and played about 84 to 100 percent of snaps in every game except the concussion game.",
+    "Cincinnati is a 3.5 point home favorite with an implied total near 26.5, in a game previewers expect to be high scoring.",
+    "His 2026 average is 13.3 points, with 7 touchdowns in 8 games and a touchdown in each of the last four, and he scored 15.8 in the first meeting with Pittsburgh.",
+    "Risks are Pittsburgh's zone coverage and Ramsey, Higgins taking targets (67 to Chase's 73), and a lower-scoring game; he had 3.0 points against Pittsburgh in November 2025 and 8.0 points a game at home this year versus 16.5 away."
+  ]
+ },
+ "scouts_read": "Chase shows no injury designation in the sources I could reach, so I expect him to play a full game, though the final Friday report was not found and I would check it before kickoff. He has caught a touchdown in four straight games and is coming off a 155 yard day, but his average of 13.3 points is held down by modest home games and the Jacksonville game he left early. Pittsburgh won the first meeting 30-27 and uses zone coverage, and Higgins is nearly level with him in targets, so his volume depends on how much Burrow throws. A home game with a 49.5 point total and a three point spread should keep Cincinnati's passing game busy. I would project a solid game in the mid teens with a touchdown the most likely route to a big day.",
+ "open_questions": [
+  "Final Week 10 injury report and the official inactive list (not found; the only status found was a page last checked November 11).",
+  "Wind and final game time weather (not found; the data file shows 39 F, partly cloudy).",
+  "Family and personal background beyond Wikipedia's early life section (not found).",
+  "Exact date and terms of his four-year contract extension (the date was not shown in the search results).",
+  "Which Steelers defensive backs return and whether Ramsey covers him (not found)."
+ ],
+ "searches": [
+  "Ja'Marr Chase Steelers Sunday Night Football Week 10 injury status Bengals",
+  "Ja'Marr Chase family parents mother Harvey Louisiana Bengals contract extension (family: nothing found)",
+  "Bengals vs Steelers Week 10 2026 preview Jalen Ramsey Chase Burrow Higgins",
+  "Jalen Ramsey message for Ja'Marr Chase Steelers Bengals November 2026",
+  "Ja'Marr Chase Bengals Steelers Sunday Night Football injury report Friday Higgins Burrow status (no Friday report found)",
+  "No page fetches were attempted; Wikipedia text came from the sections stored in research/data/GOB-WR1.json"
+ ]
+}
