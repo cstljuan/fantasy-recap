@@ -228,3 +228,11 @@ After tonight's changes (Noah's stadium, one tab bar, soccer in the app), walk t
 ## Task B42: phone speed
 
 Load the app in headless Chromium with a phone profile and network throttled to fast 3G. Measure time to the first screen and to a playable game, list what blocks it (scripts, voice index, images, fonts), and fix what is in your files (defer or lazy-load screens not on the first view). ASK the owner for anything else, with the numbers. Short report in your DONE.
+
+## Task B40 (replaces the earlier B40 text): two honest matchups
+
+The demo shows both stories. Featured matchup: the real week 9 game Ricky is making current in D54 (every play really happened). Second matchup: a game built from stat lines where Jev called the plays (`data/games/week11-tur-owl.json` today, `source: "jev"` once Juan rebuilds it with Jev; `"equal-weights"` until then). Each card on the league home opens its own game with its own lineups and recap, and says what it is from the game file's `source` and `source_note` (`docs/CONTRACT.md` section 1): "Real plays" or "Jev called the plays". Coordinate with ricky for which files. Check both to the final in headless Chromium.
+
+## Task B43: no "made-up" on a real game
+
+Today the footer, the header tag ("Sample games"), the canvas score box tag ("SAMPLE GAME, MADE-UP STATS") and the final box all say the stats are made up. For a game whose `source` is `real-plays` that is false. Make all of them read `source` and `source_note` from the game file (`FF_GAME_FILE` from `data/games/current.js`, or the file a card opened). The canvas text is in `js/main.js`, which is in your lane tonight. Keep "made-up" wording only for `sample` and stat-line games, and say "plays chosen by Jev from real stat lines" for `jev`.

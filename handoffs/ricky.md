@@ -271,3 +271,7 @@ Juan's call: the demo must show real data. Today the featured matchup plays week
 ## Task D55: soccer from a real match
 
 For this task you may edit `soccer/data/` and run `soccer/engine/make-match.js`. Build the soccer game from `data/statlines/soccer-real-2026-11-08.json` (convert to the match maker's lines format in `soccer/data/` if needed), make it the match the soccer page plays (`soccer/data/current.js`), and check that it replays to the real lines (`node soccer/check.js`, a full match in headless Chromium). Say what is real and what the maker invented in `pitch/REAL-AND-SIMULATED.md`.
+
+## Task D56: every game file says what it is
+
+`docs/CONTRACT.md` section 1 now has an optional `source` field (`real-plays`, `jev`, `equal-weights`, `sample`) and `source_note`. Add both to every football game file in `data/games/` and every soccer game file in `soccer/data/` (the week 9 games are `real-plays`; week 11 and Turtles against Owls are `equal-weights` until Juan rebuilds them with Jev; the old sample is `sample`). Make the game makers write them for new files where they are in your lane (`engine/make-game.js` tonight). Add a check to `data/checks/` that fails when a game file has no `source` or a wrong one. Peyton's B40 and B43 read these fields.
