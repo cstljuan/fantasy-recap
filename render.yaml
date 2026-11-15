@@ -13,6 +13,6 @@ services:
       - key: DATABASE_URL
         sync: false
       - key: ALLOWED_ORIGINS
-        value: https://cstljuan.github.io
+        value: https://cstljuan.github.io,https://fantasyrecap.club,https://www.fantasyrecap.club
       - key: NODE_VERSION
         value: "22"
