@@ -63,7 +63,8 @@
         team: ti, role: slot, keeper: slot === 'GK', tone: (n * 7) % 3, hair: (n * 5) % Spr.HAIRS, phase: n * 0.37,
         jx: ((n * 37) % 7) / 2 - 1.5, jy: ((n * 53) % 7) / 2 - 1.5,
         x: WID / 2, y: LEN / 2, path: null, state: '', view: 'f', moving: false, num: [1, 3, 4, 5, 2, 8, 6, 10, 11, 9, 7][i],
-        label: own ? { name: Rules.lastName(T.roster[slot]) } : null
+        // Every player has a name; it shows when the player is in a fantasy lineup or has the ball.
+        label: T.roster[slot] ? { name: Rules.lastName(T.roster[slot]) } : null, fantasy: own
       };
       s[slot] = a; list.push(a); all.push(a);
     });
@@ -376,7 +377,23 @@
   }
 
   // One plate per owned player: a team-colored edge and the surname.
-  function drawLabel(a, isCarrier) {
+
+  // Names: as many as fit. Labels are placed in order of priority (whoever has the ball, then the
+  // players in the two fantasy lineups, then everyone else) and a label that would overlap one
+  // already placed is left out for this frame.
+  function labelOrder(list, holder) {
+    function rank(a) { return a === holder ? 0 : a.fantasy ? 1 : 2; }
+    return list.slice().sort(function (p, r) { return rank(p) - rank(r) || p.y - r.y; });
+  }
+  function fits(taken, x, y, w, h) {
+    for (var i = 0; i < taken.length; i++) {
+      var t = taken[i];
+      if (x < t.x + t.w + 2 && x + w + 2 > t.x && y < t.y + t.h + 1 && y + h + 1 > t.y) return false;
+    }
+    taken.push({ x: x, y: y, w: w, h: h });
+    return true;
+  }
+  function drawLabel(a, isCarrier, hasBall, taken) {
     var L = a.label, px = sx(a.x), py = sy(a.y);
     if (py < -40 || py > H + 40 || px < -60 || px > W + 60) return;
     var top = py - 24;
@@ -385,8 +402,8 @@
       g.fillStyle = INK; g.fillRect(px + 6, top - 4, 10, 14);
       g.fillStyle = c.color; g.fillRect(px + 8, top - 2, 6, 10);
     });
-    if (L) {
-      var name = L.name.toUpperCase(), tw = Font.width(name, 1), w = tw + 9, x = Math.round(px - w / 2), y = py + 5;
+    var name = L ? L.name.toUpperCase() : '', w = L ? Font.width(name, 1) + 9 : 0, x = Math.round(px - w / 2), y = py + 5;
+    if (L && fits(taken, x, y, w, 11)) {
       g.fillStyle = isCarrier ? AMBER : 'rgba(11,13,14,0.86)';
       g.fillRect(x, y, w, 11);
       g.fillStyle = isCarrier ? INK : TEAMS[a.team].colors.trim;
@@ -582,7 +599,8 @@
     var list = movers.slice().sort(function (p, r) { return p.y - r.y; });
     var i;
     for (i = 0; i < list.length; i++) drawPlayer(list[i], list[i] === carrier);
-    for (i = 0; i < list.length; i++) drawLabel(list[i], list[i] === carrier);
+    var taken = [], order = labelOrder(list, b.holder);
+    for (i = 0; i < order.length; i++) drawLabel(order[i], order[i] === carrier, order[i] === b.holder, taken);
     drawBall(b);
     if (mode !== 'replay') drawFloaters();
     if (clock - disp.flash < 0.22) { g.fillStyle = 'rgba(255,255,255,' + (0.5 * (1 - (clock - disp.flash) / 0.22)).toFixed(3) + ')'; g.fillRect(0, 0, W, H); }

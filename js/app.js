@@ -1517,7 +1517,7 @@
   // the background at top speed until that play is next, then open the view at the chosen speed.
   var seeking = 0;
   function watchPlay(index, btn) {
-    if (G.seek) { try { G.seek(index); location.hash = 'game'; return; } catch (err) { /* fall back below */ } }
+    if (G.seek) { try { G.seek(index); openGame(); return; } catch (err) { /* fall back below */ } }
     if (seeking) return;
     var ff = window.__ff, speed0 = ff ? ff.speed : 1;
     seeking = index;
@@ -1528,7 +1528,7 @@
       seeking = 0;
       if (ff) ff.speed = speed0;
       if (G.setBackground) G.setBackground(false);
-      location.hash = 'game';
+      openGame();
       return true;
     }
     if (arrive()) return;
@@ -1999,7 +1999,20 @@
     return !!(a && a !== document.body && $('closeGame').parentNode.contains(a));
   }
 
-  function leaveGame(to) { location.replace('#' + (to || tab)); }
+  // The game view opens and closes without touching the address (Noah): a page shown inside
+  // another app (the claude.ai viewer on a phone) can reload or reroute when its #hash changes,
+  // and a fresh page always sends #game back to the matchup, which closed the game at once.
+  // A #game link still opens it (route below), as before.
+  function openGame() {
+    if (G.mode === 'ready') return;
+    if (location.hash === '#game') { route(); return; }
+    showGame(true);
+  }
+  function leaveGame(to) {
+    to = to || tab;
+    if (location.hash === '#' + to) { if (inGame) showGame(false); route(); }
+    else location.replace('#' + to);
+  }
 
   function revealClose() {
     setControls(true);
@@ -2241,8 +2254,8 @@
     var el = ev.target.closest ? ev.target.closest('[data-act]') : null;
     if (!el) return;
     var act = el.getAttribute('data-act');
-    if (act === 'watch') { G.start(); location.hash = 'game'; }
-    else if (act === 'again') { G.restart(); location.hash = 'game'; }
+    if (act === 'watch') { G.start(); openGame(); }
+    else if (act === 'again') { G.restart(); openGame(); }
     else if (act === 'filter') { filter = el.getAttribute('data-f'); render(false); }
     else if (act === 'optin') { setOptin(el.getAttribute('data-v') === 'in' ? 'in' : 'out'); render(false); }
     else if (act === 'share') { shareResult(el); }
