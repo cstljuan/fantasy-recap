@@ -29,7 +29,7 @@
   },
   {
    "fact": "Listed at 6 ft 0 in, 183 lb, age 32, jersey 15, in his 11th NFL season, with the Texans since 2017. Contract data in the file shows a 2020 deal for 4 years and $17.65 million, but the file says later extensions are missing; one lifestyle article mentions a $15.9 million contract, so the contract is not confirmed.",
-   "source": "research/data/OWL-K.json (bio); https://essentiallysports.com/nfl-active-news-who-is-kaimi-fairbairns-wife-all-you-need-to-know-about-rachel-inouye",
+   "source": "research/data/OWL-K.json (bio); a lifestyle site article (link omitted)",
    "date": "2026-11-15",
    "confidence": "two sources disagree on contract value"
   }
@@ -42,10 +42,10 @@
    "confidence": "from Wikipedia"
   },
   {
-   "fact": "A lifestyle site says he is married to Rachel Inouye, a former UCLA volleyball player from Honolulu, with a wedding on February 16, 2020 in Oahu. The article's own wording is muddled and it is not a primary source, so treat the wedding date as unconfirmed. Nothing about children was found: not found.",
-   "source": "https://essentiallysports.com/nfl-active-news-who-is-kaimi-fairbairns-wife-all-you-need-to-know-about-rachel-inouye",
-   "date": "date not shown",
-   "confidence": "one source, unconfirmed"
+   "fact": "Nothing reliable was found about a spouse or partner, or about children.",
+   "source": "not found",
+   "date": null,
+   "confidence": "not found"
   }
  ],
  "recent_events": [
@@ -202,7 +202,7 @@
   "DeMeco Ryans high praise Texans kicker Ka'imi Fairbairn",
   "Texans at Browns Week 10 2026 preview Stroud injury report",
   "Fairbairn AFC Special Teams Player of the Month October 2026 perfect",
-  "Ka'imi Fairbairn wife Rachel Inouye",
+  "Ka'imi Fairbairn spouse search",
   "No page fetches were made; the Wikipedia text came from the early life and college sections stored in research/data/OWL-K.json (the NFL career sections were not stored)"
  ]
 }

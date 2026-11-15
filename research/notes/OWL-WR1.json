@@ -60,7 +60,7 @@
    "confidence": "headline only"
   },
   {
-   "fact": "His mother Camilla has been quoted in Pro Football Network pieces joking about Browns fans (Sept 2025) and commenting on the Bengals quarterback situation (Oct 2025); the articles were not read.",
+   "fact": "A parent was quoted in Pro Football Network pieces joking about Browns fans (Sept 2025) and commenting on the Bengals quarterback situation (Oct 2025); the articles were not read and no reliable name was found.",
    "source": "research/data/OWL-WR1.json (news.family headlines, Pro Football Network)",
    "date": "2025-10-06",
    "confidence": "headline only"
@@ -255,7 +255,7 @@
   "Wind and final game-time weather (not found).",
   "Offensive coordinator, Steelers defensive injuries and any contract details for Higgins (not found).",
   "Quotes from Higgins or Zac Taylor this week (headlines only; articles not read).",
-  "Family details beyond his mother being quoted (not found)."
+  "Family details beyond a parent being quoted (not found)."
  ],
  "searches": [
   "Bengals Steelers Week 10 injury report Tee Higgins Ja'Marr Chase Joe Burrow (returned only 2023 to 2025 reports)",
