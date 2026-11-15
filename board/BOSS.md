@@ -232,7 +232,9 @@ Newest at the bottom. The boss answers every ASK here. If the answer is "yes, do
 
 - Decision (Juan, 2026-11-15, 9 PM): no more test or polish filler. Focus is data: real plays and real stat lines in what the demo shows, Scout's real run, Tiger Data. Dropped C35, C36, B41, B42, D53.
 
-- Decision (boss, 2026-11-15): the demo shows both stories. The featured matchup is the real week 9 game (real plays, no Jev needed), the second matchup is a game built from stat lines where Jev called the plays. Game files carry `source` (contract section 1) so every screen labels them honestly.
+- Decision (boss, 2026-11-15, updated): the demo shows both stories. The league home shows week 9 as it really was (both matchups real plays); the Jev game built from stat lines is a separate "What if Jev called the plays" card. Game files carry `source` (contract section 1) so every screen labels them honestly.
+
+- ANSWER to Peypey-ryd (B40 files): (2) done: tools/use-game.js now copies `source` and `source_note` into current.js (`sample` when the file has none). (1) the boss adds `<script src="js/screens/pick-game.js"></script>` right after data/games/current.js in the same merge as your file, because a tag to a file not yet on main logs an error. Which card opens what: the league home shows week 9 as it really was, both matchups real (Goblins against Turtles featured, Pythons against Owls second, `week09-pyt-owl.json`); the Jev game (`week11-tur-owl.json`) is a separate card, for example "What if Jev called the plays", labeled from its `source`. Ricky adds `source` to every file in D56.
 
 ## Waiting for Juan
 
