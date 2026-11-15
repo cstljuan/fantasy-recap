@@ -121,7 +121,7 @@ Run `sh tools/next.sh` to get your next task with its full description. A row is
 | S5 | S | cstljuan | The soccer app: lineups, feed, recap, hidden scores | merged |
 | S7 | S | cstljuan | `SC_GAME.seek(index)` and `SC_GAME.hold(on)` with the same meaning as `FF_GAME`, for Peyton's jump bar and rule cards | moved to C32 |
 | S6 | S | cstljuan | Soccer voice and captions, with Noah | done: Noah C30 and the boss wiring |
-| G1 | G | cstljuan | The Figma file with its pages set up (structure only for now) | open |
+| G1 | G | cstljuan | The Figma file with its pages set up (structure only for now) | merged |
 | G2 | G | cstljuan | Brand guide, wordmark, mascot | open |
 | G3 | G | cstljuan | Every screen at phone and laptop size | open |
 | G4 | G | cstljuan | Motion page and motion specs | open |
@@ -163,7 +163,7 @@ Run `sh tools/next.sh` to get your next task with its full description. A row is
 | D51 | D | Rickstar-App | Devpost text, final draft: one honest paragraph per prize track we enter (Tiger Data, Gemini, LangChain deep agents), the what-is-real list and the setup, ready for Juan to paste | merged |
 | D54 | D | Rickstar-App | TOP PRIORITY. Real data in the demo: the featured matchup plays a real week (the week 9 real-play games), with lineups, points, league and recap from real stat lines, with Peyton and the boss | open |
 | D55 | D | Rickstar-App | Soccer from a real match: build the soccer game from `data/statlines/soccer-real-2026-11-08.json` with the soccer match maker, so soccer shows real numbers too | open |
-| D52 | D | Rickstar-App | Architecture for the Devpost: `pitch/ARCHITECTURE.md` with every part, what talks to what and what is real, as the source for the design session's architecture picture (G5) | open |
+| D52 | D | Rickstar-App | Architecture for the Devpost: `pitch/ARCHITECTURE.md` with every part, what talks to what and what is real, as the source for the design session's architecture picture (G5) | merged |
 | D53 | D | Rickstar-App | Every number in the Devpost text proven: a check that reads `pitch/DEVPOST-FINAL.md` and compares each count and score with the files on main | dropped: Juan, focus on data |
 
 ## Answers to ASK posts
@@ -296,6 +296,7 @@ The boss reviews every DONE before it reaches main: the authors check, the lane 
 - Merged after review: D46, D48. All checks and the three full-game runs passed
 - Merged after review: D47, D49. All checks and the three full-game runs passed
 - Merged after review: D50, D51. All checks and the three full-game runs passed
+- Merged after review: D52, G1. All checks and the three full-game runs passed
 - D1 real rosters and profile files, D2 database schema (Ricky) are on main; `data/games/sample-football.json` now has the real rosters
 
 ## Decisions
