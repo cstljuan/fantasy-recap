@@ -1,0 +1,250 @@
+{
+ "key": "GOB-TE",
+ "name": "Trey McBride",
+ "researched": "2026-11-15",
+ "background": [
+  {
+   "fact": "Born November 22, 1999; grew up in Fort Morgan, Colorado, and attended Fort Morgan High School, where he played baseball, basketball and football.",
+   "source": "https://en.wikipedia.org/wiki/Trey_McBride",
+   "date": null,
+   "confidence": "from Wikipedia"
+  },
+  {
+   "fact": "As a high school junior he had 32 catches for 751 yards and 11 touchdowns (Class 3A All-Colorado); he holds the school's career records for basketball points, baseball home runs and runs batted in.",
+   "source": "https://en.wikipedia.org/wiki/Trey_McBride",
+   "date": null,
+   "confidence": "from Wikipedia"
+  },
+  {
+   "fact": "He was a three-star recruit who chose Colorado State; in 2021 he won the John Mackey Award as the nation's best tight end and was a unanimous All-American, with 90 catches for 1,121 yards.",
+   "source": "https://en.wikipedia.org/wiki/Trey_McBride",
+   "date": null,
+   "confidence": "from Wikipedia"
+  },
+  {
+   "fact": "Arizona drafted him in the second round (55th overall) in 2022; listed at 6 ft 4 in, 246 lb, age 26, fifth NFL season, jersey 85.",
+   "source": "research/data/GOB-TE.json (bio)",
+   "date": "2026-11-15",
+   "confidence": "from the data file, matches Wikipedia on the draft"
+  },
+  {
+   "fact": "He set the NFL single-season record for receptions by a tight end with 126 in 2025, passing Zach Ertz's 116 from 2018.",
+   "source": "https://www.azcardinals.com/team/players-roster/trey-mcbride/",
+   "date": null,
+   "confidence": "one source (team site, via search result; date not shown); the 2025 total of 126 also matches the data file"
+  }
+ ],
+ "family": [
+  {
+   "fact": "His parents are Kate and Jen McBride, a same-sex couple, and he is reported as the first NFL player whose parents are a same-sex couple.",
+   "source": "https://en.wikipedia.org/wiki/Trey_McBride",
+   "date": null,
+   "confidence": "from Wikipedia"
+  },
+  {
+   "fact": "He has two older brothers, a twin brother and a younger sister; older brother Toby played defensive end at Colorado State.",
+   "source": "https://en.wikipedia.org/wiki/Trey_McBride",
+   "date": null,
+   "confidence": "from Wikipedia"
+  },
+  {
+   "fact": "Nothing about a spouse, partner or children was found in the sources reached: not found.",
+   "source": "not found",
+   "date": null,
+   "confidence": "not found"
+  }
+ ],
+ "recent_events": [
+  {
+   "fact": "Arizona named McBride a team captain, the first captain role of his career, for the second half of the season. Players voted on five captains before the season and he narrowly missed; a spot opened after Jacoby Brissett was traded to Baltimore. Coach Mike LaFleur announced it.",
+   "source": "https://arizonasports.com/nfl/arizona-cardinals/trey-mcbride-newest-captain",
+   "date": "2026-11-13",
+   "confidence": "confirmed by three outlets (Arizona Sports, Yahoo Sports and Sports Illustrated headlines are in the data file news list dated Nov 13 and 14)"
+  },
+  {
+   "fact": "The Broncos checked in on McBride before the trade deadline and Arizona refused; Schefter and Rapoport reported Arizona has zero intention of trading him. The deadline (Nov 10) has passed.",
+   "source": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-broncos-are-seeking-a-tight-end-trade-cardinals-rebuffed-request-for-trey-mcbride",
+   "date": "2026-11-07",
+   "confidence": "confirmed by several outlets (NBC Sports, Yahoo Sports, Mile High Report)"
+  },
+  {
+   "fact": "Quarterback change: Jacoby Brissett threw 80 of his 94 targets; Gardner Minshew took over in Week 8 and threw him 14, and Minshew is now out with a season-ending injury, so rookie Carson Beck makes his first NFL start Sunday.",
+   "source": "https://www.cbssports.com/nfl/news/cardinals-starting-qb-carson-beck-2026/",
+   "date": "2026-11-15",
+   "confidence": "CBS headline via search result plus the data file (plays_2026 passers)"
+  },
+  {
+   "fact": "Fantasy outlets say Michael Wilson and Kendrick Bourne are out for the season and Marvin Harrison Jr. has been traded, leaving McBride as the main pass catcher; the injury and trade details come from a search summary, not a page I read.",
+   "source": "https://sports.yahoo.com/articles/cardinals-rams-week-10-preview-224221029.html",
+   "date": "2026-11-15",
+   "confidence": "one source, summary only; the data file shows Wilson 88 targets and Bourne 38 this year"
+  },
+  {
+   "fact": "A Seahawks linebacker, Ernest Jones, received the heaviest NFL fine of Week 9 for a hit on McBride (headline only, details not read).",
+   "source": "https://www.fieldgulls.com/",
+   "date": "2026-11-14",
+   "confidence": "headline only; the data file news list gives the title, link not shown"
+  },
+  {
+   "fact": "In his 2026 game log his Week 9 game at Seattle was 7 catches on 8 targets for 54 yards and no touchdown (5.4 points), on 83 percent of snaps, the lowest snap share of the year, and Arizona lost 17-3.",
+   "source": "research/data/GOB-TE.json (log)",
+   "date": "2026-11-15",
+   "confidence": "from the data file"
+  }
+ ],
+ "quotes": [
+  {
+   "fact": "Coach Mike LaFleur described McBride as a leader who is true to himself and said he earned the captaincy (paraphrase from a search summary, no direct quote read).",
+   "source": "https://arizonasports.com/nfl/arizona-cardinals/trey-mcbride-newest-captain",
+   "date": "2026-11-13",
+   "confidence": "one source, paraphrase"
+  },
+  {
+   "fact": "No direct quote from McBride this week was found: not found.",
+   "source": "not found",
+   "date": null,
+   "confidence": "not found"
+  }
+ ],
+ "team_context": [
+  {
+   "fact": "Arizona is 3-6, scoring 19.8 points and allowing 28.3 a game.",
+   "source": "research/data/GOB-TE.json (season_2026.team)",
+   "date": "2026-11-15",
+   "confidence": "from the data file"
+  },
+  {
+   "fact": "McBride has 94 targets (27.5 percent share), 73 catches, 598 yards and 5 touchdowns in 9 games, 9.98 fantasy points a game under league scoring, and no fumbles lost. He has not missed a 2026 game and plays 80 to 97 percent of snaps.",
+   "source": "research/data/GOB-TE.json (season_2026, log)",
+   "date": "2026-11-15",
+   "confidence": "from the data file"
+  },
+  {
+   "fact": "His 2026 touches are short and near the goal: 87 of 94 targets short (80 percent catch rate), 20 red zone targets, 5 touchdowns from 2 to 14 yards, only 7 deep targets, and 22.2 percent of intended air yards.",
+   "source": "research/data/GOB-TE.json (plays_2026, season_2026)",
+   "date": "2026-11-15",
+   "confidence": "from the data file"
+  },
+  {
+   "fact": "His 2026 touchdowns came with Brissett (4) and Minshew (1); the Week 9 game with Minshew (30 passes) was 54 yards and no touchdown.",
+   "source": "research/data/GOB-TE.json (plays_2026, teammates_2026)",
+   "date": "2026-11-15",
+   "confidence": "from the data file"
+  },
+  {
+   "fact": "Running backs Tyler Allgeier (89 carries) and Jeremiyah Love (76) lead the ground game; no Cardinals pass catcher other than Michael Wilson has more than 38 targets.",
+   "source": "research/data/GOB-TE.json (teammates_2026)",
+   "date": "2026-11-15",
+   "confidence": "from the data file"
+  },
+  {
+   "fact": "Another Cardinals tight end received a $26.8 million contract extension through 2029, reported as a commitment behind McBride (headline only, name not read).",
+   "source": "https://www.clutchpoints.com/",
+   "date": "2026-11-13",
+   "confidence": "headline only; the data file news list has the titles from ClutchPoints and Athlon Sports"
+  },
+  {
+   "fact": "Madden's week 8 rating is 94 overall with 98 catching, 97 awareness, 90 catch in traffic and 92 injury (durability).",
+   "source": "research/data/GOB-TE.json (bio.madden)",
+   "date": "2026-11-15",
+   "confidence": "one source"
+  },
+  {
+   "fact": "Contract: the data file only shows the 2022 rookie deal (4 years, about $6.3 million); reports say he is under contract through 2029, details of the extension not found.",
+   "source": "research/data/GOB-TE.json (bio.contract)",
+   "date": "2026-11-15",
+   "confidence": "one source, extension terms not found"
+  }
+ ],
+ "next_opponent": [
+  {
+   "fact": "Arizona hosts the Los Angeles Rams on Sunday, November 15, kickoff 21:05 UTC (4:05 pm Eastern), at State Farm Stadium (indoor, grass), on CBS, a division game.",
+   "source": "research/data/GOB-TE.json (next_games)",
+   "date": "2026-11-15",
+   "confidence": "from the data file"
+  },
+  {
+   "fact": "Lines: the data file has the Rams -9.5 with a total of 38.5, which implies about 14.5 points for Arizona; Covers also lists Rams -9.5 with a total of 39.5.",
+   "source": "https://www.covers.com/nfl/rams-vs-cardinals-prediction-picks-nov-15-2026",
+   "date": "2026-11-15",
+   "confidence": "two sources, totals differ by one point"
+  },
+  {
+   "fact": "The Rams defense allows tight ends 5.41 fantasy points a game (0.73 of normal) and 47.4 receiving yards, with 8.3 targets and 0.11 touchdowns a game, a stingy mark against the position.",
+   "source": "research/data/league.json (defense_2026, LA, TE)",
+   "date": "2026-11-15",
+   "confidence": "from the data file"
+  },
+  {
+   "fact": "Earlier this year at the Rams (Week 6, Arizona won 18-16) he had 7 catches on 9 targets for 53 yards, no touchdown (5.3 points). In eight career games against them his best was 12 catches for 123 yards and a touchdown on 2024-12-28.",
+   "source": "research/data/GOB-TE.json (log)",
+   "date": "2026-11-15",
+   "confidence": "from the data file"
+  },
+  {
+   "fact": "Heavy reports that in that Week 6 game he became the first player with 7 or more catches in each of his first 6 games of a season.",
+   "source": "https://heavy.com/sports/nfl/arizona-cardinals/trey-mcbride-nfl-receptions-history-rams/",
+   "date": null,
+   "confidence": "one source, date not shown"
+  },
+  {
+   "fact": "Rams side: Puka Nacua is out, Steve Avila and Terrance Ferguson are ruled out, and cornerback Trent McDuffie (back) and Kam Curl are questionable; Matthew Stafford starts.",
+   "source": "https://therams.com/news/rams-injury-report-week-10-2026-at-cardinals-trent-mcduffie-steve-avila",
+   "date": "2026-11-13",
+   "confidence": "team site headline plus a search summary for Nacua and Stafford"
+  },
+  {
+   "fact": "Predictions: SI picks Rams 16, Cardinals 10, and all 10 NFL Network analysts picked the Rams; Covers' top pick is the under.",
+   "source": "https://www.si.com/nfl/rams/onsi/rams-cardinals-week-10-preview-prediction-matchups-to-watch",
+   "date": "2026-11-15",
+   "confidence": "from search result summaries"
+  }
+ ],
+ "style": [
+  {
+   "fact": "Wikipedia describes the college production as a record-setting pass catcher; his career regular season line is 420 catches for 4,073 yards and 22 touchdowns in 71 games.",
+   "source": "https://en.wikipedia.org/wiki/Trey_McBride and research/data/GOB-TE.json (career)",
+   "date": "2026-11-15",
+   "confidence": "from Wikipedia and the data file"
+  },
+  {
+   "fact": "His tracking numbers show short targets with low separation: 2.6 yards of average separation, 6.1 average intended air yards and 3.0 average yards after catch in 2026, compared with 3.1, 6.9 and 4.7 in 2025.",
+   "source": "research/data/GOB-TE.json (season_2026.tracking)",
+   "date": "2026-11-15",
+   "confidence": "from the data file"
+  }
+ ],
+ "availability": {
+  "status": "Active, expected to play",
+  "detail": "No injury designation in 2026 (Sleeper Active, nothing on ESPN); his only 2026 report line is a Week 2 rest day with full practice. A Statchasers page checked Nov 11 and a fantasy inactives piece list him healthy for the Rams game. An official final inactive list was not seen. Older injuries: concussion and ribs in 2024. The Week 9 Seahawks hit led to a fine for the other player, with no McBride injury reported.",
+  "expected_return": "Not applicable",
+  "source": "https://statchasers.com/nfl/players/trey-mcbride/injury/",
+  "date": "2026-11-11"
+ },
+ "outlook_next_game": {
+  "lean": "plays, heavy target volume, modest yards; expected around 8 to 12 fantasy points",
+  "confidence": "medium",
+  "reasons": [
+   "He is healthy, a team captain and the clear top pass catcher with Wilson, Bourne and others out, so 8 to 13 targets is likely (he has had 8 to 13 every game).",
+   "The Rams defense is strong against tight ends (0.73 of normal points) and the total is only 38.5, with Arizona implied near 14.5 points, so touchdown chances are lower than average.",
+   "A rookie quarterback in his first start may check down more, which helps catch counts but cuts yards, as in Week 9 (54 yards) and the Week 6 Rams game (53 yards).",
+   "Risks are a blowout, a scoring drought, or extra Rams attention; upside is a red zone target, since he had 20 inside the 20."
+  ]
+ },
+ "scouts_read": "McBride is healthy and is the most reliable part of a weakened Arizona offense. With Wilson and Bourne out and a rookie quarterback making his first start, he should be the first read on many throws, and his 8 to 13 targets in every game this year support a floor of five or six catches. The caution is quality: the Rams allow few tight end points, the game total is under 40, and his last two games produced 72 and 54 yards on low separation. I would project a catch heavy game of about 70 yards, with a touchdown chance near one in three given his red zone usage, for a likely 8 to 12 fantasy points.",
+ "open_questions": [
+  "Official inactive list and any Friday injury report for McBride (not found beyond reports that he is healthy).",
+  "Exact facts on the Wilson and Bourne injuries and the Harrison trade (only a search summary was read).",
+  "Name and terms of the other tight end's extension and the terms of McBride's own extension (not found).",
+  "Details of the Ernest Jones hit and fine (headline only).",
+  "Direct quotes from McBride or Mike LaFleur this week (not found)."
+ ],
+ "searches": [
+  "Trey McBride Cardinals Rams Week 10 injury status Ernest Jones hit",
+  "Trey McBride captain Cardinals Broncos trade inquiry Cardinals refused",
+  "Cardinals Rams preview Week 10 2026 McBride Carson Beck Gardner Minshew quarterback",
+  "Arizona Cardinals name Trey McBride captain C patch",
+  "Trey McBride three shots at NFL history against Rams record tight end receptions",
+  "No page fetches were used; Wikipedia text came from the sections stored in the data file"
+ ]
+}
