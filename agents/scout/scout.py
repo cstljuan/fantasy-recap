@@ -23,7 +23,7 @@ sys.path.insert(0, HERE)
 import scout_tools as T  # noqa: E402
 import research as R  # noqa: E402
 
-GOOGLE_DEFAULT = "gemini-2.5-flash"
+GOOGLE_DEFAULT = "gemini-3.5-flash"
 ANTHROPIC_DEFAULT = "claude-sonnet-5-5"
 
 
@@ -48,7 +48,7 @@ def pick_model():
     if os.environ.get("GOOGLE_API_KEY"):
         from langchain_google_genai import ChatGoogleGenerativeAI
         name = name or GOOGLE_DEFAULT
-        return ChatGoogleGenerativeAI(model=name), "google:" + name
+        return ChatGoogleGenerativeAI(model=name, max_retries=8), "google:" + name
     if os.environ.get("ANTHROPIC_API_KEY"):
         from langchain_anthropic import ChatAnthropic
         name = name or ANTHROPIC_DEFAULT
@@ -56,63 +56,94 @@ def pick_model():
     return None, None
 
 
+def safe(f):
+    """A tool that fails (bad JSON from the model, an unknown player, a refused report) answers with the error text, so the
+    model can read it and try again, instead of ending the whole run."""
+    import functools
+
+    @functools.wraps(f)
+    def wrapper(*a, **k):
+        try:
+            return f(*a, **k)
+        except Exception as e:
+            msg = "%s failed: %s: %s" % (f.__name__, type(e).__name__, str(e)[:300])
+            try:
+                T.log_step("tool error: " + msg)
+            except Exception:
+                pass
+            return json.dumps({"error": msg, "hint": "check the arguments and call the tool again"})
+    return wrapper
+
+
 # The functions below are what the agent sees. Their names and docstrings are the tool descriptions.
+@safe
 def find_player(name: str) -> str:
     """Find an NFL player by full name. Returns matches with player_id, position and team. Several may share a name, so check position and status."""
     return T.find_player(name)
 
 
+@safe
 def season_stats(player_id: str) -> str:
     """Season totals for one player id from the public stats source. Returns stat names and numbers plus the source address and date."""
     return T.season_stats(player_id)
 
 
+@safe
 def weekly_stats(player_id: str) -> str:
     """Week by week stats for one player id. Use it to see whether the season totals hide a recent change."""
     return T.weekly_stats(player_id)
 
 
+@safe
 def compute_tendencies(position: str, season_stats_json: str) -> str:
     """Work out 0 to 1 on-field tendencies from the JSON that season_stats returned. position is QB, RB, WR, TE or K. A value is null when the stat is missing."""
     return T.compute_tendencies_tool(position, season_stats_json)
 
 
+@safe
 def write_profile(team: str, slot: str, profile: dict) -> str:
     """Save one player. team is GOB, PYT, TUR or OWL, slot is QB RB WR1 WR2 WR3 TE or K. profile needs name, position, player_id, source (the season_stats source address), tendencies (exactly what compute_tendencies returned), season_stats (the raw stats object) and notes."""
     return T.write_profile(team, slot, profile)
 
 
+@safe
 def log_step(text: str) -> str:
     """Write one line to the research log. Call it before each step to say what you plan to do and why, and after to say what you learned."""
     return T.log_step(text)
 
 
 # Research over the real play-by-play (agents/scout/research.py; data/rosters/plays-2026.json from plays.py).
+@safe
 def research_plan(player: str) -> str:
     """The research plan for one player, as "TEAM.SLOT" (for example GOB.WR1) or full name: the splits that matter for the position and why."""
     return R.research_plan(player)
 
 
+@safe
 def player_plays(player: str, filters: dict = None) -> str:
     """The player's real plays this season from ESPN's play-by-play, filtered. filters (optional): kind, role, week, down, zone (own end, open, red zone, goal line), depth, direction, gap, quarter, limit. Returns counts and the plays with game, quarter, clock and text: use these as evidence."""
     return R.player_plays(player, filters)
 
 
+@safe
 def split(player: str, by: str, role: str = "") -> str:
     """The player's real plays split by down, quarter, zone, depth, direction, gap or week (role optional: passer, target, rusher, kicker). Each row has plays, yards, success rate, touchdowns and example plays to cite."""
     return R.split(player, by, role)
 
 
+@safe
 def team_context(team: str, week: int) -> str:
     """An NFL team's totals in one week (team is the NFL abbreviation like BUF): throws, carries, red zone and third down snaps."""
     return R.team_context(team, week)
 
 
+@safe
 def verify_evidence(player: str, evidence: list) -> str:
     """Check plays you want to cite: each must be one of the player's real plays exactly as player_plays or split returned it. Returns which are real."""
     return R.verify_evidence(player, evidence)
 
 
+@safe
 def write_report(team: str, slot: str, report: dict) -> str:
     """Save the scouting report: {"title", "made_by": "model <name>", "claims": [{"text": one plain sentence, "evidence": [plays exactly as player_plays or split returned them]}]}. A claim without evidence is refused."""
     return R.write_report(team, slot, report)

@@ -218,14 +218,34 @@ def _real(key, e):
     return False
 
 
+def _resolve(key, e):
+    """A cited play as the canonical object {event, week, q, clock, text}, or None. A bare string (models often cite just the play
+    text) is accepted only when its text matches exactly one of the player's real plays; two plays with the same text are ambiguous."""
+    if isinstance(e, str):
+        p = _data()["players"].get(key)
+        t = e.strip()
+        hits = [x for x in (p or {}).get("plays", []) if t and (x.get("text") or "").strip() == t]
+        if len(hits) != 1:
+            return None
+        x = hits[0]
+        return {"event": x["ev"], "week": x["wk"], "q": x["q"], "clock": x["clk"], "text": x["text"]}
+    return e if _real(key, e) else None
+
+
 def verify_evidence(player: str, evidence: list) -> str:
     """Check cited plays against the plays file: each item must be one of the player's real plays (same game, clock
     and text as player_plays or split returned it). Returns which items are real and which are not."""
     key, _ = _player(player)
-    res = [{"item": i, "real": _real(key, e)} for i, e in enumerate(evidence or [])]
+    res = [{"item": i, "real": _resolve(key, e) is not None} for i, e in enumerate(evidence or [])]
     T._log_call("verify_evidence(%s) -> %d of %d real" % (key, sum(1 for r in res if r["real"]), len(res)))
-    return json.dumps({"player": key, "checked": len(res), "real": sum(1 for r in res if r["real"]),
-                       "not_real": [r["item"] for r in res if not r["real"]]})
+    bad = [r["item"] for r in res if not r["real"]]
+    out = {"player": key, "checked": len(res), "real": sum(1 for r in res if r["real"]), "not_real": bad}
+    if bad:
+        shown = json.dumps(evidence[bad[0]])[:200] if isinstance(evidence[bad[0]], (dict, list)) else repr(evidence[bad[0]])[:200]
+        out["why"] = ("cite a play as the object player_plays or split returned (event, week, q, clock, text), or as its exact text if no other "
+                      "play has the same text; the first one rejected was: " + shown)
+        T._log_call("verify_evidence rejected: " + shown)
+    return json.dumps(out)
 
 
 def write_report(team: str, slot: str, report: dict) -> str:
@@ -239,12 +259,16 @@ def write_report(team: str, slot: str, report: dict) -> str:
     if not claims or bad:
         return json.dumps({"written": None, "refused": "every claim needs evidence; missing for: %s" % bad if bad else "no claims"})
     key0 = "%s.%s" % (team, slot)
-    fake = [c.get("text", "")[:60] for c in claims if not all(_real(key0, e) for e in c["evidence"])]
+    fake = [c.get("text", "")[:60] for c in claims if not all(_resolve(key0, e) is not None for e in c["evidence"])]
     if fake:
-        T._log_call("write_report(%s) refused: evidence that is not a real play of the player" % key0)
-        return json.dumps({"written": None, "refused": "evidence must be the player's real plays as the tools returned them; not real in: %s" % fake})
+        first = next((e for c in claims for e in c["evidence"] if _resolve(key0, e) is None), None)
+        shown = (json.dumps(first)[:200] if isinstance(first, (dict, list)) else repr(first)[:200])
+        T._log_call("write_report(%s) refused: evidence that is not a real play of the player; first rejected: %s" % (key0, shown))
+        return json.dumps({"written": None, "refused": "evidence must be the player's real plays as the tools returned them (object with event, clock, text copied exactly); not real in: %s; first rejected: %s" % (fake, shown)})
     d = _data()
     key = "%s.%s" % (team, slot)
+    for c in claims:
+        c["evidence"] = [_resolve(key0, e) for e in c["evidence"]]
     p = d["players"].get(key, {})
     lines = ["# Scouting report: %s" % (report.get("title") or p.get("name", key)), "",
              "%s, %s. Made by %s on %s, from the real play-by-play in `data/rosters/plays-2026.json` (ESPN, %d games). "

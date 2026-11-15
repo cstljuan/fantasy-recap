@@ -14,7 +14,7 @@ os.environ.pop("ANTHROPIC_API_KEY", None)
 play = {"ev": "1", "wk": 1, "q": 1, "clk": "9:00", "dn": 3, "dist": 5, "ytg": 40, "td": False, "nullified": False, "role": "target",
         "kind": "pass", "depth": "short", "dir": "right", "yds": 8, "text": "Q.Back pass short right to T.Receiver for 8 yards."}
 json.dump({"date": "2026-11-14", "sources": {"summary": "https://example.test/summary?event={event}"}, "games": {"1": {"week": 1, "home": "A", "away": "B", "source": "https://example.test/game/1"}},
-           "team_games": {}, "players": {"ZZZ.WR1": {"name": "Test Receiver", "position": "WR", "nfl_team": "A", "games": ["1"], "plays": [play] * 3, "box": {}}}},
+           "team_games": {}, "players": {"ZZZ.WR1": {"name": "Test Receiver", "position": "WR", "nfl_team": "A", "games": ["1"], "plays": [dict(play, clk="9:0%d" % i, text=play["text"][:-1] + " (play %d)." % i) for i in range(3)], "box": {}}}},
           open(pf, "w"))
 sys.path.insert(0, HERE)
 import scout  # noqa: E402
@@ -58,9 +58,28 @@ assert write([])["written"] is None
 assert "needs evidence" in write([{"text": "Receiver is great.", "evidence": []}])["refused"]
 assert "not real" in write([{"text": "Receiver scored.", "evidence": [made_up]}])["refused"]
 assert "not real" in write([{"text": "Mixed.", "evidence": real + [made_up]}])["refused"]
+assert "not real" in write([{"text": "Bare made up text.", "evidence": ["Test Receiver catches a 99 yard touchdown"]}])["refused"]
 assert not os.path.exists(os.path.join(tmp, "data", "profiles", "notes", "ZZZ-WR1-report.md")), "a refused report was written"
+bare = write([{"text": "Receiver caught 8 yards, cited by its text.", "evidence": [real[0]["text"]]}])
+assert bare["written"] and bare["evidence"] == 1 and "https://example.test/game/1" in open(bare["written"]).read(), bare
+os.remove(bare["written"])
 ok = write([{"text": "Receiver caught 8 yards on third down.", "evidence": real}])
 assert ok["written"] and ok["evidence"] == 1, ok
 text = open(ok["written"]).read()
 assert "https://example.test/game/1" in text and "Made by model test" in text and "99 yard" not in text, text
-print("OK: no-key and no-network errors named; 3 subagents with their own tools; report guard refuses no evidence, made-up plays and mixed lists; the written report links each play's game")
+# 5. write_profile keeps what a run did not compute (recent form, other tendencies)
+pd = os.path.join(tmp, "data", "profiles"); os.makedirs(pd, exist_ok=True)
+json.dump({"team": "ZZZ", "source": "x", "players": {"WR1": {"name": "Test Receiver", "position": "WR", "tendencies": {"target_share": 0.3, "catch_rate": 0.1},
+           "tendency_sources": {"target_share": {"source": "s"}}, "form": {"weeks": [7, 8, 9]}, "notes": ""}}}, open(os.path.join(pd, "ZZZ.json"), "w"))
+T.write_profile("ZZZ", "WR1", {"name": "Test Receiver", "position": "WR", "player_id": "1", "source": "https://example.test/s",
+                               "tendencies": {"catch_rate": {"value": 0.75, "how": "catches over targets"}}, "season_stats": {}})
+kept = json.load(open(os.path.join(pd, "ZZZ.json")))["players"]["WR1"]
+assert kept["form"] == {"weeks": [7, 8, 9]} and kept["tendencies"] == {"target_share": 0.3, "catch_rate": 0.75}, kept
+assert "target_share" in kept["tendency_sources"] and kept["tendency_sources"]["catch_rate"]["how"] == "catches over targets"
+
+T.write_profile("ZZZ", "WR1", {"name": "Test Receiver", "position": "WR", "player_id": "1", "source": "x", "tendencies": {"catch_rate": {"value": None, "how": "h"}}, "season_stats": {}})
+assert json.load(open(os.path.join(pd, "ZZZ.json")))["players"]["WR1"]["tendencies"]["catch_rate"] == 0.75, "a null erased a number"
+bad = json.loads(R.verify_evidence("ZZZ.WR1", [{"ev": "1", "text": "made up"}]))
+assert bad["real"] == 0 and "first one rejected" in bad["why"], bad
+
+print("OK: a null never erases a number, rejected evidence says why; write_profile keeps form and other tendencies; no-key and no-network errors named; 3 subagents with their own tools; report guard refuses no evidence, made-up plays and mixed lists; the written report links each play's game")
