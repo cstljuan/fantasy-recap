@@ -2,24 +2,198 @@
   "file": "https://www.figma.com/design/JY7bLNHcuiDyEBLCpwWiba",
   "fileKey": "JY7bLNHcuiDyEBLCpwWiba",
   "note": "Node ids in the Figma file, so a later session can find what was built without searching.",
-  "pages": { "00 Reference": "0:1", "01 Mascot": "1:2", "02 Logo": "1:3", "03 Color": "1:4", "04 UI": "1:5", "04b Screens": "1:6", "04c Motion": "1:7", "05 Handoff": "1:8", "06 Brand guide": "1:9", "07 Devpost": "1:10", "99 Archive": "1:11" },
-  "collections": { "Color": "VariableCollectionId:5:2 (modes Dark 5:0, Light 5:1)", "Size": "VariableCollectionId:5:19" },
+  "pages": {
+    "00 Reference": "0:1",
+    "01 Mascot": "1:2",
+    "02 Logo": "1:3",
+    "03 Color": "1:4",
+    "04 UI": "1:5",
+    "04b Screens": "1:6",
+    "04c Motion": "1:7",
+    "05 Handoff": "1:8",
+    "06 Brand guide": "1:9",
+    "07 Devpost": "1:10",
+    "99 Archive": "1:11"
+  },
+  "collections": {
+    "Color": "VariableCollectionId:5:2 (modes Dark 5:0, Light 5:1), 17 colors",
+    "Size": "VariableCollectionId:5:19"
+  },
   "components": {
     "Tusk (set)": "6:68",
-    "Tusk variants": { "Sealed": "6:2", "Watching": "6:13", "Roar": "6:24", "Smirk": "6:36", "Cold": "6:47", "Shut": "6:58" },
+    "Tusk variants": {
+      "Sealed": "6:2",
+      "Watching": "6:13",
+      "Roar": "6:24",
+      "Smirk": "6:36",
+      "Cold": "6:47",
+      "Shut": "6:58"
+    },
     "Wordmark (set)": "7:26",
     "Sprite (set)": "9:412",
-    "Sprite variants": { "Football Goblins": "9:370", "Football Pythons": "9:381", "Soccer Ironside": "9:392", "Soccer Red Harbour": "9:402" }
+    "Sprite variants": {
+      "Football Goblins": "9:370",
+      "Football Pythons": "9:381",
+      "Soccer Ironside": "9:392",
+      "Soccer Red Harbour": "9:402"
+    }
   },
   "frames": {
-    "00 Cover": "14:2", "00 About this file": "14:32",
+    "00 Cover": "14:2",
+    "00 About this file": "14:32",
     "01 Tusk / Spec": "6:69",
-    "02 Three directions": "7:27", "02 Fantasy Recap wordmark": "7:79", "02 App icon 1024": "7:139", "02 App icon alt": "7:151", "02 Splash Tusk": "7:155",
-    "03 Color tokens / Dark": "9:2", "03 Color tokens / Light": "9:107", "03 Typography": "9:212", "03 Space, corner and line": "9:296", "03 Pixel-art rules": "9:413",
-    "06 Guide 01 to 08": ["10:2", "10:28", "10:83", "10:107", "10:116", "10:139", "10:165", "10:191"],
-    "06 Guide 09 to 16": ["11:15", "11:51", "11:85", "11:172", "11:191", "11:283", "11:316", "11:354"],
-    "07 Devpost gallery 01 to 06": ["4:4", "4:5", "4:6", "4:7", "4:8", "4:9"],
-    "07 Thumbnail A, B, C": ["4:12", "4:13", "4:14"],
-    "07 Video title card": "4:17", "07 Architecture": "4:18"
+    "02 Three directions": "7:27",
+    "02 Fantasy Recap wordmark": "7:79",
+    "02 App icon 1024": "7:139",
+    "02 App icon alt": "7:151",
+    "02 Splash Tusk": "7:155",
+    "03 Color tokens / Dark": "9:2",
+    "03 Color tokens / Light": "9:107",
+    "03 Typography": "9:212",
+    "03 Space, corner and line": "9:296",
+    "03 Pixel-art rules": "9:413",
+    "06 Guide 01 to 08": [
+      "10:2",
+      "10:28",
+      "10:83",
+      "10:107",
+      "10:116",
+      "10:139",
+      "10:165",
+      "10:191"
+    ],
+    "06 Guide 09 to 16": [
+      "11:15",
+      "11:51",
+      "11:85",
+      "11:172",
+      "11:191",
+      "11:283",
+      "11:316",
+      "11:354"
+    ],
+    "07 Devpost gallery 01 to 06": [
+      "4:4",
+      "4:5",
+      "4:6",
+      "4:7",
+      "4:8",
+      "4:9"
+    ],
+    "07 Thumbnail A, B, C": [
+      "4:12",
+      "4:13",
+      "4:14"
+    ],
+    "07 Video title card": "4:17",
+    "07 Architecture": "4:18"
+  },
+  "ui sections (page 04 UI)": {
+    "Basics": "15:84",
+    "Shell": "15:328",
+    "Score": "17:856",
+    "Rows": "17:1181",
+    "Game": "20:1202",
+    "States": "20:1347"
+  },
+  "component sets on 04 UI": [
+    "Status",
+    "Tag",
+    "Mark",
+    "Tile",
+    "Button",
+    "Sport switch",
+    "Language switch",
+    "Header / Phone",
+    "Header / Laptop",
+    "Tab bar",
+    "Side",
+    "Scoreboard",
+    "Opt-in card",
+    "Lineup head",
+    "Player row",
+    "Play row",
+    "Why card",
+    "League match",
+    "Panel head",
+    "Top performer row",
+    "Compare row",
+    "Standing row",
+    "Drive row",
+    "Filter chip",
+    "Field / Football",
+    "Pitch / Soccer",
+    "Score bug",
+    "Banner",
+    "Final board",
+    "Captions strip",
+    "Speed control",
+    "Sound control",
+    "Close button",
+    "Walkthrough card",
+    "Empty state",
+    "Paused bar"
+  ],
+  "screens (page 04b Screens)": {
+    "Phone: before the game (22:1644)": {
+      "First run walkthrough": "22:676",
+      "League": "22:1132",
+      "Matchup / Before opt-in": "22:1246",
+      "Matchup / Opted in, sealed": "22:1367",
+      "Lineups / Sealed": "22:1490",
+      "Sport switch / Soccer": "22:1611"
+    },
+    "Phone: the game (22:2884)": {
+      "Game / Football": "22:1653",
+      "Game / Football, touchdown": "22:1902",
+      "Game / Soccer, goal": "22:2153",
+      "Matchup / Paused": "22:2583",
+      "Reveal / Final board": "22:2616"
+    },
+    "Phone: after the final (23:3472)": {
+      "Reveal / Who won": "23:2326",
+      "Recap": "23:2840",
+      "Lineups / Revealed": "23:2963",
+      "Plays / Why this play open": "23:3092",
+      "Film room": "23:3249",
+      "Season and standings": "23:3350",
+      "Plays / Empty": "23:3439"
+    },
+    "Laptop: before the game (26:4098)": {
+      "First run walkthrough": "26:3349",
+      "League": "26:3509",
+      "Matchup / Before opt-in": "26:3623",
+      "Matchup / Opted in, sealed": "26:3744",
+      "Lineups / Sealed": "26:3938",
+      "Sport switch / Soccer": "26:4068"
+    },
+    "Laptop: the game (26:5032)": {
+      "Game / Football": "26:4107",
+      "Game / Soccer, goal": "26:4356",
+      "Matchup / Paused": "26:4750",
+      "Reveal / Final board": "26:4780"
+    },
+    "Laptop: after the final (26:5887)": {
+      "Reveal / Who won, and the recap": "26:5149",
+      "Lineups / Revealed": "26:5343",
+      "Plays / Why this play open": "26:5516",
+      "Film room": "26:5701",
+      "Season and standings": "26:5802",
+      "Plays / Empty": "26:5857"
+    }
+  },
+  "motion (page 04c Motion)": {
+    "Motion spec": "28:17",
+    "Storyboard: The reveal": "28:1383",
+    "Storyboard: Touchdown": "28:2336",
+    "Storyboard: Goal": "28:3111",
+    "Storyboard: Odds bars": "28:3266",
+    "Storyboard: The opt-in lock": "28:3559",
+    "Storyboard: Screens": "28:3648",
+    "prototype flows": [
+      "The reveal (starts at 28:60)",
+      "Odds bars",
+      "The opt-in lock"
+    ]
   }
 }
