@@ -181,5 +181,19 @@
       "Season and standings": "26:5802",
       "Plays / Empty": "26:5857"
     }
+  },
+  "motion (page 04c Motion)": {
+    "Motion spec": "28:17",
+    "Storyboard: The reveal": "28:1383",
+    "Storyboard: Touchdown": "28:2336",
+    "Storyboard: Goal": "28:3111",
+    "Storyboard: Odds bars": "28:3266",
+    "Storyboard: The opt-in lock": "28:3559",
+    "Storyboard: Screens": "28:3648",
+    "prototype flows": [
+      "The reveal (starts at 28:60)",
+      "Odds bars",
+      "The opt-in lock"
+    ]
   }
 }
