@@ -2,6 +2,15 @@
 
 Rewritten 2026-11-15 (after the stadium, the announcer and the Scout changes) from the code on `main` and the DONE posts on the board. If something is not listed as real, assume it is not. Items we could not check are marked.
 
+## The demo week (D54): what is real now
+
+The league's current week is week 9 of the 2026 NFL season, played by real players. This is true in the data on `Rickstar-App/work`; the app shows it once the boss runs `node tools/use-game.js data/games/week09-gob-tur.json` and the three hardcoded week 11 spots in `js/app.js` are fixed (until then the app still opens on the week 11 game and says Week 11).
+
+- The featured game is `data/games/week09-gob-tur.json`: Goblins against Turtles, built from every catch and run the rostered players really made in NFL week 9 (ESPN play-by-play), with their real yards and touchdowns. 204 plays, 27 to 30 on the field, 106.3 to 108.7 in fantasy points (the Turtles win). The game maker ran without Jev.
+- The league has three real weeks. Weeks 7 and 8 are finished (four games, `week07-gob-owl.json`, `week07-pyt-tur.json`, `week08-gob-pyt.json`, `week08-tur-owl.json`, built the same way from those weeks' real plays); their scores and the standings (Goblins 2 and 0) are the fantasy points of those games. Week 9 is current and its points are not in the league file.
+- Proof that the points are the real week's: `node data/checks/real-week.js` compares the game's points for every running back, receiver and tight end with the points the scoring rules give his real stat line from Sleeper for week 9 (`data/statlines/week09-gob-tur-real.json`, `week09-pyt-owl-real.json`). 19 players, all within 0.25 points (mostly equal). Quarterbacks and kickers are not forced to match and the check prints each difference: a quarterback's passing in the game is only the catches by our own receivers (Allen 25.5 in the game, 12.9 in his real line; Jackson did not play, real line 0), and a kicker's extra points follow the game's touchdowns. Garrett Wilson has no real week 9 line (he did not play), so he is not compared.
+- Still made up: the league itself (the teams, who opted in, that these four managers play each other in this order), every drive start, incompletion and penalty (the maker's filler), the order of the plays, the clock and the quarters (the files carry none), and the defenses. The quarterback's yards are not his real passing yards. The league note says so.
+
 ## Real
 
 - The app runs in a browser with no install and no build. No frameworks.

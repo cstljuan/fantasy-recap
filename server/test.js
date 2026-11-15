@@ -342,35 +342,35 @@ var srv = createServer(fake).listen(0, function () {
     // league: standings from finished weeks, never the current week's points, opt-ins from the database or the file
     .then(function () {
       var LG = require('./league.js'), doc = JSON.parse(require('fs').readFileSync(require('path').join(__dirname, '..', 'data', 'league.json'), 'utf8'));
-      var L = LG.fromLeague(doc, { finals: { 'week11-football': [47.8, 43.1] }, optins: { 'week11-football': ['GOB', 'ricky', 'TUR'] } });
+      var L = LG.fromLeague(doc, { finals: { 'week09-gob-tur': [47.8, 43.1] }, optins: { 'week09-gob-tur': ['GOB', 'ricky', 'TUR'] } });
       doc.standings.forEach(function (s) {
         var x = L.standings.filter(function (y) { return y.id === s.id; })[0];
         ['wins', 'losses', 'pointsFor', 'pointsAgainst'].forEach(function (k) { assert.equal(x[k], s[k], s.id + ' ' + k); });
       });
-      var w11 = L.weeks.filter(function (w) { return w.week === 11; })[0];
-      assert.ok(w11.matchups.every(function (m) { return m.final === null; }), 'the current week never has points, even when a final is known');
+      var w9 = L.weeks.filter(function (w) { return w.week === 9; })[0];
+      assert.ok(w9.matchups.every(function (m) { return m.final === null; }), 'the current week never has points, even when a final is known');
       var ours = L.current.matchups[0];
-      assert.deepEqual(ours.optedIn, ['GOB'], 'only the matchup\'s own team ids count'); assert.equal(ours.optinsFrom, 'database');
-      assert.deepEqual(L.current.matchups[1].optedIn, ['TUR', 'OWL']); assert.equal(L.current.matchups[1].optinsFrom, 'file');
+      assert.deepEqual(ours.optedIn, ['GOB', 'TUR'], 'only the matchup\'s own team ids count'); assert.equal(ours.optinsFrom, 'database');
+      assert.deepEqual(L.current.matchups[1].optedIn, ['PYT', 'OWL']); assert.equal(L.current.matchups[1].optinsFrom, 'file');
       // a finished week with a known final in the database replaces the file's numbers, and a tie counts as a tie
       var d2 = JSON.parse(JSON.stringify(doc));
-      d2.weeks[0].matchups[0].gameFile = 'w9.json';
-      var L2 = LG.fromLeague(d2, { finals: { w9: [90, 90] } });
+      d2.weeks[0].matchups[0].gameFile = 'w7.json';
+      var L2 = LG.fromLeague(d2, { finals: { w7: [90, 90] } });
       var gob = L2.standings.filter(function (x) { return x.id === 'GOB'; })[0];
-      assert.equal(gob.ties, 1); assert.equal(gob.wins, 0); assert.equal(L2.weeks[0].matchups[0].finalFrom, 'database');
+      assert.equal(gob.ties, 1); assert.equal(gob.wins, 1); assert.equal(L2.weeks[0].matchups[0].finalFrom, 'database');
       var withDb = createServer({ query: function (t, p) {
-        if (/FROM optins/.test(t)) return Promise.resolve({ rows: p[0] === 'week11-football' ? [{ manager: 'PYT' }, { manager: 'x' }] : [] });
+        if (/FROM optins/.test(t)) return Promise.resolve({ rows: p[0] === 'week09-gob-tur' ? [{ manager: 'TUR' }, { manager: 'x' }] : [] });
         return Promise.resolve({ rows: [] });
       } }).listen(0);
       var noDb = createServer({ query: function () { return Promise.reject(new Error('down')); } }).listen(0);
       return call('GET', '/league', undefined, undefined, withDb.address().port).then(function (r) {
         assert.equal(r.status, 200); assert.equal(r.body.source.optins, 'database');
-        assert.deepEqual(r.body.current.matchups[0].optedIn, ['PYT']);
+        assert.deepEqual(r.body.current.matchups[0].optedIn, ['TUR']);
         assert.ok(r.body.weeks.every(function (w) { return w.finished || w.matchups.every(function (m) { return m.final === null; }); }));
         assert.equal(r.body.standings[0].id, doc.standings[0].id, 'the leader is the file\'s leader');
         return call('GET', '/league', undefined, undefined, noDb.address().port);
       }).then(function (r) {
-        assert.equal(r.status, 200); assert.equal(r.body.source.optins, 'file'); assert.deepEqual(r.body.current.matchups[0].optedIn, ['GOB', 'PYT']);
+        assert.equal(r.status, 200); assert.equal(r.body.source.optins, 'file'); assert.deepEqual(r.body.current.matchups[0].optedIn, ['GOB', 'TUR']);
         return call('POST', '/league', {}, undefined, noDb.address().port);
       }).then(function (r) { assert.equal(r.status, 405); withDb.close(); noDb.close(); });
     })
@@ -382,66 +382,66 @@ var srv = createServer(fake).listen(0, function () {
         if (/FROM releases/.test(t)) return Promise.resolve({ rows: rel[p[0]] ? [rel[p[0]]] : [] });
         if (/^INSERT INTO watched/.test(t)) { if (p[0] === 'nogame') { var e = new Error('fk'); e.code = '23503'; return Promise.reject(e); } (wat[p[0]] = wat[p[0]] || {})[p[1]] = 1; return Promise.resolve({ rows: [] }); }
         if (/FROM watched/.test(t)) return Promise.resolve({ rows: [{ n: String(Object.keys(wat[p[0]] || {}).length) }] });
-        if (/FROM optins/.test(t)) return Promise.resolve({ rows: p[0] === 'week11-football' ? [{ manager: 'PYT' }, { manager: 'stranger' }] : [] });
+        if (/FROM optins/.test(t)) return Promise.resolve({ rows: p[0] === 'week09-gob-tur' ? [{ manager: 'TUR' }, { manager: 'stranger' }] : [] });
         return Promise.resolve({ rows: [] });
       } };
       var down = { query: function () { return Promise.reject(new Error('down')); } };
       var a = createServer(dbc).listen(0), b = createServer(down).listen(0), O = { Origin: 'http://localhost:5173' };
       function ca(m, p, body) { return call(m, p, body, O, a.address().port); }
       function cb(m, p, body) { return call(m, p, body, O, b.address().port); }
-      return ca('GET', '/league/week/11/optins').then(function (r) {
+      return ca('GET', '/league/week/9/optins').then(function (r) {
         assert.equal(r.status, 200); assert.equal(r.headers['access-control-allow-origin'], O.Origin);
-        assert.deepEqual(r.body.matchups[0].optedIn, ['PYT']); assert.equal(r.body.matchups[0].from, 'database');
-        assert.deepEqual(r.body.matchups[1].optedIn, ['TUR', 'OWL']); assert.equal(r.body.matchups[1].from, 'file');
+        assert.deepEqual(r.body.matchups[0].optedIn, ['TUR']); assert.equal(r.body.matchups[0].from, 'database');
+        assert.deepEqual(r.body.matchups[1].optedIn, []); assert.equal(r.body.matchups[1].from, 'database');
         assert.ok(JSON.stringify(r.body).indexOf('final') < 0 && JSON.stringify(r.body).indexOf('points') < 0, 'no points in the opt-in view');
-        return ca('GET', '/league/week/11/release');
+        return ca('GET', '/league/week/9/release');
       }).then(function (r) {
         assert.deepEqual([r.body.released, r.body.changed_at, r.body.source], [false, null, 'database']);
-        return ca('POST', '/league/week/11/release', { released: true });
+        return ca('POST', '/league/week/9/release', { released: true });
       }).then(function (r) {
         assert.equal(r.status, 200); assert.equal(r.body.released, true); assert.equal(r.body.source, 'database');
-        return ca('GET', '/league/week/11/release');
+        return ca('GET', '/league/week/9/release');
       }).then(function (r) {
         assert.equal(r.body.released, true); assert.equal(r.body.changed_at, '2026-11-17T09:00:00.000Z');
-        return ca('POST', '/games/week11-football/watched', { manager: 'GOB' });
+        return ca('POST', '/games/week09-gob-tur/watched', { manager: 'GOB' });
       }).then(function (r) {
         assert.equal(r.status, 201); assert.equal(r.body.watched, 1);
-        return ca('POST', '/games/week11-football/watched', { manager: ' GOB ' });
+        return ca('POST', '/games/week09-gob-tur/watched', { manager: ' GOB ' });
       }).then(function (r) {
         assert.equal(r.body.watched, 1, 'the same manager counts once');
-        return ca('GET', '/league/week/11/optins');
+        return ca('GET', '/league/week/9/optins');
       }).then(function (r) {
         assert.equal(r.body.matchups[0].watched, 1);
         return Promise.all([
           ca('POST', '/games/nogame/watched', { manager: 'GOB' }),
-          ca('POST', '/league/week/11/release', { released: 'yes' }),
-          ca('POST', '/league/week/11/release', [true]),
+          ca('POST', '/league/week/9/release', { released: 'yes' }),
+          ca('POST', '/league/week/9/release', [true]),
           ca('POST', '/league/week/20/release', { released: true }),
           ca('GET', '/league/week/0/release'),
           ca('GET', '/league/week/eleven/optins'),
           ca('GET', '/league/week/5/optins'),
-          ca('DELETE', '/league/week/11/release'),
-          ca('POST', '/games/week11-football/watched', { manager: '' }),
-          ca('POST', '/games/week11-football/watched', { manager: new Array(200).join('m') }),
-          ca('GET', '/games/week11-football/watched')
+          ca('DELETE', '/league/week/9/release'),
+          ca('POST', '/games/week09-gob-tur/watched', { manager: '' }),
+          ca('POST', '/games/week09-gob-tur/watched', { manager: new Array(200).join('m') }),
+          ca('GET', '/games/week09-gob-tur/watched')
         ]);
       }).then(function (rs) {
         assert.deepEqual(rs.map(function (r) { return r.status; }), [404, 400, 400, 404, 400, 400, 404, 405, 400, 400, 405]);
         rs.forEach(function (r) { assert.equal(r.headers['access-control-allow-origin'], O.Origin); });
         // without a database: the same routes, kept in memory
-        return cb('POST', '/league/week/11/release', { released: true });
+        return cb('POST', '/league/week/9/release', { released: true });
       }).then(function (r) {
         assert.equal(r.body.source, 'memory'); assert.equal(r.body.released, true);
-        return cb('GET', '/league/week/11/release');
+        return cb('GET', '/league/week/9/release');
       }).then(function (r) {
         assert.equal(r.body.released, true); assert.equal(r.body.source, 'memory');
-        return cb('POST', '/games/week11-football/watched', { manager: 'PYT' });
+        return cb('POST', '/games/week09-gob-tur/watched', { manager: 'TUR' });
       }).then(function (r) {
         assert.equal(r.body.source, 'memory'); assert.equal(r.body.watched, 1);
-        return cb('GET', '/league/week/11/optins');
-      }).then(function (r) {
-        assert.deepEqual(r.body.matchups[0].optedIn, ['GOB', 'PYT']); assert.equal(r.body.matchups[0].from, 'file'); assert.equal(r.body.matchups[0].watched, 1);
         return cb('GET', '/league/week/9/optins');
+      }).then(function (r) {
+        assert.deepEqual(r.body.matchups[0].optedIn, ['GOB', 'TUR']); assert.equal(r.body.matchups[0].from, 'file'); assert.equal(r.body.matchups[0].watched, 1);
+        return cb('GET', '/league/week/8/optins');
       }).then(function (r) {
         assert.equal(r.body.finished, true); assert.deepEqual(r.body.matchups[0].optedIn, []); assert.equal(r.body.matchups[0].from, 'none');
         a.close(); b.close();
@@ -452,7 +452,7 @@ var srv = createServer(fake).listen(0, function () {
       var trend = require('./trend.js'), mom = require('./momentum.js');
       var file = require('path').join(__dirname, '..', 'data', 'games', 'week11-football.json');
       var want = trend.fromFiles('Josh Allen');
-      assert.deepEqual(want.weeks.map(function (w) { return w.week; }), [9, 11]);
+      assert.deepEqual(want.weeks.map(function (w) { return w.week; }), [7, 8, 9, 11]);
       assert.equal(trend.fromFiles('josh allen').weeks[0].points, want.weeks[0].points, 'name in any case');
       assert.equal(trend.fromFiles('GOB.QB').player, 'Josh Allen', 'TEAM.SLOT finds the same player');
       assert.equal(trend.fromFiles('Nobody Atall'), null);

@@ -1,8 +1,8 @@
 {
  "invented": true,
- "note": "SAMPLE LEAGUE. The league, its teams and who opted in are made up for the demo; the players are real. Week 9 is real: both of its games were built from every catch and run the rostered players really made in NFL week 9 (data/rosters/plays-2026.json, ESPN play-by-play), and its scores are the fantasy points of those games. Week 10's scores are made up. Week 11's Goblins against Pythons game uses invented stat lines; the other week 11 game has no game file yet.",
+ "note": "SAMPLE LEAGUE with real games. The league, its teams and who opted in are made up for the demo; the players are real. Week 7 is real. Week 8 is real. Week 9 is real: every game was built from every catch and run the rostered players really made in that NFL week (data/rosters/plays-2026.json, ESPN play-by-play), and its scores are the fantasy points of those games. The quarterback's passing counts only the catches by our own receivers, and drive starts, incompletions and penalties are filler. Week 9 is the current week: its scores stay hidden until the reveal.",
  "name": "Sample League",
- "week": 11,
+ "week": 9,
  "release": {
   "day": "Tuesday",
   "text": "Recap drops Tuesday"
@@ -17,23 +17,22 @@
      "tile": "#5b34b8"
     },
     {
-     "id": "PYT",
-     "full": "Pixel Pythons",
-     "tile": "#c96a10"
+     "id": "TUR",
+     "full": "Turbo Turtles",
+     "tile": "#2f8f6b"
     }
    ],
    "optedIn": [
     "GOB",
-    "PYT"
+    "TUR"
    ]
   },
   {
-   "ours": false,
    "teams": [
     {
-     "id": "TUR",
-     "full": "Turbo Turtles",
-     "tile": "#2f8f6b"
+     "id": "PYT",
+     "full": "Pixel Pythons",
+     "tile": "#c96a10"
     },
     {
      "id": "OWL",
@@ -42,7 +41,7 @@
     }
    ],
    "optedIn": [
-    "TUR",
+    "PYT",
     "OWL"
    ]
   }
@@ -53,103 +52,105 @@
   "matchups": "this week's two games, our game first (ours is true)",
   "teams": "id, full name and the tile color of each team",
   "optedIn": "ids of the teams whose manager opted in to the recap; the others watch nothing hidden",
-  "weeks": "weeks 9 and 10 finished, week 11 current; each has matchups of two teams, final [points, points] or null, and gameFile (a file name under data/games/) or null",
-  "gameFile": "null for past weeks and for matchups with no game; week 11's first matchup names the game the app plays",
+  "weeks": "weeks 7 and 8 finished, week 9 current; each has matchups of two teams, final [points, points] or null, and gameFile (a file name under data/games/) or null",
+  "gameFile": "a file name under data/games/; week 9's first matchup names the game the app plays",
   "standings": "one row per team: id, full, wins, losses, pointsFor, pointsAgainst. Worked out from the finished weeks only. Sorted by wins, then points for"
  },
  "weeks": [
   {
+   "week": 7,
+   "finished": true,
+   "matchups": [
+    {
+     "teams": [
+      {
+       "id": "GOB",
+       "full": "Gridiron Goblins",
+       "tile": "#5b34b8"
+      },
+      {
+       "id": "OWL",
+       "full": "Midnight Owls",
+       "tile": "#4a5bd0"
+      }
+     ],
+     "final": [
+      117.6,
+      97.4
+     ],
+     "gameFile": "week07-gob-owl.json",
+     "real": true
+    },
+    {
+     "teams": [
+      {
+       "id": "PYT",
+       "full": "Pixel Pythons",
+       "tile": "#c96a10"
+      },
+      {
+       "id": "TUR",
+       "full": "Turbo Turtles",
+       "tile": "#2f8f6b"
+      }
+     ],
+     "final": [
+      52.8,
+      82.1
+     ],
+     "gameFile": "week07-pyt-tur.json",
+     "real": true
+    }
+   ]
+  },
+  {
+   "week": 8,
+   "finished": true,
+   "matchups": [
+    {
+     "teams": [
+      {
+       "id": "GOB",
+       "full": "Gridiron Goblins",
+       "tile": "#5b34b8"
+      },
+      {
+       "id": "PYT",
+       "full": "Pixel Pythons",
+       "tile": "#c96a10"
+      }
+     ],
+     "final": [
+      112.8,
+      30.2
+     ],
+     "gameFile": "week08-gob-pyt.json",
+     "real": true
+    },
+    {
+     "teams": [
+      {
+       "id": "TUR",
+       "full": "Turbo Turtles",
+       "tile": "#2f8f6b"
+      },
+      {
+       "id": "OWL",
+       "full": "Midnight Owls",
+       "tile": "#4a5bd0"
+      }
+     ],
+     "final": [
+      95.6,
+      117.4
+     ],
+     "gameFile": "week08-tur-owl.json",
+     "real": true
+    }
+   ]
+  },
+  {
    "week": 9,
-   "finished": true,
-   "matchups": [
-    {
-     "teams": [
-      {
-       "id": "GOB",
-       "full": "Gridiron Goblins",
-       "tile": "#5b34b8"
-      },
-      {
-       "id": "TUR",
-       "full": "Turbo Turtles",
-       "tile": "#2f8f6b"
-      }
-     ],
-     "final": [
-      106.3,
-      108.7
-     ],
-     "gameFile": "week09-gob-tur.json",
-     "real": true
-    },
-    {
-     "teams": [
-      {
-       "id": "PYT",
-       "full": "Pixel Pythons",
-       "tile": "#c96a10"
-      },
-      {
-       "id": "OWL",
-       "full": "Midnight Owls",
-       "tile": "#4a5bd0"
-      }
-     ],
-     "final": [
-      67.2,
-      53.0
-     ],
-     "gameFile": "week09-pyt-owl.json",
-     "real": true
-    }
-   ]
-  },
-  {
-   "week": 10,
-   "finished": true,
-   "matchups": [
-    {
-     "teams": [
-      {
-       "id": "GOB",
-       "full": "Gridiron Goblins",
-       "tile": "#5b34b8"
-      },
-      {
-       "id": "OWL",
-       "full": "Midnight Owls",
-       "tile": "#4a5bd0"
-      }
-     ],
-     "final": [
-      79.5,
-      84.1
-     ],
-     "gameFile": null
-    },
-    {
-     "teams": [
-      {
-       "id": "PYT",
-       "full": "Pixel Pythons",
-       "tile": "#c96a10"
-      },
-      {
-       "id": "TUR",
-       "full": "Turbo Turtles",
-       "tile": "#2f8f6b"
-      }
-     ],
-     "final": [
-      95.7,
-      88.9
-     ],
-     "gameFile": null
-    }
-   ]
-  },
-  {
-   "week": 11,
    "finished": false,
    "matchups": [
     {
@@ -160,20 +161,20 @@
        "tile": "#5b34b8"
       },
       {
-       "id": "PYT",
-       "full": "Pixel Pythons",
-       "tile": "#c96a10"
+       "id": "TUR",
+       "full": "Turbo Turtles",
+       "tile": "#2f8f6b"
       }
      ],
      "final": null,
-     "gameFile": "week11-football.json"
+     "gameFile": "week09-gob-tur.json"
     },
     {
      "teams": [
       {
-       "id": "TUR",
-       "full": "Turbo Turtles",
-       "tile": "#2f8f6b"
+       "id": "PYT",
+       "full": "Pixel Pythons",
+       "tile": "#c96a10"
       },
       {
        "id": "OWL",
@@ -182,43 +183,43 @@
       }
      ],
      "final": null,
-     "gameFile": null
+     "gameFile": "week09-pyt-owl.json"
     }
    ]
   }
  ],
  "standings": [
   {
-   "id": "PYT",
-   "full": "Pixel Pythons",
+   "id": "GOB",
+   "full": "Gridiron Goblins",
    "wins": 2,
    "losses": 0,
-   "pointsFor": 162.9,
-   "pointsAgainst": 141.9
-  },
-  {
-   "id": "TUR",
-   "full": "Turbo Turtles",
-   "wins": 1,
-   "losses": 1,
-   "pointsFor": 197.6,
-   "pointsAgainst": 202.0
+   "pointsFor": 230.4,
+   "pointsAgainst": 127.6
   },
   {
    "id": "OWL",
    "full": "Midnight Owls",
    "wins": 1,
    "losses": 1,
-   "pointsFor": 137.1,
-   "pointsAgainst": 146.7
+   "pointsFor": 214.8,
+   "pointsAgainst": 213.2
   },
   {
-   "id": "GOB",
-   "full": "Gridiron Goblins",
+   "id": "TUR",
+   "full": "Turbo Turtles",
+   "wins": 1,
+   "losses": 1,
+   "pointsFor": 177.7,
+   "pointsAgainst": 170.2
+  },
+  {
+   "id": "PYT",
+   "full": "Pixel Pythons",
    "wins": 0,
    "losses": 2,
-   "pointsFor": 185.8,
-   "pointsAgainst": 192.8
+   "pointsFor": 83.0,
+   "pointsAgainst": 194.9
   }
  ]
 }
