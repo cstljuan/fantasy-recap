@@ -277,6 +277,9 @@ h2 { margin: 0; font: 700 var(--fs-label)/1 var(--body); letter-spacing: 0.14em;
 .lg-drop { color: var(--dim); font-size: var(--fs-small); }
 .lg-go { margin-left: auto; font: 700 var(--fs-label)/1 var(--body); letter-spacing: 0.1em; text-transform: uppercase; color: var(--amber); }
 .lg-optins { margin: 0; padding: 0 var(--inset-x) var(--sp-3); color: var(--dim); font-size: var(--fs-meta); }
+.lg-source { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px var(--sp-2); margin: 0; padding: 0 var(--inset-x) var(--sp-3); color: var(--dim); font-size: var(--fs-meta); }
+.lg-source b { padding: 2px var(--sp-1); border: 1px solid var(--rule); color: var(--text); font: 700 var(--fs-micro)/1.2 var(--body); letter-spacing: 0.12em; text-transform: uppercase; }
+.lg-source.is-real-plays b, .lg-source.is-jev b { border-color: var(--amber); color: var(--amber); }
 .lg-go::after { content: " \203A"; }
 @media (max-width: 400px) { .tabs a { font-size: var(--fs-small); letter-spacing: 0.06em; } }
 
