@@ -93,8 +93,8 @@
     yards1: '{n} yard', yardsN: '{n} yards', points1: '{n} point', pointsN: '{n} points',
     how_td: 'Touchdown', how_fg: 'Field goal', how_xp: 'Extra point',
     what_int: 'Intercepted', what_fumble: 'Fumble', what_fg: 'No good', what_downs: 'Stopped on fourth down', what_punt: 'They punt',
-    cu_changed: '{n} plays: {what}, {sc}', cu_now: '{lead}, now {sc}', cu_still: '{lead}, still {sc}',
-    cu_lead_on: '{n} plays on', cu_sc: '{a} to {b}',
+    cu_changed: 'So far: {what}, {sc}', cu_now: '{lead}, now {sc}', cu_still: '{lead}, still {sc}',
+    cu_lead_on: 'Picking it up', cu_sc: '{a} to {b}',
     td1: '{team} TD', tdN: '{n} {team} TDs', fg1: '{team} FG', fgN: '{n} {team} FGs',
     cu_pick: '{qb} threw a pick', cu_fumble: '{name} fumbled', cu_downs: 'the {team} lost it on downs',
     cu_big: 'Big gain: {name}, {yds}', cu_leader: '{name}: {pts} fantasy pts',
@@ -187,7 +187,10 @@
 
   var said = [];   // the transcript of this game
 
+  // While catchUp runs the skipped plays through line() (silent > 0), nothing is announced.
+  var silent = 0, lastProfiles = null;
   function announce(text, kind, style) {
+    if (silent) return;
     last = { text: text, kind: kind, style: style, at: Date.now() };
     said.push({ t: last.at, text: text, kind: kind, play: playNo });
     for (var i = 0; i < listeners.length; i++) {
@@ -488,8 +491,12 @@
       var teams = ctx.teams, plays = (results || []).filter(function (r) { return r && r.e && r.pre && r.post; });
       if (!teams || teams.length < 2 || !plays.length) return '';
       var style = 'straight';
-      // Keep the memory right for what comes after the jump.
-      plays.forEach(function (r) { playNo++; remember(r); });
+      // Keep everything right for what comes after the jump: run the skipped plays through line()
+      // without saying them, so the memory, the decks and the remark timing are exactly what a
+      // viewer who watched every play would have, and every later line is one already recorded.
+      silent++;
+      try { plays.forEach(function (r) { api.line(r, { teams: teams, score: r.post.score, style: style, profiles: ctx.profiles || lastProfiles }); }); }
+      finally { silent--; }
       var first = plays[0].pre.score, end = plays[plays.length - 1].post.score, score = ctx.score || end;
       var tally = [{ td: 0, fg: 0 }, { td: 0, fg: 0 }], turn = '', big = null;
       plays.forEach(function (r) {
@@ -1063,6 +1070,7 @@
         var teams = ctx.teams;
         if (!res || !teams || teams.length < 2) return '';
         learnTeams(teams);
+        if (ctx.profiles) lastProfiles = ctx.profiles;   // kept across reset(): seek's catchUp does not pass them
         var score = ctx.score || (res.post && res.post.score) || [0, 0];
         var style = STYLES.indexOf(ctx.style) >= 0 ? ctx.style : api.style;
         var c = classify(res, teams, score);

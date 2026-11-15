@@ -96,7 +96,9 @@
 
   var said = [];
 
+  var silent = 0;   // while catchUp runs the skipped events through line(), nothing is announced
   function announce(text, kind, style) {
+    if (silent) return;
     last = { text: text, kind: kind, style: style, at: Date.now() };
     said.push({ t: last.at, text: text, kind: kind, event: eventNo });
     for (var i = 0; i < listeners.length; i++) { try { listeners[i](text, kind, style); } catch (err) { /* never stop the match */ } }
@@ -359,7 +361,11 @@
       var teams = ctx.teams, evs = (results || []).filter(function (r) { return r && r.e && r.pre && r.post && (r.team === 0 || r.team === 1); });
       if (!teams || teams.length < 2 || !evs.length) return '';
       var style = 'straight';
-      evs.forEach(function (r) { eventNo++; remember(r); });
+      // Run the skipped events through line() without saying them, so the memory and the decks
+      // are what a viewer who watched it all would have, and every later line is already recorded.
+      silent++;
+      try { evs.forEach(function (r) { api.line(r, { teams: teams, score: r.post.score, style: style }); }); }
+      finally { silent--; }
       var first = evs[0].pre.score, end = evs[evs.length - 1].post.score, score = ctx.score || end;
       var goals = [], extra = '', saves = [0, 0];
       evs.forEach(function (r) {
@@ -380,8 +386,10 @@
         if (top) s2 = lastName(top.name) + ': ' + r1(top.points) + ' fantasy pts' + end1;
       }
       var changed = (first[0] !== end[0] || first[1] !== end[1]) && goals.length;
-      var forms = changed ? ['Now ' + at + ': goal' + (goals.length > 1 ? 's' : '') + ' ' + goals.join(', ') + ', ' + sc + end1, 'Now ' + at + ', ' + sc + end1]
-                          : ['Now ' + at + ', still ' + sc + end1];
+      // No minute in the opening words: jumps to nearby events then share a line, and so a recording (C31).
+      void at;
+      var forms = changed ? ['So far: goal' + (goals.length > 1 ? 's' : '') + ' ' + goals.join(', ') + ', ' + sc + end1, 'Picking it up, ' + sc + end1]
+                          : ['Picking it up, still ' + sc + end1];
       // The fullest form first, with the extra fact if it fits, then without it.
       var text = '', tries = [];
       forms.forEach(function (f) { if (s2) tries.push(f + ' ' + s2); tries.push(f); });
