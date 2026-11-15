@@ -1,0 +1,15 @@
+01:28:22 | Scout starts. model=google:gemini-3.5-flash-lite season=2026 players=1 subagents=stats-researcher, film-room, fact-checker
+01:28:23 | Starting research and scouting report generation for GOB.WR2: Puka Nacua. Plan: 1) Run stats-researcher for GOB.WR2 Puka Nacua, 2) Run film-room for GOB.WR2, 3) Run fact-checker with film-room findings, 4) Log step and summarize.
+01:28:24 | Starting search for player Puka Nacua using find_player to get player_id, position, and team.
+01:28:25 | Starting research plan for GOB.WR2 (Puka Nacua).
+01:28:25 | research_plan(GOB.WR2) -> depth, direction, down, zone, week
+01:28:26 | Getting splits by depth for Puka Nacua
+01:28:26 | find_player(Puka Nacua) -> 1 match(es)
+01:28:27 | split(GOB.WR2, depth) -> 2 rows
+01:28:27 | Found Puka Nacua (player_id: 9493, position: WR, status: Inactive, team: LAR). Since status is Inactive or we need to check stats, let's fetch season_stats for player_id 9493.
+01:28:28 | season_stats(9493) -> 63 stat keys
+01:28:28 | Getting splits by direction for Puka Nacua
+01:28:29 | Fetched season_stats successfully for Puka Nacua (player_id 9493). Now fetching weekly_stats to check if totals hide any recent change or oddities.
+01:28:29 | split(GOB.WR2, direction) -> 3 rows
+01:28:29 | weekly_stats(9493) -> 7 weeks
+01:28:29 | Getting splits by down for Puka Nacua

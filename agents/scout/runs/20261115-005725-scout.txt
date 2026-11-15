@@ -1,0 +1,2 @@
+00:57:25 | Scout starts. model=google:gemini-2.5-flash season=2026 players=1 subagents=stats-researcher, film-room, fact-checker
+00:57:25 | Scout stopped: The model name was not accepted (GoogleModelNotFoundError). Set SCOUT_MODEL to a model your key can use.
