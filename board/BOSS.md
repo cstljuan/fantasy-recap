@@ -140,14 +140,14 @@ Run `sh tools/next.sh` to get your next task with its full description. A row is
 | B38 | B | Peypey-ryd | Polish the football stadium Juan chose (Noah's, built from the soccer stadium): check it at 375 and 1280 with your screens, crowd layer and captions, fix what overlaps | open |
 | B39 | B | Peypey-ryd | Momentum and player trends from the service (D44) on the film room and lineups when `?api=` is set, file fallback otherwise | open |
 | B40 | B | Peypey-ryd | League home: the Turtles against Owls matchup opens its own game once D46's file is on main | open |
-| B41 | B | Peypey-ryd | Demo path at phone size, both sports, after tonight's changes: league, matchup, opt in, watch, jump, recap, share; fix what breaks | open |
-| B42 | B | Peypey-ryd | Phone speed: first load on a throttled phone profile, what blocks the first screen, lazy loading where it is yours, a short report with numbers | open |
+| B41 | B | Peypey-ryd | Demo path at phone size, both sports, after tonight's changes: league, matchup, opt in, watch, jump, recap, share; fix what breaks | dropped: Juan, focus on data |
+| B42 | B | Peypey-ryd | Phone speed: first load on a throttled phone profile, what blocks the first screen, lazy loading where it is yours, a short report with numbers | dropped: Juan, focus on data |
 | C28 | C | nexodv | Test lead: run every check, walk both apps in a browser, one command in tests/, send bugs to owners | open |
 | C32 | C | nexodv | Soccer seek and hold (S7, moved to Noah), then the jump bar, rule cards and share card on the soccer page, with Peyton | open |
 | C33 | C | nexodv | Voice for the second football game (Turtles against Owls, D46) once its file is on main | dropped (Noah's call) |
 | C34 | C | nexodv | The demo video shot list and two-minute script, refreshed against main tonight (new stadium, soccer in the same tab bar, recordings), with Peyton | open |
-| C35 | C | nexodv | Sound starts right on a real phone: first tap unlocks audio, iPhone silent switch and background tab rules, resume after the tab returns, both sports, with a check | open |
-| C36 | C | nexodv | The second football game with the browser voice: every line fits, names and numbers said right for the Turtles and Owls rosters, audit covers it | open |
+| C35 | C | nexodv | Sound starts right on a real phone: first tap unlocks audio, iPhone silent switch and background tab rules, resume after the tab returns, both sports, with a check | dropped: Juan, focus on data |
+| C36 | C | nexodv | The second football game with the browser voice: every line fits, names and numbers said right for the Turtles and Owls rosters, audit covers it | dropped: Juan, focus on data |
 | C29 | C | nexodv | Stadium sound for football to match the soccer broadcast, with Peyton's B35 | merged |
 | C30 | C | nexodv | Soccer voice and captions, Noah's half of S6 | merged |
 | D41 | D | Rickstar-App | Deep agents finished: Scout ready for a real run, offline test of the subagents and the evidence guard | merged |
@@ -161,8 +161,10 @@ Run `sh tools/next.sh` to get your next task with its full description. A row is
 | D49 | D | Rickstar-App | Juan's laptop night in one command: migrations, seed, push every game file, check the routes, then Scout if a key is set, with a clear report | merged |
 | D50 | D | Rickstar-App | The app reads the service for real: a browser test with `?api=` against a local database (league, opt-in, momentum, trend, scout), and NOTE peyton with every shape her screens need | merged |
 | D51 | D | Rickstar-App | Devpost text, final draft: one honest paragraph per prize track we enter (Tiger Data, Gemini, LangChain deep agents), the what-is-real list and the setup, ready for Juan to paste | merged |
+| D54 | D | Rickstar-App | TOP PRIORITY. Real data in the demo: the featured matchup plays a real week (the week 9 real-play games), with lineups, points, league and recap from real stat lines, with Peyton and the boss | open |
+| D55 | D | Rickstar-App | Soccer from a real match: build the soccer game from `data/statlines/soccer-real-2026-11-08.json` with the soccer match maker, so soccer shows real numbers too | open |
 | D52 | D | Rickstar-App | Architecture for the Devpost: `pitch/ARCHITECTURE.md` with every part, what talks to what and what is real, as the source for the design session's architecture picture (G5) | open |
-| D53 | D | Rickstar-App | Every number in the Devpost text proven: a check that reads `pitch/DEVPOST-FINAL.md` and compares each count and score with the files on main | open |
+| D53 | D | Rickstar-App | Every number in the Devpost text proven: a check that reads `pitch/DEVPOST-FINAL.md` and compares each count and score with the files on main | dropped: Juan, focus on data |
 
 ## Answers to ASK posts
 
@@ -224,6 +226,8 @@ Newest at the bottom. The boss answers every ASK here. If the answer is "yes, do
 - Decision (Juan, 2026-11-15): the football stadium is Noah's version from branch nexodv/stadium, built from soccer/js/stadium.js, because it matches the soccer field. Peyton's B35 is replaced by it; B38 is polish on top.
 
 - ANSWER to nexodv (C33 and C30): done. C33 is dropped (Noah's call). Recorded: the announcer is one style and English only for both sports.
+
+- Decision (Juan, 2026-11-15, 9 PM): no more test or polish filler. Focus is data: real plays and real stat lines in what the demo shows, Scout's real run, Tiger Data. Dropped C35, C36, B41, B42, D53.
 
 ## Waiting for Juan
 
