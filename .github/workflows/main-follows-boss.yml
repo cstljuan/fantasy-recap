@@ -4,7 +4,7 @@ name: main-follows-boss
 # (fast-forward only), so every commit on main is still authored and committed by a person.
 on:
   push:
-    branches: ["cstljuan/boss", "Rickstar-App/boss", "nexodv/boss", "Peypey-ryd/boss"]
+    branches: ["cstljuan/boss", "cstljuan/director", "Rickstar-App/boss", "nexodv/boss", "Peypey-ryd/boss"]
 permissions:
   contents: write
 jobs:
