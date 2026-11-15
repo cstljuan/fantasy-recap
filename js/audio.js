@@ -101,7 +101,8 @@
 
   function init(ctx) {
     if (ctx) { ac = null; bed = null; jingleUntil = 0; }   // a given context (for tests) replaces the old one
-    if (ac) { if (ac.state === 'suspended') ac.resume(); return; }
+    // 'interrupted' is an iPhone state (another sound took the speaker for a moment): it needs resume() as well.
+    if (ac) { if (ac.state !== 'running' && ac.state !== 'closed') { try { ac.resume(); } catch (err) { /* needs a tap */ } } return; }
     var AC = ctx ? null : root.AudioContext || root.webkitAudioContext;
     if (!AC && !ctx) return;
     try {
@@ -112,7 +113,7 @@
       fxBus = ac.createGain(); fxBus.gain.value = settings.effects; fxBus.connect(master);
       ducker = ac.createGain(); ducker.gain.value = 1; ducker.connect(master);
       crowdBus = ac.createGain(); crowdBus.gain.value = settings.crowd; crowdBus.connect(ducker);
-      if (!ctx && ac.state === 'suspended') ac.resume();
+      if (!ctx && ac.state !== 'running') ac.resume();
       if (!ctx) { watchSpeech(); hook(); }
     } catch (err) { ac = null; }
   }

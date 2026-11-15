@@ -40,6 +40,31 @@
         .catch(function () { /* the list from the script tag still works */ });
     } catch (err) { /* optional */ }
   }
+  // One player for every line. A phone lets a page start sound only from inside a tap, and an iPhone
+  // asks for that tap again for every new player, so a new Audio() per line played the first line and
+  // refused most of the rest (they fell to the robot voice, which a phone keeps silent too). A player that
+  // has started once from a tap may be given a new file and started again without one. js/phone.js
+  // sends 'fr-unlock' on every tap; the first one that finds the player idle starts it on silence.
+  var SILENCE = 'data:audio/wav;base64,UklGRrQBAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YZABAACAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA';
+  var shared = null, primed = false;
+  var stats = root.FR_VOICE = root.FR_VOICE || { primed: false, played: 0, refused: 0, robot: 0 };
+  function player() {
+    if (!shared) { shared = new Audio(); shared.preload = 'auto'; shared.setAttribute('playsinline', ''); }
+    return shared;
+  }
+  var busy = function () { return false; };
+  if (root.addEventListener) root.addEventListener('fr-unlock', function () {
+    if (primed || busy()) return;
+    var el;
+    try { el = player(); } catch (err) { return; }
+    el.onended = null; el.onerror = null;
+    try {
+      el.src = SILENCE;
+      var p = el.play();
+      primed = true; stats.primed = true;
+      if (p && p.catch) p.catch(function () { primed = false; stats.primed = false; });
+    } catch (err) { /* the next tap tries again */ }
+  });
   function audioApi() { return root.FF_AUDIO || null; }
   function duck(on) { var a = audioApi(); if (a && a.duck) { try { a.duck(on); } catch (err) { /* optional */ } } }
 
@@ -48,6 +73,7 @@
     A.__voiceWrapped = true;
     var browserSpeak = A.speak, browserHush = A.hush;
     var current = null, waiting = null;
+    busy = function () { return !!current; };
 
     function clipFor(text) {
       var x = index(sport), f = x && x.lines && x.lines[text];
@@ -73,15 +99,21 @@
     }
     function play(item) {
       var el;
-      try { el = new Audio(item.url); } catch (err) { browserSpeak.call(A, item.text); return; }
+      try { el = player(); el.src = item.url; } catch (err) { stats.robot++; browserSpeak.call(A, item.text); return; }
       el.volume = volume();
+      var mine = item;
       current = { el: el, item: item };
       duck(true);
-      el.onended = next;
-      el.onerror = function () { current = null; browserSpeak.call(A, item.text); next(); };
+      el.onended = function () { if (current && current.item === mine) next(); };
+      el.onerror = function () { if (!current || current.item !== mine) return; current = null; stats.robot++; browserSpeak.call(A, item.text); next(); };
       var p = el.play();
-      // Autoplay refused (no tap yet): say it with the browser voice instead.
-      if (p && p.catch) p.catch(function () { if (current && current.el === el) { current = null; browserSpeak.call(A, item.text); next(); } });
+      // Autoplay refused (no tap yet): say it with the browser voice instead. A line that was only cut
+      // short by the next one (the shared player was given a new file) is not a refusal.
+      if (p && p.then) p.then(function () { stats.played++; }, function (err) {
+        if (!current || current.item !== mine) return;
+        if (err && err.name === 'AbortError') return;
+        current = null; stats.refused++; stats.robot++; browserSpeak.call(A, item.text); next();
+      });
     }
 
     A.speak = function (text) {
@@ -94,7 +126,7 @@
     };
     A.hush = function () {
       waiting = null;
-      if (current) { try { current.el.pause(); } catch (err) { /* already stopped */ } current = null; }
+      if (current) { var was = current.el; current = null; try { was.onended = null; was.onerror = null; was.pause(); } catch (err) { /* already stopped */ } }
       duck(false);
       if (browserHush) return browserHush.apply(A, arguments);
     };
