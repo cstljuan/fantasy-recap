@@ -184,7 +184,8 @@
     }
     function showNext() {
       var kind = queue.shift();
-      if (!kind) return;
+      // Nothing left to show: release the hold (the game was left held with no card otherwise).
+      if (!kind) { if (card.hidden) hold(false); return; }
       var text = explain(kind);
       if (!text || seen[kind]) { showNext(); return; }
       seen[kind] = true;

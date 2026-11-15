@@ -1630,7 +1630,9 @@
   }
   function showNextRule() {
     var kind = ruleQueue.shift();
-    if (!kind) return;
+    // Nothing left to show: let the game go again. Without this, a queue of rules already seen
+    // left the game held with no card on screen (Noah: the players stopped, the sound went on).
+    if (!kind) { if (ruleEl.hidden) slowFor(false); return; }
     var text = explainText(kind);
     if (!text || ruleSeen[kind]) { showNextRule(); return; }
     ruleSeen[kind] = true;
