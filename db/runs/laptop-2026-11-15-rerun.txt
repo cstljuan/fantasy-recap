@@ -1,0 +1,62 @@
+Fantasy Recap, second laptop run against the real Tiger Data service (after the fixes)
+======================================================================================
+Run from Juan's MacBook on 2026-11-15 03:27 UTC (2026-11-14 22:27 Eastern) with: sh db/laptop.sh
+Code: cstljuan/laptop with origin/main at e2f50cc merged in, which holds the two fixes for what the first
+run found (db/runs/laptop-2026-11-15.txt): the service now finds time_bucket through pg_proc, and migration 005 makes
+the continuous aggregates real-time. Database: Tiger Data, timescaledb extension 2.32.0.
+Host, user, password and the connection string are not in this file. Port numbers are local ports on the laptop.
+Run the same way as the first time: DATABASE_URL exported in the shell, psql through a wrapper that drops the one
+query parameter psql does not know. No repository file was changed for the run.
+
+Short version
+-------------
+- No step failed: 22 OK, 1 skipped.
+- momentum engine: answered by time_bucket. The momentum route now runs the TimescaleDB query on Tiger Data.
+- Step 6, node server/test-db.js: OK, 19 checks against the real database (push, repeat push, soccer minute, top plays,
+  fp_awards count, trend from the weekly aggregate, momentum from the database equal to the JavaScript buckets, story,
+  opt-in, release, watched, party).
+- Step 7 (Scout with a model) skipped: there is no model key on the laptop.
+- Still empty: GET /games/week11-football/summary answered players [] and quarters []. It did not fail; it was not
+  looked into in this run.
+
+Output of sh db/laptop.sh, as printed
+-------------------------------------
+Fantasy Recap laptop night. 2026-11-15 03:27 UTC
+  OK       1 migrations and seed: database ready
+  OK       2 service install: pg already installed
+  OK       3 service start: answering on port 53340, database true
+  OK       4 push game files: 11 games pushed
+  OK       5 health: 200 {"ok":true,"database":true}
+  OK       5 plays: 200 {"game_id":"week11-football","plays":[{"game_id":"week11-football","seq":1,"played_at":"20
+  OK       5 soccer plays: 200 {"game_id":"week11-soccer","plays":[{"game_id":"week11-soccer","seq":1,"played_at":"2026-1
+  OK       5 summary: 200 {"game_id":"week11-football","players":[],"quarters":[]}
+  OK       5 top plays: 200 {"game_id":"week11-football","source":"database","plays":[{"index":14,"quarter":1,"clock":
+  OK       5 drives: 200 {"game_id":"week11-football","source":"database","drives":[{"index":1,"team":"PYT","quarte
+  OK       5 momentum: 200 {"bucketSeconds":120,"buckets":[{"start":0,"quarter":1,"fp":[0,0],"score":[0,0],"fpTotal":
+  OK       5 story: 200 {"home":"GOB","away":"PYT","final":[17,14],"winner":"GOB","leadChanges":[{"index":14,"quar
+  OK       5 optins: 200 {"game_id":"week11-football","optins":[]}
+  OK       5 trend: 200 {"player":"Josh Allen","team":"GOB","slot":"QB","weeks":[{"week":7,"points":28.2,"awards":
+  OK       5 scout list: 200 {"players":[{"player":"GOB.K","name":"Brandon Aubrey","made_by":"Scout's tools, researched
+  OK       5 scout report: 200 {"player":"GOB.QB","report":{"title":"Josh Allen","team":"GOB","slot":"QB","made_by":"Scou
+  OK       5 league: 200 {"name":"Sample League","week":9,"invented":true,"release":{"day":"Tuesday","text":"Recap 
+  OK       5 commissioner week 9: 200 {"week":9,"finished":false,"matchups":[{"teams":["GOB","TUR"],"gameId":"week09-gob-tur","o
+  OK       5 release week 9: 200 {"week":9,"released":false,"changed_at":null,"source":"database"}
+  OK       5 party: 201 room made
+  OK       5 momentum engine: answered by: time_bucket (time_bucket is Tiger Data; date_bin or javascript means the TimescaleDB query did not run)
+  (not called on purpose: the opt-in, watched and release writes; step 6 does them on its own rows)
+  OK       6 real-database test: OK: 19 checks against the real database
+  SKIPPED  7 Scout: no GOOGLE_API_KEY or ANTHROPIC_API_KEY in the environment
+
+Report
+------
+SKIPPED: 1  OK: 22  
+  SKIPPED: 7 Scout | SKIPPED | no GOOGLE_API_KEY or ANTHROPIC_API_KEY in the environment
+No step failed.
+
+Asked the database right after the run
+--------------------------------------
+player_points_per_game|f
+player_points_per_week|f
+team_points_per_quarter|f
+player_points_per_week rows|130
+player_points_per_game rows for week11-football|0
