@@ -6,7 +6,8 @@
 
   var G = window.FF_GAME, D = window.FF_DATA, Rules = window.FF_RULES, Spr = window.FF_SPRITES;
   var TEAMS = D.TEAMS;
-  var WEEK = 'Week 11';
+  // The week of the game being played, from its file name (week09-gob-tur), so a second game says its own week.
+  var WEEK = 'Week ' + (function () { var f = window.FF_GAME_FILE, mm = f && f.id && /week(\d+)/.exec(f.id); return mm && !/[?&]game=sample/.test(location.search) ? parseInt(mm[1], 10) : 11; })();
   var TABS = ['league', 'matchup', 'lineups', 'plays', 'recap', 'film', 'week'];
   var SLOTS = [
     { role: 'QB', pos: 'QB' }, { role: 'RB', pos: 'RB' }, { role: 'WR1', pos: 'WR' }, { role: 'WR2', pos: 'WR' },
@@ -1317,10 +1318,58 @@
   }
   function myLeagueId() { return me >= 0 ? TEAMS[me].id : ''; }
 
-  function oursCard() {
+  // ----------------------------------------------- one game per matchup (B40)
+  // Each matchup with a game file opens its own game: index.html?game=<id> (js/screens/pick-game.js,
+  // loaded by index.html before the game starts). Each card says where its plays come from, from the
+  // game file's source and source_note (docs/CONTRACT.md section 1); no source means a sample game.
+  var SOURCE_LABEL = { 'real-plays': 'Real plays', 'jev': 'Jev called the plays', 'equal-weights': 'Built from stat lines', 'sample': 'Sample game' };
+  var fileSrc = {};   // 'week09-gob-tur.json' -> { source, note } once read
+  function pairKey(teams) { return (teams || []).map(function (t) { return String(t.id || t).toUpperCase(); }).sort().join('|'); }
+  function playingKey() { return pairKey(TEAMS); }
+  function playingFile() {
+    var f = window.FF_GAME_FILE;
+    return f && f.id && !/[?&]game=sample/.test(location.search) && !window.FF_USE_SAMPLE ? f.id + '.json' : '';
+  }
+  function canPick() { return !!(window.FR_PICK_GAME && window.FR_PICK_GAME.ready); }
+  // The game file of a matchup this week: from the matchup itself, or from the league's week list.
+  function fileFor(x, week) {
+    if (x.gameFile) return x.gameFile;
+    var L = league(), wk = (L.weeks || []).filter(function (w) { return w.week === week; })[0], key = pairKey(x.teams);
+    var hit = wk && (wk.matchups || []).filter(function (y) { return pairKey(y.teams) === key; })[0];
+    return hit && hit.gameFile ? hit.gameFile : '';
+  }
+  function sourceOf(file) {
+    if (!file) return null;
+    if (fileSrc[file]) return fileSrc[file].state === 'done' ? fileSrc[file] : null;
+    var cur = window.FF_GAME_FILE;
+    if (file === playingFile() && cur && cur.source) { fileSrc[file] = { state: 'done', source: cur.source, note: cur.source_note || '' }; return fileSrc[file]; }
+    fileSrc[file] = { state: 'loading' };
+    if (!window.fetch) { fileSrc[file] = { state: 'done', source: 'sample', note: '' }; return null; }
+    fetch('data/games/' + encodeURIComponent(file)).then(function (r) { return r.ok ? r.json() : null; }).then(function (g) {
+      fileSrc[file] = { state: 'done', source: g && SOURCE_LABEL[g.source] ? g.source : 'sample', note: g && typeof g.source_note === 'string' ? g.source_note : '' };
+      if (tab === 'league' && !inGame) render(false);
+    }).catch(function () { fileSrc[file] = { state: 'done', source: 'sample', note: '' }; });
+    return null;
+  }
+  function sourceLine(file) {
+    if (!file) return '';
+    var s = sourceOf(file);
+    if (!s) return '<p class="lg-source">Reading the game file</p>';
+    return '<p class="lg-source is-' + esc(s.source) + '"><b>' + esc(SOURCE_LABEL[s.source]) + '</b>' + (s.note ? '<span>' + esc(s.note) + '</span>' : '') + '</p>';
+  }
+  // The address that opens a game file: this page with ?game=<id>, every other switch kept.
+  function gameUrl(file, hash) {
+    var q = location.search.replace(/^\?/, '').split('&').filter(function (kv) { return kv && !/^game=/.test(kv); });
+    q.push('game=' + encodeURIComponent(file.replace(/\.json$/, '')));
+    return location.pathname + '?' + q.join('&') + '#' + hash;
+  }
+
+  function oursCard(x) {
+    var mine = !x || x.ours;
     return '<a class="panel lg-match is-ours" href="#matchup">' +
-      '<div class="lg-top"><span class="eyebrow">Your matchup</span>' + statusChip() + '</div>' +
+      '<div class="lg-top"><span class="eyebrow">' + (mine ? 'Your matchup' : 'Now playing') + '</span>' + statusChip() + '</div>' +
       '<div class="lg-teams">' + ord().map(function (t) { return leagueTeam(TEAMS[t].full + (t === me ? ' (you)' : ''), '', marks[t]); }).join('<span class="lg-vs">vs</span>') + '</div>' +
+      sourceLine(playingFile()) +
       '<div class="lg-foot">' + optMark(optin === 'in') + '<span class="lg-drop">' + esc(releaseText()) + '</span><span class="lg-go">Open</span></div>' +
       leagueOptins() +
       '</a>';
@@ -1335,8 +1384,14 @@
   }
   function otherCard(x) {
     var all = Array.isArray(x.optedIn) && x.teams.every(function (t) { return x.optedIn.indexOf(t.id) >= 0; });
-    return '<div class="panel lg-match">' +
-      '<div class="lg-teams">' + leagueTeam(x.teams[0].full, x.teams[0].tile) + '<span class="lg-vs">vs</span>' + leagueTeam(x.teams[1].full, x.teams[1].tile) + '</div>' +
+    var file = fileFor(x, league().week), go = file && canPick();
+    var teams = '<div class="lg-teams">' + leagueTeam(x.teams[0].full, x.teams[0].tile) + '<span class="lg-vs">vs</span>' + leagueTeam(x.teams[1].full, x.teams[1].tile) + '</div>';
+    if (go) {
+      return '<a class="panel lg-match" href="' + esc(gameUrl(file, 'matchup')) + '">' +
+        '<div class="lg-top"><span class="eyebrow">' + (x.ours ? 'Your matchup' : 'Other matchup') + '</span></div>' + teams + sourceLine(file) +
+        '<div class="lg-foot">' + optMark(all) + '<span class="lg-drop">' + esc(releaseText()) + '</span><span class="lg-go">Open this game</span></div></a>';
+    }
+    return '<div class="panel lg-match">' + teams +
       '<div class="lg-foot">' + optMark(all) + '<span class="lg-drop">' + esc(releaseText()) + '</span></div>' +
       '</div>';
   }
@@ -1350,10 +1405,10 @@
         leagueTeam(t.full, t.tile) +
         '<span class="num">' + (f ? f1(f[i]) : '--') + '</span>' + (i === win ? '<span class="won">Win</span>' : '') + '</div>';
     }).join('');
-    var playable = x.gameFile && /week11-football\.json$/.test(x.gameFile);
+    var here = x.gameFile && x.gameFile === playingFile(), playable = x.gameFile && (here || canPick());
     var why = x.gameFile ? 'The app plays one game file at a time, and it is not this one.' : 'No game file for week ' + wk + '. Only the final scores were kept.';
     var btn = playable
-      ? '<a class="cta ghost" href="#recap">Watch the recap</a>'
+      ? '<a class="cta ghost" href="' + (here ? '#recap' : esc(gameUrl(x.gameFile, 'recap'))) + '">Watch the recap</a>'
       : '<button type="button" class="cta ghost" disabled aria-describedby="why-' + wk + '-' + esc(x.teams[0].id) + '">Watch the recap</button>' +
         '<p class="lg-why" id="why-' + wk + '-' + esc(x.teams[0].id) + '">' + esc(why) + '</p>';
     return '<div class="panel lg-match is-final">' +
@@ -1380,31 +1435,36 @@
     if (weeks.indexOf(cur) < 0) weeks.push(cur);
     if (weeks.length < 2) return '';
     return '<div class="lg-weeks" role="group" aria-label="Week">' + weeks.map(function (n) {
-      return '<button type="button" data-act="week" data-w="' + n + '" aria-pressed="' + (n === weekSel) + '">Week ' + n + (n === cur ? ', now' : '') + '</button>';
+      return '<button type="button" data-act="week" data-w="' + n + '" aria-pressed="' + (n === (weekSel || cur)) + '">Week ' + n + (n === cur ? ', now' : '') + '</button>';
     }).join('') + '</div>';
   }
 
   function renderLeague() {
     var L = league();
-    if (!weekSel) weekSel = L.week;
+    // No week chosen means the league's current week. It is not frozen at the first draw: the
+    // built-in league (week 11) shows until data/league.json arrives with the real current week.
+    var sel = weekSel || L.week;
     var body, count;
-    if (weekSel === L.week) {
-      var others = L.matchups.filter(function (x) { return !x.ours; });
-      body = oursCard() + others.map(otherCard).join('') +
+    if (sel === L.week) {
+      // The matchup being played opens here; every other one with a game file opens its own game.
+      var playing = L.matchups.filter(function (x) { return x.teams ? pairKey(x.teams) === playingKey() : x.ours; })[0] || L.matchups.filter(function (x) { return x.ours; })[0];
+      var others = L.matchups.filter(function (x) { return x !== playing; });
+      body = oursCard(playing) + others.map(otherCard).join('') +
         '<a class="cta ghost lg-top-link" href="#week">This week\'s biggest plays</a>' +
         '<button type="button" class="cta ghost lg-top-link" data-act="party-join">Join a watch party</button>';
       count = (1 + others.length) + ' matchups, 4 teams';
     } else {
-      var wk = pastWeeks().filter(function (w) { return w.week === weekSel; })[0];
+      var wk = pastWeeks().filter(function (w) { return w.week === sel; })[0];
       body = wk ? wk.matchups.map(function (x) { return finishedCard(x, wk.week); }).join('') : '<div class="empty">Nothing for this week.</div>';
       count = 'Finished';
     }
     return '<div class="narrow">' +
       weekPicker() +
-      '<div class="lg-head"><h2>Week ' + weekSel + ' matchups</h2><span class="lg-count">' + count + '</span></div>' +
+      '<div class="lg-head"><h2>Week ' + sel + ' matchups</h2><span class="lg-count">' + count + '</span></div>' +
       body + standingsTable() +
       '<p class="note is-plain">Sample league, made up for the demo: the other teams, past scores and standings are invented. ' +
-      'Each recap is released on Tuesday, after the week is over. Only your week ' + L.week + ' matchup has a game to watch.</p>' +
+      'Each recap is released on Tuesday, after the week is over. ' +
+      (canPick() ? 'A matchup with a game file opens its own game, and its card says where the plays come from.' : 'Only your week ' + L.week + ' matchup has a game to watch.') + '</p>' +
       '</div>';
   }
 
