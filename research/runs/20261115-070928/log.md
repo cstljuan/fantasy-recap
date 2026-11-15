@@ -20,3 +20,13 @@ Second run, after the researcher definition was fixed (the first run, research/r
 | 07:30:14 | 5 model | research-modeler | not available yet: research/tools/model.py is not on this branch (the projections branch has not been pushed) | none |
 | 07:30:42 | 6 write | research-writer | ok: write_profiles.py (read-only copy from the profiles branch) run from a temporary copy pointed at the run folder; projections missing so profiles say projection pending; scouts_read already present in both notes | research/runs/20261115-070928/players/TUR-K.md, research/runs/20261115-070928/players/OWL-K.md, research/runs/20261115-070928/teams/TUR.md, research/runs/20261115-070928/teams/OWL.md, research/runs/20261115-070928/matchups/TUR-vs-OWL.md |
 | 07:31:28 | 7 check TUR-K | research-checker | PASS: all 10 checks; numbers match the data file, 3 web spot checks confirmed, conflicts stated | research/runs/20261115-070928/check-TUR-K.md |
+| 07:31:49 | 7 check OWL-K | research-checker | FAIL on check 7 only: a private person named from headline-only sources; every number and web spot check passed | research/runs/20261115-070928/check-OWL-K.md |
+
+## Summary
+
+- What ran: set up and plan (command), pull (research-puller, once), research (research-researcher, 2 players), model (research-modeler, once), write (research-writer, once), check (research-checker, 2 players). Every step ran and logged a row.
+- What passed: TUR-K (all 10 checks).
+- What failed: OWL-K, on one check: the note names a private family member from headline-only entertainment sites (marked unconfirmed). Every number and web spot check passed. Cause: the researcher definition allowed a weakly sourced personal fact if it was marked unconfirmed. The definition is tightened (no names of private people from weak sources) and the run is repeated.
+- What was not found: refused hosts (ESPN, Sleeper, Wikipedia, Google News, EA, GitHub); research/tools/model.py not available yet (projections pending); facts the notes mark "not found" (wind, quotes, this week's injury reports, opponent records).
+- Where the files are: this folder only (dry run). Nothing in research/notes/, research/players/, research/teams/ or research/matchups/ was written.
+- Nothing was committed or pushed by the pipeline; the person running it commits.
