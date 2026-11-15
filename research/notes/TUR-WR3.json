@@ -1,0 +1,236 @@
+{
+ "key": "TUR-WR3",
+ "name": "Drake London",
+ "researched": "2026-11-15",
+ "background": [
+  {
+   "fact": "Born July 24, 2001 in Moorpark, California; he is a wide receiver for the Atlanta Falcons, drafted eighth overall in the 2022 NFL draft out of USC.",
+   "source": "https://en.wikipedia.org/wiki/Drake_London",
+   "date": null,
+   "confidence": "from Wikipedia"
+  },
+  {
+   "fact": "He attended Moorpark High School, playing football and basketball; as a senior he had 62 catches for 1,089 yards and 12 touchdowns in football and averaged 29.2 points and 11.9 rebounds in basketball.",
+   "source": "https://en.wikipedia.org/wiki/Drake_London",
+   "date": null,
+   "confidence": "from Wikipedia"
+  },
+  {
+   "fact": "He committed to USC to play both football and basketball, and in basketball as a freshman he played in three games.",
+   "source": "https://en.wikipedia.org/wiki/Drake_London",
+   "date": null,
+   "confidence": "from Wikipedia"
+  },
+  {
+   "fact": "At USC he was Pac-12 Offensive Player of the Year in 2021, then fractured his right ankle in the eighth game of that season and declared for the draft.",
+   "source": "https://en.wikipedia.org/wiki/Drake_London",
+   "date": null,
+   "confidence": "from Wikipedia"
+  },
+  {
+   "fact": "Listed at 6 ft 4 in, 215 lb, age 25, jersey 5, in his fifth NFL season.",
+   "source": "research/data/TUR-WR3.json (bio, from ESPN and Sleeper pulls)",
+   "date": "2026-11-15",
+   "confidence": "one source"
+  },
+  {
+   "fact": "Madden week 8 rating is 91 overall, with catching 97, spectacular catch 95, jumping 97 and catch in traffic 93.",
+   "source": "research/data/TUR-WR3.json (bio.madden)",
+   "date": "2026-11-15",
+   "confidence": "one source"
+  },
+  {
+   "fact": "His rookie contract data shows 4 years and about $21.5 million, signed 2022; the contract file does not show later extensions, so his current deal was not found.",
+   "source": "research/data/TUR-WR3.json (bio.contract)",
+   "date": "2026-11-15",
+   "confidence": "one source; later contract not found"
+  }
+ ],
+ "family": [
+  {
+   "fact": "He grew up in an interracial family, the son of his father Dwan (Black) and his mother Cindi (White).",
+   "source": "https://en.wikipedia.org/wiki/Drake_London",
+   "date": null,
+   "confidence": "from Wikipedia"
+  },
+  {
+   "fact": "Nothing further about his family, a spouse or children was found in public reporting reached for this note: not found.",
+   "source": "not found",
+   "date": null,
+   "confidence": "not found"
+  }
+ ],
+ "recent_events": [
+  {
+   "fact": "Falcons lost 34-17 to the Bengals in Madrid in Week 9 (Nov 8); London caught all 5 of his targets for 68 yards and no touchdown and led Atlanta in receiving yards, though Bijan Robinson caught one more pass.",
+   "source": "research/data/TUR-WR3.json (status.espn, log)",
+   "date": "2026-11-08",
+   "confidence": "from the data file (ESPN recap text)"
+  },
+  {
+   "fact": "London has 11 targets over the last two games for 6 catches and 76 yards, and ESPN's note says he could have a hard time breaking out in Week 10 against a stingy Kansas City secondary.",
+   "source": "research/data/TUR-WR3.json (status.espn.long)",
+   "date": "2026-11-08",
+   "confidence": "one source"
+  },
+  {
+   "fact": "The NFL fined London $23,882 for unnecessary roughness after the Bengals game, for lowering his helmet into cornerback DJ Turner II on a 21-yard catch in the third quarter; it was his second fine in two weeks.",
+   "source": "https://www.thefalcoholic.com/atlanta-falcons-roster/98411/drake-london-fined-unnecessary-roughness-bengals-madrid",
+   "date": "2026-11-14",
+   "confidence": "confirmed by several outlets (Yahoo Sports, Athlon, Sportskeeda headlines and summaries)"
+  },
+  {
+   "fact": "His earlier fine was $12,537 after the Week 8 game against Tampa Bay, for unnecessary roughness tied to a clash with linebacker Alex Anzalone; a repeat would cost $47,762 per the summary.",
+   "source": "https://sports.yahoo.com/articles/falcons-drake-london-given-12-172721901.html",
+   "date": "2026-11-08",
+   "confidence": "one source plus a search summary"
+  },
+  {
+   "fact": "J.J. Watt criticized the league over the size of the $23,882 fine.",
+   "source": "https://www.sportskeeda.com/nfl/news-j-j-watt-rips-nfl-23-882-fine-drake-london-unnecessary-roughness-vs-bengals",
+   "date": "2026-11-15",
+   "confidence": "one source"
+  },
+  {
+   "fact": "He has played all 9 Atlanta games in 2026 with 44 catches on 67 targets for 692 yards and 1 touchdown, about 8.4 fantasy points a game under league scoring, and Atlanta is 3-6.",
+   "source": "research/data/TUR-WR3.json (season_2026, career)",
+   "date": "2026-11-15",
+   "confidence": "from the data file"
+  },
+  {
+   "fact": "2026 game by game catches/targets/yards: Wk1 2/4/29, Wk2 4/5/51, Wk3 9/10/194 (19.4 points, his best), Wk4 5/6/96, Wk5 7/11/118, Wk6 4/10/62, Wk7 7/10/66 with his only touchdown, Wk8 1/6/8 (0.8, his worst), Wk9 5/5/68.",
+   "source": "research/data/TUR-WR3.json (log)",
+   "date": "2026-11-15",
+   "confidence": "from the data file"
+  }
+ ],
+ "quotes": [
+  {
+   "fact": "Falcons offensive coordinator Tommy Rees singled out London's blocking as a rare trait for a No. 1 receiver and said he would be hard pressed to find a better blocking receiver in the NFL (reported via Josh Kendall of The Athletic).",
+   "source": "https://clutchpoints.com/nfl/atlanta-falcons/falcons-oc-unique-drake-london-trait-makes-star",
+   "date": "2026-11-13",
+   "confidence": "one source (secondhand summary, article not fully read)"
+  },
+  {
+   "fact": "No quote from London himself about the fines or this week's game was found: not found.",
+   "source": "not found",
+   "date": null,
+   "confidence": "not found"
+  }
+ ],
+ "team_context": [
+  {
+   "fact": "Atlanta is 3-6, scoring 20.9 points and allowing 24.8 points a game.",
+   "source": "research/data/TUR-WR3.json (season_2026.team)",
+   "date": "2026-11-15",
+   "confidence": "from the data file"
+  },
+  {
+   "fact": "London is the clear first target: 67 of about 242 team targets (27.7 percent), ahead of Bijan Robinson (40), Kyle Pitts (37) and Jahan Dotson (32).",
+   "source": "research/data/TUR-WR3.json (teammates_2026)",
+   "date": "2026-11-15",
+   "confidence": "from the data file"
+  },
+  {
+   "fact": "Michael Penix Jr. has thrown to him in Weeks 3 to 9 after Cooper Rush started Weeks 1 and 2; one preview ranks Penix 34th of 36 quarterbacks when pressured (fan preview, one source).",
+   "source": "https://www.arrowheadpride.com/kansas-city-chiefs-odds/216152/chiefs-falcons-week-10-game-score-predictions",
+   "date": "2026-11-15",
+   "confidence": "one source for the pressure claim; QB list from the data file"
+  },
+  {
+   "fact": "His tracking data in 2026 shows 39.6 percent of Atlanta's intended air yards, 9.6 yards average intended depth, and 7.3 yards after the catch against 5.5 expected.",
+   "source": "research/data/TUR-WR3.json (season_2026.tracking)",
+   "date": "2026-11-15",
+   "confidence": "from the data file"
+  },
+  {
+   "fact": "Head coach name for 2026 was not confirmed from a current source: not found.",
+   "source": "not found",
+   "date": null,
+   "confidence": "not found"
+  }
+ ],
+ "next_opponent": [
+  {
+   "fact": "Atlanta hosts Kansas City on Sunday, November 15, 1 pm ET at Mercedes-Benz Stadium (indoor, artificial turf), on CBS, with 7 days of rest.",
+   "source": "research/data/TUR-WR3.json (next_games)",
+   "date": "2026-11-15",
+   "confidence": "from the data file"
+  },
+  {
+   "fact": "Line: Kansas City -3 (Atlanta a 3 point home underdog), total 47.5, Atlanta implied about 22.25 points; indoors, so weather is not a factor.",
+   "source": "research/data/TUR-WR3.json (next_games); CBS line cited in a preview search summary",
+   "date": "2026-11-15",
+   "confidence": "two sources agree on about -3; one preview says KC opened -3.5"
+  },
+  {
+   "fact": "Previews expect pressure from the Chiefs to be the main threat to Penix, and score predictions run from Chiefs 27-20 to Chiefs 28-17.",
+   "source": "https://www.dazn.com/en-CA/news/football/chiefs-falcons-nfl-watch-week-10-news-kickoff-time-date-prediction/d7567bkge1mv1chkj9a6xwfau",
+   "date": "2026-11-15",
+   "confidence": "search summary, article not fully read"
+  },
+  {
+   "fact": "Fantasy outlets split on London: ESPN marks him a lineup lock and CBS lists him as a start; RotoBaller rates him a low end WR1 in an unfavorable matchup; NBC Sports headline says sell Drake London.",
+   "source": "https://www.rotoballer.com/player-news/drake-london-a-low-end-wr1-in-unfavorable-week-10-matchup/1993588",
+   "date": "2026-11-14",
+   "confidence": "several outlets, summaries only"
+  },
+  {
+   "fact": "Kansas City's reported Week 10 outs include RB Kenneth Walker III (groin), OL Jaylon Moore, DT Omarr Norman-Lott and DL Peter Woods; Chris Jones was reported expected to play. One search summary said Walker is out while another source listed him as a start, so that is unsettled.",
+   "source": "https://www.nfl.com/news/nfl-week-10-injury-report-2026-season",
+   "date": "2026-11-15",
+   "confidence": "conflicting reports"
+  }
+ ],
+ "style": [
+  {
+   "fact": "Big outside receiver (6 ft 4) who wins with contested catches, jumping and catching in traffic; Madden gives him 97 catching and 97 jumping.",
+   "source": "research/data/TUR-WR3.json (bio.madden)",
+   "date": "2026-11-15",
+   "confidence": "one source"
+  },
+  {
+   "fact": "Short and medium work dominate his 2026 targets (49 of 67 short, 7.4 yards a target) while his 18 deep targets average 18.2 yards with 1 touchdown; he has only 4 red zone targets.",
+   "source": "research/data/TUR-WR3.json (plays_2026, season_2026)",
+   "date": "2026-11-15",
+   "confidence": "from the data file"
+  },
+  {
+   "fact": "Atlanta's offensive coordinator praised his blocking as a standout trait.",
+   "source": "https://clutchpoints.com/nfl/atlanta-falcons/falcons-oc-unique-drake-london-trait-makes-star",
+   "date": "2026-11-13",
+   "confidence": "one source"
+  }
+ ],
+ "availability": {
+  "status": "Active, no 2026 Week 10 injury designation found",
+  "detail": "The data file shows Sleeper status Active, ESPN status Active (Nov 8), and no injury status. The only 2026 entry in the injury reports is Week 6, hip, limited practice, with no game designation. A DraftKings Week 10 report snippet lists him among Falcons receivers with only Zachariah Branch out. He was questionable several times in 2024 and 2025 (hip, illness, knee) and was out four games in November and December 2025 with a knee injury. He is not on injured reserve per the sources reached. An SI item mentioned illness ahead of Week 11, which does not fit this week, so it was not used. Final inactive list not seen.",
+  "expected_return": "Not applicable",
+  "source": "https://dknetwork.draftkings.com/2026/11/10/nfl-injury-report-week-10/",
+  "date": "2026-11-10"
+ },
+ "outlook_next_game": {
+  "lean": "plays; modest to solid receiving game, about 8 to 14 fantasy points",
+  "confidence": "medium",
+  "reasons": [
+   "He is active with no Week 10 injury designation found, leads Atlanta with 27.7 percent of targets and has had at least 4 targets in every game.",
+   "His 2026 average is 8.4 points a game with a range from 0.8 to 19.4, so the floor is low and the ceiling depends on a big game like Week 3.",
+   "Atlanta is a 3 point home underdog with an implied total near 22 points, which can mean game script that favors passing.",
+   "Risks: Kansas City pressure on Penix, a stingy KC secondary per ESPN, and only 1 touchdown all year."
+  ]
+ },
+ "scouts_read": "London is active and has no injury label this week, so the question is production, not availability. He is the Falcons' clear first read with more than a quarter of the targets, but only one touchdown in nine games keeps his scoring flat, averaging 8.4 points. Kansas City brings pressure that has hurt Penix, and ESPN calls their secondary stingy, though Atlanta being a home underdog could mean more passing. I would expect 5 to 7 catches and a yardage line near 60 to 80 with a modest chance at a touchdown. The back to back fines are a side note and do not look like a suspension risk from the reports found.",
+ "open_questions": [
+  "Official final Week 10 injury designation and Sunday inactive list for London (not found beyond a snippet with no designation).",
+  "The 2026 Wikipedia season section was not stored, so season detail beyond the data file was not available.",
+  "Head coach for 2026, his current contract or extension, and any quotes from London on the fines (not found).",
+  "Whether Kenneth Walker III plays for Kansas City (reports conflict)."
+ ],
+ "searches": [
+  "Drake London Falcons Chiefs Week 10 injury status fine",
+  "Drake London fined unnecessary roughness Bengals Madrid Falcoholic",
+  "Falcons Chiefs Week 10 preview Drake London Kansas City secondary Penix",
+  "Falcons OC unique Drake London trait star Yahoo Sports (found the ClutchPoints write-up of the Tommy Rees comments)",
+  "Page fetches were not used; Wikipedia text came from the sections stored in research/data/TUR-WR3.json (intro, early life, college only)"
+ ]
+}
