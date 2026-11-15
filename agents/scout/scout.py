@@ -10,7 +10,8 @@ Without a model key, python3 agents/scout/research.py writes the same reports wi
     python3 agents/scout/scout.py            (needs the packages in requirements.txt and a model key)
     python3 agents/scout/scout.py --dry-run  (builds the agent and prints the plan, makes no model call)
 
-The model comes from the environment: GOOGLE_API_KEY (Gemini) if set, otherwise ANTHROPIC_API_KEY.
+The model comes from the environment: GOOGLE_API_KEY (Gemini) if set, otherwise ANTHROPIC_API_KEY; SCOUT_PROVIDER=google or
+anthropic picks one when both are set.
 SCOUT_MODEL overrides the model name. No key is read from or written to any file.
 """
 import json
@@ -42,17 +43,23 @@ def rosters():
     return ro
 
 
-def pick_model():
-    """Returns (model object, label). Gemini if GOOGLE_API_KEY is set, otherwise Claude if ANTHROPIC_API_KEY is set."""
-    name = os.environ.get("SCOUT_MODEL")
-    if os.environ.get("GOOGLE_API_KEY"):
+def pick_model(env=None):
+    """Returns (model object, label). With both keys set, SCOUT_PROVIDER=google or anthropic chooses; otherwise Gemini if
+    GOOGLE_API_KEY is set, else Claude if ANTHROPIC_API_KEY is set. (None, None) with no key."""
+    env = os.environ if env is None else env
+    name = env.get("SCOUT_MODEL")
+    want = (env.get("SCOUT_PROVIDER") or "").lower()
+    google, claude = bool(env.get("GOOGLE_API_KEY")), bool(env.get("ANTHROPIC_API_KEY"))
+    if want == "google" and not google or want == "anthropic" and not claude:
+        raise SystemExit("SCOUT_PROVIDER=%s but its key is not set in the environment." % want)
+    if google and want != "anthropic":
         from langchain_google_genai import ChatGoogleGenerativeAI
         name = name or GOOGLE_DEFAULT
-        return ChatGoogleGenerativeAI(model=name, max_retries=8), "google:" + name
-    if os.environ.get("ANTHROPIC_API_KEY"):
+        return ChatGoogleGenerativeAI(model=name, max_retries=8, api_key=env["GOOGLE_API_KEY"]), "google:" + name
+    if claude:
         from langchain_anthropic import ChatAnthropic
         name = name or ANTHROPIC_DEFAULT
-        return ChatAnthropic(model=name), "anthropic:" + name
+        return ChatAnthropic(model=name, api_key=env["ANTHROPIC_API_KEY"]), "anthropic:" + name
     return None, None
 
 

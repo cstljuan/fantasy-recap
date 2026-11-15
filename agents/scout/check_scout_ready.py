@@ -35,6 +35,19 @@ net = scout.preflight(network=True)
 assert any("cannot reach unreachable.invalid" in p for p in net), net
 os.environ.pop("ANTHROPIC_API_KEY")
 
+# 1b. whichever key is present: each path builds its own model, a provider that is asked for but has no key is a clear stop
+assert scout.pick_model({}) == (None, None)
+m, label = scout.pick_model({"GOOGLE_API_KEY": "not-a-real-key"})
+assert label == "google:" + scout.GOOGLE_DEFAULT and type(m).__name__ == "ChatGoogleGenerativeAI", (label, type(m))
+m, label = scout.pick_model({"ANTHROPIC_API_KEY": "not-a-real-key", "SCOUT_MODEL": "claude-test"})
+assert label == "anthropic:claude-test" and type(m).__name__ == "ChatAnthropic", (label, type(m))
+both = {"GOOGLE_API_KEY": "a", "ANTHROPIC_API_KEY": "b"}
+assert scout.pick_model(both)[1].startswith("google:") and scout.pick_model(dict(both, SCOUT_PROVIDER="anthropic"))[1].startswith("anthropic:")
+try:
+    scout.pick_model({"GOOGLE_API_KEY": "a", "SCOUT_PROVIDER": "anthropic"}); raise AssertionError("no stop")
+except SystemExit as e:
+    assert "ANTHROPIC" in str(e) or "anthropic" in str(e)
+
 # 2. run errors become plain messages; unknown errors are not hidden
 class AuthenticationError(Exception): pass
 class APIConnectionError(Exception): pass

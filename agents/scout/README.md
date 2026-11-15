@@ -22,6 +22,8 @@ sh agents/scout/run.sh --players GOB.QB,GOB.WR1   # a few players first (recomme
 sh agents/scout/run.sh --preflight  # only checks that a run could start
 ```
 
+Either key works: `GOOGLE_API_KEY` (Gemini, default model `gemini-3.5-flash`) or `ANTHROPIC_API_KEY` (Claude, default `claude-sonnet-5-5`). With both set, Gemini is used unless `SCOUT_PROVIDER=anthropic`. `SCOUT_MODEL` names another model. A free Gemini key allows only about 20 requests a day on `gemini-3.5-flash`, so use `SCOUT_MODEL=gemini-3.5-flash-lite` or a paid key; one player takes about 100 model calls. The Claude path has been built and tested offline only: it has never called the API.
+
 `GOOGLE_API_KEY` (Gemini) is used if set, otherwise `ANTHROPIC_API_KEY`. `SCOUT_MODEL` overrides the model name; `SCOUT_SEASON` sets the season (default 2026). `python3 agents/scout/scout.py --dry-run` builds the agent and makes no model call.
 
 Before any model call it checks: the packages, a model key, `data/rosters/plays-2026.json`, `node`, and that Sleeper and ESPN answer. Each problem is printed as `NOT READY: <what, and the command that fixes it>` and the exit code is 2. If the model or network fails during the run, it prints `STOPPED: <plain reason>` (key refused, model name not accepted, network failed, rate limit), writes the same line to the log and exits 3. Any other error shows its traceback.
