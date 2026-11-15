@@ -139,7 +139,7 @@ Run `sh tools/next.sh` to get your next task with its full description. A row is
 | B37 | B | Peypey-ryd | Fix every bug the test lead (C28) sends | closed: C28 sent none |
 | B38 | B | Peypey-ryd | Polish the football stadium Juan chose (Noah's, built from the soccer stadium): check it at 375 and 1280 with your screens, crowd layer and captions, fix what overlaps | merged |
 | B39 | B | Peypey-ryd | Momentum and player trends from the service (D44) on the film room and lineups when `?api=` is set, file fallback otherwise | merged |
-| B40 | B | Peypey-ryd | Two honest matchups: the featured real week 9 game ("Real plays") and a Jev game ("Jev called the plays"), each opening its own game, every label from the game file's `source` | open |
+| B40 | B | Peypey-ryd | Two honest matchups: the featured real week 9 game ("Real plays") and a Jev game ("Jev called the plays"), each opening its own game, every label from the game file's `source` | merged |
 | B43 | B | Peypey-ryd | No "made-up" on a real game: footer, header tag, canvas score box tag and final box read the game file's `source` and `source_note` (canvas text is in js/main.js, which is in your lane tonight) | open |
 | B41 | B | Peypey-ryd | Demo path at phone size, both sports, after tonight's changes: league, matchup, opt in, watch, jump, recap, share; fix what breaks | dropped: Juan, focus on data |
 | B42 | B | Peypey-ryd | Phone speed: first load on a throttled phone profile, what blocks the first screen, lazy loading where it is yours, a short report with numbers | dropped: Juan, focus on data |
@@ -308,6 +308,7 @@ The boss reviews every DONE before it reaches main: the authors check, the lane 
 - Merged after review: D52, G1. All checks and the three full-game runs passed
 - Merged after review: B38, D54. All checks and the three full-game runs passed
 - Merged after review: B39, G5. All checks and the three full-game runs passed
+- Merged after review: B40. All checks and the three full-game runs passed
 - D1 real rosters and profile files, D2 database schema (Ricky) are on main; `data/games/sample-football.json` now has the real rosters
 
 ## Decisions
