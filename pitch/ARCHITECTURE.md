@@ -7,7 +7,7 @@ Checked against main on 2026-11-15. Each part has a mark: REAL (it runs and was 
 | # | Part | What it is | Runs | Mark |
 |---|---|---|---|---|
 | 1 | Football game maker | `engine/make-game.js`: turns stat lines (or a real week's plays) into a full legal game, and tags highlights | build time | REAL |
-| 2 | Jev | An outside play caller (TypeSafe AI) the game maker asks, over the network, which play to run at 40 of the 84 snaps of the main game | build time, network | REAL for the main game; the Turtles against Owls game was built without it |
+| 2 | Jev | An outside play caller (TypeSafe AI) the game maker asks, over the network, which play to run at 40 of the 84 snaps of the main game | build time, network | REAL for the main game (40 of 84 snaps) and, since 2026-11-15, for the Turtles against Owls game (97 of 184 snaps) |
 | 3 | Rules engine | `js/rules.js`: downs, distance, possession, score, fantasy points. Referees every play when a game is built and again in the browser | both | REAL |
 | 4 | Soccer match maker | `soccer/engine/make-match.js` with its own rules; no Jev | build time | REAL, data SIMULATED |
 | 5 | Game files | `data/games/*.json` (five football games), `soccer/data/*.json`; `data/games/current.js` points the app at one | files | main game SIMULATED (invented stat lines, real names); two week 9 games REAL plays; Turtles against Owls SIMULATED |
