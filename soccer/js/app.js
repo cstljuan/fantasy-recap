@@ -438,7 +438,14 @@
   window.addEventListener('hashchange', route);
 
   // A tap on the match shows Close. After full time it leads to the recap.
-  G.ontap = function (mode) { if (mode === 'final') leaveGame('recap'); else revealClose(); };
+  // A second tap on the match puts the controls away again (Juan, on his phone: there was no way out of the menu).
+  function hideControls() {
+    clearTimeout(closeTimer);
+    var a = document.activeElement;
+    if (a && a !== document.body && a.blur && $('closeGame').parentNode.contains(a)) a.blur();
+    setControls(false);
+  }
+  G.ontap = function (mode) { if (mode === 'final') leaveGame('recap'); else if (!$('closeGame').hidden) hideControls(); else revealClose(); };
 
   G.on(function (type, d) {
     if (type === 'reset') m = blank();
