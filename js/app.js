@@ -411,7 +411,7 @@
       '<div class="who"><div class="name">' + esc(fullName(t, role)) + '</div>' +
       '<div class="sub"><span class="pos">' + posOf(role) + '</span>' +
         (masked() ? (rank ? TEAMS[t].id : '') : (rank ? TEAMS[t].id + ', ' : '') + esc(statLine(t, role))) + '</div>' +
-        (rank ? '' : formLine(t, role)) + '</div>' +
+        (rank ? '' : formLine(t, role) + trendLine(t, role)) + '</div>' +
       '<span class="pts num' + (pts === 0 || masked() ? ' zero' : '') + '">' + pts1(pts) + '</span>' +
       '</div>';
   }
@@ -622,13 +622,166 @@
       '</div>';
   }
 
+  // ------------------------------------------- momentum and trends (B39)
+  // With ?api= and the service up, Ricky's D44 routes: GET /games/:id/momentum?bucket= for the
+  // film room and GET /players/TEAM.SLOT/trend for the lineups (server/README.md). Without them,
+  // momentum comes from the game file through Ricky's own server/replay.js and server/momentum.js,
+  // loaded into the page, so the numbers are the same; trends need every week's file, which only
+  // the service can list, so the lineups keep the recent form line alone.
+  var MOM_BUCKET = 360;   // seconds of game time per bar: 30 bars over the three hours
+  var mom$ = { state: 'idle', data: null, from: '' }, trend$ = { state: 'idle', by: {} };
+  function loadScript(src) {
+    return new Promise(function (ok, no) {
+      var have = document.querySelector('script[src="' + src + '"]');
+      if (have) { if (have.dataset.ready) ok(); else { have.addEventListener('load', ok); have.addEventListener('error', no); } return; }
+      var s = document.createElement('script');
+      s.src = src;
+      s.onload = function () { s.dataset.ready = '1'; ok(); };
+      s.onerror = no;
+      document.body.appendChild(s);
+    });
+  }
+  function apiReady() {
+    // The /health check answers within two seconds; until then, wait for it.
+    return new Promise(function (ok) {
+      (function wait() { if (league$.state === 'checking') setTimeout(wait, 200); else ok(league$.state === 'up'); })();
+    });
+  }
+  function filmChanged() { if (tab === 'film' && !inGame) render(false); }
+  function momentumFromFile() {
+    var file = window.FF_GAME_FILE;
+    if (!file || /[?&]game=sample/.test(location.search)) return Promise.resolve(null);
+    var need = window.FR_REPLAY && window.FR_MOMENTUM ? Promise.resolve() :
+      loadScript('server/replay.js').then(function () { return loadScript('server/momentum.js'); });
+    return need.then(function () {
+      var g = window.FR_REPLAY.buildFromGame(file, gameId());
+      return window.FR_MOMENTUM.fromRecords(g.plays, g.home, g.away, MOM_BUCKET);
+    });
+  }
+  function loadMomentum() {
+    if (mom$.state !== 'idle') return;
+    mom$.state = 'loading';
+    apiReady().then(function (up) {
+      if (!up) return null;
+      return apiFetch('/games/' + encodeURIComponent(gameId()) + '/momentum?bucket=' + MOM_BUCKET)
+        .then(function (r) { return r.ok ? r.json() : null; }).catch(function () { return null; });
+    }).then(function (j) {
+      if (j && Array.isArray(j.buckets) && j.buckets.length) {
+        mom$.from = 'From the plays service (' + (j.source === 'database' ? 'the database' + (j.engine ? ', ' + j.engine : '') : 'its copy of the game file') + ').';
+        return j;
+      }
+      return momentumFromFile().then(function (d) { if (d) mom$.from = 'Worked out in this page from the game file, the same way as the plays service.'; return d; });
+    }).then(function (d) {
+      mom$.data = d && d.buckets && d.buckets.length ? d : null;
+      mom$.state = 'done';
+      filmChanged();
+    }).catch(function () { mom$.state = 'done'; filmChanged(); });
+  }
+  // The fantasy margin over the game, one bar per slice of game time: up for the first team,
+  // down for the second. Shown only after the final, like the film room itself.
+  function momentumPanel() {
+    if (mom$.state !== 'done') { loadMomentum(); return '<div class="panel"><div class="panel-head"><h2>Momentum</h2></div><div class="empty">Working out the momentum.</div></div>'; }
+    var d = mom$.data;
+    if (!d) return '';
+    var B = d.buckets, n = B.length, W = 600, H = 160, mid = H / 2, bw = W / n, peak = 1, i;
+    var margins = B.map(function (b) { return Math.round((b.fpTotal[0] - b.fpTotal[1]) * 10) / 10; });
+    margins.forEach(function (v) { peak = Math.max(peak, Math.abs(v)); });
+    var bars = '', marks = '', qs = '<span style="left:0%">Q1</span>', lead = [{ v: 0, i: 0 }, { v: 0, i: 0 }];
+    for (i = 0; i < n; i++) {
+      var v = margins[i], h = Math.max(1, Math.round(Math.abs(v) / peak * (mid - 6))), side = v >= 0 ? 0 : 1;
+      if (v !== 0) bars += '<rect class="mom-' + side + '" x="' + (i * bw + 1).toFixed(1) + '" y="' + (v >= 0 ? mid - h : mid) + '" width="' + Math.max(1, bw - 2).toFixed(1) + '" height="' + h + '"/>';
+      if (Math.abs(v) > lead[side].v) lead[side] = { v: Math.abs(v), i: i };
+      // Quarter lines in the drawing, their names as text under it (text in a stretched drawing would stretch too).
+      if (i && B[i].quarter !== B[i - 1].quarter) {
+        marks += '<line class="mom-q" x1="' + (i * bw).toFixed(1) + '" x2="' + (i * bw).toFixed(1) + '" y1="0" y2="' + H + '"/>';
+        qs += '<span style="left:' + (i / n * 100).toFixed(2) + '%">Q' + B[i].quarter + '</span>';
+      }
+    }
+    var last = B[n - 1], fin = margins[n - 1];
+    function leadText(t) {
+      var L = lead[t];
+      return L.v ? TEAMS[t].name + ' by ' + f1(L.v) + ' in Q' + B[L.i].quarter : TEAMS[t].name + ' never led';
+    }
+    var label = 'Fantasy point margin over the game. Biggest leads: ' + leadText(0) + '; ' + leadText(1) + '. Final: ' +
+      TEAMS[0].name + ' ' + f1(last.fpTotal[0]) + ', ' + TEAMS[1].name + ' ' + f1(last.fpTotal[1]) + '.';
+    return '<div class="panel momentum"><div class="panel-head"><h2>Momentum</h2></div>' +
+      '<div class="mom-key"><span style="--c: var(--t0)">' + esc(TEAMS[0].name) + ' ahead</span><span style="--c: var(--t1)">' + esc(TEAMS[1].name) + ' ahead</span></div>' +
+      '<svg class="mom-chart" viewBox="0 0 ' + W + ' ' + H + '" preserveAspectRatio="none" role="img" aria-label="' + esc(label) + '">' +
+        marks + bars +
+        '<line class="mom-zero" x1="0" x2="' + W + '" y1="' + mid + '" y2="' + mid + '"/></svg>' +
+      '<div class="mom-qs" aria-hidden="true">' + qs + '</div>' +
+      '<dl class="mom-facts">' +
+        '<div><dt>Biggest ' + esc(TEAMS[0].id) + ' lead</dt><dd class="num">' + (lead[0].v ? f1(lead[0].v) : '0.0') + '</dd>' + (lead[0].v ? '<span>Q' + B[lead[0].i].quarter + '</span>' : '') + '</div>' +
+        '<div><dt>Biggest ' + esc(TEAMS[1].id) + ' lead</dt><dd class="num">' + (lead[1].v ? f1(lead[1].v) : '0.0') + '</dd>' + (lead[1].v ? '<span>Q' + B[lead[1].i].quarter + '</span>' : '') + '</div>' +
+        '<div><dt>Final margin</dt><dd class="num">' + f1(Math.abs(fin)) + '</dd><span>' + esc(fin > 0 ? TEAMS[0].id : fin < 0 ? TEAMS[1].id : 'Even') + '</span></div>' +
+      '</dl>' +
+      '<p class="mom-from">' + esc(mom$.from) + ' One bar is ' + (d.bucketSeconds / 60) + ' minutes of game time; the game file has no clock, so time is spread evenly over the plays.</p></div>';
+  }
+
+  // Week by week for each player, from GET /players/TEAM.SLOT/trend. This game's own week stays
+  // out until the final and while scores are hidden, so the trend never gives the score away.
+  function thisWeek() { var mm = /week(\d+)/.exec(gameId()); return mm ? parseInt(mm[1], 10) : league().week; }
+  function r1(x) { return Math.round(x * 10) / 10; }
+  function trendSummary(weeks) {   // the same rules as Ricky's summarize in server/trend.js
+    var s = { average: null, last: null, previous: null, change: null, direction: 'none', hotStreak: 0 };
+    if (!weeks.length) return s;
+    var total = 0;
+    weeks.forEach(function (w) { total += w.points; });
+    s.average = r1(total / weeks.length);
+    s.last = weeks[weeks.length - 1].points;
+    if (weeks.length > 1) {
+      s.previous = weeks[weeks.length - 2].points;
+      s.change = r1(s.last - s.previous);
+      s.direction = s.change > 0.5 ? 'up' : s.change < -0.5 ? 'down' : 'flat';
+      var mean = total / weeks.length;
+      for (var i = weeks.length - 1; i >= 0 && weeks[i].points > mean; i--) s.hotStreak++;
+    }
+    return s;
+  }
+  function loadTrends() {
+    if (trend$.state !== 'idle') return;
+    trend$.state = 'loading';
+    apiReady().then(function (up) {
+      if (!up) { trend$.state = 'off'; return; }
+      var jobs = [];
+      [0, 1].forEach(function (t) {
+        SLOTS.forEach(function (s) {
+          var key = TEAMS[t].id + '.' + s.role;
+          jobs.push(apiFetch('/players/' + encodeURIComponent(key) + '/trend').then(function (r) { return r.ok ? r.json() : null; })
+            .then(function (j) { trend$.by[key] = j && Array.isArray(j.weeks) ? j : null; }, function () { trend$.by[key] = null; }));
+        });
+      });
+      return Promise.all(jobs).then(function () { trend$.state = 'done'; if (tab === 'lineups' && !inGame) render(false); });
+    }).catch(function () { trend$.state = 'off'; });
+  }
+  function trendLine(t, role) {
+    var j = trend$.by[TEAMS[t].id + '.' + role];
+    if (!j) return '';
+    var open = m.status === 'final' && !masked(), wk = thisWeek();
+    var weeks = j.weeks.filter(function (w) { return open || w.week < wk; });
+    if (!weeks.length) return '';
+    var s = trendSummary(weeks);
+    var list = weeks.map(function (w) { return 'wk ' + w.week + ' ' + f1(w.points); }).join(', ');
+    var how = s.direction === 'none' ? 'one week so far' :
+      (s.direction === 'flat' ? 'flat' : s.direction + ' ' + f1(Math.abs(s.change))) + (s.hotStreak ? ', ' + s.hotStreak + (s.hotStreak === 1 ? ' week' : ' weeks') + ' above average' : '');
+    return '<div class="trend is-' + s.direction + '"><span class="trend-mark">' + (s.direction === 'none' ? 'trend' : s.direction) + '</span>' +
+      '<span class="trend-why">' + esc(list + '; ' + how) + (open ? '' : esc('. Week ' + wk + ' shows after the final.')) + '</span></div>';
+  }
+  function trendSource() {
+    if (trend$.state !== 'done') return '';
+    var srcs = Object.keys(trend$.by).map(function (k) { return trend$.by[k] && trend$.by[k].source; }).filter(Boolean);
+    if (!srcs.length) return '';
+    return '<p class="form-source">Week by week: the plays service, from ' + (srcs.indexOf('database') >= 0 ? 'the database' : 'the game files') + '.</p>';
+  }
+
   function renderLineups() {
+    if (API) loadTrends();
     function team(t) {
       return '<div class="panel">' +
         '<div class="lineup-head" style="--c: var(--t' + t + ')"><img class="sprite" src="' + marks[t] + '" alt="">' +
         '<h2 class="team-name">' + esc(TEAMS[t].full) + '</h2><span class="num">' + pts1(total(t)) + '</span></div>' +
         SLOTS.map(function (s) { return playerRow(t, s.role, 0); }).join('') +
-        formSource(t) + '</div>';
+        formSource(t) + trendSource() + '</div>';
     }
     return '<div class="grid two is-first">' + ord().map(team).join('') + '</div>' +
       '<p class="note is-plain">' + rulesNote() + '</p>';
@@ -1436,6 +1589,7 @@
         '<div class="film-key"><span>' + esc(TEAMS[0].name) + ' attack this way &#8594;</span><span>&#8592; ' + esc(TEAMS[1].name) + '</span></div>' +
         '<ol class="drives" role="list">' + rows + '</ol>' +
         '<p class="film-legend"><i class="k-score"></i>Score <i class="k-to"></i>Turnover <i class="k-flag"></i>Penalty <i class="k-loss"></i>Lost yards</p></div>' +
+      momentumPanel() +
       '<div class="grid two">' +
         '<div class="panel"><div class="panel-head"><h2>The play caller</h2></div>' + caller + '</div>' +
         '<div class="panel film-detail" id="filmDetail"><div class="panel-head"><h2>The play</h2></div>' + filmPlayDetail() + '</div>' +
