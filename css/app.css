@@ -702,3 +702,7 @@ body.party-host #app, body.demo-on #app { padding-bottom: calc(var(--tabs-h) + e
   #app { padding-left: max(24px, env(safe-area-inset-left, 0px)); padding-right: max(24px, env(safe-area-inset-right, 0px)); }
   .tabs { padding: 0; }
 }
+
+/* One tab bar for both sports (js/app.js): while the soccer match plays, its frame fills the
+   screen like the football game view, over the header and the tab bar. */
+#soccerView.playing { position: fixed; inset: 0; z-index: 20; height: auto !important; min-height: 0; }

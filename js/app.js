@@ -1839,7 +1839,7 @@
       if (j < 0) return;
       ev.preventDefault();
       tabs[j].focus();
-      location.hash = tabs[j].getAttribute('data-tab');
+      goTab(tabs[j].getAttribute('data-tab'));
     });
   })();
 
@@ -1894,12 +1894,90 @@
     soccerEl.hidden = !waiting;
     $('tabs').hidden = waiting;
     if (waiting) TABS.forEach(function (t) { $('s-' + t).hidden = true; });
+    soccerTabs();
   }
+
+  // One tab bar for both sports. Soccer is its own page in a frame (js/sport.js) with its own
+  // header and tabs; while soccer is on, that header is hidden and this app's tabs drive the
+  // frame instead: Matchup, Lineups, Plays and Recap open the soccer screens of the same name.
+  // League is football's only, so it is hidden for soccer. While the soccer match plays, the
+  // frame fills the screen like the football game view and the tab bar steps aside.
+  function soccerOn() { return sport === 'soccer' && soccerConnected(); }
+  function soccerFrame() { return document.querySelector('#soccerView iframe'); }
+  function soccerWin() { var f = soccerFrame(); try { return f && f.contentWindow && f.contentWindow.document ? f.contentWindow : null; } catch (err) { return null; } }
+  var SOCCER_TABS = ['matchup', 'lineups', 'plays', 'recap'];
+  function soccerTab() {
+    var w = soccerWin(), h = w ? (w.location.hash || '#matchup').slice(1) : 'matchup';
+    return h;
+  }
+  function soccerTabs() {
+    var on = soccerOn(), view = $('soccerView'), w = soccerWin(), h = soccerTab(), playing = on && h === 'game';
+    Array.prototype.forEach.call($('tabs').children, function (a) {
+      var name = a.getAttribute('data-tab');
+      if (name === 'league') a.hidden = on;
+      if (!on) return;
+      var cur = name === (SOCCER_TABS.indexOf(h) >= 0 ? h : 'matchup');
+      if (cur) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current');
+      a.setAttribute('aria-selected', String(cur));
+      a.tabIndex = cur ? 0 : -1;
+      a.setAttribute('aria-controls', 'soccerView');
+    });
+    if (!on) Array.prototype.forEach.call($('tabs').children, function (a) { a.setAttribute('aria-controls', 's-' + a.getAttribute('data-tab')); });
+    $('tabs').hidden = playing || (sport === 'soccer' && !soccerConnected());
+    if (view) view.classList.toggle('playing', playing);
+    document.documentElement.classList.toggle('soccer-on', on);
+    if (on && w) {
+      // Hide the soccer page's own header (brand, tabs, sample tag) once per page load.
+      if (!w.document.getElementById('fr-one-bar')) {
+        var st = w.document.createElement('style');
+        st.id = 'fr-one-bar';
+        st.textContent = '#app > header.bar { display: none !important; } #app { padding-bottom: 24px !important; }';
+        (w.document.head || w.document.documentElement).appendChild(st);
+      }
+      if (!w.__frTabsHooked) { w.__frTabsHooked = true; w.addEventListener('hashchange', soccerTabs); }
+    }
+    fitSoccer();
+  }
+  // The frame ends above the tab bar on a phone, so its last card is never under the bar.
+  function fitSoccer() {
+    var view = $('soccerView');
+    if (!view) return;
+    if (!soccerOn() || view.classList.contains('playing')) { view.style.height = ''; return; }
+    var bar = $('tabs'), top = view.getBoundingClientRect().top + window.scrollY;
+    var fixed = bar && !bar.hidden && getComputedStyle(bar).position === 'fixed' ? bar.offsetHeight : 0;
+    view.style.height = Math.max(420, Math.round(window.innerHeight - top - fixed)) + 'px';
+  }
+  window.addEventListener('resize', fitSoccer);
+  (function hookFrame() {
+    // js/sport.js makes the frame the first time Soccer is chosen; hook it when it appears.
+    var view = $('soccerView');
+    if (!view || !window.MutationObserver) return;
+    new MutationObserver(function () {
+      var f = soccerFrame();
+      if (f && !f.__frHooked) { f.__frHooked = true; f.addEventListener('load', soccerTabs); }
+    }).observe(view, { childList: true });
+  })();
+  // A tab: the football screen, or with soccer on, the soccer screen in the frame.
+  function goTab(name) {
+    if (soccerOn()) {
+      var w = soccerWin();
+      if (w && SOCCER_TABS.indexOf(name) >= 0) w.location.hash = name;
+      soccerTabs();
+      return;
+    }
+    location.hash = name;
+  }
+  $('tabs').addEventListener('click', function (ev) {
+    var a = ev.target.closest ? ev.target.closest('a[data-tab]') : null;
+    if (!a || !soccerOn()) return;
+    ev.preventDefault();
+    goTab(a.getAttribute('data-tab'));
+  });
   function setSport(name, tell) {
     sport = name === 'soccer' ? 'soccer' : 'football';
     try { window.localStorage.setItem(SPORT_KEY, sport); } catch (err) { /* storage may be off */ }
     if (tell && soccerConnected()) { try { window.FR_SPORT_CHANGE(sport); } catch (err) { console.error(err); } }
-    if (sport === 'football') route(); else { markSport(); window.scrollTo(0, 0); }
+    if (sport === 'football') { route(); soccerTabs(); } else { markSport(); window.scrollTo(0, 0); }
   }
   document.addEventListener('click', function (ev) {
     var b = ev.target.closest ? ev.target.closest('[data-sport]') : null;
