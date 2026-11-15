@@ -1,0 +1,224 @@
+{
+ "key": "GOB-QB",
+ "name": "Josh Allen",
+ "researched": "2026-11-15",
+ "background": [
+  {
+   "fact": "Born May 21, 1996; grew up on a 3,000-acre cotton farm near Firebaugh, California, a town about 40 miles west of Fresno, where his family has lived since his great-grandfather settled there.",
+   "source": "https://en.wikipedia.org/wiki/Josh_Allen_(quarterback)",
+   "date": null,
+   "confidence": "from Wikipedia"
+  },
+  {
+   "fact": "He graduated from Firebaugh High School in 2014, got no Division I scholarship offers, and started college at Reedley College before transferring to Wyoming.",
+   "source": "https://en.wikipedia.org/wiki/Josh_Allen_(quarterback)",
+   "date": null,
+   "confidence": "from Wikipedia"
+  },
+  {
+   "fact": "In high school he also starred in basketball and pitched in baseball (fastball up to 90 mph), and he worked on the family farm and at his mother's restaurant.",
+   "source": "https://en.wikipedia.org/wiki/Josh_Allen_(quarterback)",
+   "date": null,
+   "confidence": "from Wikipedia"
+  },
+  {
+   "fact": "Buffalo drafted him seventh overall in 2018; he has led the Bills to seven playoff appearances and five straight division titles.",
+   "source": "https://en.wikipedia.org/wiki/Josh_Allen_(quarterback)",
+   "date": null,
+   "confidence": "from Wikipedia"
+  },
+  {
+   "fact": "He was named NFL Most Valuable Player for 2024 and is the NFL leader in quarterback rushing touchdowns.",
+   "source": "https://en.wikipedia.org/wiki/Josh_Allen_(quarterback)",
+   "date": null,
+   "confidence": "from Wikipedia"
+  },
+  {
+   "fact": "Listed at 6 ft 5 in, 237 lb, age 30, in his ninth NFL season.",
+   "source": "research/data/GOB-QB.json (bio, from ESPN and Sleeper pulls)",
+   "date": "2026-11-15",
+   "confidence": "one source"
+  }
+ ],
+ "family": [
+  {
+   "fact": "His paternal grandfather started the family farm in 1975 and served on the local school board; the Firebaugh High gymnasium carries his name.",
+   "source": "https://en.wikipedia.org/wiki/Josh_Allen_(quarterback)",
+   "date": null,
+   "confidence": "from Wikipedia"
+  },
+  {
+   "fact": "He married actress and singer Hailee Steinfeld on May 31, 2025 in Ventura, California, after a relationship made public in July 2024 and an engagement announced November 29, 2024.",
+   "source": "https://en.wikipedia.org/wiki/Josh_Allen_(quarterback)",
+   "date": null,
+   "confidence": "from Wikipedia"
+  },
+  {
+   "fact": "The couple announced in December 2025 that they were expecting, and Steinfeld announced the birth of their daughter in April 2026. Nothing further about the child is recorded here.",
+   "source": "https://en.wikipedia.org/wiki/Josh_Allen_(quarterback)",
+   "date": null,
+   "confidence": "from Wikipedia"
+  }
+ ],
+ "recent_events": [
+  {
+   "fact": "Bills beat Minnesota 23-6 on Monday night, November 9, in Week 9 to improve to 7-1; Allen was 21 of 31 for 234 yards, 1 touchdown, 1 interception, plus 6 carries for 15 yards.",
+   "source": "https://www.nbcnewyork.com/news/sports/nfl/bills-vikings-score-josh-allen/",
+   "date": "2026-11-10",
+   "confidence": "confirmed by two sources (also the game log in research/data/GOB-QB.json)"
+  },
+  {
+   "fact": "That Minnesota game left Buffalo on a short week (kickoff Sunday 1 pm, six days of rest per the schedule data).",
+   "source": "research/data/GOB-QB.json (next_games, rest 6.0)",
+   "date": "2026-11-15",
+   "confidence": "one source"
+  },
+  {
+   "fact": "Allen has played all 8 Buffalo games in 2026 with 2,027 passing yards, 12 touchdowns, 6 interceptions, 17 sacks, and 61 rushes for 285 yards and 9 rushing touchdowns, averaging 24.7 fantasy points a game under league scoring.",
+   "source": "research/data/GOB-QB.json (season_2026)",
+   "date": "2026-11-15",
+   "confidence": "from the data file"
+  },
+  {
+   "fact": "His best 2026 game was Week 1 at Houston (334 passing yards, 2 touchdowns, 2 rushing touchdowns, 35.7 points); his lowest was Week 9 at Minnesota (12.9).",
+   "source": "research/data/GOB-QB.json (log)",
+   "date": "2026-11-15",
+   "confidence": "from the data file"
+  },
+  {
+   "fact": "Bills elevated practice squad quarterback Shane Buechele for the Jets game and activated defensive back Jordan Hancock; one report says Allen is not injured and expected to start, and that Kyle Allen is available as the backup.",
+   "source": "https://www.buffalobills.com/news/db-jordan-hancock-activated-and-qb-shane-buechele-elevated-db-te-cory-couch-released-week-10",
+   "date": "2026-11-14",
+   "confidence": "confirmed by two sources (also SI and Yahoo Sports headlines)"
+  },
+  {
+   "fact": "Heavy noted that Kyle Allen never appeared on the injury report, so the reason for elevating a third quarterback was not fully explained; the Bills insider Sal Capaccio suggested it may be a reward or emergency depth.",
+   "source": "https://www.si.com/nfl/bills/onsi/transactions-week-10-why-did-bills-elevate-qb-shane-buechele-is-josh-allen-okay-to-face-jets",
+   "date": "2026-11-15",
+   "confidence": "one source"
+  },
+  {
+   "fact": "A search for Buffalo trade deadline moves found a headline about a Bills trade and a possible receiver addition, but no confirmed details: not found.",
+   "source": "https://heavy.com/sports/nfl/buffalo-bills/bills-shake-ahead-10-clash-jets/",
+   "date": "2026-11-14",
+   "confidence": "one source, headline only"
+  }
+ ],
+ "quotes": [
+  {
+   "fact": "No quote from Allen or the coach about his health this week was found in the pages that could be reached: not found.",
+   "source": "not found",
+   "date": null,
+   "confidence": "not found"
+  }
+ ],
+ "team_context": [
+  {
+   "fact": "Buffalo is 7-1 with a +69 point differential and scores about 3.6 touchdowns a game, second in the NFL.",
+   "source": "https://nbcsports.com/nfl/news/bills-vs-jets-prediction-odds-expert-picks-qb-matchup-injury-update-trends-and-stats",
+   "date": "2026-11-15",
+   "confidence": "one source"
+  },
+  {
+   "fact": "Running back James Cook has 814 rushing yards and 8 rushing touchdowns, and left tackle Dion Dawkins (ribs) is listed as questionable for Sunday.",
+   "source": "https://nbcsports.com/nfl/news/bills-vs-jets-prediction-odds-expert-picks-qb-matchup-injury-update-trends-and-stats",
+   "date": "2026-11-15",
+   "confidence": "one source"
+  },
+  {
+   "fact": "The 2026 play-by-play in the data file shows 49 of 236 throws were deep (14.4 yards a throw, 7 touchdowns) and he faced pressure on 56 dropbacks.",
+   "source": "research/data/GOB-QB.json (plays_2026, advanced)",
+   "date": "2026-11-15",
+   "confidence": "from the data file"
+  },
+  {
+   "fact": "Head coach and offensive coordinator names for 2026 were not confirmed from a current source: not found.",
+   "source": "not found",
+   "date": null,
+   "confidence": "not found"
+  }
+ ],
+ "next_opponent": [
+  {
+   "fact": "Buffalo plays at the New York Jets on Sunday, November 15, 1 pm ET at MetLife Stadium (outdoors, artificial turf), on CBS.",
+   "source": "research/data/GOB-QB.json (next_games)",
+   "date": "2026-11-15",
+   "confidence": "from the data file"
+  },
+  {
+   "fact": "Jets are 2-7 per their own site and Squawka, hosting in their last home game before two road games and a bye.",
+   "source": "https://www.newyorkjets.com/news/jets-host-bills-in-week-10-afc-east-clash-11-11-2026",
+   "date": "2026-11-11",
+   "confidence": "confirmed by two sources (Squawka also)"
+  },
+  {
+   "fact": "Lines: the data file has Buffalo -7.5, total 51.5; TeamRankings shows Buffalo by 7 and total 46.5. The data file forecast is 50 F, intermittent clouds; wind not found.",
+   "source": "https://www.teamrankings.com/nfl/matchup/bills-jets-week-10-2026",
+   "date": "2026-11-15",
+   "confidence": "two sources disagree on the line"
+  },
+  {
+   "fact": "Squawka calls the Jets secondary 29th and predicts Buffalo 30-17; Jets running back Breece Hall returned last week and receiver Garrett Wilson is set to play after a concussion.",
+   "source": "https://www.squawka.com/en/?p=1517574",
+   "date": "2026-11-15",
+   "confidence": "one source (amNY and Jets site also cited in the search result)"
+  },
+  {
+   "fact": "Buffalo has won 8 of the last 10 meetings, including 30-10 on Sept 14, 2025 and 35-8 on Jan 4, 2026. Allen's last four games against the Jets: 275 yards and 3 touchdowns (2023), 215 and 2 (2024), 182 and 2 (2024), 148 yards, 0 touchdowns, 59 rushing yards (2025).",
+   "source": "research/data/GOB-QB.json (log)",
+   "date": "2026-11-15",
+   "confidence": "from the data file"
+  }
+ ],
+ "style": [
+  {
+   "fact": "Regarded as one of the greatest dual-threat quarterbacks of all time, with a big arm and heavy rushing production near the goal line (9 rushing touchdowns in 8 games in 2026).",
+   "source": "https://en.wikipedia.org/wiki/Josh_Allen_(quarterback)",
+   "date": null,
+   "confidence": "from Wikipedia"
+  },
+  {
+   "fact": "Madden's week 8 rating is 99 overall with 97 play action, 97 break sack and 99 injury (durability).",
+   "source": "research/data/GOB-QB.json (bio.madden)",
+   "date": "2026-11-15",
+   "confidence": "one source"
+  },
+  {
+   "fact": "Pregame he listens to oldies and adult standards (Sinatra, Elvis, Billy Joel) to stay calm.",
+   "source": "https://en.wikipedia.org/wiki/Josh_Allen_(quarterback)",
+   "date": null,
+   "confidence": "from Wikipedia"
+  }
+ ],
+ "availability": {
+  "status": "Active, expected to start",
+  "detail": "The data file shows no injury status or designation for 2026 (Sleeper status Active, nothing on ESPN). Reports on the Buechele elevation say Allen is not injured. Shane Buechele was elevated from the practice squad and Kyle Allen is the backup; no official inactive list was seen yet.",
+  "expected_return": "Not applicable",
+  "source": "https://www.si.com/nfl/bills/onsi/transactions-week-10-why-did-bills-elevate-qb-shane-buechele-is-josh-allen-okay-to-face-jets",
+  "date": "2026-11-15"
+ },
+ "outlook_next_game": {
+  "lean": "plays and scores well; expected around 22 to 26 fantasy points",
+  "confidence": "medium",
+  "reasons": [
+   "He is active and expected to start with no listed injury, in a game where Buffalo is a 7 to 7.5 point road favorite against a 2-7 team.",
+   "Implied team total is about 29.5 in the data file, and his 2026 average is 24.7 points with 9 rushing touchdowns.",
+   "He has beaten the Jets in each of the last four meetings in the data file, but scored only 11.8 points in the 2025 meeting when he threw for 148 yards.",
+   "Risks are a blowout that lets Cook carry the game, wind (not found), and Dawkins missing at tackle."
+  ]
+ },
+ "scouts_read": "Allen is healthy and set to start, so the main question is how Buffalo wins, not whether he plays. The Jets are 2-7 with a weak secondary, and Buffalo is a touchdown or more favorite with a team total near 29 points. Allen's 2026 profile leans on rushing touchdowns, which keeps his floor high even when his passing is quiet, as in the 12.9 point game at Minnesota. If the Bills lead early, Cook may take more of the work and trim Allen's passing numbers. I would project a solid game in the low to mid 20s with a real chance of a 30 point day.",
+ "open_questions": [
+  "Official Sunday inactive list and the exact reason for the Buechele elevation (not found beyond the report that Allen is not injured).",
+  "Wind and final game-time weather (not found; only a 50 F cloud forecast).",
+  "Head coach, offensive coordinator and any 2026 Bills trade or contract details for Allen (not found).",
+  "Quotes from Allen or the coach about the short week (a headline says recovery on a short week is hard, but the article was not read)."
+ ],
+ "searches": [
+  "Bills Jets Week 10 Josh Allen injury report status (returned only 2022 articles)",
+  "Bills elevate Shane Buechele Week 10 Jets Josh Allen okay",
+  "Bills at Jets preview Week 10 2026 Josh Allen Jets defense Sean McDermott",
+  "Bills Josh Allen Week 9 Monday night win recap Bills 7-1 trade deadline",
+  "Page fetches of SI, Wikipedia and ESPN failed (host not allowed); the Wikipedia text came from the sections already stored in research/data/GOB-QB.json"
+ ]
+}
