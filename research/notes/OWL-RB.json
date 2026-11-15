@@ -1,0 +1,207 @@
+{
+ "key": "OWL-RB",
+ "name": "Derrick Henry",
+ "researched": "2026-11-15",
+ "background": [
+  {
+   "fact": "Born January 4, 1994 in Yulee, Florida; raised mainly by his grandmother Gladys, who nicknamed him Shocka.",
+   "source": "https://en.wikipedia.org/wiki/Derrick_Henry",
+   "date": null,
+   "confidence": "from Wikipedia"
+  },
+  {
+   "fact": "At Yulee High School he set the national high school career rushing yards record; he was a five star recruit and played at Alabama, winning the 2015 Heisman Trophy, Doak Walker Award, Maxwell Award and Walter Camp Award.",
+   "source": "https://en.wikipedia.org/wiki/Derrick_Henry",
+   "date": null,
+   "confidence": "from Wikipedia"
+  },
+  {
+   "fact": "Tennessee drafted him in the second round (pick 45) in 2016; he led the NFL in rushing yards and touchdowns in 2019 and 2020, ran for over 2,000 yards in 2020 and won the AP Offensive Player of the Year award.",
+   "source": "https://en.wikipedia.org/wiki/Derrick_Henry",
+   "date": null,
+   "confidence": "from Wikipedia"
+  },
+  {
+   "fact": "He signed with Baltimore in 2024 and is the NFL active leader in career rushing yards and touchdowns.",
+   "source": "https://en.wikipedia.org/wiki/Derrick_Henry",
+   "date": null,
+   "confidence": "from Wikipedia"
+  },
+  {
+   "fact": "Listed at 6 ft 2 in, 252 lb, age 32, jersey 22, in his 11th NFL season; Madden week 8 rating is 96 overall.",
+   "source": "research/data/OWL-RB.json (bio)",
+   "date": "2026-11-15",
+   "confidence": "one source"
+  },
+  {
+   "fact": "Career regular season totals through 2026 week 9: 161 games, 2,837 carries, 13,707 rushing yards, 130 rushing touchdowns.",
+   "source": "research/data/OWL-RB.json (career)",
+   "date": "2026-11-15",
+   "confidence": "from the data file"
+  }
+ ],
+ "family": [
+  {
+   "fact": "He has been in a relationship with Adrianna Rivas since 2016; they have three daughters. Nothing further about the children is recorded here.",
+   "source": "https://en.wikipedia.org/wiki/Derrick_Henry",
+   "date": null,
+   "confidence": "from Wikipedia"
+  },
+  {
+   "fact": "In 2018 he kept a promise to his late grandmother by earning his Alabama degree in communications, and in 2019 he founded the Two All Foundation for young people.",
+   "source": "https://en.wikipedia.org/wiki/Derrick_Henry",
+   "date": null,
+   "confidence": "from Wikipedia"
+  }
+ ],
+ "recent_events": [
+  {
+   "fact": "Baltimore is 4-5 after four straight losses. The Ravens lost 33-10 at Jacksonville in Week 9, with Joe Fagnano at quarterback; Henry had 17 carries for 57 yards and no catches.",
+   "source": "research/data/OWL-RB.json (log, teammates_2026)",
+   "date": "2026-11-15",
+   "confidence": "from the data file"
+  },
+  {
+   "fact": "Henry has 689 rushing yards and 8 rushing touchdowns on 175 carries in 9 games, a career low 3.9 yards per carry, and has been held under 100 rushing yards in four straight games.",
+   "source": "research/data/OWL-RB.json (status.espn, season_2026)",
+   "date": "2026-11-07",
+   "confidence": "confirmed by two parts of the data file"
+  },
+  {
+   "fact": "Average is 14.25 fantasy points a game under league scoring; best game was Week 1 vs Indianapolis (144 yards, 3 touchdowns, 34.3 points); since Week 6 he has scored 4.0, 4.9, 12.0 and 5.6.",
+   "source": "research/data/OWL-RB.json (log)",
+   "date": "2026-11-15",
+   "confidence": "from the data file"
+  },
+  {
+   "fact": "His snap share has slipped from 54 to 67 percent early in the year to 45 to 51 percent in the last four games; Justice Hill has 33 carries to Henry's 175.",
+   "source": "research/data/OWL-RB.json (log, teammates_2026)",
+   "date": "2026-11-15",
+   "confidence": "from the data file"
+  },
+  {
+   "fact": "Lamar Jackson (thumb) and Tyler Huntley (toe) are out; Baltimore traded for Jacoby Brissett, who is set to start Monday night. Four different quarterbacks have thrown for the Ravens this year (Jackson, Huntley, Fagnano, Brissett next).",
+   "source": "https://www.rotoballer.com/player-news/ravens-to-start-jacoby-brissett-against-chargers-on-monday-night-football/1987923 (search result summary only; page not reachable) and research/data/OWL-RB.json (status.espn)",
+   "date": "2026-11-15",
+   "confidence": "two sources, article text not read"
+  },
+  {
+   "fact": "Trade talk: ESPN's Adam Schefter reported Henry was not expected to be traded before the Nov. 10 deadline, and Baltimore told him it does not plan to move him. He is under contract next season. No trade happened.",
+   "source": "https://www.boston.com/sports/new-england-patriots/2026/11/07/espn-insider-shuts-down-derrick-henry-trade-rumors/",
+   "date": "2026-11-07",
+   "confidence": "confirmed by two sources (also NFL.com and ESPN headlines in the data file)"
+  },
+  {
+   "fact": "NBC Sports headline from Nov. 6: Henry said 'I haven't mentioned going somewhere else, let's try to get better'; a Yahoo headline Nov. 14 says he addressed trade rumors with a four word message. Article texts were not read.",
+   "source": "research/data/OWL-RB.json (news.quotes, news.recent)",
+   "date": "2026-11-06",
+   "confidence": "headline only"
+  },
+  {
+   "fact": "Yahoo Sports reported Jaguars defensive tackle Arik Armstead was fined for a hip drop tackle on Henry (Week 9).",
+   "source": "research/data/OWL-RB.json (news.recent, Yahoo Sports headline)",
+   "date": "2026-11-15",
+   "confidence": "headline only"
+  }
+ ],
+ "quotes": [
+  {
+   "fact": "Henry challenged the Ravens to reclaim their identity after the Week 9 loss (Ravens Wire headline); the full quote was not read.",
+   "source": "research/data/OWL-RB.json (news.recent)",
+   "date": "2026-11-15",
+   "confidence": "headline only"
+  },
+  {
+   "fact": "Henry praised Jacoby Brissett ahead of his first start (Ravens Wire headline); the full quote was not read.",
+   "source": "research/data/OWL-RB.json (news.recent)",
+   "date": "2026-11-14",
+   "confidence": "headline only"
+  }
+ ],
+ "team_context": [
+  {
+   "fact": "Baltimore scores 21.0 points and allows 26.2 a game; Henry has 78.8 percent of the team's carries. Top targets are Zay Flowers (64) and Mark Andrews (43); Henry has 14 targets and 12 catches for 75 yards.",
+   "source": "research/data/OWL-RB.json (season_2026.team, teammates_2026)",
+   "date": "2026-11-15",
+   "confidence": "from the data file"
+  },
+  {
+   "fact": "A Yahoo Sports headline says offensive coordinator Declan Doyle explained how Brissett could unlock Henry; the article text was not read.",
+   "source": "research/data/OWL-RB.json (news.recent)",
+   "date": "2026-11-13",
+   "confidence": "headline only"
+  }
+ ],
+ "next_opponent": [
+  {
+   "fact": "Ravens host the Chargers Monday, November 16, 8:15 pm ET, ESPN, at M&T Bank Stadium (outdoors, grass); Baltimore is a 4.5 point favorite, total 38.5, Ravens implied total 21.5, forecast clear and 41 F, eleven days rest.",
+   "source": "research/data/OWL-RB.json (next_games)",
+   "date": "2026-11-15",
+   "confidence": "from the data file"
+  },
+  {
+   "fact": "The Chargers are reported winless at 0-8 and quarterback Justin Herbert was listed questionable in an undated SI preview.",
+   "source": "https://www.si.com/betting/chargers-vs-ravens-prediction-odds-spread-injuries-trends-for-nfl-week-10-01m741zk70e7",
+   "date": "date not shown",
+   "confidence": "one source, date unclear"
+  },
+  {
+   "fact": "Chargers run defense ranking: not found.",
+   "source": "not found",
+   "date": null,
+   "confidence": "not found"
+  }
+ ],
+ "style": [
+  {
+   "fact": "Known for an imposing, powerful running style at an unusually large size; nicknamed King Henry.",
+   "source": "https://en.wikipedia.org/wiki/Derrick_Henry",
+   "date": null,
+   "confidence": "from Wikipedia"
+  },
+  {
+   "fact": "Madden week 8 ratings: 96 overall, trucking 93, break tackle 96, stiff arm 99, speed 93; his 2025 next gen tracking showed 319 rushing yards over expected, versus only 20 so far in 2026.",
+   "source": "research/data/OWL-RB.json (bio.madden, season_2026.tracking)",
+   "date": "2026-11-15",
+   "confidence": "from the data file"
+  },
+  {
+   "fact": "Reported to spend over a quarter of a million dollars a year on body maintenance and a strict diet.",
+   "source": "https://en.wikipedia.org/wiki/Derrick_Henry",
+   "date": null,
+   "confidence": "from Wikipedia"
+  }
+ ],
+ "availability": {
+  "status": "Active, expected to play",
+  "detail": "The data file shows Sleeper status Active, no injury designation, and no injury reports. No Monday injury report or inactive list was found. Rotoballer says Brissett starts at quarterback; Chargers QB Herbert and Ravens safety Kyle Hamilton were listed questionable in an undated SI preview.",
+  "expected_return": "Not applicable",
+  "source": "research/data/OWL-RB.json (status)",
+  "date": "2026-11-15"
+ },
+ "outlook_next_game": {
+  "lean": "plays as the lead back; modest line of about 12 to 15 fantasy points with touchdown upside",
+  "confidence": "low to medium",
+  "reasons": [
+   "He is active and has 79 percent of Baltimore's carries, so volume is steady even when the team struggles.",
+   "Baltimore is a 4.5 point home favorite over a reported 0-8 team, a good game script for a heavy run game.",
+   "The implied Ravens total is only 21.5 and Henry has scored under 13 points in four straight games, with 3.9 yards per carry.",
+   "Brissett as a new starting quarterback may help the offense; this is untested. A SI start/sit piece says he scored under six points in three of his last four games."
+  ]
+ },
+ "scouts_read": "Henry is healthy and still the clear lead back, but the offense around him has fallen apart, with a fourth quarterback now starting. The Ravens are favored by 4.5 at home against a reported winless Chargers team, which should mean a lead and plenty of carries. The problem is efficiency: he is at 3.9 yards per carry, has been under 100 yards for four games, and his snap share has dipped below 50 percent lately. A real quarterback in Brissett could help, and he always has touchdown chances near the goal line. I would project a middling day around 12 to 15 points with a small chance of a big game.",
+ "open_questions": [
+  "Monday injury report and inactive list for Baltimore (not found).",
+  "Chargers run defense rank and yards allowed (not found).",
+  "Wind and final weather for Monday (not found; only a clear 41 F forecast).",
+  "Full text of the Brissett and Doyle stories and Henry's quotes (only headlines seen; sites not reachable).",
+  "Whether Henry's role will change with Brissett (not found)."
+ ],
+ "searches": [
+  "Derrick Henry Ravens Chargers Monday night Week 10 Brissett (mostly 2024 game results; one Rotoballer item for 2026)",
+  "Ravens Chargers Week 10 2026 injury report Derrick Henry Brissett preview (thin; SI betting preview, undated)",
+  "Derrick Henry Ravens trade rumors Brissett Declan Doyle (Boston.com Nov. 7 2026 result used)",
+  "Derrick Henry Week 10 fantasy outlook Chargers run defense Ravens (SI start/sit snippet)",
+  "Page fetches of covers.com and rotoballer.com failed (host not allowed); Wikipedia text came from sections stored in research/data/OWL-RB.json"
+ ]
+}
