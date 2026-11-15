@@ -1955,7 +1955,8 @@
   function markJump() {
     var cur = currentPlay();
     slider.max = String(G.plays);
-    if (!jumpEl.contains(document.activeElement) || document.activeElement !== slider) slider.value = String(cur);
+    // Not while a finger is dragging it: an iPhone never gives a slider focus, so this put the thumb back on every move.
+    if (!dragging && (!jumpEl.contains(document.activeElement) || document.activeElement !== slider)) slider.value = String(cur);
     slider.setAttribute('aria-valuetext', playLabel(Number(slider.value)));
     atEl.textContent = 'Play ' + slider.value + ' of ' + G.plays;
     jumpEl.querySelector('[data-jump=prev]').disabled = cur <= 1;

@@ -72,7 +72,7 @@
   // the moment the game does instead of after a download and a fade.
   function unlock() {
     make();
-    if (ac && ac.state === 'suspended') { try { ac.resume(); } catch (err) { /* needs a tap */ } }
+    if (ac && ac.state !== 'running' && ac.state !== 'closed') { try { ac.resume(); } catch (err) { /* needs a tap */ } }   // 'interrupted' on an iPhone too
   }
   function make() {
     if (!ac) {
@@ -99,7 +99,7 @@
       try { ac = new AC(); } catch (err) { return; }
       bus = ac.createGain(); bus.gain.value = 0; bus.connect(ac.destination);
     }
-    if (ac.state === 'suspended') { try { ac.resume(); } catch (err) { /* needs a tap */ } }
+    if (ac.state !== 'running' && ac.state !== 'closed') { try { ac.resume(); } catch (err) { /* needs a tap */ } }
     if (!buf && !loading) {
       loading = true;
       fetch(new URL('sounds/stadium-crowd.mp3', HERE).href).then(function (r) { if (!r.ok) throw new Error('crowd ' + r.status); return r.arrayBuffer(); })
@@ -140,6 +140,8 @@
   }, 200);
 
   make();   // a suspended context and the decoded recording, ready before the first tap
+  // js/phone.js sends this from inside every tap: an iPhone only lets a context start from a touch that ended.
+  window.addEventListener('fr-unlock', unlock);
 
   window.FR_STADIUM_SOUND = {
     get sounds() { return played.slice(); },

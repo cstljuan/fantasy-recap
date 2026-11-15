@@ -90,7 +90,7 @@
     }
     function mark() {
       slider.max = String(plays());
-      if (document.activeElement !== slider) slider.value = String(current());
+      if (!dragging && document.activeElement !== slider) slider.value = String(current());   // an iPhone never focuses a slider
       at.textContent = 'Play ' + slider.value + ' of ' + plays();
       slider.setAttribute('aria-valuetext', at.textContent);
       bar.querySelector('[data-frx=prev]').disabled = current() <= 1;
