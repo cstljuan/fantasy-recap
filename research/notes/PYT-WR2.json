@@ -1,0 +1,189 @@
+{
+ "key": "PYT-WR2",
+ "name": "Malik Nabers",
+ "researched": "2026-11-15",
+ "background": [
+  {
+   "fact": "Born July 28, 2003 in Lafayette, Louisiana; he played his senior year at Southside High School in Youngsville, Louisiana, but could not play football that year because his transfer waiver was denied. In his last high school season he led Louisiana with 58 catches, 1,223 yards and 21 touchdowns.",
+   "source": "https://en.wikipedia.org/wiki/Malik_Nabers",
+   "date": "date not shown",
+   "confidence": "from Wikipedia (sections stored in research/data/PYT-WR2.json)"
+  },
+  {
+   "fact": "At LSU he was a unanimous All-American in 2023, led the FBS with 1,569 receiving yards that year, and finished as LSU's all-time leader in receiving yards with 3,003. He was MVP of the 2023 Citrus Bowl.",
+   "source": "https://en.wikipedia.org/wiki/Malik_Nabers",
+   "date": "date not shown",
+   "confidence": "from Wikipedia"
+  },
+  {
+   "fact": "The Giants drafted him sixth overall in 2024 (round 1, pick 6); he set several rookie receiver and franchise records.",
+   "source": "https://en.wikipedia.org/wiki/Malik_Nabers",
+   "date": "date not shown",
+   "confidence": "from Wikipedia, matches the draft field in the data file"
+  },
+  {
+   "fact": "Listed at 6 ft 0 in, 200 lb, age 23, jersey 1, in his third NFL season, depth chart left wide receiver 1.",
+   "source": "research/data/PYT-WR2.json (bio, from ESPN and Sleeper pulls)",
+   "date": "2026-11-15",
+   "confidence": "one source"
+  }
+ ],
+ "family": [
+  {
+   "fact": "His mother is Tonya Nabers, described as a single mother who worked several jobs to support the family; in a 2023 interview she said he told her at age 8 that he would play in the NFL.",
+   "source": "https://au.sports.yahoo.com/malik-nabers-mom-tonya-nabers-190000257.html",
+   "date": "date not shown",
+   "confidence": "one search summary; the quote itself was only seen second hand"
+  },
+  {
+   "fact": "His uncle Gabe Nabers played 26 games as a running back for the Los Angeles Chargers from 2020 to 2021, and his first cousin Jordan Allen plays college football for Houston.",
+   "source": "https://en.wikipedia.org/wiki/Malik_Nabers",
+   "date": "date not shown",
+   "confidence": "from Wikipedia"
+  },
+  {
+   "fact": "Number of siblings: sources conflict, so no count is recorded here. Nothing about a spouse or children was found: not found.",
+   "source": "https://thesportsrush.com/nfl-news-never-had-the-funds-malik-nabers-once-reflected-on-his-tough-childhood-family-dynamics-coaching-plans/",
+   "date": "date not shown",
+   "confidence": "not found"
+  }
+ ],
+ "recent_events": [
+  {
+   "fact": "Thursday, November 12 (Week 10): Washington beat the Giants 24-21. Nabers had 5 catches on 7 targets for 44 yards and lost a fumble in the third quarter at the Washington 16-yard line with New York down three.",
+   "source": "research/data/PYT-WR2.json (status.espn, log)",
+   "date": "2026-11-13",
+   "confidence": "ESPN note plus the game log in the data file; NFL.com headline also reports the red-zone fumble"
+  },
+  {
+   "fact": "On the last drive the Giants threw deep on consecutive plays, first to Darnell Mooney and then to Nabers, and J.J. McCarthy's final pass was intercepted by Rasul Douglas. Nabers said afterward that getting the ball out quickly against the blitz was the better play, and he took responsibility for his own fumble. Many fans read this as blaming McCarthy; reports say he did not blame him directly.",
+   "source": "https://sports.yahoo.com/articles/giants-malik-nabers-critiques-j-202914269.html",
+   "date": "date not shown",
+   "confidence": "search summary of several Yahoo Sports, Heavy and Pro Football Network pieces, not read in full"
+  },
+  {
+   "fact": "Nabers skipped the media after the loss and later said he 'can't answer' Jayden Daniels' phone call; McCarthy said turnovers were the key issue and 'we're gonna be sitting there disappointed' after watching the tape.",
+   "source": "https://bolavip.com/en/nfl/ny-giants-jj-mccarthy-shows-self-criticism-after-loss-to-commanders-identifies-turnovers-as-key-issue",
+   "date": "2026-11-14",
+   "confidence": "headlines in the data file (Yahoo, Bleacher Report, The Spun) plus one search summary"
+  },
+  {
+   "fact": "He has 85 targets, 58 catches, 692 yards, 2 touchdowns and 1 lost fumble in 9 games, which is 8.8 fantasy points a game under league scoring. He had four straight 100-yard games in Weeks 4 to 7 (112, 121, 165, 111) and then 43 yards at Philadelphia and 44 yards against Washington.",
+   "source": "research/data/PYT-WR2.json (season_2026, log)",
+   "date": "2026-11-15",
+   "confidence": "from the data file"
+  },
+  {
+   "fact": "Giants played Week 8 off (no Week 8 game in the log); the 2026 passer list shows Jaxson Dart, Jameis Winston and McCarthy all throwing passes, and McCarthy threw 36 of the team's passes in Week 10.",
+   "source": "research/data/PYT-WR2.json (teammates_2026)",
+   "date": "2026-11-15",
+   "confidence": "from the data file"
+  }
+ ],
+ "quotes": [
+  {
+   "fact": "McCarthy after the Washington game: 'I'm sure you could look at the tape, and we're gonna be sitting there disappointed.' A Nabers quote word for word was not captured, only the paraphrase above.",
+   "source": "https://bolavip.com/en/nfl/ny-giants-jj-mccarthy-shows-self-criticism-after-loss-to-commanders-identifies-turnovers-as-key-issue",
+   "date": "2026-11-14",
+   "confidence": "one search summary"
+  }
+ ],
+ "team_context": [
+  {
+   "fact": "John Harbaugh is the Giants head coach (hired January 17, 2026) and Matt Nagy is the offensive coordinator.",
+   "source": "https://en.wikipedia.org/wiki/2026_New_York_Giants_season",
+   "date": "date not shown",
+   "confidence": "Wikipedia and Pro Football Reference listing in one search result"
+  },
+  {
+   "fact": "Nagy has spoken about managing Nabers' wish for more targets and gave McCarthy's adjustment efforts 'an A+' in an October session; McCarthy was traded to the Giants after losing his starting job in Minnesota.",
+   "source": "https://sny.tv/articles/giants-notes-matt-nagy-jj-mccarthy-malik-nabers-10-8-2026",
+   "date": "2026-10-08",
+   "confidence": "search summary only, article not read"
+  },
+  {
+   "fact": "Giants are 5-3 per the data file before the Week 10 loss, averaging 22.6 points for and 21.8 against. Nabers has 28.9 percent of team targets and 34.9 percent of intended air yards; his average separation is 2.97 yards and his yards after catch are 0.31 below expectation.",
+   "source": "research/data/PYT-WR2.json (season_2026, teammates_2026)",
+   "date": "2026-11-15",
+   "confidence": "from the data file"
+  },
+  {
+   "fact": "Of 85 targets, 60 were short (323 yards, 75 percent caught) and 25 were deep (374 yards, 2 touchdowns, 52 percent caught).",
+   "source": "research/data/PYT-WR2.json (plays_2026)",
+   "date": "2026-11-15",
+   "confidence": "from the data file"
+  }
+ ],
+ "next_opponent": [
+  {
+   "fact": "Next game is Week 11, Sunday November 22, home against Jacksonville at MetLife Stadium (outdoors, field turf) on CBS, after 10 days of rest because New York played Thursday. The data file lists 1 pm but its UTC kickoff is 4:25 pm ET, which most betting sites also give.",
+   "source": "research/data/PYT-WR2.json (next_games)",
+   "date": "2026-11-15",
+   "confidence": "data file; two sources disagree on clock time"
+  },
+  {
+   "fact": "Lines: Jacksonville favored by 6, total 44.5, so the implied Giants total is 19.25. Forecast is 61 F with intermittent clouds; wind not found. One model puts Jacksonville at about a 69 percent chance to win.",
+   "source": "https://www.optimal-bet.com/nfl/games/e68ed60c-ef20-465a-bd75-48115458479c/jaguars-at-giants-2026-11-22",
+   "date": "date not shown",
+   "confidence": "data file line plus one betting site"
+  },
+  {
+   "fact": "ESPN's note calls the Jaguars a 'pass-funnel defense'.",
+   "source": "research/data/PYT-WR2.json (status.espn)",
+   "date": "2026-11-13",
+   "confidence": "one source"
+  },
+  {
+   "fact": "No Jacksonville injury news or Nabers-specific Week 11 preview was found: not found.",
+   "source": "not found",
+   "date": "date not shown",
+   "confidence": "not found"
+  }
+ ],
+ "style": [
+  {
+   "fact": "Madden week 8 rating is 88 overall with 96 speed, 94 change of direction, 96 jumping, 92 spectacular catch and 87 catching; his abilities are Mid Out Elite and Mid In Elite.",
+   "source": "research/data/PYT-WR2.json (bio.madden)",
+   "date": "2026-11-15",
+   "confidence": "one source"
+  },
+  {
+   "fact": "In 2026 he has 9 red zone targets, 3 drops and 28 first downs, and 11 of his 58 catches went 20 yards or more (7 of 20 to 29, 2 of 30 to 39, 2 of 40 or more).",
+   "source": "research/data/PYT-WR2.json (season_2026, sleeper_sums)",
+   "date": "2026-11-15",
+   "confidence": "from the data file"
+  }
+ ],
+ "availability": {
+  "status": "Active; knee on the practice report but no game designation",
+  "detail": "ESPN status is Active as of November 13 and Sleeper shows no injury. The data file shows a knee entry in 2026 weeks 1, 5, 9 and 10 (week 1 Questionable, the others full practice with no game status), and a search summary says he sat out a Wednesday practice before Week 10 with a sore knee, then played 80 percent of snaps. He tore his ACL in the Week 4 2025 game against the Chargers (CBS Sports) and played 4 games that year. No Week 11 injury report exists yet.",
+  "expected_return": "Not applicable",
+  "source": "https://www.espn.com/nfl/story/_/id/50127773/giants-malik-nabers-sore-knee-practice",
+  "date": "date not shown"
+ },
+ "outlook_next_game": {
+  "lean": "plays; likely a middling day, around 8 to 12 fantasy points, with upside if the Giants trail",
+  "confidence": "low to medium",
+  "reasons": [
+  "He is active with no designation and the Giants have 10 days of rest, which helps his knee.",
+  "Jacksonville is a 6 point favorite and the Giants' implied total is only 19.25, which caps the passing volume unless they fall behind.",
+  "His targets stay high (28.9 percent share, 7 to 9 in recent games) but his last two games were 43 and 44 yards after four 100-yard games.",
+  "Risks are quarterback friction after the Thursday comments, ball security after the fumble, and the knee."
+  ]
+ },
+ "scouts_read": "Nabers is active and has had ten days to rest, so the question is production, not availability. His season is split in two: four straight 100-yard games in Weeks 4 to 7, then 43 and 44 yards in his last two. Jacksonville is a 6 point favorite and the implied Giants total is only 19.25, which limits the points available, though ESPN calls the Jaguars a pass funnel. His target share stays near 29 percent, so a quiet game is more likely than a bad one, and a big game needs the Giants to trail. I would project about 9 to 12 fantasy points with a real chance of a 100-yard day.",
+ "open_questions": [
+  "Official Week 11 injury report for his knee (not found; none exists yet).",
+  "Exact wind and game-time weather and the kickoff clock time (not found; data file says 1 pm, UTC time says 4:25 pm ET).",
+  "Whether the Thursday comments about McCarthy changed anything in the Giants locker room (not found).",
+  "Who starts at quarterback in Week 11 (not found; McCarthy started Week 10)."
+ ],
+ "searches": [
+  "Malik Nabers Giants Commanders fumble J.J. McCarthy comments",
+  "Giants Jaguars Week 11 preview Malik Nabers injury knee",
+  "Giants Jaguars Week 11 2026 odds prediction Giants offense Nabers",
+  "Malik Nabers family mother background Youngsville Louisiana interview",
+  "Giants head coach offensive coordinator 2026 J.J. McCarthy starting quarterback Nabers",
+  "No page fetches were made; Wikipedia text came from the sections already stored in research/data/PYT-WR2.json"
+ ]
+}
