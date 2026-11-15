@@ -1,0 +1,238 @@
+{
+ "key": "TUR-RB",
+ "name": "Jahmyr Gibbs",
+ "researched": "2026-11-15",
+ "background": [
+  {
+   "fact": "Born March 20, 2002 and grew up in Dalton, Georgia; he played at Dalton High School, where he led the state as a senior with 2,554 rushing yards and 40 touchdowns and finished with 4,882 rushing yards and 70 touchdowns.",
+   "source": "https://en.wikipedia.org/wiki/Jahmyr_Gibbs",
+   "date": null,
+   "confidence": "from Wikipedia"
+  },
+  {
+   "fact": "Rated a three-star recruit, he committed to Georgia Tech, played there, then transferred to Alabama (Wikipedia lists both colleges).",
+   "source": "https://en.wikipedia.org/wiki/Jahmyr_Gibbs",
+   "date": null,
+   "confidence": "from Wikipedia"
+  },
+  {
+   "fact": "Detroit drafted him 12th overall in the first round of the 2023 NFL draft; he was a Pro Bowl selection each season from 2023 to 2025.",
+   "source": "https://en.wikipedia.org/wiki/Jahmyr_Gibbs",
+   "date": null,
+   "confidence": "from Wikipedia"
+  },
+  {
+   "fact": "In 2024 he set a Detroit franchise record with 20 touchdowns in a season, which also led the league; he and David Montgomery formed a tandem nicknamed Sonic (Gibbs) and Knuckles (Montgomery).",
+   "source": "https://en.wikipedia.org/wiki/Jahmyr_Gibbs",
+   "date": null,
+   "confidence": "from Wikipedia"
+  },
+  {
+   "fact": "Listed at 5 ft 9 in, 202 lb, age 24, jersey 0, fourth NFL season; combine 40-yard dash 4.36.",
+   "source": "research/data/TUR-RB.json (bio, from ESPN and Sleeper pulls)",
+   "date": "2026-11-15",
+   "confidence": "one source"
+  },
+  {
+   "fact": "Madden week 8 rating is 97 overall with 96 speed, 95 acceleration, 97 carrying and 90 injury (durability).",
+   "source": "research/data/TUR-RB.json (bio.madden)",
+   "date": "2026-11-15",
+   "confidence": "one source"
+  }
+ ],
+ "family": [
+  {
+   "fact": "He grew up in poverty and lived in shelters with his grandmother Angela Willis for part of his childhood after leaving his biological parents at a young age.",
+   "source": "https://en.wikipedia.org/wiki/Jahmyr_Gibbs",
+   "date": null,
+   "confidence": "from Wikipedia"
+  },
+  {
+   "fact": "At age 15 he was adopted by Dusty and Greg Ross, parents of Dalton teammate John Ross.",
+   "source": "https://en.wikipedia.org/wiki/Jahmyr_Gibbs",
+   "date": null,
+   "confidence": "from Wikipedia"
+  },
+  {
+   "fact": "Headlines from InStyle (Oct 4, 2026) and Diario AS (Sept 27, 2026) identify his girlfriend as model and content creator Nicole Anderson; article text was not read, nothing beyond the headline is recorded.",
+   "source": "https://www.instyle.com/ (headline found in research/data/TUR-RB.json news.family)",
+   "date": "2026-10-04",
+   "confidence": "one source, headline only"
+  },
+  {
+   "fact": "No children, marriage or engagement were found in the public reporting reached.",
+   "source": "not found",
+   "date": null,
+   "confidence": "not found"
+  }
+ ],
+ "recent_events": [
+  {
+   "fact": "Lions beat Miami 19-9 on Sunday, November 8 (Week 9); Gibbs ran 20 times for 74 yards and an 8-yard touchdown but had no catch on his only target, his first game without a reception this season.",
+   "source": "research/data/TUR-RB.json (status.espn and log)",
+   "date": "2026-11-08",
+   "confidence": "confirmed by two sources (ESPN note and game log; also a TribLIVE headline dated 2026-11-09)"
+  },
+  {
+   "fact": "Through 8 games in 2026 he has 177 carries for 847 yards and 9 rushing touchdowns, 34 catches for 285 yards and 2 receiving touchdowns, and 21.9 fantasy points a game under league scoring.",
+   "source": "research/data/TUR-RB.json (season_2026)",
+   "date": "2026-11-15",
+   "confidence": "from the data file"
+  },
+  {
+   "fact": "Preview coverage says he leads the NFL in touches (211), scrimmage yards (1,132) and touchdowns (11).",
+   "source": "https://www.dazn.com/en-US/news/football/patriots-vs-lions-munich-preview-key-matchups-how-to-watch-nfl-game-pass/8l6zkg3pfiju1l8my44vi5hvl",
+   "date": "2026-11-14",
+   "confidence": "confirmed by two sources (also ESPN note in the data file: 1,132 scrimmage yards, 11 touchdowns)"
+  },
+  {
+   "fact": "His best 2026 games were Week 3 at the Jets (99 rushing yards, 7 catches, 34.4 points) and Week 5 vs Arizona (151 rushing yards, 32.7); his lowest were Week 9 vs Miami (13.4) and Week 7 vs Green Bay (12.3 despite 29 carries for 116 yards).",
+   "source": "research/data/TUR-RB.json (log)",
+   "date": "2026-11-15",
+   "confidence": "from the data file"
+  },
+  {
+   "fact": "Late in the 20-17 win over Green Bay (Oct 26) he went down awkwardly and was cleared of an ankle injury; he later said a shoulder pain came from a one-handed catch on third down when a Green Bay defender landed on him.",
+   "source": "https://sports.yahoo.com/articles/lions-jahmyr-gibbs-opens-injury-032449317.html",
+   "date": "date not shown",
+   "confidence": "one source (search summary; MLive headline dated 2026-10-26 also covers the scare)"
+  },
+  {
+   "fact": "Lions coach said the team will not limit Gibbs' workload (headline: 'He Probably Wants More'); another report says he accounted for 53% of team touches through six games. Article text beyond headlines was not read.",
+   "source": "https://www.inkfreenews.com/ (headline in data file news.quotes)",
+   "date": "2026-10-30",
+   "confidence": "one source, headline only"
+  },
+  {
+   "fact": "Detroit traded David Montgomery to the Houston Texans in March, which explains Gibbs' larger role; Sione Vaki is the change-of-pace back, with Jacob Saylors and Jabari Small (practice squad) behind him.",
+   "source": "https://www.detroitnews.com/story/sports/nfl/lions/2026/10/29/detroit-lions-running-back-depth-chart-jahmyr-gibbs-sione-vaki-jacob-saylors-kareem-hunt/92497164007/",
+   "date": "2026-10-29",
+   "confidence": "one source (search summary)"
+  }
+ ],
+ "quotes": [
+  {
+   "fact": "On the shoulder listing: 'I was confused. I just got dinged up a little bit, like a little shoulder thing but I'm good.'",
+   "source": "https://x.com/BradGalli/status/2115906514539921432",
+   "date": "date not shown",
+   "confidence": "one source (quote as shown in search result)"
+  },
+  {
+   "fact": "A Detroit Metro Times headline says Gibbs is chasing LaDainian Tomlinson's 31-touchdown record (article text not read).",
+   "source": "https://www.metrotimes.com/ (headline in data file news.quotes)",
+   "date": "2026-11-06",
+   "confidence": "one source, headline only"
+  }
+ ],
+ "team_context": [
+  {
+   "fact": "Detroit is 6-2 and has won four straight; the Lions score 27.8 points and allow 23.6 per game in 2026.",
+   "source": "research/data/TUR-RB.json (season_2026.team) and https://www.cbssports.com/nfl/news/lions-seek-fifth-straight-win-against-patriots-in-munich/",
+   "date": "2026-11-15",
+   "confidence": "confirmed by two sources"
+  },
+  {
+   "fact": "Jared Goff has been the only passer in every game; Amon-Ra St. Brown (86 targets), Sam LaPorta (49), Jameson Williams (46) and Gibbs (45, 16.7% share) lead the targets.",
+   "source": "research/data/TUR-RB.json (teammates_2026)",
+   "date": "2026-11-15",
+   "confidence": "from the data file"
+  },
+  {
+   "fact": "Gibbs has 84% of the team's running back carries with Sione Vaki next at 30 carries for 135 yards; the red-zone workload is 43 carries inside the 20 and 7 red-zone targets.",
+   "source": "research/data/TUR-RB.json (teammates_2026, season_2026)",
+   "date": "2026-11-15",
+   "confidence": "from the data file"
+  },
+  {
+   "fact": "Sione Vaki (ankle) practiced Friday for the first time that week, limited, and is questionable; Amon-Ra St. Brown (ribs) is also questionable; Kerby Joseph, Cade Mays and D.J. Reed are out.",
+   "source": "https://www.detroitlionspodcast.com/dlp-beat-bot/2026/11/12/lions-injury-report-week-10-thursday/",
+   "date": "2026-11-13",
+   "confidence": "confirmed by two sources (CBS Sports and Detroit Sports Nation also reported the Friday report)"
+  },
+  {
+   "fact": "Offensive coordinator name for 2026 not confirmed from a current source; Dan Campbell is named as head coach in preview coverage.",
+   "source": "https://www.cbssports.com/nfl/news/lions-seek-fifth-straight-win-against-patriots-in-munich/",
+   "date": "2026-11-14",
+   "confidence": "head coach from a preview; coordinator not found"
+  }
+ ],
+ "next_opponent": [
+  {
+   "fact": "Detroit hosts New England on Sunday, November 15, 9:30 am ET (14:30 UTC) at Allianz Arena in Munich (the NFL's own stadium name is FC Bayern Munich Stadium), on Fox; the Lions are the designated home team and rest was 7 days.",
+   "source": "research/data/TUR-RB.json (next_games)",
+   "date": "2026-11-15",
+   "confidence": "confirmed by two sources (CBS Sports preview)"
+  },
+  {
+   "fact": "Lines in the data file: Detroit -2.5, total 49.5, implied team total 26.0.",
+   "source": "research/data/TUR-RB.json (next_games)",
+   "date": "2026-11-15",
+   "confidence": "one source"
+  },
+  {
+   "fact": "New England is 5-4; its run defense allows 96.7 yards a game, eighth fewest in the NFL, with Christian Elliss (65 tackles) likely on Gibbs, while the pass defense is called suspect.",
+   "source": "https://www.nfl.com/news/patriots-vs-lions-preview-week-10-munich-game",
+   "date": "2026-11-14",
+   "confidence": "one source (search summary)"
+  },
+  {
+   "fact": "Patriots running backs Rhamondre Stevenson (knee) and TreVeyon Henderson (illness) were reported unlikely to play; Henderson is out and Stevenson questionable on the Friday report.",
+   "source": "https://www.patriots.com/news/injury-report-analysis-a-j-brown-rhamondre-stevenson-among-nine-patriots-questionable-for-sunday-s-game-vs-lions-in-munich",
+   "date": "2026-11-13",
+   "confidence": "confirmed by two sources"
+  },
+  {
+   "fact": "Gibbs has not played New England in the game log; his only past games against them: not found. Next games after this: vs Tampa Bay Nov 22 (DET -3.5, total 47.5) and vs Chicago Nov 26 on Thursday.",
+   "source": "research/data/TUR-RB.json (log, next_games)",
+   "date": "2026-11-15",
+   "confidence": "from the data file"
+  }
+ ],
+ "style": [
+  {
+   "fact": "Fast, elusive back who makes his money in space and as a receiver: 8 broken tackles on 177 carries, 523 yards before contact against 324 after, and 34 catches on 45 targets.",
+   "source": "research/data/TUR-RB.json (season_2026.advanced)",
+   "date": "2026-11-15",
+   "confidence": "from the data file"
+  },
+  {
+   "fact": "Next Gen tracking shows +104.6 rush yards over expected in 2026 (0.60 per carry) after +168.4 in 2025; he faces 8 or more defenders on 20.3% of carries.",
+   "source": "research/data/TUR-RB.json (season_2026.tracking)",
+   "date": "2026-11-15",
+   "confidence": "from the data file"
+  }
+ ],
+ "availability": {
+  "status": "Active, expected to play (no designation found)",
+  "detail": "The data file shows Sleeper status Active and no injury designation; ESPN status Active as of 2026-11-08. The only 2026 injury entry is a Week 8 shoulder (full participation in practice, no game status), which Gibbs said was minor, and he played Week 8 and Week 9. Friday Week 10 reports reached by search list Vaki and St. Brown as questionable and do not mention Gibbs. No official Sunday inactive list was seen, and no source confirms his Week 10 practice participation, so this is not fully confirmed. He is not on injured reserve.",
+  "expected_return": "Not applicable",
+  "source": "research/data/TUR-RB.json (status, injury_reports) and https://www.detroitlionspodcast.com/dlp-beat-bot/2026/11/12/lions-injury-report-week-10-thursday/",
+  "date": "2026-11-15"
+ },
+ "outlook_next_game": {
+  "lean": "plays as the featured back; expected around 18 to 24 fantasy points",
+  "confidence": "medium",
+  "reasons": [
+   "He is the lead back with 84% of carries and 211 touches, and Montgomery is gone, so the volume is stable.",
+   "Detroit is a small 2.5 point favorite with an implied total of 26, so game script should stay balanced rather than a run-clock blowout.",
+   "New England's run defense is strong (96.7 yards a game) but weaker against the pass, and Gibbs catches about 4 passes a game.",
+   "Risks: Vaki is questionable, which could raise Gibbs' snap share, and the Week 8 shoulder issue could resurface; his 2026 low games (12.3 and 13.4) came with one score or none."
+  ]
+ },
+ "scouts_read": "Gibbs shows no injury designation and has been the clear lead back all year, so the main question is how Detroit scores rather than whether he plays. The Patriots defend the run well, which trims his floor if Detroit leans on Goff, but New England is suspect against the pass and Gibbs gets about four targets a game. With a 2.5 point spread and a 26 point team total, the game should stay close enough to keep him on the field. Vaki being questionable only adds to his snaps. I would project a solid game around 18 to 24 points, with his touchdown pace (9 rushing scores in 8 games) giving a real chance at more.",
+ "open_questions": [
+  "Official Sunday inactive list and Gibbs' Week 10 practice participation (not found).",
+  "Roof status and wind for the Munich stadium were not confirmed (not found; the data file lists it as a dome with no weather).",
+  "Offensive coordinator name and any contract details for Gibbs (not found).",
+  "Whether Detroit signed Kareem Hunt or another back after the October reports (not found).",
+  "Gibbs' 2026 Wikipedia season section was not stored and could not be fetched (not found)."
+ ],
+ "searches": [
+  "Jahmyr Gibbs injury status Lions Patriots Munich Week 10",
+  "Lions Patriots Munich preview Gibbs Montgomery Vaki Dan Campbell",
+  "Jahmyr Gibbs Lions injury report shoulder Packers late injury scare Dan Campbell workload",
+  "Lions injury report Friday Patriots Munich Sione Vaki questionable Gibbs full participant",
+  "Detroit Lions RB depth chart who plays behind Jahmyr Gibbs Detroit News",
+  "Wikipedia text came from the Intro and Early life sections stored in research/data/TUR-RB.json; page fetches were not attempted"
+ ]
+}
