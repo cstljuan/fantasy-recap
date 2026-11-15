@@ -1,18 +1,21 @@
 // The stadium crowd for both sports, on top of the broadcast sound in js/audio.js (Noah's),
 // asked by Peyton:
-//   - background noise at all times: while the game view is open the crowd bed is kept going
-//     between plays, through half time and after the final, not only at each snap;
+//   - background: Peyton's crowd recording (js/screens/sounds/stadium-crowd.mp3) plays at a
+//     medium level for the whole game, from the kickoff to the final, while the game view is open;
 //   - a score (touchdown, field goal, goal) gets a loud cheer and hard clapping;
 //   - an incomplete pass or a penalty (football), a foul, a penalty given away or an offside
 //     (soccer) gets boos.
-// It only calls FF_AUDIO.play with sound names js/audio.js already has, so mute, volume, captions
-// and the voice ducking stay Noah's. FF_AUDIO.claim keeps it from booing on top of js/audio.js.
+// The cheers and boos only call FF_AUDIO.play with sound names js/audio.js already has, and the
+// recording follows js/audio.js's mute, volume, hidden page and ducking under the announcer.
+// FF_AUDIO.claim keeps it from booing on top of js/audio.js.
 // Loaded by js/app.js: into the app for football, into the soccer frame for soccer.
 (function () {
   'use strict';
   var soccer = !window.FF_GAME && !!window.SC_GAME;
   var G = window.FF_GAME || window.SC_GAME;
   if (!G || typeof G.on !== 'function' || window.FR_STADIUM_SOUND) return;
+  // The recording sits next to this file, whichever page loaded it.
+  var HERE = (document.currentScript && document.currentScript.src) || location.href;
 
   function A() { var a = window.FF_AUDIO; return a && typeof a.play === 'function' ? a : null; }
   function open() { return G.active !== false && G.mode !== 'ready' && !G.seeking; }
@@ -27,11 +30,6 @@
   // True when this module may play a sound of that kind now; js/audio.js then skips its own.
   function claim(kind, secs) { var a = A(); return !a || typeof a.claim !== 'function' || a.claim(kind, secs); }
 
-  // Background: the bed fades out by itself after 40 quiet seconds and stops at half time and at
-  // the final; asking for it every 10 seconds, and again after those breaks, keeps it going.
-  function keepCrowd() { if (open()) play('crowd_murmur'); }
-  setInterval(keepCrowd, 10000);
-
   function cheer(loud) {
     // js/audio.js already roars (and claps later); this adds a cheer and claps right away.
     if (loud) play('crowd_roar');
@@ -42,8 +40,7 @@
   function boo() { if (claim('boo', 1.5)) later('crowd_boo', 250); }
 
   G.on(function (type, d) {
-    if (type === 'start') { later('crowd_murmur', 3500); return; }
-    if (type === 'half' || type === 'final') { later('crowd_murmur', 2500); return; }
+    if (type === 'start' || type === 'snap') wake();
     if (type !== 'result' || !d || !d.res || G.seeking) return;
     var res = d.res, e = res.e || {};
     if (soccer) {
@@ -56,5 +53,66 @@
     else if (e.t === 'inc' || e.t === 'pen') boo();
   });
 
-  window.FR_STADIUM_SOUND = { get sounds() { return played.slice(); } };
+  // ------------------------------------------------------------- the recording
+  // The clip is 15 seconds that fade in and out at its ends, so only its steady middle is used,
+  // in copies that overlap and crossfade, which keeps the crowd at one level with no gap.
+  var LEVEL = 0.35;                   // medium, before js/audio.js's master and crowd volumes
+  var FROM = 2.5, TO = 9.5, FADE = 2;   // seconds of the clip; this keeps the loop within about 2 dB
+  var ac = null, bus = null, buf = null, loading = false, nextAt = 0, timer = 0;
+  function level() {
+    var a = A(), m = a && a.mix ? a.mix() : null;
+    if (!open() || document.hidden || (m && (m.muted || m.hidden))) return 0;
+    var crowd = m && typeof m.crowd === 'number' ? m.crowd : 1, master = m && typeof m.target === 'number' ? m.target : 0.5;
+    return LEVEL * crowd * Math.min(1, master * 2) * (m && m.ducked ? 0.6 : 1);
+  }
+  function wake() {
+    if (!open()) return;
+    if (!ac) {
+      var AC = window.AudioContext || window.webkitAudioContext;
+      if (!AC) return;
+      try { ac = new AC(); } catch (err) { return; }
+      bus = ac.createGain(); bus.gain.value = 0; bus.connect(ac.destination);
+    }
+    if (ac.state === 'suspended') { try { ac.resume(); } catch (err) { /* needs a tap */ } }
+    if (!buf && !loading) {
+      loading = true;
+      fetch(new URL('sounds/stadium-crowd.mp3', HERE).href).then(function (r) { if (!r.ok) throw new Error('crowd ' + r.status); return r.arrayBuffer(); })
+        .then(function (data) { return new Promise(function (ok, no) { ac.decodeAudioData(data, ok, no); }); })
+        .then(function (b) { buf = b; schedule(); })
+        .catch(function () { loading = false; /* the game plays without the recording */ });
+    }
+  }
+  // One copy of the steady middle, faded in and out; the next one starts before this one ends.
+  function copyAt(t) {
+    var len = Math.min(TO, buf.duration) - FROM, src = ac.createBufferSource(), g = ac.createGain();
+    src.buffer = buf;
+    g.gain.setValueAtTime(0.0001, t);
+    g.gain.linearRampToValueAtTime(1, t + FADE);
+    g.gain.setValueAtTime(1, t + len - FADE);
+    g.gain.linearRampToValueAtTime(0.0001, t + len);
+    src.connect(g); g.connect(bus);
+    src.start(t, FROM, len);
+    return t + len - FADE;
+  }
+  function schedule() {
+    clearTimeout(timer);
+    if (!buf || !ac) return;
+    // Copies are only queued while the game view is open, so a closed game goes quiet.
+    if (open()) {
+      var now = ac.currentTime;
+      if (nextAt < now) nextAt = now + 0.05;
+      while (nextAt < now + 2) nextAt = copyAt(nextAt);
+    }
+    timer = setTimeout(schedule, 500);
+  }
+  setInterval(function () {
+    // The view opens just after the game's start event, so the recording also starts from here.
+    if (open() && (!ac || ac.state === 'suspended' || (!buf && !loading))) wake();
+    if (ac && bus) bus.gain.setTargetAtTime(level(), ac.currentTime, 0.3);
+  }, 200);
+
+  window.FR_STADIUM_SOUND = {
+    get sounds() { return played.slice(); },
+    get recording() { return { loaded: !!buf, state: ac ? ac.state : 'none', level: bus ? +bus.gain.value.toFixed(3) : 0, target: +level().toFixed(3) }; }
+  };
 })();
