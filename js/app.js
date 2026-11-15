@@ -517,7 +517,7 @@
   // Without it, or when the service or its database does not answer within two seconds,
   // nothing changes: the choice stays on this device and the screen says so.
   var API = (function () {
-    var mm = /[?&]api=([^&]+)/.exec(location.search), u = mm ? decodeURIComponent(mm[1]) : '';
+    var mm = /[?&]api=([^&]+)/.exec(location.search), u = mm ? decodeURIComponent(mm[1]) : (window.FR_API || '');
     return /^https?:\/\/[^\s"'<>]+$/.test(u) ? u.replace(/\/+$/, '') : '';
   })();
   var league$ = { state: API ? 'checking' : 'off', saved: '', optins: null };

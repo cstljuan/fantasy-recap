@@ -11,7 +11,7 @@
   if (!G || !A) return;
   var TEAMS = D.TEAMS;
   var API = (function () {
-    var mm = /[?&]api=([^&]+)/.exec(location.search), u = mm ? decodeURIComponent(mm[1]) : '';
+    var mm = /[?&]api=([^&]+)/.exec(location.search), u = mm ? decodeURIComponent(mm[1]) : (window.FR_API || '');
     return /^https?:\/\/[^\s"'<>]+$/.test(u) ? u.replace(/\/+$/, '') : '';
   })();
   var LETTERS = 'ABCDEFGHJKLMNPQRSTUVWXYZ';

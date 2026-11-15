@@ -8,7 +8,7 @@
   var A = window.__app;
   if (!A) return;
   var API = (function () {
-    var mm = /[?&]api=([^&]+)/.exec(location.search), u = mm ? decodeURIComponent(mm[1]) : '';
+    var mm = /[?&]api=([^&]+)/.exec(location.search), u = mm ? decodeURIComponent(mm[1]) : (window.FR_API || '');
     return /^https?:\/\/[^\s"'<>]+$/.test(u) ? u.replace(/\/+$/, '') : '';
   })();
   var KEY = 'fr.commish';
