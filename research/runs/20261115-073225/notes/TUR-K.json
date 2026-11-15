@@ -1,0 +1,213 @@
+{
+ "key": "TUR-K",
+ "name": "Cameron Dicker",
+ "researched": "2026-11-15",
+ "background": [
+  {
+   "fact": "Placekicker for the Los Angeles Chargers, born May 6, 2000, listed at 6 ft 1 in, 216 lb, age 26, jersey 11, college Texas, undrafted in 2022 (signed by the Rams as an undrafted free agent), 5 years of experience, depth chart K1.",
+   "source": "research/data/TUR-K.json (bio) and https://en.wikipedia.org/wiki/Cameron_Dicker (Intro section stored in the data file)",
+   "date": "2026-11-15",
+   "confidence": "data file plus Wikipedia"
+  },
+  {
+   "fact": "Birthplace: the data file bio says Austin, TX, USA, but Wikipedia says he was born in Hong Kong and spent his first 11 years in Shanghai before his family moved to Austin in 2011. The sources disagree; the data file value (Austin) is kept as the listed value, and the Hong Kong claim is noted from Wikipedia (headline only from The Sporting Tribune, Oct 15, 2025: 'rise from Hong Kong to NFL history').",
+   "source": "https://en.wikipedia.org/wiki/Cameron_Dicker",
+   "date": "date not shown",
+   "confidence": "two sources disagree"
+  },
+  {
+   "fact": "At Lake Travis High School in Austin he was a two-time all-state selection, starting kicker for three seasons and punter for two, won the Texas 6A Division I state title in 2016 with teammates Garrett Wilson and Charlie Brewer, and set a school record with a 53-yard field goal.",
+   "source": "https://en.wikipedia.org/wiki/Cameron_Dicker",
+   "date": "date not shown",
+   "confidence": "from Wikipedia"
+  },
+  {
+   "fact": "At Texas he won the starting job as a freshman, was named All-Big 12 kicker and punter, and holds the school record for field goals made; Gus Johnson of Fox Sports gave him the 'Dicker the Kicker' name after a game-winning 40-yard field goal against Oklahoma in the Red River Showdown. (Wikipedia elsewhere says a seventh grade science teacher gave him the nickname; the sources in the Wikipedia text differ on origin.)",
+   "source": "https://en.wikipedia.org/wiki/Cameron_Dicker",
+   "date": "date not shown",
+   "confidence": "from Wikipedia, with an internal inconsistency noted"
+  },
+  {
+   "fact": "Career teams in the data file: Eagles, Rams and Ravens in 2022, then the Chargers from 2022 to now. Wikipedia lists the Rams (undrafted signing), Ravens and Eagles as earlier stints. The data file regular season career totals are 70 games, 144 of 155 field goals, 136 of 140 extra points, 656 fantasy points.",
+   "source": "research/data/TUR-K.json (bio.teams, career)",
+   "date": "2026-11-15",
+   "confidence": "from the data file"
+  },
+  {
+   "fact": "Wikipedia calls him the most accurate kicker in NFL history by field goal percentage (92.8%).",
+   "source": "https://en.wikipedia.org/wiki/Cameron_Dicker",
+   "date": "date not shown",
+   "confidence": "from Wikipedia; the figure may be out of date, since the data file career line (144 of 155) works out slightly higher"
+  }
+ ],
+ "family": [
+  {
+   "fact": "Wikipedia says he is a Christian and is engaged. No reliable named, cited source for his partner was read in this session, so the name is left out. Wikipedia also says he has a sister and that his parents are from Seattle; their names are left out here.",
+   "source": "https://en.wikipedia.org/wiki/Cameron_Dicker",
+   "date": "date not shown",
+   "confidence": "from Wikipedia, names withheld under the private family rule"
+  },
+  {
+   "fact": "Headline only, not opened: KSL News, Jan 7, 2026, 'Chargers kicker Cameron Dicker delivers unforgettable Christmas surprise to Utah family'. Nothing further found.",
+   "source": "research/data/TUR-K.json (news.family, headline from KSL News)",
+   "date": "2026-01-07",
+   "confidence": "headline only"
+  }
+ ],
+ "recent_events": [
+  {
+   "fact": "Sunday Nov 8, Week 9: Dicker went 3 for 3 on field goals (52, 33 and 43 yards, all in the first half) and 1 for 1 on extra points in a 44-22 loss to Houston at home. His fantasy points were 13.0 in the game log.",
+   "source": "research/data/TUR-K.json (status.espn, ESPN note dated 2026-11-09; log)",
+   "date": "2026-11-09",
+   "confidence": "from the data file (ESPN note and game log agree)"
+  },
+  {
+   "fact": "Through 8 games in 2026 he is 15 of 17 on field goals (1 of 2 from 50 yards or more, 5 made from 40 to 49 yards) and 10 of 10 on extra points, 62 fantasy points, 7.75 a game. His two misses: one in Week 2 vs Las Vegas (0 of 1) and one in Week 3 at Buffalo (3 of 4).",
+   "source": "research/data/TUR-K.json (season_2026, log)",
+   "date": "2026-11-15",
+   "confidence": "from the data file, checked game by game"
+  },
+  {
+   "fact": "Game by game 2026 (field goals made/tried, extra points, fantasy points): Wk1 ARI 0/0, 2 XP, 2.0; Wk2 LV 0/1, 2 XP, 2.0; Wk3 at BUF 3/4, 1 XP, 10.0; Wk4 at SEA 3/3, 2 XP, 12.0; Wk5 DEN 1/1, 2 XP, 6.0; Wk6 at KC 2/2, 0 XP, 6.0; Wk8 at LA 3/3, 0 XP, 11.0; Wk9 HOU 3/3, 1 XP, 13.0. The log has no Week 7 row (likely a bye, not confirmed).",
+   "source": "research/data/TUR-K.json (log)",
+   "date": "2026-11-15",
+   "confidence": "from the data file"
+  },
+  {
+   "fact": "ESPN's note says he has made multiple field goals for the third straight game and the fifth time this season. The log confirms 2 or more field goals in Weeks 6, 8 and 9 (and in Weeks 3 and 4, the other two of the five).",
+   "source": "research/data/TUR-K.json (status.espn, log)",
+   "date": "2026-11-09",
+   "confidence": "confirmed by the data file log"
+  },
+  {
+   "fact": "The Chargers are 0-8 and have lost every game in the 2026 log (Weeks 1 to 6, 8 and 9), scoring 15.1 and allowing 27.4 points a game.",
+   "source": "research/data/TUR-K.json (season_2026.team, log results)",
+   "date": "2026-11-15",
+   "confidence": "from the data file"
+  },
+  {
+   "fact": "Headline only, not opened: the Chargers announced Dicker as their 2026 Salute to Service Award nominee (Chargers site headline dated Nov 7, 2026). A search summary said the announcement was made during a Nov 3 visit to Naval Weapons Station Seal Beach and that the NFL nominee page ties his service work to his family's military history; those details were not opened and are unconfirmed.",
+   "source": "https://www.nfl.com/causes/salute/nominees/2026/chargers and research/data/TUR-K.json (news.recent)",
+   "date": "2026-11-07",
+   "confidence": "headline only / search summary"
+  },
+  {
+   "fact": "Headline only, not opened: FantasySP, Nov 14, 2026, 'Cameron Dicker or Trey Smack' (a start or sit comparison). No content read.",
+   "source": "research/data/TUR-K.json (news.quotes)",
+   "date": "2026-11-14",
+   "confidence": "headline only"
+  }
+ ],
+ "quotes": [
+  {
+   "fact": "No quote from Dicker or the coaches about this week was found: not found.",
+   "source": "not found",
+   "date": null,
+   "confidence": "not found"
+  }
+ ],
+ "team_context": [
+  {
+   "fact": "Chargers are 0-8 per the data file; a search summary also lists them at 0-8. The team scores 15.1 points a game.",
+   "source": "research/data/TUR-K.json (season_2026.team)",
+   "date": "2026-11-15",
+   "confidence": "from the data file"
+  },
+  {
+   "fact": "Rotowire projects 1.74 made field goals on 2.02 attempts, 1.91 extra points and 7.22 fantasy points for Week 10 at Baltimore (a model projection, not a report).",
+   "source": "research/data/TUR-K.json (projections_rotowire, 2026-10)",
+   "date": "2026-11-15",
+   "confidence": "one source"
+  },
+  {
+   "fact": "Chargers head coach, coordinators, long snapper and holder for 2026: not found.",
+   "source": "not found",
+   "date": null,
+   "confidence": "not found"
+  }
+ ],
+ "next_opponent": [
+  {
+   "fact": "Chargers play at Baltimore on Monday, Nov 16, 2026, 8:15 pm ET (kickoff 01:15 UTC Nov 17), at M&T Bank Stadium, outdoors on grass, on ESPN. Chargers have 8 days of rest.",
+   "source": "research/data/TUR-K.json (next_games)",
+   "date": "2026-11-15",
+   "confidence": "from the data file; the game time also matches a search summary of chargers.com"
+  },
+  {
+   "fact": "Line in the data file: Baltimore -4.5, total 38.5, implied Chargers score 17.0. Forecast: clear, 41 F; wind not found. A search summary describes the Ravens as 4-5 and the Chargers as underdogs (search summary only).",
+   "source": "research/data/TUR-K.json (next_games); https://www.covers.com/nfl/chargers-vs-ravens-prediction-picks-odds-early-leans-week-10-2026 (search summary, page not opened)",
+   "date": "2026-11-15",
+   "confidence": "data file for line and forecast; Ravens record is search summary only"
+  },
+  {
+   "fact": "A search summary of Squawka says it predicts Baltimore 23-13. The page was not opened, so this is not confirmed.",
+   "source": "https://www.squawka.com/en/?p=1517594",
+   "date": "date not shown",
+   "confidence": "headline only"
+  },
+  {
+   "fact": "Ravens defense ranking, points allowed to kickers, injuries and stadium wind: not found.",
+   "source": "not found",
+   "date": null,
+   "confidence": "not found"
+  },
+  {
+   "fact": "Chargers' next games after Baltimore: Week 11 vs NYJ at SoFi Stadium (dome), Nov 22, line LAC -1.5, total 42.5; Week 12 vs NE at SoFi, Nov 29.",
+   "source": "research/data/TUR-K.json (next_games)",
+   "date": "2026-11-15",
+   "confidence": "from the data file"
+  }
+ ],
+ "style": [
+  {
+   "fact": "Madden Week 8 ratings: 82 overall, kick accuracy 93, kick power 94, durability (injury) 91.",
+   "source": "research/data/TUR-K.json (bio.madden)",
+   "date": "2026-11-15",
+   "confidence": "one source"
+  },
+  {
+   "fact": "Range in 2026: field goals made from 20-29 (2), 30-39 (7), 40-49 (5) and 50-59 (1) yards; longest in the log is 52 (Week 9). Of 17 tries, he missed one from 40-49 and one from 50-59 yards.",
+   "source": "research/data/TUR-K.json (season_2026 sleeper_sums, log)",
+   "date": "2026-11-15",
+   "confidence": "from the data file"
+  },
+  {
+   "fact": "He also punted in high school and college per Wikipedia.",
+   "source": "https://en.wikipedia.org/wiki/Cameron_Dicker",
+   "date": "date not shown",
+   "confidence": "from Wikipedia"
+  }
+ ],
+ "availability": {
+  "status": "Active, expected to kick",
+  "detail": "Sleeper status Active, ESPN status Active (note dated 2026-11-09), no 2026 injury designation in the data file. His only injury report on file is Illness in Week 6 of 2024 (full practice participation). Official Week 10 injury report or inactives for the Chargers: not found. A search summary of an SI injury report listed other Chargers as questionable and did not mention Dicker, but its date was not shown, so it is not used.",
+  "expected_return": "Not applicable",
+  "source": "research/data/TUR-K.json (status, injury_reports)",
+  "date": "2026-11-15"
+ },
+ "outlook_next_game": {
+  "lean": "kicks and scores a modest total; about 6 to 9 fantasy points",
+  "confidence": "low to medium",
+  "reasons": [
+    "He is active with no listed injury, and he has made 15 of 17 field goals this season.",
+    "The Chargers are 0-8 and are 4.5 point underdogs in a low scoring game (total 38.5, implied team score 17.0), which points to few touchdowns and a small number of extra points.",
+    "Rotowire projects 7.22 points; his 2026 average is 7.75 and he scored 13.0 last week with three field goals.",
+    "Risks: a stalled offense that punts instead of kicking, an outdoor game with wind not found, and one missed long attempt."
+  ]
+ },
+ "scouts_read": "Dicker is healthy and listed active, so he should play. At 15 of 17 on field goals with only two misses, his accuracy is not the question; volume is. The Chargers are 0-8, scoring 15.1 points a game, and the line has them as 4.5 point underdogs with an implied score of 17.0 in a game with a 38.5 total. That points to two or three scoring tries at most, so a day around Rotowire's 7.2 projection is fair, with upside only if drives reach field goal range and he gets a long try. I would expect a modest, steady line rather than a big game.",
+ "open_questions": [
+  "Official Chargers and Ravens injury reports and inactives for Monday (not found).",
+  "Wind and game-time weather at M&T Bank Stadium (not found; the data file has only clear and 41 F).",
+  "Ravens record, defense ranking and kicker scoring allowed (Ravens 4-5 appeared only in a search summary; the rest not found).",
+  "Chargers coaching staff and special teams unit for 2026 (not found).",
+  "Details behind the Salute to Service nomination and the KSL story (headlines only; pages not opened because www.nfl.com and www.covers.com could not be reached from this session).",
+  "Birthplace disagreement: data file says Austin, Wikipedia says Hong Kong (data file value kept)."
+ ],
+ "searches": [
+  "Chargers Ravens Monday night Week 10 preview Cameron Dicker (summary only; mostly older seasons)",
+  "Cameron Dicker Salute to Service Award nominee Chargers 2026 (summary only)",
+  "Ravens Chargers Week 10 2026 injury report weather Ravens defense (summary only, nothing dated for this season used)",
+  "Page fetches of www.covers.com and www.nfl.com failed (host not reachable in this session); the Wikipedia text came from the sections stored in research/data/TUR-K.json"
+ ]
+}
