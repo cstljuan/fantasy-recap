@@ -255,3 +255,11 @@ With `?api=<address>` the app reads the league and sends the opt-in. Prove the w
 ## Task D51: Devpost text, final draft
 
 Write `pitch/DEVPOST-FINAL.md`: the story, how it works, one honest paragraph per prize track we enter (Tiger Data: what runs on TimescaleDB; Gemini: Scout with a Gemini key if it ran; LangChain: Scout as a deepagents team), the what-is-real list, built with, and setup in three lines. Every claim true on main tonight; mark anything that depends on Juan's laptop run as "after the laptop run". Juan pastes it, so plain text that fits the Devpost fields.
+
+## Task D52: architecture for the Devpost
+
+Write `pitch/ARCHITECTURE.md`: the parts (game makers with Jev, game files, the app and its screens, announcer and recordings, Scout and its subagents, the service and Tiger Data, the watch party relay), arrows for what calls what and when (build time on the laptop vs. in the browser), and a mark on each part for real, simulated or not yet run. Keep it short enough that Juan's design session can draw it as the G5 architecture picture; NOTE juan (design) when it is on main.
+
+## Task D53: every number in the Devpost text proven
+
+Write `data/checks/devpost.js`: read `pitch/DEVPOST-FINAL.md` and check every count, score and size it states (plays, Jev choices, players, recordings, routes, scores) against the files on main. Add it to `node data/checks/all.js`. Fix the text where it is wrong.

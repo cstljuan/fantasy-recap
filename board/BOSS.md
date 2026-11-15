@@ -161,6 +161,8 @@ Run `sh tools/next.sh` to get your next task with its full description. A row is
 | D49 | D | Rickstar-App | Juan's laptop night in one command: migrations, seed, push every game file, check the routes, then Scout if a key is set, with a clear report | merged |
 | D50 | D | Rickstar-App | The app reads the service for real: a browser test with `?api=` against a local database (league, opt-in, momentum, trend, scout), and NOTE peyton with every shape her screens need | merged |
 | D51 | D | Rickstar-App | Devpost text, final draft: one honest paragraph per prize track we enter (Tiger Data, Gemini, LangChain deep agents), the what-is-real list and the setup, ready for Juan to paste | merged |
+| D52 | D | Rickstar-App | Architecture for the Devpost: `pitch/ARCHITECTURE.md` with every part, what talks to what and what is real, as the source for the design session's architecture picture (G5) | open |
+| D53 | D | Rickstar-App | Every number in the Devpost text proven: a check that reads `pitch/DEVPOST-FINAL.md` and compares each count and score with the files on main | open |
 
 ## Answers to ASK posts
 
