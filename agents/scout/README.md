@@ -8,7 +8,10 @@ What ran for real and what did not (2026-11-14):
 
 - **Ran for real, no model:** the tools against `api.sleeper.app` and ESPN's public JSON (14 and then 28 players resolved), `fill_profiles.py`, `form.py`, `plays.py` (116 games), `research.py` (reports written by fixed rules), and `python3 agents/scout/scout.py --preflight`, which reached both Sleeper and ESPN from this session.
 - **Ran offline with a scripted stand-in model:** the whole team through the real deepagents graph (`check_agent_team.py`, `check_agent.py`) and the readiness and guard checks (`check_scout_ready.py`). These prove the wiring, not that a real model plans well.
-- **Did not run: the deepagents team with a real model.** No model key was available in the sessions that built it. There is no research log from a model-driven run, no report in `data/profiles/notes/*-report.md` says "made by model", and the default model names (`gemini-2.5-flash`, `claude-sonnet-5-5`) have never been called from here. The first real run may show prompt problems this offline work cannot.
+- **Ran once with a real model (2026-11-15, one player, GOB.WR2):** the whole deepagents team with `gemini-3.5-flash-lite` on a Gemini key from the environment (about 11 minutes, logs `agents/scout/runs/20261115-*-scout.txt`). It built a profile, studied the plays, and wrote a report that passed the evidence guard (3 of 3 cited plays real, then `write_report` accepted 6 claims and 18 plays); the report is saved as `agents/scout/runs/20261115-GOB-WR2-report-by-gemini-3.5-flash-lite.md`. I did **not** keep its output in `data/`: the claims are weaker than the existing report (it calls a 39 percent success rate on deep targets "strong efficiency"), and its profile step dropped the `how` text of each tendency and most raw stats. Earlier runs on `gemini-3.5-flash` hit the free-tier limit of 20 requests and stopped with the rate-limit message. Nothing else has run with a model; the other 27 players were not run.
+- **What those runs found and fixed:** a tool call with bad JSON crashed the run (tool errors now go back to the model); the profile step overwrote real numbers with nulls and deleted recent form (writes now merge and a null never replaces a number); the fact-checker rejected every cited play because the model cited bare play text (bare text is now accepted when it matches exactly one real play, and a rejection says why). The model's own final summary said "reports written" in runs where none was written, so read the log, not the summary.
+- **Model names:** `gemini-2.5-flash` is no longer offered to new keys, so the default is `gemini-3.5-flash`. A free key needs `SCOUT_MODEL=gemini-3.5-flash-lite`. `claude-sonnet-5-5` was never called.
+- **The 28 reports in `data/profiles/notes/*-report.md`** were written with Scout's tools in a Claude Code session, not by `scout.py`; each says so on its second line.
 
 ## One command
 
@@ -18,6 +21,8 @@ sh agents/scout/run.sh              # makes .venv, installs requirements, checks
 sh agents/scout/run.sh --players GOB.QB,GOB.WR1   # a few players first (recommended for the first run)
 sh agents/scout/run.sh --preflight  # only checks that a run could start
 ```
+
+Either key works: `GOOGLE_API_KEY` (Gemini, default model `gemini-3.5-flash`) or `ANTHROPIC_API_KEY` (Claude, default `claude-sonnet-5-5`). With both set, Gemini is used unless `SCOUT_PROVIDER=anthropic`. `SCOUT_MODEL` names another model. A free Gemini key allows only about 20 requests a day on `gemini-3.5-flash`, so use `SCOUT_MODEL=gemini-3.5-flash-lite` or a paid key; one player takes about 100 model calls. The Claude path has been built and tested offline only: it has never called the API.
 
 `GOOGLE_API_KEY` (Gemini) is used if set, otherwise `ANTHROPIC_API_KEY`. `SCOUT_MODEL` overrides the model name; `SCOUT_SEASON` sets the season (default 2026). `python3 agents/scout/scout.py --dry-run` builds the agent and makes no model call.
 

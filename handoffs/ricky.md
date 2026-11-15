@@ -243,3 +243,31 @@ A lot changed tonight. Read `README.md` and every file in `pitch/` against main 
 ## Task D48: Scout with whichever key is present
 
 Make Scout run with `GOOGLE_API_KEY` (Gemini, which also fits the Gemini prize track) or `ANTHROPIC_API_KEY`, whichever is set, chosen in one place, with the model name printed in the run log. Offline tests for both paths with fake clients. Write the one command Juan runs in `agents/scout/README.md`. No key in any file.
+
+## Task D49: the laptop night in one command
+
+Juan has about 15 minutes on the laptop, where `.env` holds `DATABASE_URL`. Write `db/laptop.sh` (your lane): run the migrations in order on Tiger Data, seed, push every game file in `data/games/` (football and soccer) through the service, call every route once and print what came back, then run Scout (`sh agents/scout/run.sh`) only if a model key is set. One clear report at the end: what ran, what was skipped and why. It must be safe to run twice. Test it end to end on a local plain PostgreSQL. Put the one command at the top of `db/README.md`.
+
+## Task D50: the app reads the service for real
+
+With `?api=<address>` the app reads the league and sends the opt-in. Prove the whole path in a browser: start the service on a local database, open the app with `?api=`, and check league, opt-in, momentum, trend and scout answers arrive. Put the test in `data/checks/` so `node data/checks/all.js` runs it when a database is set and skips it otherwise. NOTE peyton with each route's exact shape her screens need for B39.
+
+## Task D51: Devpost text, final draft
+
+Write `pitch/DEVPOST-FINAL.md`: the story, how it works, one honest paragraph per prize track we enter (Tiger Data: what runs on TimescaleDB; Gemini: Scout with a Gemini key if it ran; LangChain: Scout as a deepagents team), the what-is-real list, built with, and setup in three lines. Every claim true on main tonight; mark anything that depends on Juan's laptop run as "after the laptop run". Juan pastes it, so plain text that fits the Devpost fields.
+
+## Task D52: architecture for the Devpost
+
+Write `pitch/ARCHITECTURE.md`: the parts (game makers with Jev, game files, the app and its screens, announcer and recordings, Scout and its subagents, the service and Tiger Data, the watch party relay), arrows for what calls what and when (build time on the laptop vs. in the browser), and a mark on each part for real, simulated or not yet run. Keep it short enough that Juan's design session can draw it as the G5 architecture picture; NOTE juan (design) when it is on main.
+
+## Task D53: every number in the Devpost text proven
+
+Write `data/checks/devpost.js`: read `pitch/DEVPOST-FINAL.md` and check every count, score and size it states (plays, Jev choices, players, recordings, routes, scores) against the files on main. Add it to `node data/checks/all.js`. Fix the text where it is wrong.
+
+## Task D54: real data in the demo (top priority)
+
+Juan's call: the demo must show real data. Today the featured matchup plays week 11, built from made-up stat lines, while your week 9 real-play games (`data/games/week09-gob-tur.json`, `week09-pyt-owl.json`) sit unused. Make a real week the one the demo shows: the featured game, the lineups and fantasy points (from `data/statlines/week09-real.json` through the scoring rules), the league home's current week and results, the recap. Do what is in your lane (`data/league.json`, stat lines, profiles, checks), tell the boss exactly which game file `data/games/current.js` should point to (the boss runs `tools/use-game.js`), and ASK peyton for whatever her screens need (for example the week shown). Check: every point on screen matches the real stat lines, `node data/checks/all.js` passes, a full game plays to the final. Say in `pitch/REAL-AND-SIMULATED.md` exactly what is real now.
+
+## Task D55: soccer from a real match
+
+For this task you may edit `soccer/data/` and run `soccer/engine/make-match.js`. Build the soccer game from `data/statlines/soccer-real-2026-11-08.json` (convert to the match maker's lines format in `soccer/data/` if needed), make it the match the soccer page plays (`soccer/data/current.js`), and check that it replays to the real lines (`node soccer/check.js`, a full match in headless Chromium). Say what is real and what the maker invented in `pitch/REAL-AND-SIMULATED.md`.

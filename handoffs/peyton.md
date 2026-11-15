@@ -224,3 +224,7 @@ When Ricky's `data/games/week11-tur-owl.json` (D46) is on main, make the Turtles
 ## Task B41: the demo path at phone size
 
 After tonight's changes (Noah's stadium, one tab bar, soccer in the app), walk the exact demo path at 375 wide in headless Chromium for football and for soccer: league home, matchup, opt in, watch, jump to a play, rule card, final, recap, share card. Fix what breaks or overlaps in your files and ASK the owner for anything else. Screenshots of each step; extend `js/screens/flow-test.js` so the soccer path is covered too.
+
+## Task B42: phone speed
+
+Load the app in headless Chromium with a phone profile and network throttled to fast 3G. Measure time to the first screen and to a playable game, list what blocks it (scripts, voice index, images, fonts), and fix what is in your files (defer or lazy-load screens not on the first view). ASK the owner for anything else, with the numbers. Short report in your DONE.

@@ -9,9 +9,10 @@
 // the engine is not checking itself.
 //
 // What it compares with, for each file (printed on its line):
-//   source lines: the game the engine was told to rebuild. engine/make-game.js builds only from --from-sample, the
-//                 scripted sample game in js/data.js, so that is the source for every football file. The sample game
-//                 is tallied the same way.
+//   source lines: the game the engine was told to rebuild. A file built from a real week (report.source.from 'plays') is
+//                 compared with that week's real plays; one built from a stat lines file (from 'statlines') with that file,
+//                 line by line; every other football file with the scripted sample game in js/data.js, which is tallied the
+//                 same way.
 //   report:       when the file has report.points and report.score (written by the engine), those too.
 // Prints one line per difference and OK only when every file agrees with both. Exit code 1 on any difference.
 var fs = require('fs');
@@ -144,6 +145,36 @@ function compareReal(f, g) {
   return { diffs: diffs, line: f + ': every catch and run of ' + n + ' players is their real week ' + src.week + ' play with the same yards (' + src.file + '), and points and score ' +
     made[0].score + ' to ' + made[1].score + ' equal the file\'s report' };
 }
+// A game built from a stat lines file (report.source.from 'statlines'): the game's own tally must equal the file line by line.
+// Carries and kick distances are not in the file (the maker chooses them), so only what the file states is compared.
+function compareStatlines(f, g) {
+  var src = g.report.source, diffs = [];
+  var doc = JSON.parse(fs.readFileSync(path.join(ROOT, src.file), 'utf8'));
+  var made = tally(g.teams, g.game);
+  g.teams.forEach(function (T, i) {
+    var mine = doc.teams[T.id], other = doc.teams[g.teams[1 - i].id], m = made[i];
+    if (!mine || !other) return diffs.push(f + ': ' + T.id + ' is not in ' + src.file);
+    function cmp(slot, k, have, want) { if ((have || 0) !== (want || 0)) diffs.push(f + ': ' + T.id + ' ' + slot + ' ' + k + ' ' + (have || 0) + ' in the game, ' + (want || 0) + ' in ' + src.file); }
+    Object.keys(T.roster).forEach(function (slot) {
+      var pl = mine.players[slot], l = (pl && pl.line) || {}, h = m.players[slot] || { fg: { a: [0, 0] }, xp: [0, 0] };
+      if (!pl || pl.name !== T.roster[slot]) diffs.push(f + ': ' + T.id + ' ' + slot + ' is ' + T.roster[slot] + ' in the game, ' + (pl && pl.name) + ' in ' + src.file);
+      cmp(slot, 'receptions', h.rec, l.receptions); cmp(slot, 'rec yards', h.rec_yds, l.rec_yards); cmp(slot, 'rec TD', h.rec_td, l.rec_td);
+      cmp(slot, 'rush yards', h.rush_yds, l.rush_yards); cmp(slot, 'rush TD', h.rush_td, l.rush_td);
+      cmp(slot, 'pass yards', h.pass_yds, l.pass_yards); cmp(slot, 'pass TD', h.pass_td, l.pass_td); cmp(slot, 'interceptions', h.ints, l.interceptions);
+      var made_ = 0, missed = 0; Object.keys(h.fg).forEach(function (b) { made_ += h.fg[b][0]; missed += h.fg[b][1]; });
+      cmp(slot, 'fg made', made_, l.fg_made); cmp(slot, 'fg missed', missed, l.fg_missed); cmp(slot, 'xp made', h.xp[0], l.xp_made);
+    });
+    var od = (other.defense && other.defense.line) || {};
+    if (m.defense.sacks !== undefined) { /* this team's defense, compared below with its own file line */ }
+    var own = (mine.defense && mine.defense.line) || {};
+    cmp('defense', 'sacks', m.defense.sacks, own.sacks);
+    cmp('defense', 'takeaways', m.defense.takeaways, (own.def_interceptions || 0) + (own.fumble_recoveries || 0));
+    cmp('score', 'points', m.score, od.points_allowed);
+  });
+  if (g.report.points) diffs = diffs.concat(compareReport(f, made, g.report));
+  var n = made.reduce(function (a, x) { return a + Object.keys(x.players).length; }, 0);
+  return { diffs: diffs, line: f + ': ' + n + ' players, both defenses and the score ' + made[0].score + ' to ' + made[1].score + ' equal ' + src.file };
+}
 var dir = path.join(ROOT, 'data', 'games');
 var files = fs.readdirSync(dir).filter(function (f) { return /\.json$/.test(f); }).sort();
 var all = [];
@@ -155,6 +186,13 @@ files.forEach(function (f) {
     try { rr = compareReal(f, g); } catch (e) { rr = { diffs: [f + ': ' + e.message], line: '' }; }
     if (rr.diffs.length) rr.diffs.forEach(function (d) { console.log('DIFF    ' + d); }); else console.log('OK      ' + rr.line);
     all = all.concat(rr.diffs);
+    return;
+  }
+  if (g.report && g.report.source && g.report.source.from === 'statlines') {
+    var sr;
+    try { sr = compareStatlines(f, g); } catch (e) { sr = { diffs: [f + ': ' + e.message], line: '' }; }
+    if (sr.diffs.length) sr.diffs.forEach(function (d) { console.log('DIFF    ' + d); }); else console.log('OK      ' + sr.line);
+    all = all.concat(sr.diffs);
     return;
   }
   var made;
