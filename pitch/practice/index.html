@@ -1,0 +1,527 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fantasy Recap: pitch practice</title>
+<!--
+  Pitch practice page. One file, no network, no build: open it in any browser.
+  Sources (all in this repository): pitch/DEMO-SCRIPT.md, pitch/QUESTIONS.md, pitch/REAL-AND-SIMULATED.md,
+  docs/LANES.md and the DONE posts in board/. Who says which part was decided by Juan on 2026-11-14.
+  If one of those files changes, change the DATA block at the bottom of this file to match.
+-->
+<style>
+  :root {
+    --bg: #0b0d0f; --panel: #14181b; --panel2: #1b2024; --line: #2a3035; --ink: #f3f0e8; --dim: #9aa3a8;
+    --amber: #ffc21a; --juan: #ffc21a; --peyton: #a78bfa; --noah: #4ade80; --ricky: #60a5fa; --all: #f3f0e8;
+    --bad: #ff6b5e; --ok: #4ade80;
+    --display: "Barlow Condensed", "Arial Narrow", "Avenir Next Condensed", "Helvetica Neue", Arial, sans-serif;
+    --body: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    --mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font: 16px/1.5 var(--body); -webkit-text-size-adjust: 100%; }
+  .wrap { max-width: 980px; margin: 0 auto; padding: 0 16px 96px; }
+  h1, h2, h3, .label, button, .chip { font-family: var(--display); letter-spacing: .04em; text-transform: uppercase; }
+  h1 { font-size: 34px; line-height: 1; margin: 0; font-weight: 800; }
+  h1 span { color: var(--amber); }
+  h2 { font-size: 24px; margin: 44px 0 6px; font-weight: 800; scroll-margin-top: 130px; }
+  h2::before { content: ""; display: inline-block; width: 12px; height: 12px; background: var(--amber); margin-right: 10px; }
+  h3 { font-size: 18px; margin: 0 0 6px; }
+  p { margin: 0 0 10px; }
+  .sub { color: var(--dim); margin: 0 0 14px; max-width: 70ch; }
+  code { font-family: var(--mono); font-size: 13px; background: var(--panel2); padding: 1px 5px; border: 1px solid var(--line); word-break: break-all; }
+  a { color: var(--amber); }
+  header.top { padding: 22px 0 12px; display: flex; flex-wrap: wrap; align-items: flex-end; gap: 10px 20px; justify-content: space-between; }
+  header.top .label { color: var(--dim); font-size: 14px; }
+  nav.jump { display: flex; flex-wrap: wrap; gap: 6px; margin: 4px 0 0; }
+  nav.jump a { font-family: var(--display); text-transform: uppercase; letter-spacing: .06em; font-size: 14px; color: var(--dim); text-decoration: none; border: 1px solid var(--line); padding: 4px 9px; }
+  nav.jump a:hover { color: var(--ink); border-color: var(--dim); }
+
+  .bar { position: sticky; top: 0; z-index: 5; background: rgba(11,13,15,.96); border-bottom: 1px solid var(--line); margin: 0 -16px; padding: 10px 16px; }
+  .row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+  .row + .row { margin-top: 8px; }
+  .label { font-size: 13px; color: var(--dim); margin-right: 2px; }
+  button { background: var(--panel); color: var(--ink); border: 1px solid var(--line); padding: 8px 12px; font-size: 15px; font-weight: 700; cursor: pointer; min-height: 40px; }
+  button:hover { border-color: var(--dim); }
+  button:focus-visible, input:focus-visible, a:focus-visible, summary:focus-visible { outline: 2px solid var(--amber); outline-offset: 2px; }
+  button[aria-pressed="true"] { background: var(--ink); color: #0b0d0f; border-color: var(--ink); }
+  button.who[aria-pressed="true"] { background: var(--c); border-color: var(--c); color: #0b0d0f; }
+  button.go { background: var(--amber); color: #0b0d0f; border-color: var(--amber); min-width: 96px; }
+  .clock { font-family: var(--mono); font-size: 30px; font-weight: 700; min-width: 5.2ch; font-variant-numeric: tabular-nums; }
+  .clock.over { color: var(--bad); }
+  .now { font-family: var(--display); text-transform: uppercase; letter-spacing: .04em; font-size: 18px; font-weight: 700; flex: 1 1 220px; min-width: 0; }
+  .now small { display: block; font-family: var(--body); text-transform: none; letter-spacing: 0; font-weight: 400; font-size: 13px; color: var(--dim); }
+  .now.mine { color: var(--amber); }
+  .track { display: flex; height: 14px; margin-top: 10px; border: 1px solid var(--line); position: relative; background: var(--panel); }
+  .track i { display: block; height: 100%; opacity: .35; border-right: 1px solid var(--bg); }
+  .track i.on { opacity: 1; }
+  .track b { position: absolute; top: -4px; bottom: -4px; width: 2px; background: var(--ink); left: 0; }
+
+  .note { border: 1px solid var(--amber); background: #1d1806; padding: 12px 14px; margin: 16px 0; }
+  .note h3 { color: var(--amber); }
+  .note p:last-child { margin-bottom: 0; }
+
+  .beat { border: 1px solid var(--line); border-left: 6px solid var(--c); background: var(--panel); padding: 14px 14px 12px; margin: 10px 0; scroll-margin-top: 130px; }
+  .beat.dim { opacity: .38; }
+  .beat.live { box-shadow: 0 0 0 2px var(--c); opacity: 1; }
+  .beat .head { display: flex; flex-wrap: wrap; gap: 8px 12px; align-items: baseline; }
+  .beat .time { font-family: var(--mono); font-size: 14px; color: var(--dim); }
+  .beat .title { font-family: var(--display); text-transform: uppercase; font-size: 21px; font-weight: 800; letter-spacing: .03em; }
+  .chip { display: inline-block; font-size: 13px; font-weight: 800; padding: 2px 8px; background: var(--c); color: #0b0d0f; }
+  .chip.plain { background: none; color: var(--dim); border: 1px solid var(--line); }
+  .beat dl { margin: 10px 0 0; display: grid; grid-template-columns: 92px 1fr; gap: 6px 12px; }
+  .beat dt { font-family: var(--display); text-transform: uppercase; letter-spacing: .06em; font-size: 13px; color: var(--dim); padding-top: 3px; }
+  .beat dd { margin: 0; min-width: 0; }
+  .say { font-size: 19px; line-height: 1.45; }
+  .say s { color: var(--dim); }
+  .meta { font-size: 13px; color: var(--dim); margin-top: 6px; }
+  .meta .bad { color: var(--bad); font-weight: 700; }
+  .meta .ok { color: var(--ok); }
+  .flag { font-size: 14px; border-left: 3px solid var(--amber); padding: 2px 0 2px 10px; margin-top: 8px; color: #e9dfc0; }
+  .beat .acts { margin-top: 10px; display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+  .beat .acts button { min-height: 34px; padding: 4px 10px; font-size: 14px; }
+  .solo { font-family: var(--mono); font-size: 15px; color: var(--amber); }
+
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 10px; }
+  .card { border: 1px solid var(--line); border-top: 4px solid var(--c, var(--line)); background: var(--panel); padding: 14px; }
+  .card ul, .col ul, ul.plain { margin: 6px 0 0; padding-left: 18px; }
+  .card li, .col li, ul.plain li { margin: 4px 0; }
+  .card .gh { font-family: var(--mono); font-size: 12px; color: var(--dim); }
+
+  input[type="search"] { width: 100%; background: var(--panel); color: var(--ink); border: 1px solid var(--line); padding: 10px 12px; font: 16px var(--body); min-height: 44px; }
+  details.q { border: 1px solid var(--line); border-left: 6px solid var(--c); background: var(--panel); margin: 8px 0; }
+  details.q summary { cursor: pointer; padding: 12px 14px; list-style: none; display: flex; gap: 10px; align-items: baseline; flex-wrap: wrap; }
+  details.q summary::-webkit-details-marker { display: none; }
+  details.q summary .n { font-family: var(--mono); color: var(--dim); font-size: 13px; }
+  details.q summary .t { font-weight: 700; flex: 1 1 240px; }
+  details.q .a { padding: 0 14px 12px; }
+  details.q .proof { font-size: 13px; color: var(--dim); }
+  details.q .new { font-size: 13px; color: var(--amber); }
+  .cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); gap: 10px; }
+  .col { border: 1px solid var(--line); background: var(--panel); padding: 14px; }
+  .col.real { border-top: 4px solid var(--ok); } .col.sim { border-top: 4px solid var(--amber); } .col.not { border-top: 4px solid var(--bad); }
+  .check label { display: flex; gap: 10px; align-items: flex-start; padding: 8px 0; border-bottom: 1px solid var(--line); cursor: pointer; }
+  .check input { width: 20px; height: 20px; margin-top: 2px; accent-color: var(--amber); flex: none; }
+  .hide { display: none !important; }
+  footer { color: var(--dim); font-size: 13px; margin-top: 48px; border-top: 1px solid var(--line); padding-top: 14px; }
+  @media (max-width: 560px) {
+    h1 { font-size: 28px; } .clock { font-size: 26px; } .say { font-size: 18px; }
+    .beat dl { grid-template-columns: 1fr; gap: 2px 0; } .beat dt { padding-top: 8px; }
+    button { padding: 8px 10px; }
+  }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <div>
+      <div class="label">HackPrinceton Fall 2026, two-minute demo</div>
+      <h1>Fantasy <span>Recap</span>: pitch practice</h1>
+    </div>
+    <nav class="jump" aria-label="Sections">
+      <a href="#script">Script</a><a href="#setup">Setup</a><a href="#built">Who built what</a><a href="#questions">Questions</a><a href="#real">Real or simulated</a><a href="#avoid">Do not say</a>
+    </nav>
+  </header>
+
+  <div class="row" style="margin:0 0 10px">
+    <span class="label" id="iam">I am</span>
+    <span id="whoBtns" class="row" role="group" aria-labelledby="iam"></span>
+  </div>
+  <div class="bar" role="region" aria-label="Practice timer">
+    <div class="row">
+      <button class="go" id="start" type="button">Start</button>
+      <button id="reset" type="button">Reset</button>
+      <span class="clock" id="clock" aria-live="off">0:00</span>
+      <div class="now" id="now" aria-live="polite">Press Start, or the space bar.<small>The timer lights the part being said and tells you when you are up.</small></div>
+    </div>
+    <div class="track" id="track" aria-hidden="true"><b id="needle"></b></div>
+  </div>
+
+  <div class="note" id="trackNote">
+    <h3>Decide this first: which game do you demo?</h3>
+    <p>Checked on <code>main</code> on the night of 2026-11-14: the app now opens on the <strong>real week 9 game</strong> (Goblins against Turtles, real plays). <code>pitch/DEMO-SCRIPT.md</code> was written for the <strong>week 11 game</strong> (Goblins against Pythons, built from invented stat lines with Jev). Both still work, but the address and four spoken lines differ. Pick one and rehearse only that one.</p>
+    <div class="row" role="group" aria-label="Game to demo">
+      <button type="button" class="trk" data-t="B" aria-pressed="true">Week 11, Jev game (script as written)</button>
+      <button type="button" class="trk" data-t="A" aria-pressed="false">Week 9, real plays (what main opens)</button>
+    </div>
+    <p style="margin-top:10px" id="trackFacts"></p>
+  </div>
+
+  <h2 id="script">The script, 2:00</h2>
+  <p class="sub">Lines come from <code>pitch/DEMO-SCRIPT.md</code>, split by what each person built. A line marked "changed" differs from that file and says why. About 150 spoken words a minute is the target; each part shows its own pace.</p>
+  <div class="row" style="margin-bottom:6px">
+    <button type="button" id="onlyMine" aria-pressed="false">Show only my parts</button>
+    <button type="button" id="tight" aria-pressed="true">Use the short "how it works" line</button>
+  </div>
+  <div id="beats"></div>
+
+  <h2 id="setup">Before you start</h2>
+  <p class="sub">From the "Before you start" table of the demo script, with the address for the game you picked above.</p>
+  <div class="check" id="checks"></div>
+
+  <h2 id="built">Who built what</h2>
+  <p class="sub">From <code>docs/LANES.md</code>, answer 14 of <code>pitch/QUESTIONS.md</code> and the DONE posts in <code>board/</code>. All four directed AI coding agents on their own part.</p>
+  <div class="grid" id="people"></div>
+
+  <h2 id="questions">Likely judge questions</h2>
+  <p class="sub">Answers a person can say out loud, from <code>pitch/QUESTIONS.md</code>, brought up to date with what ran on the night of 2026-11-14. The color shows who should take the question. Tap a question to see the answer.</p>
+  <div class="row" style="margin-bottom:8px">
+    <button type="button" id="openAll">Open all</button>
+    <button type="button" id="closeAll">Close all</button>
+    <button type="button" id="mineQ" aria-pressed="false">Only my questions</button>
+  </div>
+  <input type="search" id="search" placeholder="Search questions and answers, for example: Jev, database, hidden" aria-label="Search questions and answers">
+  <div id="qs" style="margin-top:10px"></div>
+  <p class="sub hide" id="noQ">No question matches.</p>
+
+  <h2 id="real">Real, simulated, not checked</h2>
+  <p class="sub">The short version of <code>pitch/REAL-AND-SIMULATED.md</code>. If something is not listed as real, assume it is not.</p>
+  <div class="cols" id="cols"></div>
+
+  <h2 id="avoid">Do not say on stage</h2>
+  <ul class="plain" id="avoidList"></ul>
+
+  <footer>
+    One self-contained file: <code>pitch/practice/index.html</code>. Nothing is sent anywhere; the only thing it remembers is who you picked, in this browser. Built for rehearsal on 2026-11-14 from the pitch files on <code>main</code>.
+  </footer>
+</div>
+
+<script>
+(function () {
+  'use strict';
+  /* ------------------------------------------------------------------ DATA */
+  var PEOPLE = {
+    juan:   { name: 'Juan',   gh: 'cstljuan',     color: 'var(--juan)' },
+    peyton: { name: 'Peyton', gh: 'Peypey-ryd',   color: 'var(--peyton)' },
+    noah:   { name: 'Noah',   gh: 'nexodv',       color: 'var(--noah)' },
+    ricky:  { name: 'Ricky',  gh: 'Rickstar-App', color: 'var(--ricky)' }
+  };
+  var TRACKS = {
+    B: { address: 'http://<laptop>:8000/?intro=0&game=week11-football',
+         facts: 'Week 11 game: <code>data/games/week11-football.json</code>, Goblins against Pythons, 84 plays, final 17 to 14, fantasy 47.8 to 43.1 (Goblins win). Built from invented stat lines; Jev chose 40 of the 84 plays. Address: <code>http://&lt;laptop&gt;:8000/?intro=0&amp;game=week11-football</code>. Without <code>&amp;game=week11-football</code> the app opens the week 9 game instead. The League screen says "Week 9 matchups" either way; your matchup card says "Jev called the plays".' },
+    A: { address: 'http://<laptop>:8000/?intro=0',
+         facts: 'Week 9 game: <code>data/games/week09-gob-tur.json</code>, Goblins against Turtles, 204 plays, 27 to 30 on the field, fantasy 106.3 to 108.7 (the Turtles win). Built from the real catches and runs these players made in NFL week 9; Jev was not used. Address: <code>http://&lt;laptop&gt;:8000/?intro=0</code>. The lines for this game are adapted here and are not in <code>pitch/DEMO-SCRIPT.md</code> yet.' }
+  };
+  // s = seconds from the start. say: the line; sayA: the line for the week 9 game when it differs. flag: what to check.
+  var BEATS = [
+    { s: 0, e: 15, who: 'juan', title: 'The problem',
+      screen: 'The League screen, your matchup first.',
+      say: 'Fantasy managers never get to watch their own team play. And once you know your score, there is nothing left to watch. We wanted the end of the week to feel like game day again.',
+      flag: 'The script says the League screen reads "Week 11 matchups". On main it reads "Week 9 matchups". Nothing you say depends on it.' },
+    { s: 15, e: 27, who: 'peyton', title: 'Opt in',
+      screen: 'Tap your matchup. The card "Hide my score until the recap". Tap Opt in: the fantasy points turn into --.- and the stat lines disappear. Tap Lineups: every player at --.-',
+      say: 'Both managers opt in when the matchup is set. From then on our scores stay hidden. These are real NFL players, and I can\'t see a single point.',
+      sayA: 'Both managers opt in when the matchup is set, and our scores stay hidden. These are real week 9 plays, and I can\'t see a single point.',
+      flagA: 'Changed for the week 9 game: says "real week 9 plays" and is cut to fit 12 seconds.' },
+    { s: 27, e: 50, who: 'noah', title: 'The game',
+      screen: 'Tap Watch the game. The stadium: pixel crowd in both teams\' colors, the camera following the ball. The kickoff jingle, the announcer\'s intro, the crowd. Let two or three plays run at 1x with the captions strip at the bottom.',
+      say: 'At the end of the week our two rosters play each other, in a stadium, with an announcer. (pause for a call) Every line the announcer says is also on screen.',
+      flag: 'Sound starts with the first tap. Leave room for the game\'s own sound: the pause is part of the line.' },
+    { s: 50, e: 62, who: 'peyton', title: 'The jump bar',
+      screen: 'Tap the field. Tap Next big moment: the game jumps ahead and the announcer catches you up in one line. Let the next touchdown play: flash, camera shake, crowd. No points float up, because you opted in.',
+      say: 'You can jump to the big moments. It catches you up without telling you your score.' },
+    { s: 62, e: 70, who: 'peyton', title: 'Speed and pause',
+      screen: 'Tap the field, show 0.5x 1x 2x 4x, pick 4x. Tap Close: the matchup screen says Paused. Tap Keep watching.',
+      say: 'Speed it up, and if you leave, the game waits for you.',
+      flag: 'The voice speaks at 0.5x, 1x and 2x only. At 4x the crowd still plays.' },
+    { s: 70, e: 85, who: 'peyton', title: 'The reveal',
+      screen: 'Drag the jump bar near the end and let the final come. The full-time jingle and the wrap. Tap the field: GRIDIRON GOBLINS WIN, 47.8 to 43.1, 17 to 14 on the field, top performers, every scoring play, Share result.',
+      screenA: 'Drag the jump bar near the end and let the final come. The full-time jingle and the wrap. Tap the field: the winner banner (the Turtles win, 108.7 to 106.3, 30 to 27 on the field), top performers, every scoring play, Share result.',
+      say: 'Only at the final whistle do we find out. (pause) Goblins win, 47.8 to 43.1. Top performers, every scoring play, and a card to share.',
+      sayA: 'Only at the final whistle do we find out. (pause) Turtles win, 108.7 to 106.3. Top performers, every scoring play, and a card to share.',
+      flagA: 'Changed for the week 9 game: the winner and the score. Read the banner once in rehearsal and say exactly what it shows.' },
+    { s: 85, e: 97, who: 'juan', title: 'How it works',
+      screen: 'On the recap, tap All plays and scroll.',
+      say: 'The game isn\'t scripted by hand. A game maker takes a week of stat lines and builds a full, legal game. At each snap a play caller, Jev, gives every possible call a probability, and the play is drawn from those odds: Jev chose 40 of these 84 plays. A rules engine referees every play, and the game is replayed and has to match every player\'s stat line exactly before we keep it.',
+      tight: 'A game maker builds a full legal game from stat lines. A play caller, Jev, chose 40 of these 84 plays, and the game must match every stat line.',
+      sayA: 'Every catch and run here really happened in week 9. A game maker fits them into a full legal game, and a rules engine referees every play. When there are no real plays, a play caller, Jev, picks them from stat lines.',
+      tightA: 'Every catch and run here really happened in week 9. A game maker fits them into a legal game, refereed by a rules engine. With no real plays, Jev picks them.',
+      flag: 'The line in the script is about 70 words for 12 seconds, which nobody can say. The short line keeps the three facts: game maker, Jev 40 of 84, checked against the stat lines.',
+      flagA: 'Changed for the week 9 game: Jev chose no play in this game, so do not say "40 of these 84" while it is on screen.' },
+    { s: 97, e: 105, who: 'juan', title: 'Soccer',
+      screen: 'Tap Soccer in the header: the same stadium, a match in progress, a goal with its banner.',
+      say: 'The same idea works for soccer, in the same app. With the same jump bar.',
+      flag: 'The script marks "With the same jump bar" as "if merged". It is on main now (task C32), so you can say it. Jev was not used for soccer.' },
+    { s: 105, e: 120, who: 'ricky', title: 'What is next',
+      screen: 'Back to the League screen. Optionally tap ES for a second to show the screens in Spanish, then EN.',
+      say: 'Today this is one viewer on one device, and this game came from invented stat lines. We also built real week 9 games, and the database runs on Tiger Data. Next: the app reads it live, and two managers watch together.',
+      sayA: 'Today this is one viewer on one device, playing from a file. The database already runs on Tiger Data, with every play of every game in it. Next: the app reads it live, and real leagues with two managers watching together.',
+      flag: 'Changed. The script says "Next: a real week of stats, the database we designed on Tiger Data". Both now exist: the week 9 games are built from real plays, and the whole service ran on the real Tiger Data database on the night of 2026-11-14 (22 steps OK, momentum by time_bucket, 19 checks). What is still next: the app reading plays from it. The voice and captions stay English when the screens switch to Spanish.' }
+  ];
+  var CHECKS = [
+    'A private window on <code id="addr"></code>. A private window has no saved opt-in, so the opt-in card shows. <code>?intro=0</code> keeps the first-run walkthrough out of the way.',
+    'Laptop volume up. Sound starts with the first tap ("Watch the game").',
+    'One tab is enough: the jump bar takes you to any play, so nothing has to be parked in advance.',
+    'Run it once with sound on. The announcer picks each line in the same order on every first viewing, so a rehearsal tells you what will be said.',
+    'Do not open the Turtles against Owls game: its lines are not recorded and use the browser\'s voice.',
+    'Each person knows the line before theirs. Hand over on the last word, not after a pause.',
+    'One person drives the laptop for the whole demo, or you agree who taps during each part. Decide before the first full run.'
+  ];
+  var BUILT = [
+    { who: 'juan', role: 'Lead session, football game maker, soccer, design',
+      items: ['Ran the project: the written contract, the board, every merge to main', 'The football rules engine (js/rules.js), the game view and the pixel players', 'The game maker (engine/make-game.js) and the link to Jev', 'The whole soccer game (soccer/)', 'Design and brand: the mascot, the thumbnails and gallery pictures (design/, pitch/assets/)', 'The laptop runs on 2026-11-14: Tiger Data for real, the Jev rebuild, the Scout research'] },
+    { who: 'peyton', role: 'Reveal flow and screens', done: 48,
+      items: ['Every app screen: League, Matchup, Lineups, Plays, Recap (js/app.js, js/screens/, css/)', 'Hidden scores: opt in masks points and stat lines until the final', 'The jump bar, speed control, Paused and Keep watching', 'The recap: winner, top performers, story of the game, share card', 'First-run walkthrough, the phone layout, the stadium look'] },
+    { who: 'noah', role: 'Announcer and sound', done: 38,
+      items: ['The announcer: a line for every play from templates, in one style (js/announcer/)', 'Pre-game intro, halftime report, full-time wrap, big calls for the top plays', 'The ElevenLabs recordings: about 560 football lines (Ninja) and 190 soccer lines (Nathaniel)', 'The soccer broadcast and the stadium sound: crowd, whistle, jingles (js/audio.js)', 'The captions strip: every spoken line is also on screen'] },
+    { who: 'ricky', role: 'Players, profiles, database', done: 62,
+      items: ['Rosters of real players, stat lines, the scoring rules, the sample league (data/)', 'Season tendencies and recent form from Sleeper, cross-checked with ESPN: 28 of 28 players agree', 'The real play-by-play: 3,177 plays from 116 games, and the real week 7, 8 and 9 games built from it', 'The Tiger Data schema, migrations and the service (db/, server/)', 'Scout, the deepagents research team, and its tools (agents/scout/)', 'The one-command checks (node data/checks/all.js)'] }
+  ];
+  var QS = [
+    { who: 'juan', q: 'What is real and what is made up?', upd: true,
+      a: 'The code is real and runs: the rules engine, the game view, the hidden-score reveal, the announcer, the soccer game. The player names are real. The game the app opens on is built from real plays: every catch and run our players made in NFL week 9, with their real yards and touchdowns. The filler around them (drive starts, incompletions, penalties, the clock, the order) is made up. The week 11 game is fully made up, from invented stat lines. The league, the managers and who plays whom are invented sample data.',
+      proof: 'pitch/REAL-AND-SIMULATED.md; data/games/week09-gob-tur.json ("source": "real-plays"); data/statlines/week11.json ("invented": true); data/league.json' },
+    { who: 'juan', q: 'What does Jev decide, and what does the rules engine decide?',
+      a: 'Jev is a decision model from TypeSafe AI. At a snap it is given the situation and a list of legal calls, and it returns a probability for each. It writes no text. The game maker then draws a call using those probabilities. The rules engine decides everything else: yards, downs, turnovers, touchdowns, scoring and whether a game is legal.',
+      proof: 'engine/jev.js; engine/make-game.js (choose); js/rules.js (apply)' },
+    { who: 'juan', q: 'How many plays did Jev choose?', upd: true,
+      a: 'In the week 11 game, 40 of 84. The other 44 had only one legal option or an even draw. In the Turtles against Owls game, rebuilt with Jev on the night of 2026-11-14, 97 of 184. In the real week 9 game, none: the plays really happened, so there was nothing to choose. Each game file records which plays Jev chose, with the probabilities.',
+      proof: 'data/games/week11-football.json and week11-tur-owl.json ("report": plays, playsChosenByJev, model jev-1.14.0)' },
+    { who: 'juan', q: 'Is the game a real NFL game?', upd: true,
+      a: 'No. The week 9 game uses real plays by real players, but they play for different NFL teams, so the matchup and the 27 to 30 score on the field are ours. The fantasy points are the real ones: for 19 players they are within 0.25 points of the player\'s real week 9 line. The week 11 game is made up from start to finish.',
+      proof: 'node data/checks/real-week.js; engine/make-game.js (--plays and --from-sample)' },
+    { who: 'juan', q: 'How do you know the game is legal and the numbers add up?',
+      a: 'Every play goes through the rules engine, and the finished game is replayed from scratch and compared with the target stat lines. A game that does not match is thrown away. A separate check replays each game file and compares every number.',
+      proof: 'engine/make-game.js; "matchesTargets": true in the game files; node data/checks/game-vs-lines.js; node tools/validate.js' },
+    { who: 'peyton', q: 'Why are the scores hidden?',
+      a: 'That is the product idea: if you already know your score, there is nothing left to watch. When a viewer opts in, points, stat lines, leaders and floating points are masked until the final whistle. In this demo the wait is only until the replay ends, not a week, and the choice is stored in the browser.',
+      proof: 'js/app.js (fr.optin, masked, the opt-in card)' },
+    { who: 'peyton', q: 'Do two managers really opt in?', upd: true,
+      a: 'No. There is one viewer, no accounts and no second manager. The choice is saved in that browser. When the page is opened with ?api= and the service address, it is also sent to the service\'s opt-in table. That route passed on the real Tiger Data database on the night of 2026-11-14, on the test\'s own rows. The demo does not use it.',
+      proof: 'js/app.js (fr.optin, ?api=); server/index.js (/games/:id/optin); db/runs/laptop-2026-11-15-rerun.txt' },
+    { who: 'ricky', q: 'What does the database store, and does the app read it today?', upd: true,
+      a: 'Every play is a row with the time it happened in the game, its fantasy points and Jev\'s why. Continuous aggregates give points per player per game, per team per quarter and per player per week. It all ran on the real Tiger Data service on the night of 2026-11-14: the schema, the seed, migrations 002 to 005, all 11 game files pushed and read back, momentum bucketed in the database with time_bucket, and 19 checks passing. The app does not read plays from the database today: it plays from a game file. With ?api= it can write an opt-in, read the league and use the commissioner and watch party routes. No screen reads momentum, the weekly trend or Scout\'s reports yet.',
+      proof: 'db/runs/laptop-2026-11-15-rerun.txt; db/schema.sql; server/' },
+    { who: 'ricky', q: 'What went wrong or was not tried on the database?', upd: true,
+      a: 'The first real run found two bugs. The service could not find time_bucket on Tiger Data, so it quietly used plain PostgreSQL instead, and the aggregates only showed refreshed rows, so the weekly trend came back from files. Both were fixed the same night and the second run was clean. Not tried: the app reading its plays from the database, real accounts, the stress test against the real database (it runs against a stand-in), the certificate check with a real file. The summary route still came back empty for the main game and nobody has looked into it.',
+      proof: 'db/runs/laptop-2026-11-15.txt (first run); db/runs/laptop-2026-11-15-rerun.txt; db/migrate-005-realtime.sql; server/timescale.js' },
+    { who: 'ricky', q: 'What is Scout, and has it run for real?', upd: true,
+      a: 'Scout is a research agent built with LangChain\'s deepagents: a main agent with a stats researcher, a film room and a fact checker. The agent has run once with a model: one player (Puka Nacua) on a small Gemini model, about 2 minutes. Its report passed the evidence check but was weaker than the one we kept. The 28 scouting reports and four team profiles in the repository were written with Scout\'s tools by hand in a coding session, not by the agent: the numbers were pulled live from Sleeper and ESPN, and every cited play was verified against the play-by-play before a report was saved (140 claims, none dropped). Say "28 scouting reports with the plays behind every claim", not "an AI wrote them".',
+      proof: 'agents/scout/README.md "Status"; data/profiles/notes/*-report.md (second line of each); agents/scout/runs/' },
+    { who: 'ricky', q: 'Do the player profiles shape the game you watch?',
+      a: 'Not yet. The profiles hold real numbers, and the game maker and the announcer can read them. But no game has been rebuilt with the profiles. The game view passes them to the announcer for its tendency and hot or cold remarks, and the Lineups screen shows hot, cold or steady marks from recent form. Nobody has counted how often the announcer says them.',
+      proof: 'engine/make-game.js (player_tendencies); js/announcer/index.js; data/profiles/' },
+    { who: 'noah', q: 'How does the announcer make its lines?',
+      a: 'From templates, not from a model. Each kind of play has several variants in one style. The announcer fills in names, yards and the spot from the rules engine\'s result and avoids repeats. It also has a pre-game intro, a halftime report that leaves out the points while scores are hidden, a full-time wrap and big calls for the top plays. The lines are spoken from ElevenLabs recordings, about 560 football and 190 soccer lines. A line without a recording falls back to the browser\'s voice.',
+      proof: 'js/announcer/lines.js; js/announcer/index.js; node js/announcer/check.js; node js/announcer/audit.js' },
+    { who: 'juan', q: 'What does soccer share with football?',
+      a: 'The same pattern: a game is a list of events, a rules file works out goals and score, every result carries fantasy points, and the app, the announcer, the speed control and the jump bar work for both. Soccer has its own pitch, plays, players and scoring. Its match was built by its own match maker from invented lines, with equal weights: Jev was not used for soccer.',
+      proof: 'docs/CONTRACT.md section 6; js/sport.js; soccer/; node soccer/check.js' },
+    { who: 'all', q: 'What did each of the four people build?',
+      a: 'Juan built soccer, and his lead session ran the project: it merged everyone\'s work and built the football rules engine, the game view, the game maker and the Jev link. Ricky built the players, profiles, stat lines, scoring rules, the Sleeper and ESPN cross-check, the database and the service, Scout and the checks. Peyton built the app screens and the hidden-score reveal. Noah built the announcer and the sound. All four directed AI coding agents on their own part.',
+      proof: 'docs/LANES.md; the DONE posts in board/*.md' },
+    { who: 'ricky', q: 'What is next?', upd: true,
+      a: 'Have the app read plays, momentum and trends from the database instead of a file. Run the Scout agent on all 28 players with a stronger model. Build a game with the filled profiles. Real leagues with accounts and two managers watching together. Test on real phones. None of that is done today.',
+      proof: 'agents/scout/README.md "Status"; server/README.md' }
+  ];
+  var REAL = {
+    real: ['The app runs in a browser with no install, no framework and no build step.',
+      'The rules engine referees every play, and a separate check replays every game.',
+      'The player names. The game the app opens on: real catches and runs from NFL week 9 (204 plays). Weeks 7 and 8 are built the same way.',
+      'Fantasy points of the week 9 game: within 0.25 of the real line for 19 players.',
+      'Hidden scores until the final, the jump bar, the speed control, the recap and share card.',
+      'The announcer: templates plus ElevenLabs recordings (about 560 football, 190 soccer lines).',
+      'Jev chose 40 of 84 plays in the week 11 game and 97 of 184 in Turtles against Owls.',
+      'Season tendencies and recent form, live from Sleeper, cross-checked with ESPN: 28 of 28 agree.',
+      '3,177 real plays from 116 games; 28 scouting reports and 4 team profiles with the plays behind every claim.',
+      'The database on Tiger Data: schema, migrations, every game file pushed, momentum with time_bucket, 19 checks (night of 2026-11-14).',
+      'Soccer: a full match in the same app, with the same jump bar.'],
+    sim: ['The week 11 football game, Turtles against Owls and the soccer match: invented stat lines, real names.',
+      'In the real-plays games: drive starts, incompletions, penalties, the clock, the order of plays, the defenses and the score on the field.',
+      'A quarterback\'s passing in those games is only the catches by our own receivers.',
+      'The league: the teams, the managers, who opted in, who plays whom.',
+      'The week of waiting: here the wait lasts only until the replay ends.',
+      'The second manager: there is one viewer, one device, no accounts.'],
+    not: ['Sound, speed and the voice on a real phone, or by ear on the demo machine.',
+      'The app reading its plays from the database. It plays from a file.',
+      'The Scout agent with a model beyond one player; its Claude path has never called the API.',
+      'Any game built with the player profiles. The profiles do not shape a game yet.',
+      'How often the announcer says its hot or cold remarks.',
+      'The summary route on Tiger Data: it came back empty for the main game.']
+  };
+  var AVOID = [
+    '"Real game", "real results" or "real scores" for the week 11 game. For the week 9 game say "real plays", not "a real game": the matchup and the score on the field are ours.',
+    '"Two managers" or "a week of waiting". It is one viewer and the choice sits in the browser.',
+    '"Powered by AI" for the whole game. Jev chooses plays and writes no text. The announcer lines are templates. Scout\'s agent has run once, for one player.',
+    '"Scout, our AI agent, researched the players." The reports were written by hand with Scout\'s tools; the agent itself ran once.',
+    '"The game uses real player tendencies." The profiles have them; no game was built with them.',
+    '"Live from the database." The database is real and tested on Tiger Data, but the app reads no plays from it.',
+    '"Tested on phones." Tests ran in a headless browser at phone width only.',
+    '"Every line is ElevenLabs." Almost every line is; a line without a recording uses the browser\'s voice.',
+    'Any number you did not read from a file in the last hour. If unsure, say "I would have to check".'
+  ];
+
+  /* ------------------------------------------------------------------ STATE */
+  var TOTAL = 120, me = 'all', track = 'B', tight = true, onlyMine = false, mineQ = false;
+  try { var saved = localStorage.getItem('fr.practice.me'); if (saved && (saved === 'all' || PEOPLE[saved])) me = saved; } catch (e) {}
+  try { var st = localStorage.getItem('fr.practice.track'); if (st === 'A' || st === 'B') track = st; } catch (e) {}
+  function $(id) { return document.getElementById(id); }
+  function el(tag, cls, html) { var n = document.createElement(tag); if (cls) n.className = cls; if (html != null) n.innerHTML = html; return n; }
+  function esc(s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
+  function mmss(t) { t = Math.max(0, Math.floor(t)); return Math.floor(t / 60) + ':' + ('0' + (t % 60)).slice(-2); }
+  function color(who) { return who === 'all' ? 'var(--all)' : PEOPLE[who].color; }
+  function words(s) { return s.replace(/\([^)]*\)/g, ' ').split(/\s+/).filter(function (w) { return /[A-Za-z0-9]/.test(w); }).length; }
+  function lineOf(b) {
+    if (track === 'A') { if (tight && b.tightA) return b.tightA; if (b.sayA) return b.sayA; }
+    if (tight && b.tight) return b.tight;
+    return b.say;
+  }
+
+  /* ------------------------------------------------------------------ WHO */
+  var whoBox = $('whoBtns');
+  [['all', 'Everyone']].concat(Object.keys(PEOPLE).map(function (k) { return [k, PEOPLE[k].name]; })).forEach(function (p) {
+    var b = el('button', 'who', esc(p[1])); b.type = 'button'; b.dataset.who = p[0]; b.style.setProperty('--c', color(p[0]));
+    b.addEventListener('click', function () { me = p[0]; try { localStorage.setItem('fr.practice.me', me); } catch (e) {} paint(); });
+    whoBox.appendChild(b);
+  });
+
+  /* ------------------------------------------------------------------ SCRIPT */
+  var beatsBox = $('beats'), trackBox = $('track'), segs = [], cards = [];
+  BEATS.forEach(function (b, i) {
+    var seg = el('i'); seg.style.width = ((b.e - b.s) / TOTAL * 100) + '%'; seg.style.background = color(b.who);
+    trackBox.insertBefore(seg, $('needle')); segs.push(seg);
+    var c = el('section', 'beat'); c.id = 'beat' + i; c.style.setProperty('--c', color(b.who));
+    beatsBox.appendChild(c); cards.push(c);
+  });
+  var soloTimer = null;
+  function drawBeats() {
+    BEATS.forEach(function (b, i) {
+      var c = cards[i], line = lineOf(b), secs = b.e - b.s, n = words(line), wpm = Math.round(n / secs * 60);
+      var changed = (track === 'A' && (b.sayA || b.tightA)) || (i === BEATS.length - 1) || (tight && b.tight);
+      var pace = wpm > 185 ? '<span class="bad">' + wpm + ' words a minute: too fast, cut words</span>' : wpm > 165 ? '<span class="bad">' + wpm + ' words a minute: tight</span>' : '<span class="ok">' + wpm + ' words a minute</span>';
+      var flags = [];
+      if (b.flag) flags.push(b.flag);
+      if (track === 'A' && b.flagA) flags.push(b.flagA);
+      var screen = (track === 'A' && b.screenA) ? b.screenA : b.screen;
+      c.innerHTML =
+        '<div class="head"><span class="time">' + mmss(b.s) + ' to ' + mmss(b.e) + ' (' + secs + ' s)</span><span class="title">' + esc(b.title) + '</span>' +
+        '<span class="chip" style="--c:' + color(b.who) + '">' + esc(PEOPLE[b.who].name) + '</span>' + (changed ? '<span class="chip plain">changed</span>' : '') + '</div>' +
+        '<dl><dt>On screen</dt><dd>' + esc(screen) + '</dd><dt>Say</dt><dd><div class="say">' + esc(line).replace(/\(pause[^)]*\)/g, function (m) { return '<s>' + m + '</s>'; }) + '</div>' +
+        '<div class="meta">' + n + ' words in ' + secs + ' seconds, ' + pace + '</div>' +
+        flags.map(function (f) { return '<div class="flag">' + esc(f) + '</div>'; }).join('') + '</dd></dl>' +
+        '<div class="acts"><button type="button" data-solo="' + i + '">Practice this part (' + secs + ' s)</button><span class="solo" id="solo' + i + '"></span></div>';
+    });
+    paint();
+  }
+  beatsBox.addEventListener('click', function (ev) {
+    var t = ev.target.closest('button[data-solo]'); if (!t) return;
+    var i = +t.dataset.solo, b = BEATS[i], out = $('solo' + i), end = performance.now() + (b.e - b.s) * 1000;
+    if (soloTimer) clearInterval(soloTimer);
+    BEATS.forEach(function (_, j) { var o = $('solo' + j); if (o) o.textContent = ''; });
+    soloTimer = setInterval(function () {
+      var left = (end - performance.now()) / 1000;
+      if (left <= 0) { out.textContent = 'Time. Hand over.'; clearInterval(soloTimer); soloTimer = null; return; }
+      out.textContent = left.toFixed(1) + ' s left';
+    }, 100);
+  });
+
+  /* ------------------------------------------------------------------ TIMER */
+  var running = false, startedAt = 0, elapsed = 0, raf = 0, lastBeat = -1;
+  function beatAt(t) { for (var i = 0; i < BEATS.length; i++) if (t >= BEATS[i].s && t < BEATS[i].e) return i; return -1; }
+  function tick() {
+    if (running) elapsed = (performance.now() - startedAt) / 1000;
+    var t = elapsed, i = (running || t > 0) ? beatAt(t) : -1, clock = $('clock'), now = $('now');
+    clock.textContent = mmss(t); clock.classList.toggle('over', t >= TOTAL);
+    $('needle').style.left = Math.min(100, t / TOTAL * 100) + '%';
+    if (i !== lastBeat) {
+      cards.forEach(function (c, j) { c.classList.toggle('live', j === i); });
+      segs.forEach(function (s, j) { s.classList.toggle('on', j === i); });
+      if (i >= 0 && running) { var r = cards[i].getBoundingClientRect(); if (r.top < 130 || r.bottom > window.innerHeight) cards[i].scrollIntoView({ block: 'start' }); }
+      lastBeat = i;
+    }
+    if (t >= TOTAL) {
+      now.className = 'now'; now.innerHTML = 'Time: 2:00.<small>' + (t > TOTAL + 1 ? 'Over by ' + mmss(t - TOTAL) + '. Reset and go again.' : 'Done.') + '</small>';
+      if (t > TOTAL + 30) { running = false; $('start').textContent = 'Start'; }
+    } else if (i >= 0 && (running || t > 0)) {
+      var b = BEATS[i], mine = me !== 'all' && b.who === me, next = null;
+      for (var k = i + 1; k < BEATS.length; k++) if (me === 'all' ? BEATS[k].who !== b.who : BEATS[k].who === me) { next = BEATS[k]; break; }
+      var sub = Math.ceil(b.e - t) + ' s left in this part. ';
+      if (mine) sub += 'Hand over to ' + (BEATS[i + 1] ? PEOPLE[BEATS[i + 1].who].name : 'the judges') + ' at ' + mmss(b.e) + '.';
+      else if (next) sub += (me === 'all' ? PEOPLE[next.who].name + ' is up' : 'You are up') + ' in ' + Math.ceil(next.s - t) + ' s: ' + next.title + '.';
+      else if (me !== 'all') sub += 'You are done.';
+      now.className = 'now' + (mine ? ' mine' : '');
+      now.innerHTML = (mine ? 'You are up: ' : PEOPLE[b.who].name + ': ') + esc(b.title) + '<small>' + esc(sub) + '</small>';
+    }
+    if (running) raf = requestAnimationFrame(tick);
+  }
+  function toggle() {
+    if (running) { running = false; cancelAnimationFrame(raf); $('start').textContent = 'Resume'; }
+    else { if (elapsed >= TOTAL) elapsed = 0; running = true; startedAt = performance.now() - elapsed * 1000; $('start').textContent = 'Pause'; raf = requestAnimationFrame(tick); }
+  }
+  $('start').addEventListener('click', toggle);
+  $('reset').addEventListener('click', function () {
+    running = false; cancelAnimationFrame(raf); elapsed = 0; lastBeat = -2; $('start').textContent = 'Start'; tick();
+    $('now').className = 'now'; $('now').innerHTML = 'Press Start, or the space bar.<small>The timer lights the part being said and tells you when you are up.</small>';
+  });
+  window.addEventListener('keydown', function (ev) {
+    if (ev.code !== 'Space' || ev.metaKey || ev.ctrlKey || ev.altKey) return;
+    var t = ev.target, tag = t && t.tagName;
+    if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'BUTTON' || tag === 'SUMMARY' || tag === 'A') return;
+    ev.preventDefault(); toggle();
+  });
+
+  /* ------------------------------------------------------------------ OTHER SECTIONS */
+  var checks = $('checks');
+  CHECKS.forEach(function (c) { var l = el('label'); l.innerHTML = '<input type="checkbox"><span>' + c + '</span>'; checks.appendChild(l); });
+  var people = $('people');
+  BUILT.forEach(function (p) {
+    var c = el('div', 'card'); c.style.setProperty('--c', color(p.who)); c.dataset.who = p.who;
+    c.innerHTML = '<h3>' + esc(PEOPLE[p.who].name) + '</h3><div class="gh">' + esc(PEOPLE[p.who].gh) + (p.done ? ', ' + p.done + ' DONE posts on the board' : ', lane work plus the lead session in board/BOSS.md') + '</div><p style="margin-top:6px"><strong>' + esc(p.role) + '</strong></p><ul>' +
+      p.items.map(function (i) { return '<li>' + esc(i) + '</li>'; }).join('') + '</ul>';
+    people.appendChild(c);
+  });
+  var qs = $('qs'), qEls = [];
+  QS.forEach(function (q, i) {
+    var d = el('details', 'q'); d.style.setProperty('--c', color(q.who)); d.dataset.who = q.who;
+    d.dataset.text = (q.q + ' ' + q.a + ' ' + q.proof).toLowerCase();
+    d.innerHTML = '<summary><span class="n">' + (i + 1) + '</span><span class="t">' + esc(q.q) + '</span><span class="chip" style="--c:' + color(q.who) + '">' + (q.who === 'all' ? 'Anyone' : esc(PEOPLE[q.who].name)) + '</span></summary>' +
+      '<div class="a"><p>' + esc(q.a) + '</p>' + (q.upd ? '<p class="new">Updated from pitch/QUESTIONS.md with what ran on the night of 2026-11-14.</p>' : '') + '<p class="proof">Where to look: ' + esc(q.proof) + '</p></div>';
+    qs.appendChild(d); qEls.push(d);
+  });
+  function filterQ() {
+    var term = $('search').value.trim().toLowerCase(), shown = 0;
+    qEls.forEach(function (d) {
+      var ok = (!term || d.dataset.text.indexOf(term) >= 0) && (!mineQ || me === 'all' || d.dataset.who === me || d.dataset.who === 'all');
+      d.classList.toggle('hide', !ok); if (ok) shown++;
+    });
+    $('noQ').classList.toggle('hide', shown > 0);
+  }
+  $('search').addEventListener('input', filterQ);
+  $('openAll').addEventListener('click', function () { qEls.forEach(function (d) { d.open = true; }); });
+  $('closeAll').addEventListener('click', function () { qEls.forEach(function (d) { d.open = false; }); });
+  $('mineQ').addEventListener('click', function () { mineQ = !mineQ; paint(); });
+  var cols = $('cols');
+  [['real', 'Real'], ['sim', 'Simulated'], ['not', 'Not checked']].forEach(function (k) {
+    var c = el('div', 'col ' + k[0]); c.innerHTML = '<h3>' + k[1] + '</h3><ul>' + REAL[k[0]].map(function (x) { return '<li>' + esc(x) + '</li>'; }).join('') + '</ul>'; cols.appendChild(c);
+  });
+  AVOID.forEach(function (a) { $('avoidList').appendChild(el('li', '', esc(a))); });
+
+  /* ------------------------------------------------------------------ SWITCHES */
+  Array.prototype.forEach.call(document.querySelectorAll('.trk'), function (b) {
+    b.addEventListener('click', function () { track = b.dataset.t; try { localStorage.setItem('fr.practice.track', track); } catch (e) {} drawBeats(); });
+  });
+  $('onlyMine').addEventListener('click', function () { onlyMine = !onlyMine; paint(); });
+  $('tight').addEventListener('click', function () { tight = !tight; drawBeats(); });
+  function paint() {
+    Array.prototype.forEach.call(document.querySelectorAll('.who'), function (b) { b.setAttribute('aria-pressed', String(b.dataset.who === me)); });
+    Array.prototype.forEach.call(document.querySelectorAll('.trk'), function (b) { b.setAttribute('aria-pressed', String(b.dataset.t === track)); });
+    $('trackFacts').innerHTML = TRACKS[track].facts;
+    var a = $('addr'); if (a) a.textContent = TRACKS[track].address;
+    $('onlyMine').setAttribute('aria-pressed', String(onlyMine)); $('tight').setAttribute('aria-pressed', String(tight)); $('mineQ').setAttribute('aria-pressed', String(mineQ));
+    $('onlyMine').disabled = me === 'all'; $('mineQ').disabled = me === 'all';
+    BEATS.forEach(function (b, i) {
+      var mine = me === 'all' || b.who === me;
+      cards[i].classList.toggle('dim', !mine && !(onlyMine && me !== 'all'));
+      cards[i].classList.toggle('hide', onlyMine && me !== 'all' && !mine);
+    });
+    Array.prototype.forEach.call(document.querySelectorAll('#people .card'), function (c) { c.style.opacity = (me === 'all' || c.dataset.who === me) ? 1 : .45; });
+    filterQ(); lastBeat = -2; tick();
+  }
+  drawBeats();
+})();
+</script>
+</body>
+</html>

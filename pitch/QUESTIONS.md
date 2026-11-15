@@ -1,22 +1,22 @@
 # Judges' questions and honest answers
 
-Written 2026-11-14 by reading the code, and checked again against `main` on 2026-11-15. Each answer is what a person can say out loud. The line under it is where to look. If a line number has moved, search the file for the quoted words. Where something is built but not run or not connected, the answer says so.
+Written 2026-11-14 by reading the code, and checked again against `main` on 2026-11-15. Answers 1, 3, 4, 7, 8, 9, 10 and 15 were brought up to date on the night of 2026-11-14 (Eastern) after the app switched to the real week 9 game and after the laptop runs on Tiger Data, Jev and Scout; `pitch/practice/index.html` carries the same answers. Each answer is what a person can say out loud. The line under it is where to look. If a line number has moved, search the file for the quoted words. Where something is built but not run or not connected, the answer says so.
 
 ## 1. What is real and what is made up?
-The code is real and runs: the rules engine, the game view, the hidden-score reveal, the announcer, the soccer game. The player names are real NFL players and real footballers. The game you watch is made up: it was built from invented stat lines, so no play really happened. The two managers, the league and its standings are invented sample data.
-Proof: `pitch/REAL-AND-SIMULATED.md`; `data/statlines/week11.json` line 2 (`"invented": true`); `data/league.json` (`"invented": true`).
+The code is real and runs: the rules engine, the game view, the hidden-score reveal, the announcer, the soccer game. The player names are real. The game the app opens on is built from real plays: every catch and run our players made in NFL week 9, with their real yards and touchdowns. The filler around them (drive starts, incompletions, penalties, the clock, the order) is made up. The week 11 game is fully made up, from invented stat lines. The league, the managers and who plays whom are invented sample data.
+Proof: pitch/REAL-AND-SIMULATED.md; data/games/week09-gob-tur.json ("source": "real-plays"); data/statlines/week11.json ("invented": true); data/league.json.
 
 ## 2. What does Jev decide, and what does the rules engine decide?
 Jev is a decision model from TypeSafe AI. At a snap it is given the situation and a list of legal calls, and it returns a probability for each. It writes no text. The game maker then draws a call using those probabilities. The rules engine decides everything else: yards, downs, turnovers, touchdowns, scoring and whether a game is legal.
 Proof: `engine/jev.js` lines 1 to 3; `engine/make-game.js` line 238 (`choose`); `js/rules.js` line 104 (`apply`).
 
-## 3. How many plays did Jev choose in the game the app plays?
-40 of 84. The other 44 were chosen without Jev, either because only one legal option was left or by an even draw. The game file records which plays Jev chose, with the probabilities.
-Proof: `data/games/week11-football.json` lines 950 to 960 (`report`: `plays` 84, `playsChosenByJev` 40, `model` jev-1.14.0).
+## 3. How many plays did Jev choose?
+In the week 11 game, 40 of 84. The other 44 had only one legal option or an even draw. In the Turtles against Owls game, rebuilt with Jev on the night of 2026-11-14, 97 of 184. In the real week 9 game, none: the plays really happened, so there was nothing to choose. Each game file records which plays Jev chose, with the probabilities.
+Proof: data/games/week11-football.json and week11-tur-owl.json ("report": plays, playsChosenByJev, model jev-1.14.0).
 
 ## 4. Is the game a real NFL game?
-No. The game maker was started with `--from-sample`, so the targets are the stat lines of our invented sample game, and it built a new legal game that reproduces them. The final, 17 to 14, is a made-up result.
-Proof: `engine/make-game.js` line 364 (`--from-sample`); `data/games/week11-football.json` line 950 onward.
+No. The week 9 game uses real plays by real players, but they play for different NFL teams, so the matchup and the 27 to 30 score on the field are ours. The fantasy points are the real ones: for 19 players they are within 0.25 points of the player's real week 9 line. The week 11 game is made up from start to finish.
+Proof: node data/checks/real-week.js; engine/make-game.js (--plays and --from-sample).
 
 ## 5. How do you know the game is legal and the numbers add up?
 Every play goes through the rules engine, and the finished game is replayed from scratch and compared with the target stat lines. A game that does not match is thrown away. The report says it matched.
@@ -27,20 +27,20 @@ That is the product idea: if you already know your score, there is nothing left 
 Proof: `js/app.js` line 46 (`fr.optin`, mask text), lines 83 to 86 (`masked`, `setFloaters`), line 418 (the opt-in card).
 
 ## 7. Do two managers really opt in?
-No. There is one viewer, no accounts and no second manager. The choice is saved in that browser's local storage. When the page is opened with `?api=<service address>` it is also sent to the service's opt-in table; that ran against a fake database and a plain PostgreSQL 16, not Tiger Data, and the demo does not use it.
-Proof: `js/app.js` (search `fr.optin` and `?api=`); `server/index.js` (route `/games/:id/optin`); `server/test.js`.
+No. There is one viewer, no accounts and no second manager. The choice is saved in that browser. When the page is opened with ?api= and the service address, it is also sent to the service's opt-in table. That route passed on the real Tiger Data database on the night of 2026-11-14, on the test's own rows. The demo does not use it.
+Proof: js/app.js (fr.optin, ?api=); server/index.js (/games/:id/optin); db/runs/laptop-2026-11-15-rerun.txt.
 
 ## 8. What does the database store, and does the app read it today?
-Every play is a row with the time it happened in the game, its fantasy points and Jev's why. Two continuous aggregates give points per player per game and per team per quarter. The schema was run on a real Tiger Data database, and a small service saved and returned plays there. The app does not read plays from the database today: it plays from a game file. With `?api=` it can write an opt-in, read the league, and use the commissioner and watch party routes. The service also has routes for momentum (bucketed in the database with `time_bucket`), a player's weekly trend (a continuous aggregate) and Scout's reports; no screen reads those yet.
-Proof: `db/schema.sql` lines 6, 16, 23, 40 (hypertable), 46 and 62 (aggregates); board answer from the boss on D3 in `board/BOSS.md`; `server/test.js` for the routes against a fake database.
+Every play is a row with the time it happened in the game, its fantasy points and Jev's why. Continuous aggregates give points per player per game, per team per quarter and per player per week. It all ran on the real Tiger Data service on the night of 2026-11-14: the schema, the seed, migrations 002 to 005, all 11 game files pushed and read back, momentum bucketed in the database with time_bucket, and 19 checks passing. The app does not read plays from the database today: it plays from a game file. With ?api= it can write an opt-in, read the league and use the commissioner and watch party routes. No screen reads momentum, the weekly trend or Scout's reports yet.
+Proof: db/runs/laptop-2026-11-15-rerun.txt; db/schema.sql; server/.
 
-## 9. What was not tried on the database?
-On Tiger Data itself: the seed file, the opt-in and health routes, pushing a whole game, the three migrations (soccer, commissioner, weekly aggregate), the story, top plays, drives, momentum and trend routes, every `time_bucket` query and the optional certificate check have not run. They ran against a fake database, and everything except the certificate check and the Tiger-only parts ran on a plain PostgreSQL 16 (`node server/test-db.js`, 19 checks, which found and fixed one bug). A stress test with bad input and 200 requests at once runs against a stand-in only. The summary read came back empty on the first real run because the aggregates had not refreshed yet.
-Proof: `db/seed.sql` (generated by `db/make-seed.js`); `server/README.md` section "Not checked"; `board/BOSS.md` answer on D3.
+## 9. What went wrong or was not tried on the database?
+The first real run found two bugs. The service could not find time_bucket on Tiger Data, so it quietly used plain PostgreSQL instead, and the aggregates only showed refreshed rows, so the weekly trend came back from files. Both were fixed the same night and the second run was clean. Not tried: the app reading its plays from the database, real accounts, the stress test against the real database (it runs against a stand-in), the certificate check with a real file. The summary route still came back empty for the main game and nobody has looked into it.
+Proof: db/runs/laptop-2026-11-15.txt (first run); db/runs/laptop-2026-11-15-rerun.txt; db/migrate-005-realtime.sql; server/timescale.js.
 
 ## 10. What is Scout, and has it run for real?
-Scout is a research agent built with LangChain's deepagents. It plans, calls tools that read a public stats source, works out player tendencies from 0 to 1, and writes profiles with the source and date next to every number, plus a log of every step. The agent has run once with a model: one player (Puka Nacua) on a small Gemini model, about 2 minutes. It passed the evidence check but wrote a weaker report than the one we kept, and the run exposed three bugs we fixed. The other 27 players and the Claude path have not run. The 28 scouting reports in `data/profiles/notes/` were written with Scout's tools in a Claude Code session, not by the agent. Its tools also ran live: plain scripts with no model used them to fill every player's season tendencies and recent form from Sleeper's public API, read a real week of stat lines, compare Sleeper with ESPN for all 14 players (all agree), and fill the soccer profiles from ESPN. Its wiring into deepagents also passes offline checks with a scripted stand-in model.
-Proof: `agents/scout/README.md` "Status"; `agents/scout/fill_profiles.py`; the log in `agents/scout/runs/`; `data/profiles/GOB.json`.
+Scout is a research agent built with LangChain's deepagents: a main agent with a stats researcher, a film room and a fact checker. The agent has run once with a model: one player (Puka Nacua) on a small Gemini model, about 2 minutes. Its report passed the evidence check but was weaker than the one we kept. The 28 scouting reports and four team profiles in the repository were written with Scout's tools by hand in a coding session, not by the agent: the numbers were pulled live from Sleeper and ESPN, and every cited play was verified against the play-by-play before a report was saved (140 claims, none dropped). Say "28 scouting reports with the plays behind every claim", not "an AI wrote them".
+Proof: agents/scout/README.md "Status"; data/profiles/notes/*-report.md (second line of each); agents/scout/runs/.
 
 ## 11. Do the player profiles shape the game you watch?
 Not yet. The profiles hold real numbers now, and the game maker and the announcer can read them. But the game the app plays was built before they were filled, when Jev was told "not available" for tendencies, and the game view now passes the profiles to the announcer for its tendency and hot or cold remarks, but nobody has counted how often it says them. The Lineups screen shows hot, cold or steady marks from recent form. No game has been rebuilt with the profiles.
@@ -59,16 +59,16 @@ Juan built soccer, and his lead session ran the project: it merged everyone's wo
 Proof: `docs/LANES.md`; the DONE posts in `board/*.md`.
 
 ## 15. What is next?
-Run the Scout agent on all 28 players with a stronger model. Rebuild the game with the filled profiles and a real week's stat lines instead of the invented one. Run the migrations on Tiger Data. Read plays, momentum and trends from the service. Test on a real phone. Everything on this list is not done today.
-Proof: `agents/scout/README.md` "Status"; `agents/scout/statlines.py`; `server/README.md`.
+Have the app read plays, momentum and trends from the database instead of a file. Run the Scout agent on all 28 players with a stronger model. Build a game with the filled profiles. Real leagues with accounts and two managers watching together. Test on real phones. None of that is done today.
+Proof: agents/scout/README.md "Status"; server/README.md.
 
 ## Claims to avoid on stage
 
-- "Real game", "real results", "real scores" or "real stats". The game and every stat line are invented.
+- "Real game", "real results" or "real scores" for the week 11 game: it and its stat lines are invented. For the week 9 game say "real plays", not "a real game": the matchup and the score on the field are ours.
 - "Two managers" or "a week of waiting". It is one viewer and the choice sits in the browser.
-- "Powered by AI" for the whole game. Jev chose 40 of 84 plays and writes no text. The announcer lines are templates. Scout's agent has run once, for one player.
-- "The game uses real player tendencies". The profiles have them, the game was built without them. "Scout, our AI agent, researched the players". The reports were written with Scout's tools in a Claude Code session; the agent itself ran once, for one player.
-- "Saved in the database" or "live from the database". The app reads no plays from it; with `?api=` it writes the opt-in and the watched count and reads the league.
+- "Powered by AI" for the whole game. Jev chooses plays (40 of 84 in the week 11 game, none in the real week 9 game) and writes no text. The announcer lines are templates. Scout's agent has run once, for one player.
+- "The game uses real player tendencies". The profiles have them, the game was built without them. "Scout, our AI agent, researched the players". The reports were written by hand with Scout's tools in a coding session; the agent itself ran once, for one player.
+- "Live from the database". The database is real and was tested on Tiger Data (`db/runs/laptop-2026-11-15-rerun.txt`), but the app reads no plays from it; with `?api=` it writes the opt-in and the watched count and reads the league.
 - "Tested on phones". Tests ran in a headless browser at phone width only.
 - "Every line is ElevenLabs". Almost every line is; a line added after the last render uses the browser's voice. Nobody has listened on the demo machine.
 - "The announcer knows who is hot". It can and the game view gives it the profiles, but nobody has counted how often it says so.
