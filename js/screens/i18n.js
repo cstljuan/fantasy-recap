@@ -148,7 +148,10 @@
     // share cards (drawn on a canvas)
     ['ON THE FIELD', 'EN EL CAMPO'], ['TOP PERFORMER', 'MEJOR JUGADOR'], ['WIN', 'GANAN'], ['FINAL', 'FINAL'], ['FANTASY POINTS', 'PUNTOS DE FANTASÍA'],
     ['TOP PLAY', 'MEJOR JUGADA'], ['Sample league with mock data. Made with Fantasy Recap.', 'Liga de muestra con datos inventados. Hecho con Fantasy Recap.'],
-    ['Sample game. Real names, made-up stats.', 'Partido de muestra. Nombres reales, estadísticas inventadas.'], ['No play moved any points.', 'Ninguna jugada movió puntos.']
+    ['Sample game. Real names, made-up stats.', 'Partido de muestra. Nombres reales, estadísticas inventadas.'], ['No play moved any points.', 'Ninguna jugada movió puntos.'],
+    // the football view's broadcast graphics (B35)
+    ['SAMPLE GAME', 'PARTIDO DE MUESTRA'], ['MADE-UP STATS', 'DATOS INVENTADOS'], ['HALF', 'MT'], ['HALFTIME', 'MEDIO TIEMPO'],
+    ['NO POINTS', 'SIN PUNTOS'], ['KICKOFF', 'SAQUE INICIAL'], ['EXTRA POINT', 'PUNTO EXTRA'], ['Tap for the recap', 'Toca para ver el resumen']
   ];
 
   // The profiles' source line, as data/profiles/*.json give it.
