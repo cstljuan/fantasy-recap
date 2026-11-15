@@ -14,3 +14,4 @@ Second run, after the researcher definition was fixed (the first run, research/r
 |---|---|---|---|---|
 | 07:09:28 | 1 set up | command | ok, players TUR-K OWL-K, dry run | research/runs/20261115-070928/log.md |
 | 07:09:28 | 2 plan | command | ok, notes to research fresh: 2, model.py not available yet | research/runs/20261115-070928/log.md |
+| 07:28:11 | 3 pull | research-puller | partial: pull.py and pull_wiki.py stopped at the 8 minute limit, dataset.py stopped at the missing nflverse games.csv; missing files belong to ESPN, Sleeper and nflverse (refused on this network); pull failed, continuing with the committed research/data/*.json files | none in git (research/data unchanged) |
