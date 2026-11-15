@@ -14,6 +14,8 @@
 //
 //   node engine/make-game.js --from-sample --seed 7 --out data/games/week11-football.json
 //   node engine/make-game.js --from-sample --no-jev          (no network, same checks)
+//   node engine/make-game.js --lines data/statlines/week11-tur-owl.json --teams TUR,OWL --no-jev --out data/games/week11-tur-owl.json
+//     builds the game from a stat lines file (shape: data/statlines/README.md); carries and kick distances are chosen by the maker
 //   node engine/make-game.js --plays data/rosters/plays-2026.json --week 9 [--teams GOB,PYT] --out data/games/<id>.json
 //     builds the game from a real week: every catch and run our players really made that week, with its real yards
 //     and touchdown, their real field goals (distance band and result), sacks, interceptions and lost fumbles.
@@ -408,6 +410,63 @@ function linesFromPlays(doc, week, teams) {
   });
 }
 
+// ---------------------------------------------------------------- a stat lines file
+// Target lines from a file like data/statlines/week11-tur-owl.json (shape: data/statlines/README.md). The file has no
+// carries, no field goal distances and no extra point misses, so the maker chooses them, the same way every time:
+//   carries      rushing yards over 4.2 rounded, at least the rushing touchdowns, at least 1 when there are yards
+//   field goals  made ones from 32, 41, 28, 47, 52, 36 yards in turn, missed ones from 45 yards
+//   extra points the made ones are the kick after a touchdown; a touchdown without one is a missed kick
+// A team's sacks taken are the other defense's sacks; its interceptions thrown are its quarterback's; fumbles come from
+// the other defense's fumble recoveries (none in the file used so far). Every line is checked against the file by
+// replaying the finished game (sameLines), and the score against the opposite defense's points_allowed.
+function linesFromStatlines(doc, teams) {
+  const KICKS = [32, 41, 28, 47, 52, 36];
+  return teams.map(function (T, ti) {
+    const mine = doc.teams[T.id], other = doc.teams[teams[1 - ti].id];
+    if (!mine || !other) throw new Error('the stat lines file has no team ' + T.id + ' and ' + teams[1 - ti].id);
+    const out = { players: {}, fg: [], xpGood: 0, xpMiss: 0, ints: 0, sacks: 0, sackYds: [], fumbles: [], points: null, score: null };
+    let tds = 0, kick = 0;
+    Object.keys(T.roster).forEach(function (slot) {
+      const pl = mine.players[slot];
+      if (!pl || pl.name !== T.roster[slot]) throw new Error('the stat lines file has ' + (pl && pl.name) + ' for ' + T.id + ' ' + slot + ', the roster has ' + T.roster[slot]);
+      const l = pl.line || {};
+      const rushTD = l.rush_td || 0, carries = (l.rush_yards || 0) > 0 || rushTD ? Math.max(1, rushTD, Math.round((l.rush_yards || 0) / 4.2)) : 0;
+      out.players[slot] = { rec: l.receptions || 0, recYds: l.rec_yards || 0, recTD: l.rec_td || 0, rush: carries, rushYds: l.rush_yards || 0, rushTD: rushTD };
+      tds += (l.rec_td || 0) + rushTD;
+      out.ints += l.interceptions || 0;
+      for (let i = 0; i < (l.fg_made || 0); i++) out.fg.push({ good: true, dist: KICKS[kick++ % KICKS.length] });
+      for (let i = 0; i < (l.fg_missed || 0); i++) out.fg.push({ good: false, dist: 45 });
+      out.xpGood += l.xp_made || 0;
+    });
+    out.xpMiss = Math.max(0, tds - out.xpGood);
+    const od = (other.defense && other.defense.line) || {};
+    out.sacks = od.sacks || 0;
+    for (let i = 0; i < (od.fumble_recoveries || 0); i++) out.fumbles.push({ by: 'RB', yds: 5 });
+    out.pointsAllowedByOther = od.points_allowed;
+    return out;
+  });
+}
+
+// Highlights: touchdowns, turnovers and gains of 20 yards or more get e.tags = ['highlight', <reason>...]
+// (reasons: touchdown, turnover, big-play). Plays the maker already tagged keep their tags.
+function tagGame(game, teams) {
+  const s = Rules.create(teams);
+  let n = 0;
+  Rules.flatten(game, teams).forEach(function (st) {
+    if (st.kind === 'half') { Rules.startHalf(s); return; }
+    if (st.kind !== 'play') return;
+    const e = st.e, r = Rules.apply(s, e, st.team), why = [];
+    if (r.td) why.push('touchdown');
+    if (e.t === 'int' || e.t === 'fumble') why.push('turnover');
+    if ((e.t === 'pass' || e.t === 'run') && e.yds >= 20) why.push('big-play');
+    if (!why.length) return;
+    const have = Array.isArray(e.tags) ? e.tags : [];
+    e.tags = ['highlight'].concat(why).concat(have.filter(function (t) { return t !== 'highlight' && why.indexOf(t) < 0; }));
+    n++;
+  });
+  return n;
+}
+
 function teamsFor(ids) {
   return ids.map(function (id) {
     const t = Data.TEAMS.filter(function (x) { return x.id === id; })[0];
@@ -434,7 +493,16 @@ async function main() {
       used: targets.map(function (t, i) { return { team: teams[i].id, plays: t.used }; }) };
     targets.forEach(function (t) { delete t.used; });
   }
-  else { console.error('Give the stat lines: --from-sample (uses the sample game in js/data.js), or --plays <file> --week <n>'); process.exit(2); }
+  else if (arg('--lines', '')) {
+    const doc = JSON.parse(fs.readFileSync(arg('--lines'), 'utf8'));
+    const ids = arg('--teams', Object.keys(doc.teams).join(',')).split(',').map(function (x) { return path.basename(x, '.json'); });
+    if (ids.length !== 2) { console.error('--teams needs two teams'); process.exit(2); }
+    teams = teamsFor(ids);
+    targets = linesFromStatlines(doc, teams);
+    source = { from: 'statlines', file: arg('--lines'), week: doc.week, invented: !!doc.invented,
+      note: 'built from the stat lines in ' + arg('--lines') + (doc.invented ? ' (invented numbers; the player names are real)' : '') + '; carries, field goal distances and the order of everything else are chosen by the maker' };
+  }
+  else { console.error('Give the stat lines: --from-sample (uses the sample game in js/data.js), --plays <file> --week <n>, or --lines <stat lines file> [--teams TUR,OWL]'); process.exit(2); }
 
   const useJev = a.indexOf('--no-jev') < 0 && jev.hasKey();
   const profiles = {}; teams.forEach(function (t) { const x = tendencyText(path.join(__dirname, '..', 'data', 'profiles', t.id + '.json')); if (x) profiles[t.id] = x; });
@@ -447,10 +515,15 @@ async function main() {
   if (useJev) { for (let k = 0; k < 6 && !result; k++) result = await attempt(teams, targets, found + k * 100003, true, profiles); }
   if (!result) result = await attempt(teams, targets, found, false, profiles);
   if (!result) { console.error('The game could not be rebuilt.'); process.exit(1); }
+  if (source.from === 'statlines') {
+    const bad = targets.map(function (t, i) { return t.pointsAllowedByOther !== undefined && t.pointsAllowedByOther !== result.made[i].score ? teams[1 - i].id + ' defense allowed ' + t.pointsAllowedByOther + ' in the file but ' + teams[i].id + ' scored ' + result.made[i].score : null; }).filter(Boolean);
+    if (bad.length) console.error('NOTE: ' + bad.join('; '));
+  }
+  const tagged = tagGame(result.game, teams);
   const plays = result.game.drives.reduce(function (n, d) { return n + d.plays.length; }, 0);
   const called = result.game.drives.reduce(function (n, d) { return n + d.plays.filter(function (e) { return e.why; }).length; }, 0);
   const file = { version: 1, sport: 'football', teams: teams, game: result.game,
-    report: { seedTried: tries, plays: plays, playsChosenByJev: called, model: result.model || null, jev: jev.usage(), score: result.made.map(function (m) { return m.score; }), points: result.made.map(function (m) { return m.points; }), matchesTargets: true, source: source } };
+    report: { seedTried: tries, plays: plays, playsChosenByJev: called, model: result.model || null, jev: jev.usage(), score: result.made.map(function (m) { return m.score; }), points: result.made.map(function (m) { return m.points; }), matchesTargets: true, highlights: tagged, source: source } };
   const outFile = arg('--out', '');
   if (outFile) fs.writeFileSync(outFile, JSON.stringify(file, null, 1));
   console.log('OK: a legal game that reproduces every stat line.');
@@ -461,5 +534,5 @@ async function main() {
   if (outFile) console.log('  written to ' + outFile);
 }
 
-module.exports = { statlines: statlines, attempt: attempt };
+module.exports = { statlines: statlines, attempt: attempt, linesFromStatlines: linesFromStatlines, tagGame: tagGame };
 if (require.main === module) main().catch(function (err) { console.error(err); process.exit(1); });
