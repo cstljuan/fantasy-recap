@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>Devpost thumbnail A: the scorekeeper</title>
+<link rel="stylesheet" href="pitch.css">
+<style>
+body { width: 1500px; height: 1000px; }
+.name { left: 76px; top: 150px; font: 800 262px/0.84 var(--display); letter-spacing: -0.005em; text-transform: uppercase; }
+.name em { font-style: normal; color: var(--amber); display: block; }
+.lamp { left: 80px; top: 84px; display: flex; align-items: center; gap: 16px; }
+.lamp i { width: 28px; height: 28px; background: var(--amber); display: block; }
+.hook { left: 80px; top: 650px; font: 800 74px/1.02 var(--display); letter-spacing: 0.01em; text-transform: uppercase; }
+.sub { left: 80px; top: 824px; width: 800px; }
+.keeper { left: 960px; top: 84px; width: 460px; background: var(--panel); border: 1px solid var(--rule); border-top: 6px solid var(--amber); }
+.keeper .face { padding: 34px 40px 22px; }
+.keeper .face img { width: 380px; }
+.keeper .cap { display: flex; justify-content: space-between; align-items: center; padding: 14px 18px 13px; border-top: 1px solid var(--rule); font: 700 20px/1 var(--display); letter-spacing: 0.14em; text-transform: uppercase; color: var(--dim); }
+.keeper .cap b { color: var(--text); font-weight: 700; }
+.sides { left: 960px; top: 560px; width: 460px; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.win { background: var(--inset); border-top: 5px solid var(--c); padding: 14px 16px 12px; }
+.win .who { font: 700 22px/1 var(--display); letter-spacing: 0.06em; text-transform: uppercase; }
+.win .mask { display: block; margin-top: 8px; font-size: 118px; line-height: 0.8; }
+.win .unit { margin-top: 12px; font: 700 14px/1 var(--display); letter-spacing: 0.14em; color: var(--dim); text-transform: uppercase; }
+.chips { left: 960px; top: 800px; }
+</style></head>
+<body>
+<div class="grid"></div>
+<div class="abs lamp"><i></i><span class="eyebrow">HackPrinceton Fall 2026</span></div>
+<div class="abs name">Fantasy<em>Recap</em></div>
+<div class="abs hook">Don't check the score.<br><span style="color:var(--amber)">Watch it.</span></div>
+<p class="abs lede sub">Your fantasy score stays hidden all week. Then your two rosters play each other in an <b>8-bit game</b>.</p>
+
+<div class="abs keeper">
+  <div class="face"><img class="px" src="../assets/mascot/tusk-sealed.svg" alt=""></div>
+  <div class="cap"><b>Tusk, the scorekeeper</b><span>Sealed</span></div>
+</div>
+<div class="abs sides">
+  <div class="win" style="--c:var(--t0)"><div class="who">Goblins</div><span class="mask">--.-</span><div class="unit">Fantasy pts</div></div>
+  <div class="win" style="--c:var(--t1)"><div class="who">Pythons</div><span class="mask">--.-</span><div class="unit">Fantasy pts</div></div>
+</div>
+<div class="abs chips"><span class="chip solid">Football</span><span class="chip solid">Soccer</span><span class="chip">8-bit recap</span></div>
+</body></html>

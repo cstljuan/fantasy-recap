@@ -31,5 +31,8 @@ Pages, in the order of Juan's earlier files (see `REFERENCE-LAYOUT.md`):
 | `REFERENCE-LAYOUT.md` | How Juan's three earlier Figma files are organized, and the page list this file follows |
 | `src/` | The drawings as code. `node design/src/build.js` writes `assets/` |
 | `assets/mascot/` | Tusk as SVG, one file per expression |
+| `pitch/` | The Devpost thumbnail, gallery, title card and architecture picture as pages. `node design/src/render-pitch.js` renders them to `pitch/assets/` |
+| `pitch/shots/` | Screenshots of the real app used in those pages (`node design/src/capture.js`, `capture-game.js`, `capture-film.js`) |
+| `fonts/` | The open-license fonts the pages use |
 
 All art is drawn in code or in Figma. No photos, no real team or league marks.

@@ -1,0 +1,94 @@
+/* Shared look for the pitch graphics. Each page is one fixed-size picture.
+   Dark scoreboard: flat panels, hairline rules, square corners, one amber signal color. */
+
+@font-face { font-family: "Barlow Condensed"; font-weight: 600; src: url(../fonts/barlow-condensed-latin-600-normal.woff2) format("woff2"); }
+@font-face { font-family: "Barlow Condensed"; font-weight: 700; src: url(../fonts/barlow-condensed-latin-700-normal.woff2) format("woff2"); }
+@font-face { font-family: "Barlow Condensed"; font-weight: 800; src: url(../fonts/barlow-condensed-latin-800-normal.woff2) format("woff2"); }
+@font-face { font-family: "Barlow"; font-weight: 400; src: url(../fonts/barlow-latin-400-normal.woff2) format("woff2"); }
+@font-face { font-family: "Barlow"; font-weight: 500; src: url(../fonts/barlow-latin-500-normal.woff2) format("woff2"); }
+@font-face { font-family: "Barlow"; font-weight: 600; src: url(../fonts/barlow-latin-600-normal.woff2) format("woff2"); }
+@font-face { font-family: "Silkscreen"; font-weight: 400; src: url(../fonts/silkscreen-latin-400-normal.woff2) format("woff2"); }
+@font-face { font-family: "Silkscreen"; font-weight: 700; src: url(../fonts/silkscreen-latin-700-normal.woff2) format("woff2"); }
+@font-face { font-family: "Jersey 15"; font-weight: 400; src: url(../fonts/jersey-15-latin-400-normal.woff2) format("woff2"); }
+
+:root {
+  --bg: #0b0d0e; --panel: #131617; --inset: #1b1f21; --rule: #2b3033;
+  --text: #f3f1ea; --dim: #8e9597; --amber: #ffc21a; --alert: #ff6a5c;
+  --t0: #7a4fd8; --t1: #f08a24; --turf: #2f7a3a; --turf-dark: #17451f;
+  --display: "Barlow Condensed", "Arial Narrow", sans-serif;
+  --body: "Barlow", Arial, sans-serif;
+  --pixel: "Silkscreen", monospace;
+  --jersey: "Jersey 15", monospace;
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; }
+body { position: relative; overflow: hidden; background: var(--bg); color: var(--text);
+       font: 500 28px/1.35 var(--body); -webkit-font-smoothing: antialiased; }
+img { display: block; }
+.abs { position: absolute; }
+.px { image-rendering: pixelated; }
+
+/* Faint scoreboard grid behind a page. */
+.grid { position: absolute; inset: 0;
+        background-image: linear-gradient(var(--panel) 1px, transparent 1px), linear-gradient(90deg, var(--panel) 1px, transparent 1px);
+        background-size: 50px 50px; }
+
+/* Wordmark: the lamp, then the name. */
+.wm { display: flex; align-items: center; gap: 0.36em; font: 800 44px/1 var(--display); letter-spacing: 0.06em; text-transform: uppercase; white-space: nowrap; }
+.wm i { display: block; width: 0.5em; height: 0.5em; background: var(--amber); }
+.wm b { font-weight: 800; color: var(--amber); }
+
+.eyebrow { font: 400 22px/1 var(--pixel); letter-spacing: 0.08em; text-transform: uppercase; color: var(--amber); }
+.h1 { margin: 0; font: 800 132px/0.9 var(--display); letter-spacing: 0.005em; text-transform: uppercase; }
+.h1 em { font-style: normal; color: var(--amber); }
+.lede { margin: 0; color: var(--dim); font: 500 30px/1.35 var(--body); }
+.lede b { color: var(--text); font-weight: 600; }
+
+.chips { display: flex; gap: 12px; }
+.chip { border: 1px solid var(--rule); padding: 9px 14px 8px; font: 700 20px/1 var(--display); letter-spacing: 0.12em; text-transform: uppercase; color: var(--dim); white-space: nowrap; }
+.chip.on { border-color: var(--amber); color: var(--amber); }
+.chip.solid { background: var(--amber); border-color: var(--amber); color: #111; }
+
+/* A screenshot of the app, framed as a flat slab with a hard block behind it. No blur. */
+.shot { position: absolute; background: #000; border: 2px solid #3a4145; box-shadow: 16px 16px 0 #000; }
+.shot .clip { width: 100%; height: 100%; overflow: hidden; }
+.shot img { width: 100%; }
+.shot.amber { box-shadow: 16px 16px 0 var(--amber); }
+.shot.t0 { box-shadow: 16px 16px 0 var(--t0); }
+.shot.t1 { box-shadow: 16px 16px 0 var(--t1); }
+.shot .tag { position: absolute; left: -2px; top: -30px; background: var(--amber); color: #111; font: 400 15px/1 var(--pixel); padding: 6px 8px 5px; letter-spacing: 0.06em; }
+
+.foot { position: absolute; left: 80px; right: 80px; bottom: 44px; display: flex; align-items: center; justify-content: space-between;
+        padding-top: 18px; border-top: 1px solid var(--rule); font: 700 18px/1 var(--display); letter-spacing: 0.14em; text-transform: uppercase; color: var(--dim); }
+.foot .wm { font-size: 22px; color: var(--text); }
+
+/* Callout rows: a number or word on the left, a line of text on the right. */
+.facts { display: grid; gap: 0; border-top: 1px solid var(--rule); }
+.fact { display: grid; grid-template-columns: 150px 1fr; align-items: baseline; gap: 20px; padding: 14px 0 13px; border-bottom: 1px solid var(--rule); }
+.fact b { font: 800 44px/1 var(--display); letter-spacing: 0.02em; color: var(--amber); text-transform: uppercase; }
+.fact span { color: var(--text); font: 500 24px/1.3 var(--body); }
+
+/* The masked score, as the app shows it while the score is hidden. */
+.mask { font: 400 1em/1 var(--jersey); letter-spacing: 0.04em; }
+
+/* Why this play: the same card the app draws, at poster size. */
+.why { background: var(--panel); border: 1px solid var(--rule); border-top: 3px solid var(--amber); padding: 22px 24px 20px; }
+.why h3 { margin: 0 0 6px; font: 700 20px/1 var(--display); letter-spacing: 0.14em; text-transform: uppercase; color: var(--amber); }
+.why p { margin: 0 0 16px; font: 500 22px/1.3 var(--body); color: var(--text); }
+.why ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 11px; }
+.why li { display: grid; grid-template-columns: 250px 1fr 64px; align-items: center; gap: 14px; font: 500 21px/1 var(--body); color: var(--dim); }
+.why li u { text-decoration: none; display: block; height: 14px; background: var(--inset); }
+.why li u i { display: block; height: 100%; background: var(--dim); }
+.why li s { text-decoration: none; text-align: right; font: 700 26px/1 var(--display); }
+.why li.on { color: var(--text); }
+.why li.on u i { background: var(--amber); }
+.why li em { font: 700 13px/1 var(--display); font-style: normal; letter-spacing: 0.12em; text-transform: uppercase; color: #111; background: var(--amber); padding: 3px 5px 2px; margin-left: 8px; }
+.why small { display: block; margin-top: 14px; color: var(--dim); font: 500 17px/1.3 var(--body); }
+
+/* Gallery pages: a text column on the left, app screenshots on the right. */
+.col { position: absolute; left: 80px; top: 76px; width: var(--tw, 600px); }
+.col .h1 { margin-top: 24px; font-size: var(--hs, 108px); }
+.col .lede { margin-top: 26px; }
+.col .facts { margin-top: 30px; }
+.phone { width: var(--pw, 300px); height: calc(var(--pw, 300px) * 2.164); }

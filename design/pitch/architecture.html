@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>Architecture, one page</title>
+<link rel="stylesheet" href="pitch.css">
+<style>
+body { width: 1920px; height: 1080px; }
+.head { left: 80px; top: 56px; }
+.head .h1 { font-size: 92px; margin-top: 14px; }
+.wm { right: 80px; top: 64px; font-size: 40px; }
+.sub { right: 80px; top: 122px; width: 620px; text-align: right; color: var(--dim); font: 500 22px/1.35 var(--body); }
+.lab { position: absolute; top: 226px; font: 400 17px/1 var(--pixel); letter-spacing: 0.08em; color: var(--dim); text-transform: uppercase; }
+.box { position: absolute; background: var(--panel); border: 1px solid var(--rule); border-top: 5px solid var(--c, var(--rule)); padding: 16px 20px 16px; }
+.box h3 { margin: 0; font: 800 32px/1 var(--display); letter-spacing: 0.06em; text-transform: uppercase; }
+.box .path { margin-top: 7px; font: 400 14px/1.2 var(--pixel); letter-spacing: 0.04em; color: var(--c, var(--dim)); }
+.box p { margin: 10px 0 0; font: 500 19px/1.32 var(--body); color: var(--dim); }
+.box p b { color: var(--text); font-weight: 600; }
+.in { margin-top: 12px; display: grid; gap: 8px; }
+.in div { background: var(--inset); border-left: 4px solid var(--c2, var(--amber)); padding: 9px 12px 8px; font: 500 18px/1.28 var(--body); color: var(--dim); }
+.in div b { display: block; font: 700 21px/1.1 var(--display); letter-spacing: 0.08em; text-transform: uppercase; color: var(--text); margin-bottom: 2px; }
+svg { position: absolute; left: 0; top: 0; }
+.note { position: absolute; font: 700 15px/1.15 var(--display); letter-spacing: 0.1em; text-transform: uppercase; color: var(--amber); background: var(--bg); padding: 2px 6px; }
+.legend { left: 80px; top: 1026px; display: flex; gap: 34px; align-items: center; font: 700 16px/1 var(--display); letter-spacing: 0.12em; text-transform: uppercase; color: var(--dim); }
+.legend i { display: inline-block; width: 46px; border-top: 3px solid var(--amber); vertical-align: middle; margin-right: 10px; }
+.legend i.dash { border-top-style: dashed; border-top-color: var(--dim); }
+</style></head>
+<body>
+<div class="grid"></div>
+<div class="abs head"><div class="eyebrow">Architecture, one page</div><h1 class="h1">How it is <em>built.</em></h1></div>
+<div class="abs wm"><i></i>Fantasy <b>Recap</b></div>
+<p class="abs sub">Plain browser code. No framework, no build step. A rules engine referees every play.</p>
+
+<div class="lab" style="left:80px">1 Data in</div>
+<div class="lab" style="left:470px">2 Research and build</div>
+<div class="lab" style="left:1060px">3 The game file</div>
+<div class="lab" style="left:1390px">4 The app, in the browser</div>
+
+<!-- 1 data in -->
+<div class="box" style="left:80px;top:256px;width:330px;height:196px;--c:var(--dim)">
+  <h3>Public data</h3>
+  <p><b>Sleeper</b> season numbers and recent form. <b>ESPN</b> play by play: 3,177 real plays of the 28 roster players.</p>
+</div>
+<div class="box" style="left:80px;top:490px;width:330px;height:236px;--c:var(--dim)">
+  <h3>Stat lines</h3>
+  <div class="path">data/statlines/</div>
+  <p>One fantasy week for two rosters. The main game uses <b>invented</b> lines. Two week 9 games use real plays.</p>
+</div>
+
+<!-- 2 research and build -->
+<div class="box" style="left:470px;top:256px;width:530px;height:196px;--c:var(--t0)">
+  <h3>Scout, the research agent</h3>
+  <div class="path">agents/scout/ &nbsp; LangChain deepagents</div>
+  <p>A main agent plans and hands work to a <b>stats researcher</b>, a <b>film room</b> and a <b>fact checker</b>. Out: player profiles and 28 scouting reports.</p>
+</div>
+<div class="box" style="left:470px;top:490px;width:530px;height:364px;--c:var(--amber)">
+  <h3>The game maker</h3>
+  <div class="path">engine/make-game.js</div>
+  <div class="in">
+    <div><b>Play caller: Jev</b>Picks each play from the legal options and returns the odds it chose from.</div>
+    <div style="--c2:var(--text)"><b>Rules engine</b>Downs, distance, score and fantasy points. It referees every play.</div>
+    <div style="--c2:var(--dim)"><b>The check</b>Replays the finished game and compares every number with the stat lines.</div>
+  </div>
+</div>
+
+<!-- 3 game file -->
+<div class="box" style="left:1060px;top:490px;width:270px;height:364px;--c:var(--amber)">
+  <h3>Game file</h3>
+  <div class="path">data/games/&lt;id&gt;.json</div>
+  <p><b>Teams</b> and rosters.</p>
+  <p><b>Plays</b>, one event each.</p>
+  <p><b>Odds</b> on every play the play caller chose.</p>
+  <p><b>Report</b>: how it was made.</p>
+</div>
+
+<!-- 4 the app -->
+<div class="box" style="left:1390px;top:256px;width:450px;height:598px;--c:var(--t1)">
+  <h3>The app</h3>
+  <div class="path">index.html, js/, soccer/ &nbsp; plain JavaScript</div>
+  <div class="in">
+    <div><b>Opt in, scores sealed</b>Points and stat lines stay hidden until the final.</div>
+    <div><b>The 8-bit game</b>Football and soccer, drawn on a canvas from the game file.</div>
+    <div style="--c2:var(--t0)"><b>The broadcast</b>Announcer lines from templates, ElevenLabs recordings, crowd, captions.</div>
+    <div style="--c2:var(--text)"><b>Recap and film room</b>Who won, top performers, every drive, the play caller's odds.</div>
+  </div>
+</div>
+
+<!-- service and database -->
+<div class="box" style="left:470px;top:892px;width:1370px;height:104px;--c:var(--text);display:grid;grid-template-columns:330px 1fr 1fr;gap:24px;align-items:start">
+  <div><h3>Service and database</h3><div class="path">server/, db/</div></div>
+  <p style="margin:0"><b>Node service.</b> Pushes a game as rows, keeps opt-ins, answers momentum, trends and top plays.</p>
+  <p style="margin:0"><b>Tiger Data</b> (PostgreSQL with TimescaleDB). Every play is a row in a hypertable, with continuous aggregates over it.</p>
+</div>
+<div class="box" style="left:80px;top:770px;width:330px;height:226px;--c:var(--rule)">
+  <h3>Who built it</h3>
+  <p>Four people. Each directs AI coding agents on one lane, through a written contract and a shared board.</p>
+</div>
+
+<svg width="1920" height="1080" viewBox="0 0 1920 1080" fill="none">
+  <defs>
+    <marker id="a" markerWidth="12" markerHeight="12" refX="9" refY="6" orient="auto"><path d="M1 1L10 6L1 11" stroke="#ffc21a" stroke-width="2.5" fill="none"/></marker>
+    <marker id="d" markerWidth="12" markerHeight="12" refX="9" refY="6" orient="auto"><path d="M1 1L10 6L1 11" stroke="#8e9597" stroke-width="2.5" fill="none"/></marker>
+  </defs>
+  <g stroke="#ffc21a" stroke-width="3" marker-end="url(#a)">
+    <path d="M410 354H464"/>
+    <path d="M410 610H464"/>
+    <path d="M1000 664H1054"/>
+    <path d="M1330 664H1384"/>
+    <path d="M1000 330H1384"/>
+    <path d="M1195 854V886"/>
+  </g>
+  <path d="M1615 854V886" stroke="#8e9597" stroke-width="3" stroke-dasharray="8 7" marker-end="url(#d)"/>
+</svg>
+<div class="note" style="left:1100px;top:318px">Profiles feed the announcer</div>
+<div class="note" style="left:1210px;top:861px">Push the game</div>
+<div class="note" style="left:1630px;top:861px;color:var(--dim)">Opt-in, when a service is set</div>
+
+<div class="abs legend"><span><i></i>Runs in the demo</span><span><i class="dash"></i>Only when the page is opened with a service address</span></div>
+</body></html>

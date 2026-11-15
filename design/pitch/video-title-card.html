@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>Title card for the demo video</title>
+<link rel="stylesheet" href="pitch.css">
+<style>
+body { width: 1920px; height: 1080px; }
+.lamp { left: 110px; top: 96px; display: flex; align-items: center; gap: 18px; }
+.lamp i { width: 34px; height: 34px; background: var(--amber); display: block; }
+.lamp .eyebrow { font-size: 28px; }
+.name { left: 104px; top: 170px; font: 800 340px/0.84 var(--display); letter-spacing: -0.005em; text-transform: uppercase; }
+.name em { font-style: normal; color: var(--amber); display: block; }
+.hook { left: 110px; top: 800px; font: 800 86px/1 var(--display); letter-spacing: 0.01em; text-transform: uppercase; }
+.hook span { color: var(--amber); }
+.sub { left: 110px; top: 912px; width: 1100px; font-size: 34px; }
+.keeper { left: 1250px; top: 96px; width: 560px; background: var(--panel); border: 1px solid var(--rule); border-top: 8px solid var(--amber); }
+.keeper .face { padding: 44px 50px 30px; }
+.keeper .face img { width: 460px; }
+.keeper .cap { display: flex; justify-content: space-between; padding: 17px 22px 16px; border-top: 1px solid var(--rule); font: 700 24px/1 var(--display); letter-spacing: 0.14em; text-transform: uppercase; color: var(--dim); }
+.keeper .cap b { color: var(--text); font-weight: 700; }
+.sides { left: 1250px; top: 676px; width: 560px; display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.win { background: var(--inset); border-top: 6px solid var(--c); padding: 16px 20px 14px; }
+.win .who { font: 700 26px/1 var(--display); letter-spacing: 0.06em; text-transform: uppercase; }
+.win .mask { display: block; margin-top: 10px; font-size: 142px; line-height: 0.8; }
+.win .unit { margin-top: 14px; font: 700 16px/1 var(--display); letter-spacing: 0.14em; color: var(--dim); text-transform: uppercase; }
+.chips { left: 1250px; top: 940px; }
+.chip { font-size: 24px; padding: 11px 16px 10px; }
+</style></head>
+<body>
+<div class="grid"></div>
+<div class="abs lamp"><i></i><span class="eyebrow">HackPrinceton Fall 2026</span></div>
+<div class="abs name">Fantasy<em>Recap</em></div>
+<div class="abs hook">Don't check the score. <span>Watch it.</span></div>
+<p class="abs lede sub">A fantasy football and soccer recap you watch.</p>
+<div class="abs keeper">
+  <div class="face"><img class="px" src="../assets/mascot/tusk-sealed.svg" alt=""></div>
+  <div class="cap"><b>Tusk, the scorekeeper</b><span>Sealed</span></div>
+</div>
+<div class="abs sides">
+  <div class="win" style="--c:var(--t0)"><div class="who">Goblins</div><span class="mask">--.-</span><div class="unit">Fantasy pts</div></div>
+  <div class="win" style="--c:var(--t1)"><div class="who">Pythons</div><span class="mask">--.-</span><div class="unit">Fantasy pts</div></div>
+</div>
+<div class="abs chips"><span class="chip solid">Football</span><span class="chip solid">Soccer</span><span class="chip">Demo</span></div>
+</body></html>
