@@ -235,3 +235,11 @@ Add a route that returns the newest sourced scouting report per player from `age
 ## Task D46: the second football game
 
 Boss task A5 is moved to you. For this task you may edit `engine/make-game.js` and add files under `data/games/`. Make the game maker read a stat lines file and team files (`--lines data/statlines/week11-tur-owl.json --teams data/rosters/TUR.json,data/rosters/OWL.json`, your own shape) besides `--from-sample`, and tag highlights in `e.tags` (touchdowns, turnovers, gains of 20 or more). Build Turtles against Owls with `--no-jev` (Juan rebuilds it with Jev on the laptop later) as `data/games/week11-tur-owl.json`; it must replay to the exact stat lines and pass `node tools/validate.js`. Do not change `data/games/current.js` or `index.html`; NOTE peyton when the file exists so the league home can open it.
+
+## Task D47: honesty pass three
+
+A lot changed tonight. Read `README.md` and every file in `pitch/` against main as it is now and fix what is no longer true in the files you may edit (`pitch/`); send the boss exact sentences for `README.md`. Check at least: the football stadium (now built from the soccer stadium code), the announcer (one style, no Spanish voice, ElevenLabs recordings for every line), Why this play (removed), Scout (reports written with Scout's tools by hand, no model run yet), the service routes (momentum, trend, scout) and what the app actually reads from the service.
+
+## Task D48: Scout with whichever key is present
+
+Make Scout run with `GOOGLE_API_KEY` (Gemini, which also fits the Gemini prize track) or `ANTHROPIC_API_KEY`, whichever is set, chosen in one place, with the model name printed in the run log. Offline tests for both paths with fake clients. Write the one command Juan runs in `agents/scout/README.md`. No key in any file.

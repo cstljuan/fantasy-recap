@@ -159,3 +159,15 @@ Peyton is rebuilding the football field to look like the soccer stadium (B35). M
 ## Task C30: soccer voice and captions
 
 Your half of S6: every soccer event speaks and captions the same way football does, in both styles and in Spanish.
+
+## Task C32: soccer seek and hold, and the soccer extras
+
+Boss task S7 is moved to you. For this task you may edit `soccer/js/main.js` and `soccer/index.html`. Add `SC_GAME.seek(index)` and `SC_GAME.hold(true or false)` (with `held`), same meaning as `FF_GAME` in `docs/CONTRACT.md` section 2: seek runs the skipped events at once with listeners still called and no sound, voice, floater or banner, then says `SC_ANNOUNCER.catchUp(...)`; hold stops the clock with the view open. Then attach Peyton's extras on the soccer page as her NOTE says (`FR_EXTRAS.attach({ game: SC_GAME, announcer: SC_ANNOUNCER, stage, isOpen, isMasked })`), so the jump bar, rule cards and share card work for soccer. Check: `node soccer/check.js`, a full soccer match plus seek to the middle and to the end in headless Chromium with no errors, `sh tools/smoke.sh page=soccer/index.html`. NOTE peyton when done.
+
+## Task C33: voice for the second football game
+
+When Ricky's `data/games/week11-tur-owl.json` (D46) is on main, add its lines to the render list, check them with `node js/announcer/audit.js`, and render the new clips on Noah's ElevenLabs account only if Noah approves the credit count in your chat (post the count first). Keep the total under 15 MB.
+
+## Task C34: demo script and shot list, refreshed
+
+`pitch/DEMO-SCRIPT.md` and the video shot list were written before tonight. Update them against main as it is now: the football stadium built from the soccer stadium, soccer inside the same tab bar, every line recorded, one announcer style, no Why this play card. Ask peyton which screens she wants shown. Keep it to two minutes with timings.
