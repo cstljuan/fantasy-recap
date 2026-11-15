@@ -48,6 +48,24 @@
       (function loop() { if (stopped || test() || Date.now() > end) res(); else timers.push(setTimeout(loop, 100)); })();
     });
   }
+  // The moments the demo shows come from the game being played, not fixed play numbers, so it works
+  // for any game file: the first touchdown, the last plays before the final, and the first play the
+  // play caller chose (a real-plays game has none; then the film room's momentum chart is shown).
+  // Play numbers count plays only, from 1, the same as FF_GAME.seek.
+  var moments = (function () {
+    var out = { firstTd: 0, plays: G.plays || 0 }, R = window.FF_RULES, D = window.FF_DATA;
+    try {
+      var st = R.create(D.TEAMS), n = 0;
+      R.flatten(D.SAMPLE_GAME, D.TEAMS).forEach(function (s) {
+        if (s.kind === 'half') { R.startHalf(st); return; }
+        if (s.kind !== 'play') return;
+        n += 1;
+        var r = R.apply(st, s.e, s.team);
+        if (r && r.td && !out.firstTd) out.firstTd = n;
+      });
+    } catch (err) { /* fixed fallbacks below */ }
+    return out;
+  })();
   var steps = [];
   function step(name) { steps.push({ name: name, at: Math.round((Date.now() - t0) / 100) / 10 }); }
 
@@ -63,17 +81,18 @@
     // 0:27 Lineups, every point hidden.
     await at(27); if (stopped) return;
     go('lineups'); step('lineups');
-    // 0:33 The game at 2x from Allen to Chase, through the touchdown pass to Chase.
+    // 0:33 The game at 2x, a few plays before the first touchdown, through the touchdown.
     await at(33); if (stopped) return;
     go('matchup');
     await until(function () { return A.tab === 'matchup'; }, 2);
     press('#s-matchup [data-act=watch]');
     await until(function () { return A.inGame; }, 3);
     setSpeed(2);
-    if (G.seek) G.seek(13);
-    step('game, play 13 at 2x');
-    await until(function () { return A.model.done >= 14; }, 18);
-    step('touchdown');
+    var td = moments.firstTd || 14, from = Math.max(1, td - 2);
+    if (G.seek) G.seek(from);
+    step('game, play ' + from + ' at 2x');
+    await until(function () { return A.model.done >= td; }, 18);
+    step(moments.firstTd ? 'touchdown' : 'big play');
     // 0:52 Show the speed and announcer controls, then close: the game waits.
     await at(52); if (stopped) return;
     tapField(); step('controls');
@@ -84,18 +103,26 @@
     press('#s-matchup [data-act=watch]');
     await until(function () { return A.inGame; }, 3);
     setSpeed(4);
-    if (G.seek) G.seek(82);
-    step('game, play 82 at 4x');
+    var near = Math.max(1, (moments.plays || G.plays || 86) - 3);
+    if (G.seek) G.seek(near);
+    step('game, play ' + near + ' at 4x');
     await until(function () { return G.mode === 'final'; }, 14);
     await at(Math.max(67, (Date.now() - t0) / 1000 + 2)); if (stopped) return;
     tapField(); step('recap');
-    // 1:15 How it works: the plays, with the play caller's odds on the Pythons' first play.
+    // 1:15 How it works: the play caller's odds on the first play it chose, or, in a game of real
+    // plays (no choices made), the momentum chart in the film room.
     await at(75); if (stopped) return;
     go('plays');
-    await until(function () { return !!el('#s-plays .why[data-n="2"]'); }, 2);
-    var card = el('#s-plays .why[data-n="2"]');
-    if (card) { card.open = true; card.scrollIntoView({ block: 'center' }); }
-    step('why card');
+    await until(function () { return !!el('#s-plays .why'); }, 2);
+    var cards = document.querySelectorAll('#s-plays .why'), card = cards.length ? cards[cards.length - 1] : null;   // the feed is newest first
+    if (card) { card.open = true; card.scrollIntoView({ block: 'center' }); step('why card'); }
+    else {
+      go('film');
+      await until(function () { return !!el('#s-film .momentum .mom-chart'); }, 4);
+      var mom = el('#s-film .momentum');
+      if (mom) mom.scrollIntoView({ block: 'center' });
+      step('film room momentum');
+    }
     // 1:40 What is next: back to the League screen.
     await at(100); if (stopped) return;
     window.scrollTo(0, 0);
