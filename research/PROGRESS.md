@@ -20,7 +20,7 @@ Resume from this list after any pause. One unit at a time, each pushed to `cstlj
 ## 3. Notes (26 missing)
 
 GOB: [x] QB [x] RB [x] WR1 [x] WR2 [x] WR3 [x] TE [x] K
-PYT: [x] QB [x] RB [x] WR1 [x] WR2 [ ] WR3 [ ] TE [ ] K
+PYT: [x] QB [x] RB [x] WR1 [x] WR2 [x] WR3 [ ] TE [ ] K
 TUR: [ ] QB [ ] RB [ ] WR1 [ ] WR2 [ ] WR3 [ ] TE [ ] K
 OWL: [x] QB [ ] RB [ ] WR1 [ ] WR2 [ ] WR3 [ ] TE [ ] K
 

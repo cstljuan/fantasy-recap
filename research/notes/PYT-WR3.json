@@ -1,0 +1,232 @@
+{
+ "key": "PYT-WR3",
+ "name": "Nico Collins",
+ "researched": "2026-11-15",
+ "background": [
+  {
+   "fact": "Born March 19, 1999; born and raised in Pinson, Alabama, the youngest of three children. He went to Clay-Chalkville High School, whose football team won the 2014 Class 6A state championship.",
+   "source": "https://en.wikipedia.org/wiki/Nico_Collins",
+   "date": null,
+   "confidence": "from Wikipedia (stored sections in research/data/PYT-WR3.json)"
+  },
+  {
+   "fact": "In high school he caught 60 passes for 1,103 yards and 16 touchdowns as a junior and 43 for 865 and 9 touchdowns as a senior; he committed to Michigan in February 2017 over Georgia and Alabama.",
+   "source": "https://en.wikipedia.org/wiki/Nico_Collins",
+   "date": null,
+   "confidence": "from Wikipedia"
+  },
+  {
+   "fact": "At Michigan he had a breakout 2018 (38 catches, 632 yards, 6 touchdowns, Most Improved Offensive Player) and a career-best 165 yards and three touchdowns against Indiana on November 23, 2019.",
+   "source": "https://en.wikipedia.org/wiki/Nico_Collins",
+   "date": null,
+   "confidence": "from Wikipedia"
+  },
+  {
+   "fact": "Houston took him in the third round (pick 89) of the 2021 draft. Listed at 6 ft 4 in, 222 lb, age 27, in his sixth NFL season, jersey 12.",
+   "source": "research/data/PYT-WR3.json (bio)",
+   "date": "2026-11-15",
+   "confidence": "from the data file"
+  },
+  {
+   "fact": "Career regular season: 72 games, 317 catches, 4,731 yards, 28 touchdowns. Best years were 2023 (1,297 yards, 8 touchdowns) and 2025 (1,117 yards, 6 touchdowns on 120 targets).",
+   "source": "research/data/PYT-WR3.json (career)",
+   "date": "2026-11-15",
+   "confidence": "from the data file"
+  }
+ ],
+ "family": [
+  {
+   "fact": "His father, Don Collins, a Michigan native, worked as a surgical tech and his mother worked in human resources; his paternal grandparents live near Buffalo, New York.",
+   "source": "https://en.wikipedia.org/wiki/Nico_Collins",
+   "date": null,
+   "confidence": "from Wikipedia"
+  },
+  {
+   "fact": "Nothing about a spouse, partner or children was found in the reachable sources: not found.",
+   "source": "not found",
+   "date": null,
+   "confidence": "not found"
+  }
+ ],
+ "recent_events": [
+  {
+   "fact": "In Week 9 at the Chargers on November 8, Houston won 44-22 (Stroud 21 of 35, 384 yards, 5 touchdowns, 1 interception). Collins caught all 4 targets for 55 yards and a one-handed 13-yard touchdown, his first touchdown since Week 4; it made the score 31-9.",
+   "source": "https://clutchpoints.com/nfl/houston-texans/texans-news-watch-nico-collins-pull-off-unthinkable-1-handed-td-catch-chargers",
+   "date": "date not shown (game played 2026-11-08)",
+   "confidence": "confirmed by two sources (also the game log in research/data/PYT-WR3.json: 4 for 55, 1 touchdown, 11.5 points)"
+  },
+  {
+   "fact": "His 4 targets were about a 12 percent share, behind Tank Dell, Xavier Hutchinson and Kayshon Boutte; Boutte had 4 catches, 125 yards and 2 touchdowns in the same game.",
+   "source": "https://www.thefantasyfootballers.com/news/646733/nico-collins-first-td-since-week-4-on-sunday/",
+   "date": "date not shown",
+   "confidence": "one source (search summary, page not opened)"
+  },
+  {
+   "fact": "He has played 6 of 8 Houston games in 2026: 39 targets, 28 catches, 384 yards, 4 touchdowns, 10.6 fantasy points a game under league scoring. His best game was Week 4 against Dallas (7 for 118, 2 touchdowns, 23.8); his worst was Week 7 against the Giants (2 for 6, 0.6).",
+   "source": "research/data/PYT-WR3.json (season_2026, log)",
+   "date": "2026-11-15",
+   "confidence": "from the data file"
+  },
+  {
+   "fact": "Houston is 4-5 after the Week 9 win (3-5 before it) and averages 26.1 points scored and 24.0 allowed per game over its first 8 games.",
+   "source": "research/data/PYT-WR3.json (season_2026.team) and the Week 9 result above",
+   "date": "2026-11-15",
+   "confidence": "from the data file plus one article"
+  },
+  {
+   "fact": "Headlines from the days before the game include 'Nico Collins' Shrinking Target Share Makes Him a Risky Start Against Cleveland' (TWSN, Nov 13), 'Nico Collins' slide' (The New York Times, Nov 12) and 'Sell Nico Collins' (4for4, Nov 11); the articles were not opened.",
+   "source": "research/data/PYT-WR3.json (news.recent)",
+   "date": "2026-11-13",
+   "confidence": "headlines only"
+  },
+  {
+   "fact": "A Yahoo Sports headline dated Nov 4 reads 'Texans Insider Gets Honest About Potential Nico Collins Trade'; its text was not found. No trade has been reported as done.",
+   "source": "research/data/PYT-WR3.json (news.recent)",
+   "date": "2026-11-04",
+   "confidence": "headline only"
+  },
+  {
+   "fact": "In April 2026 reports said teams had called Houston about Collins; GM Nick Caserio then said 'We're not trading Nico Collins'. In May 2026 Houston reworked his contract, with a fully guaranteed 2027 season and about $17 million more in cash across this year and next.",
+   "source": "https://www.click2houston.com/sports/2026/05/26/texans-boost-nico-collins-deal-with-fully-guaranteed-2027-17-million-in-cash-increases-this-year-and-next/",
+   "date": "2026-05-26",
+   "confidence": "confirmed by two sources (also https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/texans-gm-nick-caserio-were-not-trading-nico-collins, date not shown)"
+  }
+ ],
+ "quotes": [
+  {
+   "fact": "A Sports Illustrated headline (Nov 13) says Collins spoke about facing Browns cornerback Denzel Ward, but the text was not reachable: not found.",
+   "source": "research/data/PYT-WR3.json (news.recent)",
+   "date": "2026-11-13",
+   "confidence": "headline only, quote not found"
+  }
+ ],
+ "team_context": [
+  {
+   "fact": "Quarterback C.J. Stroud has thrown to him all season (39 of 39 targets in the play-by-play). Top Houston targets in 2026: Dalton Schultz 47, Xavier Hutchinson 45, Collins 39 in 6 games, Kayshon Boutte 28, Jaylin Noel 23.",
+   "source": "research/data/PYT-WR3.json (teammates_2026, plays_2026)",
+   "date": "2026-11-15",
+   "confidence": "from the data file"
+  },
+  {
+   "fact": "Collins' tracked share of intended air yards fell from 34.2 percent in 2025 to 18.7 percent in 2026, his catch rate rose from 59.2 to 71.8 percent, and his average separation was 2.05 yards.",
+   "source": "research/data/PYT-WR3.json (season_2026.tracking)",
+   "date": "2026-11-15",
+   "confidence": "from the data file"
+  },
+  {
+   "fact": "His snap share has stayed between 67 and 73 percent in every 2026 game, with 5 red-zone targets and 4 touchdowns in 6 games.",
+   "source": "research/data/PYT-WR3.json (log, season_2026)",
+   "date": "2026-11-15",
+   "confidence": "from the data file"
+  },
+  {
+   "fact": "Boutte's role grew while Collins was out with the hamstring injury; Boutte's 37 snaps led Houston receivers in a game Collins missed.",
+   "source": "https://www.draftsharks.com/fantasy-football-news/84119/nico-collins-target-share-remains-a-storyline",
+   "date": "date not shown",
+   "confidence": "one source (search summary)"
+  },
+  {
+   "fact": "Houston's offense ranks eighth in DVOA and fifth through the air, and it has turned the ball over on a league-low share of possessions.",
+   "source": "https://www.si.com/betting/texans-vs-browns-prediction-odds-spread-injuries-trends-for-nfl-week-10-2026",
+   "date": "2026-11-15",
+   "confidence": "one source (search summary)"
+  },
+  {
+   "fact": "Head coach and offensive coordinator names for 2026 were not confirmed from a current source: not found.",
+   "source": "not found",
+   "date": null,
+   "confidence": "not found"
+  }
+ ],
+ "next_opponent": [
+  {
+   "fact": "Houston plays at the Cleveland Browns on Sunday, November 15, 1 pm ET at Huntington Bank Field (outdoors, grass), on Fox. Data file forecast: showers, 46 F; wind not found.",
+   "source": "research/data/PYT-WR3.json (next_games)",
+   "date": "2026-11-15",
+   "confidence": "from the data file"
+  },
+  {
+   "fact": "Houston is a 4.5 point favorite with a total of 40.5, which implies about 22.5 points for Houston; one preview projects Houston 26-17 and another gives Houston about a 66 percent win chance.",
+   "source": "https://www.si.com/betting/texans-vs-browns-prediction-odds-spread-injuries-trends-for-nfl-week-10-2026",
+   "date": "2026-11-15",
+   "confidence": "line confirmed by the data file; model picks from one source"
+  },
+  {
+   "fact": "Cleveland is 5-4, scoring 17.9 and allowing 21.8 points a game. Against wide receivers it allows 18.3 fantasy points and 139 receiving yards a game, about even with the league average (ratio 0.99 for points, 1.01 for yards).",
+   "source": "research/data/league.json (team_2026, defense_2026)",
+   "date": "2026-11-15",
+   "confidence": "from the data file"
+  },
+  {
+   "fact": "Squawka's pick leans on Cleveland's red zone defense, which it calls the worst in the NFL. Cleveland cornerback Denzel Ward is the likely main matchup per the Sports Illustrated headline.",
+   "source": "https://www.squawka.com/en/?p=1517578",
+   "date": "date not shown",
+   "confidence": "one source for the red zone claim; Ward matchup from a headline only"
+  },
+  {
+   "fact": "Quarterback Deshaun Watson was reported set to make his Browns debut after a suspension; whether that means he starts this game was not confirmed, and the headline date is not shown.",
+   "source": "https://www.foxsports.com/articles/nfl/watson-set-to-make-browns-debut-at-texans-after-suspension",
+   "date": "date not shown",
+   "confidence": "headline only, may be an older article"
+  },
+  {
+   "fact": "Sources disagree on records (BetMGM has Houston 3-5 and Cleveland 5-4, another site has older numbers). The data file's 5-4 and 3-5 records are used here.",
+   "source": "https://sports.betmgm.com/en/blog/nfl/browns-vs-texans-prediction-odds-picks-week-10-2026-bm16/",
+   "date": "2026-11-15",
+   "confidence": "two sources disagree"
+  }
+ ],
+ "style": [
+  {
+   "fact": "A big outside receiver (6 ft 4 in) with a 4.43 forty at the combine; Madden's week 8 rating is 88 overall with 96 catching, 94 speed, 92 release, 88 spectacular catch and 87 catch in traffic.",
+   "source": "research/data/PYT-WR3.json (bio.combine, bio.madden)",
+   "date": "2026-11-15",
+   "confidence": "one source"
+  },
+  {
+   "fact": "In 2026, 25 of 39 targets were short (88 percent caught, 3 touchdowns) and 14 were deep (43 percent caught, 1 touchdown); targets to the middle were all caught (11 for 150 yards, 2 touchdowns) while targets to the left went 4 of 10 for 24 yards.",
+   "source": "research/data/PYT-WR3.json (plays_2026)",
+   "date": "2026-11-15",
+   "confidence": "from the data file"
+  },
+  {
+   "fact": "Described on Wikipedia as a Pro Bowler for the 2024 season (section title) and a 2023 breakout player; the section text was not stored in the data file.",
+   "source": "https://en.wikipedia.org/wiki/Nico_Collins",
+   "date": null,
+   "confidence": "section titles only, details not found"
+  }
+ ],
+ "availability": {
+  "status": "Active, no 2026 designation found for Week 10",
+  "detail": "The data file shows Sleeper status Active and no injury designation. His 2026 injury reports show a hamstring injury in Weeks 2 and 3 (out both games), a full practice in Week 4, then 'resting player' with limited practice in Weeks 5, 6 and 7. He played Weeks 4 to 7 and Week 9 and Houston had its bye in Week 8. No Week 10 injury report or official inactive list was found; search results for his Week 10 status were from 2024 and not usable.",
+  "expected_return": "Not applicable",
+  "source": "research/data/PYT-WR3.json (status, injury_reports)",
+  "date": "2026-11-15"
+ },
+ "outlook_next_game": {
+  "lean": "plays; moderate fantasy day, expected around 8 to 12 fantasy points",
+  "confidence": "low to medium",
+  "reasons": [
+    "He is listed active with a 67 to 73 percent snap share in every game since returning from the hamstring injury, so playing time is not the concern.",
+    "Volume is the concern: 4 to 5 targets in each of his last three games, and his share of intended air yards has dropped by almost half from 2025.",
+    "Houston is a 4.5 point road favorite with an implied total near 22.5, a low scoring environment, and Cleveland's pass defense against receivers is about average.",
+    "His upside comes from touchdowns (4 in 6 games, 5 red-zone targets) against a red zone defense one preview calls the NFL's worst."
+  ]
+ },
+ "scouts_read": "Collins appears healthy and should play a normal share of snaps, so the question is targets, not availability. He has seen only 4 to 5 targets in each of his last three games while Schultz, Hutchinson and Boutte split the rest, and his 2026 average is 10.6 points. Houston is a 4.5 point favorite in a game with a modest total near 40, and Cleveland is about average against receivers, so there is no big matchup boost. Touchdowns are what move his score, and a preview that calls Cleveland's red zone defense poor gives some upside there. I would project roughly 8 to 12 points, with a 20 point game possible if he scores twice and a single digit game likely if the targets stay low.",
+ "open_questions": [
+  "Official Week 10 injury report and Sunday inactive list (not found).",
+  "Wind and final weather at Cleveland (not found; data file shows showers and 46 F).",
+  "Whether Deshaun Watson starts for Cleveland and which Cleveland cornerback covers Collins (not confirmed).",
+  "Content of the Yahoo Sports trade article of Nov 4 and the Sports Illustrated Collins quote on Denzel Ward (headlines only).",
+  "Head coach and offensive coordinator for Houston in 2026, and any family or personal details (not found)."
+ ],
+ "searches": [
+  "Nico Collins Texans Browns Week 10 injury status hamstring target share (returned only 2024 articles)",
+  "Nico Collins one-handed touchdown Chargers Stroud Texans Week 9 recap",
+  "Texans insider Nico Collins trade potential Yahoo Sports November 2026 (found April and May 2026 items)",
+  "Texans at Browns Week 10 2026 preview Collins Denzel Ward",
+  "Nico Collins shrinking target share 2026 Texans Boutte Noel Schultz",
+  "Page fetches were not used; Wikipedia text came from the three sections stored in research/data/PYT-WR3.json"
+ ]
+}
