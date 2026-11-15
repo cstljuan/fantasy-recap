@@ -1,0 +1,243 @@
+{
+ "key": "PYT-RB",
+ "name": "Bijan Robinson",
+ "researched": "2026-11-15",
+ "background": [
+  {
+   "fact": "Born January 30, 2002 in Tucson, Arizona. He attended Salpointe Catholic High School, set a state record with 7,036 rushing yards and 114 touchdowns, and as a senior was the Arizona Gatorade Football Player of the Year (2,235 yards and 38 touchdowns on 126 carries).",
+   "source": "https://en.wikipedia.org/wiki/Bijan_Robinson",
+   "date": null,
+   "confidence": "from Wikipedia"
+  },
+  {
+   "fact": "A five-star recruit, he went to Texas, was Alamo Bowl MVP in 2020 (10 rushes for 183 yards and a touchdown), ran for 1,127 yards in 2021 and 1,580 yards with 18 touchdowns in 2022, when he was a unanimous All-American and won the Doak Walker Award.",
+   "source": "https://en.wikipedia.org/wiki/Bijan_Robinson",
+   "date": null,
+   "confidence": "from Wikipedia"
+  },
+  {
+   "fact": "Atlanta drafted him eighth overall in 2023 (round 1, pick 8). He is listed at 5 ft 11 in and 215 lb, age 24, in his fourth NFL season, jersey 7. Combine: 4.46 forty, 37 inch vertical, 124 inch broad jump.",
+   "source": "research/data/PYT-RB.json (bio)",
+   "date": "2026-11-15",
+   "confidence": "from the data file"
+  },
+  {
+   "fact": "Career regular season through Week 9 of 2026: 60 games, 974 carries for 4,790 yards and 30 touchdowns, 229 catches for 1,988 yards and 10 receiving touchdowns, 6 lost fumbles, 15.1 fantasy points a game under league scoring. Best season by points per game: 2025 at 17.05 (1,478 rushing yards).",
+   "source": "research/data/PYT-RB.json (career)",
+   "date": "2026-11-15",
+   "confidence": "from the data file"
+  },
+  {
+   "fact": "Contract details are empty in the data file. One search summary says he is under contract through the 2030 season; not confirmed by a second source.",
+   "source": "https://sports.yahoo.com/articles/falcons-hc-kevin-stefanski-1-192223354.html",
+   "date": "date not shown",
+   "confidence": "one source, weak"
+  }
+ ],
+ "family": [
+  {
+   "fact": "He is a Christian. His mother named him after the Iranian fashion designer Bijan, the Persian word for hero.",
+   "source": "https://en.wikipedia.org/wiki/Bijan_Robinson",
+   "date": null,
+   "confidence": "from Wikipedia"
+  },
+  {
+   "fact": "His great uncle is Paul Robinson, a former running back who played for the Cincinnati Bengals, Houston Oilers and Birmingham Americans.",
+   "source": "https://en.wikipedia.org/wiki/Bijan_Robinson",
+   "date": null,
+   "confidence": "from Wikipedia"
+  },
+  {
+   "fact": "Nothing about a spouse, partner or children was found in the sources reached: not found.",
+   "source": "not found",
+   "date": null,
+   "confidence": "not found"
+  }
+ ],
+ "recent_events": [
+  {
+   "fact": "In Week 9 in Madrid, Atlanta lost to Cincinnati 34-17 on Sunday, November 8. Robinson carried 19 times for 100 yards and a touchdown and caught 6 of 7 targets for 47 yards. It was his first 100-yard rushing game since Week 4 and his first touchdown since the New Orleans game.",
+   "source": "https://www.espn.com/nfl/recap/_/gameId/401873038",
+   "date": "2026-11-08",
+   "confidence": "confirmed by two sources (ESPN recap and the game log in research/data/PYT-RB.json)"
+  },
+  {
+   "fact": "The ESPN player note says backup Khalil Herbert had just three touches because Brian Robinson (hamstring) was out, leaving Bijan the whole workload. Brian Robinson has 53 carries for 211 yards in 6 games in 2026.",
+   "source": "research/data/PYT-RB.json (status.espn, teammates_2026)",
+   "date": "2026-11-08",
+   "confidence": "from the data file; a web search could not confirm the hamstring detail"
+  },
+  {
+   "fact": "ESPN reported on November 11 that the Giants called Atlanta about Robinson before the trade deadline. Coach Kevin Stefanski answered \"No\" when asked if he could ever be traded. No offer has been publicly reported.",
+   "source": "https://sports.yahoo.com/articles/falcons-hc-kevin-stefanski-1-192223354.html",
+   "date": "2026-11-11",
+   "confidence": "confirmed by many outlets on the call itself (ESPN, CBS Sports, NBC Sports headlines in the data file); the Stefanski quote from one source"
+  },
+  {
+   "fact": "His 2026 season: 9 games, 9 starts, 169 carries for 880 yards (5.2 a carry) and 5 rushing touchdowns, 40 targets, 31 catches for 250 yards and 1 receiving touchdown, no lost fumbles, 16.56 fantasy points a game. Headlines call him the NFL's leading rusher.",
+   "source": "research/data/PYT-RB.json (season_2026)",
+   "date": "2026-11-15",
+   "confidence": "from the data file; leading rusher also in a Fox News headline"
+  },
+  {
+   "fact": "His best 2026 game was Week 3 at Green Bay (29 carries, 194 yards, 2 touchdowns, 33.3 points); his lowest was Week 6 against Chicago (9 carries, 61 yards, 5.3 points) followed by Week 8 at Tampa Bay (7.6 points, 1 target, 0 catches).",
+   "source": "research/data/PYT-RB.json (log)",
+   "date": "2026-11-15",
+   "confidence": "from the data file"
+  },
+  {
+   "fact": "Before the Madrid game he said a win there could swing Atlanta's season, and he planned to meet soccer stars Vinicius Junior and Kylian Mbappe in Madrid.",
+   "source": "https://www.espn.com/nfl/story/_/id/50390044/bijan-robinson-says-win-madrid-wing-falcons-season",
+   "date": "2026-11-05",
+   "confidence": "headline from ESPN; Madrid meeting reported by Yahoo Sports and CBS News"
+  },
+  {
+   "fact": "He told the New York Post he is taking steps toward acting, including classes, and has appeared as himself on the Disney Channel show Bunk'd.",
+   "source": "https://sports.yahoo.com/articles/bijan-robinson-chases-acting-dreams-164017567.html",
+   "date": "2026-11-06",
+   "confidence": "from a search summary of the Yahoo piece, not read in full"
+  },
+  {
+   "fact": "ESPN left him out of its midseason awards, per a Yahoo Sports headline.",
+   "source": "https://sports.yahoo.com/articles/falcons-trade-deadline-moves-tell-124246524.html",
+   "date": "2026-11-13",
+   "confidence": "headline only, as listed in research/data/PYT-RB.json (news)"
+  }
+ ],
+ "quotes": [
+  {
+   "fact": "The only quote found is Stefanski's one word answer \"No\" on whether Robinson could be traded. No quote from Robinson about this week's game or his health was found: not found.",
+   "source": "https://sports.yahoo.com/articles/falcons-hc-kevin-stefanski-1-192223354.html",
+   "date": "2026-11-11",
+   "confidence": "one source"
+  }
+ ],
+ "team_context": [
+  {
+   "fact": "Atlanta is 3-6, scoring 20.9 points and allowing 24.8 a game. One search summary says 2-6, but the data file and the Week 9 results agree on 3-6.",
+   "source": "research/data/PYT-RB.json (season_2026.team)",
+   "date": "2026-11-15",
+   "confidence": "from the data file; other sources disagree"
+  },
+  {
+   "fact": "Michael Penix Jr. has thrown nearly all of Atlanta's passes since Week 3 (Cooper Rush started Weeks 1 and 2). Drake London leads targets with 67 (27.7 percent), Robinson has 40 (16.5 percent), Kyle Pitts 37, Jahan Dotson 32.",
+   "source": "research/data/PYT-RB.json (teammates_2026)",
+   "date": "2026-11-15",
+   "confidence": "from the data file"
+  },
+  {
+   "fact": "He holds 72.2 percent of Atlanta's carries in 2026 (169 of 234). His offensive snap share has been 77 to 82 percent in each game since Week 5, and the 2026 play-by-play shows 29 carries inside the 20 and 10 broken tackles.",
+   "source": "research/data/PYT-RB.json (log, teammates_2026, season_2026.sleeper_sums)",
+   "date": "2026-11-15",
+   "confidence": "from the data file"
+  },
+  {
+   "fact": "Tracking data for 2026: 22.5 percent of his carries came against eight or more defenders in the box, and he is 192.7 rushing yards over expected on 169 carries (1.18 a carry).",
+   "source": "research/data/PYT-RB.json (season_2026.tracking)",
+   "date": "2026-11-15",
+   "confidence": "from the data file"
+  },
+  {
+   "fact": "Splits in 2026: away games 22.7 points a game (4 games), home 11.6 (5 games); in wins 24.1 (3 games), in losses 12.8 (6 games).",
+   "source": "research/data/PYT-RB.json (splits_2026)",
+   "date": "2026-11-15",
+   "confidence": "from the data file, small samples"
+  },
+  {
+   "fact": "Head coach is Kevin Stefanski per a Yahoo Sports headline. Offensive coordinator not found.",
+   "source": "https://sports.yahoo.com/articles/falcons-hc-kevin-stefanski-1-192223354.html",
+   "date": "2026-11-11",
+   "confidence": "one source"
+  }
+ ],
+ "next_opponent": [
+  {
+   "fact": "Atlanta hosts Kansas City on Sunday, November 15, 1 pm ET, at Mercedes-Benz Stadium (indoor per ESPN, field turf), on CBS. Forecast listed as mostly sunny, 54 F, which does not matter if the roof is closed; roof status for the game not found.",
+   "source": "research/data/PYT-RB.json (next_games)",
+   "date": "2026-11-15",
+   "confidence": "from the data file"
+  },
+  {
+   "fact": "Lines: the data file has KC -3 with a total of 47.5, which implies about 22.25 points for Atlanta; other previews show Chiefs -3.5 and Chiefs -3.",
+   "source": "https://www.si.com/betting/chiefs-vs-falcons-prediction-odds-spread-injuries-trends-for-nfl-week-10-2026",
+   "date": "2026-11-15",
+   "confidence": "sources close, differ by half a point"
+  },
+  {
+   "fact": "Kansas City is 6-2 scoring 25.2 and allowing 17.9 a game. Against running backs it allows 73.25 rushing yards and 15.1 fantasy points a game, about 84 percent of the normal rushing yards, 88 percent of the normal points, but about 106 percent of normal receiving yards.",
+   "source": "research/data/league.json (defense_2026.KC.RB, team_2026.KC)",
+   "date": "2026-11-15",
+   "confidence": "from the data file"
+  },
+  {
+   "fact": "Kansas City is preparing for the NFL's leading rusher, per Arrowhead Pride and Yahoo Sports headlines. A Fox News headline says Seattle's Kenneth Walker III is out against Atlanta's Falcons; that headline appears to be about Walker's own team, not this game, and it is not relied on.",
+   "source": "https://www.arrowheadpride.com/kansas-city-chiefs-analysis/216159/chiefs-falcons-5-things-watch-week-10-matchup",
+   "date": "2026-11-13",
+   "confidence": "headline level only"
+  },
+  {
+   "fact": "He faced Kansas City once, in 2024 Week 3: 16 carries for 31 yards and a touchdown, 2 catches for 21 yards, 11.2 points, an Atlanta loss 22-17.",
+   "source": "research/data/PYT-RB.json (log)",
+   "date": "2024-09-22",
+   "confidence": "from the data file"
+  },
+  {
+   "fact": "Next two games after this one: Week 12 at Minnesota (dome) and Week 13 home against Detroit.",
+   "source": "research/data/PYT-RB.json (next_games)",
+   "date": "2026-11-15",
+   "confidence": "from the data file"
+  }
+ ],
+ "style": [
+  {
+   "fact": "Madden's week 8 rating is 94 overall with 97 juke move, 95 change of direction, 93 spin move, 93 carrying and 92 break tackle; catching is 71. Abilities: First One Free, Juke Box, Energizer, Backfield Mismatch.",
+   "source": "research/data/PYT-RB.json (bio.madden)",
+   "date": "2026-11-15",
+   "confidence": "one source"
+  },
+  {
+   "fact": "His 2026 receiving is almost all short: 39 of 40 targets short, 5.4 yards a target, 76 percent catch rate on those throws.",
+   "source": "research/data/PYT-RB.json (plays_2026)",
+   "date": "2026-11-15",
+   "confidence": "from the data file"
+  },
+  {
+   "fact": "In 2022 he began promoting a Texas-based gourmet dijon mustard brand, Bijan Mustardson.",
+   "source": "https://en.wikipedia.org/wiki/Bijan_Robinson",
+   "date": null,
+   "confidence": "from Wikipedia"
+  }
+ ],
+ "availability": {
+  "status": "Active, expected to play",
+  "detail": "No injury designation in the data file (Sleeper Active, no 2026 injury report rows; his last report entry was an illness in Week 16 of 2025). A DraftKings injury report updated November 14 lists no designation for him. One search result titled 'limited in practice' has no date and was not used. Backup is Khalil Herbert; Brian Robinson was out with a hamstring for the Madrid game and his status for this game was not found.",
+  "expected_return": "Not applicable",
+  "source": "https://dknetwork.draftkings.com/2026/11/10/nfl-injury-report-week-10/",
+  "date": "2026-11-14"
+ },
+ "outlook_next_game": {
+  "lean": "plays a full workload; expected around 14 to 19 fantasy points",
+  "confidence": "medium",
+  "reasons": [
+    "He is active with no listed injury and has had 77 to 82 percent of snaps in every game since Week 5, so volume is secure.",
+    "Atlanta is a 3 point home underdog with an implied total near 22, a script that is less run heavy than his away wins, and his home average is only 11.6 points.",
+    "Kansas City gives up about 84 percent of normal rushing yards to backs but more than normal receiving yards, so his catches may matter.",
+    "Risks: he scored a rushing touchdown in only 3 of 9 games (Weeks 3, 4 and 9), he can vanish as a receiver as at Tampa Bay, and a return of Brian Robinson could take carries."
+  ]
+ },
+ "scouts_read": "Bijan Robinson is healthy and has been the centre of Atlanta's offence, with 72 percent of the team's carries and about 80 percent of snaps. Kansas City is a 3 point road favourite and allows fewer rushing yards than normal to running backs, though it gives up more receiving yards. That points toward a game with plenty of touches but modest efficiency, and his home games this year have averaged only 11.6 points compared with 22.7 on the road. If Brian Robinson returns, a few carries could move away from him. I would project a mid range game of roughly 14 to 19 points, with a touchdown deciding whether it goes higher.",
+ "open_questions": [
+  "Official Sunday inactive list and whether Brian Robinson (hamstring) plays (not found).",
+  "Whether the stadium roof will be closed and final weather (not found).",
+  "Offensive coordinator and the contract terms (not found beyond one weak report).",
+  "Quotes from Robinson or Stefanski about the Kansas City game plan (not found).",
+  "Atlanta's record is 3-6 in the data file but one summary said 2-6."
+ ],
+ "searches": [
+  "Bijan Robinson Chiefs Falcons Week 10 injury report status",
+  "Giants called Falcons about Bijan Robinson trade deadline Falcons response",
+  "Chiefs vs Falcons Week 10 2026 preview Bijan Robinson rushing leader Kenneth Walker out",
+  "Bijan Robinson Madrid Bengals 34-17 loss 100 yards Brian Robinson hamstring Falcons",
+  "Bijan Robinson acting dreams Vinicius Junior Mbappe Madrid interview"
+ ]
+}
