@@ -251,3 +251,7 @@ Juan has about 15 minutes on the laptop, where `.env` holds `DATABASE_URL`. Writ
 ## Task D50: the app reads the service for real
 
 With `?api=<address>` the app reads the league and sends the opt-in. Prove the whole path in a browser: start the service on a local database, open the app with `?api=`, and check league, opt-in, momentum, trend and scout answers arrive. Put the test in `data/checks/` so `node data/checks/all.js` runs it when a database is set and skips it otherwise. NOTE peyton with each route's exact shape her screens need for B39.
+
+## Task D51: Devpost text, final draft
+
+Write `pitch/DEVPOST-FINAL.md`: the story, how it works, one honest paragraph per prize track we enter (Tiger Data: what runs on TimescaleDB; Gemini: Scout with a Gemini key if it ran; LangChain: Scout as a deepagents team), the what-is-real list, built with, and setup in three lines. Every claim true on main tonight; mark anything that depends on Juan's laptop run as "after the laptop run". Juan pastes it, so plain text that fits the Devpost fields.
