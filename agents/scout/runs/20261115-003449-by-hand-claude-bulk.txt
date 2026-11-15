@@ -1,0 +1,144 @@
+00:34:49 | research_plan(GOB.WR2) -> depth, direction, down, zone, week
+00:34:49 | split(GOB.WR2, depth) -> 2 rows
+00:34:49 | split(GOB.WR2, direction) -> 3 rows
+00:34:49 | split(GOB.WR2, down) -> 4 rows
+00:34:49 | split(GOB.WR2, zone) -> 4 rows
+00:34:49 | split(GOB.WR2, week) -> 7 rows
+00:34:49 | split(GOB.WR2, zone) -> 4 rows
+00:34:49 | research_plan(GOB.WR3) -> depth, direction, down, zone, week
+00:34:49 | split(GOB.WR3, depth) -> 2 rows
+00:34:49 | split(GOB.WR3, direction) -> 3 rows
+00:34:49 | split(GOB.WR3, down) -> 4 rows
+00:34:49 | split(GOB.WR3, zone) -> 4 rows
+00:34:49 | split(GOB.WR3, week) -> 8 rows
+00:34:49 | split(GOB.WR3, zone) -> 4 rows
+00:34:49 | research_plan(GOB.TE) -> depth, down, zone, week
+00:34:49 | split(GOB.TE, depth) -> 2 rows
+00:34:49 | split(GOB.TE, down) -> 4 rows
+00:34:49 | split(GOB.TE, zone) -> 4 rows
+00:34:49 | split(GOB.TE, week) -> 9 rows
+00:34:49 | split(GOB.TE, zone) -> 4 rows
+00:34:49 | player_plays(GOB.K, {"limit": 500}) -> 22 plays
+00:34:49 | research_plan(PYT.QB) -> depth, direction, down, zone, week
+00:34:49 | split(PYT.QB, depth) -> 2 rows
+00:34:49 | split(PYT.QB, direction) -> 3 rows
+00:34:49 | split(PYT.QB, down) -> 4 rows
+00:34:49 | split(PYT.QB, zone) -> 4 rows
+00:34:49 | split(PYT.QB, week) -> 5 rows
+00:34:49 | split(PYT.QB, zone) -> 4 rows
+00:34:49 | research_plan(PYT.RB) -> gap, down, zone, week
+00:34:49 | split(PYT.RB, gap) -> 7 rows
+00:34:49 | split(PYT.RB, down) -> 4 rows
+00:34:49 | split(PYT.RB, zone) -> 4 rows
+00:34:49 | split(PYT.RB, week) -> 9 rows
+00:34:49 | split(PYT.RB, zone) -> 4 rows
+00:34:49 | research_plan(PYT.WR1) -> depth, direction, down, zone, week
+00:34:49 | split(PYT.WR1, depth) -> 2 rows
+00:34:49 | split(PYT.WR1, direction) -> 3 rows
+00:34:49 | split(PYT.WR1, down) -> 4 rows
+00:34:49 | split(PYT.WR1, zone) -> 4 rows
+00:34:49 | split(PYT.WR1, week) -> 7 rows
+00:34:49 | split(PYT.WR1, zone) -> 4 rows
+00:34:49 | research_plan(PYT.WR2) -> depth, direction, down, zone, week
+00:34:49 | split(PYT.WR2, depth) -> 2 rows
+00:34:49 | split(PYT.WR2, direction) -> 3 rows
+00:34:49 | split(PYT.WR2, down) -> 3 rows
+00:34:49 | split(PYT.WR2, zone) -> 4 rows
+00:34:49 | split(PYT.WR2, week) -> 9 rows
+00:34:49 | split(PYT.WR2, zone) -> 4 rows
+00:34:49 | research_plan(PYT.WR3) -> depth, direction, down, zone, week
+00:34:49 | split(PYT.WR3, depth) -> 2 rows
+00:34:49 | split(PYT.WR3, direction) -> 3 rows
+00:34:49 | split(PYT.WR3, down) -> 3 rows
+00:34:49 | split(PYT.WR3, zone) -> 3 rows
+00:34:49 | split(PYT.WR3, week) -> 6 rows
+00:34:49 | split(PYT.WR3, zone) -> 3 rows
+00:34:49 | research_plan(PYT.TE) -> depth, down, zone, week
+00:34:49 | split(PYT.TE, depth) -> 2 rows
+00:34:49 | split(PYT.TE, down) -> 4 rows
+00:34:49 | split(PYT.TE, zone) -> 4 rows
+00:34:49 | split(PYT.TE, week) -> 8 rows
+00:34:49 | split(PYT.TE, zone) -> 4 rows
+00:34:49 | player_plays(PYT.K, {"limit": 500}) -> 19 plays
+00:34:49 | research_plan(TUR.QB) -> depth, direction, down, zone, week
+00:34:49 | split(TUR.QB, depth) -> 2 rows
+00:34:49 | split(TUR.QB, direction) -> 3 rows
+00:34:49 | split(TUR.QB, down) -> 4 rows
+00:34:49 | split(TUR.QB, zone) -> 4 rows
+00:34:49 | split(TUR.QB, week) -> 7 rows
+00:34:49 | split(TUR.QB, zone) -> 4 rows
+00:34:49 | research_plan(TUR.RB) -> gap, down, zone, week
+00:34:49 | split(TUR.RB, gap) -> 7 rows
+00:34:49 | split(TUR.RB, down) -> 4 rows
+00:34:49 | split(TUR.RB, zone) -> 4 rows
+00:34:49 | split(TUR.RB, week) -> 8 rows
+00:34:49 | split(TUR.RB, zone) -> 4 rows
+00:34:49 | research_plan(TUR.WR1) -> depth, direction, down, zone, week
+00:34:49 | split(TUR.WR1, depth) -> 2 rows
+00:34:49 | split(TUR.WR1, direction) -> 3 rows
+00:34:49 | split(TUR.WR1, down) -> 4 rows
+00:34:49 | split(TUR.WR1, zone) -> 4 rows
+00:34:49 | split(TUR.WR1, week) -> 9 rows
+00:34:49 | split(TUR.WR1, zone) -> 4 rows
+00:34:49 | research_plan(TUR.WR2) -> depth, direction, down, zone, week
+00:34:49 | split(TUR.WR2, depth) -> 2 rows
+00:34:49 | split(TUR.WR2, direction) -> 3 rows
+00:34:49 | split(TUR.WR2, down) -> 4 rows
+00:34:49 | split(TUR.WR2, zone) -> 4 rows
+00:34:49 | split(TUR.WR2, week) -> 8 rows
+00:34:49 | split(TUR.WR2, zone) -> 4 rows
+00:34:49 | research_plan(TUR.WR3) -> depth, direction, down, zone, week
+00:34:49 | split(TUR.WR3, depth) -> 2 rows
+00:34:49 | split(TUR.WR3, direction) -> 3 rows
+00:34:49 | split(TUR.WR3, down) -> 4 rows
+00:34:49 | split(TUR.WR3, zone) -> 3 rows
+00:34:49 | split(TUR.WR3, week) -> 9 rows
+00:34:49 | split(TUR.WR3, zone) -> 3 rows
+00:34:49 | research_plan(TUR.TE) -> depth, down, zone, week
+00:34:49 | split(TUR.TE, depth) -> 2 rows
+00:34:49 | split(TUR.TE, down) -> 4 rows
+00:34:49 | split(TUR.TE, zone) -> 4 rows
+00:34:49 | split(TUR.TE, week) -> 7 rows
+00:34:49 | split(TUR.TE, zone) -> 4 rows
+00:34:49 | player_plays(TUR.K, {"limit": 500}) -> 17 plays
+00:34:49 | research_plan(OWL.QB) -> depth, direction, down, zone, week
+00:34:49 | split(OWL.QB, depth) -> 2 rows
+00:34:49 | split(OWL.QB, direction) -> 3 rows
+00:34:49 | split(OWL.QB, down) -> 4 rows
+00:34:49 | split(OWL.QB, zone) -> 4 rows
+00:34:49 | split(OWL.QB, week) -> 8 rows
+00:34:49 | split(OWL.QB, zone) -> 4 rows
+00:34:49 | research_plan(OWL.RB) -> gap, down, zone, week
+00:34:49 | split(OWL.RB, gap) -> 7 rows
+00:34:49 | split(OWL.RB, down) -> 4 rows
+00:34:49 | split(OWL.RB, zone) -> 4 rows
+00:34:49 | split(OWL.RB, week) -> 9 rows
+00:34:49 | split(OWL.RB, zone) -> 4 rows
+00:34:49 | research_plan(OWL.WR1) -> depth, direction, down, zone, week
+00:34:49 | split(OWL.WR1, depth) -> 2 rows
+00:34:49 | split(OWL.WR1, direction) -> 3 rows
+00:34:49 | split(OWL.WR1, down) -> 3 rows
+00:34:49 | split(OWL.WR1, zone) -> 4 rows
+00:34:49 | split(OWL.WR1, week) -> 8 rows
+00:34:49 | split(OWL.WR1, zone) -> 4 rows
+00:34:49 | research_plan(OWL.WR2) -> depth, direction, down, zone, week
+00:34:49 | split(OWL.WR2, depth) -> 2 rows
+00:34:49 | split(OWL.WR2, direction) -> 3 rows
+00:34:49 | split(OWL.WR2, down) -> 4 rows
+00:34:49 | split(OWL.WR2, zone) -> 4 rows
+00:34:49 | split(OWL.WR2, week) -> 9 rows
+00:34:49 | split(OWL.WR2, zone) -> 4 rows
+00:34:49 | research_plan(OWL.WR3) -> depth, direction, down, zone, week
+00:34:49 | split(OWL.WR3, depth) -> 2 rows
+00:34:49 | split(OWL.WR3, direction) -> 3 rows
+00:34:49 | split(OWL.WR3, down) -> 3 rows
+00:34:49 | split(OWL.WR3, zone) -> 3 rows
+00:34:49 | split(OWL.WR3, week) -> 6 rows
+00:34:49 | split(OWL.WR3, zone) -> 3 rows
+00:34:49 | research_plan(OWL.TE) -> depth, down, zone, week
+00:34:49 | split(OWL.TE, depth) -> 2 rows
+00:34:49 | split(OWL.TE, down) -> 4 rows
+00:34:49 | split(OWL.TE, zone) -> 4 rows
+00:34:49 | split(OWL.TE, week) -> 9 rows
+00:34:49 | split(OWL.TE, zone) -> 4 rows
+00:34:49 | player_plays(OWL.K, {"limit": 500}) -> 19 plays
