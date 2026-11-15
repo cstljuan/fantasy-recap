@@ -286,7 +286,20 @@ Research note: not found
 
 ## Prediction
 
-projection pending
+| Item | Value |
+|---|---|
+| Week and opponent | week 10,  LAC |
+| Projected stat line | pass yd 0.1, pass td 0.0, rush yd 90.0, rush td 0.9, rec 1.2, rec yd 9.9, rec td 0.1, fum lost 0.1 |
+| Fantasy points, mean | 15.5 |
+| Fantasy points, 10th to 90th range | 3.2 to 29.6 |
+| Fantasy points, median | 13.4 |
+| Chance of a touchdown | 61% |
+| Chance of playing | 100% |
+| Method | model |
+| Reason | Week 10 vs LAC, implied 21.5 points; own recent form 11.7, weighted base 15.6, defense factor 1.05 (8 games), game factor 0.95. |
+
+How sure this is: in the backtest on 2026 weeks 1 to 9 the model missed by about 5.8 fantasy points on a typical player (all positions together; no per-position figure), and the 10th to 90th range held the real score 83% of the time.
+Treat the 10th to 90th range as the realistic spread, not a promise.
 
 ### Scout's read
 

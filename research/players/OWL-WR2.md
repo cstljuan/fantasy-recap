@@ -270,7 +270,20 @@ Research note: not found
 
 ## Prediction
 
-projection pending
+| Item | Value |
+|---|---|
+| Week and opponent | week 10,  LV |
+| Projected stat line | pass yd 0.9, rush yd 2.0, rec 7.0, rec yd 93.8, rec td 0.6, fum lost 0.0 |
+| Fantasy points, mean | 13.3 |
+| Fantasy points, 10th to 90th range | 1.9 to 25.0 |
+| Fantasy points, median | 12.9 |
+| Chance of a touchdown | 46% |
+| Chance of playing | 100% |
+| Method | model |
+| Reason | Week 10 at LV, implied 23.5 points; own recent form 17.9, weighted base 12.0, defense factor 1.12 (9 games), game factor 0.99. |
+
+How sure this is: in the backtest on 2026 weeks 1 to 9 the model missed by about 5.8 fantasy points on a typical player (all positions together; no per-position figure), and the 10th to 90th range held the real score 83% of the time.
+Treat the 10th to 90th range as the realistic spread, not a promise.
 
 ### Scout's read
 

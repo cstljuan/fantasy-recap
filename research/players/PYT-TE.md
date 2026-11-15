@@ -308,7 +308,20 @@ Status: Active, not on the injury report. The data file shows Sleeper status Act
 
 ## Prediction
 
-projection pending
+| Item | Value |
+|---|---|
+| Week and opponent | week 10,  DAL |
+| Projected stat line | rush yd -0.0, rec 5.2, rec yd 69.5, rec td 0.6, fum lost 0.0 |
+| Fantasy points, mean | 10.7 |
+| Fantasy points, 10th to 90th range | 1.4 to 20.5 |
+| Fantasy points, median | 10.6 |
+| Chance of a touchdown | 47% |
+| Chance of playing | 100% |
+| Method | model |
+| Reason | Week 10 at DAL, implied 29.5 points; own recent form 9.5, weighted base 9.8, defense factor 0.99 (9 games), game factor 1.11. |
+
+How sure this is: in the backtest on 2026 weeks 1 to 9 the model missed by about 5.8 fantasy points on a typical player (all positions together; no per-position figure), and the 10th to 90th range held the real score 83% of the time.
+Treat the 10th to 90th range as the realistic spread, not a promise.
 
 ### Scout's read
 

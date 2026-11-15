@@ -4,23 +4,31 @@
 
 | Slot | Player | NFL | Projected mean | 10th to 90th | TD chance | Chance of playing | Opponent |
 |---|---|---|---|---|---|---|---|
-| QB | Patrick Mahomes | KC | projection pending | projection pending | projection pending | projection pending | ATL |
-| RB | Derrick Henry | BAL | projection pending | projection pending | projection pending | projection pending | LAC |
-| WR1 | Tee Higgins | CIN | projection pending | projection pending | projection pending | projection pending | PIT |
-| WR2 | Jaxon Smith-Njigba | SEA | projection pending | projection pending | projection pending | projection pending | LV |
-| WR3 | Ladd McConkey | LAC | projection pending | projection pending | projection pending | projection pending | BAL |
-| TE | Tucker Kraft | GB | projection pending | projection pending | projection pending | projection pending | MIN |
-| K | Ka'imi Fairbairn | HOU | projection pending | projection pending | projection pending | projection pending | CLE |
+| QB | Patrick Mahomes | KC | 18.9 | 6.7 to 29.8 | 85% | 100% | ATL |
+| RB | Derrick Henry | BAL | 15.5 | 3.2 to 29.6 | 61% | 100% | LAC |
+| WR1 | Tee Higgins | CIN | 11.0 | 1.5 to 21.8 | 50% | 100% | PIT |
+| WR2 | Jaxon Smith-Njigba | SEA | 13.3 | 1.9 to 25.0 | 46% | 100% | LV |
+| WR3 | Ladd McConkey | LAC | 3.3 | 0.0 to 10.3 | 13% | 50% | BAL |
+| TE | Tucker Kraft | GB | 6.1 | 0.4 to 11.5 | 31% | 100% | MIN |
+| K | Ka'imi Fairbairn | HOU | 10.5 | 3.7 to 17.5 | 0% | 100% | CLE |
 
 ## Projected team total
 
-projection pending
+Projected total 78.7 fantasy points, approximate 10th to 90th range 54.0 to 105.1 (player ranges combined as if independent, so the real range may differ a little).
 
 ## How this team scores
 
-Shares by projected points: projection pending
+| Player | Slot | Projected mean | Share of team total |
+|---|---|---|---|
+| Patrick Mahomes | QB | 18.9 | 24% |
+| Derrick Henry | RB | 15.5 | 20% |
+| Jaxon Smith-Njigba | WR2 | 13.3 | 17% |
+| Tee Higgins | WR1 | 11.0 | 14% |
+| Ka'imi Fairbairn | K | 10.5 | 13% |
+| Tucker Kraft | TE | 6.1 | 8% |
+| Ladd McConkey | WR3 | 3.3 | 4% |
 
-Share of 2026 fantasy points so far: Jaxon Smith-Njigba 22%; Patrick Mahomes 20%; Derrick Henry 18%; Tee Higgins 15%; Ka'imi Fairbairn 13%; Tucker Kraft 8%; Ladd McConkey 5%
+The team leans on Patrick Mahomes (24%), Derrick Henry (20%), Jaxon Smith-Njigba (17%).
 
 ## Likely ways each player gets his points
 

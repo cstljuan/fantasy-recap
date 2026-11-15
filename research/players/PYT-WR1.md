@@ -323,7 +323,20 @@ Status: Active, not on the injury report. He is not on the Vikings' final Week 1
 
 ## Prediction
 
-projection pending
+| Item | Value |
+|---|---|
+| Week and opponent | week 10,  GB |
+| Projected stat line | pass yd 0.4, rush yd -0.1, rec 5.2, rec yd 71.9, rec td 0.4, fum lost 0.0 |
+| Fantasy points, mean | 9.4 |
+| Fantasy points, 10th to 90th range | 1.3 to 18.6 |
+| Fantasy points, median | 8.4 |
+| Chance of a touchdown | 31% |
+| Chance of playing | 100% |
+| Method | model |
+| Reason | Week 10 at GB, implied 20.0 points; own recent form 9.1, weighted base 10.1, defense factor 1.02 (9 games), game factor 0.91. |
+
+How sure this is: in the backtest on 2026 weeks 1 to 9 the model missed by about 5.8 fantasy points on a typical player (all positions together; no per-position figure), and the 10th to 90th range held the real score 83% of the time.
+Treat the 10th to 90th range as the realistic spread, not a promise.
 
 ### Scout's read
 

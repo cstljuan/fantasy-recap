@@ -354,7 +354,20 @@ Status: Active, expected to start. Right elbow strain from the Jets game; full p
 
 ## Prediction
 
-projection pending
+| Item | Value |
+|---|---|
+| Week and opponent | week 10,  ATL |
+| Projected stat line | pass yd 261.0, pass td 1.7, int 0.7, rush yd 21.6, rush td 0.2, rec 0.1, rec yd -0.1, fum lost 0.1 |
+| Fantasy points, mean | 18.9 |
+| Fantasy points, 10th to 90th range | 6.7 to 29.8 |
+| Fantasy points, median | 17.7 |
+| Chance of a touchdown | 85% |
+| Chance of playing | 100% |
+| Method | model |
+| Reason | Week 10 at ATL, implied 25.2 points; own recent form 17.7, weighted base 18.5, defense factor 0.99 (9 games), game factor 1.03. |
+
+How sure this is: in the backtest on 2026 weeks 1 to 9 the model missed by about 5.8 fantasy points on a typical player (all positions together; no per-position figure), and the 10th to 90th range held the real score 83% of the time.
+Treat the 10th to 90th range as the realistic spread, not a promise.
 
 ### Scout's read
 

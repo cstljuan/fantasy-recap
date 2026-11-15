@@ -2,23 +2,46 @@
 
 ## Expected score
 
-projection pending
+
+| Side | Sum of player means | Approx. 10th to 90th |
+|---|---|---|
+| GOB | 80.8 | 53.8 to 111.9 |
+| PYT | 61.7 | 40.7 to 84.5 |
+
+On player means alone, GOB is ahead by 19.0 points.
+
+## Win chance and margin
+
+In the simulation GOB wins 75% of the time.
+
+| Item | GOB | PYT |
+|---|---|---|
+| Win chance | 75.1% | 24.9% |
+| Tie chance | 0.0% |  |
+| Mean score | 81.0 | 61.7 |
+| Median score | 80.0 | 60.9 |
+| Margin, 10th to 90th range (margin is GOB minus PYT) | -17.3 to 55.7 |  |
+| Simulated draws | 20000 |  |
 
 ## Position battles
 
 | Slot | GOB | Mean | PYT | Mean | Edge |
 |---|---|---|---|---|---|
-| QB | Josh Allen (BUF) | projection pending | Lamar Jackson (BAL) | projection pending | 2026 points per game: 24.7 vs 15.8 |
-| RB | Saquon Barkley (PHI) | projection pending | Bijan Robinson (ATL) | projection pending | 2026 points per game: 7.4 vs 16.6 |
-| WR1 | Ja'Marr Chase (CIN) | projection pending | Justin Jefferson (MIN) | projection pending | 2026 points per game: 13.3 vs 8.9 |
-| WR2 | Puka Nacua (LA) | projection pending | Malik Nabers (NYG) | projection pending | 2026 points per game: 14.8 vs 8.8 |
-| WR3 | Amon-Ra St. Brown (DET) | projection pending | Nico Collins (HOU) | projection pending | 2026 points per game: 12.1 vs 10.6 |
-| TE | Trey McBride (ARI) | projection pending | George Kittle (SF) | projection pending | 2026 points per game: 10.0 vs 9.5 |
-| K | Brandon Aubrey (DAL) | projection pending | Harrison Butker (KC) | projection pending | 2026 points per game: 9.3 vs 8.2 |
+| QB | Josh Allen (BUF) | 27.8 | Lamar Jackson (BAL) | 0.0 | GOB by 27.8 |
+| RB | Saquon Barkley (PHI) | 10.7 | Bijan Robinson (ATL) | 14.2 | PYT by 3.6 |
+| WR1 | Ja'Marr Chase (CIN) | 12.8 | Justin Jefferson (MIN) | 9.4 | GOB by 3.4 |
+| WR2 | Puka Nacua (LA) | 0.0 | Malik Nabers (NYG) | 8.8 | PYT by 8.8 |
+| WR3 | Amon-Ra St. Brown (DET) | 11.3 | Nico Collins (HOU) | 10.1 | GOB by 1.2 |
+| TE | Trey McBride (ARI) | 6.4 | George Kittle (SF) | 10.7 | PYT by 4.3 |
+| K | Brandon Aubrey (DAL) | 11.8 | Harrison Butker (KC) | 8.6 | GOB by 3.2 |
 
 ## Who swings the result most (widest ranges)
 
-projection pending
+- Josh Allen (GOB, QB): range 10.3 to 47.8, width 37.5
+- Amon-Ra St. Brown (GOB, WR3): range 0.0 to 25.8, width 25.8
+- Bijan Robinson (PYT, RB): range 3.0 to 25.7, width 22.7
+- Ja'Marr Chase (GOB, WR1): range 1.1 to 23.4, width 22.2
+- Saquon Barkley (GOB, RB): range 2.3 to 22.8, width 20.5
 
 ## How the weekend would unfold, in kickoff order
 

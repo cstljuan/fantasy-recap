@@ -310,7 +310,20 @@ Status: Active, no injury designation expected (not on injured reserve). A repor
 
 ## Prediction
 
-projection pending
+| Item | Value |
+|---|---|
+| Week and opponent | week 10,  SEA |
+| Projected stat line | rush yd 0.3, rec 4.7, rec yd 53.6, rec td 0.4, fum lost 0.1 |
+| Fantasy points, mean | 7.8 |
+| Fantasy points, 10th to 90th range | 1.4 to 14.6 |
+| Fantasy points, median | 6.8 |
+| Chance of a touchdown | 34% |
+| Chance of playing | 100% |
+| Method | model |
+| Reason | Week 10 vs SEA, implied 17.0 points; own recent form 13.4, weighted base 10.3, defense factor 0.89 (9 games), game factor 0.84. |
+
+How sure this is: in the backtest on 2026 weeks 1 to 9 the model missed by about 5.8 fantasy points on a typical player (all positions together; no per-position figure), and the 10th to 90th range held the real score 83% of the time.
+Treat the 10th to 90th range as the realistic spread, not a promise.
 
 ### Scout's read
 

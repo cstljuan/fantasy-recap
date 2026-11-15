@@ -343,7 +343,20 @@ Status: Active, expected to start. The data file shows no injury status or desig
 
 ## Prediction
 
-projection pending
+| Item | Value |
+|---|---|
+| Week and opponent | week 10,  NYJ |
+| Projected stat line | pass yd 284.5, pass td 2.0, int 0.8, rush yd 41.1, rush td 1.1, rec 0.0, rec yd 0.2, rec td 0.0, fum lost 0.2 |
+| Fantasy points, mean | 27.8 |
+| Fantasy points, 10th to 90th range | 10.3 to 47.8 |
+| Fantasy points, median | 25.9 |
+| Chance of a touchdown | 95% |
+| Chance of playing | 100% |
+| Method | model |
+| Reason | Week 10 at NYJ, implied 29.5 points; own recent form 24.7, weighted base 23.4, defense factor 1.07 (9 games), game factor 1.11. |
+
+How sure this is: in the backtest on 2026 weeks 1 to 9 the model missed by about 5.8 fantasy points on a typical player (all positions together; no per-position figure), and the 10th to 90th range held the real score 83% of the time.
+Treat the 10th to 90th range as the realistic spread, not a promise.
 
 ### Scout's read
 

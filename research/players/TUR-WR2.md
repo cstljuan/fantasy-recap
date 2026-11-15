@@ -304,7 +304,20 @@ Status: Questionable, concussion (expected to play). ESPN lists him Questionable
 
 ## Prediction
 
-projection pending
+| Item | Value |
+|---|---|
+| Week and opponent | week 10,  BUF |
+| Projected stat line | rush yd 0.1, rec 5.5, rec yd 62.9, rec td 0.3, fum lost 0.1 |
+| Fantasy points, mean | 7.0 |
+| Fantasy points, 10th to 90th range | 0.0 to 15.9 |
+| Fantasy points, median | 5.5 |
+| Chance of a touchdown | 24% |
+| Chance of playing | 85% |
+| Method | model |
+| Reason | Week 10 vs BUF, implied 22.0 points; own recent form 8.8, weighted base 8.3, defense factor 1.03 (8 games), game factor 0.96; plays with chance 85% (questionable after a concussion, full practice Friday, expected to clear the protocol). |
+
+How sure this is: in the backtest on 2026 weeks 1 to 9 the model missed by about 5.8 fantasy points on a typical player (all positions together; no per-position figure), and the 10th to 90th range held the real score 83% of the time.
+Treat the 10th to 90th range as the realistic spread, not a promise.
 
 ### Scout's read
 

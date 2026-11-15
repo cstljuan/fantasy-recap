@@ -320,7 +320,20 @@ Status: Active, no 2026 Week 10 injury designation found. The data file shows Sl
 
 ## Prediction
 
-projection pending
+| Item | Value |
+|---|---|
+| Week and opponent | week 10,  KC |
+| Projected stat line | pass yd 0.2, rush yd 0.0, rec 4.5, rec yd 62.6, rec td 0.3, fum lost 0.0 |
+| Fantasy points, mean | 8.0 |
+| Fantasy points, 10th to 90th range | 1.2 to 16.2 |
+| Fantasy points, median | 6.7 |
+| Chance of a touchdown | 25% |
+| Chance of playing | 100% |
+| Method | model |
+| Reason | Week 10 vs KC, implied 22.2 points; own recent form 9.0, weighted base 9.2, defense factor 0.89 (8 games), game factor 0.96. |
+
+How sure this is: in the backtest on 2026 weeks 1 to 9 the model missed by about 5.8 fantasy points on a typical player (all positions together; no per-position figure), and the 10th to 90th range held the real score 83% of the time.
+Treat the 10th to 90th range as the realistic spread, not a promise.
 
 ### Scout's read
 

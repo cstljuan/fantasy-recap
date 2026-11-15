@@ -220,7 +220,20 @@ Research note: not found
 
 ## Prediction
 
-projection pending
+| Item | Value |
+|---|---|
+| Week and opponent | week 10,  CLE |
+| Projected stat line | fg 20 29 0.5, fg 30 39 0.6, fg 40 49 0.5, fg 50 59 0.6, xpm 1.9, fg made 2.3 |
+| Fantasy points, mean | 10.5 |
+| Fantasy points, 10th to 90th range | 3.7 to 17.5 |
+| Fantasy points, median | 9.7 |
+| Chance of a touchdown | 0% |
+| Chance of playing | 100% |
+| Method | model |
+| Reason | Week 10 at CLE, implied 22.5 points; own recent form 11.6, weighted base 10.9, defense factor 0.99 (9 games), game factor 0.97. |
+
+How sure this is: in the backtest on 2026 weeks 1 to 9 the model missed by about 5.8 fantasy points on a typical player (all positions together; no per-position figure), and the 10th to 90th range held the real score 83% of the time.
+Treat the 10th to 90th range as the realistic spread, not a promise.
 
 ### Scout's read
 

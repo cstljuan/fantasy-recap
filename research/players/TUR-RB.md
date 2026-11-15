@@ -321,7 +321,20 @@ Status: Active, expected to play (no designation found). The data file shows Sle
 
 ## Prediction
 
-projection pending
+| Item | Value |
+|---|---|
+| Week and opponent | week 10,  NE |
+| Projected stat line | rush yd 78.8, rush td 0.8, rec 3.8, rec yd 31.5, rec td 0.2, fum lost 0.1 |
+| Fantasy points, mean | 17.3 |
+| Fantasy points, 10th to 90th range | 3.3 to 33.2 |
+| Fantasy points, median | 15.0 |
+| Chance of a touchdown | 66% |
+| Chance of playing | 100% |
+| Method | model |
+| Reason | Week 10 vs NE, implied 26.0 points; own recent form 21.9, weighted base 17.7, defense factor 0.94 (9 games), game factor 1.04. |
+
+How sure this is: in the backtest on 2026 weeks 1 to 9 the model missed by about 5.8 fantasy points on a typical player (all positions together; no per-position figure), and the 10th to 90th range held the real score 83% of the time.
+Treat the 10th to 90th range as the realistic spread, not a promise.
 
 ### Scout's read
 

@@ -321,7 +321,20 @@ Status: Out, injured reserve (right knee MCL and PCL sprains, turf toe). Placed 
 
 ## Prediction
 
-projection pending
+| Item | Value |
+|---|---|
+| Week and opponent | week 10,  ARI |
+| Projected stat line | rush yd 5.7, rush td 0.1, rec 7.7, rec yd 97.3, rec td 0.5, fum lost 0.1 |
+| Fantasy points, mean | 0.0 |
+| Fantasy points, 10th to 90th range | 0.0 to 0.0 |
+| Fantasy points, median | 0.0 |
+| Chance of a touchdown | 0% |
+| Chance of playing | 0% |
+| Method | model |
+| Reason | Projected zero: on injured reserve (ESPN return date 2026-12-20). |
+
+How sure this is: in the backtest on 2026 weeks 1 to 9 the model missed by about 5.8 fantasy points on a typical player (all positions together; no per-position figure), and the 10th to 90th range held the real score 83% of the time.
+Treat the 10th to 90th range as the realistic spread, not a promise.
 
 ### Scout's read
 

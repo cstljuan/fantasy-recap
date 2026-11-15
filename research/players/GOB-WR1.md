@@ -305,7 +305,20 @@ Status: Active, no injury designation found. The data file shows Sleeper status 
 
 ## Prediction
 
-projection pending
+| Item | Value |
+|---|---|
+| Week and opponent | week 10,  PIT |
+| Projected stat line | pass yd -0.1, rush yd 0.7, rec 7.1, rec yd 86.4, rec td 0.7, fum lost 0.0 |
+| Fantasy points, mean | 12.8 |
+| Fantasy points, 10th to 90th range | 1.1 to 23.4 |
+| Fantasy points, median | 12.6 |
+| Chance of a touchdown | 50% |
+| Chance of playing | 100% |
+| Method | model |
+| Reason | Week 10 vs PIT, implied 26.5 points; own recent form 13.3, weighted base 13.0, defense factor 0.94 (8 games), game factor 1.05. |
+
+How sure this is: in the backtest on 2026 weeks 1 to 9 the model missed by about 5.8 fantasy points on a typical player (all positions together; no per-position figure), and the 10th to 90th range held the real score 83% of the time.
+Treat the 10th to 90th range as the realistic spread, not a promise.
 
 ### Scout's read
 

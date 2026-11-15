@@ -328,7 +328,20 @@ Status: Active, no 2026 designation found for Week 10. The data file shows Sleep
 
 ## Prediction
 
-projection pending
+| Item | Value |
+|---|---|
+| Week and opponent | week 10,  CLE |
+| Projected stat line | rush yd 0.7, rush td 0.0, rec 4.7, rec yd 71.3, rec td 0.5, fum lost 0.0 |
+| Fantasy points, mean | 10.1 |
+| Fantasy points, 10th to 90th range | 1.4 to 19.9 |
+| Fantasy points, median | 9.9 |
+| Chance of a touchdown | 38% |
+| Chance of playing | 100% |
+| Method | model |
+| Reason | Week 10 at CLE, implied 22.5 points; own recent form 9.4, weighted base 10.4, defense factor 1.00 (9 games), game factor 0.97. |
+
+How sure this is: in the backtest on 2026 weeks 1 to 9 the model missed by about 5.8 fantasy points on a typical player (all positions together; no per-position figure), and the 10th to 90th range held the real score 83% of the time.
+Treat the 10th to 90th range as the realistic spread, not a promise.
 
 ### Scout's read
 

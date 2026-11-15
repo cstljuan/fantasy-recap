@@ -257,7 +257,20 @@ Research note: not found
 
 ## Prediction
 
-projection pending
+| Item | Value |
+|---|---|
+| Week and opponent | week 10,  BAL |
+| Projected stat line | rec 3.6, rec yd 48.3, rec td 0.3 |
+| Fantasy points, mean | 3.3 |
+| Fantasy points, 10th to 90th range | 0.0 to 10.3 |
+| Fantasy points, median | 0.0 |
+| Chance of a touchdown | 13% |
+| Chance of playing | 50% |
+| Method | model |
+| Reason | Week 10 at BAL, implied 17.0 points; own recent form 6.0, weighted base 7.8, defense factor 1.01 (9 games), game factor 0.84; plays with chance 50% (questionable with back spasms, played no snap last week, practice restricted, Monday night game). |
+
+How sure this is: in the backtest on 2026 weeks 1 to 9 the model missed by about 5.8 fantasy points on a typical player (all positions together; no per-position figure), and the 10th to 90th range held the real score 83% of the time.
+Treat the 10th to 90th range as the realistic spread, not a promise.
 
 ### Scout's read
 

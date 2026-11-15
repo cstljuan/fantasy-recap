@@ -262,7 +262,20 @@ Status: Active, expected to play. Sleeper status Active with no injury designati
 
 ## Prediction
 
-projection pending
+| Item | Value |
+|---|---|
+| Week and opponent | week 10,  BAL |
+| Projected stat line | fg 0 19 0.0, fg 20 29 0.3, fg 30 39 0.6, fg 40 49 0.6, fg 50 59 0.3, xpm 1.6, fg made 1.9 |
+| Fantasy points, mean | 8.4 |
+| Fantasy points, 10th to 90th range | 2.8 to 14.2 |
+| Fantasy points, median | 7.9 |
+| Chance of a touchdown | 0% |
+| Chance of playing | 100% |
+| Method | model |
+| Reason | Week 10 at BAL, implied 17.0 points; own recent form 7.8, weighted base 9.5, defense factor 1.05 (9 games), game factor 0.84. |
+
+How sure this is: in the backtest on 2026 weeks 1 to 9 the model missed by about 5.8 fantasy points on a typical player (all positions together; no per-position figure), and the 10th to 90th range held the real score 83% of the time.
+Treat the 10th to 90th range as the realistic spread, not a promise.
 
 ### Scout's read
 

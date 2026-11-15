@@ -330,7 +330,20 @@ Status: Active; expected to play Week 11 (no 2026 injury designation this week),
 
 ## Prediction
 
-projection pending
+| Item | Value |
+|---|---|
+| Week and opponent | week 11,  CIN |
+| Projected stat line | pass yd 219.4, pass td 1.5, int 0.5, rush yd 49.5, rush td 0.3, fum lost 0.1 |
+| Fantasy points, mean | 20.6 |
+| Fantasy points, 10th to 90th range | 5.5 to 32.9 |
+| Fantasy points, median | 21.3 |
+| Chance of a touchdown | 84% |
+| Chance of playing | 100% |
+| Method | model |
+| Reason | Week 11 vs CIN, implied 24.0 points; own recent form 17.1, weighted base 19.1, defense factor 1.08 (8 games), game factor 1.00. |
+
+How sure this is: in the backtest on 2026 weeks 1 to 9 the model missed by about 5.8 fantasy points on a typical player (all positions together; no per-position figure), and the 10th to 90th range held the real score 83% of the time.
+Treat the 10th to 90th range as the realistic spread, not a promise.
 
 ### Scout's read
 

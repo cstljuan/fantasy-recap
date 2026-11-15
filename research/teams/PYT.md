@@ -4,23 +4,31 @@
 
 | Slot | Player | NFL | Projected mean | 10th to 90th | TD chance | Chance of playing | Opponent |
 |---|---|---|---|---|---|---|---|
-| QB | Lamar Jackson | BAL | projection pending | projection pending | projection pending | projection pending | LAC |
-| RB | Bijan Robinson | ATL | projection pending | projection pending | projection pending | projection pending | KC |
-| WR1 | Justin Jefferson | MIN | projection pending | projection pending | projection pending | projection pending | GB |
-| WR2 | Malik Nabers | NYG | projection pending | projection pending | projection pending | projection pending | JAX |
-| WR3 | Nico Collins | HOU | projection pending | projection pending | projection pending | projection pending | CLE |
-| TE | George Kittle | SF | projection pending | projection pending | projection pending | projection pending | DAL |
-| K | Harrison Butker | KC | projection pending | projection pending | projection pending | projection pending | ATL |
+| QB | Lamar Jackson | BAL | 0.0 | 0.0 to 0.0 | 0% | 0% | LAC |
+| RB | Bijan Robinson | ATL | 14.2 | 3.0 to 25.7 | 46% | 100% | KC |
+| WR1 | Justin Jefferson | MIN | 9.4 | 1.3 to 18.6 | 31% | 100% | GB |
+| WR2 | Malik Nabers | NYG | 8.8 | 1.1 to 17.4 | 29% | 100% | JAX |
+| WR3 | Nico Collins | HOU | 10.1 | 1.4 to 19.9 | 38% | 100% | CLE |
+| TE | George Kittle | SF | 10.7 | 1.4 to 20.5 | 47% | 100% | DAL |
+| K | Harrison Butker | KC | 8.6 | 3.3 to 14.5 | 0% | 100% | ATL |
 
 ## Projected team total
 
-projection pending
+Projected total 61.7 fantasy points, approximate 10th to 90th range 40.7 to 84.5 (player ranges combined as if independent, so the real range may differ a little).
 
 ## How this team scores
 
-Shares by projected points: projection pending
+| Player | Slot | Projected mean | Share of team total |
+|---|---|---|---|
+| Bijan Robinson | RB | 14.2 | 23% |
+| George Kittle | TE | 10.7 | 17% |
+| Nico Collins | WR3 | 10.1 | 16% |
+| Justin Jefferson | WR1 | 9.4 | 15% |
+| Malik Nabers | WR2 | 8.8 | 14% |
+| Harrison Butker | K | 8.6 | 14% |
+| Lamar Jackson | QB | 0.0 | 0% |
 
-Share of 2026 fantasy points so far: Bijan Robinson 26%; Malik Nabers 14%; Lamar Jackson 14%; George Kittle 13%; Harrison Butker 11%; Nico Collins 11%; Justin Jefferson 11%
+The team leans on Bijan Robinson (23%), George Kittle (17%), Nico Collins (16%).
 
 ## Likely ways each player gets his points
 

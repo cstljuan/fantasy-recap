@@ -564,12 +564,22 @@ def prediction_section(key, note, proj, pidx):
             ]))
             miss = miss_for(proj, pos_of(key))
             out.append("")
+            bs = first(proj, ["backtest_summary"]) if isinstance(proj, dict) else None
+            bs = bs if isinstance(bs, dict) else {}
+            test = bs.get("test") or "the backtest period"
+            cov = bs.get("band_10_90_coverage_2026")
+            cov_txt = (", and the 10th to 90th range held the real score %s of the time" % pct(cov)) if num(cov) else ""
             if miss is not None:
-                out.append("How sure this is: in the backtest the model's typical miss for a %s is about %s points, "
-                           "so treat the 10th to 90th range as the realistic spread, not a promise." % (pos_of(key), f1(miss)))
+                out.append("How sure this is: in the backtest on %s the model missed by about %s fantasy points on a "
+                           "typical %s%s." % (test, f1(miss), pos_of(key), cov_txt))
             else:
-                out.append("How sure this is: typical miss for a %s from the backtest: %s. Treat the 10th to 90th "
-                           "range as the realistic spread, not a promise." % (pos_of(key), NF))
+                ov = g(bs, "mae_2026_all_rows", "model")
+                if num(ov):
+                    out.append("How sure this is: in the backtest on %s the model missed by about %s fantasy points on a "
+                               "typical player (all positions together; no per-position figure)%s." % (test, f1(ov), cov_txt))
+                else:
+                    out.append("How sure this is: typical miss from the backtest: %s." % NF)
+            out.append("Treat the 10th to 90th range as the realistic spread, not a promise.")
     out += ["", "### Scout's read", ""]
     ol = g(note, "outlook_next_game")
     if isinstance(ol, dict):
@@ -804,9 +814,7 @@ def find_matchup(proj, a, b):
         return None
     items = list(m.items()) if isinstance(m, dict) else [(None, x) for x in m]
     for k, v in items:
-        scal = [str(x) for x in (v.values() if isinstance(v, dict) else []) if isinstance(x, str)]
-        head = " ".join([str(k or "")] + scal)
-        if a in head and b in head:
+        if str(k) in ("%s vs %s" % (a, b), "%s vs %s" % (b, a)):
             return v if isinstance(v, dict) else {"value": v}
     return None
 
@@ -846,8 +854,23 @@ def matchup_md(a, b, pdata, pnotes, proj, pidx, cw):
                            [b, f1(tb[0]), "%s to %s" % (f1(tb[1]), f1(tb[2]))]]),
                 "", "On player means alone, %s is ahead by %s points." % (a if ta[0] >= tb[0] else b, f1(abs(ta[0] - tb[0])))]
     if m:
-        out += ["", "## Win chance and margin (from the projection file's simulation)", "",
-                table(["Field", "Value"], [[k, f1(v, 2) if num(v) else v] for k, v in flatten(m)[:40] if v is not None])]
+        wa, wb, tie = m.get("win_chance_" + a), m.get("win_chance_" + b), m.get("tie_chance")
+        if num(wa) and num(wb):
+            lead, lw = (a, wa) if wa >= wb else (b, wb)
+            out += ["", "## Win chance and margin", "",
+                    "In the simulation %s wins %s of the time." % (lead, pct(lw)), ""]
+            def pc1(x):
+                return ("%.1f%%" % (x * 100)) if num(x) else NF
+            rows_ = [["Win chance", pc1(wa), pc1(wb)],
+                     ["Tie chance", pc1(tie), ""],
+                     ["Mean score", f1(m.get("mean_score_" + a)), f1(m.get("mean_score_" + b))],
+                     ["Median score", f1(m.get("median_score_" + a)), f1(m.get("median_score_" + b))]]
+            note = m.get("margin_note") or ""
+            rows_.append(["Margin, 10th to 90th range (%s)" % (clean(note) if note else NF),
+                          "%s to %s" % (f1(m.get("margin_p10")), f1(m.get("margin_p90"))), ""])
+            dr = m.get("draws")
+            rows_.append(["Simulated draws", str(int(dr)) if num(dr) else NF, ""])
+            out.append(table(["Item", a, b], rows_))
     out += ["", "## Position battles", ""]
     brows = []
     for s in SLOTS:

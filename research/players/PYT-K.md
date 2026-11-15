@@ -260,7 +260,20 @@ Status: Active, expected to kick. No injury designation for 2026 (Sleeper Active
 
 ## Prediction
 
-projection pending
+| Item | Value |
+|---|---|
+| Week and opponent | week 10,  ATL |
+| Projected stat line | fg 0 19 0.0, fg 20 29 0.5, fg 30 39 0.5, fg 40 49 0.5, fg 50 59 0.2, fg 60 0.0, xpm 2.3, fg made 1.8 |
+| Fantasy points, mean | 8.6 |
+| Fantasy points, 10th to 90th range | 3.3 to 14.5 |
+| Fantasy points, median | 7.2 |
+| Chance of a touchdown | 0% |
+| Chance of playing | 100% |
+| Method | model |
+| Reason | Week 10 at ATL, implied 25.2 points; own recent form 8.2, weighted base 8.4, defense factor 1.00 (9 games), game factor 1.03. |
+
+How sure this is: in the backtest on 2026 weeks 1 to 9 the model missed by about 5.8 fantasy points on a typical player (all positions together; no per-position figure), and the 10th to 90th range held the real score 83% of the time.
+Treat the 10th to 90th range as the realistic spread, not a promise.
 
 ### Scout's read
 

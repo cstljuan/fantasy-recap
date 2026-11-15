@@ -4,23 +4,31 @@
 
 | Slot | Player | NFL | Projected mean | 10th to 90th | TD chance | Chance of playing | Opponent |
 |---|---|---|---|---|---|---|---|
-| QB | Josh Allen | BUF | projection pending | projection pending | projection pending | projection pending | NYJ |
-| RB | Saquon Barkley | PHI | projection pending | projection pending | projection pending | projection pending | PIT |
-| WR1 | Ja'Marr Chase | CIN | projection pending | projection pending | projection pending | projection pending | PIT |
-| WR2 | Puka Nacua | LA | projection pending | projection pending | projection pending | projection pending | ARI |
-| WR3 | Amon-Ra St. Brown | DET | projection pending | projection pending | projection pending | projection pending | NE |
-| TE | Trey McBride | ARI | projection pending | projection pending | projection pending | projection pending | LA |
-| K | Brandon Aubrey | DAL | projection pending | projection pending | projection pending | projection pending | SF |
+| QB | Josh Allen | BUF | 27.8 | 10.3 to 47.8 | 95% | 100% | NYJ |
+| RB | Saquon Barkley | PHI | 10.7 | 2.3 to 22.8 | 41% | 100% | PIT |
+| WR1 | Ja'Marr Chase | CIN | 12.8 | 1.1 to 23.4 | 50% | 100% | PIT |
+| WR2 | Puka Nacua | LA | 0.0 | 0.0 to 0.0 | 0% | 0% | ARI |
+| WR3 | Amon-Ra St. Brown | DET | 11.3 | 0.0 to 25.8 | 43% | 85% | NE |
+| TE | Trey McBride | ARI | 6.4 | 1.2 to 12.0 | 26% | 100% | LA |
+| K | Brandon Aubrey | DAL | 11.8 | 4.2 to 20.1 | 0% | 100% | SF |
 
 ## Projected team total
 
-projection pending
+Projected total 80.8 fantasy points, approximate 10th to 90th range 53.8 to 111.9 (player ranges combined as if independent, so the real range may differ a little).
 
 ## How this team scores
 
-Shares by projected points: projection pending
+| Player | Slot | Projected mean | Share of team total |
+|---|---|---|---|
+| Josh Allen | QB | 27.8 | 34% |
+| Ja'Marr Chase | WR1 | 12.8 | 16% |
+| Brandon Aubrey | K | 11.8 | 15% |
+| Amon-Ra St. Brown | WR3 | 11.3 | 14% |
+| Saquon Barkley | RB | 10.7 | 13% |
+| Trey McBride | TE | 6.4 | 8% |
+| Puka Nacua | WR2 | 0.0 | 0% |
 
-Share of 2026 fantasy points so far: Josh Allen 27%; Ja'Marr Chase 15%; Puka Nacua 14%; Amon-Ra St. Brown 13%; Trey McBride 12%; Brandon Aubrey 12%; Saquon Barkley 7%
+The team leans on Josh Allen (34%), Ja'Marr Chase (16%), Brandon Aubrey (15%).
 
 ## Likely ways each player gets his points
 

@@ -335,7 +335,20 @@ Status: Active, expected to play. No injury designation in the data file (Sleepe
 
 ## Prediction
 
-projection pending
+| Item | Value |
+|---|---|
+| Week and opponent | week 10,  KC |
+| Projected stat line | rush yd 75.9, rush td 0.5, rec 3.5, rec yd 30.6, rec td 0.1, fum lost 0.1 |
+| Fantasy points, mean | 14.2 |
+| Fantasy points, 10th to 90th range | 3.0 to 25.7 |
+| Fantasy points, median | 13.2 |
+| Chance of a touchdown | 46% |
+| Chance of playing | 100% |
+| Method | model |
+| Reason | Week 10 vs KC, implied 22.2 points; own recent form 15.7, weighted base 15.7, defense factor 0.94 (8 games), game factor 0.96. |
+
+How sure this is: in the backtest on 2026 weeks 1 to 9 the model missed by about 5.8 fantasy points on a typical player (all positions together; no per-position figure), and the 10th to 90th range held the real score 83% of the time.
+Treat the 10th to 90th range as the realistic spread, not a promise.
 
 ### Scout's read
 

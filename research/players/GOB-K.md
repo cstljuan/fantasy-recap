@@ -257,7 +257,20 @@ Status: Active, expected to play. Sleeper status Active, no injury status or des
 
 ## Prediction
 
-projection pending
+| Item | Value |
+|---|---|
+| Week and opponent | week 10,  SF |
+| Projected stat line | rush yd 0.1, fg 20 29 0.6, fg 30 39 0.5, fg 40 49 0.6, fg 50 59 0.5, fg 60 0.1, xpm 2.8, fg made 2.4 |
+| Fantasy points, mean | 11.8 |
+| Fantasy points, 10th to 90th range | 4.2 to 20.1 |
+| Fantasy points, median | 10.8 |
+| Chance of a touchdown | 0% |
+| Chance of playing | 100% |
+| Method | model |
+| Reason | Week 10 vs SF, implied 26.0 points; own recent form 10.2, weighted base 10.6, defense factor 1.07 (8 games), game factor 1.04. |
+
+How sure this is: in the backtest on 2026 weeks 1 to 9 the model missed by about 5.8 fantasy points on a typical player (all positions together; no per-position figure), and the 10th to 90th range held the real score 83% of the time.
+Treat the 10th to 90th range as the realistic spread, not a promise.
 
 ### Scout's read
 

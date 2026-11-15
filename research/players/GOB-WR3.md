@@ -330,7 +330,20 @@ Status: Questionable (ribs), expected to play. ESPN and the Lions' site (Tim Twe
 
 ## Prediction
 
-projection pending
+| Item | Value |
+|---|---|
+| Week and opponent | week 10,  NE |
+| Projected stat line | pass yd 0.1, pass td 0.0, rush yd 0.9, rec 7.8, rec yd 90.7, rec td 0.7, fum lost 0.0 |
+| Fantasy points, mean | 11.3 |
+| Fantasy points, 10th to 90th range | 0.0 to 25.8 |
+| Fantasy points, median | 9.0 |
+| Chance of a touchdown | 43% |
+| Chance of playing | 85% |
+| Method | model |
+| Reason | Week 10 vs NE, implied 26.0 points; own recent form 12.1, weighted base 12.1, defense factor 1.05 (9 games), game factor 1.04; plays with chance 85% (questionable with ribs, limited in practice, played through the same injury last week, expected to play). |
+
+How sure this is: in the backtest on 2026 weeks 1 to 9 the model missed by about 5.8 fantasy points on a typical player (all positions together; no per-position figure), and the 10th to 90th range held the real score 83% of the time.
+Treat the 10th to 90th range as the realistic spread, not a promise.
 
 ### Scout's read
 

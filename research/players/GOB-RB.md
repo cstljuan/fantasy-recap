@@ -340,7 +340,20 @@ Status: On bye, no Week 11 designation yet; hamstring and back issues. He played
 
 ## Prediction
 
-projection pending
+| Item | Value |
+|---|---|
+| Week and opponent | week 11,  PIT |
+| Projected stat line | rush yd 63.1, rush td 0.4, rec 1.8, rec yd 12.6, rec td 0.1, fum lost 0.1 |
+| Fantasy points, mean | 10.7 |
+| Fantasy points, 10th to 90th range | 2.3 to 22.8 |
+| Fantasy points, median | 9.2 |
+| Chance of a touchdown | 41% |
+| Chance of playing | 100% |
+| Method | model |
+| Reason | Week 11 vs PIT, implied 17.0 points; own recent form 7.3, weighted base 13.3, defense factor 0.95 (8 games), game factor 0.84. |
+
+How sure this is: in the backtest on 2026 weeks 1 to 9 the model missed by about 5.8 fantasy points on a typical player (all positions together; no per-position figure), and the 10th to 90th range held the real score 83% of the time.
+Treat the 10th to 90th range as the realistic spread, not a promise.
 
 ### Scout's read
 
