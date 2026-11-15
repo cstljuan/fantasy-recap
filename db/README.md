@@ -2,7 +2,21 @@
 
 The database is Tiger Data, which is PostgreSQL with the TimescaleDB extension. Every play is one row in `plays`, stamped with the time it happened in the game. `schema.sql` holds everything: the `games`, `optins` and `plays` tables, `plays` as a hypertable on `played_at`, and two continuous aggregates (fantasy points per player per game, and points per team per quarter). It also has one example query for each screen that would use them, as comments at the bottom.
 
-## Juan on the laptop: exact commands
+## The laptop night: one command
+
+With `DATABASE_URL` (the Tiger Data connection string) on one line in `.env` at the repository root, or exported in the shell, from a clean clone with Node, npm, curl and psql:
+
+```bash
+sh db/laptop.sh
+```
+
+It applies the schema, the three migrations and the seed, installs the service's one dependency, starts the service on a free port, pushes every game file (the five football games in `data/games/` and both soccer matches), calls every read route once, runs `node server/test-db.js`, and runs Scout for one player (`GOB.QB`, or `SCOUT_PLAYERS=GOB.QB,GOB.WR1`) only when `GOOGLE_API_KEY` or `ANTHROPIC_API_KEY` is set. It prints one line per step (`OK`, `FAILED`, `CHECK` or `SKIPPED`, with the reason) and a report at the end; the exit code is 1 if any step failed. It never prints the connection string, so the output is safe to paste to Ricky. Safe to run twice: the migrations, the seed and the pushes skip what is there, and the test deletes its own `dbtest-` rows.
+
+Two lines to read in the report: `momentum engine` must say `time_bucket` (anything else means the TimescaleDB query did not run and the service used its fallback), and the `summary` and `trend` lines can be empty on the first run because the continuous aggregates refresh on a schedule (hourly), not at once. To rehearse on any PostgreSQL without TimescaleDB: `sh db/laptop.sh --plain`.
+
+Run on 2026-11-15 on a plain PostgreSQL 16 with `--plain`, twice: 22 steps OK, Scout skipped (no key), no failure. It has **not** run on Tiger Data.
+
+## The same, by hand: exact commands
 
 From a clean clone, with only the Tiger Data connection string. Needs Node 18 or newer and `psql` (the PostgreSQL client tools).
 
