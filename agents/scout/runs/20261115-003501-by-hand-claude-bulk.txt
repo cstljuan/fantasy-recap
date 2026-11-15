@@ -1,0 +1,219 @@
+00:35:01 | research_plan(GOB.WR2) -> depth, direction, down, zone, week
+00:35:01 | split(GOB.WR2, depth) -> 2 rows
+00:35:01 | split(GOB.WR2, direction) -> 3 rows
+00:35:01 | split(GOB.WR2, down) -> 4 rows
+00:35:01 | split(GOB.WR2, zone) -> 4 rows
+00:35:01 | split(GOB.WR2, week) -> 7 rows
+00:35:01 | split(GOB.WR2, zone) -> 4 rows
+00:35:01 | verify_evidence(GOB.WR2) -> 27 of 27 real
+00:35:01 | by hand: verify_evidence(GOB.WR2) {"player": "GOB.WR2", "checked": 27, "real": 27, "not_real": []}
+00:35:01 | write_report(GOB.WR2) -> 6 claims, 27 plays cited
+00:35:01 | research_plan(GOB.WR3) -> depth, direction, down, zone, week
+00:35:01 | split(GOB.WR3, depth) -> 2 rows
+00:35:01 | split(GOB.WR3, direction) -> 3 rows
+00:35:01 | split(GOB.WR3, down) -> 4 rows
+00:35:01 | split(GOB.WR3, zone) -> 4 rows
+00:35:01 | split(GOB.WR3, week) -> 8 rows
+00:35:01 | split(GOB.WR3, zone) -> 4 rows
+00:35:01 | verify_evidence(GOB.WR3) -> 17 of 17 real
+00:35:01 | by hand: verify_evidence(GOB.WR3) {"player": "GOB.WR3", "checked": 17, "real": 17, "not_real": []}
+00:35:01 | write_report(GOB.WR3) -> 4 claims, 17 plays cited
+00:35:01 | research_plan(GOB.TE) -> depth, down, zone, week
+00:35:01 | split(GOB.TE, depth) -> 2 rows
+00:35:01 | split(GOB.TE, down) -> 4 rows
+00:35:01 | split(GOB.TE, zone) -> 4 rows
+00:35:01 | split(GOB.TE, week) -> 9 rows
+00:35:01 | split(GOB.TE, zone) -> 4 rows
+00:35:01 | verify_evidence(GOB.TE) -> 17 of 17 real
+00:35:01 | by hand: verify_evidence(GOB.TE) {"player": "GOB.TE", "checked": 17, "real": 17, "not_real": []}
+00:35:01 | write_report(GOB.TE) -> 4 claims, 17 plays cited
+00:35:01 | player_plays(GOB.K, {"limit": 500}) -> 22 plays
+00:35:01 | verify_evidence(GOB.K) -> 13 of 13 real
+00:35:01 | by hand: verify_evidence(GOB.K) {"player": "GOB.K", "checked": 13, "real": 13, "not_real": []}
+00:35:01 | write_report(GOB.K) -> 5 claims, 13 plays cited
+00:35:01 | research_plan(PYT.QB) -> depth, direction, down, zone, week
+00:35:01 | split(PYT.QB, depth) -> 2 rows
+00:35:01 | split(PYT.QB, direction) -> 3 rows
+00:35:01 | split(PYT.QB, down) -> 4 rows
+00:35:01 | split(PYT.QB, zone) -> 4 rows
+00:35:01 | split(PYT.QB, week) -> 5 rows
+00:35:01 | split(PYT.QB, zone) -> 4 rows
+00:35:01 | verify_evidence(PYT.QB) -> 26 of 26 real
+00:35:01 | by hand: verify_evidence(PYT.QB) {"player": "PYT.QB", "checked": 26, "real": 26, "not_real": []}
+00:35:01 | write_report(PYT.QB) -> 6 claims, 26 plays cited
+00:35:01 | research_plan(PYT.RB) -> gap, down, zone, week
+00:35:01 | split(PYT.RB, gap) -> 7 rows
+00:35:01 | split(PYT.RB, down) -> 4 rows
+00:35:01 | split(PYT.RB, zone) -> 4 rows
+00:35:01 | split(PYT.RB, week) -> 9 rows
+00:35:01 | split(PYT.RB, zone) -> 4 rows
+00:35:01 | verify_evidence(PYT.RB) -> 22 of 22 real
+00:35:01 | by hand: verify_evidence(PYT.RB) {"player": "PYT.RB", "checked": 22, "real": 22, "not_real": []}
+00:35:01 | write_report(PYT.RB) -> 5 claims, 22 plays cited
+00:35:01 | research_plan(PYT.WR1) -> depth, direction, down, zone, week
+00:35:01 | split(PYT.WR1, depth) -> 2 rows
+00:35:01 | split(PYT.WR1, direction) -> 3 rows
+00:35:01 | split(PYT.WR1, down) -> 4 rows
+00:35:01 | split(PYT.WR1, zone) -> 4 rows
+00:35:01 | split(PYT.WR1, week) -> 7 rows
+00:35:01 | split(PYT.WR1, zone) -> 4 rows
+00:35:01 | verify_evidence(PYT.WR1) -> 21 of 21 real
+00:35:01 | by hand: verify_evidence(PYT.WR1) {"player": "PYT.WR1", "checked": 21, "real": 21, "not_real": []}
+00:35:01 | write_report(PYT.WR1) -> 5 claims, 21 plays cited
+00:35:01 | research_plan(PYT.WR2) -> depth, direction, down, zone, week
+00:35:01 | split(PYT.WR2, depth) -> 2 rows
+00:35:01 | split(PYT.WR2, direction) -> 3 rows
+00:35:01 | split(PYT.WR2, down) -> 3 rows
+00:35:01 | split(PYT.WR2, zone) -> 4 rows
+00:35:01 | split(PYT.WR2, week) -> 9 rows
+00:35:01 | split(PYT.WR2, zone) -> 4 rows
+00:35:01 | verify_evidence(PYT.WR2) -> 20 of 20 real
+00:35:01 | by hand: verify_evidence(PYT.WR2) {"player": "PYT.WR2", "checked": 20, "real": 20, "not_real": []}
+00:35:01 | write_report(PYT.WR2) -> 5 claims, 20 plays cited
+00:35:01 | research_plan(PYT.WR3) -> depth, direction, down, zone, week
+00:35:01 | split(PYT.WR3, depth) -> 2 rows
+00:35:01 | split(PYT.WR3, direction) -> 3 rows
+00:35:01 | split(PYT.WR3, down) -> 3 rows
+00:35:01 | split(PYT.WR3, zone) -> 3 rows
+00:35:01 | split(PYT.WR3, week) -> 6 rows
+00:35:01 | split(PYT.WR3, zone) -> 3 rows
+00:35:01 | verify_evidence(PYT.WR3) -> 20 of 20 real
+00:35:01 | by hand: verify_evidence(PYT.WR3) {"player": "PYT.WR3", "checked": 20, "real": 20, "not_real": []}
+00:35:01 | write_report(PYT.WR3) -> 5 claims, 20 plays cited
+00:35:01 | research_plan(PYT.TE) -> depth, down, zone, week
+00:35:01 | split(PYT.TE, depth) -> 2 rows
+00:35:01 | split(PYT.TE, down) -> 4 rows
+00:35:01 | split(PYT.TE, zone) -> 4 rows
+00:35:01 | split(PYT.TE, week) -> 8 rows
+00:35:01 | split(PYT.TE, zone) -> 4 rows
+00:35:01 | verify_evidence(PYT.TE) -> 20 of 20 real
+00:35:01 | by hand: verify_evidence(PYT.TE) {"player": "PYT.TE", "checked": 20, "real": 20, "not_real": []}
+00:35:01 | write_report(PYT.TE) -> 5 claims, 20 plays cited
+00:35:01 | player_plays(PYT.K, {"limit": 500}) -> 19 plays
+00:35:01 | verify_evidence(PYT.K) -> 13 of 13 real
+00:35:01 | by hand: verify_evidence(PYT.K) {"player": "PYT.K", "checked": 13, "real": 13, "not_real": []}
+00:35:01 | write_report(PYT.K) -> 5 claims, 13 plays cited
+00:35:01 | research_plan(TUR.QB) -> depth, direction, down, zone, week
+00:35:01 | split(TUR.QB, depth) -> 2 rows
+00:35:01 | split(TUR.QB, direction) -> 3 rows
+00:35:01 | split(TUR.QB, down) -> 4 rows
+00:35:01 | split(TUR.QB, zone) -> 4 rows
+00:35:01 | split(TUR.QB, week) -> 7 rows
+00:35:01 | split(TUR.QB, zone) -> 4 rows
+00:35:01 | verify_evidence(TUR.QB) -> 22 of 22 real
+00:35:01 | by hand: verify_evidence(TUR.QB) {"player": "TUR.QB", "checked": 22, "real": 22, "not_real": []}
+00:35:01 | write_report(TUR.QB) -> 5 claims, 22 plays cited
+00:35:01 | research_plan(TUR.RB) -> gap, down, zone, week
+00:35:01 | split(TUR.RB, gap) -> 7 rows
+00:35:01 | split(TUR.RB, down) -> 4 rows
+00:35:01 | split(TUR.RB, zone) -> 4 rows
+00:35:01 | split(TUR.RB, week) -> 8 rows
+00:35:01 | split(TUR.RB, zone) -> 4 rows
+00:35:01 | verify_evidence(TUR.RB) -> 22 of 22 real
+00:35:01 | by hand: verify_evidence(TUR.RB) {"player": "TUR.RB", "checked": 22, "real": 22, "not_real": []}
+00:35:01 | write_report(TUR.RB) -> 5 claims, 22 plays cited
+00:35:01 | research_plan(TUR.WR1) -> depth, direction, down, zone, week
+00:35:01 | split(TUR.WR1, depth) -> 2 rows
+00:35:01 | split(TUR.WR1, direction) -> 3 rows
+00:35:01 | split(TUR.WR1, down) -> 4 rows
+00:35:01 | split(TUR.WR1, zone) -> 4 rows
+00:35:01 | split(TUR.WR1, week) -> 9 rows
+00:35:01 | split(TUR.WR1, zone) -> 4 rows
+00:35:01 | verify_evidence(TUR.WR1) -> 17 of 17 real
+00:35:01 | by hand: verify_evidence(TUR.WR1) {"player": "TUR.WR1", "checked": 17, "real": 17, "not_real": []}
+00:35:01 | write_report(TUR.WR1) -> 4 claims, 17 plays cited
+00:35:01 | research_plan(TUR.WR2) -> depth, direction, down, zone, week
+00:35:01 | split(TUR.WR2, depth) -> 2 rows
+00:35:01 | split(TUR.WR2, direction) -> 3 rows
+00:35:01 | split(TUR.WR2, down) -> 4 rows
+00:35:01 | split(TUR.WR2, zone) -> 4 rows
+00:35:01 | split(TUR.WR2, week) -> 8 rows
+00:35:01 | split(TUR.WR2, zone) -> 4 rows
+00:35:01 | verify_evidence(TUR.WR2) -> 14 of 14 real
+00:35:01 | by hand: verify_evidence(TUR.WR2) {"player": "TUR.WR2", "checked": 14, "real": 14, "not_real": []}
+00:35:01 | write_report(TUR.WR2) -> 4 claims, 14 plays cited
+00:35:01 | research_plan(TUR.WR3) -> depth, direction, down, zone, week
+00:35:01 | split(TUR.WR3, depth) -> 2 rows
+00:35:01 | split(TUR.WR3, direction) -> 3 rows
+00:35:01 | split(TUR.WR3, down) -> 4 rows
+00:35:01 | split(TUR.WR3, zone) -> 3 rows
+00:35:01 | split(TUR.WR3, week) -> 9 rows
+00:35:01 | split(TUR.WR3, zone) -> 3 rows
+00:35:01 | verify_evidence(TUR.WR3) -> 14 of 14 real
+00:35:01 | by hand: verify_evidence(TUR.WR3) {"player": "TUR.WR3", "checked": 14, "real": 14, "not_real": []}
+00:35:01 | write_report(TUR.WR3) -> 4 claims, 14 plays cited
+00:35:01 | research_plan(TUR.TE) -> depth, down, zone, week
+00:35:01 | split(TUR.TE, depth) -> 2 rows
+00:35:01 | split(TUR.TE, down) -> 4 rows
+00:35:01 | split(TUR.TE, zone) -> 4 rows
+00:35:01 | split(TUR.TE, week) -> 7 rows
+00:35:01 | split(TUR.TE, zone) -> 4 rows
+00:35:01 | verify_evidence(TUR.TE) -> 17 of 17 real
+00:35:01 | by hand: verify_evidence(TUR.TE) {"player": "TUR.TE", "checked": 17, "real": 17, "not_real": []}
+00:35:01 | write_report(TUR.TE) -> 4 claims, 17 plays cited
+00:35:01 | player_plays(TUR.K, {"limit": 500}) -> 17 plays
+00:35:01 | verify_evidence(TUR.K) -> 11 of 11 real
+00:35:01 | by hand: verify_evidence(TUR.K) {"player": "TUR.K", "checked": 11, "real": 11, "not_real": []}
+00:35:01 | write_report(TUR.K) -> 5 claims, 11 plays cited
+00:35:01 | research_plan(OWL.QB) -> depth, direction, down, zone, week
+00:35:01 | split(OWL.QB, depth) -> 2 rows
+00:35:01 | split(OWL.QB, direction) -> 3 rows
+00:35:01 | split(OWL.QB, down) -> 4 rows
+00:35:01 | split(OWL.QB, zone) -> 4 rows
+00:35:01 | split(OWL.QB, week) -> 8 rows
+00:35:01 | split(OWL.QB, zone) -> 4 rows
+00:35:01 | verify_evidence(OWL.QB) -> 17 of 17 real
+00:35:01 | by hand: verify_evidence(OWL.QB) {"player": "OWL.QB", "checked": 17, "real": 17, "not_real": []}
+00:35:01 | write_report(OWL.QB) -> 4 claims, 17 plays cited
+00:35:01 | research_plan(OWL.RB) -> gap, down, zone, week
+00:35:01 | split(OWL.RB, gap) -> 7 rows
+00:35:01 | split(OWL.RB, down) -> 4 rows
+00:35:01 | split(OWL.RB, zone) -> 4 rows
+00:35:01 | split(OWL.RB, week) -> 9 rows
+00:35:01 | split(OWL.RB, zone) -> 4 rows
+00:35:01 | verify_evidence(OWL.RB) -> 17 of 17 real
+00:35:01 | by hand: verify_evidence(OWL.RB) {"player": "OWL.RB", "checked": 17, "real": 17, "not_real": []}
+00:35:01 | write_report(OWL.RB) -> 4 claims, 17 plays cited
+00:35:01 | research_plan(OWL.WR1) -> depth, direction, down, zone, week
+00:35:01 | split(OWL.WR1, depth) -> 2 rows
+00:35:01 | split(OWL.WR1, direction) -> 3 rows
+00:35:01 | split(OWL.WR1, down) -> 3 rows
+00:35:01 | split(OWL.WR1, zone) -> 4 rows
+00:35:01 | split(OWL.WR1, week) -> 8 rows
+00:35:01 | split(OWL.WR1, zone) -> 4 rows
+00:35:01 | verify_evidence(OWL.WR1) -> 11 of 11 real
+00:35:01 | by hand: verify_evidence(OWL.WR1) {"player": "OWL.WR1", "checked": 11, "real": 11, "not_real": []}
+00:35:01 | write_report(OWL.WR1) -> 3 claims, 11 plays cited
+00:35:01 | research_plan(OWL.WR2) -> depth, direction, down, zone, week
+00:35:01 | split(OWL.WR2, depth) -> 2 rows
+00:35:01 | split(OWL.WR2, direction) -> 3 rows
+00:35:01 | split(OWL.WR2, down) -> 4 rows
+00:35:01 | split(OWL.WR2, zone) -> 4 rows
+00:35:01 | split(OWL.WR2, week) -> 9 rows
+00:35:01 | split(OWL.WR2, zone) -> 4 rows
+00:35:01 | verify_evidence(OWL.WR2) -> 21 of 21 real
+00:35:01 | by hand: verify_evidence(OWL.WR2) {"player": "OWL.WR2", "checked": 21, "real": 21, "not_real": []}
+00:35:01 | write_report(OWL.WR2) -> 5 claims, 21 plays cited
+00:35:01 | research_plan(OWL.WR3) -> depth, direction, down, zone, week
+00:35:01 | split(OWL.WR3, depth) -> 2 rows
+00:35:01 | split(OWL.WR3, direction) -> 3 rows
+00:35:01 | split(OWL.WR3, down) -> 3 rows
+00:35:01 | split(OWL.WR3, zone) -> 3 rows
+00:35:01 | split(OWL.WR3, week) -> 6 rows
+00:35:01 | split(OWL.WR3, zone) -> 3 rows
+00:35:01 | verify_evidence(OWL.WR3) -> 12 of 12 real
+00:35:01 | by hand: verify_evidence(OWL.WR3) {"player": "OWL.WR3", "checked": 12, "real": 12, "not_real": []}
+00:35:01 | write_report(OWL.WR3) -> 3 claims, 12 plays cited
+00:35:01 | research_plan(OWL.TE) -> depth, down, zone, week
+00:35:01 | split(OWL.TE, depth) -> 2 rows
+00:35:01 | split(OWL.TE, down) -> 4 rows
+00:35:01 | split(OWL.TE, zone) -> 4 rows
+00:35:01 | split(OWL.TE, week) -> 9 rows
+00:35:01 | split(OWL.TE, zone) -> 4 rows
+00:35:01 | verify_evidence(OWL.TE) -> 17 of 17 real
+00:35:01 | by hand: verify_evidence(OWL.TE) {"player": "OWL.TE", "checked": 17, "real": 17, "not_real": []}
+00:35:01 | write_report(OWL.TE) -> 4 claims, 17 plays cited
+00:35:01 | player_plays(OWL.K, {"limit": 500}) -> 19 plays
+00:35:01 | verify_evidence(OWL.K) -> 11 of 11 real
+00:35:01 | by hand: verify_evidence(OWL.K) {"player": "OWL.K", "checked": 11, "real": 11, "not_real": []}
+00:35:01 | write_report(OWL.K) -> 5 claims, 11 plays cited
