@@ -1,0 +1,127 @@
+/* Fantasy Recap design tokens.
+   The same names and values as the variables in the Figma file (page 03 Color).
+   Every name that css/app.css already uses keeps its name and its value, so this file can
+   be loaded before css/app.css without changing how the app looks today.
+   NEW marks a token that css/app.css does not have yet.
+
+   Dark is the default. Light applies when the page has data-theme="light" on <html>,
+   or when the device asks for light and the page has data-theme="auto". */
+
+:root {
+  /* ---- color */
+  --bg: #0b0d0e;            /* page background */
+  --panel: #131617;         /* panels and cards */
+  --inset: #1b1f21;         /* score windows, bars, dividers */
+  --rule: #2b3033;          /* hairline rules and borders */
+  --text: #f3f1ea;          /* main text */
+  --dim: #8e9597;           /* secondary text, labels */
+  --amber: #ffc21a;         /* the one signal color: live, chosen, the main action */
+  --on-amber: #111111;      /* NEW. text on amber */
+  --signal-text: #ffc21a;   /* NEW. amber used as text. Darker in light mode */
+  --flag: #ffd400;          /* penalty flag */
+  --alert: #ff6a5c;         /* turnover, negative points */
+  --t0: #7a4fd8;            /* home team edge. The app sets it from the game file */
+  --t1: #f08a24;            /* away team edge. The app sets it from the game file */
+  --mine: #212017;          /* NEW. behind your own players and plays (amber at 6 percent over a panel) */
+  --turf: #2f7a3a;          /* NEW. field */
+  --turf-dark: #17451f;     /* NEW. field shade and stripes (the canvas background today) */
+  --game-bg: #0b1a0f;       /* NEW name for the color behind the game canvas */
+  --overlay: rgba(8, 14, 10, 0.88); /* NEW name. the plate under controls drawn over the field */
+
+  /* ---- type */
+  --display: "Barlow Condensed", "Avenir Next Condensed", "DIN Condensed", "Roboto Condensed", "Arial Narrow", sans-serif;
+  --body: "Barlow", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --pixel: "Silkscreen", "Courier New", monospace;      /* NEW. stamps and labels in the 8-bit voice */
+  --pixel-num: "Jersey 15", "Courier New", monospace;   /* NEW. the mask and big pixel numerals */
+  --mono: "Courier New", ui-monospace, Menlo, Consolas, monospace;
+
+  /* size / line height / letter spacing, as in the Figma text styles */
+  --type-hero: 800 132px/0.9 var(--display);        /* posters, the cover */
+  --type-display-l: 800 64px/0.95 var(--display);   /* winner name on a laptop, slide titles */
+  --type-display-m: 700 40px/1 var(--display);      /* winner name on a phone, section titles */
+  --type-team: 700 22px/1.05 var(--display);        /* team names. 17px on a phone today */
+  --type-cta: 700 19px/1 var(--display);            /* buttons */
+  --type-brand: 700 19px/1 var(--display);          /* the name in the header */
+  --type-tab: 700 14px/1 var(--display);            /* tab bar */
+  --type-eyebrow: 700 11px/1 var(--body);           /* panel headings, status, units. letter-spacing 0.14em, uppercase */
+  --type-tag: 700 10px/1 var(--body);               /* tags and marks. letter-spacing 0.12em, uppercase */
+  --type-body: 400 15px/1.4 var(--body);
+  --type-body-s: 400 13px/1.4 var(--body);
+  --type-body-xs: 400 12px/1.35 var(--body);
+  --type-num-score: 700 88px/0.95 var(--display);   /* the two totals. clamp(52px, 17vw, 88px) on a phone */
+  --type-num-l: 700 56px/1 var(--display);
+  --type-num-m: 700 34px/1 var(--display);
+  --type-num-s: 700 28px/1 var(--display);
+  --type-num-xs: 700 17px/1 var(--display);
+  --type-mask: 400 88px/0.8 var(--pixel-num);       /* the hidden score, "--.-" */
+
+  /* ---- space, corner, line */
+  --space-1: 4px;    /* inside a label */
+  --space-2: 8px;    /* between a tile and its text */
+  --space-3: 12px;   /* between controls */
+  --space-4: 14px;   /* padding inside a panel */
+  --space-5: 16px;   /* page gutter on a phone, gap between panels */
+  --space-6: 24px;   /* page gutter on a laptop */
+  --space-7: 40px;   /* between sections */
+  --corner-none: 0;      /* panels, tiles, tags, windows */
+  --corner-control: 2px; /* buttons and toggles only */
+  --line-hair: 1px;      /* rules and borders */
+  --line-edge: 3px;      /* the colored edge on a panel, a play or a score window */
+  --tap: 44px;           /* smallest tap target */
+  --cta: 50px;           /* primary button height */
+  --tabs-h: 54px;        /* tab bar height */
+  --content-max: 1040px; /* widest the content gets */
+
+  /* ---- motion (see design/MOTION.md) */
+  --dur-1: 120ms;   /* a flash, a press */
+  --dur-2: 220ms;   /* a tick, a slide, a flip */
+  --dur-3: 400ms;   /* a bar filling, a panel arriving */
+  --dur-4: 900ms;   /* the reveal count up */
+  --ease-out: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --ease-step: steps(4, end);  /* pixel things move in steps */
+  --stagger: 60ms;
+}
+
+:root[data-theme="light"] {
+  --bg: #f3f1ea;
+  --panel: #ffffff;
+  --inset: #e8e5db;
+  --rule: #c9c5b8;
+  --text: #0b0d0e;
+  --dim: #5d6466;
+  --signal-text: #8a6200;
+  --flag: #8a6f00;
+  --alert: #c8352a;
+  --mine: #fffbf1;
+}
+
+@media (prefers-color-scheme: light) {
+  :root[data-theme="auto"] {
+    --bg: #f3f1ea;
+    --panel: #ffffff;
+    --inset: #e8e5db;
+    --rule: #c9c5b8;
+    --text: #0b0d0e;
+    --dim: #5d6466;
+    --signal-text: #8a6200;
+    --flag: #8a6f00;
+    --alert: #c8352a;
+    --mine: #fffbf1;
+  }
+}
+
+/* The four families are open license (SIL OFL 1.1). The files are in design/fonts.
+   The paths below are relative to this file. If you copy this block into css/, copy the
+   font files too and fix the paths. The game makes no network requests, and neither do these. */
+@font-face { font-family: "Barlow Condensed"; font-weight: 600; font-display: swap; src: url(fonts/barlow-condensed-latin-600-normal.woff2) format("woff2"); }
+@font-face { font-family: "Barlow Condensed"; font-weight: 700; font-display: swap; src: url(fonts/barlow-condensed-latin-700-normal.woff2) format("woff2"); }
+@font-face { font-family: "Barlow Condensed"; font-weight: 800; font-display: swap; src: url(fonts/barlow-condensed-latin-800-normal.woff2) format("woff2"); }
+@font-face { font-family: "Barlow"; font-weight: 400; font-display: swap; src: url(fonts/barlow-latin-400-normal.woff2) format("woff2"); }
+@font-face { font-family: "Barlow"; font-weight: 500; font-display: swap; src: url(fonts/barlow-latin-500-normal.woff2) format("woff2"); }
+@font-face { font-family: "Barlow"; font-weight: 600; font-display: swap; src: url(fonts/barlow-latin-600-normal.woff2) format("woff2"); }
+@font-face { font-family: "Silkscreen"; font-weight: 400; font-display: swap; src: url(fonts/silkscreen-latin-400-normal.woff2) format("woff2"); }
+@font-face { font-family: "Jersey 15"; font-weight: 400; font-display: swap; src: url(fonts/jersey-15-latin-400-normal.woff2) format("woff2"); }
+
+@media (prefers-reduced-motion: reduce) {
+  :root { --dur-1: 0ms; --dur-2: 0ms; --dur-3: 0ms; --dur-4: 0ms; --stagger: 0ms; }
+}
