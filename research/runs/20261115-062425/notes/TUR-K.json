@@ -1,0 +1,200 @@
+{
+ "key": "TUR-K",
+ "name": "Cameron Dicker",
+ "researched": "2026-11-15",
+ "background": [
+  {
+   "fact": "Cameron Lawrence Dicker was born May 6, 2000, in Hong Kong, to Kelly and Rachel Dicker, and is the only NFL player born in Hong Kong.",
+   "source": "https://en.wikipedia.org/wiki/Cameron_Dicker",
+   "date": null,
+   "confidence": "from Wikipedia"
+  },
+  {
+   "fact": "He spent his first 11 years in Shanghai, where his father worked, then moved to Austin, Texas in 2011. He grew up watching soccer and is a Liverpool F.C. fan.",
+   "source": "https://en.wikipedia.org/wiki/Cameron_Dicker",
+   "date": null,
+   "confidence": "from Wikipedia"
+  },
+  {
+   "fact": "He did not play football until fifth grade, in an expat youth league in Shanghai. At Lake Travis High School he was a two-time all-state pick, kicker for three seasons and punter for two, and won the 2016 Texas 6A Division I state title.",
+   "source": "https://en.wikipedia.org/wiki/Cameron_Dicker",
+   "date": null,
+   "confidence": "from Wikipedia"
+  },
+  {
+   "fact": "At Texas he was All-Big 12 as a kicker and punter, holds the school record for field goals made, and became known as 'Dicker the Kicker' after a 40-yard game-winner against Oklahoma in the Red River Showdown.",
+   "source": "https://en.wikipedia.org/wiki/Cameron_Dicker",
+   "date": null,
+   "confidence": "from Wikipedia"
+  },
+  {
+   "fact": "He signed with the Rams as an undrafted free agent in 2022 and was also with the Ravens and Eagles before settling with the Chargers.",
+   "source": "https://en.wikipedia.org/wiki/Cameron_Dicker",
+   "date": null,
+   "confidence": "from Wikipedia"
+  },
+  {
+   "fact": "Listed at 6 ft 1 in, 216 lb, age 26, jersey 11, Chargers kicker (depth chart K1), fifth NFL season, Madden rating 82.",
+   "source": "research/data/TUR-K.json (bio)",
+   "date": "2026-11-15",
+   "confidence": "from the data file"
+  },
+  {
+   "fact": "Career regular season: 144 of 155 field goals (92.9 percent), 22 makes from 50 to 59 yards, 136 of 140 extra points, 70 games. Wikipedia calls him the most accurate kicker in NFL history by field goal percentage.",
+   "source": "research/data/TUR-K.json (career)",
+   "date": "2026-11-15",
+   "confidence": "from the data file"
+  },
+  {
+   "fact": "Chargers.com and Pro Football Talk coverage confirm he holds the NFL best career field goal percentage among kickers with 100 or more attempts (passed Justin Tucker in September 2025). Quoted percentages differ by date (94.1 reported at that time, 92.8 on Wikipedia).",
+   "source": "https://www.profootballhistory.com/?p=13964",
+   "date": "date not shown",
+   "confidence": "two sources disagree on the exact percentage"
+  }
+ ],
+ "family": [
+  {
+   "fact": "Parents Kelly (business manager) and Rachel (luxury travel advisor); sister Annabelle.",
+   "source": "https://en.wikipedia.org/wiki/Cameron_Dicker",
+   "date": null,
+   "confidence": "from Wikipedia"
+  },
+  {
+   "fact": "He is engaged to Annie Buerk and is a Christian. Nothing further was sought.",
+   "source": "https://en.wikipedia.org/wiki/Cameron_Dicker",
+   "date": null,
+   "confidence": "from Wikipedia"
+  },
+  {
+   "fact": "A 2025 profile headline reports on his parents and another names Annie Buerk as his girlfriend at that time.",
+   "source": "research/data/TUR-K.json (news.family: EssentiallySports headlines)",
+   "date": "2025-11-04",
+   "confidence": "headline only, article not read"
+  }
+ ],
+ "recent_events": [
+  {
+   "fact": "Chargers lost at home to Houston 44-22 in Week 9; Dicker made field goals of 52, 33 and 43 yards in the first half plus his only extra point.",
+   "source": "https://www.thefantasyfootballers.com/news/646794/cameron-dicker-makes-three-field-goals-in-first-half/",
+   "date": "2026-11-09",
+   "confidence": "two sources (also ESPN note in data file)"
+  },
+  {
+   "fact": "Chargers.com recap and Fox report that game, Fox saying Houston improved to 4-5; the team record after the loss is 0-8 per Chargers.com and the data file (one search summary said 0-9, treated as an error).",
+   "source": "https://chargers.com/news/game-recap-texans-week-9-justin-herbert",
+   "date": "2026-11-09",
+   "confidence": "two sources agree on 0-8"
+  },
+  {
+   "fact": "In Week 8 (a loss at LA) he went 3 for 3; in Week 9 vs Houston 3 for 3. Fantasy sites headline him 'responsible for all Chargers points' on Nov 1 (9 points).",
+   "source": "research/data/TUR-K.json (log and news.recent: CBS Sports, FantasyPros 2026-11-02)",
+   "date": "2026-11-15",
+   "confidence": "from the data file"
+  },
+  {
+   "fact": "2026 season: 15 of 17 field goals (1 of 2 from 50 plus), 10 of 10 extra points, 62 fantasy points in 8 games, 7.75 per game.",
+   "source": "research/data/TUR-K.json (season_2026)",
+   "date": "2026-11-15",
+   "confidence": "from the data file"
+  },
+  {
+   "fact": "Chargers named him their 2026 Salute to Service Award nominee, citing work with veterans, Camp Pendleton visits and his foundation Whole Heartedly.",
+   "source": "https://www.nfl.com/causes/salute/nominees/2026/chargers",
+   "date": "2026-11-07",
+   "confidence": "NFL.com via search summary"
+  }
+ ],
+ "quotes": [
+  {
+   "fact": "Any quote from Dicker or the coach this week: not found",
+   "source": "not found",
+   "date": null,
+   "confidence": "not found"
+  }
+ ],
+ "team_context": [
+  {
+   "fact": "The Chargers are 0-8; they average 15.1 points for and allow 27.4.",
+   "source": "research/data/TUR-K.json (season_2026.team)",
+   "date": "2026-11-15",
+   "confidence": "from the data file"
+  },
+  {
+   "fact": "Los Angeles has the fewest touchdowns per game in the league, about 1.4, which pushes drives toward field goals.",
+   "source": "https://www.squawka.com/us/?p=91973",
+   "date": "2026-11-15",
+   "confidence": "one source (search summary)"
+  },
+  {
+   "fact": "Jim Harbaugh coaches the Chargers; Baltimore is coached by Jesse Minter, the former Chargers defensive coordinator.",
+   "source": "https://www.chargers.com/news/ravens-tickets-jesse-minter-jim-harbaugh",
+   "date": "date not shown",
+   "confidence": "search summary"
+  }
+ ],
+ "next_opponent": [
+  {
+   "fact": "Monday Nov 16, 8:15 pm ET at Baltimore (M&T Bank Stadium, outdoors, grass), ESPN; forecast clear, 41 F; Ravens favored by 4.5 with a total of 38.5, so the Chargers' implied total is 17.0.",
+   "source": "research/data/TUR-K.json (next_games)",
+   "date": "2026-11-15",
+   "confidence": "from the data file"
+  },
+  {
+   "fact": "Baltimore is 4-5; Covers lists the Ravens as 5.5-point favorites with a 38.5 total, other books closer to 2.5 to 3.5.",
+   "source": "https://www.covers.com/nfl/chargers-vs-ravens-prediction-picks-odds-early-leans-week-10-2026",
+   "date": "2026-11-15",
+   "confidence": "one source"
+  },
+  {
+   "fact": "Ravens points allowed to kickers and kicker-specific defense numbers: not found",
+   "source": "not found",
+   "date": null,
+   "confidence": "not found"
+  }
+ ],
+ "style": [
+  {
+   "fact": "Strong range: 5 makes from 40 to 49 and 1 from 50 to 59 in 2026, 12 from 40 to 49 and 5 from 50 to 59 in 2025; his only 2026 misses were one from 40 to 49 and one from 50 plus.",
+   "source": "research/data/TUR-K.json (career and season_2026)",
+   "date": "2026-11-15",
+   "confidence": "from the data file"
+  },
+  {
+   "fact": "Texas kicker and punter with the school record for field goals made; nickname 'Dicker the Kicker'.",
+   "source": "https://en.wikipedia.org/wiki/Cameron_Dicker",
+   "date": null,
+   "confidence": "from Wikipedia"
+  }
+ ],
+ "availability": {
+  "status": "Active, expected to kick",
+  "detail": "Sleeper status Active, no 2026 injury designation; ESPN note from Nov 9 lists him Active. His only report in the data is an illness in 2024. No Week 10 practice report found.",
+  "expected_return": "Not applicable",
+  "source": "research/data/TUR-K.json (status)",
+  "date": "2026-11-15"
+ },
+ "outlook_next_game": {
+  "lean": "plays; modest fantasy line, roughly 6 to 9 points",
+  "confidence": "low to medium",
+  "reasons": [
+   "He is healthy and the Chargers' offense stalls often, so field goal tries are likely.",
+   "The implied team total is only 17.0 and the game total 38.5, so extra points will be scarce.",
+   "The game is outdoors in Baltimore at about 41 F, clear; wind not found.",
+   "His 2026 average is 7.75 points and he has kicked 3 field goals in each of the last three games with multiple makes."
+  ]
+ },
+ "scouts_read": "Dicker is healthy and has been the Chargers' most reliable scorer in an 0-8 season, with multiple field goals in three straight games. The offense sputters, which feeds him attempts but few extra points, and Baltimore is a modest favorite in a low total game of 38.5. Cool, clear weather in Baltimore should not hurt a kicker whose range reaches past 50 yards. I would expect around 3 field goals and one extra point, a decent but unspectacular night near his 7.75 point average.",
+ "open_questions": [
+  "Any Week 10 practice or injury report and wind forecast: not found.",
+  "Quotes from Dicker or Harbaugh this week: not found.",
+  "Fetches were not used; the pull was partial and only search summaries were available, so sources from searches are not read in full.",
+  "Fox said LA fell to 0-9 after Houston while Chargers.com says 0-8; 0-8 used."
+ ],
+ "searches": [
+  "Cameron Dicker Chargers kicker Ravens Monday night Week 10 (only 2023 and 2024 results)",
+  "Chargers 0-8 Houston 44-22 Dicker field goals 52 yards",
+  "Cameron Dicker Annie Buerk engaged Salute to Service nominee (no engagement coverage found)",
+  "Chargers vs Ravens Monday Night Football preview Week 10 2026",
+  "Cameron Dicker most accurate kicker NFL history Hong Kong Chargers Notebook"
+ ]
+}
