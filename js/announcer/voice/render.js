@@ -2,7 +2,7 @@
 //
 // Run from the repo root by a person who has an ElevenLabs API key:
 //   ELEVENLABS_API_KEY=... node js/announcer/voice/render.js                 (football, the game the app plays)
-//   ELEVENLABS_API_KEY=... node js/announcer/voice/render.js --sport soccer  (the soccer sample match)
+//   ELEVENLABS_API_KEY=... node js/announcer/voice/render.js --sport soccer  (week 11 soccer and the sample match)
 //   node js/announcer/voice/render.js --dry-run                              (the bill: no key, no network)
 //
 // --dry-run (C25) never calls ElevenLabs and needs no key. For football and soccer (or the one
@@ -104,25 +104,49 @@ function collectFootball() {
   return { id: ids.join(' + '), lines: out };
 }
 
+// Soccer the way soccer/js/main.js asks for it (C30, same order as football): the intro at
+// kickoff, a line for every event, the halftime piece (or the half line) and the wrap (or the
+// final line). Both matches the page can play: soccer/data/week11-soccer.json (the default,
+// from soccer/data/current.js) and the built-in sample (?game=sample), or --game <file>.
 function collectSoccer() {
   var A = require(path.join(ROOT, 'js/announcer/soccer/index.js'));
   var data = require(path.join(ROOT, 'soccer/js/data.js'));
   try { require(path.join(ROOT, 'soccer/js/fantasy.js')); } catch (err) { /* not needed */ }
   var Rules = require(path.join(ROOT, 'soccer/js/rules.js'));
-  var teams = data.TEAMS, out = [], heard = [];
-  A.onLine(function (text, kind) { heard.push({ text: text, kind: kind }); });
-  styles.forEach(function (style) {
-    A.reset(); A.setStyle(style);
-    var s = Rules.create(teams);
-    function take(t) { var h = heard[heard.length - 1]; if (t) out.push({ text: t, kind: h && h.text === t ? h.kind : '', style: style }); }
-    Rules.flatten(data.SAMPLE_GAME, teams).forEach(function (st) {
-      if (st.kind === 'half') { Rules.startHalf(s); take(A.line({ kind: 'half' }, { teams: teams, score: s.score.slice(), style: style })); return; }
-      if (st.kind === 'final') { take(A.line({ kind: 'final' }, { teams: teams, score: s.score.slice(), style: style })); return; }
-      var r = Rules.apply(s, st.e, st.team);
-      take(A.line(r, { teams: teams, score: r.post.score, style: style }));
+  var matches = [];
+  if (arg('game', null)) { var g0 = readGameFile(arg('game')); matches.push({ id: g0.id || 'soccer', teams: g0.teams, game: g0.game }); }
+  else {
+    var wk = path.join(ROOT, 'soccer/data/week11-soccer.json');
+    if (fs.existsSync(wk)) { var g1 = readGameFile(wk); matches.push({ id: g1.id || 'week11-soccer', teams: g1.teams, game: g1.game }); }
+    matches.push({ id: 'soccer-sample', teams: data.TEAMS, game: data.SAMPLE_GAME });
+  }
+  var out = [], heard = [];
+  A.onLine(function (text, kind) { if (kind !== 'sound') heard.push({ text: text, kind: kind }); });
+  matches.forEach(function (m) {
+    var teams = m.teams;
+    styles.forEach(function (style) {
+      A.reset(); A.setStyle(style);
+      var s = Rules.create(teams);
+      function take(t) { var h = heard[heard.length - 1]; if (t) out.push({ text: t, kind: h && h.text === t ? h.kind : '', style: style }); }
+      take(A.intro ? A.intro({ teams: teams, score: [0, 0], style: style, leaders: [], hidden: false }) : '');
+      Rules.flatten(m.game, teams).forEach(function (st) {
+        if (st.kind === 'half') {
+          Rules.startHalf(s);
+          var hp = A.halftime ? A.halftime({ teams: teams, score: s.score.slice(), style: style, leaders: [], hidden: false }) : '';
+          take(hp || A.line({ kind: 'half' }, { teams: teams, score: s.score.slice(), style: style }));
+          return;
+        }
+        if (st.kind === 'final') {
+          var wp = A.wrap ? A.wrap({ teams: teams, score: s.score.slice(), style: style, leaders: [], hidden: false }) : '';
+          take(wp || A.line({ kind: 'final' }, { teams: teams, score: s.score.slice(), style: style }));
+          return;
+        }
+        var r = Rules.apply(s, st.e, st.team);
+        take(A.line(r, { teams: teams, score: r.post.score, style: style }));
+      });
     });
   });
-  return { id: 'soccer-sample', lines: out };
+  return { id: matches.map(function (m) { return m.id; }).join(' + '), lines: out };
 }
 
 function idFor(text, v) {

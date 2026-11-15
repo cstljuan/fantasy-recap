@@ -202,6 +202,75 @@ STYLES.forEach(function (style) {
   console.log('  ' + n + ' big calls in the sample match, worst-case length ' + worstLen);
 })();
 
+// C30: soccer speaks and captions the same way football does. Every event of both soccer matches
+// has a line (football has one for every play), each line reaches onLine once and fits maxLength,
+// and the longer pieces (intro, halftime, wrap) exist with the same ctx, keep fantasy points out
+// while hidden, and name the goal that won it.
+(function () {
+  var F = require(path.join(__dirname, '../index.js'));
+  ['line', 'speak', 'hush', 'onLine', 'notify', 'caption', 'catchUp', 'bigCall', 'explain', 'explainFor', 'spoken',
+   'transcript', 'reset', 'setStyle', 'intro', 'halftime', 'wrap', 'maxLength', 'style'].forEach(function (k) {
+    if (!(k in F)) problems.push('C30 check is stale: FF_ANNOUNCER has no ' + k);
+    if (!(k in A)) problems.push('SC_ANNOUNCER is missing ' + k + ' (football has it)');
+  });
+  console.log('\n== Every soccer event speaks (C30) ==');
+  ['week11-soccer', 'sample-soccer'].forEach(function (id) {
+    var g = require(path.join(__dirname, '../../../soccer/data/' + id + '.json')), teams = g.teams;
+    A.reset();
+    var seen = [], off = A.onLine(function (t, k) { if (k !== 'sound') seen.push(t); });
+    var s = Rules.create(teams), events = 0, quiet = [], pieces = [];
+    var intro = A.intro({ teams: teams, score: [0, 0] });
+    pieces.push(intro);
+    Rules.flatten(g.game, teams).forEach(function (st) {
+      if (st.kind === 'half') {
+        Rules.startHalf(s);
+        pieces.push(A.halftime({ teams: teams, score: s.score.slice() }));
+        A.line({ kind: 'half' }, { teams: teams, score: s.score.slice() });
+        return;
+      }
+      if (st.kind === 'final') {
+        A.line({ kind: 'final' }, { teams: teams, score: s.score.slice() });
+        pieces.push(A.wrap({ teams: teams, score: s.score.slice() }));
+        return;
+      }
+      var r = Rules.apply(s, st.e, st.team), t = A.line(r, { teams: teams });
+      events++;
+      if (!t) quiet.push(st.e.t + ' at ' + st.e.min);
+      if (t.length > A.maxLength) problems.push(id + ': line over ' + A.maxLength + ': ' + t);
+    });
+    off();
+    if (quiet.length) problems.push(id + ': ' + quiet.length + ' of ' + events + ' events say nothing (football speaks on every play): ' + quiet.slice(0, 3).join(', '));
+    var lines = events + 2 + 3;   // every event, half and final lines, and the three pieces
+    if (seen.length !== lines) problems.push(id + ': onLine saw ' + seen.length + ' lines, expected ' + lines);
+    if (A.transcript().length !== lines) problems.push(id + ': the transcript holds ' + A.transcript().length + ' lines, expected ' + lines);
+    pieces.forEach(function (p, i) {
+      if (!p) problems.push(id + ': ' + ['intro', 'halftime', 'wrap'][i] + ' is empty');
+      if (/\{\w+\}|undefined|NaN|  /.test(p)) problems.push(id + ': gap in a piece: ' + p);
+      if (/—/.test(p)) problems.push(id + ': em dash in a piece: ' + p);
+    });
+    var sc = s.score, w = sc[0] > sc[1] ? 0 : 1;
+    if (sc[0] !== sc[1] && !/won it|held on/.test(pieces[2])) problems.push(id + ': the wrap does not say what won it: ' + pieces[2]);
+    console.log('  ' + id + ': ' + events + ' events, every one with a line; ' + pieces.join(' | '));
+    void w;
+  });
+  // Pieces with leaders: the fantasy leader when shown, never while hidden.
+  var teams = data.TEAMS, leaders = [{ name: teams[0].roster.ST, points: 12.5 }, { name: teams[1].roster.GK, points: 6 }];
+  A.reset();
+  var shown = A.halftime({ teams: teams, score: [1, 0], leaders: leaders }), hid = A.halftime({ teams: teams, score: [1, 0], leaders: leaders, hidden: true });
+  if (!/12\.5/.test(shown)) problems.push('halftime with leaders should name the fantasy leader: ' + shown);
+  if (/fantasy|12\.5/i.test(hid)) problems.push('halftime while hidden names fantasy points: ' + hid);
+  var wr = A.wrap({ teams: teams, score: [1, 0], leaders: leaders, hidden: true });
+  if (/fantasy|12\.5/i.test(wr)) problems.push('wrap while hidden names fantasy points: ' + wr);
+  var it = A.intro({ teams: teams, leaders: leaders });
+  if (it.indexOf(teams[0].roster.ST.split(' ').pop()) < 0) problems.push('intro should name the top leader to watch: ' + it);
+  // Every story template, worst-case fill, has no gaps and three variants.
+  Object.keys(A._stories).forEach(function (k) {
+    var list = A._stories[k].straight || [];
+    if (list.length < 3) problems.push('story ' + k + ' has ' + list.length + ' variants, needs 3');
+    list.forEach(function (t) { if (/—/.test(t)) problems.push('story ' + k + ' has an em dash'); if (/\b(he|him|his|she|her|men)\b/i.test(t)) problems.push('story ' + k + ' is gendered: ' + t); });
+  });
+})();
+
 if (problems.length) {
   console.log('\nPROBLEMS (' + problems.length + '):');
   problems.forEach(function (p) { console.log('  ' + p); });

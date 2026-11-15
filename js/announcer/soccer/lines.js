@@ -31,6 +31,13 @@
     build: {
       straight: ['{a} to {b}. Lovely stuff.', '{team} keep it, {a} to {b}.', 'Patient build-up, {a} then {b}.']
     },
+    // A short move (two players, or one carrying it), so every event gets a line, like football's plays (C30).
+    pass: {
+      straight: ['{a} to {b}.', '{a} finds {b}.', '{team} keep it. {a}, {b}.']
+    },
+    carry: {
+      straight: ['{a} carries it forward.', '{a} drives on for {team}.', '{team} on the ball, {a} with it.']
+    },
     regain: {
       straight: ['{team} win it back, {a} on the ball.', 'Turnover. {a} takes it for {team}.', '{a} nicks it, and {team} break.']
     },

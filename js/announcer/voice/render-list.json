@@ -17,19 +17,636 @@
   },
   {
    "sport": "soccer",
-   "game": "soccer-sample",
+   "game": "week11-soccer + soccer-sample",
    "voice": "Nathaniel - Live Football Commentator",
    "voice_id": "9rR45HW0vcBmpCbkc4m9",
-   "lines": 0,
-   "characters": 0,
-   "bytes": 0
+   "lines": 77,
+   "characters": 2920,
+   "bytes": 877038
   }
  ],
  "total": {
-  "lines": 0,
-  "characters": 0,
-  "bytes": 0,
+  "lines": 77,
+  "characters": 2920,
+  "bytes": 877038,
   "cap": 15728640
  },
- "lines": []
+ "lines": [
+  {
+   "sport": "soccer",
+   "kind": "intro",
+   "text": "Good evening, and welcome. Ironside against Red Harbour. Watch Haaland for Ironside, and Kane for Red Harbour.",
+   "spoken": "Good evening, and welcome. Ironside against Red Harbour. Watch Haaland for Ironside, and Kane for Red Harbour.",
+   "chars": 110,
+   "file": "0634e62c571f9e70.mp3"
+  },
+  {
+   "sport": "soccer",
+   "kind": "blocked",
+   "text": "Kvaratskhelia shoots, and it's blocked.",
+   "spoken": "Kvaratskhelia shoots, and it's blocked.",
+   "chars": 39,
+   "file": "0a1998cb4a659362.mp3"
+  },
+  {
+   "sport": "soccer",
+   "kind": "regain",
+   "text": "Turnover. Vitinha takes it for Red Harbour.",
+   "spoken": "Turnover. Vitinha takes it for Red Harbour.",
+   "chars": 43,
+   "file": "9dc99711f1a76c5e.mp3"
+  },
+  {
+   "sport": "soccer",
+   "kind": "pass",
+   "text": "Saliba finds Hakimi.",
+   "spoken": "Saliba finds Hakimi.",
+   "chars": 20,
+   "file": "7017b9188c5be0de.mp3"
+  },
+  {
+   "sport": "soccer",
+   "kind": "regain",
+   "text": "Red Harbour win it back, Valverde on the ball.",
+   "spoken": "Red Harbour win it back, Valverde on the ball.",
+   "chars": 46,
+   "file": "edc80be4007d2e84.mp3"
+  },
+  {
+   "sport": "soccer",
+   "kind": "blocked",
+   "text": "Vitinha has a go, blocked.",
+   "spoken": "Vitinha has a go, blocked.",
+   "chars": 26,
+   "file": "3eddf329c601bdb4.mp3"
+  },
+  {
+   "sport": "soccer",
+   "kind": "corner_to",
+   "text": "Corner to Red Harbour. Mbappe swings it in.",
+   "spoken": "Corner to Red Harbour. Mbappe swings it in.",
+   "chars": 43,
+   "file": "cc8043177d173a6a.mp3"
+  },
+  {
+   "sport": "soccer",
+   "kind": "save",
+   "text": "Good save from Raya! Salah denied.",
+   "spoken": "Good save from Raya! Salah denied.",
+   "chars": 34,
+   "file": "8bf7c7cd3d955f5c.mp3"
+  },
+  {
+   "sport": "soccer",
+   "kind": "pass",
+   "text": "Haaland to Bellingham.",
+   "spoken": "Haaland to Bellingham.",
+   "chars": 22,
+   "file": "bdcfa52e59451ada.mp3"
+  },
+  {
+   "sport": "soccer",
+   "kind": "regain",
+   "text": "Mendes nicks it, and Red Harbour break.",
+   "spoken": "Mendes nicks it, and Red Harbour break.",
+   "chars": 39,
+   "file": "097bf666951670cd.mp3"
+  },
+  {
+   "sport": "soccer",
+   "kind": "blocked",
+   "text": "Blocked! Ironside throw bodies in the way.",
+   "spoken": "Blocked! Ironside throw bodies in the way.",
+   "chars": 42,
+   "file": "4d1dad73cd369eb8.mp3"
+  },
+  {
+   "sport": "soccer",
+   "kind": "pass",
+   "text": "Ironside keep it. Davies, Rice.",
+   "spoken": "Ironside keep it. Davies, Rice.",
+   "chars": 31,
+   "file": "c9dc653de2a51b36.mp3"
+  },
+  {
+   "sport": "soccer",
+   "kind": "pass",
+   "text": "Hakimi to Bellingham.",
+   "spoken": "Hakimi to Bellingham.",
+   "chars": 21,
+   "file": "fa7696414cc098bb.mp3"
+  },
+  {
+   "sport": "soccer",
+   "kind": "blocked",
+   "text": "Bellingham has a go, blocked.",
+   "spoken": "Bellingham has a go, blocked.",
+   "chars": 29,
+   "file": "78a7d8676655d6c4.mp3"
+  },
+  {
+   "sport": "soccer",
+   "kind": "regain",
+   "text": "Red Harbour win it back, Palmer on the ball.",
+   "spoken": "Red Harbour win it back, Palmer on the ball.",
+   "chars": 44,
+   "file": "59363c5b57105238.mp3"
+  },
+  {
+   "sport": "soccer",
+   "kind": "regain",
+   "text": "Turnover. Saliba takes it for Ironside.",
+   "spoken": "Turnover. Saliba takes it for Ironside.",
+   "chars": 39,
+   "file": "62b9a142ca91043e.mp3"
+  },
+  {
+   "sport": "soccer",
+   "kind": "wide",
+   "text": "Bellingham shoots... just wide.",
+   "spoken": "Bellingham shoots... just wide.",
+   "chars": 31,
+   "file": "d86add0f2da8ec96.mp3"
+  },
+  {
+   "sport": "soccer",
+   "kind": "pass",
+   "text": "Red Harbour keep it. Rudiger, Kounde.",
+   "spoken": "Red Harbour keep it. Rudiger, Kounde.",
+   "chars": 37,
+   "file": "7d144c07ec24c294.mp3"
+  },
+  {
+   "sport": "soccer",
+   "kind": "build",
+   "text": "Patient build-up, Salah then Valverde.",
+   "spoken": "Patient build-up, Salah then Valverde.",
+   "chars": 38,
+   "file": "715eff2e5669d2f3.mp3"
+  },
+  {
+   "sport": "soccer",
+   "kind": "wide",
+   "text": "Wide from Valverde. Goal kick.",
+   "spoken": "Wide from Valverde. Goal kick.",
+   "chars": 30,
+   "file": "c72fb77cba81c15f.mp3"
+  },
+  {
+   "sport": "soccer",
+   "kind": "pass",
+   "text": "Kvaratskhelia finds Saliba.",
+   "spoken": "Kvaratskhelia finds Saliba.",
+   "chars": 27,
+   "file": "fccca7c792776345.mp3"
+  },
+  {
+   "sport": "soccer",
+   "kind": "pass",
+   "text": "Ironside keep it. Kvaratskhelia, Bellingham.",
+   "spoken": "Ironside keep it. Kvaratskhelia, Bellingham.",
+   "chars": 44,
+   "file": "0a18b3ed55e6d611.mp3"
+  },
+  {
+   "sport": "soccer",
+   "kind": "offside",
+   "text": "Flag up. Kvaratskhelia is offside.",
+   "spoken": "Flag up. Kvaratskhelia is offside.",
+   "chars": 34,
+   "file": "a30a39e880b8ddee.mp3"
+  },
+  {
+   "sport": "soccer",
+   "kind": "freekick_to",
+   "text": "Gvardiol chips the free kick to Gvardiol.",
+   "spoken": "Gvardiol chips the free kick to Gvardiol.",
+   "chars": 41,
+   "file": "97499a3602751fa4.mp3"
+  },
+  {
+   "sport": "soccer",
+   "kind": "build",
+   "text": "Red Harbour keep it, Palmer to Salah.",
+   "spoken": "Red Harbour keep it, Palmer to Salah.",
+   "chars": 37,
+   "file": "aa0e5682d20563b1.mp3"
+  },
+  {
+   "sport": "soccer",
+   "kind": "wide",
+   "text": "Salah pulls it past the post.",
+   "spoken": "Salah pulls it past the post.",
+   "chars": 29,
+   "file": "32ff269052299275.mp3"
+  },
+  {
+   "sport": "soccer",
+   "kind": "pass",
+   "text": "Saka to Bellingham.",
+   "spoken": "Saka to Bellingham.",
+   "chars": 19,
+   "file": "4813fd9753aed06d.mp3"
+  },
+  {
+   "sport": "soccer",
+   "kind": "pass",
+   "text": "Raya finds Wirtz.",
+   "spoken": "Raya finds Wirtz.",
+   "chars": 17,
+   "file": "f2ba6dac5fbe8e4c.mp3"
+  },
+  {
+   "sport": "soccer",
+   "kind": "blocked",
+   "text": "Wirtz shoots, and it's blocked.",
+   "spoken": "Wirtz shoots, and it's blocked.",
+   "chars": 31,
+   "file": "777b79f28299a902.mp3"
+  },
+  {
+   "sport": "soccer",
+   "kind": "corner_to",
+   "text": "Kvaratskhelia delivers the corner for Saka.",
+   "spoken": "Kvaratskhelia delivers the corner for Saka.",
+   "chars": 43,
+   "file": "de5d82dde79acb22.mp3"
+  },
+  {
+   "sport": "soccer",
+   "kind": "goal_head",
+   "text": "Saka rises... and heads it in! GOAL!",
+   "spoken": "[excited] Saka rises... and heads it in! Goal!",
+   "chars": 46,
+   "file": "b9e1233d5eee61d4.mp3"
+  },
+  {
+   "sport": "soccer",
+   "kind": "regain",
+   "text": "Kvaratskhelia nicks it, and Ironside break.",
+   "spoken": "Kvaratskhelia nicks it, and Ironside break.",
+   "chars": 43,
+   "file": "71371a9539eab4c7.mp3"
+  },
+  {
+   "sport": "soccer",
+   "kind": "halftime",
+   "text": "We're at the break, Ironside 1, Red Harbour 0. Goals from Saka.",
+   "spoken": "We're at the break, Ironside 1, Red Harbour 0. Goals from Saka.",
+   "chars": 63,
+   "file": "58e5b190abec33b1.mp3"
+  },
+  {
+   "sport": "soccer",
+   "kind": "regain",
+   "text": "Turnover. Kvaratskhelia takes it for Ironside.",
+   "spoken": "Turnover. Kvaratskhelia takes it for Ironside.",
+   "chars": 46,
+   "file": "5c5416ba164fac2e.mp3"
+  },
+  {
+   "sport": "soccer",
+   "kind": "foul",
+   "text": "Salah brings down Kvaratskhelia. Free kick.",
+   "spoken": "Salah brings down Kvaratskhelia. Free kick.",
+   "chars": 43,
+   "file": "3397fa8e96c659f4.mp3"
+  },
+  {
+   "sport": "soccer",
+   "kind": "freekick_direct",
+   "text": "Free kick to Ironside. Haaland stands over it.",
+   "spoken": "Free kick to Ironside. Haaland stands over it.",
+   "chars": 46,
+   "file": "40af6d63f3586215.mp3"
+  },
+  {
+   "sport": "soccer",
+   "kind": "save",
+   "text": "Maignan gets down well to keep it out.",
+   "spoken": "Maignan gets down well to keep it out.",
+   "chars": 38,
+   "file": "e2a39939356ad757.mp3"
+  },
+  {
+   "sport": "soccer",
+   "kind": "pass",
+   "text": "Salah to Gvardiol.",
+   "spoken": "Salah to Gvardiol.",
+   "chars": 18,
+   "file": "5eee39b6ff0f164a.mp3"
+  },
+  {
+   "sport": "soccer",
+   "kind": "regain",
+   "text": "Ironside win it back, Dias on the ball.",
+   "spoken": "Ironside win it back, Dias on the ball.",
+   "chars": 39,
+   "file": "edb6f8a50c463957.mp3"
+  },
+  {
+   "sport": "soccer",
+   "kind": "blocked",
+   "text": "Blocked! Red Harbour throw bodies in the way.",
+   "spoken": "Blocked! Red Harbour throw bodies in the way.",
+   "chars": 45,
+   "file": "0e200887363b8ceb.mp3"
+  },
+  {
+   "sport": "soccer",
+   "kind": "corner_to",
+   "text": "In comes the corner from Kvaratskhelia.",
+   "spoken": "In comes the corner from Kvaratskhelia.",
+   "chars": 39,
+   "file": "5e72121a43647e44.mp3"
+  },
+  {
+   "sport": "soccer",
+   "kind": "save",
+   "text": "Good save from Maignan! Saka denied.",
+   "spoken": "Good save from Maignan! Saka denied.",
+   "chars": 36,
+   "file": "e2a3ed98aa245a2e.mp3"
+  },
+  {
+   "sport": "soccer",
+   "kind": "pass",
+   "text": "Red Harbour keep it. Rudiger, Gvardiol.",
+   "spoken": "Red Harbour keep it. Rudiger, Gvardiol.",
+   "chars": 39,
+   "file": "a9eec87d4b09d6f6.mp3"
+  },
+  {
+   "sport": "soccer",
+   "kind": "regain",
+   "text": "Rice nicks it, and Ironside break.",
+   "spoken": "Rice nicks it, and Ironside break.",
+   "chars": 34,
+   "file": "392a041fd3b26fae.mp3"
+  },
+  {
+   "sport": "soccer",
+   "kind": "blocked",
+   "text": "Bellingham shoots, and it's blocked.",
+   "spoken": "Bellingham shoots, and it's blocked.",
+   "chars": 36,
+   "file": "6c86f0e6fc77699c.mp3"
+  },
+  {
+   "sport": "soccer",
+   "kind": "regain",
+   "text": "Red Harbour win it back, Gvardiol on the ball.",
+   "spoken": "Red Harbour win it back, Gvardiol on the ball.",
+   "chars": 46,
+   "file": "0dd59980a2768f81.mp3"
+  },
+  {
+   "sport": "soccer",
+   "kind": "pass",
+   "text": "Bellingham finds Saliba.",
+   "spoken": "Bellingham finds Saliba.",
+   "chars": 24,
+   "file": "2b4eb9a6beba3c7b.mp3"
+  },
+  {
+   "sport": "soccer",
+   "kind": "pass",
+   "text": "Ironside keep it. Bellingham, Wirtz.",
+   "spoken": "Ironside keep it. Bellingham, Wirtz.",
+   "chars": 36,
+   "file": "f697d696b2c24cc3.mp3"
+  },
+  {
+   "sport": "soccer",
+   "kind": "foul_red",
+   "text": "Rudiger is off! Red Harbour down to ten.",
+   "spoken": "[excited] Rudiger is off! Red Harbour down to ten.",
+   "chars": 50,
+   "file": "a90d13dcc08b26c3.mp3"
+  },
+  {
+   "sport": "soccer",
+   "kind": "freekick_to",
+   "text": "Free kick. Dias finds Hakimi.",
+   "spoken": "Free kick. Dias finds Hakimi.",
+   "chars": 29,
+   "file": "8e73f4f378d21fab.mp3"
+  },
+  {
+   "sport": "soccer",
+   "kind": "regain",
+   "text": "Turnover. Mbappe takes it for Red Harbour.",
+   "spoken": "Turnover. Mbappe takes it for Red Harbour.",
+   "chars": 42,
+   "file": "96b9559d36c73517.mp3"
+  },
+  {
+   "sport": "soccer",
+   "kind": "foul_yellow",
+   "text": "Rice goes into the book. Yellow card.",
+   "spoken": "Rice goes into the book. Yellow card.",
+   "chars": 37,
+   "file": "c291eedba431c6d8.mp3"
+  },
+  {
+   "sport": "soccer",
+   "kind": "freekick_to",
+   "text": "Gvardiol plays it short from the free kick.",
+   "spoken": "Gvardiol plays it short from the free kick.",
+   "chars": 43,
+   "file": "431cf67dd9a0af3f.mp3"
+  },
+  {
+   "sport": "soccer",
+   "kind": "regain",
+   "text": "Davies nicks it, and Ironside break.",
+   "spoken": "Davies nicks it, and Ironside break.",
+   "chars": 36,
+   "file": "a07e1cb34323c45f.mp3"
+  },
+  {
+   "sport": "soccer",
+   "kind": "offside",
+   "text": "Kvaratskhelia strays offside.",
+   "spoken": "Kvaratskhelia strays offside.",
+   "chars": 29,
+   "file": "976ea3753d37fbbd.mp3"
+  },
+  {
+   "sport": "soccer",
+   "kind": "freekick_to",
+   "text": "Free kick. Gvardiol finds Valverde.",
+   "spoken": "Free kick. Gvardiol finds Valverde.",
+   "chars": 35,
+   "file": "6fb9d0cc88462246.mp3"
+  },
+  {
+   "sport": "soccer",
+   "kind": "regain",
+   "text": "Turnover. Wirtz takes it for Ironside.",
+   "spoken": "Turnover. Wirtz takes it for Ironside.",
+   "chars": 38,
+   "file": "664c20655919d294.mp3"
+  },
+  {
+   "sport": "soccer",
+   "kind": "goal_assist",
+   "text": "Saka sets it up, Haaland puts it away!",
+   "spoken": "[excited] Saka sets it up, Haaland puts it away!",
+   "chars": 48,
+   "file": "415456f6b9df3d6a.mp3"
+  },
+  {
+   "sport": "soccer",
+   "kind": "kickoff_restart",
+   "text": "We restart. Ironside 2, Red Harbour 0.",
+   "spoken": "We restart. Ironside 2, Red Harbour 0.",
+   "chars": 38,
+   "file": "17b952e9483088b3.mp3"
+  },
+  {
+   "sport": "soccer",
+   "kind": "pass",
+   "text": "Valverde to Vitinha.",
+   "spoken": "Valverde to Vitinha.",
+   "chars": 20,
+   "file": "f73dd5247c3d5578.mp3"
+  },
+  {
+   "sport": "soccer",
+   "kind": "offside",
+   "text": "Offside against Salah.",
+   "spoken": "Offside against Salah.",
+   "chars": 22,
+   "file": "8413b5c125b7eab4.mp3"
+  },
+  {
+   "sport": "soccer",
+   "kind": "freekick_to",
+   "text": "Dias plays it short from the free kick.",
+   "spoken": "Dias plays it short from the free kick.",
+   "chars": 39,
+   "file": "63c15efffa152844.mp3"
+  },
+  {
+   "sport": "soccer",
+   "kind": "build",
+   "text": "Patient build-up, Hakimi then Bellingham.",
+   "spoken": "Patient build-up, Hakimi then Bellingham.",
+   "chars": 41,
+   "file": "dceb7c289346e5b4.mp3"
+  },
+  {
+   "sport": "soccer",
+   "kind": "foul_yellow",
+   "text": "A booking for Vitinha for that one.",
+   "spoken": "A booking for Vitinha for that one.",
+   "chars": 35,
+   "file": "7b5f20862774509d.mp3"
+  },
+  {
+   "sport": "soccer",
+   "kind": "freekick_to",
+   "text": "Saliba chips the free kick to Rice.",
+   "spoken": "Saliba chips the free kick to Rice.",
+   "chars": 35,
+   "file": "1447b40081116086.mp3"
+  },
+  {
+   "sport": "soccer",
+   "kind": "build",
+   "text": "Dias to Wirtz. Lovely stuff.",
+   "spoken": "Dias to Wirtz. Lovely stuff.",
+   "chars": 28,
+   "file": "8d55c519c9064575.mp3"
+  },
+  {
+   "sport": "soccer",
+   "kind": "blocked",
+   "text": "Wirtz has a go, blocked.",
+   "spoken": "Wirtz has a go, blocked.",
+   "chars": 24,
+   "file": "f707c08b60b7354e.mp3"
+  },
+  {
+   "sport": "soccer",
+   "kind": "corner_to",
+   "text": "Corner to Ironside. Saka swings it in.",
+   "spoken": "Corner to Ironside. Saka swings it in.",
+   "chars": 38,
+   "file": "6afd8523316c02ee.mp3"
+  },
+  {
+   "sport": "soccer",
+   "kind": "memory_keeper_third",
+   "text": "Another save from Maignan. That's three now.",
+   "spoken": "Another save from Maignan. That's three now.",
+   "chars": 44,
+   "file": "9fc2b6e70e9d82b3.mp3"
+  },
+  {
+   "sport": "soccer",
+   "kind": "pass",
+   "text": "Salah finds Kounde.",
+   "spoken": "Salah finds Kounde.",
+   "chars": 19,
+   "file": "51d251c8cb7b66e9.mp3"
+  },
+  {
+   "sport": "soccer",
+   "kind": "build",
+   "text": "Red Harbour keep it, Kounde to Kane.",
+   "spoken": "Red Harbour keep it, Kounde to Kane.",
+   "chars": 36,
+   "file": "6ce37d12d110281a.mp3"
+  },
+  {
+   "sport": "soccer",
+   "kind": "pass",
+   "text": "Ironside keep it. Saliba, Hakimi.",
+   "spoken": "Ironside keep it. Saliba, Hakimi.",
+   "chars": 33,
+   "file": "ad605d332ec7a310.mp3"
+  },
+  {
+   "sport": "soccer",
+   "kind": "pass",
+   "text": "Dias to Haaland.",
+   "spoken": "Dias to Haaland.",
+   "chars": 16,
+   "file": "6598a2b2412a7f22.mp3"
+  },
+  {
+   "sport": "soccer",
+   "kind": "save",
+   "text": "Haaland shoots... saved by Maignan!",
+   "spoken": "Haaland shoots... saved by Maignan!",
+   "chars": 35,
+   "file": "a4dcd0c09634ea9c.mp3"
+  },
+  {
+   "sport": "soccer",
+   "kind": "wrap",
+   "text": "Full time, Ironside 2, Red Harbour 0. Saka's goal in the 38th minute won it.",
+   "spoken": "Full time, Ironside 2, Red Harbour 0. Saka's goal in the 38th minute won it.",
+   "chars": 76,
+   "file": "be1a4781e11fee38.mp3"
+  },
+  {
+   "sport": "soccer",
+   "kind": "halftime",
+   "text": "We're at the break, Ironside 1, Red Harbour 1. Goals from Haaland and Kane.",
+   "spoken": "We're at the break, Ironside 1, Red Harbour 1. Goals from Haaland and Kane.",
+   "chars": 75,
+   "file": "4802ec944ff13c89.mp3"
+  },
+  {
+   "sport": "soccer",
+   "kind": "wrap",
+   "text": "Full time, Ironside 3, Red Harbour 2. Saka's goal in the 88th minute won it.",
+   "spoken": "Full time, Ironside 3, Red Harbour 2. Saka's goal in the 88th minute won it.",
+   "chars": 76,
+   "file": "2451c178a6d7cf09.mp3"
+  }
+ ]
 }
