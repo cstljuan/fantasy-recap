@@ -120,13 +120,13 @@ Run `sh tools/next.sh` to get your next task with its full description. A row is
 | S4 | S | cstljuan | The soccer match maker | merged |
 | S5 | S | cstljuan | The soccer app: lineups, feed, recap, hidden scores | merged |
 | S7 | S | cstljuan | `SC_GAME.seek(index)` and `SC_GAME.hold(on)` with the same meaning as `FF_GAME`, for Peyton's jump bar and rule cards | moved to C32 |
-| S6 | S | cstljuan | Soccer voice and captions, with Noah | waiting: Juan starts the design session |
+| S6 | S | cstljuan | Soccer voice and captions, with Noah | open |
 | G1 | G | cstljuan | The Figma file with its pages set up (structure only for now) | open |
-| G2 | G | cstljuan | Brand guide, wordmark, mascot | waiting: Juan starts the design session |
-| G3 | G | cstljuan | Every screen at phone and laptop size | waiting: Juan starts the design session |
-| G4 | G | cstljuan | Motion page and motion specs | waiting: Juan starts the design session |
-| G5 | G | cstljuan | Devpost thumbnail, gallery, video title card, architecture picture | waiting: Juan starts the design session |
-| G6 | G | cstljuan | DESIGN.md and tokens for the builders | waiting: Juan starts the design session |
+| G2 | G | cstljuan | Brand guide, wordmark, mascot | open |
+| G3 | G | cstljuan | Every screen at phone and laptop size | open |
+| G4 | G | cstljuan | Motion page and motion specs | open |
+| G5 | G | cstljuan | Devpost thumbnail, gallery, video title card, architecture picture | open |
+| G6 | G | cstljuan | DESIGN.md and tokens for the builders | open |
 | A1 | A | cstljuan | Load the game from `data/games/<id>.json`; contract v1 | merged |
 | A2 | A | cstljuan | The football game maker with the play caller | merged |
 | A3 | A | cstljuan | Connect the announcer, crowd, captions and the floaters switch | merged |
