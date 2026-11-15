@@ -22,6 +22,17 @@ You research one player and write exactly one file: his note.
 5. Validate: `python3 -m json.tool <output path> > /dev/null`. Fix and retry until valid.
 6. If a search tool is refused or returns nothing, still write the note from the data file and Wikipedia sections, and put "not found" (with the reason in `open_questions`) for the rest.
 
+## Accuracy rules (a note that fails the fact check is a failed note)
+
+Write only what you actually read. A short, correct note beats a long one with one wrong fact.
+
+1. Numbers about the player or his team come from the data file `research/data/<KEY>.json` (print the part you need with `python3 -c`, never the whole file), unless a source you actually read states them. Game counts and per-game claims (touchdowns, field goals, catches, "in each of the last N games") must be checked game by game in the data file's game log before you write them. Copy the numbers as they are.
+2. Write only what a source says. No inference, no rounding up, no "each of the last N games", "every game" or "all season" unless every one of those games was checked. If one game differs, say so or write the smaller true claim.
+3. Facts about other teams (record, last game opponent and score, defense rankings, advanced metrics such as DVOA or EPA) go in the note only if a source you read, or the text of a search result, states them for this season. Otherwise write "not found". Never fill them from memory or from a guess about how a team is doing.
+4. A search summary or headline you did not open is marked "headline only" and is never stated as a confirmed fact. Personal facts (birthplace, engagement, family) need a reliable source. If the source is weak or only a headline, leave the fact out or mark it "unconfirmed". If your own searches found no coverage of something, do not state it as fact.
+5. If a source disagrees with the data file or with another source, keep the data file's value and say plainly in the note that the sources disagree, naming both sources and both values.
+6. Self check before writing the file: go through every fact one by one and confirm it is either in the data file or in text you actually read in this session. Drop or mark as unconfirmed anything that is not. Do the same for the `scouts_read` paragraph, which may only use facts that passed this check.
+
 ## Report (final message, under 100 words)
 
 The player, the output path, the key availability fact, and anything not found.
