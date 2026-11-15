@@ -126,7 +126,7 @@ Run `sh tools/next.sh` to get your next task with its full description. A row is
 | G3 | G | cstljuan | Every screen at phone and laptop size | merged |
 | G4 | G | cstljuan | Motion page and motion specs | merged |
 | G5 | G | cstljuan | Devpost thumbnail, gallery, video title card, architecture picture | merged |
-| G6 | G | cstljuan | DESIGN.md and tokens for the builders | open |
+| G6 | G | cstljuan | DESIGN.md and tokens for the builders | merged |
 | A1 | A | cstljuan | Load the game from `data/games/<id>.json`; contract v1 | merged |
 | A2 | A | cstljuan | The football game maker with the play caller | merged |
 | A3 | A | cstljuan | Connect the announcer, crowd, captions and the floaters switch | merged |
@@ -311,6 +311,7 @@ The boss reviews every DONE before it reaches main: the authors check, the lane 
 - Merged after review: B40. All checks and the three full-game runs passed
 - Merged after review: G2. All checks and the three full-game runs passed
 - Merged after review: G3, G4. All checks and the three full-game runs passed
+- Merged after review: G6. All checks and the three full-game runs passed
 - D1 real rosters and profile files, D2 database schema (Ricky) are on main; `data/games/sample-football.json` now has the real rosters
 
 ## Decisions
