@@ -20,10 +20,6 @@
   var G = window.FF_GAME, D = window.FF_DATA;
   var view = document.getElementById('gameView'), game = document.getElementById('game');
   if (!G || !D || !view || !game) return;
-  // Off (Noah's call): the football stadium is now the soccer stadium exactly, whose crowd is the
-  // pixel stands drawn into the field (js/sprites.js) and whose sound is js/audio.js. Delete this
-  // line to bring the animated fans and their sounds back.
-  if (!window.FR_CROWD_ON) return;
   // The field canvas's own geometry, from js/sprites.js: the fans stand outside the advertising boards.
   var ST = window.FF_STADIUM || { W: 390, MX: (390 - 53.3 * 6.6) / 2, RUN: 0, BOARD: 0 };
   var TEAMS = D.TEAMS, W = ST.W, MX = ST.MX - ST.RUN - ST.BOARD;

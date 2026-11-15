@@ -26,12 +26,16 @@
   var rng = mulberry32(SEED);
 
   // Logical canvas size. The width is fixed, the height follows the phone.
-  // The field and the stands come from js/sprites.js (FF_STADIUM): the soccer stadium with a
-  // football field in it, one scale both ways, and a camera that follows the ball on both axes.
+  // The field and the stands come from js/sprites.js (FF_STADIUM), drawn once in the soccer view's style.
   var W = ST.W, H = 844, SCALE = 1;
   var FIELD_W = ST.FIELD_W, CX = Plays.CX;
+  var PXX = ST.PXX, PXY = ST.PXY, PAD = ST.PAD;
+  var MX = ST.MX;
   var stadium = ST.build(TEAMS, CX, Font);
   // Palette shared with the soccer view and css/app.css: near-black panels, warm white text, one amber signal.
+  // The broadcast graphics stay inside the stands' inner edge, where the crowd layer
+  // (js/screens/crowd.js) never draws: from EDGE to W - EDGE.
+  var EDGE = Math.ceil(ST.MX - ST.RUN - ST.BOARD);
   var INK = '#0b0d0e', PANEL = '#121516', RULE = '#2b3033', TEXT = '#f3f1ea', DIM = '#8e9597', AMBER = '#ffc21a', FLAG = '#ffd21a';
 
   var canvas = document.getElementById('game');
@@ -90,8 +94,8 @@
   // ------------------------------------------------------------- state
 
   var steps = Rules.flatten(D.SAMPLE_GAME, TEAMS);
-  var state, si, play, pt, mode, clock = 0, interUntil = 0, camX = 0, camY = 0, camSet = false;
-  var disp = { score: [0, 0], poss: -1, banner: null, lines: null, floaters: [], ticker: null, scoreAt: [-9, -9], dd: '', flash: -9 };
+  var state, si, play, pt, mode, clock = 0, interUntil = 0, cam = 0, camSet = false;
+  var disp = { score: [0, 0], poss: -1, banner: null, lines: null, floaters: [], ticker: null, scoreAt: [-9, -9], dd: '' };
   var log = [], errors = [];
   var active = false;   // true while the game view is on screen
   var seeking = false;  // true while seek() runs the skipped plays: no sound, no voice, no floaters, no banners
@@ -105,7 +109,7 @@
   }
 
   var fx = {
-    sound: function (name) { if (name === 'td' && !seeking) disp.flash = clock; if (active && !seeking) Snd.play(name); },
+    sound: function (name) { if (active && !seeking) Snd.play(name); },
     banner: function (text, sub, secs, color) {
       if (seeking) return;
       disp.banner = { text: text, sub: sub || '', t0: clock, until: clock + secs, color: color || '' };
@@ -274,7 +278,7 @@
     state = Rules.create(TEAMS);
     si = 0; clock = 0; camSet = false;
     disp.score = [0, 0]; disp.poss = -1; disp.banner = null; disp.lines = null; disp.floaters = [];
-    disp.ticker = null; disp.scoreAt = [-9, -9]; disp.dd = ''; disp.flash = -9;
+    disp.ticker = null; disp.scoreAt = [-9, -9]; disp.dd = '';
     log.length = 0; results.length = 0;
     if (window.FF_ANNOUNCER && window.FF_ANNOUNCER.reset) { try { window.FF_ANNOUNCER.reset(); } catch (err) { /* optional */ } }
     all.forEach(function (a) { a.onField = false; });
@@ -307,21 +311,19 @@
     }
   }
 
-  // The camera follows the ball on both axes and never shows past the stands (as soccer's does).
   function updateCamera(realDt) {
     var b = Plays.ballAt(play, pt);
-    var tx = clamp(ST.wx(b.x) - W / 2, 0, stadium.W - W);
-    var ty = stadium.H > H ? clamp(ST.wy(b.y) - H * 0.52, 0, stadium.H - H) : (stadium.H - H) / 2;
-    if (!camSet || CALM) { camX = tx; camY = ty; camSet = true; return; }
-    var k = 1 - Math.exp(-realDt * 3.5 * Math.max(1, SPEED));
-    camX += (tx - camX) * k; camY += (ty - camY) * k;
+    var target = (b.y + 10) * PXY + PAD - H * (play.dir > 0 ? 0.42 : 0.58);
+    target = clamp(target, 0, Math.max(0, stadium.H - H));
+    if (!camSet || CALM) { cam = target; camSet = true; }
+    else cam += (target - cam) * (1 - Math.exp(-realDt * 5 * Math.max(1, SPEED)));
   }
 
   // -------------------------------------------------------------- draw
 
-  var ox = 0, oy = 0;   // camera offset for this frame, whole pixels, shake included
-  function sx(x) { return Math.round(ST.wx(x)) - ox; }
-  function sy(y) { return Math.round(ST.wy(y)) - oy; }
+  var camR = 0;   // the camera for this frame, in whole pixels so the pixel art stays crisp
+  function sx(x) { return Math.round(MX + x * PXX); }
+  function sy(y) { return Math.round((y + 10) * PXY + PAD) - camR; }
   function ease(t) { t = clamp(t, 0, 1); return 1 - Math.pow(1 - t, 3); }
   function text(str, x, y, o) { return Font.draw(g, str, x, y, o); }
 
@@ -337,7 +339,7 @@
 
   function drawField() {
     g.fillStyle = INK; g.fillRect(0, 0, W, H);
-    g.drawImage(stadium.canvas, -ox, -oy);
+    g.drawImage(stadium.canvas, 0, -camR);
   }
 
   function drawLines() {
@@ -510,7 +512,7 @@
     var big = /^TOUCHDOWN/.test(raw), flag = B.color === '#ffd400' || /^FLAG$/.test(raw);
     var team = bannerTeam(raw.toUpperCase()), tc = TEAMS[team >= 0 ? team : 0].colors;
     var pin = CALM ? 1 : ease((clock - B.t0) / 0.16), pout = CALM ? 0 : ease((clock - (B.until - 0.16)) / 0.16);
-    var y = 52, unit = big ? 4 : 3, X0 = 0, BW = W, MID = W / 2;
+    var y = 52, unit = big ? 4 : 3, X0 = EDGE, BW = W - 2 * EDGE, MID = W / 2;
     while (unit > 1 && Font.width(str, unit, 1) > BW - 28) unit--;
     var th = 7 * unit, h = th + (sub ? 14 : 0) + (big ? 24 : 16);
     g.save();
@@ -543,7 +545,7 @@
     if (!T || mode === 'final' || mode === 'inter' || clock - T.t0 > 6) return;
     var h = 22, y = H - h - 52 + (CALM ? 0 : Math.round((1 - ease((clock - T.t0) / 0.2)) * (h + 12)));
     var tag = T.team >= 0 ? TEAMS[T.team].id : '--';
-    var mw = Math.max(34, Font.width(tag, 2) + 12), x = 8, w = W - 16;
+    var mw = Math.max(34, Font.width(tag, 2) + 12), x = EDGE, w = W - 2 * EDGE;
     g.fillStyle = AMBER; g.fillRect(x, y, mw, h);
     text(tag, x + mw / 2, y + 4, { unit: 2, color: INK, align: 'center' });
     g.fillStyle = PANEL; g.fillRect(x + mw, y, w - mw, h);
@@ -569,7 +571,7 @@
   // Halftime and the final: a full board over the field, left aligned, the same as soccer's.
   function drawBoard(title, foot) {
     g.fillStyle = 'rgba(8,9,10,0.86)'; g.fillRect(0, 0, W, H);
-    var x = 24, y = Math.round(H / 2 - 110);
+    var x = EDGE + 12, y = Math.round(H / 2 - 110);
     text(title, x, y, { unit: 4, color: AMBER, track: 1 });
     y += 40;
     g.fillStyle = AMBER; g.fillRect(x, y, W - 2 * x, 2);
@@ -597,9 +599,7 @@
     g.setTransform(SCALE, 0, 0, SCALE, 0, 0);
     g.imageSmoothingEnabled = false;
     g.lineJoin = 'round';
-    // A touchdown shakes the camera for a moment, as a goal does in soccer.
-    var shake = !CALM && clock - disp.flash < 0.45 ? Math.round((1 - (clock - disp.flash) / 0.45) * 2) * (Math.floor(clock * 60) % 2 ? 2 : -2) : 0;
-    ox = Math.round(camX) + shake; oy = Math.round(camY);
+    camR = Math.round(cam);
     drawField();
     drawLines();
     drawFlags();
@@ -611,8 +611,6 @@
     for (i = 0; i < list.length; i++) drawLabel(list[i], list[i] === carrier);
     drawBall(b);
     drawFloaters();
-    // And a white flash, as soccer's goal.
-    if (clock - disp.flash < 0.22) { g.fillStyle = 'rgba(255,255,255,' + (0.5 * (1 - (clock - disp.flash) / 0.22)).toFixed(3) + ')'; g.fillRect(0, 0, W, H); }
     drawScore();
     drawBanner();
     drawTicker();
