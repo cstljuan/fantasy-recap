@@ -1,0 +1,7 @@
+01:09:39 | Scout starts. model=google:gemini-3.5-flash-lite season=2026 players=1 subagents=stats-researcher, film-room, fact-checker
+01:09:39 | Starting fantasy football scouting report pipeline for GOB.WR2: Puka Nacua. Planning to run stats-researcher, film-room, and fact-checker sequentially.
+01:09:41 | Starting research for Puka Nacua for team GOB in slot WR2. Plan: find player ID using find_player.
+01:09:43 | find_player(Puka Nacua) -> 1 match(es)
+01:09:44 | Found player Puka Nacua with player_id 9493, position WR. Now calling season_stats for player_id 9493.
+01:09:44 | season_stats(9493) -> 63 stat keys
+01:09:45 | Got season stats for Puka Nacua (player_id 9493). Now computing tendencies with position WR and season_stats_json.

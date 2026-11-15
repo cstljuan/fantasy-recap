@@ -152,9 +152,9 @@ Run `sh tools/next.sh` to get your next task with its full description. A row is
 | D43 | D | Rickstar-App | Fix every bug the test lead (C28) sends | open |
 | D44 | D | Rickstar-App | Tiger Data that shows: time_bucket and continuous aggregate queries for momentum, hot streaks and week trends, served by the service, with a test | merged |
 | D45 | D | Rickstar-App | Scout through the service: a route that returns the newest sourced scouting report per player, and runs Scout when a key is present | merged |
-| D46 | D | Rickstar-App | The second football game: the game maker reads a stat lines file (A5, moved to Ricky), builds Turtles against Owls without Jev, tags highlights | open |
+| D46 | D | Rickstar-App | The second football game: the game maker reads a stat lines file (A5, moved to Ricky), builds Turtles against Owls without Jev, tags highlights | merged |
 | D47 | D | Rickstar-App | Honesty pass three: README and every file in pitch/ against main as it is now (stadium, one announcer style, no Spanish voice, Scout reports by hand, voice recordings, service routes) | open |
-| D48 | D | Rickstar-App | Scout runs with whichever model key is present (Gemini or Claude), one command, an offline test of both paths, so the real run is one step for Juan | open |
+| D48 | D | Rickstar-App | Scout runs with whichever model key is present (Gemini or Claude), one command, an offline test of both paths, so the real run is one step for Juan | merged |
 
 ## Answers to ASK posts
 
@@ -281,6 +281,7 @@ The boss reviews every DONE before it reaches main: the authors check, the lane 
 - Merged after review: D40. All checks and the three full-game runs passed
 - Merged after review: D41, D42. All checks and the three full-game runs passed
 - Merged after review: B35, B36, C29, C30, D44, D45. All checks and the three full-game runs passed
+- Merged after review: D46, D48. All checks and the three full-game runs passed
 - D1 real rosters and profile files, D2 database schema (Ricky) are on main; `data/games/sample-football.json` now has the real rosters
 
 ## Decisions

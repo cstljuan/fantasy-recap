@@ -1,0 +1,3 @@
+01:06:40 | Scout starts. model=google:gemini-3.5-flash season=2026 players=1 subagents=stats-researcher, film-room, fact-checker
+01:06:54 | Plan: 1. Launch stats-researcher for GOB.WR2 Puka Nacua. 2. Launch film-room for GOB.WR2. 3. Launch fact-checker for GOB.WR2 with film-room findings and model google:gemini-3.5-flash. 4. Summarize results and dropped claims.
+01:09:08 | Scout stopped: The model service is rate limiting or overloaded (GoogleRateLimitError). Wait and run again.
