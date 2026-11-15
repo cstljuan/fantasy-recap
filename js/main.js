@@ -7,6 +7,19 @@
   var Spr = window.FF_SPRITES, Snd = window.FF_AUDIO, Font = window.FF_FONT, ST = window.FF_STADIUM;
   var TEAMS = D.TEAMS;
 
+
+  // What the game is, for the score box tag and the final note, from the game file's `source`
+  // (docs/CONTRACT.md section 1). ?game=sample always plays the built-in sample.
+  function sourceTag() {
+    var f = window.FF_GAME_FILE, src = /[?&]game=sample\b/.test(location.search) ? 'sample' : (f && f.source) || 'sample';
+    if (src === 'real-plays') {
+      var wk = /week (\d+)/i.exec((f && f.source_note) || '');
+      return ['REAL PLAYS', wk ? 'WEEK ' + wk[1] + ', 2026' : 'REAL STATS', (f && f.source_note ? f.source_note + '.' : 'Real plays.') + ' Real names, real stats.'];
+    }
+    if (src === 'jev') return ['PLAYS BY JEV', 'MADE-UP STATS', 'Jev chose the plays. Real names, made-up stats.'];
+    return ['SAMPLE GAME', 'MADE-UP STATS', 'Sample game. Real names, made-up stats.'];
+  }
+
   function clamp(v, a, b) { return v < a ? a : v > b ? b : v; }
   function mulberry32(a) {
     return function () {
@@ -489,7 +502,7 @@
       g.fillStyle = PANEL; g.fillRect(8, y + h, lw, 13);
       text(label, 13, y + h + 3, { color: DIM, track: 1 });
     }
-    var l1 = tr('SAMPLE GAME'), l2 = tr('MADE-UP STATS'), mw = Math.max(Font.width(l1, 1, 1), Font.width(l2, 1, 1)) + 10;
+    var tag = sourceTag(), l1 = tr(tag[0]), l2 = tr(tag[1]), mw = Math.max(Font.width(l1, 1, 1), Font.width(l2, 1, 1)) + 10;
     g.fillStyle = PANEL; g.fillRect(W - 8 - mw, 8, mw, 22);
     text(l1, W - 13, 11, { color: DIM, align: 'right', track: 1 });
     text(l2, W - 13, 20, { color: DIM, align: 'right', track: 1 });
@@ -586,7 +599,7 @@
     y += 16;
     if (foot && (CALM || Math.floor(clock * 2) % 2 === 0)) text(foot, x, y, { unit: 2, color: TEXT, track: 1 });
     // The sample note, on two lines when it is too long for one (Spanish).
-    var note = tr('Sample game. Real names, made-up stats.'), ny = y + (foot ? 26 : 0);
+    var note = tr(sourceTag()[2]), ny = y + (foot ? 26 : 0);
     var parts = Font.width(note, 1) <= W - 2 * x ? [note] : note.split(/(?<=\.) /);
     parts.forEach(function (ln, k) { text(ln, x, ny + k * 11, { color: DIM }); });
   }
