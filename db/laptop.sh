@@ -63,8 +63,8 @@ get "trend" /players/Josh%20Allen/trend
 get "scout list" /scout
 get "scout report" /scout/GOB.QB
 get "league" /league
-get "commissioner week 11" /league/week/11/optins
-get "release" /league/week/11/release
+get "commissioner week 9" /league/week/9/optins
+get "release week 9" /league/week/9/release
 code=$(curl -s -m 10 -o "$tmp/body" -w '%{http_code}' -X POST "$BASE/party" -d '{}')
 if [ "$code" = "201" ]; then note "5 party" OK "201 room made"; else note "5 party" FAILED "HTTP $code"; fail=1; fi
 eng=$(curl -s -m 20 "$BASE/games/week11-football/momentum?bucket=120" | sed -n 's/.*"engine":"\([a-z_]*\)".*/\1/p')

@@ -3,7 +3,7 @@
 //   DATABASE_URL=<connection string> node server/test-db.js
 // Without DATABASE_URL it prints SKIPPED and exits 0. The database must already be set up (sh db/migrate.sh).
 // It only creates rows whose game id starts with "dbtest-" and deletes them at the end; the commissioner's
-// release of league week 11 is put back as it was. Do not point it at a database in the middle of a game night.
+// release of league week 9 is put back as it was. Do not point it at a database in the middle of a game night.
 var http = require('http');
 var assert = require('assert');
 var path = require('path');
@@ -113,16 +113,16 @@ pool.query("SELECT to_regclass('plays') AS p, to_regclass('optins') AS o, to_reg
   .then(function () { return call(port, 'GET', '/league'); })
   .then(function (r) { assert.equal(r.status, 200); assert.ok(r.body.standings.length > 1 && r.body.current.matchups.length); ok('league answers with standings and this week'); })
   // commissioner
-  .then(function () { return call(port, 'GET', '/league/week/11/release'); })
+  .then(function () { return call(port, 'GET', '/league/week/9/release'); })
   .then(function (r) { priorRelease = r.body.released; return pool.query('SELECT 1 FROM releases WHERE week=11'); })
-  .then(function (r) { hadRelease = r.rows.length > 0; return call(port, 'POST', '/league/week/11/release', { released: !priorRelease }); })
-  .then(function (r) { assert.ok(r.status === 200 || r.status === 201); assert.equal(r.body.source, 'database'); return call(port, 'GET', '/league/week/11/release'); })
+  .then(function (r) { hadRelease = r.rows.length > 0; return call(port, 'POST', '/league/week/9/release', { released: !priorRelease }); })
+  .then(function (r) { assert.ok(r.status === 200 || r.status === 201); assert.equal(r.body.source, 'database'); return call(port, 'GET', '/league/week/9/release'); })
   .then(function (r) { assert.equal(r.body.released, !priorRelease); ok('release saved in the releases table'); })
   .then(function () { return call(port, 'POST', '/games/' + ID + '/watched', { manager: 'GOB' }); })
   .then(function (r) { assert.equal(r.status, 201); assert.equal(r.body.source, 'database'); return call(port, 'POST', '/games/' + ID + '/watched', { manager: 'GOB' }); })
   .then(function () { return pool.query('SELECT count(*)::int AS n FROM watched WHERE game_id=$1', [ID]); })
   .then(function (r) { assert.equal(r.rows[0].n, 1); ok('watched counts a manager once'); })
-  .then(function () { return call(port, 'GET', '/league/week/11/optins'); })
+  .then(function () { return call(port, 'GET', '/league/week/9/optins'); })
   .then(function (r) { assert.equal(r.status, 200); assert.ok(r.body.matchups.length); ok('commissioner opt-in list answers'); })
   // watch party relay (memory)
   .then(function () { return call(port, 'POST', '/party'); })
@@ -135,7 +135,7 @@ pool.query("SELECT to_regclass('plays') AS p, to_regclass('optins') AS o, to_reg
       .then(function (s) { assert.equal(s.body.state.index, 5); ok('watch party: command, host poll and state'); });
   })
   .then(function () { return cleanup(); })
-  .then(function () { return hadRelease ? call(port, 'POST', '/league/week/11/release', { released: priorRelease }) : pool.query('DELETE FROM releases WHERE week=11'); })
+  .then(function () { return hadRelease ? call(port, 'POST', '/league/week/9/release', { released: priorRelease }) : pool.query('DELETE FROM releases WHERE week=11'); })
   .then(function () { console.log('OK: ' + steps + ' checks against the real database'); }, function (e) {
     console.error('FAILED: ' + (e && e.message ? e.message : e));
     process.exitCode = 1;

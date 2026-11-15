@@ -120,6 +120,9 @@ var srv = createServer(db).listen(0, function () {
     function () { return c('summary', 'GET', '/games/week11-football/summary', undefined, [200]); },
     function () { return c('optin', 'POST', '/games/week11-football/optin', { manager: 'GOB' }, [201]); },
     function () { return c('optins', 'GET', '/games/week11-football/optins', undefined, [200]); },
+    // the league's current week names its own game: push it and opt in there, so the league shows the opt-in
+    function () { return pushGame(path.join(ROOT, 'data', 'games', 'week09-gob-tur.json'), base); },
+    function () { return c('optin to the current week game', 'POST', '/games/week09-gob-tur/optin', { manager: 'GOB' }, [201]); },
     function () { return c('top plays from the database', 'GET', '/games/week11-football/top-plays?n=3', undefined, [200]).then(function (r) { if (r.body && r.body.source !== 'database') problems.push('top plays did not come from the database'); }); },
     function () { return c('drives from the database', 'GET', '/games/week11-football/drives', undefined, [200]).then(function (r) { if (r.body && r.body.source !== 'database') problems.push('drives did not come from the database'); }); },
     function () { return c('momentum from the database', 'GET', '/games/week11-football/momentum?bucket=120', undefined, [200]).then(function (r) { if (r.body && r.body.source !== 'database') problems.push('momentum did not come from the database'); }); },
@@ -179,21 +182,21 @@ var srv = createServer(db).listen(0, function () {
     ['wrong method on health', 'POST', '/health', undefined, [404, 405]],
     ['wrong method on top plays', 'PUT', '/games/g1/top-plays', undefined, [405]],
     ['wrong method on league', 'POST', '/league', { x: 1 }, [405]],
-    ['commissioner: release', 'POST', '/league/week/11/release', { released: true }, [200]],
-    ['commissioner: read release', 'GET', '/league/week/11/release', undefined, [200]],
-    ['commissioner: opt-ins', 'GET', '/league/week/11/optins', undefined, [200]],
+    ['commissioner: release', 'POST', '/league/week/9/release', { released: true }, [200]],
+    ['commissioner: read release', 'GET', '/league/week/9/release', undefined, [200]],
+    ['commissioner: opt-ins', 'GET', '/league/week/9/optins', undefined, [200]],
     ['commissioner: watched', 'POST', '/games/week11-football/watched', { manager: 'GOB' }, [201]],
-    ['commissioner: released is text', 'POST', '/league/week/11/release', { released: 'true' }, [400]],
-    ['commissioner: released is missing', 'POST', '/league/week/11/release', {}, [400]],
-    ['commissioner: body is a list', 'POST', '/league/week/11/release', [1], [400]],
-    ['commissioner: broken JSON', 'POST', '/league/week/11/release', undefined, [400], '{"released":'],
-    ['commissioner: body over 2 KB', 'POST', '/league/week/11/release', undefined, [413], JSON.stringify({ released: true, pad: new Array(4000).join('x') })],
+    ['commissioner: released is text', 'POST', '/league/week/9/release', { released: 'true' }, [400]],
+    ['commissioner: released is missing', 'POST', '/league/week/9/release', {}, [400]],
+    ['commissioner: body is a list', 'POST', '/league/week/9/release', [1], [400]],
+    ['commissioner: broken JSON', 'POST', '/league/week/9/release', undefined, [400], '{"released":'],
+    ['commissioner: body over 2 KB', 'POST', '/league/week/9/release', undefined, [413], JSON.stringify({ released: true, pad: new Array(4000).join('x') })],
     ['commissioner: week is text', 'GET', '/league/week/abc/optins', undefined, [400]],
     ['commissioner: week is huge', 'GET', '/league/week/99999999999/release', undefined, [400]],
     ['commissioner: week is negative', 'GET', '/league/week/-1/release', undefined, [400]],
     ['commissioner: week not in the league', 'GET', '/league/week/20/optins', undefined, [404]],
     ['commissioner: SQL in the week', 'GET', "/league/week/11%3B%20DROP%20TABLE%20releases/release", undefined, [400]],
-    ['commissioner: wrong method', 'PUT', '/league/week/11/optins', undefined, [405]],
+    ['commissioner: wrong method', 'PUT', '/league/week/9/optins', undefined, [405]],
     ['watched: no manager', 'POST', '/games/week11-football/watched', {}, [400]],
     ['watched: manager is an object', 'POST', '/games/week11-football/watched', { manager: { a: 1 } }, [400]],
     ['watched: SQL in manager', 'POST', '/games/week11-football/watched', { manager: "x'); DROP TABLE watched;--" }, [201]],
@@ -257,7 +260,7 @@ var srv = createServer(db).listen(0, function () {
   // 3. 200 requests at once
   steps.push(function () {
     var routes = ['/games/week11-football/plays', '/games/week11-football/top-plays?n=5', '/games/week11-football/drives',
-      '/games/week11-football/momentum', '/games/week11-football/story', '/league', '/league/week/11/optins', '/league/week/11/release', '/games/week11-soccer/plays', '/health', '/games/week11-football/optins', '/games/nope/plays'];
+      '/games/week11-football/momentum', '/games/week11-football/story', '/league', '/league/week/9/optins', '/league/week/9/release', '/games/week11-soccer/plays', '/health', '/games/week11-football/optins', '/games/nope/plays'];
     var all = [];
     for (var i = 0; i < 200; i++) {
       var p = routes[i % routes.length];
