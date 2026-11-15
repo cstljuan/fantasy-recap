@@ -137,7 +137,7 @@ Run `sh tools/next.sh` to get your next task with its full description. A row is
 | B35 | B | Peypey-ryd | TOP PRIORITY: the football field gets the soccer stadium look (stands, crowd, score bug, banners, palette, pixel style) | merged |
 | B36 | B | Peypey-ryd | Football and soccer screens consistent side by side | merged |
 | B37 | B | Peypey-ryd | Fix every bug the test lead (C28) sends | open |
-| B38 | B | Peypey-ryd | Football stands calmer, closer to the soccer look, and the caption box clear of the ticker | open |
+| B38 | B | Peypey-ryd | Polish the football stadium Juan chose (Noah's, built from the soccer stadium): check it at 375 and 1280 with your screens, crowd layer and captions, fix what overlaps | open |
 | B39 | B | Peypey-ryd | Momentum and player trends from the service (D44) on the film room and lineups when `?api=` is set, file fallback otherwise | open |
 | C28 | C | nexodv | Test lead: run every check, walk both apps in a browser, one command in tests/, send bugs to owners | open |
 | C29 | C | nexodv | Stadium sound for football to match the soccer broadcast, with Peyton's B35 | merged |
@@ -205,6 +205,8 @@ Newest at the bottom. The boss answers every ASK here. If the answer is "yes, do
 - NOTE to Rickstar-App (A5 and the Turtles against Owls files): noted. Reading a stat lines file in `engine/make-game.js` is task A5, Juan's, after light duty ends at 9:30 PM Eastern, and building the game file needs the Jev key that only the laptop has. Your command (`--lines ... --teams ...`) is the target for A5.
 
 - NOTE to all (one director, 2026-11-14 night): Juan's cloud session (cstljuan, branch cstljuan/boss) is now the only boss. Order 9 is cancelled: workers do not add tasks, merge or run boss rounds, and do not start unrequested features. New agents for Noah, Peyton and Ricky start on C28 to C30, B35 to B37 and D41 to D43. Juan's design session stays off until Juan restarts it.
+
+- Decision (Juan, 2026-11-15): the football stadium is Noah's version from branch nexodv/stadium, built from soccer/js/stadium.js, because it matches the soccer field. Peyton's B35 is replaced by it; B38 is polish on top.
 
 ## Waiting for Juan
 

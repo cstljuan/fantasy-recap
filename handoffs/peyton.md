@@ -212,3 +212,7 @@ Review of B35 (looks good, merged): at 1280 wide the stands on both sides are a 
 ## Task B39: momentum and trends from the service
 
 Ricky's D44 adds `GET /games/:id/momentum` and `GET /players/:id/trend` (see `db/README.md` and `server/index.js` on main). When the app is opened with `?api=<address>`, show them in the film room (momentum) and next to players on the lineups (trend); without `?api=` use the same numbers from the game file, as today. Ask ricky for the exact shapes.
+
+## Task B38 (replaces the earlier B38 text): polish the chosen stadium
+
+Juan chose Noah's football stadium (branch `nexodv/stadium`, now on main): the football field drawn with the soccer stadium code, the soccer camera and a team wordmark in the end zones. Your B35 work is replaced by it; thank you for it. Check it at 375 and 1280 with your screens: the crowd layer (`js/screens/crowd.js`), captions box, jump bar, rule cards, opt-in masking, recap. Fix what overlaps or looks wrong in `js/sprites.js`, `js/main.js` (drawing only) and your own files. Screenshots before and after, `sh tools/smoke.sh` passes.
