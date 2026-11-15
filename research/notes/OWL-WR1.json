@@ -1,0 +1,268 @@
+{
+ "key": "OWL-WR1",
+ "name": "Tee Higgins",
+ "researched": "2026-11-15",
+ "background": [
+  {
+   "fact": "Tamaurice William \"Tee\" Higgins, born January 18, 1999, is a wide receiver for the Cincinnati Bengals who played at Clemson and won the 2019 College Football Playoff National Championship as a sophomore.",
+   "source": "https://en.wikipedia.org/wiki/Tee_Higgins",
+   "date": null,
+   "confidence": "from Wikipedia"
+  },
+  {
+   "fact": "He attended Oak Ridge High School in Oak Ridge, Tennessee; as a senior he had 68 catches for 1,044 yards and 18 touchdowns, was a five star recruit, and switched his commitment from Tennessee to Clemson.",
+   "source": "https://en.wikipedia.org/wiki/Tee_Higgins",
+   "date": null,
+   "confidence": "from Wikipedia"
+  },
+  {
+   "fact": "He also played basketball in high school and was offered college basketball scholarships by numerous schools.",
+   "source": "https://en.wikipedia.org/wiki/Tee_Higgins",
+   "date": null,
+   "confidence": "from Wikipedia"
+  },
+  {
+   "fact": "At Clemson he had 345 yards in 2017, 936 yards and 12 touchdowns in 2018, and 1,167 yards and 13 touchdowns in 2019, then skipped his final year to enter the 2020 draft.",
+   "source": "https://en.wikipedia.org/wiki/Tee_Higgins",
+   "date": null,
+   "confidence": "from Wikipedia"
+  },
+  {
+   "fact": "The Bengals selected him first in the second round (33rd overall) of the 2020 NFL draft.",
+   "source": "https://en.wikipedia.org/wiki/Tee_Higgins",
+   "date": null,
+   "confidence": "from Wikipedia"
+  },
+  {
+   "fact": "Listed at 6 ft 4 in, 220 lb, age 27, jersey 5, in his seventh NFL season, all with Cincinnati; depth chart slot is second receiver on the right side.",
+   "source": "research/data/OWL-WR1.json (bio)",
+   "date": "2026-11-15",
+   "confidence": "one source"
+  },
+  {
+   "fact": "Career regular season: 90 games, 437 catches, 6,199 yards, 51 touchdowns; his best yardage year was 2021 (1,091); his most touchdowns before 2026 was 11 in 2025.",
+   "source": "research/data/OWL-WR1.json (career)",
+   "date": "2026-11-15",
+   "confidence": "from the data file"
+  },
+  {
+   "fact": "Madden week 8 rating is 87 overall with 97 catching, 97 jumping, 95 spectacular catch and 91 speed.",
+   "source": "research/data/OWL-WR1.json (bio.madden)",
+   "date": "2026-11-15",
+   "confidence": "one source"
+  }
+ ],
+ "family": [
+  {
+   "fact": "A 2026-10-30 Bengals.com feature on Higgins calls him a Mr. Basketball finalist from Tennessee; its text was not read, so no family details from it.",
+   "source": "research/data/OWL-WR1.json (news.family headline, Cincinnati Bengals)",
+   "date": "2026-10-30",
+   "confidence": "headline only"
+  },
+  {
+   "fact": "His mother Camilla has been quoted in Pro Football Network pieces joking about Browns fans (Sept 2025) and commenting on the Bengals quarterback situation (Oct 2025); the articles were not read.",
+   "source": "research/data/OWL-WR1.json (news.family headlines, Pro Football Network)",
+   "date": "2025-10-06",
+   "confidence": "headline only"
+  },
+  {
+   "fact": "Bengals fans were mistaken for Higgins' family on TV in the Madrid game, per a WCPO 9 headline; this says nothing about his actual family.",
+   "source": "research/data/OWL-WR1.json (news.family headline, WCPO 9 News)",
+   "date": "2026-11-13",
+   "confidence": "headline only"
+  },
+  {
+   "fact": "Marriage, partner and children: not found in the sources reached.",
+   "source": "not found",
+   "date": null,
+   "confidence": "not found"
+  }
+ ],
+ "recent_events": [
+  {
+   "fact": "Week 9 in Madrid: Bengals beat Atlanta 34-17; Higgins caught 5 of 6 targets for 32 yards and 2 touchdowns (4 yards in the second quarter, 8 yards in the third).",
+   "source": "research/data/OWL-WR1.json (status.espn and log)",
+   "date": "2026-11-15",
+   "confidence": "confirmed by two sources (ESPN note and game log)"
+  },
+  {
+   "fact": "Week 8: Higgins had 10 catches for 155 yards and 2 touchdowns against Tennessee and was named AFC Offensive Player of the Week, his first; his 155 yards led the NFL that week and he is the only player with three games of 140 or more yards this season. One summary gave the score as 43-36 in overtime, another source titled the win 39-36, so the final score is unclear.",
+   "source": "https://www.fox19.com/2026/11/04/tee-higgins-named-afc-offensive-player-week/",
+   "date": "2026-11-04",
+   "confidence": "confirmed by several outlets (FOX19, NBC Sports, Yahoo Sports, NFL.com headlines)"
+  },
+  {
+   "fact": "2026 season: all 8 games played, 67 targets, 48 catches (71.6 percent), 758 yards, 6 touchdowns, 13.97 fantasy points a game; no drops beyond 1 and no fumbles.",
+   "source": "research/data/OWL-WR1.json (season_2026)",
+   "date": "2026-11-15",
+   "confidence": "from the data file"
+  },
+  {
+   "fact": "Game log 2026 (catches/yards/TD): W1 TB 3/59/0, W2 HOU 5/95/0, W3 PIT 6/90/1, W4 JAX 11/157/0, W5 MIA 2/22/0, W7 BAL 6/148/1, W8 TEN 10/155/2, W9 ATL 5/32/2. Bengals were off in Week 6.",
+   "source": "research/data/OWL-WR1.json (log)",
+   "date": "2026-11-15",
+   "confidence": "from the data file"
+  },
+  {
+   "fact": "He has scored in each of the last three games (5 touchdowns), and 3 games have gone over 100 yards before Week 10.",
+   "source": "research/data/OWL-WR1.json (season_2026 (sleeper_sums bonus_rec_yd_100 = 3) and ESPN note)",
+   "date": "2026-11-15",
+   "confidence": "one source plus ESPN note"
+  },
+  {
+   "fact": "2026 tracking: average separation 2.29 yards (1.85 in 2025), share of team intended air yards 39.5 percent (29.0 in 2025), 13.1 average intended air yards, 1.45 yards after catch above expectation.",
+   "source": "research/data/OWL-WR1.json (season_2026.tracking)",
+   "date": "2026-11-15",
+   "confidence": "from the data file"
+  },
+  {
+   "fact": "Burrow is quoted as saying Higgins has put it all together; Higgins said Burrow has 'another step in him' (headlines, articles not read).",
+   "source": "research/data/OWL-WR1.json (news.quotes headlines, NBC Sports, Athlon Sports)",
+   "date": "2026-11-10",
+   "confidence": "headline only, via data file news list (NBC Sports, NYT, Athlon)"
+  },
+  {
+   "fact": "Higgins made PFF's midseason All-Pro first team and Chase the second team (headline).",
+   "source": "research/data/OWL-WR1.json (news.recent, Yahoo Sports headline)",
+   "date": "2026-11-13",
+   "confidence": "headline only"
+  }
+ ],
+ "quotes": [
+  {
+   "fact": "Headline quote: Higgins says Burrow has 'another step in him' and has not hit his ceiling yet.",
+   "source": "research/data/OWL-WR1.json (news.quotes, NBC Sports and Athlon Sports headlines)",
+   "date": "2026-11-10",
+   "confidence": "headline only"
+  },
+  {
+   "fact": "No quote from Higgins or the coach about his health or the Steelers game was found in pages that could be reached: not found.",
+   "source": "not found",
+   "date": null,
+   "confidence": "not found"
+  }
+ ],
+ "team_context": [
+  {
+   "fact": "Cincinnati is 6-2 (same as Pittsburgh); the data file shows the Bengals scoring 30.0 points and allowing 21.9 a game.",
+   "source": "https://local12.com/sports/bengals/bengals-vs-steelers-what-to-know-about-sunday-nights-afc-north-showdown",
+   "date": "2026-11-15",
+   "confidence": "two sources (search summary and data file season_2026.team)"
+  },
+  {
+   "fact": "Joe Burrow leads the NFL with 23 touchdown passes and is second in passing yards with 2,386; he has started all 8 games.",
+   "source": "https://sports.yahoo.com/articles/steelers-vs-bengals-week-10-162653958.html",
+   "date": "2026-11-15",
+   "confidence": "one source (search summary), games from data file"
+  },
+  {
+   "fact": "Target shares: Ja'Marr Chase 73 targets (25.3 percent), Higgins 67 (23.2), running back Chase Brown 45, Mike Gesicki 26, Dohnte Meyers 26. Chase has 647 yards and 7 touchdowns; Higgins is fifth in the NFL in receiving yards.",
+   "source": "research/data/OWL-WR1.json (teammates_2026)",
+   "date": "2026-11-15",
+   "confidence": "from the data file, yards also in preview summary"
+  },
+  {
+   "fact": "Chase Brown leads rushing with 103 carries for 397 yards; Samaje Perine has 46 carries.",
+   "source": "research/data/OWL-WR1.json (teammates_2026)",
+   "date": "2026-11-15",
+   "confidence": "from the data file"
+  },
+  {
+   "fact": "Head coach Zac Taylor was named in ESPN and Bengals headlines in the data file; offensive coordinator and any 2026 contract details for Higgins: not found.",
+   "source": "not found",
+   "date": null,
+   "confidence": "not found"
+  }
+ ],
+ "next_opponent": [
+  {
+   "fact": "Pittsburgh at Cincinnati, Sunday November 15, 8:20 pm ET on NBC, Paycor Stadium (outdoors, FieldTurf), a division game with first place in the AFC North at stake.",
+   "source": "https://nbcsports.com/nfl/news/how-to-watch-the-pittsburgh-steelers-vs-cincinnati-bengals-tv-live-stream-info-kickoff-time-for-sunday",
+   "date": "2026-11-15",
+   "confidence": "two sources (also data file next_games)"
+  },
+  {
+   "fact": "Lines: Cincinnati -3.5, total 49.5, implied Bengals team total 26.5; forecast partly cloudy and 39 F; wind not found.",
+   "source": "research/data/OWL-WR1.json (next_games)",
+   "date": "2026-11-15",
+   "confidence": "from the data file, line also in preview summary"
+  },
+  {
+   "fact": "Pittsburgh won the first meeting 30-27 at home in Week 3; Higgins had 6 catches for 90 yards and a touchdown and Chase 9 for 98 and a touchdown.",
+   "source": "https://local12.com/sports/bengals/bengals-vs-steelers-what-to-know-about-sunday-nights-afc-north-showdown",
+   "date": "2026-11-15",
+   "confidence": "two sources (preview summary and game log)"
+  },
+  {
+   "fact": "One preview says Steelers cornerback Jamel Dean will likely cover Chase most of the game, which could free up Higgins.",
+   "source": "https://sports.yahoo.com/articles/steelers-vs-bengals-week-10-162653958.html",
+   "date": "2026-11-15",
+   "confidence": "one source, from search summary"
+  },
+  {
+   "fact": "Higgins against Pittsburgh since 2022 (catches/targets/yards/TD): 2022 W1 2/2/27/0, 2022 W11 9/13/148/0, 2023 W16 5/8/140/1, 2024 W13 5/10/69/1, 2024 W18 4/5/53/0, 2025 W7 6/10/96/1, 2025 W11 3/8/63/1, 2026 W3 6/7/90/1.",
+   "source": "research/data/OWL-WR1.json (log)",
+   "date": "2026-11-15",
+   "confidence": "from the data file"
+  },
+  {
+   "fact": "A prop outlook lists Higgins receiving yards over 75.5 (-113) and mentions him as a possible anytime touchdown pick.",
+   "source": "https://bettorsinsider.com/nfl/2026/11/14/3-skill-position-props-to-back-for-steelers-vs-bengals-on-snf/",
+   "date": "2026-11-14",
+   "confidence": "one source, from search summary; page could not be opened"
+  }
+ ],
+ "style": [
+  {
+   "fact": "Tall outside receiver (6 ft 4 in) who wins on jump balls and contested catches: Madden gives him 97 catching, 97 jumping, 95 spectacular catch, 88 catch in traffic and abilities 'Deep Out Elite' and 'Acrobat'.",
+   "source": "research/data/OWL-WR1.json (bio.madden)",
+   "date": "2026-11-15",
+   "confidence": "one source"
+  },
+  {
+   "fact": "2026 usage is downfield: 13.1 average intended air yards, 28 of his 48 catches went 10 to 19 yards and 10 went 20 or more.",
+   "source": "research/data/OWL-WR1.json (season_2026 (sleeper_sums))",
+   "date": "2026-11-15",
+   "confidence": "from the data file"
+  },
+  {
+   "fact": "Career 8.5 to 12.4 fantasy points a game before 2026; in 2026 he is at 13.97 (in the 2024 and 2025 seasons he scored 10 and 11 touchdowns on fewer games).",
+   "source": "research/data/OWL-WR1.json (career)",
+   "date": "2026-11-15",
+   "confidence": "from the data file"
+  }
+ ],
+ "availability": {
+  "status": "Active, no designation seen",
+  "detail": "The data file shows Sleeper status Active, no 2026 injury designation, and ESPN status Active as of 2026-11-08. His 2026 report history shows only a foot note in Week 1 (full practice) and a groin note in Week 5 (questionable, full practice); an ESPN headline dated 2026-10-05 says he was day-to-day with an adductor injury. His past injuries: hamstring and quadriceps (2024), concussion that cost him games in Dec 2025. Searches for a Week 10 injury report only returned 2023 to 2025 articles, so no current Friday report or inactive list was found.",
+  "expected_return": "Not applicable",
+  "source": "research/data/OWL-WR1.json (status, injury_reports, news.family headline from ESPN)",
+  "date": "2026-11-15"
+ },
+ "outlook_next_game": {
+  "lean": "plays; strong game likely, around 14 to 20 fantasy points with touchdown upside",
+  "confidence": "medium",
+  "reasons": [
+   "He is listed Active with no designation, and a home game against his division rival has the Bengals favored by 3.5 with a team total near 26.5.",
+   "He has scored in three straight games (5 touchdowns) and averaged 13.97 points a game, with 100 yard games in 3 of 8.",
+   "He has hit Pittsburgh for 90 yards and a touchdown in Week 3 and has scored against them in 5 of the last 8 meetings.",
+   "Risks: Chase takes slightly more targets, his games range from 2.2 to 27.5 points, and no current injury report was found."
+  ]
+ },
+ "scouts_read": "Higgins is healthy on every report I could find, and the Bengals are home favorites on Sunday night with a team total near 26.5, so I expect him to play a full game. He has become Joe Burrow's most efficient target, catching 71.6 percent of his passes and scoring in three straight weeks. The matchup note that Jamel Dean may shadow Chase could push more looks his way, and he already had 6 catches for 90 yards and a touchdown against Pittsburgh in Week 3. His floor is real, as the 22 yard game at Miami shows, but touchdown scoring has been the main driver lately and that can cool off. I would project a good game in the mid teens with a chance of 20 plus.",
+ "open_questions": [
+  "Official Friday injury report and Sunday inactive list for Higgins, Chase and Burrow (not found).",
+  "Wind and final game-time weather (not found).",
+  "Offensive coordinator, Steelers defensive injuries and any contract details for Higgins (not found).",
+  "Quotes from Higgins or Zac Taylor this week (headlines only; articles not read).",
+  "Family details beyond his mother being quoted (not found)."
+ ],
+ "searches": [
+  "Bengals Steelers Week 10 injury report Tee Higgins Ja'Marr Chase Joe Burrow (returned only 2023 to 2025 reports)",
+  "Tee Higgins Bengals 2026 historic season Burrow Chase tandem",
+  "Bengals Steelers Sunday night preview Higgins Burrow Chase November 2026",
+  "Tee Higgins AFC Offensive Player of the Week Titans 155 yards two touchdowns",
+  "Zac Taylor Bengals injury update Steelers Sunday Higgins Chase Burrow (returned only older reports)",
+  "Page fetches of local12.com and bettorsinsider.com failed (host not allowed); Wikipedia text came from the sections already stored in research/data/OWL-WR1.json, which has only Intro, Early life and College career"
+ ]
+}
