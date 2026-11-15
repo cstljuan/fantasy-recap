@@ -76,3 +76,13 @@ SELECT extract(epoch FROM bucket - (SELECT t FROM t0))::int AS start,
        sum(fp_home) OVER (ORDER BY bucket) AS fp_home_total, sum(fp_away) OVER (ORDER BY bucket) AS fp_away_total,
        home_score AS score_home_total, away_score AS score_away_total
 FROM fp ORDER BY bucket;
+
+-- ---------------------------------------------------------------------------
+-- D44: the queries the service runs (server/timescale.js), see db/README.md "What TimescaleDB does here".
+-- Run on a plain PostgreSQL 16 with date_bin in place of time_bucket; not run on TimescaleDB.
+--
+-- Weekly points of one player (the continuous aggregate player_points_per_week), $1 = 'josh allen' in lower case:
+--   SELECT bucket, points, awards FROM player_points_per_week WHERE player_key = $1 ORDER BY bucket;
+--
+-- Momentum buckets of a game, $1 = game id, $2 = bucket width in seconds: see momentumSql in server/timescale.js.
+-- ---------------------------------------------------------------------------

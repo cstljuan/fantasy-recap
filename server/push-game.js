@@ -5,8 +5,19 @@
 var path = require('path');
 var buildPlays = require('./replay.js').buildPlays;
 
+// A game file named weekNN-... is played in league week NN: its plays are moved by whole weeks so that week 11 stays on
+// 2026-11-15 (where replay.js puts every game) and week 9 lands two weeks earlier. That is what makes the weekly
+// buckets of GET /players/:id/trend real. Other file names are not moved.
+var DAY = 24 * 3600 * 1000;
+function weekShift(file) {
+  var m = /^week(\d+)-/.exec(path.basename(file));
+  return m ? (parseInt(m[1], 10) - 11) * 7 * DAY : 0;
+}
+
 function pushGame(file, baseUrl, idOverride) {
   var g = buildPlays(file);
+  var shift = weekShift(file);
+  if (shift) g.plays.forEach(function (p) { p.played_at = new Date(Date.parse(p.played_at) + shift).toISOString(); });
   var id = idOverride || g.id;
   var base = String(baseUrl || 'http://localhost:3001').replace(/\/$/, '');
   var batches = [];
@@ -28,7 +39,7 @@ function pushGame(file, baseUrl, idOverride) {
   }, Promise.resolve()).then(function () { return { id: id, plays: sent, final: g.final }; });
 }
 
-module.exports = { pushGame: pushGame };
+module.exports = { pushGame: pushGame, weekShift: weekShift };
 
 if (require.main === module) {
   var args = process.argv.slice(2), file = null, url = null, id = null;
