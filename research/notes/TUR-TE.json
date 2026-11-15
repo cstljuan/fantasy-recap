@@ -1,0 +1,207 @@
+{
+ "key": "TUR-TE",
+ "name": "Brock Bowers",
+ "researched": "2026-11-15",
+ "background": [
+  {
+   "fact": "Born December 13, 2002 in Napa, California; attended Napa High School, where he played football and basketball, and as a junior set a school record with 14 touchdown receptions.",
+   "source": "https://en.wikipedia.org/wiki/Brock_Bowers",
+   "date": null,
+   "confidence": "from Wikipedia"
+  },
+  {
+   "fact": "His senior high school season was canceled by COVID-19 restrictions in California, yet he was still named to the All-American Bowl.",
+   "source": "https://en.wikipedia.org/wiki/Brock_Bowers",
+   "date": null,
+   "confidence": "from Wikipedia"
+  },
+  {
+   "fact": "He played at Georgia, where he was a three-time All-American, two-time John Mackey Award winner, and won two national championships.",
+   "source": "https://en.wikipedia.org/wiki/Brock_Bowers",
+   "date": null,
+   "confidence": "from Wikipedia"
+  },
+  {
+   "fact": "The Raiders drafted him in the first round (13th overall) in 2024; as a rookie he set records for receptions in a season and most receiving yards by a tight end, with Pro Bowl and All-Pro honors.",
+   "source": "https://en.wikipedia.org/wiki/Brock_Bowers",
+   "date": null,
+   "confidence": "from Wikipedia (pick number also in research/data/TUR-TE.json)"
+  },
+  {
+   "fact": "Listed at 6 ft 4 in, 235 lb, age 23, jersey 89, depth chart TE1, in his third NFL season; Madden week 8 rating 91 overall with 96 catching.",
+   "source": "research/data/TUR-TE.json (bio, from ESPN, Sleeper and Madden pulls)",
+   "date": "2026-11-15",
+   "confidence": "one source"
+  }
+ ],
+ "family": [
+  {
+   "fact": "His parents met at Utah State University: his mother was an All-American softball player later inducted into the school's athletic Hall of Fame and then a high school math teacher and softball coach; his father played center for the Utah State football team and later founded a construction company.",
+   "source": "https://en.wikipedia.org/wiki/Brock_Bowers",
+   "date": null,
+   "confidence": "from Wikipedia"
+  },
+  {
+   "fact": "He has a sister who plays softball at Sacramento State. Nothing further about family (partner, children) was found in public reporting: not found.",
+   "source": "https://en.wikipedia.org/wiki/Brock_Bowers",
+   "date": null,
+   "confidence": "from Wikipedia; remainder not found"
+  }
+ ],
+ "recent_events": [
+  {
+   "fact": "In Week 9 (Sunday, November 8) Bowers caught 7 of 8 targets for 111 yards and a touchdown in a 38-17 loss to the 49ers, and lost a fumble; Las Vegas fell to 4-5.",
+   "source": "research/data/TUR-TE.json (status.espn, ESPN note dated 2026-11-09)",
+   "date": "2026-11-09",
+   "confidence": "one source plus game log in the data file"
+  },
+  {
+   "fact": "He has reached 70 receiving yards in all seven of his 2026 appearances; previews note it ties the longest such streak by a tight end, held by Rob Gronkowski.",
+   "source": "https://espn.com/nfl/story/_/id/50453355/week-10-picks-predictions-schedule-fantasy-odds-2026",
+   "date": "date not shown",
+   "confidence": "one source via search summary; the 70-yard streak also in the ESPN note in the data file"
+  },
+  {
+   "fact": "On November 8 he broke the NFL record for most receptions by a tight end in the first three seasons (headline from NFL.com).",
+   "source": "research/data/TUR-TE.json (news list, NFL.com)",
+   "date": "2026-11-08",
+   "confidence": "headline only, article not read"
+  },
+  {
+   "fact": "2026 totals through Week 9: 7 games, 69 targets, 48 catches, 658 yards, 6 touchdowns, 2 fumbles lost, 98.0 fantasy points (14.0 per game under league scoring). He leads the Raiders in targets (22.2 percent share), catches, yards and receiving touchdowns.",
+   "source": "research/data/TUR-TE.json (season_2026, teammates_2026)",
+   "date": "2026-11-15",
+   "confidence": "from the data file"
+  },
+  {
+   "fact": "Game by game: Wk3 vs NO 10 catches, 116 yards, 1 TD (17.6); Wk4 at KC 6-86-1 (14.6); Wk5 vs NE 8-110-1 (15.0); Wk6 at BUF 4-70-0 (7.0); Wk7 vs LA 6-73-0 (7.3); Wk8 at NYJ 7-92-2 (21.2, best of the year); Wk9 vs SF 7-111-1 (15.3).",
+   "source": "research/data/TUR-TE.json (log)",
+   "date": "2026-11-15",
+   "confidence": "from the data file"
+  },
+  {
+   "fact": "On November 10 Raiders coach Klint Kubiak named rookie Fernando Mendoza (No. 1 pick in the 2026 draft) the starter after Kirk Cousins was traded; his first start is this Sunday against Seattle. Cousins had thrown every Raiders pass this season except 8 attempts by Mendoza in Week 5.",
+   "source": "https://www.profootballrumors.com/2026/11/raiders-name-fernando-mendoza-starting-qb",
+   "date": "2026-11-10",
+   "confidence": "confirmed by two sources (search results from Yahoo Sports and Raiders.com; Cousins and Mendoza pass counts from research/data/TUR-TE.json teammates_2026)"
+  },
+  {
+   "fact": "Yahoo Sports says Bowers takes a slight fantasy value hit with the quarterback change; a Raiders.com mailbag argues he will more than likely remain the top target and notes he leads the team in catches, yards and touchdowns.",
+   "source": "https://sports.yahoo.com/articles/fantasy-football-waiver-alert-fernando-212141261.html",
+   "date": "2026-11-10",
+   "confidence": "two sources, they differ on fantasy value"
+  },
+  {
+   "fact": "Earlier this season he missed Weeks 1 and 2 after a meniscus trim (knee clean-up) on September 8; the Raiders did not place him on injured reserve, and he returned in Week 3 against New Orleans saying the knee felt healthy.",
+   "source": "https://www.nfl.com/news/back-from-injury-brock-bowers-retakes-his-place-at-heart-of-raiders-offense",
+   "date": "date not shown",
+   "confidence": "one source via search summary; the missed weeks match the injury reports in the data file (Out in Week 1, Doubtful in Week 2)"
+  }
+ ],
+ "quotes": [
+  {
+   "fact": "Coach Klint Kubiak called Bowers a 'football robot from heaven' and said after the 38-33 win over the Jets that it surprises him when Bowers does not catch the ball.",
+   "source": "https://www.nfl.com/news/raiders-klint-kubiak-brock-bowers-is-a-football-robot-from-heaven",
+   "date": "date not shown (the Jets game was Week 8, about November 1)",
+   "confidence": "one source via search summary; the Jets-game remark also from a Yahoo Sports headline in the data file"
+  },
+  {
+   "fact": "In a preseason piece Bowers said, 'I'm ready for whatever they want me to do.' A November quote from Bowers about Mendoza was not found.",
+   "source": "https://www.espn.com/nfl/story/_/id/49315684/las-vegas-raiders-tight-end-brock-bowers-career-year-2026-season-fantasy-football",
+   "date": "date not shown (preseason)",
+   "confidence": "one source via search summary; November quote not found"
+  }
+ ],
+ "team_context": [
+  {
+   "fact": "Las Vegas is 4-5 and out of contention in the AFC per the ESPN note; the Raiders scored 38 and 33 in a win over the Jets but lost 38-17 to San Francisco and 45-17 to New England this season.",
+   "source": "research/data/TUR-TE.json (status.espn, log)",
+   "date": "2026-11-15",
+   "confidence": "from the data file"
+  },
+  {
+   "fact": "Targets in 2026: Bowers 69, Tre Tucker 56, Ashton Jeanty 55, Michael Mayer 46, Jalen Nailor 28; Jeanty has 114 carries for 362 yards.",
+   "source": "research/data/TUR-TE.json (teammates_2026)",
+   "date": "2026-11-15",
+   "confidence": "from the data file"
+  },
+  {
+   "fact": "Kubiak has said the staff wants other receivers to produce more so that attention comes off Bowers.",
+   "source": "https://www.yardbarker.com/nfl/articles/raiders_cant_keep_relying_on_brock_bowers_klint_kubiak_admits/s1_16460_44440623",
+   "date": "date not shown",
+   "confidence": "one source via search summary"
+  }
+ ],
+ "next_opponent": [
+  {
+   "fact": "Raiders host Seattle (5-4) on Sunday, November 15, kickoff 4:05 pm ET at Allegiant Stadium (indoors, grass), on CBS; Seattle is a 6.5 point favorite with a total of 40.5, which implies about 17 points for Las Vegas.",
+   "source": "research/data/TUR-TE.json (next_games)",
+   "date": "2026-11-15",
+   "confidence": "from the data file; Seattle's 5-4 record from a Silver and Black Pride preview via search summary"
+  },
+  {
+   "fact": "ESPN's staff picks have Seattle winning 24-16, 27-17 and 24-17, and its FPI gives Seattle 73.9 percent. The Raiders are last in run defense DVOA per a preview.",
+   "source": "https://espn.com/nfl/story/_/id/50453355/week-10-picks-predictions-schedule-fantasy-odds-2026",
+   "date": "date not shown",
+   "confidence": "one source via search summary"
+  },
+  {
+   "fact": "Previews name the matchup of Bowers against Seahawks safety Nick Emmanwori as the marquee one; a Yahoo item said Seattle recently held Cardinals TE Trey McBride to 54 yards. BetMGM had Bowers at +195 to score a touchdown.",
+   "source": "https://sports.yahoo.com/articles/seahawks-nick-emmanwori-vs-raiders-220923461.html",
+   "date": "date not shown",
+   "confidence": "two sources via search summaries (BetMGM price from one preview only)"
+  },
+  {
+   "fact": "After this game the Raiders play at Denver on Sunday, November 22 (Denver a 8.5 point favorite, total 41.5).",
+   "source": "research/data/TUR-TE.json (next_games)",
+   "date": "2026-11-15",
+   "confidence": "from the data file"
+  }
+ ],
+ "style": [
+  {
+   "fact": "Used as a receiver from the slot, in line and out wide; Madden lists the abilities Double Me, Deep Out Elite, Tank and Route Technician, with 96 catching and 85 catch in traffic.",
+   "source": "research/data/TUR-TE.json (bio.madden)",
+   "date": "2026-11-15",
+   "confidence": "one source"
+  },
+  {
+   "fact": "In 2026 his catches are mostly intermediate: 20 of 48 between 10 and 19 yards and 10 between 20 and 29, with 11 red zone targets and 218 yards after the catch.",
+   "source": "research/data/TUR-TE.json (season_2026.sleeper_sums)",
+   "date": "2026-11-15",
+   "confidence": "from the data file"
+  }
+ ],
+ "availability": {
+  "status": "Active, no injury designation expected (not on injured reserve)",
+  "detail": "A report from Saturday, November 14 found Bowers, Michael Mayer and Ian Thomas all without injury designations; the Raiders elevated Carter Runyon from the practice squad for depth. The Sleeper status is Active with no injury entry in the data file. The weekly practice reports list a knee entry for Weeks 1 to 6 (Out, Doubtful, Questionable, then limited to full), a hamstring entry in Week 7 and a calf entry in Week 8, all full participation from Week 5 on. He was not placed on injured reserve in 2026; he was placed on injured reserve in 2025 (knee). No official inactive list was seen yet.",
+  "expected_return": "Not applicable",
+  "source": "https://heavy.com/sports/nfl/las-vegas-raiders/carter-runyon-elevated-active-roster-week-10/",
+  "date": "2026-11-14"
+ },
+ "outlook_next_game": {
+  "lean": "plays and is the main target; expected around 12 to 17 fantasy points",
+  "confidence": "medium",
+  "reasons": [
+   "He is healthy with no designation and has 70 or more receiving yards in every appearance, with 14.0 fantasy points a game.",
+   "A rookie quarterback makes his first start and Las Vegas is a 6.5 point underdog with an implied total near 17, which caps touchdown chances.",
+   "Reports differ on whether the quarterback change hurts him, but both agree he stays the top option.",
+   "Seattle has an expected matchup with safety Emmanwori and has held a top tight end under 60 yards recently."
+  ]
+ },
+ "scouts_read": "Bowers is healthy and should play, so the question is volume with a first-time starter. He has been the Raiders' top target all year (22 percent of targets) and has reached 70 yards in all seven games, which gives him a safe floor even with a quarterback change. The game script is the risk: Las Vegas is a 6.5 point underdog with an implied total of about 17, in a dome against a Seattle team that has covered tight ends well. A rookie under pressure often leans on the nearest big target, which supports a heavy target count of 8 or more. I would project a steady game of roughly 12 to 17 points, with touchdown luck deciding whether it goes higher.",
+ "open_questions": [
+  "Official Sunday inactive list and final injury designations (not found; only the Saturday report of no designation).",
+  "A November quote from Bowers or Kubiak about working with Mendoza (not found).",
+  "Contract details for Bowers (not found; contract is empty in the data file).",
+  "Wind and weather do not matter indoors; a dated source for the knee procedure and Week 3 return was not found beyond search summaries."
+ ],
+ "searches": [
+  "Brock Bowers Week 10 Seahawks injury status Raiders",
+  "Fernando Mendoza named Raiders starting QB Brock Bowers value",
+  "Raiders vs Seahawks Week 10 preview prediction Brock Bowers",
+  "Brock Bowers knee injured reserve 2026 returned Week 3 Raiders",
+  "Brock Bowers quotes Mendoza ready Kubiak Raiders November 2026",
+  "Page fetches were not attempted; Wikipedia text came from the sections stored in research/data/TUR-TE.json. Pages cited from search results were not opened, so their facts come from search summaries."
+ ]
+}
