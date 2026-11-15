@@ -308,7 +308,11 @@
     }
   }
 
-  function crowdCall(t) { if (!bed) startBed(t); }
+  function recordedCrowd() {
+    var R = root.FR_STADIUM_SOUND;
+    try { return !!(R && R.recording && R.recording.loaded); } catch (err) { return false; }
+  }
+  function crowdCall(t) { if (!bed && !recordedCrowd()) startBed(t); }
 
   // After a reaction, settle the murmur back to its (now higher) level.
   function settle(t, after) {
@@ -319,7 +323,9 @@
   }
 
   var CROWD = {
-    crowd_murmur: function (t) { crowdCall(t); murmur(t); },
+    // Peyton's recorded stadium crowd (js/screens/stadium-sound.js) is the background when it has
+    // loaded; then this synthesized bed stays off and the reactions play over the recording.
+    crowd_murmur: function (t) { if (recordedCrowd()) { if (bed) stopBed(t); return; } crowdCall(t); murmur(t); },
     crowd_swell: function (t) {
       crowdCall(t);
       var h = hypeNow(t);
