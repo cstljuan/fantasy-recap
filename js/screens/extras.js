@@ -52,6 +52,10 @@
   function getStore(k) { try { return window.localStorage.getItem(k); } catch (err) { return null; } }
   function setStore(k, v) { try { window.localStorage.setItem(k, v); } catch (err) { /* storage may be off */ } }
 
+  // The extras need a game that can jump (seek). Until it has one (soccer before SC_GAME.seek),
+  // the jump bar, the Learn the game switch, the rule cards and the share card all stay hidden.
+  function ready(G) { return !!G && typeof G.seek === 'function'; }
+
   function attach(o) {
     addStyle();
     var G = o.game, A = o.announcer || null, stage = o.stage;
@@ -197,7 +201,7 @@
       if (type === 'reset') { done = 0; seen = {}; hide(true); quiet = true; setTimeout(function () { quiet = false; }, 0); }
       else if (type === 'result') done += 1;
       if (visible) mark();
-      if (!learn || jumping || quiet || !isOpen()) return;
+      if (!learn || jumping || quiet || !isOpen() || !ready(G)) return;
       var res = type === 'half' ? { kind: 'half' } : type === 'result' ? d && d.res : null;
       if (!res) return;
       kindsFor(res).forEach(function (k) { if (!seen[k] && queue.indexOf(k) < 0 && explain(k)) queue.push(k); });
@@ -206,8 +210,8 @@
 
     function setVisible(on) {
       visible = !!on;
-      bar.hidden = !on || typeof G.seek !== 'function';
-      learnBtn.hidden = !on;
+      bar.hidden = !on || !ready(G);
+      learnBtn.hidden = !on || !ready(G);
       stage.classList.toggle('frx-show', !bar.hidden);
       if (on) mark();
     }
@@ -303,5 +307,5 @@
     return c;
   }
 
-  window.FR_EXTRAS = { attach: attach, drawCard: drawCard, shareCard: shareCard };
+  window.FR_EXTRAS = { attach: attach, drawCard: drawCard, shareCard: shareCard, ready: ready };
 })();
