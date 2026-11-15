@@ -428,10 +428,10 @@ h2 { margin: 0; font: 700 var(--fs-label)/1 var(--body); letter-spacing: 0.14em;
 
 /* ------------------------------------------------------------ game view */
 
-#gameView { position: fixed; inset: 0; z-index: 20; background: var(--field-deep); display: flex; align-items: center; justify-content: center;
+#gameView { position: fixed; inset: 0; z-index: 20; background: var(--bg); display: flex; align-items: center; justify-content: center;
             overflow: hidden; touch-action: manipulation; -webkit-user-select: none; user-select: none; }
 .stage { position: relative; line-height: 0; }
-#game { display: block; background: var(--field); }
+#game { display: block; background: var(--bg); image-rendering: pixelated; }
 .close { position: absolute; top: 8px; right: 8px; min-width: 64px; min-height: 36px; padding: 0 12px; cursor: pointer;
          background: var(--overlay); color: var(--on-field); border: 1px solid var(--on-field); border-radius: var(--radius);
          font: 700 var(--fs-meta)/1 var(--mono); letter-spacing: 0.06em; text-transform: uppercase; }
@@ -702,3 +702,7 @@ body.party-host #app, body.demo-on #app { padding-bottom: calc(var(--tabs-h) + e
   #app { padding-left: max(24px, env(safe-area-inset-left, 0px)); padding-right: max(24px, env(safe-area-inset-right, 0px)); }
   .tabs { padding: 0; }
 }
+
+/* One tab bar for both sports (js/app.js): while the soccer match plays, its frame fills the
+   screen like the football game view, over the header and the tab bar. */
+#soccerView.playing { position: fixed; inset: 0; z-index: 20; height: auto !important; min-height: 0; }

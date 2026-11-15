@@ -147,3 +147,27 @@ After the reveal the announcer reads the story of the game: `FF_ANNOUNCER.recap(
 ## Task C27: say it right
 
 The browser voice misreads football text. Add one function every spoken line passes through before `speak` (captions keep the written form): names (`St. Brown`, `Ja'Marr`, initials), downs (`2nd & 10` as "second and ten"), scores (`17-14` as "seventeen to fourteen"), yard lines, clock times, team abbreviations (`GOB`, `PYT`) and decimals in fantasy points. Cover every player on both football rosters and both soccer rosters. A check runs every line the audit produces through it and fails on any leftover symbol or abbreviation a voice would spell out.
+
+## Task C28: test lead
+
+Run every check in the repo (`node js/announcer/audit.js`, `node js/audio-check.js`, `node soccer/check.js`, `node server/test.js`, `sh tools/smoke.sh`, the flow test, everything under `data/checks/`). Walk the football and soccer apps start to finish in headless Chromium at 375 and 1280 wide: opt-in and hidden scores, reveal, recap, sport switch, jump bar, Spanish. You own a new folder `tests/`: put one command there that runs everything (`tests/run-all.sh`) plus new browser tests. Each bug in someone else's files goes as ASK to its owner (peyton, ricky, juan) with file, steps and what you saw. Fix your own lane's bugs. DONE with a pass and fail list.
+
+## Task C29: stadium sound for football
+
+Peyton is rebuilding the football field to look like the soccer stadium (B35). Make the football crowd, whistle and stadium ambience match the soccer broadcast, and make sure lines and captions still fit. Coordinate with peyton by ASK.
+
+## Task C30: soccer voice and captions
+
+Your half of S6: every soccer event speaks and captions the same way football does, in both styles and in Spanish.
+
+## Task C32: soccer seek and hold, and the soccer extras
+
+Boss task S7 is moved to you. For this task you may edit `soccer/js/main.js` and `soccer/index.html`. Add `SC_GAME.seek(index)` and `SC_GAME.hold(true or false)` (with `held`), same meaning as `FF_GAME` in `docs/CONTRACT.md` section 2: seek runs the skipped events at once with listeners still called and no sound, voice, floater or banner, then says `SC_ANNOUNCER.catchUp(...)`; hold stops the clock with the view open. Then attach Peyton's extras on the soccer page as her NOTE says (`FR_EXTRAS.attach({ game: SC_GAME, announcer: SC_ANNOUNCER, stage, isOpen, isMasked })`), so the jump bar, rule cards and share card work for soccer. Check: `node soccer/check.js`, a full soccer match plus seek to the middle and to the end in headless Chromium with no errors, `sh tools/smoke.sh page=soccer/index.html`. NOTE peyton when done.
+
+## Task C33: voice for the second football game
+
+When Ricky's `data/games/week11-tur-owl.json` (D46) is on main, add its lines to the render list, check them with `node js/announcer/audit.js`, and render the new clips on Noah's ElevenLabs account only if Noah approves the credit count in your chat (post the count first). Keep the total under 15 MB.
+
+## Task C34: demo script and shot list, refreshed
+
+`pitch/DEMO-SCRIPT.md` and the video shot list were written before tonight. Update them against main as it is now: the football stadium built from the soccer stadium, soccer inside the same tab bar, every line recorded, one announcer style, no Why this play card. Ask peyton which screens she wants shown. Keep it to two minutes with timings.

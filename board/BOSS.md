@@ -119,7 +119,7 @@ Run `sh tools/next.sh` to get your next task with its full description. A row is
 | S3 | S | cstljuan | Soccer polish: celebrations, replays of goals, set pieces | merged |
 | S4 | S | cstljuan | The soccer match maker | merged |
 | S5 | S | cstljuan | The soccer app: lineups, feed, recap, hidden scores | merged |
-| S7 | S | cstljuan | `SC_GAME.seek(index)` and `SC_GAME.hold(on)` with the same meaning as `FF_GAME`, for Peyton's jump bar and rule cards | waiting: light duty, Juan restarts this after 9:30 PM Eastern |
+| S7 | S | cstljuan | `SC_GAME.seek(index)` and `SC_GAME.hold(on)` with the same meaning as `FF_GAME`, for Peyton's jump bar and rule cards | moved to C32 |
 | S6 | S | cstljuan | Soccer voice and captions, with Noah | waiting: light duty, Juan restarts this after 9:30 PM Eastern |
 | G1 | G | cstljuan | The Figma file with its pages set up (structure only for now) | open |
 | G2 | G | cstljuan | Brand guide, wordmark, mascot | waiting: light duty, Juan restarts this after 9:30 PM Eastern |
@@ -131,9 +131,30 @@ Run `sh tools/next.sh` to get your next task with its full description. A row is
 | A2 | A | cstljuan | The football game maker with the play caller | merged |
 | A3 | A | cstljuan | Connect the announcer, crowd, captions and the floaters switch | merged |
 | A4 | A | cstljuan | Sport switch wiring and home-screen install | merged |
-| A5 | A | cstljuan | Game maker reads `data/statlines/week11.json`, and tags highlights | open |
-| A8 | A | Rickstar-App | A game built from a real week's actual plays: every catch, run and kick our players really made, woven into one legal game (asked by Ricky; Ricky's boss session) | open |
+| A5 | A | cstljuan | Game maker reads `data/statlines/week11.json`, and tags highlights | moved to D46 |
+| A8 | A | Rickstar-App | A game built from a real week's actual plays: every catch, run and kick our players really made, woven into one legal game (asked by Ricky; Ricky's boss session) | merged |
 | A6 | A | cstljuan | Season numbers file for the profiles | replaced by D12 |
+| B35 | B | Peypey-ryd | TOP PRIORITY: the football field gets the soccer stadium look (stands, crowd, score bug, banners, palette, pixel style) | merged |
+| B36 | B | Peypey-ryd | Football and soccer screens consistent side by side | merged |
+| B37 | B | Peypey-ryd | Fix every bug the test lead (C28) sends | open |
+| B38 | B | Peypey-ryd | Polish the football stadium Juan chose (Noah's, built from the soccer stadium): check it at 375 and 1280 with your screens, crowd layer and captions, fix what overlaps | open |
+| B39 | B | Peypey-ryd | Momentum and player trends from the service (D44) on the film room and lineups when `?api=` is set, file fallback otherwise | open |
+| B40 | B | Peypey-ryd | League home: the Turtles against Owls matchup opens its own game once D46's file is on main | open |
+| B41 | B | Peypey-ryd | Demo path at phone size, both sports, after tonight's changes: league, matchup, opt in, watch, jump, recap, share; fix what breaks | open |
+| C28 | C | nexodv | Test lead: run every check, walk both apps in a browser, one command in tests/, send bugs to owners | open |
+| C32 | C | nexodv | Soccer seek and hold (S7, moved to Noah), then the jump bar, rule cards and share card on the soccer page, with Peyton | open |
+| C33 | C | nexodv | Voice for the second football game (Turtles against Owls, D46) once its file is on main | dropped (Noah's call) |
+| C34 | C | nexodv | The demo video shot list and two-minute script, refreshed against main tonight (new stadium, soccer in the same tab bar, recordings), with Peyton | open |
+| C29 | C | nexodv | Stadium sound for football to match the soccer broadcast, with Peyton's B35 | merged |
+| C30 | C | nexodv | Soccer voice and captions, Noah's half of S6 | merged |
+| D41 | D | Rickstar-App | Deep agents finished: Scout ready for a real run, offline test of the subagents and the evidence guard | merged |
+| D42 | D | Rickstar-App | Tiger Data finished: schema, migrations, seed, every route, a test against a real database when DATABASE_URL is set | merged |
+| D43 | D | Rickstar-App | Fix every bug the test lead (C28) sends | open |
+| D44 | D | Rickstar-App | Tiger Data that shows: time_bucket and continuous aggregate queries for momentum, hot streaks and week trends, served by the service, with a test | merged |
+| D45 | D | Rickstar-App | Scout through the service: a route that returns the newest sourced scouting report per player, and runs Scout when a key is present | merged |
+| D46 | D | Rickstar-App | The second football game: the game maker reads a stat lines file (A5, moved to Ricky), builds Turtles against Owls without Jev, tags highlights | open |
+| D47 | D | Rickstar-App | Honesty pass three: README and every file in pitch/ against main as it is now (stadium, one announcer style, no Spanish voice, Scout reports by hand, voice recordings, service routes) | open |
+| D48 | D | Rickstar-App | Scout runs with whichever model key is present (Gemini or Claude), one command, an offline test of both paths, so the real run is one step for Juan | open |
 
 ## Answers to ASK posts
 
@@ -189,6 +210,12 @@ Newest at the bottom. The boss answers every ASK here. If the answer is "yes, do
 - NOTE to Rickstar-App (README): all three taken: "at each snap with a real choice (40 of 84)", the Scout row now says the tools ran live without a model, the service row lists what it does and that the app only sends the opt-in.
 - NOTE to nexodv and Rickstar-App (profiles in the announcer): done. `js/main.js` now loads `data/profiles/<team>.json` and passes `profiles` in the ctx of `line`, `intro`, `halftime` and `wrap`, so tendency and hot or cold remarks are said in the app when the page is served over http. Noah: the render list (C25) must be made with the same profiles or recordings will not match. Ricky: the two pitch lines can change.
 - NOTE to Rickstar-App (A5 and the Turtles against Owls files): noted. Reading a stat lines file in `engine/make-game.js` is task A5, Juan's, after light duty ends at 9:30 PM Eastern, and building the game file needs the Jev key that only the laptop has. Your command (`--lines ... --teams ...`) is the target for A5.
+
+- NOTE to all (one director, 2026-11-14 night): Juan's cloud session (cstljuan, branch cstljuan/boss) is now the only boss. Order 9 is cancelled: workers do not add tasks, merge or run boss rounds, and do not start unrequested features. New agents for Noah, Peyton and Ricky start on C28 to C30, B35 to B37 and D41 to D43. Juan's design session stays off until Juan restarts it.
+
+- Decision (Juan, 2026-11-15): the football stadium is Noah's version from branch nexodv/stadium, built from soccer/js/stadium.js, because it matches the soccer field. Peyton's B35 is replaced by it; B38 is polish on top.
+
+- ANSWER to nexodv (C33 and C30): done. C33 is dropped (Noah's call). Recorded: the announcer is one style and English only for both sports.
 
 ## Waiting for Juan
 
@@ -252,6 +279,8 @@ The boss reviews every DONE before it reaches main: the authors check, the lane 
 - Merged after review: B30, B31, B32, B33, B34, C24, C25, C26, C27, D35, D36, D37. All checks and the three full-game runs passed
 - Merged after review: D38, D39. All checks and the three full-game runs passed
 - Merged after review: D40. All checks and the three full-game runs passed
+- Merged after review: D41, D42. All checks and the three full-game runs passed
+- Merged after review: B35, B36, C29, C30, D44, D45. All checks and the three full-game runs passed
 - D1 real rosters and profile files, D2 database schema (Ricky) are on main; `data/games/sample-football.json` now has the real rosters
 
 ## Decisions

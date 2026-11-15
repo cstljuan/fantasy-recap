@@ -8,7 +8,7 @@
  "sports": [
   {
    "sport": "football",
-   "game": "week11-football + sample-football",
+   "game": "sample-football + week09-gob-tur + week09-pyt-owl + week11-football",
    "voice": "Ninja - Hype Gaming Commentary",
    "voice_id": "DcLiO3XaUWTu3gyon6hW",
    "lines": 0,
@@ -17,7 +17,7 @@
   },
   {
    "sport": "soccer",
-   "game": "soccer-sample",
+   "game": "sample-soccer + week11-soccer + soccer-built-in",
    "voice": "Nathaniel - Live Football Commentator",
    "voice_id": "9rR45HW0vcBmpCbkc4m9",
    "lines": 0,

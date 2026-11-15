@@ -192,3 +192,35 @@ Reduced motion: fans show emotion as a pose, no jumping, waving or flashes. No d
 
 Check: headless Chromium at 375 and 1280 wide, play the week 11 game to the final: stands on every side, the right side reacts on a touchdown, a turnover and a penalty (say what you saw in DONE), no console errors, `node data/checks/all.js` still OK. Ask the boss for the `<script>` tag in `index.html`.
 
+
+## Task B35: the football field gets the soccer stadium look
+
+Top priority. Study how soccer draws its pitch, stadium, stands, pixel font, broadcast score bug, banners, ticker and full time board (`soccer/js/main.js`, `soccer/js/sprites.js`, `soccer/css/`). Make the football field match that art style and stadium vibe: stands and crowd around the field, the same broadcast score bug and banner style, the same palette and pixel look, so the two sports feel like one product. For this task only you may edit `js/sprites.js` and the field and stadium drawing code in `js/main.js`, besides `js/screens/` and `css/`. Do not change the game logic, the `FF_GAME` API or the contract. Check: a full football game in headless Chromium at 375 and 1280 wide with no console errors, before and after screenshots, `sh tools/smoke.sh` passes. NOTE noah when done so the sound can match (C29).
+
+## Task B36: football and soccer consistent side by side
+
+After B35. The soccer jump bar, rule cards and share card stay hidden until `SC_GAME.seek` exists. Compare the football and soccer screens side by side and fix what differs in your files.
+
+## Task B37: bugs from the test lead
+
+Fix every bug Noah's test lead (C28) sends you, one by one, and post DONE with the list.
+
+## Task B38: calmer football stands
+
+Review of B35 (looks good, merged): at 1280 wide the stands on both sides are a dense field of bright pixels and pull the eye away from the play; the soccer page reads calmer. Tone the stands down (darker, fewer bright pixels, closer to the soccer stadium palette) and keep the caption box (`[crowd murmurs]`) from covering the bottom ticker and the end zone. Same files as B35. Check at 375 and 1280 with screenshots and `sh tools/smoke.sh`.
+
+## Task B39: momentum and trends from the service
+
+Ricky's D44 adds `GET /games/:id/momentum` and `GET /players/:id/trend` (see `db/README.md` and `server/index.js` on main). When the app is opened with `?api=<address>`, show them in the film room (momentum) and next to players on the lineups (trend); without `?api=` use the same numbers from the game file, as today. Ask ricky for the exact shapes.
+
+## Task B38 (replaces the earlier B38 text): polish the chosen stadium
+
+Juan chose Noah's football stadium (branch `nexodv/stadium`, now on main): the football field drawn with the soccer stadium code, the soccer camera and a team wordmark in the end zones. Your B35 work is replaced by it; thank you for it. Check it at 375 and 1280 with your screens: the crowd layer (`js/screens/crowd.js`), captions box, jump bar, rule cards, opt-in masking, recap. Fix what overlaps or looks wrong in `js/sprites.js`, `js/main.js` (drawing only) and your own files. Screenshots before and after, `sh tools/smoke.sh` passes.
+
+## Task B40: the second matchup plays
+
+When Ricky's `data/games/week11-tur-owl.json` (D46) is on main, make the Turtles against Owls card on the league home open that game (`?game=` or the way your screens load a game file), with its own lineups and recap. Until the file exists, leave the card as it is. Check both matchups to the final in headless Chromium.
+
+## Task B41: the demo path at phone size
+
+After tonight's changes (Noah's stadium, one tab bar, soccer in the app), walk the exact demo path at 375 wide in headless Chromium for football and for soccer: league home, matchup, opt in, watch, jump to a play, rule card, final, recap, share card. Fix what breaks or overlaps in your files and ASK the owner for anything else. Screenshots of each step; extend `js/screens/flow-test.js` so the soccer path is covered too.

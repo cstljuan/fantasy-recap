@@ -2,7 +2,7 @@
 //
 // Run from the repo root by a person who has an ElevenLabs API key:
 //   ELEVENLABS_API_KEY=... node js/announcer/voice/render.js                 (football, the game the app plays)
-//   ELEVENLABS_API_KEY=... node js/announcer/voice/render.js --sport soccer  (the soccer sample match)
+//   ELEVENLABS_API_KEY=... node js/announcer/voice/render.js --sport soccer  (week 11 soccer and the sample match)
 //   node js/announcer/voice/render.js --dry-run                              (the bill: no key, no network)
 //
 // --dry-run (C25) never calls ElevenLabs and needs no key. For football and soccer (or the one
@@ -67,62 +67,100 @@ function readGameFile(file) {
   return JSON.parse(src);
 }
 
-// Collect the lines in the order main.js asks for them.
-function collectFootball() {
-  var A = require(path.join(ROOT, 'js/announcer/index.js'));
-  var Rules = require(path.join(ROOT, 'js/rules.js'));
-  // Both football game files by default (the ones js/announcer/audit.js checks), or --game <file>.
-  var files = arg('game', null) ? [arg('game')] : ['data/games/week11-football.json', 'data/games/sample-football.json'].map(function (f) { return path.join(ROOT, f); });
-  var out = [], ids = [];
-  var heard = []; A.onLine(function (text, kind) { if (kind !== 'sound') heard.push({ text: text, kind: kind }); });
-  files.forEach(function (file) {
-  if (!fs.existsSync(file)) return;
-  var game = readGameFile(file), teams = game.teams;
-  ids.push(game.id || path.basename(file, '.json'));
-  styles.forEach(function (style) {
-    A.reset(); A.setStyle(style);
-    var s = Rules.create(teams), results = [];
-    function take(t) { var h = heard[heard.length - 1]; if (t) out.push({ text: t, kind: h && h.text === t ? h.kind : '', style: style }); }
-    take(A.intro({ teams: teams, score: [0, 0], style: style, leaders: [], plays: [], hidden: false }));
-    Rules.flatten(game.game, teams).forEach(function (st) {
+// Every way a game can be heard (C31, "no missing sounds"): played from the start, and after a
+// jump to any play with the jump bar (js/main.js seek: the announcer is reset, the skipped plays
+// are silent, one catch-up line, then every play from there with fresh decks), each with and
+// without the players' profiles (js/main.js loads data/profiles/<team>.json, which adds the
+// tendency remarks) and with scores shown or hidden. take(text) collects each spoken line.
+function hear(A, Rules, teams, game, o, take) {
+  var steps = Rules.flatten(game, teams), plays = 0;
+  steps.forEach(function (st) { if (st.kind === 'play') plays++; });
+  var ctxBase = { teams: teams, style: 'straight', leaders: [], hidden: !!o.hidden, profiles: o.profiles || undefined };
+  function ctx(extra) { var c = {}; Object.keys(ctxBase).forEach(function (k) { c[k] = ctxBase[k]; }); Object.keys(extra).forEach(function (k) { c[k] = extra[k]; }); return c; }
+  var targets = [0];
+  if (o.jumps) for (var j = 2; j <= plays; j++) targets.push(j);
+  targets.forEach(function (target) {
+    A.reset();
+    var s = Rules.create(teams), results = [], n = 0, live = target === 0;
+    if (live && A.intro) take(A.intro(ctx({ score: [0, 0], plays: [] })));
+    steps.forEach(function (st) {
       if (st.kind === 'half') {
         Rules.startHalf(s);
-        var hp = A.halftime({ teams: teams, score: s.score.slice(), style: style, leaders: [], plays: results.slice(), hidden: false });
-        take(hp || A.line({ kind: 'half' }, { teams: teams, score: s.score.slice(), style: style }));
+        if (!live) return;
+        // Both the halftime piece and the plain half line: the page may say either.
+        if (A.halftime) take(A.halftime(ctx({ score: s.score.slice(), plays: results.slice() })));
+        take(A.line({ kind: 'half' }, ctx({ score: s.score.slice() })));
         return;
       }
       if (st.kind === 'final') {
-        var wp = A.wrap({ teams: teams, score: s.score.slice(), style: style, leaders: [], plays: results.slice(), hidden: false });
-        take(wp || A.line({ kind: 'final' }, { teams: teams, score: s.score.slice(), style: style }));
+        if (!live) return;
+        take(A.line({ kind: 'final' }, ctx({ score: s.score.slice() })));
+        if (A.wrap) take(A.wrap(ctx({ score: s.score.slice(), plays: results.slice() })));
         return;
       }
-      var res = Rules.apply(s, st.e, st.team); results.push(res);
-      take(A.line(res, { teams: teams, score: res.post.score, style: style }));
+      n++;
+      var res = Rules.apply(s, st.e, st.team);
+      if (!live && n === target) {
+        if (A.catchUp && results.length) take(A.catchUp(results.slice(), ctx({ score: (res.pre && res.pre.score ? res.pre.score : s.score).slice() })));
+        live = true;
+      }
+      results.push(res);
+      if (live) take(A.line(res, ctx({ score: res.post.score })));
     });
   });
-  });
-  return { id: ids.join(' + '), lines: out };
 }
 
+function profilesFor(teams) {
+  var out = {}, any = false;
+  teams.forEach(function (T) {
+    var f = path.join(ROOT, 'data/profiles', T.id + '.json');
+    if (fs.existsSync(f)) { try { var d = JSON.parse(fs.readFileSync(f, 'utf8')); if (d && d.players) { out[T.id] = d; any = true; } } catch (err) { /* skip */ } }
+  });
+  return any ? out : null;
+}
+
+function collect(A, Rules, matches) {
+  var out = [], heard = [];
+  A.onLine(function (text, kind) { if (kind !== 'sound') heard.push({ text: text, kind: kind }); });
+  function take(t) { var h = heard[heard.length - 1]; if (t) out.push({ text: t, kind: h && h.text === t ? h.kind : '', style: 'straight' }); }
+  matches.forEach(function (m) {
+    var profs = [null], pf = profilesFor(m.teams);
+    if (pf) profs.push(pf);
+    profs.forEach(function (pr) {
+      [false, true].forEach(function (hidden) { hear(A, Rules, m.teams, m.game, { profiles: pr, hidden: hidden, jumps: !arg('no-jumps', false) }, take); });
+    });
+  });
+  return { id: matches.map(function (m) { return m.id; }).join(' + '), lines: out };
+}
+
+// Football: every game file in data/games/ (the app plays current.js, a copy of one of them, or
+// the built-in sample with ?game=sample), or --game <file>.
+function collectFootball() {
+  var A = require(path.join(ROOT, 'js/announcer/index.js'));
+  var Rules = require(path.join(ROOT, 'js/rules.js'));
+  var dir = path.join(ROOT, 'data/games');
+  var files = arg('game', null) ? [arg('game')] : fs.readdirSync(dir).filter(function (f) { return /\.json$/.test(f); }).sort().map(function (f) { return path.join(dir, f); });
+  var matches = files.filter(function (f) { return fs.existsSync(f); }).map(function (f) { var g = readGameFile(f); return { id: g.id || path.basename(f, '.json'), teams: g.teams, game: g.game }; });
+  return collect(A, Rules, matches);
+}
+
+// Soccer: soccer/data/week11-soccer.json (the default, from soccer/data/current.js) and the
+// built-in sample (?game=sample), or --game <file>.
 function collectSoccer() {
   var A = require(path.join(ROOT, 'js/announcer/soccer/index.js'));
   var data = require(path.join(ROOT, 'soccer/js/data.js'));
   try { require(path.join(ROOT, 'soccer/js/fantasy.js')); } catch (err) { /* not needed */ }
   var Rules = require(path.join(ROOT, 'soccer/js/rules.js'));
-  var teams = data.TEAMS, out = [], heard = [];
-  A.onLine(function (text, kind) { heard.push({ text: text, kind: kind }); });
-  styles.forEach(function (style) {
-    A.reset(); A.setStyle(style);
-    var s = Rules.create(teams);
-    function take(t) { var h = heard[heard.length - 1]; if (t) out.push({ text: t, kind: h && h.text === t ? h.kind : '', style: style }); }
-    Rules.flatten(data.SAMPLE_GAME, teams).forEach(function (st) {
-      if (st.kind === 'half') { Rules.startHalf(s); take(A.line({ kind: 'half' }, { teams: teams, score: s.score.slice(), style: style })); return; }
-      if (st.kind === 'final') { take(A.line({ kind: 'final' }, { teams: teams, score: s.score.slice(), style: style })); return; }
-      var r = Rules.apply(s, st.e, st.team);
-      take(A.line(r, { teams: teams, score: r.post.score, style: style }));
+  var matches = [];
+  if (arg('game', null)) { var g0 = readGameFile(arg('game')); matches.push({ id: g0.id || 'soccer', teams: g0.teams, game: g0.game }); }
+  else {
+    fs.readdirSync(path.join(ROOT, 'soccer/data')).filter(function (f) { return /\.json$/.test(f) && f !== 'week11-lines.json'; }).sort().forEach(function (f) {
+      var g = readGameFile(path.join(ROOT, 'soccer/data', f));
+      if (g && g.game && g.teams) matches.push({ id: g.id || f, teams: g.teams, game: g.game });
     });
-  });
-  return { id: 'soccer-sample', lines: out };
+    matches.push({ id: 'soccer-built-in', teams: data.TEAMS, game: data.SAMPLE_GAME });
+  }
+  return collect(A, Rules, matches);
 }
 
 function idFor(text, v) {

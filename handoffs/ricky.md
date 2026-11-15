@@ -211,3 +211,35 @@ Give the deepagents agent tools over the plays (`player_plays(player, filters)`,
 
 `engine/make-game.js --plays data/rosters/plays-2026.json --week <n>`: build a legal game in which our players' plays are their real plays of that week (the same catches with the same yards, the same runs, kicks and touchdowns), ordered and stitched into drives the rules engine accepts, with the other snaps filled as today. The report names the week and every real play used. `node data/checks/game-vs-lines.js` gets the real lines of that week as its source. No Jev without a key: the filler choices use equal weights and the report says so.
 
+
+## Task D41: deep agents finished
+
+Scout (`agents/scout/`) is a deepagents main agent with stats, film-room and fact-checker subagents. Make it ready for a real run: one command, clear errors when the model key or network is missing, every claim tied to a source, an offline test proving the subagents and the made-up-evidence guard work. If you need a model key ask your person in your session chat, never in a file. Write what ran for real and what did not in `agents/scout/README.md`.
+
+## Task D42: Tiger Data finished
+
+Make `db/` and `server/` complete and runnable from a clean clone with only `DATABASE_URL` set: schema and migrations in order (including `db/migrate-002-soccer.sql`), the seed, every route the app uses (opt-ins, push a game, plays, summary, league, commissioner, watch party relay), and a test that runs against a real database when `DATABASE_URL` is set and skips cleanly when not. Never commit the connection string. List the exact commands Juan runs on the laptop in `db/README.md` or `server/README.md`.
+
+## Task D43: bugs from the test lead
+
+Fix every bug Noah's test lead (C28) sends you, one by one, and post DONE with the list.
+
+## Task D44: Tiger Data that shows
+
+Use what TimescaleDB adds over plain PostgreSQL, so the Tiger Data part is real and visible: `time_bucket` queries and continuous aggregates for momentum over game time, hot streaks across weeks and week-over-week trends per player. Serve them from the service (for example `GET /games/:id/momentum` and `GET /players/:id/trend`), with the same answer from a game file when there is no database, and add them to `server/test-db.js` (real database) and `server/test.js` (no database). Document each query in `db/README.md`. Do not change `docs/CONTRACT.md`; if a screen should use a route, NOTE peyton with its shape.
+
+## Task D45: Scout through the service
+
+Add a route that returns the newest sourced scouting report per player from `agents/scout/runs/` (and the pages from D36), and, only when a model key is in the environment, runs Scout for one player and stores the result. Without a key it answers the stored report and says it was not refreshed. Test both paths offline. No key in any file.
+
+## Task D46: the second football game
+
+Boss task A5 is moved to you. For this task you may edit `engine/make-game.js` and add files under `data/games/`. Make the game maker read a stat lines file and team files (`--lines data/statlines/week11-tur-owl.json --teams data/rosters/TUR.json,data/rosters/OWL.json`, your own shape) besides `--from-sample`, and tag highlights in `e.tags` (touchdowns, turnovers, gains of 20 or more). Build Turtles against Owls with `--no-jev` (Juan rebuilds it with Jev on the laptop later) as `data/games/week11-tur-owl.json`; it must replay to the exact stat lines and pass `node tools/validate.js`. Do not change `data/games/current.js` or `index.html`; NOTE peyton when the file exists so the league home can open it.
+
+## Task D47: honesty pass three
+
+A lot changed tonight. Read `README.md` and every file in `pitch/` against main as it is now and fix what is no longer true in the files you may edit (`pitch/`); send the boss exact sentences for `README.md`. Check at least: the football stadium (now built from the soccer stadium code), the announcer (one style, no Spanish voice, ElevenLabs recordings for every line), Why this play (removed), Scout (reports written with Scout's tools by hand, no model run yet), the service routes (momentum, trend, scout) and what the app actually reads from the service.
+
+## Task D48: Scout with whichever key is present
+
+Make Scout run with `GOOGLE_API_KEY` (Gemini, which also fits the Gemini prize track) or `ANTHROPIC_API_KEY`, whichever is set, chosen in one place, with the model name printed in the run log. Offline tests for both paths with fake clients. Write the one command Juan runs in `agents/scout/README.md`. No key in any file.

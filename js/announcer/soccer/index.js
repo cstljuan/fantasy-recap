@@ -27,7 +27,12 @@
 //                   from the memory (or the play's fantasy points when not hidden). Reads the
 //                   memory without changing it. bigCallMaxLength is the longest it gets.
 //   transcript()    every line said in this match: [ { t, text, kind, event } ]. reset() empties it.
-//   maxLength       56, one line of the captions strip at 375 pixels wide.
+//   intro(ctx), halftime(ctx), wrap(ctx)
+//                   the longer pieces, same members and ctx as FF_ANNOUNCER: { teams, score, leaders,
+//                   hidden }. They work without leaders (the scorers and the goal that won it from the
+//                   memory); with leaders and not hidden they add the fantasy leader.
+//   maxLength       56, one line of the captions strip at 375 pixels wide. Every event has a line,
+//                   short moves too (pass, carry), so soccer speaks and captions as often as football.
 //   reset()         a new match.
 // Needs js/announcer/soccer/lines.js loaded first (in Node it is required directly).
 (function (root) {
@@ -91,7 +96,9 @@
 
   var said = [];
 
+  var silent = 0;   // while catchUp runs the skipped events through line(), nothing is announced
   function announce(text, kind, style) {
+    if (silent) return;
     last = { text: text, kind: kind, style: style, at: Date.now() };
     said.push({ t: last.at, text: text, kind: kind, event: eventNo });
     for (var i = 0; i < listeners.length; i++) { try { listeners[i](text, kind, style); } catch (err) { /* never stop the match */ } }
@@ -123,7 +130,7 @@
         var chain = e.chain || [];
         v.a = lastName(R[chain[0]]); v.b = lastName(R[chain[chain.length - 1]]);
         if (res.regain) return { kind: 'regain', v: v };
-        return { kind: chain.length >= 3 ? 'build' : '', v: v };
+        return { kind: chain.length >= 3 ? 'build' : chain.length === 2 ? 'pass' : 'carry', v: v };
       case 'shot':
       case 'pen':
         if (e.out === 'in') {
@@ -233,7 +240,7 @@
       var kt = 1 - t; mem.saves[kt]++;
       if (mem.saves[kt] === 3) out.push('keeper_third');
     }
-    mem.log.push({ event: eventNo, t: e.t, team: t, min: e.min, score: post.slice(), earned: out.slice() });
+    mem.log.push({ event: eventNo, t: e.t, team: t, min: e.min, score: post.slice(), earned: out.slice(), goal: !!res.goal, by: res.goal ? res.scorer : null, pen: e.t === 'pen' });
     return { kinds: out, v: v };
   }
 
@@ -249,6 +256,101 @@
     return { kind: 'memory_' + kind, text: text };
   }
 
+  // ---- Longer pieces: intro, halftime and wrap, the same members and ctx as FF_ANNOUNCER (C30) ----
+  // ctx: { teams, score, leaders: [{ name, points }], hidden, style }. Leaders are optional: without
+  // them the pieces still work from the match itself (the scorers). hidden keeps fantasy points out.
+  var STORIES = {
+    intro: { straight: [
+      'Good evening, and welcome. {t0} against {t1}. Watch {w0} for {t0}, and {w1} for {t1}.',
+      '{t0} and {t1}, here we go. {t0} look to {w0}. {t1} need {w1} at their best.',
+      'Welcome along. {t0} versus {t1}. The players to watch: {w0} for {t0}, {w1} for {t1}.'
+    ] },
+    halftime: { straight: [
+      'That\'s half time, and it\'s {score}. {goals} In fantasy points {leader} leads the way with {lpts}.',
+      'Half time here, {score}. {goals} {leader} tops the fantasy board at {lpts}.',
+      'We\'re at the break, {score}. {goals} Best so far: {leader}, {lpts} fantasy points.'
+    ] },
+    halftime_plain: { straight: [
+      'That\'s half time, and it\'s {score}. {goals}',
+      'Half time here, {score}. {goals}',
+      'We\'re at the break, {score}. {goals}'
+    ] },
+    wrap: { straight: [
+      'Full time, {score}. {decider} Top performer, {leader} with {lpts} fantasy points.',
+      'That\'s the final whistle, {score}. {decider} {leader} led everyone with {lpts}.',
+      'It ends {score}. {decider} {leader} had the best day, {lpts} fantasy points.'
+    ] },
+    wrap_plain: { straight: [
+      'Full time, {score}. {decider}',
+      'That\'s the final whistle, {score}. {decider}',
+      'It ends {score}. {decider}'
+    ] },
+    wrap_draw: { straight: [
+      'It ends level, {score}. {goals}',
+      'Honours even at full time, {score}. {goals}',
+      'All square at the end, {score}. {goals}'
+    ] }
+  };
+
+  function topLeader(leaders) {
+    var best = null;
+    (leaders || []).forEach(function (l) { if (l && l.name != null && (best === null || (+l.points || 0) > (+best.points || 0))) best = l; });
+    return best;
+  }
+  // One player to watch per team: its best leader if given, otherwise its striker.
+  function watchFor(team, leaders) {
+    var names = {}, R = team.roster || {};
+    Object.keys(R).forEach(function (k) { names[R[k]] = true; });
+    var best = null;
+    (leaders || []).forEach(function (l) { if (l && names[l.name] && (!best || (+l.points || 0) > (+best.points || 0))) best = l; });
+    return lastName(best ? best.name : (R.ST || R.RW || R.LW || team.name));
+  }
+  function scorerName(teams, x) { return lastName(((teams[x.team] || {}).roster || {})[x.by]); }
+  // "Goals from Haaland and Saka." / "No goals yet." from the memory of this match.
+  function goalsSentence(teams, upTo) {
+    var names = [];
+    mem.log.forEach(function (x) { if (x.goal && x.by && (upTo == null || x.event <= upTo)) { var n = scorerName(teams, x); if (n && names.indexOf(n) < 0) names.push(n); } });
+    if (!names.length) return 'No goals yet.';
+    var list = names.length === 1 ? names[0] : names.slice(0, -1).join(', ') + ' and ' + names[names.length - 1];
+    return 'Goals from ' + list + '.';
+  }
+  // The goal that put the winners ahead for good.
+  function deciderSentence(teams, w) {
+    var found = null;
+    mem.log.forEach(function (x) {
+      if (!x.goal || x.team !== w) return;
+      var before = x.score.slice(); before[w]--;
+      if (before[w] <= before[1 - w] && x.score[w] > x.score[1 - w]) found = x;
+    });
+    if (!found) return teams[w].name + ' held on.';
+    return scorerName(teams, found) + (found.pen ? '\'s penalty' : '\'s goal') + ' in the ' + ordinal(found.min) + ' minute won it.';
+  }
+  function story(kind, ctx) {
+    try {
+      ctx = ctx || {};
+      var teams = ctx.teams;
+      if (!teams || teams.length < 2) return '';
+      var style = STYLES.indexOf(ctx.style) >= 0 ? ctx.style : api.style;
+      var score = ctx.score || [0, 0];
+      var v = { t0: teams[0].name, t1: teams[1].name, score: scoreText(teams, score), goals: goalsSentence(teams) };
+      var top = ctx.hidden ? null : topLeader(ctx.leaders);
+      v.leader = top ? lastName(top.name) : ''; v.lpts = top ? r1(top.points) : '';
+      var k = kind;
+      if (kind === 'intro') { v.w0 = watchFor(teams[0], ctx.leaders); v.w1 = watchFor(teams[1], ctx.leaders); }
+      else if (kind === 'halftime') { if (!top) k = 'halftime_plain'; }
+      else if (kind === 'wrap') {
+        if (score[0] === score[1]) k = 'wrap_draw';
+        else { v.decider = deciderSentence(teams, score[0] > score[1] ? 0 : 1); if (!top) k = 'wrap_plain'; }
+      }
+      var text = fill(pick(k, style, STORIES), v).replace(/\s+/g, ' ').trim();
+      if (!text || /\{\w+\}/.test(text)) return '';
+      announce(text, kind, style);
+      return text;
+    } catch (err) {
+      return '';
+    }
+  }
+
   // ---- Catch-up after a jump ----
   // Short enough for one line of the captions strip: the first form that fits maxLength.
   function r1(x) { return String(Math.round((+x || 0) * 10) / 10); }
@@ -259,7 +361,11 @@
       var teams = ctx.teams, evs = (results || []).filter(function (r) { return r && r.e && r.pre && r.post && (r.team === 0 || r.team === 1); });
       if (!teams || teams.length < 2 || !evs.length) return '';
       var style = 'straight';
-      evs.forEach(function (r) { eventNo++; remember(r); });
+      // Run the skipped events through line() without saying them, so the memory and the decks
+      // are what a viewer who watched it all would have, and every later line is already recorded.
+      silent++;
+      try { evs.forEach(function (r) { api.line(r, { teams: teams, score: r.post.score, style: style }); }); }
+      finally { silent--; }
       var first = evs[0].pre.score, end = evs[evs.length - 1].post.score, score = ctx.score || end;
       var goals = [], extra = '', saves = [0, 0];
       evs.forEach(function (r) {
@@ -280,8 +386,10 @@
         if (top) s2 = lastName(top.name) + ': ' + r1(top.points) + ' fantasy pts' + end1;
       }
       var changed = (first[0] !== end[0] || first[1] !== end[1]) && goals.length;
-      var forms = changed ? ['Now ' + at + ': goal' + (goals.length > 1 ? 's' : '') + ' ' + goals.join(', ') + ', ' + sc + end1, 'Now ' + at + ', ' + sc + end1]
-                          : ['Now ' + at + ', still ' + sc + end1];
+      // No minute in the opening words: jumps to nearby events then share a line, and so a recording (C31).
+      void at;
+      var forms = changed ? ['So far: goal' + (goals.length > 1 ? 's' : '') + ' ' + goals.join(', ') + ', ' + sc + end1, 'Picking it up, ' + sc + end1]
+                          : ['Picking it up, still ' + sc + end1];
       // The fullest form first, with the extra fact if it fits, then without it.
       var text = '', tries = [];
       forms.forEach(function (f) { if (s2) tries.push(f + ' ' + s2); tries.push(f); });
@@ -407,6 +515,10 @@
   var api = {
     style: 'straight',
     maxLength: 56,
+    intro: function (ctx) { return story('intro', ctx); },
+    halftime: function (ctx) { return story('halftime', ctx); },
+    wrap: function (ctx) { return story('wrap', ctx); },
+    _stories: STORIES,
 
     line: function (res, ctx) {
       try {

@@ -88,9 +88,17 @@ try {
 if (idx) {
   var lines = idx.lines || {};
   recorded = Object.keys(lines).length;
-  Object.keys(said).forEach(function (t) { if (!lines[t]) problems.push('no recording: ' + t); });
+  // Every line the app can say (C31): render.js collects them from the start and after a jump to
+  // any play, with and without profiles, scores shown or hidden, for every game in data/games/.
+  var can = {};
+  try {
+    JSON.parse(require('child_process').execFileSync(process.execPath, [path.join(__dirname, 'voice/render.js'), '--json', '--fresh', '--sport', 'football'],
+      { encoding: 'utf8', maxBuffer: 1 << 28 }).trim().split('\n').pop()).forEach(function (l) { can[l.text] = true; });
+  } catch (err) { problems.push('cannot collect every line with js/announcer/voice/render.js --json: ' + err.message); }
+  Object.keys(said).forEach(function (t) { can[t] = true; });
+  Object.keys(can).forEach(function (t) { if (!lines[t]) problems.push('no recording: ' + t); });
   Object.keys(lines).forEach(function (t) {
-    if (!said[t]) problems.push('recording no game says: ' + lines[t] + ' "' + t + '"');
+    if (!can[t]) problems.push('recording no game says: ' + lines[t] + ' "' + t + '"');
     if (!fs.existsSync(path.join(ROOT, 'assets/voice/football', lines[t]))) problems.push('index names a missing file: ' + lines[t]);
   });
 }
@@ -102,4 +110,4 @@ if (problems.length) {
 }
 console.log('OK: ' + total + ' lines from ' + GAMES.length + ' games, ' + Object.keys(said).length +
   ' different, every play has a line, none too long, no gaps, none said more than 3 times' +
-  (recorded ? ', all ' + recorded + ' recordings match.' : '; no recordings yet (assets/voice/football/index.js), so that part was skipped.'));
+  (recorded ? ', all ' + recorded + ' recordings match every line the app can say (jumps and profiles included).' : '; no recordings yet (assets/voice/football/index.js), so that part was skipped.'));
