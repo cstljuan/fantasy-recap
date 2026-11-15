@@ -1,0 +1,74 @@
+{
+ "key": "GOB-WR2",
+ "name": "Puka Nacua",
+ "researched": "2026-11-15",
+ "background": [
+  {"fact": "Born May 29, 2001 (Wikipedia says Las Vegas, Nevada); grew up in Provo, Utah and attended Orem High School, finishing with 260 receptions, 5,226 yards and 58 touchdowns, all Utah state records.", "source": "https://en.wikipedia.org/wiki/Puka_Nacua", "date": null, "confidence": "from Wikipedia"},
+  {"fact": "His mother is of Samoan and German descent and his father was of Hawaiian and Portuguese descent. The nickname Puka is Samoan for fat and chubby, given because of his size as a baby.", "source": "https://en.wikipedia.org/wiki/Puka_Nacua", "date": null, "confidence": "from Wikipedia"},
+  {"fact": "He played college football at Washington and then BYU, and the Rams took him in the fifth round (pick 177) of the 2023 draft.", "source": "https://en.wikipedia.org/wiki/Puka_Nacua", "date": null, "confidence": "from Wikipedia and research/data/GOB-WR2.json (bio.draft)"},
+  {"fact": "As a rookie he set NFL rookie records for receiving yards and receptions (105 for 1,486), made the Pro Bowl and second-team All-Pro; in 2025 he led the league in receptions (129 for 1,715 and 10 touchdowns) and was first-team All-Pro.", "source": "https://en.wikipedia.org/wiki/Puka_Nacua", "date": null, "confidence": "from Wikipedia, stats match research/data/GOB-WR2.json"},
+  {"fact": "Listed 6 ft 2 in, 216 lb, age 25, jersey 12, fourth NFL season.", "source": "research/data/GOB-WR2.json (bio, from ESPN and Sleeper pulls)", "date": "2026-11-15", "confidence": "one source"}
+ ],
+ "family": [
+  {"fact": "Wikipedia says he has one son, born in October 2025, with his college girlfriend Hallie. Nothing further about the child is recorded here.", "source": "https://en.wikipedia.org/wiki/Puka_Nacua", "date": null, "confidence": "from Wikipedia"},
+  {"fact": "Older brothers Samson (receiver, Michigan Panthers of the UFL) and Kai (safety, Michigan Panthers, formerly in the NFL) both play pro football; cousin Marist Liufau is a linebacker for the Dallas Cowboys.", "source": "https://en.wikipedia.org/wiki/Puka_Nacua", "date": null, "confidence": "from Wikipedia"},
+  {"fact": "His father, Lionel, died of complications from diabetes when Puka was 11.", "source": "https://en.wikipedia.org/wiki/Puka_Nacua", "date": null, "confidence": "from Wikipedia"}
+ ],
+ "recent_events": [
+  {"fact": "He hurt his right knee and toe near the end of the Rams' Week 9 win at Washington on Sunday, Nov. 8; coach Sean McVay said Monday it was MCL and PCL sprains plus turf toe.", "source": "https://arizonasports.com/nfl/arizona-cardinals/rams-puka-nacua-out-at-least-a-month-with-several-injuries-to-miss-cardinals-game", "date": "2026-11-09", "confidence": "confirmed by two sources (also research/data/GOB-WR2.json status text and TSN headline)"},
+  {"fact": "The Rams placed him on injured reserve on Thursday, Nov. 13 (ESPN, NBC Sports, The Athletic and Yahoo headlines all dated Nov. 13), reversing earlier talk that he might stay on the active roster.", "source": "research/data/GOB-WR2.json (status.espn, news.recent)", "date": "2026-11-13", "confidence": "confirmed by several outlet headlines in the data file"},
+  {"fact": "In his last game (Week 9 at Washington) he had 14 catches on 19 targets for 150 yards and a touchdown, 21.0 fantasy points under league scoring, on 93% of snaps.", "source": "research/data/GOB-WR2.json (log)", "date": "2026-11-15", "confidence": "from the data file"},
+  {"fact": "2026 totals through 7 games: 93 targets, 70 catches, 715 receiving yards, 4 receiving touchdowns, 7 rushes for 41 yards and a rushing touchdown, 14.8 fantasy points a game (103.6 total). Best games 21.0 (Week 9 at Washington) and 20.7 (Week 5 vs Buffalo: 17 catches, 138 yards, 1 touchdown); lowest 7.4 (Week 1 vs San Francisco).", "source": "research/data/GOB-WR2.json (season_2026, log)", "date": "2026-11-15", "confidence": "from the data file"},
+  {"fact": "The 2026 injury reports in the data file list him with a hip problem in weeks 2 to 3, a calf in week 7 and a knee in week 10, with several weeks marked as resting; Madden lists his durability rating at 83.", "source": "research/data/GOB-WR2.json (injury_reports, bio.madden)", "date": "2026-11-15", "confidence": "from the data file"}
+ ],
+ "quotes": [
+  {"fact": "McVay said the injury would keep Nacua out at least a month, with no firm date given.", "source": "https://arizonasports.com/nfl/arizona-cardinals/rams-puka-nacua-out-at-least-a-month-with-several-injuries-to-miss-cardinals-game", "date": "2026-11-09", "confidence": "paraphrase in a search summary, one source"},
+  {"fact": "A Yahoo Sports headline says McVay explained why the Rams changed course and put Nacua on IR; the article text was not read: not found.", "source": "research/data/GOB-WR2.json (news.recent, Yahoo Sports)", "date": "2026-11-13", "confidence": "headline only"}
+ ],
+ "team_context": [
+  {"fact": "Receiver Davante Adams has been on injured reserve with a hamstring injury since the Week 6 loss to Arizona (Oct. 18); one summary says McVay called a Nov. 25 return against Green Bay a realistic timeline, while ESPN's text says Adams has no set date.", "source": "https://www.news4jax.com/sports/2026/10/19/rams-wr-davante-adams-out-6-10-weeks-with-hamstring-injury-dt-poona-ford-out-for-season/", "date": "2026-10-19", "confidence": "one source plus ESPN text in data file, dates differ"},
+  {"fact": "ESPN says that with Nacua out the Rams will lean on Konata Mumpfield, Tutu Atwell, CJ Daniels and Xavier Smith at receiver until Adams returns.", "source": "research/data/GOB-WR2.json (status.espn.long)", "date": "2026-11-13", "confidence": "one source (text from ESPN)"},
+  {"fact": "A search summary reports Tutu Atwell was also placed on injured reserve at some point; the date and current status were not confirmed: not found.", "source": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rams-put-tutu-atwell-on-injured-reserve", "date": "date not shown", "confidence": "headline only, conflicts with ESPN text above"},
+  {"fact": "In 2026 his targets were 75 short and 18 deep; short targets were caught 84% of the time and deep 39%. He had 12 red zone targets and a 27.9% share of intended air yards in 2025.", "source": "research/data/GOB-WR2.json (plays_2026, season_2026)", "date": "2026-11-15", "confidence": "from the data file"},
+  {"fact": "Rams record and offensive coordinator were not confirmed from a current source: not found.", "source": "not found", "date": null, "confidence": "not found"}
+ ],
+ "next_opponent": [
+  {"fact": "The Rams play at Arizona on Sunday, Nov. 15, 4:05 pm ET at State Farm Stadium (indoor, grass), on CBS. Line LAR -9.5, total 38.5, implied Rams total 24.0.", "source": "research/data/GOB-WR2.json (next_games)", "date": "2026-11-15", "confidence": "from the data file"},
+  {"fact": "Nacua will miss this game. Later Rams games per the data file: Nov. 25 vs Green Bay (Wednesday, Netflix) and Dec. 3 vs Kansas City; the Rams have a Week 11 bye per the search summary.", "source": "research/data/GOB-WR2.json (next_games)", "date": "2026-11-15", "confidence": "from the data file"},
+  {"fact": "Against Arizona in his career he had 10 catches for 129 yards (2024), 7 for 167 (2025), 10 for 76 (Jan. 2026) and 6 for 80 (Oct. 18, 2026).", "source": "research/data/GOB-WR2.json (log)", "date": "2026-11-15", "confidence": "from the data file"}
+ ],
+ "style": [
+  {"fact": "Madden week 8 rating is 94 overall with 96 catching, 96 catch in traffic, 96 awareness, 94 short route running and 93 medium route running.", "source": "research/data/GOB-WR2.json (bio.madden)", "date": "2026-11-15", "confidence": "one source"},
+  {"fact": "Wikipedia notes a controversies section (locker room livestream, Adin Ross livestreams, a biting accusation); details were not read here.", "source": "https://en.wikipedia.org/wiki/Puka_Nacua", "date": null, "confidence": "section titles only"}
+ ],
+ "availability": {
+  "status": "Out, injured reserve (right knee MCL and PCL sprains, turf toe)",
+  "detail": "Placed on injured reserve Thursday, Nov. 13 after being hurt late in the Week 9 win at Washington. IR carries a four game minimum. He misses Arizona (Nov. 15), then the Week 11 bye is counted as a missed week per one outlook.",
+  "expected_return": "Earliest 2026-12-20 per ESPN data in the file; Covers and another outlook also give Week 15 as the earliest, though sources disagree on the Week 15 opponent (Dallas vs the Jets). McVay only said at least a month. No firm return date reported.",
+  "source": "https://www.covers.com/nfl/when-will-puka-nacua-return-2026",
+  "date": "2026-11-13"
+ },
+ "outlook_next_game": {
+  "lean": "does not play; zero fantasy points expected",
+  "confidence": "high",
+  "reasons": [
+   "He is on injured reserve and cannot return for at least four games.",
+   "Adams is also on IR, so Rams targets move to Mumpfield, Atwell, Daniels, Smith and the tight ends and backs.",
+   "His 2026 average of 14.8 points is lost for the next several weeks, so his fantasy owner needs a replacement."
+  ]
+ },
+ "scouts_read": "Nacua will not play at Arizona, so this is a roster hole, not a matchup question. He went on injured reserve with knee ligament sprains and turf toe, which means at least four games out and a realistic return no earlier than Week 15, with turf toe the injury most likely to drag. Before the injury he was the Rams' engine, averaging 14.8 points with a 14 catch, 150 yard game in his last outing. With Adams also on IR, the Rams passing targets spread to depth receivers, which makes any single replacement risky. For fantasy purposes, count him as zero until his return is confirmed.",
+ "open_questions": [
+  "Exact return week and what McVay said about the real reason for the IR decision (Yahoo article not read).",
+  "Which Week 15 opponent is correct (Dallas vs the Jets) and when the Rams bye falls in the count of four games.",
+  "Whether Tutu Atwell is on or off injured reserve.",
+  "Davante Adams return date (ESPN text says none set; another summary quotes Nov. 25).",
+  "Rams record, offensive coordinator and any contract details for Nacua (not found)."
+ ],
+ "searches": [
+  "Puka Nacua injured reserve MCL PCL turf toe return timeline",
+  "Rams Cardinals Week 10 Puka Nacua out Davante Adams IR receivers Mumpfield Atwell",
+  "McVay Nacua injured reserve Davante Adams hamstring return date Rams wide receivers Cardinals",
+  "Page fetches were not attempted; Wikipedia text came from the sections stored in research/data/GOB-WR2.json (Intro, Early life, Personal life only)"
+ ]
+}
