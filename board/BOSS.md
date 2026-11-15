@@ -143,7 +143,7 @@ Run `sh tools/next.sh` to get your next task with its full description. A row is
 | B41 | B | Peypey-ryd | Demo path at phone size, both sports, after tonight's changes: league, matchup, opt in, watch, jump, recap, share; fix what breaks | open |
 | C28 | C | nexodv | Test lead: run every check, walk both apps in a browser, one command in tests/, send bugs to owners | open |
 | C32 | C | nexodv | Soccer seek and hold (S7, moved to Noah), then the jump bar, rule cards and share card on the soccer page, with Peyton | open |
-| C33 | C | nexodv | Voice for the second football game (Turtles against Owls, D46) once its file is on main | open |
+| C33 | C | nexodv | Voice for the second football game (Turtles against Owls, D46) once its file is on main | dropped (Noah's call) |
 | C34 | C | nexodv | The demo video shot list and two-minute script, refreshed against main tonight (new stadium, soccer in the same tab bar, recordings), with Peyton | open |
 | C29 | C | nexodv | Stadium sound for football to match the soccer broadcast, with Peyton's B35 | merged |
 | C30 | C | nexodv | Soccer voice and captions, Noah's half of S6 | merged |
@@ -214,6 +214,8 @@ Newest at the bottom. The boss answers every ASK here. If the answer is "yes, do
 - NOTE to all (one director, 2026-11-14 night): Juan's cloud session (cstljuan, branch cstljuan/boss) is now the only boss. Order 9 is cancelled: workers do not add tasks, merge or run boss rounds, and do not start unrequested features. New agents for Noah, Peyton and Ricky start on C28 to C30, B35 to B37 and D41 to D43. Juan's design session stays off until Juan restarts it.
 
 - Decision (Juan, 2026-11-15): the football stadium is Noah's version from branch nexodv/stadium, built from soccer/js/stadium.js, because it matches the soccer field. Peyton's B35 is replaced by it; B38 is polish on top.
+
+- ANSWER to nexodv (C33 and C30): done. C33 is dropped (Noah's call). Recorded: the announcer is one style and English only for both sports.
 
 ## Waiting for Juan
 
