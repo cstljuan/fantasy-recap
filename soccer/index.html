@@ -57,5 +57,61 @@
 <script src="../js/audio.js"></script>
 <script src="js/main.js"></script>
 <script src="js/app.js"></script>
+<script src="../js/screens/extras.js"></script>
+<script src="../js/screens/i18n.js"></script>
+<script>
+  // C32: the jump bar, rule cards and share card from js/screens/extras.js, and the screens'
+  // Spanish from js/screens/i18n.js (labels only; the announcer stays English).
+  (function () {
+    // The app around this page switches the language: follow it.
+    window.addEventListener('storage', function (e) {
+      if (e.key === 'fr.lang' && window.FR_I18N) window.FR_I18N.setLang(e.newValue === 'es' ? 'es' : 'en');
+    });
+    var G = window.SC_GAME, A = window.SC_ANNOUNCER, stage = document.querySelector('.stage'), close = document.getElementById('closeGame');
+    if (!window.FR_EXTRAS || !G || !stage || !close) return;
+    function masked() { return !!(window.__app && window.__app.masked); }
+    var x = window.FR_EXTRAS.attach({
+      game: G, announcer: A, stage: stage,
+      isOpen: function () { return !!G.active; },
+      isMasked: masked,
+      speed: function () { return window.__sc ? window.__sc.speed : 1; }
+    });
+    // The best goal of the match, for the share card: the one worth the most fantasy points.
+    var best = null;
+    G.on(function (type, d) {
+      if (type === 'reset') best = null;
+      var r = d && d.res;
+      if (type !== 'result' || !r || !r.goal || r.disallowed) return;
+      var pts = (r.fp || []).reduce(function (n, f) { return n + Math.abs(f.pts || 0); }, 0);
+      if (!best || pts > best.points) {
+        var T = SC_DATA.TEAMS[r.team], names = (r.fp || []).map(function (f) { return (SC_DATA.TEAMS[f.team].roster || {})[f.role]; }).filter(Boolean);
+        best = { text: String(r.text || '').replace(/^\d+' /, ''), players: names.filter(function (n, i) { return names.indexOf(n) === i; }), points: pts, label: 'Top goal, ' + r.min + "'", team: T };
+      }
+    });
+    var share = document.createElement('button');
+    share.type = 'button'; share.className = 'frx-learn frx-share'; share.textContent = 'Share result'; share.hidden = true;
+    share.style.cssText = 'position:absolute;left:auto;right:8px;top:214px;z-index:3';   // under Learn the game
+    stage.appendChild(share);
+    share.addEventListener('click', function () {
+      var T = SC_DATA.TEAMS, tot = window.__app && window.__app.totals ? window.__app.totals() : ['', ''];
+      window.FR_EXTRAS.shareCard({
+        title: 'Fantasy Recap', week: 'Week 11',
+        teams: T.map(function (t) { return { name: t.full || t.name, color: t.colors.shirt }; }), score: tot,
+        play: best ? { text: best.text, players: best.players, points: best.points, label: best.label } : null,
+        footer: 'Sample match. Real names, made-up stats.', fileName: 'fantasy-recap-soccer.png'
+      });
+    });
+    // The jump bar and Learn the game show where the Close button shows (js/app.js reveals it on a tap).
+    // The share button shows on the full time board (a tap there opens the recap).
+    function sync() {
+      x.setVisible(!close.hidden);
+      share.hidden = !G.active || G.mode !== 'final' || masked();
+    }
+    new MutationObserver(sync).observe(close, { attributes: true, attributeFilter: ['hidden'] });
+    G.on(function () { setTimeout(sync, 0); });
+    new MutationObserver(sync).observe(document.getElementById('gameView'), { attributes: true, attributeFilter: ['hidden'] });
+    sync();
+  })();
+</script>
 </body>
 </html>

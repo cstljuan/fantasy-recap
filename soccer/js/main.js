@@ -63,7 +63,8 @@
         team: ti, role: slot, keeper: slot === 'GK', tone: (n * 7) % 3, hair: (n * 5) % Spr.HAIRS, phase: n * 0.37,
         jx: ((n * 37) % 7) / 2 - 1.5, jy: ((n * 53) % 7) / 2 - 1.5,
         x: WID / 2, y: LEN / 2, path: null, state: '', view: 'f', moving: false, num: [1, 3, 4, 5, 2, 8, 6, 10, 11, 9, 7][i],
-        label: own ? { name: Rules.lastName(T.roster[slot]) } : null
+        // Every player has a name; it shows when the player is in a fantasy lineup or has the ball.
+        label: T.roster[slot] ? { name: Rules.lastName(T.roster[slot]) } : null, fantasy: own
       };
       s[slot] = a; list.push(a); all.push(a);
     });
@@ -85,6 +86,9 @@
   var replay = null;     // { t, end, rate, i } while a goal is replayed
   var log = [], errors = [];
   var active = false, listeners = [];
+  // seek(): while it runs the skipped events there is no sound, voice, floater, banner or flash.
+  // hold(): stops the clock with the view open. results: every event of the match so far.
+  var seeking = false, HOLD = false, results = [];
 
   function emit(type, data) {
     listeners.forEach(function (fn) {
@@ -95,18 +99,20 @@
 
   var fx = {
     sound: function (name) {
+      if (seeking) return;
       if (name === 'goal') disp.flash = clock;
       if (active && window.SC_SOUND) { try { window.SC_SOUND.play(name); } catch (err) { /* optional */ } }
     },
     // c is a call from the rules: { text, sub, style, team, color }
-    banner: function (c, secs) { disp.banner = { c: c, t0: clock, until: clock + secs }; },
+    banner: function (c, secs) { if (!seeking) disp.banner = { c: c, t0: clock, until: clock + secs }; },
     result: function (res, p) {
       for (var i = 0; i < 2; i++) if (res.post.score[i] !== disp.score[i]) disp.scoreAt[i] = clock;
       disp.score = res.post.score.slice();
       disp.ticker = { min: res.min, team: res.team, text: res.text.replace(/^\d+' /, '').toUpperCase(), t0: clock };
-      floatPoints(res.fp);
+      if (!seeking) floatPoints(res.fp);
       res.fp.forEach(function (f) { disp.fpts[f.team] += f.pts; });
-      say(announce(res) || res.say);
+      results.push(res);
+      if (!seeking) say(announce(res) || res.say);
       emit('result', { res: res, play: p.name, step: si });
     }
   };
@@ -114,7 +120,7 @@
   // The line for a result from the soccer announcer (js/announcer/soccer/) when it is loaded, or ''.
   function announce(res) {
     var A = window.SC_ANNOUNCER;
-    if (!A || !A.line) return '';
+    if (seeking || !A || !A.line) return '';   // a jump says one catch-up line instead
     try { return A.line(res, { teams: TEAMS, score: res.post ? res.post.score : disp.score.slice(), style: A.style }) || ''; }
     catch (err) { return ''; }
   }
@@ -122,13 +128,13 @@
   // A longer piece from the soccer announcer (intro, halftime, wrap), same ctx as football, or ''.
   function piece(kind, score) {
     var A = window.SC_ANNOUNCER;
-    if (!A || !A[kind]) return '';
+    if (seeking || !A || !A[kind]) return '';
     try { return A[kind]({ teams: TEAMS, score: score, leaders: [], hidden: !!(window.__app && window.__app.masked) }) || ''; }
     catch (err) { return ''; }
   }
 
   function say(text) {
-    if (!text || !active || !VOICE || SPEED > 2 || !('speechSynthesis' in window)) return;
+    if (!text || seeking || !active || !VOICE || SPEED > 2 || !('speechSynthesis' in window)) return;
     // Through the announcer: its queue, its British voice, and the ElevenLabs clips when loaded.
     if (window.SC_ANNOUNCER && window.SC_ANNOUNCER.speak) { window.SC_ANNOUNCER.speak(text); return; }
     try {
@@ -213,14 +219,14 @@
     finishStep();
   }
 
-  function finishStep() {
+  function finishStep() { settleStep(); si++; startStep(); }
+  // Everyone and the ball where the current step left them.
+  function settleStep() {
     replay = null;
     movers.forEach(function (a) { var p = Plays.posAt(a, play.dur); a.x = p.x; a.y = p.y; });
     var b = Plays.ballAt(play, play.dur);
     ball = { x: b.x, y: b.y, holder: b.holder || null };
     spot = play.spot || null;
-    si++;
-    startStep();
   }
 
   function reset() {
@@ -228,7 +234,7 @@
     si = 0; clock = 0; camSet = false; teleport = true; spot = null;
     ball = { x: WID / 2, y: LEN / 2, holder: null };
     disp.score = [0, 0]; disp.min = 0; disp.half = 1; disp.banner = null; disp.ticker = null; disp.flash = -9; disp.scoreAt = [-9, -9]; disp.floaters = []; disp.fpts = [0, 0]; disp.cutAt = -9; replay = null;
-    log.length = 0;
+    log.length = 0; results.length = 0;
     if (window.SC_ANNOUNCER && window.SC_ANNOUNCER.reset) window.SC_ANNOUNCER.reset();
     emit('reset');
     startStep();
@@ -291,6 +297,8 @@
   function sy(y) { return Math.round(wy(y)) - oy; }
   function ease(t) { t = clamp(t, 0, 1); return 1 - Math.pow(1 - t, 3); }
   function text(str, x, y, o) { return Font.draw(g, str, x, y, o); }
+  // The screens' Spanish (js/screens/i18n.js) for the fixed labels drawn on the canvas.
+  function tr(str) { var I = window.FR_I18N; try { return I && I.tr ? I.tr(str) : str; } catch (err) { return str; } }
 
   // Carrier ring under the feet: a pixel ellipse, built once.
   var RING = (function () {
@@ -369,7 +377,23 @@
   }
 
   // One plate per owned player: a team-colored edge and the surname.
-  function drawLabel(a, isCarrier) {
+
+  // Names: as many as fit. Labels are placed in order of priority (whoever has the ball, then the
+  // players in the two fantasy lineups, then everyone else) and a label that would overlap one
+  // already placed is left out for this frame.
+  function labelOrder(list, holder) {
+    function rank(a) { return a === holder ? 0 : a.fantasy ? 1 : 2; }
+    return list.slice().sort(function (p, r) { return rank(p) - rank(r) || p.y - r.y; });
+  }
+  function fits(taken, x, y, w, h) {
+    for (var i = 0; i < taken.length; i++) {
+      var t = taken[i];
+      if (x < t.x + t.w + 2 && x + w + 2 > t.x && y < t.y + t.h + 1 && y + h + 1 > t.y) return false;
+    }
+    taken.push({ x: x, y: y, w: w, h: h });
+    return true;
+  }
+  function drawLabel(a, isCarrier, hasBall, taken) {
     var L = a.label, px = sx(a.x), py = sy(a.y);
     if (py < -40 || py > H + 40 || px < -60 || px > W + 60) return;
     var top = py - 24;
@@ -378,8 +402,8 @@
       g.fillStyle = INK; g.fillRect(px + 6, top - 4, 10, 14);
       g.fillStyle = c.color; g.fillRect(px + 8, top - 2, 6, 10);
     });
-    if (L) {
-      var name = L.name.toUpperCase(), tw = Font.width(name, 1), w = tw + 9, x = Math.round(px - w / 2), y = py + 5;
+    var name = L ? L.name.toUpperCase() : '', w = L ? Font.width(name, 1) + 9 : 0, x = Math.round(px - w / 2), y = py + 5;
+    if (L && fits(taken, x, y, w, 11)) {
       g.fillStyle = isCarrier ? AMBER : 'rgba(11,13,14,0.86)';
       g.fillRect(x, y, w, 11);
       g.fillStyle = isCarrier ? INK : TEAMS[a.team].colors.trim;
@@ -452,7 +476,7 @@
   // Broadcast score bug: clock, home, score, score, away.
   function drawScoreBug() {
     var x = 8, y = 8, h = 22;
-    var minute = mode === 'final' ? 'FT' : mode === 'inter' ? 'HT' : disp.min + "'";
+    var minute = mode === 'final' ? tr('FT') : mode === 'inter' ? tr('HT') : disp.min + "'";
     var cw = Math.max(34, Font.width(minute, 2) + 12);
     g.fillStyle = AMBER; g.fillRect(x, y, cw, h);
     text(minute, x + cw / 2, y + 4, { unit: 2, color: INK, align: 'center' });
@@ -470,14 +494,14 @@
       g.fillStyle = hot ? AMBER : '#1e2225'; g.fillRect(bx, y, 20, h);
       text(String(disp.score[i]), bx + 10, y + 4, { unit: 2, color: hot ? INK : TEXT, align: 'center' });
     }
-    var label = mode === 'final' ? 'FULL TIME' : mode === 'inter' ? 'HALF TIME' : (disp.half === 1 ? '1ST' : '2ND') + ' HALF';
+    var label = tr(mode === 'final' ? 'FULL TIME' : mode === 'inter' ? 'HALF TIME' : (disp.half === 1 ? '1ST' : '2ND') + ' HALF');
     var lw = Font.width(label, 1, 1) + 10;
     g.fillStyle = PANEL; g.fillRect(8, y + h, lw, 13);
     text(label, 13, y + h + 3, { color: DIM, track: 1 });
-    var mw = Font.width('SAMPLE MATCH', 1, 1) + 10;
+    var l1 = tr('SAMPLE MATCH'), l2 = tr('MADE-UP STATS'), mw = Math.max(Font.width(l1, 1, 1), Font.width(l2, 1, 1)) + 10;
     g.fillStyle = PANEL; g.fillRect(W - 8 - mw, 8, mw, 22);
-    text('SAMPLE MATCH', W - 13, 11, { color: DIM, align: 'right', track: 1 });
-    text('MOCK DATA', W - 13, 20, { color: DIM, align: 'right', track: 1 });
+    text(l1, W - 13, 11, { color: DIM, align: 'right', track: 1 });
+    text(l2, W - 13, 20, { color: DIM, align: 'right', track: 1 });
   }
 
   // Banners wipe in from the left and out to the right.
@@ -497,8 +521,8 @@
       // Hazard stripes along the edges.
       for (var sx1 = (Math.floor(clock * 40) % 16) - 16; sx1 < W; sx1 += 16) { g.fillRect(sx1, y + 4, 8, 2); g.fillRect(sx1 + 8, y + h - 6, 8, 2); }
       var flick = clock - B.t0 < 0.6 && Math.floor((clock - B.t0) * 10) % 2 === 1;
-      text(c.text, W / 2 + slide, y + 12, { unit: unit, color: flick ? '#ffffff' : tc.trim, align: 'center', track: 1 });
-      if (c.sub) text(c.sub, W / 2, y + 12 + th + 6, { color: tc.trim, align: 'center', track: 1 });
+      text(tr(c.text), W / 2 + slide, y + 12, { unit: unit, color: flick ? '#ffffff' : tc.trim, align: 'center', track: 1 });
+      if (c.sub) text(tr(c.sub), W / 2, y + 12 + th + 6, { color: tc.trim, align: 'center', track: 1 });
     } else {
       g.fillStyle = PANEL; g.fillRect(0, y, W, h);
       var edge = c.style === 'flag' ? FLAG : c.style === 'score' ? AMBER : tc.trim;
@@ -509,8 +533,8 @@
         g.fillStyle = INK; g.fillRect(14, y + 8, 14, 20);
         g.fillStyle = c.color || FLAG; g.fillRect(16, y + 10, 10, 16); lx = 38;
       } else { g.fillStyle = edge; g.fillRect(0, y + 2, 4, h - 2); }
-      text(c.text, lx + slide, y + 9, { unit: unit, color: c.style === 'flag' ? FLAG : TEXT, track: 1 });
-      if (c.sub) text(c.sub, lx, y + 9 + th + 5, { color: DIM, track: 1 });
+      text(tr(c.text), lx + slide, y + 9, { unit: unit, color: c.style === 'flag' ? FLAG : TEXT, track: 1 });
+      if (c.sub) text(tr(c.sub), lx, y + 9 + th + 5, { color: DIM, track: 1 });
     }
     g.restore();
   }
@@ -551,14 +575,14 @@
       text(TEAMS[i].name, x + 24, y + 3, { unit: 2, color: TEXT, track: 1 });
       text(String(disp.score[i]), W - x, y - 4, { unit: 4, color: TEXT, align: 'right' });
       var sc = scorers(i);
-      text(sc || 'NO GOALS', x + 24, y + 24, { color: sc ? DIM : RULE, track: 1 });
-      if (mode === 'final' && FLOATERS) text(disp.fpts[i] + ' FANTASY PTS', W - x, y + 36, { color: AMBER, align: 'right', track: 1 });
+      text(sc || tr('NO GOALS'), x + 24, y + 24, { color: sc ? DIM : RULE, track: 1 });
+      if (mode === 'final' && FLOATERS) text(disp.fpts[i] + ' ' + tr('FANTASY PTS'), W - x, y + 36, { color: AMBER, align: 'right', track: 1 });
       y += 52;
     }
     g.fillStyle = RULE; g.fillRect(x, y, W - 2 * x, 2);
     y += 16;
     if (foot && Math.floor(clock * 2) % 2 === 0) text(foot, x, y, { unit: 2, color: TEXT, track: 1 });
-    text('SAMPLE MATCH. MOCK DATA, MADE UP FOR THE DEMO.', x, y + (foot ? 26 : 0), { color: DIM });
+    text(tr('SAMPLE MATCH. MADE-UP STATS FOR THE DEMO.'), x, y + (foot ? 26 : 0), { color: DIM });
   }
 
   function draw() {
@@ -575,7 +599,8 @@
     var list = movers.slice().sort(function (p, r) { return p.y - r.y; });
     var i;
     for (i = 0; i < list.length; i++) drawPlayer(list[i], list[i] === carrier);
-    for (i = 0; i < list.length; i++) drawLabel(list[i], list[i] === carrier);
+    var taken = [], order = labelOrder(list, b.holder);
+    for (i = 0; i < order.length; i++) drawLabel(order[i], order[i] === carrier, order[i] === b.holder, taken);
     drawBall(b);
     if (mode !== 'replay') drawFloaters();
     if (clock - disp.flash < 0.22) { g.fillStyle = 'rgba(255,255,255,' + (0.5 * (1 - (clock - disp.flash) / 0.22)).toFixed(3) + ')'; g.fillRect(0, 0, W, H); }
@@ -584,8 +609,8 @@
     if (mode !== 'replay') { drawBanner(); drawTicker(); }
     // A camera cut into set pieces and kickoffs: a quick drop to black.
     if (clock - disp.cutAt < 0.3) { g.fillStyle = 'rgba(8,9,10,' + (1 - (clock - disp.cutAt) / 0.3).toFixed(3) + ')'; g.fillRect(0, 0, W, H); }
-    if (mode === 'inter') drawBoard('HALF TIME', '');
-    if (mode === 'final') drawBoard('FULL TIME', 'TAP FOR THE RECAP');
+    if (mode === 'inter') drawBoard(tr('HALF TIME'), '');
+    if (mode === 'final') drawBoard(tr('FULL TIME'), tr('TAP FOR THE RECAP'));
   }
 
   // -------------------------------------------------------------- loop
@@ -596,7 +621,7 @@
     lastNow = now;
     try {
       // Like football, the match only advances while its view is open, unless setBackground(true).
-      update(mode === 'ready' || (!active && !BACKGROUND) ? 0 : real * SPEED);
+      update(mode === 'ready' || HOLD || (!active && !BACKGROUND) ? 0 : real * SPEED);
       if (active) { updateCamera(real); draw(); }
     } catch (err) {
       errors.push(String(err && err.stack || err));
@@ -633,7 +658,45 @@
     setBackground: function (on) { BACKGROUND = !!on; },
     get floaters() { return FLOATERS; },
     get background() { return BACKGROUND; },
-    get plays() { return steps.filter(function (st) { return st.kind === 'play'; }).length; }
+    get plays() { return steps.filter(function (st) { return st.kind === 'play'; }).length; },
+    // Same meaning as FF_GAME (docs/CONTRACT.md section 2). seek(index): jump to event index
+    // (from 1). The skipped events run at once, listeners still called, with no sound, voice,
+    // floater, banner or flash; then the announcer says one catch-up line. Works before the
+    // match has started (it starts it) and after full time (it plays that event again).
+    seek: function (index) {
+      var target = -1, n = 0;
+      for (var k = 0; k < steps.length; k++) {
+        if (steps[k].kind === 'play' && ++n === index) { target = k; break; }
+      }
+      if (target < 0 || index !== Math.floor(index)) return false;
+      seeking = true;
+      try {
+        reset();
+        emit('start');   // like restart(): listeners see the match as running again
+        while (si < target) {
+          if (mode === 'play') {
+            var cues = play.cues;
+            for (var c = 0; c < cues.length; c++) { if (!cues[c].done) { cues[c].done = true; cues[c].fn(); } }
+          }
+          settleStep();
+          si++;
+          if (si < target) startStep(); else break;
+        }
+      } finally { seeking = false; }
+      disp.banner = null; disp.floaters = []; disp.flash = -9; camSet = false; replay = null;
+      var A = window.SC_ANNOUNCER;
+      if (A && typeof A.catchUp === 'function' && results.length) {
+        try {
+          say(A.catchUp(results.slice(), { teams: TEAMS, score: disp.score.slice(), style: A.style, leaders: [], hidden: !!(window.__app && window.__app.masked) }) || '');
+        } catch (err) { /* optional */ }
+      }
+      if (si === target && steps[si]) startStep();
+      return true;
+    },
+    // hold(true) stops the clock with the view open; hold(false) lets it run again.
+    hold: function (on) { HOLD = !!on; },
+    get held() { return HOLD; },
+    get seeking() { return seeking; }
   };
   window.SC_GAME = api;
 

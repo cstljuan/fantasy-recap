@@ -7,6 +7,19 @@
   var Spr = window.FF_SPRITES, Snd = window.FF_AUDIO, Font = window.FF_FONT, ST = window.FF_STADIUM;
   var TEAMS = D.TEAMS;
 
+
+  // What the game is, for the score box tag and the final note, from the game file's `source`
+  // (docs/CONTRACT.md section 1). ?game=sample always plays the built-in sample.
+  function sourceTag() {
+    var f = window.FF_GAME_FILE, src = /[?&]game=sample\b/.test(location.search) ? 'sample' : (f && f.source) || 'sample';
+    if (src === 'real-plays') {
+      var wk = /week (\d+)/i.exec((f && f.source_note) || '');
+      return ['REAL PLAYS', wk ? 'WEEK ' + wk[1] + ', 2026' : 'REAL STATS', (f && f.source_note ? f.source_note + '.' : 'Real plays.') + ' Real names, real stats.'];
+    }
+    if (src === 'jev') return ['PLAYS BY JEV', 'MADE-UP STATS', 'Jev chose the plays. Real names, made-up stats.'];
+    return ['SAMPLE GAME', 'MADE-UP STATS', 'Sample game. Real names, made-up stats.'];
+  }
+
   function clamp(v, a, b) { return v < a ? a : v > b ? b : v; }
   function mulberry32(a) {
     return function () {
@@ -54,6 +67,8 @@
 
   var OROLES = ['C', 'LG', 'RG', 'LT', 'RT', 'TE', 'QB', 'RB', 'WR1', 'WR2', 'WR3'];
   var DROLES = ['DL1', 'DL2', 'DL3', 'DL4', 'LB1', 'LB2', 'LB3', 'CB1', 'CB2', 'S1', 'S2'];
+  var OROLE_SET = { K: 1, P: 1 };
+  OROLES.forEach(function (r) { OROLE_SET[r] = 1; });
   var all = [];
 
   function initials(name) {
@@ -73,11 +88,11 @@
       var n = T.roster[role];
       return n ? { initials: initials(n), name: Rules.lastName(n), color: T.colors.tile } : null;
     }
-    OROLES.forEach(function (r) { O[r] = makeActor(ti, r, named(r)); });
+    OROLES.forEach(function (r) { O[r] = makeActor(ti, r, named(r)); O[r].fantasy = !!T.roster[r]; });
     // The defense is one fantasy slot (D/ST), so its playmaker carries the unit label.
     var unit = { initials: 'D', name: T.name + ' D', color: T.colors.tile };
     DROLES.forEach(function (r) { Df[r] = makeActor(ti, r, unit); });
-    O.K = makeActor(ti, 'K', named('K'));
+    O.K = makeActor(ti, 'K', named('K')); O.K.fantasy = !!T.roster.K;
     O.P = makeActor(ti, 'P', null);
     return { O: O, D: Df };
   }
@@ -397,13 +412,32 @@
   }
 
   // One plate per fantasy player: a team-colored edge and the surname, as in the soccer view.
-  function drawLabel(a, isCarrier) {
+
+  // Names: as many as fit. Labels are placed in order of priority (whoever has the ball, then the
+  // players in the two fantasy lineups, then everyone else) and a label that would overlap one
+  // already placed is left out for this frame.
+  function labelOrder(list, holder) {
+    function rank(a) { return a === holder ? 0 : a.fantasy ? 1 : 2; }
+    return list.slice().sort(function (p, r) { return rank(p) - rank(r) || p.y - r.y; });
+  }
+  function fits(taken, x, y, w, h) {
+    for (var i = 0; i < taken.length; i++) {
+      var t = taken[i];
+      if (x < t.x + t.w + 2 && x + w + 2 > t.x && y < t.y + t.h + 1 && y + h + 1 > t.y) return false;
+    }
+    taken.push({ x: x, y: y, w: w, h: h });
+    return true;
+  }
+  // Football has names for the fantasy players only; the defense is one fantasy slot, so a defender
+  // shows the team's D when making the play or holding the ball.
+  function drawLabel(a, isCarrier, hasBall, taken) {
     var L = a.label;
+    var show = !!L && (a.fantasy || hasBall || a.tag && !OROLE_SET[a.role]);
     var px = sx(a.x), py = sy(a.y);
     if (py < -40 || py > H + 40) return;
     var top = py - 24;
-    if (L && a.tag) {
-      var name = String(L.name).toUpperCase(), tw = Font.width(name, 1), w = tw + 9, x = Math.round(px - w / 2), y = py + 5;
+    var name = show ? String(L.name).toUpperCase() : '', w = show ? Font.width(name, 1) + 9 : 0, x = Math.round(px - w / 2), y = py + 5;
+    if (show && fits(taken, x, y, w, 11)) {
       g.fillStyle = isCarrier ? AMBER : 'rgba(11,13,14,0.86)';
       g.fillRect(x, y, w, 11);
       g.fillStyle = isCarrier ? INK : L.color;
@@ -489,7 +523,7 @@
       g.fillStyle = PANEL; g.fillRect(8, y + h, lw, 13);
       text(label, 13, y + h + 3, { color: DIM, track: 1 });
     }
-    var l1 = tr('SAMPLE GAME'), l2 = tr('MADE-UP STATS'), mw = Math.max(Font.width(l1, 1, 1), Font.width(l2, 1, 1)) + 10;
+    var tag = sourceTag(), l1 = tr(tag[0]), l2 = tr(tag[1]), mw = Math.max(Font.width(l1, 1, 1), Font.width(l2, 1, 1)) + 10;
     g.fillStyle = PANEL; g.fillRect(W - 8 - mw, 8, mw, 22);
     text(l1, W - 13, 11, { color: DIM, align: 'right', track: 1 });
     text(l2, W - 13, 20, { color: DIM, align: 'right', track: 1 });
@@ -586,7 +620,7 @@
     y += 16;
     if (foot && (CALM || Math.floor(clock * 2) % 2 === 0)) text(foot, x, y, { unit: 2, color: TEXT, track: 1 });
     // The sample note, on two lines when it is too long for one (Spanish).
-    var note = tr('Sample game. Real names, made-up stats.'), ny = y + (foot ? 26 : 0);
+    var note = tr(sourceTag()[2]), ny = y + (foot ? 26 : 0);
     var parts = Font.width(note, 1) <= W - 2 * x ? [note] : note.split(/(?<=\.) /);
     parts.forEach(function (ln, k) { text(ln, x, ny + k * 11, { color: DIM }); });
   }
@@ -608,7 +642,8 @@
     var list = play.actors.slice().sort(function (p, r) { return p.y - r.y; });
     var i;
     for (i = 0; i < list.length; i++) drawPlayer(list[i], list[i] === carrier);
-    for (i = 0; i < list.length; i++) drawLabel(list[i], list[i] === carrier);
+    var taken = [], order = labelOrder(list, b.holder);
+    for (i = 0; i < order.length; i++) drawLabel(order[i], order[i] === carrier, order[i] === b.holder, taken);
     drawBall(b);
     drawFloaters();
     // And a white flash, as soccer's goal.

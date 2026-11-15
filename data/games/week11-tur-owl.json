@@ -1,4 +1,5 @@
 {
+ "source": "jev", "source_note": "Built from invented stat lines; Jev chose the plays",
  "version": 1,
  "sport": "football",
  "teams": [
@@ -60,12 +61,30 @@
      {
       "t": "run",
       "by": "RB",
-      "yds": 11
+      "yds": 11,
+      "why": {
+       "play": {
+        "run_RB": 0.38,
+        "pass_WR3": 0.62
+       },
+       "picked": "run_RB",
+       "highlight": 0.12,
+       "by": "jev"
+      }
      },
      {
       "t": "pass",
       "to": "WR3",
-      "yds": 14
+      "yds": 14,
+      "why": {
+       "play": {
+        "run_RB": 0.64,
+        "pass_WR3": 0.36
+       },
+       "picked": "pass_WR3",
+       "highlight": 0.15,
+       "by": "jev"
+      }
      },
      {
       "t": "run",
@@ -74,11 +93,35 @@
      },
      {
       "t": "inc",
-      "to": "TE"
+      "to": "WR2",
+      "why": {
+       "play": {
+        "pass_WR1": 0.11,
+        "pass_WR3": 0.07,
+        "pass_WR2": 0.63,
+        "pass_TE": 0.04,
+        "pass_RB": 0.15
+       },
+       "picked": "pass_WR2",
+       "highlight": 0.14,
+       "by": "jev"
+      }
      },
      {
       "t": "inc",
-      "to": "WR3"
+      "to": "WR2",
+      "why": {
+       "play": {
+        "pass_TE": 0.05,
+        "pass_WR1": 0.23,
+        "pass_WR2": 0.44,
+        "pass_WR3": 0.18,
+        "pass_RB": 0.1
+       },
+       "picked": "pass_WR2",
+       "highlight": 0.25,
+       "by": "jev"
+      }
      },
      {
       "t": "punt",
@@ -93,6 +136,15 @@
       "t": "run",
       "by": "RB",
       "yds": 40,
+      "why": {
+       "play": {
+        "run_RB": 0.64,
+        "pass_WR2": 0.36
+       },
+       "picked": "run_RB",
+       "highlight": 0.14,
+       "by": "jev"
+      },
       "tags": [
        "highlight",
        "big-play"
@@ -123,17 +175,121 @@
     "team": "OWL",
     "plays": [
      {
-      "t": "inc",
-      "to": "TE"
-     },
-     {
-      "t": "inc",
-      "to": "WR3"
+      "t": "pass",
+      "to": "WR2",
+      "yds": 3,
+      "why": {
+       "play": {
+        "pass_WR1": 0.14,
+        "pass_RB": 0.03,
+        "run_RB": 0.44,
+        "pass_WR2": 0.38,
+        "pass_TE": 0.01
+       },
+       "picked": "pass_WR2",
+       "highlight": 0.26,
+       "by": "jev"
+      }
      },
      {
       "t": "pass",
       "to": "WR2",
-      "yds": 7
+      "yds": 13,
+      "why": {
+       "play": {
+        "pass_WR2": 0.56,
+        "run_RB": 0.15,
+        "pass_WR3": 0.1,
+        "pass_RB": 0.03,
+        "pass_WR1": 0.16
+       },
+       "picked": "pass_WR2",
+       "highlight": 0.16,
+       "by": "jev"
+      }
+     },
+     {
+      "t": "pass",
+      "to": "WR2",
+      "yds": 7,
+      "why": {
+       "play": {
+        "run_RB": 0.2,
+        "pass_WR1": 0.08,
+        "pass_WR3": 0.07,
+        "pass_WR2": 0.64,
+        "pass_TE": 0.01
+       },
+       "picked": "pass_WR2",
+       "highlight": 0.15,
+       "by": "jev"
+      }
+     },
+     {
+      "t": "inc",
+      "to": "WR2",
+      "why": {
+       "play": {
+        "run_RB": 0.17,
+        "pass_RB": 0.03,
+        "pass_WR1": 0.11,
+        "pass_WR2": 0.57,
+        "pass_WR3": 0.12
+       },
+       "picked": "pass_WR2",
+       "highlight": 0.14,
+       "by": "jev"
+      }
+     },
+     {
+      "t": "pass",
+      "to": "WR1",
+      "yds": 30,
+      "why": {
+       "play": {
+        "run_RB": 0.38,
+        "pass_WR1": 0.62
+       },
+       "picked": "pass_WR1",
+       "highlight": 0.25,
+       "by": "jev"
+      },
+      "tags": [
+       "highlight",
+       "big-play"
+      ]
+     },
+     {
+      "t": "inc",
+      "to": "WR2",
+      "why": {
+       "play": {
+        "pass_WR3": 0.19,
+        "pass_RB": 0.03,
+        "run_RB": 0.23,
+        "pass_WR1": 0.24,
+        "pass_WR2": 0.31
+       },
+       "picked": "pass_WR2",
+       "highlight": 0.17,
+       "by": "jev"
+      }
+     },
+     {
+      "t": "inc",
+      "to": "RB",
+      "why": {
+       "play": {
+        "run_RB": 0.23,
+        "pass_RB": 0.05,
+        "pass_TE": 0.02,
+        "pass_WR3": 0.21,
+        "pass_WR2": 0.49
+       },
+       "picked": "pass_RB",
+       "highlight": 0.18,
+       "by": "jev"
+      }
      },
      {
       "t": "run",
@@ -146,39 +302,52 @@
       "yds": 13
      },
      {
-      "t": "pass",
-      "to": "WR1",
-      "yds": 30,
-      "tags": [
-       "highlight",
-       "big-play"
-      ]
-     },
-     {
       "t": "inc",
-      "to": "WR1"
-     },
-     {
-      "t": "pass",
       "to": "WR2",
-      "yds": 3
+      "why": {
+       "play": {
+        "pass_WR3": 0.21,
+        "pass_RB": 0.11,
+        "pass_WR1": 0.1,
+        "pass_TE": 0.02,
+        "pass_WR2": 0.56
+       },
+       "picked": "pass_WR2",
+       "highlight": 0.19,
+       "by": "jev"
+      }
      },
      {
-      "t": "pass",
+      "t": "inc",
       "to": "WR2",
-      "yds": 13
+      "why": {
+       "play": {
+        "pass_WR1": 0.14,
+        "pass_WR3": 0.08,
+        "pass_WR2": 0.62,
+        "pass_TE": 0.06,
+        "pass_RB": 0.1
+       },
+       "picked": "pass_WR2",
+       "highlight": 0.37,
+       "by": "jev"
+      }
      },
      {
       "t": "inc",
-      "to": "WR1"
-     },
-     {
-      "t": "inc",
-      "to": "WR3"
-     },
-     {
-      "t": "inc",
-      "to": "RB"
+      "to": "WR2",
+      "why": {
+       "play": {
+        "pass_WR2": 0.5,
+        "pass_WR1": 0.22,
+        "pass_TE": 0.05,
+        "pass_RB": 0.08,
+        "pass_WR3": 0.15
+       },
+       "picked": "pass_WR2",
+       "highlight": 0.41,
+       "by": "jev"
+      }
      },
      {
       "t": "fg",
@@ -191,316 +360,80 @@
     "plays": [
      {
       "t": "kickoff",
-      "to": 24
+      "to": 28
      },
      {
-      "t": "pass",
-      "to": "WR2",
-      "yds": 5
+      "t": "inc",
+      "to": "WR3",
+      "why": {
+       "play": {
+        "pass_WR2": 0.08,
+        "pass_WR1": 0.24,
+        "run_RB": 0.46,
+        "pass_WR3": 0.22
+       },
+       "picked": "pass_WR3",
+       "highlight": 0.15,
+       "by": "jev"
+      }
+     },
+     {
+      "t": "inc",
+      "to": "RB",
+      "why": {
+       "play": {
+        "pass_TE": 0.09,
+        "pass_WR1": 0.39,
+        "pass_RB": 0.21,
+        "pass_WR2": 0.09,
+        "pass_WR3": 0.22
+       },
+       "picked": "pass_RB",
+       "highlight": 0.2,
+       "by": "jev"
+      }
      },
      {
       "t": "pass",
       "to": "WR1",
-      "yds": 11
+      "yds": 5,
+      "why": {
+       "play": {
+        "pass_WR1": 0.44,
+        "run_RB": 0.33,
+        "pass_WR2": 0.23
+       },
+       "picked": "pass_WR1",
+       "highlight": 0.3,
+       "by": "jev"
+      }
      },
      {
       "t": "run",
       "by": "RB",
-      "yds": 9
-     },
-     {
-      "t": "sack",
-      "yds": -8
+      "yds": 6,
+      "why": {
+       "play": {
+        "pass_WR2": 0.48,
+        "run_RB": 0.52
+       },
+       "picked": "run_RB",
+       "highlight": 0.49,
+       "by": "jev"
+      }
      },
      {
       "t": "sack",
       "yds": -3
      },
      {
-      "t": "punt",
-      "net": 37
-     }
-    ]
-   },
-   {
-    "team": "OWL",
-    "plays": [
-     {
-      "t": "inc",
-      "to": "WR3"
-     },
-     {
-      "t": "run",
-      "by": "RB",
-      "yds": 4
-     },
-     {
-      "t": "run",
-      "by": "RB",
-      "yds": 19
-     },
-     {
-      "t": "run",
-      "by": "RB",
-      "yds": 8
-     },
-     {
-      "t": "inc",
-      "to": "WR1"
-     },
-     {
-      "t": "inc",
-      "to": "TE"
-     },
-     {
-      "t": "punt",
-      "net": 40
-     }
-    ]
-   },
-   {
-    "team": "TUR",
-    "plays": [
-     {
-      "t": "pass",
-      "to": "WR1",
-      "yds": 15
-     },
-     {
-      "t": "inc",
-      "to": "TE"
-     },
-     {
-      "t": "pass",
-      "to": "RB",
-      "yds": 19
-     },
-     {
-      "t": "run",
-      "by": "RB",
-      "yds": 12
-     },
-     {
-      "t": "run",
-      "by": "RB",
-      "yds": 1
-     },
-     {
-      "t": "run",
-      "by": "RB",
-      "yds": 8
-     },
-     {
-      "t": "pass",
-      "to": "TE",
-      "yds": 13
-     },
-     {
-      "t": "pass",
-      "to": "WR3",
-      "yds": 13
-     },
-     {
-      "t": "inc",
-      "to": "TE"
-     },
-     {
       "t": "pass",
       "to": "WR2",
-      "yds": 9
-     },
-     {
-      "t": "pass",
-      "to": "TE",
-      "yds": 6,
-      "tags": [
-       "highlight",
-       "touchdown"
-      ]
-     },
-     {
-      "t": "xp",
-      "good": true
-     }
-    ]
-   },
-   {
-    "team": "OWL",
-    "plays": [
-     {
-      "t": "kickoff",
-      "to": 23
-     },
-     {
-      "t": "inc",
-      "to": "WR2"
-     },
-     {
-      "t": "run",
-      "by": "QB",
-      "yds": 11
-     },
-     {
-      "t": "run",
-      "by": "RB",
       "yds": 5
      },
      {
-      "t": "pass",
-      "to": "WR1",
-      "yds": 16
-     },
-     {
-      "t": "pass",
-      "to": "TE",
-      "yds": 20,
-      "tags": [
-       "highlight",
-       "big-play"
-      ]
-     },
-     {
-      "t": "run",
-      "by": "RB",
-      "yds": 6
-     },
-     {
-      "t": "run",
-      "by": "QB",
-      "yds": 4
-     },
-     {
-      "t": "pass",
-      "to": "WR2",
-      "yds": 15,
-      "tags": [
-       "highlight",
-       "touchdown"
-      ]
-     },
-     {
-      "t": "xp",
-      "good": true
-     }
-    ]
-   },
-   {
-    "team": "TUR",
-    "plays": [
-     {
-      "t": "kickoff",
-      "to": 26
-     },
-     {
-      "t": "run",
-      "by": "QB",
-      "yds": 7
-     },
-     {
-      "t": "pass",
-      "to": "WR2",
-      "yds": 1
-     },
-     {
-      "t": "run",
-      "by": "RB",
-      "yds": 3
-     },
-     {
-      "t": "inc",
-      "to": "TE"
-     },
-     {
-      "t": "inc",
-      "to": "WR2"
-     },
-     {
-      "t": "inc",
-      "to": "WR3"
-     },
-     {
-      "t": "punt",
-      "net": 39
-     }
-    ]
-   },
-   {
-    "team": "OWL",
-    "plays": [
-     {
-      "t": "inc",
-      "to": "TE"
-     },
-     {
       "t": "sack",
-      "yds": -7
-     },
-     {
-      "t": "run",
-      "by": "RB",
-      "yds": 1
-     },
-     {
-      "t": "pass",
-      "to": "WR2",
-      "yds": 32,
-      "tags": [
-       "highlight",
-       "big-play"
-      ]
-     },
-     {
-      "t": "run",
-      "by": "RB",
-      "yds": 1
-     },
-     {
-      "t": "inc",
-      "to": "TE"
-     },
-     {
-      "t": "inc",
-      "to": "WR1"
-     },
-     {
-      "t": "punt",
-      "net": 36
-     }
-    ]
-   },
-   {
-    "team": "TUR",
-    "plays": [
-     {
-      "t": "inc",
-      "to": "WR2"
-     },
-     {
-      "t": "inc",
-      "to": "RB"
-     },
-     {
-      "t": "pass",
-      "to": "WR1",
-      "yds": 8
-     },
-     {
-      "t": "run",
-      "by": "QB",
-      "yds": 7
-     },
-     {
-      "t": "run",
-      "by": "QB",
-      "yds": 2
-     },
-     {
-      "t": "inc",
-      "to": "RB"
-     },
-     {
-      "t": "inc",
-      "to": "WR2"
+      "yds": -3
      },
      {
       "t": "punt",
@@ -514,32 +447,470 @@
      {
       "t": "run",
       "by": "RB",
+      "yds": 2
+     },
+     {
+      "t": "run",
+      "by": "RB",
       "yds": 1
      },
      {
+      "t": "run",
+      "by": "RB",
+      "yds": 1
+     },
+     {
+      "t": "punt",
+      "net": 52
+     }
+    ]
+   },
+   {
+    "team": "TUR",
+    "plays": [
+     {
       "t": "inc",
-      "to": "RB"
+      "to": "WR1",
+      "why": {
+       "play": {
+        "pass_TE": 0.06,
+        "pass_WR1": 0.34,
+        "pass_RB": 0.06,
+        "run_RB": 0.48,
+        "pass_WR2": 0.06
+       },
+       "picked": "pass_WR1",
+       "highlight": 0.15,
+       "by": "jev"
+      }
+     },
+     {
+      "t": "pass",
+      "to": "WR1",
+      "yds": 11,
+      "why": {
+       "play": {
+        "run_RB": 0.36,
+        "pass_WR3": 0.18,
+        "pass_WR2": 0.15,
+        "pass_WR1": 0.23,
+        "pass_TE": 0.08
+       },
+       "picked": "pass_WR1",
+       "highlight": 0.21,
+       "by": "jev"
+      }
+     },
+     {
+      "t": "pass",
+      "to": "TE",
+      "yds": 12,
+      "why": {
+       "play": {
+        "pass_RB": 0.08,
+        "run_RB": 0.35,
+        "pass_WR2": 0.16,
+        "pass_WR3": 0.33,
+        "pass_TE": 0.08
+       },
+       "picked": "pass_TE",
+       "highlight": 0.17,
+       "by": "jev"
+      }
+     },
+     {
+      "t": "pass",
+      "to": "WR3",
+      "yds": 10,
+      "why": {
+       "play": {
+        "run_RB": 0.32,
+        "pass_WR3": 0.37,
+        "pass_RB": 0.11,
+        "pass_WR2": 0.2
+       },
+       "picked": "pass_WR3",
+       "highlight": 0.17,
+       "by": "jev"
+      }
+     },
+     {
+      "t": "run",
+      "by": "RB",
+      "yds": 7,
+      "why": {
+       "play": {
+        "run_RB": 0.36,
+        "pass_RB": 0.12,
+        "pass_WR2": 0.52
+       },
+       "picked": "run_RB",
+       "highlight": 0.18,
+       "by": "jev"
+      }
+     },
+     {
+      "t": "pass",
+      "to": "RB",
+      "yds": 5,
+      "why": {
+       "play": {
+        "pass_RB": 0.18,
+        "run_RB": 0.57,
+        "pass_WR2": 0.25
+       },
+       "picked": "pass_RB",
+       "highlight": 0.2,
+       "by": "jev"
+      }
      },
      {
       "t": "pass",
       "to": "WR2",
-      "yds": 11
+      "yds": 9,
+      "why": {
+       "play": {
+        "run_RB": 0.55,
+        "pass_WR2": 0.45
+       },
+       "picked": "pass_WR2",
+       "highlight": 0.2,
+       "by": "jev"
+      }
+     },
+     {
+      "t": "run",
+      "by": "RB",
+      "yds": 3
+     },
+     {
+      "t": "run",
+      "by": "RB",
+      "yds": 2
+     },
+     {
+      "t": "pass",
+      "to": "TE",
+      "yds": 7,
+      "tags": [
+       "highlight",
+       "touchdown"
+      ]
+     },
+     {
+      "t": "xp",
+      "good": true
+     }
+    ]
+   },
+   {
+    "team": "OWL",
+    "plays": [
+     {
+      "t": "kickoff",
+      "to": 26
      },
      {
       "t": "inc",
-      "to": "RB"
+      "to": "WR2",
+      "why": {
+       "play": {
+        "run_RB": 0.27,
+        "run_QB": 0.01,
+        "pass_WR3": 0.21,
+        "pass_WR2": 0.49,
+        "pass_TE": 0.02
+       },
+       "picked": "pass_WR2",
+       "highlight": 0.22,
+       "by": "jev"
+      }
+     },
+     {
+      "t": "run",
+      "by": "RB",
+      "yds": 4,
+      "why": {
+       "play": {
+        "run_QB": 0.01,
+        "pass_WR1": 0.67,
+        "run_RB": 0.27,
+        "pass_TE": 0.05
+       },
+       "picked": "run_RB",
+       "highlight": 0.24,
+       "by": "jev"
+      }
+     },
+     {
+      "t": "pass",
+      "to": "WR1",
+      "yds": 15,
+      "why": {
+       "play": {
+        "run_QB": 0.01,
+        "pass_WR1": 0.57,
+        "run_RB": 0.38,
+        "pass_TE": 0.04
+       },
+       "picked": "pass_WR1",
+       "highlight": 0.27,
+       "by": "jev"
+      }
+     },
+     {
+      "t": "run",
+      "by": "RB",
+      "yds": 12,
+      "why": {
+       "play": {
+        "run_QB": 0.07,
+        "pass_TE": 0.42,
+        "run_RB": 0.51
+       },
+       "picked": "run_RB",
+       "highlight": 0.19,
+       "by": "jev"
+      }
+     },
+     {
+      "t": "pass",
+      "to": "TE",
+      "yds": 15,
+      "why": {
+       "play": {
+        "run_QB": 0.21,
+        "pass_TE": 0.79
+       },
+       "picked": "pass_TE",
+       "highlight": 0.19,
+       "by": "jev"
+      }
+     },
+     {
+      "t": "run",
+      "by": "QB",
+      "yds": 10
+     },
+     {
+      "t": "run",
+      "by": "QB",
+      "yds": 4
+     },
+     {
+      "t": "pass",
+      "to": "WR2",
+      "yds": 14,
+      "tags": [
+       "highlight",
+       "touchdown"
+      ]
+     },
+     {
+      "t": "xp",
+      "good": true
+     }
+    ]
+   },
+   {
+    "team": "TUR",
+    "plays": [
+     {
+      "t": "kickoff",
+      "to": 27
+     },
+     {
+      "t": "pass",
+      "to": "WR2",
+      "yds": 1,
+      "why": {
+       "play": {
+        "run_QB": 0.06,
+        "pass_WR2": 0.42,
+        "run_RB": 0.52
+       },
+       "picked": "pass_WR2",
+       "highlight": 0.22,
+       "by": "jev"
+      }
+     },
+     {
+      "t": "run",
+      "by": "RB",
+      "yds": 15,
+      "why": {
+       "play": {
+        "run_QB": 0.13,
+        "run_RB": 0.87
+       },
+       "picked": "run_RB",
+       "highlight": 0.24,
+       "by": "jev"
+      }
+     },
+     {
+      "t": "run",
+      "by": "QB",
+      "yds": 16
      },
      {
       "t": "inc",
-      "to": "WR3"
+      "to": "WR1",
+      "why": {
+       "play": {
+        "pass_RB": 0.15,
+        "pass_TE": 0.07,
+        "pass_WR2": 0.08,
+        "pass_WR3": 0.26,
+        "pass_WR1": 0.44
+       },
+       "picked": "pass_WR1",
+       "highlight": 0.19,
+       "by": "jev"
+      }
      },
      {
       "t": "inc",
-      "to": "WR3"
+      "to": "WR3",
+      "why": {
+       "play": {
+        "pass_TE": 0.1,
+        "pass_WR3": 0.22,
+        "pass_WR1": 0.23,
+        "pass_WR2": 0.2,
+        "pass_RB": 0.25
+       },
+       "picked": "pass_WR3",
+       "highlight": 0.25,
+       "by": "jev"
+      }
+     },
+     {
+      "t": "inc",
+      "to": "WR2",
+      "why": {
+       "play": {
+        "pass_RB": 0.12,
+        "pass_WR3": 0.29,
+        "pass_WR1": 0.24,
+        "pass_TE": 0.16,
+        "pass_WR2": 0.19
+       },
+       "picked": "pass_WR2",
+       "highlight": 0.39,
+       "by": "jev"
+      }
      },
      {
       "t": "punt",
-      "net": 47
+      "net": 40
+     }
+    ]
+   },
+   {
+    "team": "OWL",
+    "plays": [
+     {
+      "t": "pass",
+      "to": "WR2",
+      "yds": 20,
+      "why": {
+       "play": {
+        "run_RB": 0.3,
+        "pass_WR2": 0.42,
+        "pass_TE": 0.02,
+        "pass_RB": 0.02,
+        "pass_WR3": 0.24
+       },
+       "picked": "pass_WR2",
+       "highlight": 0.24,
+       "by": "jev"
+      },
+      "tags": [
+       "highlight",
+       "big-play"
+      ]
+     },
+     {
+      "t": "inc",
+      "to": "WR2",
+      "why": {
+       "play": {
+        "run_RB": 0.11,
+        "pass_WR2": 0.75,
+        "pass_WR3": 0.13,
+        "pass_TE": 0.01
+       },
+       "picked": "pass_WR2",
+       "highlight": 0.23,
+       "by": "jev"
+      }
+     },
+     {
+      "t": "sack",
+      "yds": -6
+     },
+     {
+      "t": "run",
+      "by": "RB",
+      "yds": 14
+     },
+     {
+      "t": "run",
+      "by": "RB",
+      "yds": 10
+     },
+     {
+      "t": "inc",
+      "to": "WR2",
+      "why": {
+       "play": {
+        "pass_WR1": 0.07,
+        "pass_TE": 0.01,
+        "pass_WR3": 0.23,
+        "pass_WR2": 0.6,
+        "pass_RB": 0.09
+       },
+       "picked": "pass_WR2",
+       "highlight": 0.25,
+       "by": "jev"
+      }
+     },
+     {
+      "t": "inc",
+      "to": "WR3",
+      "why": {
+       "play": {
+        "pass_WR1": 0.14,
+        "pass_WR2": 0.58,
+        "pass_TE": 0.03,
+        "pass_WR3": 0.19,
+        "pass_RB": 0.06
+       },
+       "picked": "pass_WR3",
+       "highlight": 0.25,
+       "by": "jev"
+      }
+     },
+     {
+      "t": "inc",
+      "to": "WR2",
+      "why": {
+       "play": {
+        "pass_WR3": 0.15,
+        "pass_RB": 0.04,
+        "pass_WR1": 0.12,
+        "pass_WR2": 0.67,
+        "pass_TE": 0.02
+       },
+       "picked": "pass_WR2",
+       "highlight": 0.32,
+       "by": "jev"
+      }
+     },
+     {
+      "t": "punt",
+      "net": 39
      }
     ]
    },
@@ -548,45 +919,247 @@
     "plays": [
      {
       "t": "pass",
-      "to": "RB",
+      "to": "WR1",
+      "yds": 1,
+      "why": {
+       "play": {
+        "pass_WR1": 0.87,
+        "run_QB": 0.13
+       },
+       "picked": "pass_WR1",
+       "highlight": 0.17,
+       "by": "jev"
+      }
+     },
+     {
+      "t": "run",
+      "by": "QB",
       "yds": 1
      },
      {
       "t": "run",
       "by": "QB",
-      "yds": 17
+      "yds": 1
+     },
+     {
+      "t": "punt",
+      "net": 43
+     }
+    ]
+   },
+   {
+    "team": "OWL",
+    "plays": [
+     {
+      "t": "pass",
+      "to": "WR2",
+      "yds": 4,
+      "why": {
+       "play": {
+        "pass_WR2": 0.75,
+        "run_RB": 0.25
+       },
+       "picked": "pass_WR2",
+       "highlight": 0.21,
+       "by": "jev"
+      }
+     },
+     {
+      "t": "run",
+      "by": "RB",
+      "yds": 1
      },
      {
       "t": "inc",
-      "to": "WR2"
+      "to": "WR2",
+      "why": {
+       "play": {
+        "pass_WR3": 0.1,
+        "pass_WR2": 0.69,
+        "pass_RB": 0.08,
+        "pass_TE": 0.03,
+        "pass_WR1": 0.1
+       },
+       "picked": "pass_WR2",
+       "highlight": 0.26,
+       "by": "jev"
+      }
      },
      {
-      "t": "pass",
-      "to": "WR3",
-      "yds": 18
+      "t": "punt",
+      "net": 41
+     }
+    ]
+   },
+   {
+    "team": "TUR",
+    "plays": [
+     {
+      "t": "inc",
+      "to": "TE",
+      "why": {
+       "play": {
+        "pass_TE": 0.08,
+        "run_QB": 0.07,
+        "pass_WR1": 0.39,
+        "pass_RB": 0.2,
+        "pass_WR3": 0.26
+       },
+       "picked": "pass_TE",
+       "highlight": 0.17,
+       "by": "jev"
+      }
+     },
+     {
+      "t": "run",
+      "by": "RB",
+      "yds": 1,
+      "why": {
+       "play": {
+        "pass_WR1": 0.21,
+        "pass_RB": 0.1,
+        "pass_WR3": 0.16,
+        "run_RB": 0.42,
+        "pass_TE": 0.11
+       },
+       "picked": "run_RB",
+       "highlight": 0.23,
+       "by": "jev"
+      }
      },
      {
       "t": "pass",
       "to": "WR1",
-      "yds": 28,
-      "tags": [
-       "highlight",
-       "big-play"
-      ]
+      "yds": 15,
+      "why": {
+       "play": {
+        "pass_RB": 0.1,
+        "pass_WR3": 0.29,
+        "run_RB": 0.22,
+        "run_QB": 0.03,
+        "pass_WR1": 0.36
+       },
+       "picked": "pass_WR1",
+       "highlight": 0.35,
+       "by": "jev"
+      }
      },
      {
       "t": "run",
       "by": "RB",
-      "yds": 1
+      "yds": 1,
+      "why": {
+       "play": {
+        "pass_RB": 0.04,
+        "pass_WR3": 0.18,
+        "pass_WR1": 0.39,
+        "run_RB": 0.38,
+        "run_QB": 0.01
+       },
+       "picked": "run_RB",
+       "highlight": 0.19,
+       "by": "jev"
+      }
+     },
+     {
+      "t": "pass",
+      "to": "WR3",
+      "yds": 16,
+      "why": {
+       "play": {
+        "pass_RB": 0.26,
+        "pass_WR3": 0.4,
+        "pass_WR2": 0.19,
+        "run_QB": 0.05,
+        "pass_TE": 0.1
+       },
+       "picked": "pass_WR3",
+       "highlight": 0.25,
+       "by": "jev"
+      }
      },
      {
       "t": "inc",
-      "to": "WR2"
+      "to": "WR1",
+      "why": {
+       "play": {
+        "pass_RB": 0.08,
+        "run_QB": 0.02,
+        "pass_WR1": 0.33,
+        "pass_WR3": 0.52,
+        "pass_WR2": 0.05
+       },
+       "picked": "pass_WR1",
+       "highlight": 0.2,
+       "by": "jev"
+      }
+     },
+     {
+      "t": "pass",
+      "to": "RB",
+      "yds": 14,
+      "why": {
+       "play": {
+        "run_QB": 0.22,
+        "pass_RB": 0.78
+       },
+       "picked": "pass_RB",
+       "highlight": 0.24,
+       "by": "jev"
+      }
      },
      {
       "t": "run",
-      "by": "RB",
-      "yds": 1
+      "by": "QB",
+      "yds": 15
+     },
+     {
+      "t": "inc",
+      "to": "WR1",
+      "why": {
+       "play": {
+        "pass_TE": 0.06,
+        "pass_RB": 0.12,
+        "pass_WR2": 0.06,
+        "pass_WR3": 0.28,
+        "pass_WR1": 0.48
+       },
+       "picked": "pass_WR1",
+       "highlight": 0.25,
+       "by": "jev"
+      }
+     },
+     {
+      "t": "inc",
+      "to": "WR1",
+      "why": {
+       "play": {
+        "pass_TE": 0.09,
+        "pass_RB": 0.2,
+        "pass_WR1": 0.33,
+        "pass_WR2": 0.16,
+        "pass_WR3": 0.22
+       },
+       "picked": "pass_WR1",
+       "highlight": 0.27,
+       "by": "jev"
+      }
+     },
+     {
+      "t": "inc",
+      "to": "WR2",
+      "why": {
+       "play": {
+        "pass_TE": 0.15,
+        "pass_WR1": 0.28,
+        "pass_WR3": 0.19,
+        "pass_RB": 0.24,
+        "pass_WR2": 0.14
+       },
+       "picked": "pass_WR2",
+       "highlight": 0.42,
+       "by": "jev"
+      }
      },
      {
       "t": "fg",
@@ -599,52 +1172,150 @@
     "plays": [
      {
       "t": "kickoff",
-      "to": 45
+      "to": 18
      },
      {
       "t": "run",
       "by": "RB",
-      "yds": 1
+      "yds": 1,
+      "why": {
+       "play": {
+        "run_RB": 0.36,
+        "pass_TE": 0.06,
+        "pass_WR1": 0.25,
+        "pass_RB": 0.07,
+        "pass_WR3": 0.26
+       },
+       "picked": "run_RB",
+       "highlight": 0.29,
+       "by": "jev"
+      }
      },
      {
-      "t": "pass",
-      "to": "TE",
-      "yds": 10
+      "t": "run",
+      "by": "RB",
+      "yds": 1,
+      "why": {
+       "play": {
+        "run_RB": 0.33,
+        "pass_WR2": 0.21,
+        "run_QB": 0.03,
+        "pass_WR3": 0.35,
+        "pass_TE": 0.08
+       },
+       "picked": "run_RB",
+       "highlight": 0.3,
+       "by": "jev"
+      }
      },
      {
       "t": "pass",
       "to": "WR3",
-      "yds": 17
+      "yds": 22,
+      "why": {
+       "play": {
+        "pass_WR1": 0.32,
+        "run_QB": 0.04,
+        "pass_TE": 0.12,
+        "pass_WR3": 0.24,
+        "run_RB": 0.28
+       },
+       "picked": "pass_WR3",
+       "highlight": 0.39,
+       "by": "jev"
+      },
+      "tags": [
+       "highlight",
+       "big-play"
+      ]
+     },
+     {
+      "t": "pass",
+      "to": "WR1",
+      "yds": 15,
+      "why": {
+       "play": {
+        "pass_TE": 0.04,
+        "pass_WR1": 0.51,
+        "pass_RB": 0.05,
+        "run_QB": 0.02,
+        "run_RB": 0.38
+       },
+       "picked": "pass_WR1",
+       "highlight": 0.27,
+       "by": "jev"
+      }
+     },
+     {
+      "t": "inc",
+      "to": "WR1",
+      "why": {
+       "play": {
+        "run_RB": 0.22,
+        "pass_WR3": 0.21,
+        "run_QB": 0.01,
+        "pass_TE": 0.02,
+        "pass_WR1": 0.54
+       },
+       "picked": "pass_WR1",
+       "highlight": 0.25,
+       "by": "jev"
+      }
+     },
+     {
+      "t": "inc",
+      "to": "WR3",
+      "why": {
+       "play": {
+        "pass_WR3": 0.3,
+        "pass_WR1": 0.3,
+        "run_RB": 0.3,
+        "pass_TE": 0.08,
+        "run_QB": 0.02
+       },
+       "picked": "pass_WR3",
+       "highlight": 0.28,
+       "by": "jev"
+      }
      },
      {
       "t": "run",
       "by": "QB",
+      "yds": 1,
+      "why": {
+       "play": {
+        "pass_TE": 0.48,
+        "run_QB": 0.08,
+        "run_RB": 0.44
+       },
+       "picked": "run_QB",
+       "highlight": 0.42,
+       "by": "jev"
+      }
+     },
+     {
+      "t": "pass",
+      "to": "TE",
+      "yds": 23,
+      "tags": [
+       "highlight",
+       "big-play"
+      ]
+     },
+     {
+      "t": "run",
+      "by": "RB",
+      "yds": 1
+     },
+     {
+      "t": "run",
+      "by": "RB",
       "yds": 1
      },
      {
       "t": "pass",
       "to": "WR1",
-      "yds": 9
-     },
-     {
-      "t": "run",
-      "by": "RB",
-      "yds": 1
-     },
-     {
-      "t": "run",
-      "by": "RB",
-      "yds": 1
-     },
-     {
-      "t": "run",
-      "by": "RB",
-      "yds": 1
-     },
-     {
-      "t": "pass",
-      "to": "WR1",
-      "yds": 14,
+      "yds": 17,
       "tags": [
        "highlight",
        "touchdown"
@@ -662,49 +1333,95 @@
     "plays": [
      {
       "t": "kickoff",
-      "to": 27
-     },
-     {
-      "t": "inc",
-      "to": "WR1"
-     },
-     {
-      "t": "run",
-      "by": "RB",
-      "yds": 1
-     },
-     {
-      "t": "run",
-      "by": "RB",
-      "yds": 1
+      "to": 38
      },
      {
       "t": "pass",
       "to": "WR3",
-      "yds": 31,
+      "yds": 23,
+      "why": {
+       "play": {
+        "run_RB": 0.15,
+        "pass_WR2": 0.46,
+        "run_QB": 0.01,
+        "pass_WR1": 0.17,
+        "pass_WR3": 0.21
+       },
+       "picked": "pass_WR3",
+       "highlight": 0.33,
+       "by": "jev"
+      },
       "tags": [
        "highlight",
        "big-play"
       ]
      },
      {
-      "t": "inc",
-      "to": "TE"
+      "t": "pass",
+      "to": "WR2",
+      "yds": 16,
+      "why": {
+       "play": {
+        "pass_WR2": 0.4,
+        "run_RB": 0.13,
+        "pass_WR1": 0.12,
+        "pass_WR3": 0.34,
+        "run_QB": 0.01
+       },
+       "picked": "pass_WR2",
+       "highlight": 0.34,
+       "by": "jev"
+      }
      },
      {
       "t": "pass",
       "to": "WR1",
-      "yds": 16
+      "yds": 14,
+      "why": {
+       "play": {
+        "run_RB": 0.21,
+        "run_QB": 0.01,
+        "pass_TE": 0.04,
+        "pass_WR1": 0.46,
+        "pass_WR3": 0.28
+       },
+       "picked": "pass_WR1",
+       "highlight": 0.39,
+       "by": "jev"
+      }
+     },
+     {
+      "t": "run",
+      "by": "RB",
+      "yds": 1,
+      "why": {
+       "play": {
+        "run_RB": 0.84,
+        "run_QB": 0.16
+       },
+       "picked": "run_RB",
+       "highlight": 0.33,
+       "by": "jev"
+      }
+     },
+     {
+      "t": "run",
+      "by": "RB",
+      "yds": 1,
+      "why": {
+       "play": {
+        "run_QB": 0.21,
+        "run_RB": 0.79
+       },
+       "picked": "run_RB",
+       "highlight": 0.47,
+       "by": "jev"
+      }
      },
      {
       "t": "run",
       "by": "QB",
-      "yds": 5
-     },
-     {
-      "t": "pass",
-      "to": "WR2",
-      "yds": 18
+      "yds": 6
      },
      {
       "t": "run",
@@ -726,26 +1443,45 @@
     "plays": [
      {
       "t": "kickoff",
-      "to": 38
+      "to": 28
      },
      {
       "t": "pass",
       "to": "WR2",
-      "yds": 1
-     },
-     {
-      "t": "pass",
-      "to": "TE",
-      "yds": 1
+      "yds": 1,
+      "why": {
+       "play": {
+        "pass_WR2": 0.29,
+        "run_RB": 0.59,
+        "pass_TE": 0.12
+       },
+       "picked": "pass_WR2",
+       "highlight": 0.35,
+       "by": "jev"
+      }
      },
      {
       "t": "run",
       "by": "RB",
-      "yds": 1
+      "yds": 1,
+      "why": {
+       "play": {
+        "pass_TE": 0.52,
+        "run_RB": 0.48
+       },
+       "picked": "run_RB",
+       "highlight": 0.35,
+       "by": "jev"
+      }
+     },
+     {
+      "t": "pass",
+      "to": "TE",
+      "yds": 5
      },
      {
       "t": "punt",
-      "net": 44
+      "net": 50
      }
     ]
    },
@@ -753,14 +1489,23 @@
     "team": "OWL",
     "plays": [
      {
-      "t": "pass",
-      "to": "WR1",
-      "yds": 1
-     },
-     {
       "t": "run",
       "by": "RB",
-      "yds": 1
+      "yds": 1,
+      "why": {
+       "play": {
+        "pass_WR1": 0.66,
+        "run_RB": 0.34
+       },
+       "picked": "run_RB",
+       "highlight": 0.32,
+       "by": "jev"
+      }
+     },
+     {
+      "t": "pass",
+      "to": "WR1",
+      "yds": 4
      },
      {
       "t": "pass",
@@ -779,7 +1524,16 @@
      {
       "t": "pass",
       "to": "RB",
-      "yds": 1
+      "yds": 2,
+      "why": {
+       "play": {
+        "pass_RB": 0.18,
+        "run_RB": 0.82
+       },
+       "picked": "pass_RB",
+       "highlight": 0.29,
+       "by": "jev"
+      }
      },
      {
       "t": "run",
@@ -789,6 +1543,144 @@
      {
       "t": "run",
       "by": "RB",
+      "yds": 1
+     },
+     {
+      "t": "punt",
+      "net": 52
+     }
+    ]
+   },
+   {
+    "team": "OWL",
+    "plays": [
+     {
+      "t": "run",
+      "by": "RB",
+      "yds": 1
+     },
+     {
+      "t": "run",
+      "by": "RB",
+      "yds": 1
+     },
+     {
+      "t": "run",
+      "by": "RB",
+      "yds": 1
+     },
+     {
+      "t": "punt",
+      "net": 38
+     }
+    ]
+   },
+   {
+    "team": "TUR",
+    "plays": [
+     {
+      "t": "pass",
+      "to": "WR3",
+      "yds": 1,
+      "why": {
+       "play": {
+        "run_QB": 0.14,
+        "pass_WR3": 0.86
+       },
+       "picked": "pass_WR3",
+       "highlight": 0.27,
+       "by": "jev"
+      }
+     },
+     {
+      "t": "run",
+      "by": "QB",
+      "yds": 1
+     },
+     {
+      "t": "run",
+      "by": "QB",
+      "yds": 1
+     },
+     {
+      "t": "punt",
+      "net": 46
+     }
+    ]
+   },
+   {
+    "team": "OWL",
+    "plays": [
+     {
+      "t": "inc",
+      "to": "WR3",
+      "why": {
+       "play": {
+        "pass_WR2": 0.47,
+        "run_RB": 0.2,
+        "run_QB": 0.01,
+        "pass_WR3": 0.17,
+        "pass_WR1": 0.15
+       },
+       "picked": "pass_WR3",
+       "highlight": 0.31,
+       "by": "jev"
+      }
+     },
+     {
+      "t": "pass",
+      "to": "WR2",
+      "yds": 27,
+      "why": {
+       "play": {
+        "run_QB": 0.01,
+        "pass_WR2": 0.56,
+        "run_RB": 0.17,
+        "pass_TE": 0.03,
+        "pass_WR1": 0.23
+       },
+       "picked": "pass_WR2",
+       "highlight": 0.31,
+       "by": "jev"
+      },
+      "tags": [
+       "highlight",
+       "big-play"
+      ]
+     },
+     {
+      "t": "inc",
+      "to": "WR2",
+      "why": {
+       "play": {
+        "run_QB": 0,
+        "run_RB": 0.13,
+        "pass_WR2": 0.83,
+        "pass_TE": 0.01,
+        "pass_RB": 0.03
+       },
+       "picked": "pass_WR2",
+       "highlight": 0.41,
+       "by": "jev"
+      }
+     },
+     {
+      "t": "run",
+      "by": "RB",
+      "yds": 1,
+      "why": {
+       "play": {
+        "run_QB": 0.13,
+        "run_RB": 0.87
+       },
+       "picked": "run_RB",
+       "highlight": 0.41,
+       "by": "jev"
+      }
+     },
+     {
+      "t": "run",
+      "by": "QB",
       "yds": 1
      },
      {
@@ -798,142 +1690,153 @@
     ]
    },
    {
-    "team": "OWL",
-    "plays": [
-     {
-      "t": "run",
-      "by": "RB",
-      "yds": 1
-     },
-     {
-      "t": "run",
-      "by": "RB",
-      "yds": 1
-     },
-     {
-      "t": "run",
-      "by": "RB",
-      "yds": 1
-     },
-     {
-      "t": "punt",
-      "net": 49
-     }
-    ]
-   },
-   {
     "team": "TUR",
     "plays": [
      {
       "t": "run",
-      "by": "QB",
-      "yds": 1
-     },
-     {
-      "t": "run",
-      "by": "QB",
-      "yds": 1
+      "by": "RB",
+      "yds": 1,
+      "why": {
+       "play": {
+        "pass_RB": 0.04,
+        "pass_TE": 0.04,
+        "pass_WR1": 0.27,
+        "pass_WR3": 0.19,
+        "run_RB": 0.46
+       },
+       "picked": "run_RB",
+       "highlight": 0.31,
+       "by": "jev"
+      }
      },
      {
       "t": "pass",
-      "to": "WR3",
-      "yds": 1
-     },
-     {
-      "t": "punt",
-      "net": 35
-     }
-    ]
-   },
-   {
-    "team": "OWL",
-    "plays": [
-     {
-      "t": "run",
-      "by": "RB",
-      "yds": 1
-     },
-     {
-      "t": "pass",
-      "to": "WR2",
-      "yds": 5
-     },
-     {
-      "t": "run",
-      "by": "QB",
-      "yds": 1
-     },
-     {
-      "t": "punt",
-      "net": 37
-     }
-    ]
-   },
-   {
-    "team": "TUR",
-    "plays": [
-     {
-      "t": "inc",
-      "to": "RB"
-     },
-     {
-      "t": "run",
-      "by": "RB",
-      "yds": 1
-     },
-     {
-      "t": "run",
-      "by": "RB",
-      "yds": 1
-     },
-     {
-      "t": "pen",
-      "kind": "dpi",
-      "to": "TE",
-      "spot": 6
-     },
-     {
-      "t": "pen",
-      "kind": "dpi",
       "to": "WR1",
-      "spot": 12
-     },
-     {
-      "t": "pass",
-      "to": "TE",
-      "yds": 12
-     },
-     {
-      "t": "pass",
-      "to": "TE",
-      "yds": 20,
+      "yds": 32,
+      "why": {
+       "play": {
+        "pass_WR1": 0.41,
+        "pass_TE": 0.09,
+        "run_RB": 0.45,
+        "run_QB": 0.05
+       },
+       "picked": "pass_WR1",
+       "highlight": 0.4,
+       "by": "jev"
+      },
       "tags": [
        "highlight",
        "big-play"
       ]
      },
      {
-      "t": "inc",
-      "to": "WR3"
-     },
-     {
-      "t": "inc",
-      "to": "TE"
+      "t": "run",
+      "by": "RB",
+      "yds": 1,
+      "why": {
+       "play": {
+        "pass_TE": 0.16,
+        "run_RB": 0.52,
+        "run_QB": 0.03,
+        "pass_WR2": 0.29
+       },
+       "picked": "run_RB",
+       "highlight": 0.32,
+       "by": "jev"
+      }
      },
      {
       "t": "run",
       "by": "QB",
-      "yds": 1
+      "yds": 1,
+      "why": {
+       "play": {
+        "pass_TE": 0.14,
+        "run_QB": 0.09,
+        "pass_WR2": 0.19,
+        "pass_WR1": 0.58
+       },
+       "picked": "run_QB",
+       "highlight": 0.38,
+       "by": "jev"
+      }
      },
      {
-      "t": "pass",
-      "to": "WR1",
-      "yds": 11
+      "t": "pen",
+      "kind": "dpi",
+      "to": "TE",
+      "spot": 18
      },
      {
       "t": "run",
       "by": "RB",
-      "yds": 1
+      "yds": 1,
+      "why": {
+       "play": {
+        "pass_WR1": 0.32,
+        "run_RB": 0.31,
+        "pass_TE": 0.07,
+        "pass_WR3": 0.3
+       },
+       "picked": "run_RB",
+       "highlight": 0.32,
+       "by": "jev"
+      }
+     },
+     {
+      "t": "pen",
+      "kind": "dpi",
+      "to": "WR3",
+      "spot": 13
+     },
+     {
+      "t": "inc",
+      "to": "WR3",
+      "why": {
+       "play": {
+        "pass_TE": 0.08,
+        "run_RB": 0.3,
+        "pass_RB": 0.09,
+        "pass_WR3": 0.53
+       },
+       "picked": "pass_WR3",
+       "highlight": 0.36,
+       "by": "jev"
+      }
+     },
+     {
+      "t": "pass",
+      "to": "TE",
+      "yds": 4,
+      "why": {
+       "play": {
+        "pass_TE": 0.62,
+        "run_RB": 0.38
+       },
+       "picked": "pass_TE",
+       "highlight": 0.38,
+       "by": "jev"
+      }
+     },
+     {
+      "t": "pen",
+      "kind": "dpi",
+      "to": "WR3",
+      "spot": 10
+     },
+     {
+      "t": "pass",
+      "to": "TE",
+      "yds": 11,
+      "why": {
+       "play": {
+        "pass_TE": 0.45,
+        "run_RB": 0.55
+       },
+       "picked": "pass_TE",
+       "highlight": 0.38,
+       "by": "jev"
+      }
      },
      {
       "t": "run",
@@ -960,39 +1863,81 @@
     "plays": [
      {
       "t": "kickoff",
-      "to": 58
+      "to": 55
+     },
+     {
+      "t": "sack",
+      "yds": -9
      },
      {
       "t": "inc",
-      "to": "WR3"
+      "to": "WR2",
+      "why": {
+       "play": {
+        "run_RB": 0.16,
+        "pass_WR2": 0.49,
+        "pass_TE": 0.02,
+        "pass_WR3": 0.32,
+        "run_QB": 0.01
+       },
+       "picked": "pass_WR2",
+       "highlight": 0.43,
+       "by": "jev"
+      }
      },
      {
       "t": "pass",
       "to": "WR3",
-      "yds": 1
-     },
-     {
-      "t": "run",
-      "by": "RB",
-      "yds": 1
+      "yds": 9,
+      "why": {
+       "play": {
+        "pass_WR3": 0.82,
+        "pass_TE": 0.18
+       },
+       "picked": "pass_WR3",
+       "highlight": 0.6,
+       "by": "jev"
+      },
+      "tags": [
+       "highlight"
+      ]
      },
      {
       "t": "pass",
       "to": "TE",
-      "yds": 12
-     },
-     {
-      "t": "sack",
-      "yds": -5
-     },
-     {
-      "t": "run",
-      "by": "QB",
-      "yds": 1
+      "yds": 17
      },
      {
       "t": "run",
       "by": "RB",
+      "yds": 1,
+      "why": {
+       "play": {
+        "run_RB": 0.85,
+        "run_QB": 0.15
+       },
+       "picked": "run_RB",
+       "highlight": 0.38,
+       "by": "jev"
+      }
+     },
+     {
+      "t": "run",
+      "by": "RB",
+      "yds": 1,
+      "why": {
+       "play": {
+        "run_RB": 0.81,
+        "run_QB": 0.19
+       },
+       "picked": "run_RB",
+       "highlight": 0.36,
+       "by": "jev"
+      }
+     },
+     {
+      "t": "run",
+      "by": "QB",
       "yds": 1
      },
      {
@@ -1006,12 +1951,21 @@
     "plays": [
      {
       "t": "kickoff",
-      "to": 36
+      "to": 25
      },
      {
       "t": "run",
       "by": "RB",
-      "yds": 1
+      "yds": 1,
+      "why": {
+       "play": {
+        "run_QB": 0.1,
+        "run_RB": 0.9
+       },
+       "picked": "run_RB",
+       "highlight": 0.31,
+       "by": "jev"
+      }
      },
      {
       "t": "run",
@@ -1024,7 +1978,7 @@
      },
      {
       "t": "punt",
-      "net": 47
+      "net": 40
      }
     ]
    },
@@ -1032,40 +1986,108 @@
     "team": "OWL",
     "plays": [
      {
-      "t": "pass",
-      "to": "RB",
-      "yds": 6
-     },
-     {
-      "t": "pass",
-      "to": "TE",
-      "yds": 1
-     },
-     {
-      "t": "pass",
-      "to": "WR1",
-      "yds": 7
+      "t": "run",
+      "by": "RB",
+      "yds": 1,
+      "why": {
+       "play": {
+        "pass_TE": 0.04,
+        "run_RB": 0.23,
+        "pass_WR1": 0.31,
+        "pass_WR3": 0.42
+       },
+       "picked": "run_RB",
+       "highlight": 0.37,
+       "by": "jev"
+      }
      },
      {
       "t": "pen",
       "kind": "dpi",
       "to": "WR2",
-      "spot": 12
+      "spot": 11
+     },
+     {
+      "t": "pass",
+      "to": "WR3",
+      "yds": 1,
+      "why": {
+       "play": {
+        "run_RB": 0.25,
+        "pass_WR3": 0.35,
+        "pass_WR1": 0.3,
+        "pass_TE": 0.04,
+        "pass_RB": 0.06
+       },
+       "picked": "pass_WR3",
+       "highlight": 0.39,
+       "by": "jev"
+      }
+     },
+     {
+      "t": "pass",
+      "to": "WR1",
+      "yds": 7,
+      "why": {
+       "play": {
+        "pass_TE": 0.05,
+        "run_RB": 0.17,
+        "pass_RB": 0.05,
+        "pass_WR1": 0.73
+       },
+       "picked": "pass_WR1",
+       "highlight": 0.39,
+       "by": "jev"
+      }
      },
      {
       "t": "run",
       "by": "RB",
-      "yds": 1
+      "yds": 1,
+      "why": {
+       "play": {
+        "run_RB": 0.6,
+        "pass_TE": 0.25,
+        "pass_RB": 0.15
+       },
+       "picked": "run_RB",
+       "highlight": 0.39,
+       "by": "jev"
+      }
      },
      {
       "t": "run",
       "by": "RB",
-      "yds": 1
+      "yds": 1,
+      "why": {
+       "play": {
+        "pass_RB": 0.12,
+        "run_RB": 0.76,
+        "pass_TE": 0.12
+       },
+       "picked": "run_RB",
+       "highlight": 0.54,
+       "by": "jev"
+      }
      },
      {
-      "t": "run",
-      "by": "RB",
-      "yds": 1
+      "t": "pass",
+      "to": "TE",
+      "yds": 1,
+      "why": {
+       "play": {
+        "pass_RB": 0.5,
+        "pass_TE": 0.5
+       },
+       "picked": "pass_TE",
+       "highlight": 0.41,
+       "by": "jev"
+      }
+     },
+     {
+      "t": "pass",
+      "to": "RB",
+      "yds": 6
      },
      {
       "t": "pen",
@@ -1074,17 +2096,52 @@
       "spot": 21
      },
      {
-      "t": "pass",
+      "t": "inc",
       "to": "WR3",
-      "yds": 1
+      "why": {
+       "play": {
+        "pass_WR3": 0.25,
+        "pass_WR1": 0.12,
+        "pass_TE": 0.02,
+        "pass_WR2": 0.55,
+        "pass_RB": 0.06
+       },
+       "picked": "pass_WR3",
+       "highlight": 0.49,
+       "by": "jev"
+      }
      },
      {
       "t": "inc",
-      "to": "WR3"
+      "to": "WR2",
+      "why": {
+       "play": {
+        "pass_WR1": 0.11,
+        "pass_WR3": 0.2,
+        "pass_RB": 0.07,
+        "pass_TE": 0.03,
+        "pass_WR2": 0.59
+       },
+       "picked": "pass_WR2",
+       "highlight": 0.5,
+       "by": "jev"
+      }
      },
      {
       "t": "inc",
-      "to": "TE"
+      "to": "WR3",
+      "why": {
+       "play": {
+        "pass_TE": 0.03,
+        "pass_WR1": 0.18,
+        "pass_WR2": 0.53,
+        "pass_WR3": 0.21,
+        "pass_RB": 0.05
+       },
+       "picked": "pass_WR3",
+       "highlight": 0.58,
+       "by": "jev"
+      }
      },
      {
       "t": "fg",
@@ -1096,12 +2153,12 @@
  },
  "report": {
   "seedTried": 1,
-  "plays": 187,
-  "playsChosenByJev": 0,
-  "model": null,
+  "plays": 184,
+  "playsChosenByJev": 97,
+  "model": "jev-1.14.0",
   "jev": {
-   "calls": 0,
-   "inputTokens": 0
+   "calls": 97,
+   "inputTokens": 79615
   },
   "score": [
    24,
@@ -1110,7 +2167,7 @@
   "points": [
    {
     "RB": 16.9,
-    "QB": 21,
+    "QB": 21.2,
     "WR2": 5.8,
     "WR1": 15.6,
     "TE": 12.2,
@@ -1120,7 +2177,7 @@
    },
    {
     "RB": 17,
-    "QB": 16.3,
+    "QB": 16.7,
     "WR3": 4.7,
     "DST": 5,
     "WR2": 16.4,
@@ -1130,7 +2187,7 @@
    }
   ],
   "matchesTargets": true,
-  "highlights": 14,
+  "highlights": 15,
   "source": {
    "from": "statlines",
    "file": "data/statlines/week11-tur-owl.json",

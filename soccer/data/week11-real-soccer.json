@@ -1,0 +1,1032 @@
+{
+ "id": "week11-real-soccer",
+ "version": 1,
+ "sport": "soccer",
+ "teams": [
+  {
+   "id": "IRN",
+   "name": "Ironside",
+   "full": "Ironside FC",
+   "colors": {
+    "shirt": "#17191c",
+    "trim": "#d4ff2a",
+    "shorts": "#17191c",
+    "socks": "#d4ff2a",
+    "keeper": "#ff6a1a",
+    "tile": "#3a4a12"
+   },
+   "roster": {
+    "GK": "David Raya",
+    "LB": "Alphonso Davies",
+    "CB1": "William Saliba",
+    "CB2": "Ruben Dias",
+    "RB": "Achraf Hakimi",
+    "CM1": "Declan Rice",
+    "CM2": "Jude Bellingham",
+    "CM3": "Florian Wirtz",
+    "LW": "Khvicha Kvaratskhelia",
+    "ST": "Erling Haaland",
+    "RW": "Bukayo Saka"
+   },
+   "fantasy": [
+    "GK",
+    "CB1",
+    "CB2",
+    "CM2",
+    "LW",
+    "ST",
+    "RW"
+   ]
+  },
+  {
+   "id": "RHB",
+   "name": "Red Harbour",
+   "full": "Red Harbour SC",
+   "colors": {
+    "shirt": "#b3121b",
+    "trim": "#f2ead8",
+    "shorts": "#f2ead8",
+    "socks": "#b3121b",
+    "keeper": "#1fb5ff",
+    "tile": "#7a0c12"
+   },
+   "roster": {
+    "GK": "Mike Maignan",
+    "LB": "Nuno Mendes",
+    "CB1": "Josko Gvardiol",
+    "CB2": "Antonio Rudiger",
+    "RB": "Jules Kounde",
+    "CM1": "Federico Valverde",
+    "CM2": "Vitinha",
+    "CM3": "Cole Palmer",
+    "LW": "Kylian Mbappe",
+    "ST": "Harry Kane",
+    "RW": "Mohamed Salah"
+   },
+   "fantasy": [
+    "GK",
+    "CB1",
+    "CB2",
+    "CM2",
+    "LW",
+    "ST",
+    "RW"
+   ]
+  }
+ ],
+ "game": {
+  "note": "Built by the soccer match maker from fantasy stat lines. Every event was checked by soccer/js/rules.js.",
+  "events": [
+   {
+    "min": 0,
+    "t": "kickoff",
+    "team": "RHB"
+   },
+   {
+    "t": "build",
+    "team": "IRN",
+    "chain": [
+     "CB2",
+     "LW"
+    ],
+    "to": "box",
+    "min": 4
+   },
+   {
+    "t": "shot",
+    "team": "IRN",
+    "by": "LW",
+    "out": "blocked",
+    "min": 4
+   },
+   {
+    "t": "build",
+    "team": "RHB",
+    "chain": [
+     "LW",
+     "CB2",
+     "CM3"
+    ],
+    "to": "box",
+    "min": 6
+   },
+   {
+    "t": "shot",
+    "team": "RHB",
+    "by": "CM3",
+    "out": "saved",
+    "min": 6
+   },
+   {
+    "min": 8,
+    "t": "build",
+    "team": "IRN",
+    "chain": [
+     "CB1",
+     "CM2"
+    ],
+    "to": "mid"
+   },
+   {
+    "t": "build",
+    "team": "IRN",
+    "chain": [
+     "RB",
+     "LW"
+    ],
+    "to": "box",
+    "min": 8
+   },
+   {
+    "t": "shot",
+    "team": "IRN",
+    "by": "LW",
+    "out": "blocked",
+    "min": 8
+   },
+   {
+    "t": "corner",
+    "team": "IRN",
+    "by": "LW",
+    "to": "ST",
+    "min": 8
+   },
+   {
+    "t": "shot",
+    "team": "IRN",
+    "by": "ST",
+    "head": true,
+    "out": "saved",
+    "min": 8
+   },
+   {
+    "min": 11,
+    "t": "build",
+    "team": "RHB",
+    "chain": [
+     "CB2",
+     "CB1"
+    ],
+    "to": "mid"
+   },
+   {
+    "t": "build",
+    "team": "IRN",
+    "chain": [
+     "GK",
+     "ST",
+     "LB",
+     "CM2"
+    ],
+    "to": "box",
+    "min": 11
+   },
+   {
+    "t": "shot",
+    "team": "IRN",
+    "by": "CM2",
+    "out": "blocked",
+    "min": 11
+   },
+   {
+    "t": "build",
+    "team": "RHB",
+    "chain": [
+     "CM3",
+     "LW"
+    ],
+    "to": "box",
+    "min": 14
+   },
+   {
+    "t": "shot",
+    "team": "RHB",
+    "by": "LW",
+    "out": "blocked",
+    "min": 14
+   },
+   {
+    "t": "corner",
+    "team": "RHB",
+    "by": "ST",
+    "to": "CM1",
+    "min": 14
+   },
+   {
+    "t": "shot",
+    "team": "RHB",
+    "by": "CM1",
+    "assist": "ST",
+    "head": true,
+    "out": "in",
+    "min": 14,
+    "tags": [
+     "highlight"
+    ]
+   },
+   {
+    "min": 18,
+    "t": "kickoff",
+    "team": "IRN"
+   },
+   {
+    "t": "build",
+    "team": "IRN",
+    "chain": [
+     "CM2",
+     "CM3",
+     "CM1"
+    ],
+    "to": "box",
+    "min": 18
+   },
+   {
+    "t": "shot",
+    "team": "IRN",
+    "by": "CM1",
+    "out": "blocked",
+    "min": 18
+   },
+   {
+    "t": "corner",
+    "team": "IRN",
+    "by": "RW",
+    "to": "LB",
+    "min": 18
+   },
+   {
+    "t": "shot",
+    "team": "IRN",
+    "by": "LB",
+    "head": true,
+    "out": "saved",
+    "min": 18
+   },
+   {
+    "min": 20,
+    "t": "build",
+    "team": "RHB",
+    "chain": [
+     "ST",
+     "CB1"
+    ],
+    "to": "mid"
+   },
+   {
+    "t": "build",
+    "team": "RHB",
+    "chain": [
+     "LW",
+     "ST"
+    ],
+    "to": "box",
+    "min": 20
+   },
+   {
+    "t": "shot",
+    "team": "RHB",
+    "by": "RW",
+    "assist": "ST",
+    "out": "in",
+    "min": 20,
+    "tags": [
+     "highlight"
+    ]
+   },
+   {
+    "min": 23,
+    "t": "kickoff",
+    "team": "IRN"
+   },
+   {
+    "t": "build",
+    "team": "IRN",
+    "chain": [
+     "CM3",
+     "RB",
+     "CM1",
+     "CM2"
+    ],
+    "to": "box",
+    "min": 23
+   },
+   {
+    "t": "shot",
+    "team": "IRN",
+    "by": "CM2",
+    "out": "post",
+    "min": 23
+   },
+   {
+    "t": "build",
+    "team": "RHB",
+    "chain": [
+     "GK",
+     "CM1"
+    ],
+    "to": "box",
+    "min": 26
+   },
+   {
+    "t": "shot",
+    "team": "RHB",
+    "by": "CM1",
+    "out": "blocked",
+    "min": 26
+   },
+   {
+    "t": "build",
+    "team": "IRN",
+    "chain": [
+     "CB1",
+     "CM3",
+     "CM1"
+    ],
+    "to": "box",
+    "min": 29
+   },
+   {
+    "t": "shot",
+    "team": "IRN",
+    "by": "CM1",
+    "out": "saved",
+    "min": 29
+   },
+   {
+    "min": 32,
+    "t": "build",
+    "team": "RHB",
+    "chain": [
+     "CB2",
+     "LB"
+    ],
+    "to": "mid"
+   },
+   {
+    "t": "build",
+    "team": "IRN",
+    "chain": [
+     "ST",
+     "CM3"
+    ],
+    "to": "box",
+    "min": 32
+   },
+   {
+    "t": "shot",
+    "team": "IRN",
+    "by": "CM3",
+    "out": "post",
+    "min": 32
+   },
+   {
+    "t": "build",
+    "team": "RHB",
+    "chain": [
+     "CM2",
+     "LW",
+     "ST"
+    ],
+    "to": "box",
+    "min": 33
+   },
+   {
+    "t": "shot",
+    "team": "RHB",
+    "by": "ST",
+    "out": "saved",
+    "min": 33
+   },
+   {
+    "min": 36,
+    "t": "build",
+    "team": "IRN",
+    "chain": [
+     "LB",
+     "CB2"
+    ],
+    "to": "mid"
+   },
+   {
+    "t": "build",
+    "team": "IRN",
+    "chain": [
+     "RB",
+     "CB1",
+     "CM1",
+     "CM2"
+    ],
+    "to": "box",
+    "min": 36
+   },
+   {
+    "t": "shot",
+    "team": "IRN",
+    "by": "CM2",
+    "out": "blocked",
+    "min": 36
+   },
+   {
+    "t": "build",
+    "team": "RHB",
+    "chain": [
+     "CM1",
+     "LB",
+     "LW"
+    ],
+    "to": "box",
+    "min": 40
+   },
+   {
+    "t": "shot",
+    "team": "RHB",
+    "by": "LW",
+    "out": "saved",
+    "min": 40
+   },
+   {
+    "min": 42,
+    "t": "build",
+    "team": "IRN",
+    "chain": [
+     "CB2",
+     "CM2"
+    ],
+    "to": "mid"
+   },
+   {
+    "t": "build",
+    "team": "RHB",
+    "chain": [
+     "CM2",
+     "RW",
+     "CM3"
+    ],
+    "to": "mid",
+    "min": 42
+   },
+   {
+    "t": "offside",
+    "team": "RHB",
+    "by": "LW",
+    "min": 42
+   },
+   {
+    "min": 45,
+    "t": "ht"
+   },
+   {
+    "min": 46,
+    "t": "kickoff",
+    "team": "IRN"
+   },
+   {
+    "t": "build",
+    "team": "IRN",
+    "chain": [
+     "LB",
+     "ST",
+     "CM2"
+    ],
+    "to": "box",
+    "min": 48
+   },
+   {
+    "t": "shot",
+    "team": "IRN",
+    "by": "CM2",
+    "out": "blocked",
+    "min": 48
+   },
+   {
+    "t": "build",
+    "team": "RHB",
+    "chain": [
+     "RB",
+     "LW"
+    ],
+    "to": "att",
+    "min": 50
+   },
+   {
+    "t": "foul",
+    "team": "IRN",
+    "by": "CB2",
+    "on": "CM3",
+    "min": 50
+   },
+   {
+    "t": "freekick",
+    "team": "RHB",
+    "by": "LW",
+    "min": 50
+   },
+   {
+    "t": "shot",
+    "team": "RHB",
+    "by": "LW",
+    "out": "in",
+    "min": 50,
+    "tags": [
+     "highlight"
+    ]
+   },
+   {
+    "min": 53,
+    "t": "kickoff",
+    "team": "IRN"
+   },
+   {
+    "t": "build",
+    "team": "IRN",
+    "chain": [
+     "RW",
+     "CM1"
+    ],
+    "to": "mid",
+    "min": 53
+   },
+   {
+    "t": "offside",
+    "team": "IRN",
+    "by": "ST",
+    "min": 53
+   },
+   {
+    "min": 55,
+    "t": "freekick",
+    "team": "RHB",
+    "by": "CB2",
+    "to": "CM1"
+   },
+   {
+    "t": "build",
+    "team": "IRN",
+    "chain": [
+     "LB",
+     "CM1"
+    ],
+    "to": "mid",
+    "min": 55
+   },
+   {
+    "t": "offside",
+    "team": "IRN",
+    "by": "LW",
+    "min": 55
+   },
+   {
+    "min": 57,
+    "t": "freekick",
+    "team": "RHB",
+    "by": "CB1",
+    "to": "CB2"
+   },
+   {
+    "t": "build",
+    "team": "IRN",
+    "chain": [
+     "LW",
+     "ST",
+     "RW",
+     "CM2"
+    ],
+    "to": "box",
+    "min": 57
+   },
+   {
+    "t": "shot",
+    "team": "IRN",
+    "by": "CM2",
+    "out": "saved",
+    "min": 57
+   },
+   {
+    "min": 60,
+    "t": "build",
+    "team": "RHB",
+    "chain": [
+     "RW",
+     "CB1"
+    ],
+    "to": "mid"
+   },
+   {
+    "t": "build",
+    "team": "RHB",
+    "chain": [
+     "CB1",
+     "RW",
+     "ST",
+     "CM3"
+    ],
+    "to": "att",
+    "min": 60
+   },
+   {
+    "t": "shot",
+    "team": "RHB",
+    "by": "CM3",
+    "out": "wide",
+    "min": 60
+   },
+   {
+    "min": 63,
+    "t": "build",
+    "team": "IRN",
+    "chain": [
+     "LB",
+     "CM1"
+    ],
+    "to": "mid"
+   },
+   {
+    "t": "build",
+    "team": "RHB",
+    "chain": [
+     "LB",
+     "ST",
+     "LW"
+    ],
+    "to": "att",
+    "min": 63
+   },
+   {
+    "t": "foul",
+    "team": "IRN",
+    "by": "ST",
+    "on": "ST",
+    "min": 63
+   },
+   {
+    "t": "freekick",
+    "team": "RHB",
+    "by": "LW",
+    "min": 63
+   },
+   {
+    "t": "shot",
+    "team": "RHB",
+    "by": "LW",
+    "out": "saved",
+    "min": 63
+   },
+   {
+    "min": 64,
+    "t": "build",
+    "team": "IRN",
+    "chain": [
+     "CM2",
+     "LB"
+    ],
+    "to": "mid"
+   },
+   {
+    "t": "build",
+    "team": "IRN",
+    "chain": [
+     "CM2",
+     "LW",
+     "ST",
+     "CM3"
+    ],
+    "to": "box",
+    "min": 64
+   },
+   {
+    "t": "shot",
+    "team": "IRN",
+    "by": "CM3",
+    "out": "blocked",
+    "min": 64
+   },
+   {
+    "t": "build",
+    "team": "IRN",
+    "chain": [
+     "CM3",
+     "CB2",
+     "CM2"
+    ],
+    "to": "box",
+    "min": 67
+   },
+   {
+    "t": "shot",
+    "team": "IRN",
+    "by": "CM2",
+    "out": "saved",
+    "min": 67
+   },
+   {
+    "min": 69,
+    "t": "build",
+    "team": "RHB",
+    "chain": [
+     "LB",
+     "CB1"
+    ],
+    "to": "mid"
+   },
+   {
+    "t": "build",
+    "team": "IRN",
+    "chain": [
+     "CB2",
+     "ST"
+    ],
+    "to": "att",
+    "min": 69
+   },
+   {
+    "t": "foul",
+    "team": "RHB",
+    "by": "RB",
+    "on": "CM1",
+    "min": 69
+   },
+   {
+    "t": "freekick",
+    "team": "IRN",
+    "by": "ST",
+    "min": 69
+   },
+   {
+    "t": "shot",
+    "team": "IRN",
+    "by": "ST",
+    "out": "saved",
+    "min": 69
+   },
+   {
+    "min": 71,
+    "t": "build",
+    "team": "RHB",
+    "chain": [
+     "CM3",
+     "CB2"
+    ],
+    "to": "mid"
+   },
+   {
+    "t": "build",
+    "team": "IRN",
+    "chain": [
+     "RW",
+     "CM1"
+    ],
+    "to": "box",
+    "min": 71
+   },
+   {
+    "t": "shot",
+    "team": "IRN",
+    "by": "CM1",
+    "out": "post",
+    "min": 71
+   },
+   {
+    "t": "build",
+    "team": "RHB",
+    "chain": [
+     "RB",
+     "LB",
+     "RW"
+    ],
+    "to": "att",
+    "min": 73
+   },
+   {
+    "t": "foul",
+    "team": "IRN",
+    "by": "RW",
+    "on": "CM1",
+    "min": 73
+   },
+   {
+    "t": "freekick",
+    "team": "RHB",
+    "by": "RW",
+    "min": 73
+   },
+   {
+    "t": "shot",
+    "team": "RHB",
+    "by": "RW",
+    "out": "saved",
+    "min": 73
+   },
+   {
+    "min": 76,
+    "t": "build",
+    "team": "IRN",
+    "chain": [
+     "LB",
+     "RB"
+    ],
+    "to": "mid"
+   },
+   {
+    "t": "build",
+    "team": "RHB",
+    "chain": [
+     "CM3",
+     "LW"
+    ],
+    "to": "box",
+    "min": 76
+   },
+   {
+    "t": "shot",
+    "team": "RHB",
+    "by": "LW",
+    "out": "saved",
+    "min": 76
+   },
+   {
+    "min": 78,
+    "t": "build",
+    "team": "IRN",
+    "chain": [
+     "RB",
+     "CB1"
+    ],
+    "to": "mid"
+   },
+   {
+    "t": "build",
+    "team": "IRN",
+    "chain": [
+     "LW",
+     "CM1"
+    ],
+    "to": "att",
+    "min": 78
+   },
+   {
+    "t": "foul",
+    "team": "RHB",
+    "by": "LB",
+    "on": "ST",
+    "min": 78
+   },
+   {
+    "t": "freekick",
+    "team": "IRN",
+    "by": "CM1",
+    "min": 78
+   },
+   {
+    "t": "shot",
+    "team": "IRN",
+    "by": "CM1",
+    "out": "saved",
+    "min": 78
+   },
+   {
+    "min": 81,
+    "t": "build",
+    "team": "RHB",
+    "chain": [
+     "CM3",
+     "CM2"
+    ],
+    "to": "mid"
+   },
+   {
+    "t": "build",
+    "team": "IRN",
+    "chain": [
+     "LW",
+     "CM3"
+    ],
+    "to": "att",
+    "min": 81
+   },
+   {
+    "t": "foul",
+    "team": "RHB",
+    "by": "RB",
+    "on": "LW",
+    "min": 81
+   },
+   {
+    "t": "freekick",
+    "team": "IRN",
+    "by": "CM3",
+    "min": 81
+   },
+   {
+    "t": "shot",
+    "team": "IRN",
+    "by": "CM3",
+    "out": "saved",
+    "min": 81
+   },
+   {
+    "min": 84,
+    "t": "build",
+    "team": "RHB",
+    "chain": [
+     "CM3",
+     "CM2"
+    ],
+    "to": "mid"
+   },
+   {
+    "t": "build",
+    "team": "IRN",
+    "chain": [
+     "LW",
+     "CM3"
+    ],
+    "to": "box",
+    "min": 84
+   },
+   {
+    "t": "shot",
+    "team": "IRN",
+    "by": "CM3",
+    "out": "in",
+    "min": 84,
+    "tags": [
+     "highlight"
+    ]
+   },
+   {
+    "min": 86,
+    "t": "kickoff",
+    "team": "RHB"
+   },
+   {
+    "t": "build",
+    "team": "RHB",
+    "chain": [
+     "CM2",
+     "CB1",
+     "ST",
+     "CM3"
+    ],
+    "to": "mid",
+    "min": 86
+   },
+   {
+    "t": "offside",
+    "team": "RHB",
+    "by": "LW",
+    "min": 86
+   },
+   {
+    "min": 88,
+    "t": "freekick",
+    "team": "IRN",
+    "by": "CB1",
+    "to": "LB"
+   },
+   {
+    "t": "build",
+    "team": "IRN",
+    "chain": [
+     "ST",
+     "CM1",
+     "CM2"
+    ],
+    "to": "att",
+    "min": 88
+   },
+   {
+    "t": "foul",
+    "team": "RHB",
+    "by": "LW",
+    "on": "CM2",
+    "card": "yellow",
+    "min": 88
+   }
+  ]
+ },
+ "report": {
+  "chooser": "equal weights",
+  "model": null,
+  "jevCalls": 0,
+  "momentsChosenByJev": 0,
+  "statLinesFrom": "soccer/data/week11-real-lines.json",
+  "seedsTried": 1,
+  "events": 109,
+  "score": [
+   1,
+   3
+  ],
+  "points": [
+   {
+    "GK": 6
+   },
+   {
+    "GK": 8,
+    "ST": 6,
+    "RW": 4,
+    "LW": 3
+   }
+  ],
+  "matchesTargets": true
+ }
+}

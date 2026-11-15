@@ -1,4 +1,5 @@
 {
+ "source": "sample", "source_note": "A hand-made sample game",
  "version": 0,
  "sport": "football",
  "teams": [

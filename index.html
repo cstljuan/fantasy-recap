@@ -26,7 +26,7 @@
       <a href="#plays" data-tab="plays">Plays</a>
       <a href="#recap" data-tab="recap">Recap</a>
     </nav>
-    <span class="mock">Sample games</span>
+    <span class="mock">Real plays, week 9</span>
   </header>
 
   <main>
@@ -38,7 +38,7 @@
 
   <div id="soccerView" hidden></div>
 
-  <footer class="note">Sample league. Real player names. The games, stats and scores are made up for the demo.</footer>
+  <footer class="note">Real NFL players and their real plays from weeks 7 to 9 of the 2026 season. The fantasy league and its teams are made up for the demo, and so are the soccer match and the Jev game's stats.</footer>
 </div>
 
 <div id="gameView" hidden>
@@ -50,6 +50,7 @@
 
 <script src="js/data.js"></script>
 <script src="data/games/current.js"></script>
+<script src="js/screens/pick-game.js"></script>
 <script>
 // Play the game file the boss selected (tools/use-game.js). ?game=sample plays the built-in sample.
 if (window.FF_GAME_FILE && !window.FF_USE_SAMPLE && !/[?&]game=sample/.test(location.search)) { FF_DATA.TEAMS = FF_GAME_FILE.teams; FF_DATA.SAMPLE_GAME = FF_GAME_FILE.game; }

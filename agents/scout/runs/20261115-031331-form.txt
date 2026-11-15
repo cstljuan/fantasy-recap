@@ -1,0 +1,59 @@
+03:13:31 | form starts (no model, fixed order). season=2026, weeks=3
+03:13:31 | starting GOB QB Josh Allen: find the player
+03:13:31 | find_player(Josh Allen) -> 2 match(es)
+03:13:31 | weekly_stats(4984) -> 8 weeks
+03:13:31 | starting GOB RB Saquon Barkley: find the player
+03:13:31 | find_player(Saquon Barkley) -> 1 match(es)
+03:13:32 | weekly_stats(4866) -> 7 weeks
+03:13:32 | starting GOB WR1 Ja'Marr Chase: find the player
+03:13:32 | find_player(Ja'Marr Chase) -> 1 match(es)
+03:13:32 | weekly_stats(7564) -> 8 weeks
+03:13:32 | starting GOB WR2 Puka Nacua: find the player
+03:13:32 | find_player(Puka Nacua) -> 1 match(es)
+03:13:32 | weekly_stats(9493) -> 7 weeks
+03:13:32 | starting GOB WR3 Amon-Ra St. Brown: find the player
+03:13:32 | find_player(Amon-Ra St. Brown) -> 1 match(es)
+03:13:32 | weekly_stats(7547) -> 8 weeks
+03:13:32 | starting GOB TE Trey McBride: find the player
+03:13:32 | find_player(Trey McBride) -> 1 match(es)
+03:13:32 | weekly_stats(8130) -> 9 weeks
+03:13:32 | starting GOB K Brandon Aubrey: find the player
+03:13:32 | find_player(Brandon Aubrey) -> 1 match(es)
+03:13:32 | weekly_stats(11533) -> 9 weeks
+03:13:32 | starting PYT QB Lamar Jackson: find the player
+03:13:32 | find_player(Lamar Jackson) -> 2 match(es)
+03:13:32 | weekly_stats(4881) -> 6 weeks
+03:13:32 | starting PYT RB Bijan Robinson: find the player
+03:13:32 | find_player(Bijan Robinson) -> 1 match(es)
+03:13:32 | weekly_stats(9509) -> 9 weeks
+03:13:32 | starting PYT WR1 Justin Jefferson: find the player
+03:13:32 | find_player(Justin Jefferson) -> 2 match(es)
+03:13:33 | weekly_stats(6794) -> 8 weeks
+03:13:33 | starting PYT WR2 Malik Nabers: find the player
+03:13:33 | find_player(Malik Nabers) -> 1 match(es)
+03:13:33 | weekly_stats(11632) -> 9 weeks
+03:13:33 | starting PYT WR3 Nico Collins: find the player
+03:13:33 | find_player(Nico Collins) -> 1 match(es)
+03:13:33 | weekly_stats(7569) -> 6 weeks
+03:13:33 | starting PYT TE George Kittle: find the player
+03:13:33 | find_player(George Kittle) -> 1 match(es)
+03:13:33 | weekly_stats(4217) -> 8 weeks
+03:13:33 | starting PYT K Harrison Butker: find the player
+03:13:33 | find_player(Harrison Butker) -> 1 match(es)
+03:13:33 | weekly_stats(4227) -> 8 weeks
+03:13:33 | plan: last week with stats is 10; walk back from it to the last 3 weeks each player played
+03:13:33 | Josh Allen: form weeks [6, 8, 9], skipped [7, 10], deep_ball=0.662, short_pass=0.663, scramble=0.056
+03:13:33 | Saquon Barkley: form weeks [7, 8, 9], skipped [10], run_share=0.892, pass_catching=0.75, red_zone_use=0.212
+03:13:33 | Ja'Marr Chase: form weeks [7, 8, 9], skipped [10], deep_ball=0.688, catch_rate=0.743, red_zone_use=0.171
+03:13:33 | Puka Nacua: form weeks [7, 8, 9], skipped [10], deep_ball=0.452, catch_rate=0.805, red_zone_use=0.195
+03:13:33 | Amon-Ra St. Brown: form weeks [7, 8, 9], skipped [10], deep_ball=0.594, catch_rate=0.828, red_zone_use=0.069
+03:13:33 | Trey McBride: form weeks [7, 8, 9], skipped [10], deep_ball=0.494, catch_rate=0.828, red_zone_use=0.241
+03:13:33 | Brandon Aubrey: form weeks [7, 8, 9], skipped [10], kicker_range=0.375, accuracy=0.8
+03:13:33 | Lamar Jackson: form weeks [4, 8, 9], skipped [5, 6, 7, 10], deep_ball=0.881, short_pass=0.714, scramble=0.083
+03:13:33 | Bijan Robinson: form weeks [7, 8, 9], skipped [10], run_share=0.817, pass_catching=0.846, red_zone_use=0.155
+03:13:33 | Justin Jefferson: form weeks [7, 8, 9], skipped [10], deep_ball=0.562, catch_rate=0.444, red_zone_use=0.111
+03:13:33 | Malik Nabers: form weeks [7, 9, 10], skipped [8], deep_ball=0.582, catch_rate=0.708, red_zone_use=0.042
+03:13:33 | Nico Collins: form weeks [6, 7, 9], skipped [8, 10], deep_ball=0.75, catch_rate=0.643, red_zone_use=0.143
+03:13:33 | George Kittle: form weeks [6, 7, 9], skipped [8, 10], deep_ball=0.632, catch_rate=0.68, red_zone_use=0.24
+03:13:33 | Harrison Butker: form weeks [7, 8, 9], skipped [10], kicker_range=1.0, accuracy=0.333
+03:13:33 | form finished: 14 of 14 players have form

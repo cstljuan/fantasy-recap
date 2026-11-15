@@ -117,16 +117,26 @@
       else if (a === 'next') jumpTo(current() + 1);
       else if (a === 'moment') { var to = Number(b.getAttribute('data-to')); if (to) jumpTo(to); }
     });
-    var dragging = false;
+    var dragging = false, dragFrom = 0;
+    // A swipe that starts on the slider can fire 'input' and never 'change' on a phone: lifting
+    // the finger, a cancelled touch or losing focus also releases the hold.
+    function endDrag() {
+      if (!dragging) return;
+      dragging = false;
+      if (Number(slider.value) !== dragFrom) jumpTo(Number(slider.value));
+      if (typeof G.hold === 'function') G.hold(false);
+    }
+    ['pointerup', 'pointercancel', 'touchend', 'touchcancel', 'blur'].forEach(function (t) { slider.addEventListener(t, function () { setTimeout(endDrag, 0); }); });
     slider.addEventListener('input', function () {
-      if (!dragging && typeof G.hold === 'function') { G.hold(true); dragging = true; }
+      if (!dragging && typeof G.hold === 'function') { G.hold(true); dragging = true; dragFrom = current(); }
       at.textContent = 'Play ' + slider.value + ' of ' + plays();
       slider.setAttribute('aria-valuetext', at.textContent);
     });
     slider.addEventListener('change', function () {
-      jumpTo(Number(slider.value));
-      if (dragging && typeof G.hold === 'function') G.hold(false);
+      var was = dragging;
       dragging = false;
+      jumpTo(Number(slider.value));
+      if (was && typeof G.hold === 'function') G.hold(false);
     });
     function onKey(ev) {
       if (!isOpen() || document.activeElement === slider || typeof G.seek !== 'function') return;
@@ -174,7 +184,8 @@
     }
     function showNext() {
       var kind = queue.shift();
-      if (!kind) return;
+      // Nothing left to show: release the hold (the game was left held with no card otherwise).
+      if (!kind) { if (card.hidden) hold(false); return; }
       var text = explain(kind);
       if (!text || seen[kind]) { showNext(); return; }
       seen[kind] = true;

@@ -20,6 +20,26 @@
   var base = me.replace(/js\/announcer\/voice\/play\.js(\?.*)?$/, '');
 
   function index(sport) { return (root.FF_VOICE_INDEX || {})[sport] || null; }
+  // The list of recordings (assets/voice/<sport>/index.js) can be an old copy from the browser's
+  // cache, which knows only the lines recorded before: newer lines then went to the robot voice
+  // (Noah: the real soccer match, catch-up lines after a jump). So the current list is fetched past
+  // the cache as soon as the page loads, and every line it adds is used from then on. The audio
+  // files themselves are named by their content, so a cached file is always the right one.
+  function refresh(sport) {
+    if (typeof fetch !== 'function') return;
+    try {
+      fetch(base + 'assets/voice/' + sport + '/index.json', { cache: 'no-cache' })
+        .then(function (r) { return r.ok ? r.json() : null; })
+        .then(function (fresh) {
+          if (!fresh || !fresh.lines) return;
+          var all = root.FF_VOICE_INDEX = root.FF_VOICE_INDEX || {};
+          var cur = all[sport] = all[sport] || { dir: 'assets/voice/' + sport + '/', lines: {} };
+          if (!cur.lines) cur.lines = {};
+          Object.keys(fresh.lines).forEach(function (t) { cur.lines[t] = fresh.lines[t]; });
+        })
+        .catch(function () { /* the list from the script tag still works */ });
+    } catch (err) { /* optional */ }
+  }
   function audioApi() { return root.FF_AUDIO || null; }
   function duck(on) { var a = audioApi(); if (a && a.duck) { try { a.duck(on); } catch (err) { /* optional */ } } }
 
@@ -83,4 +103,6 @@
 
   wrap(root.FF_ANNOUNCER, 'football', '__ff', 'FF_GAME');
   wrap(root.SC_ANNOUNCER, 'soccer', '__sc', 'SC_GAME');
+  if (root.FF_ANNOUNCER) refresh('football');
+  if (root.SC_ANNOUNCER) refresh('soccer');
 })(typeof window !== 'undefined' ? window : globalThis);

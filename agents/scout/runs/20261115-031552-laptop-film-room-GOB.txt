@@ -1,0 +1,48 @@
+03:15:52 | film room by hand in Juan's laptop session (no model): research_plan, every split in the plan, player_plays for the role splits, team_context
+03:15:52 | research_plan(GOB.QB) -> depth, direction, down, zone, week
+03:15:52 | split(GOB.QB, depth) -> 2 rows
+03:15:52 | split(GOB.QB, direction) -> 3 rows
+03:15:52 | split(GOB.QB, direction) -> 3 rows
+03:15:52 | split(GOB.QB, down) -> 4 rows
+03:15:52 | split(GOB.QB, down) -> 4 rows
+03:15:52 | split(GOB.QB, zone) -> 4 rows
+03:15:52 | split(GOB.QB, zone) -> 3 rows
+03:15:52 | split(GOB.QB, week) -> 8 rows
+03:15:52 | split(GOB.QB, week) -> 8 rows
+03:15:52 | player_plays(GOB.QB, {"kind": "int", "limit": 1}) -> 6 plays
+03:15:52 | player_plays(GOB.QB, {"kind": "sack", "limit": 1}) -> 17 plays
+03:15:52 | research_plan(GOB.RB) -> gap, down, zone, week
+03:15:52 | split(GOB.RB, gap) -> 7 rows
+03:15:52 | split(GOB.RB, down) -> 4 rows
+03:15:52 | split(GOB.RB, down) -> 3 rows
+03:15:52 | split(GOB.RB, zone) -> 4 rows
+03:15:52 | split(GOB.RB, zone) -> 1 rows
+03:15:52 | split(GOB.RB, week) -> 7 rows
+03:15:52 | split(GOB.RB, week) -> 7 rows
+03:15:52 | research_plan(GOB.WR1) -> depth, direction, down, zone, week
+03:15:52 | split(GOB.WR1, depth) -> 2 rows
+03:15:52 | split(GOB.WR1, direction) -> 3 rows
+03:15:52 | split(GOB.WR1, down) -> 4 rows
+03:15:52 | split(GOB.WR1, zone) -> 4 rows
+03:15:52 | split(GOB.WR1, week) -> 8 rows
+03:15:52 | research_plan(GOB.WR2) -> depth, direction, down, zone, week
+03:15:52 | split(GOB.WR2, depth) -> 2 rows
+03:15:52 | split(GOB.WR2, direction) -> 3 rows
+03:15:52 | split(GOB.WR2, down) -> 4 rows
+03:15:52 | split(GOB.WR2, zone) -> 4 rows
+03:15:52 | split(GOB.WR2, week) -> 7 rows
+03:15:52 | research_plan(GOB.WR3) -> depth, direction, down, zone, week
+03:15:52 | split(GOB.WR3, depth) -> 2 rows
+03:15:52 | split(GOB.WR3, direction) -> 3 rows
+03:15:52 | split(GOB.WR3, down) -> 4 rows
+03:15:52 | split(GOB.WR3, zone) -> 4 rows
+03:15:52 | split(GOB.WR3, week) -> 8 rows
+03:15:52 | research_plan(GOB.TE) -> depth, down, zone, week
+03:15:52 | split(GOB.TE, depth) -> 2 rows
+03:15:52 | split(GOB.TE, down) -> 4 rows
+03:15:52 | split(GOB.TE, zone) -> 4 rows
+03:15:52 | split(GOB.TE, week) -> 9 rows
+03:15:52 | research_plan(GOB.K) -> zone, week
+03:15:52 | split(GOB.K, zone) -> 3 rows
+03:15:52 | split(GOB.K, week) -> 7 rows
+03:15:52 | player_plays(GOB.K, {"kind": "fg", "limit": 60}) -> 22 plays

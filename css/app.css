@@ -108,6 +108,7 @@ body {
   -webkit-tap-highlight-color: transparent;
 }
 body.in-game { overflow: hidden; }
+html.in-game, html.in-game body { overflow: hidden; overscroll-behavior: none; height: 100%; }
 a { color: inherit; text-decoration: none; }
 button { font: inherit; color: inherit; }
 [hidden] { display: none !important; }
@@ -277,6 +278,9 @@ h2 { margin: 0; font: 700 var(--fs-label)/1 var(--body); letter-spacing: 0.14em;
 .lg-drop { color: var(--dim); font-size: var(--fs-small); }
 .lg-go { margin-left: auto; font: 700 var(--fs-label)/1 var(--body); letter-spacing: 0.1em; text-transform: uppercase; color: var(--amber); }
 .lg-optins { margin: 0; padding: 0 var(--inset-x) var(--sp-3); color: var(--dim); font-size: var(--fs-meta); }
+.lg-source { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px var(--sp-2); margin: 0; padding: 0 var(--inset-x) var(--sp-3); color: var(--dim); font-size: var(--fs-meta); }
+.lg-source b { padding: 2px var(--sp-1); border: 1px solid var(--rule); color: var(--text); font: 700 var(--fs-micro)/1.2 var(--body); letter-spacing: 0.12em; text-transform: uppercase; }
+.lg-source.is-real-plays b, .lg-source.is-jev b { border-color: var(--amber); color: var(--amber); }
 .lg-go::after { content: " \203A"; }
 @media (max-width: 400px) { .tabs a { font-size: var(--fs-small); letter-spacing: 0.06em; } }
 
@@ -429,7 +433,7 @@ h2 { margin: 0; font: 700 var(--fs-label)/1 var(--body); letter-spacing: 0.14em;
 /* ------------------------------------------------------------ game view */
 
 #gameView { position: fixed; inset: 0; z-index: 20; background: var(--bg); display: flex; align-items: center; justify-content: center;
-            overflow: hidden; touch-action: manipulation; -webkit-user-select: none; user-select: none; }
+            overflow: hidden; touch-action: manipulation; overscroll-behavior: none; -webkit-user-select: none; user-select: none; }
 .stage { position: relative; line-height: 0; }
 #game { display: block; background: var(--bg); image-rendering: pixelated; }
 .close { position: absolute; top: 8px; right: 8px; min-width: 64px; min-height: 36px; padding: 0 12px; cursor: pointer;
@@ -542,6 +546,32 @@ h2 { margin: 0; font: 700 var(--fs-label)/1 var(--body); letter-spacing: 0.14em;
 .caller > div > span { display: block; margin-top: 4px; color: var(--dim); font-size: var(--fs-meta); }
 .caller dd.num + span { display: inline; margin-left: 8px; }
 .caller dd button { color: var(--text); text-align: left; line-height: 1.2; }
+
+/* Momentum in the film room (B39): the fantasy margin over the game, one bar per slice of time. */
+.film > .momentum { margin-top: 16px; }
+.mom-key { display: flex; justify-content: space-between; gap: var(--sp-3); padding: var(--sp-3) var(--inset-x) 0; color: var(--dim); font-size: var(--fs-meta); }
+.mom-key span::before { content: ""; display: inline-block; width: 10px; height: 10px; margin-right: 6px; background: var(--c); vertical-align: -1px; }
+.mom-chart { display: block; width: calc(100% - 2 * var(--inset-x)); height: 140px; margin: var(--sp-2) var(--inset-x) 0; }
+.mom-chart .mom-0 { fill: var(--t0); }
+.mom-chart .mom-1 { fill: var(--t1); }
+.mom-chart .mom-zero { stroke: var(--text); stroke-width: 1; vector-effect: non-scaling-stroke; }
+.mom-chart .mom-q { stroke: var(--rule); stroke-width: 1; vector-effect: non-scaling-stroke; }
+.mom-qs { position: relative; height: 16px; margin: 4px var(--inset-x) 0; color: var(--dim); font: 700 var(--fs-micro)/16px var(--body); letter-spacing: 0.12em; }
+.mom-qs span { position: absolute; top: 0; padding-left: 4px; }
+.mom-facts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); margin: var(--sp-3) 0 0; border-top: 1px solid var(--rule); }
+.mom-facts > div { padding: 12px var(--inset-x); border-left: 1px solid var(--rule); }
+.mom-facts > div:first-child { border-left: 0; }
+.mom-facts dt { font: 700 var(--fs-label)/1.2 var(--body); letter-spacing: 0.12em; text-transform: uppercase; color: var(--dim); }
+.mom-facts dd { margin: 8px 0 0; font-size: var(--fs-title); line-height: 1; }
+.mom-facts span { display: block; margin-top: 4px; color: var(--dim); font-size: var(--fs-meta); }
+.mom-from { margin: 0; padding: var(--sp-3) var(--inset-x); border-top: 1px solid var(--rule); color: var(--dim); font-size: var(--fs-meta); }
+
+/* Week by week on the lineups (B39), under the recent form line. */
+.trend { display: flex; align-items: baseline; gap: var(--sp-2); margin-top: var(--sp-1); font-size: var(--fs-meta); color: var(--dim); }
+.trend-mark { flex: none; padding: 2px var(--sp-1); border: 1px solid var(--rule); font: 700 var(--fs-micro)/1.2 var(--body); letter-spacing: 0.12em; text-transform: uppercase; }
+.trend.is-up .trend-mark { color: var(--ink); background: var(--text); border-color: var(--text); }
+.trend.is-down .trend-mark { color: var(--text); border-color: var(--dim); }
+.trend-why { min-width: 0; }
 .film-nav { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 12px 14px; border-bottom: 1px solid var(--rule); color: var(--dim); font-size: var(--fs-meta); }
 .film-nav button { color: var(--text); }
 .film-nav button:disabled { color: var(--dim); opacity: 0.5; cursor: default; }

@@ -5,7 +5,7 @@
 //   DATABASE_URL=<connection string> node data/checks/service-browser.js
 // Checks, in Chrome at phone width (found as tools/smoke.sh finds it, or $CHROME):
 //   1. the page calls GET /health and GET /league and gets 200 (the league home is drawn from the service),
-//   2. tapping Opt in sends POST /games/week11-football/optin, the page says "Saved to the league", and the row is in the
+//   2. tapping Opt in sends POST /games/<the current game>/optin, the page says "Saved to the league", and the row is in the
 //      optins table (the row is removed again unless it was there before),
 //   3. from the page's own address (so CORS is part of the proof) momentum, trend and Scout answer with the shapes the
 //      screens need: momentum buckets with an engine, a trend with weeks and a summary, a scouting report with claims
@@ -118,7 +118,7 @@ function sleep(ms) { return new Promise(function (r) { setTimeout(r, ms); }); }
   if (!bin) { console.log('SKIPPED: no Chrome or Chromium found (set CHROME to its path)'); process.exit(2); }
   var Pool = require(path.join(ROOT, 'server', 'node_modules', 'pg')).Pool;
   var pool = new Pool(index.poolConfig(process.env.DATABASE_URL, process.env.DATABASE_CA_FILE));
-  var GAME = 'week11-football', hadOptin = false, svc = null, site = null, chrome = null, cdp = null;
+  var GAME = /"id":"([^"]+)"/.exec(fs.readFileSync(path.join(ROOT, 'data', 'games', 'current.js'), 'utf8').slice(0, 400))[1], hadOptin = false, svc = null, site = null, chrome = null, cdp = null;
   try {
     var t = (await pool.query("SELECT to_regclass('plays') AS p, to_regclass('optins') AS o")).rows[0];
     if (!t.p || !t.o) throw new Error('the tables are missing. Run: sh db/migrate.sh');
@@ -175,12 +175,12 @@ function sleep(ms) { return new Promise(function (r) { setTimeout(r, ms); }); }
 
     var shapes = await run(async function (a) {
       var out = {};
-      async function get(p) { var r = await fetch(a + p); return { status: r.status, body: await r.json() }; }
-      out.momentum = await get('/games/week11-football/momentum?bucket=120');
+      async function get(p) { var r = await fetch(a.api + p); return { status: r.status, body: await r.json() }; }
+      out.momentum = await get('/games/' + a.game + '/momentum?bucket=120');
       out.trend = await get('/players/Josh%20Allen/trend');
       out.scout = await get('/scout/GOB.QB');
       return out;
-    }, api);
+    }, { api: api, game: GAME });
     var m = shapes.momentum;
     line(m.status === 200 && m.body.source === 'database' && m.body.buckets.length > 10 && !!m.body.engine && m.body.buckets.every(function (b) { return b.fp && b.score && b.fpTotal && b.scoreTotal; }),
       'momentum reaches the page: ' + (m.body.buckets ? m.body.buckets.length : 0) + ' buckets, engine ' + m.body.engine + ', source ' + m.body.source);

@@ -1,0 +1,314 @@
+{
+  "team": "PYT",
+  "name": "Pixel Pythons",
+  "made_by": "Scout's tools, researched in Juan's laptop session",
+  "date": "2026-11-14",
+  "note": "A fantasy roster: the seven players play for different NFL teams, so this describes how these players are used, not one real offense.",
+  "source": "Scout's research tools (agents/scout/research.py) over data/rosters/plays-2026.json: https://site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event={event}. Season weeks 1 to 10, read on 2026-11-14. Trend labels and the summary are judgment, written by hand from the per-player reports in data/profiles/notes/.",
+  "summary": "Run first through Robinson, who carries 18.8 times a game, owns the goal line and catches passes. Jackson is efficient when he plays but has barely played since week 4, so the passing numbers are a small sample. Nabers is the deep threat, Kittle and Collins score in the red zone, and Jefferson and Nabers get the third down targets. Third down is the weak spot of this roster.",
+  "how_the_offense_moves": {
+    "how": "plays and yards per player and role, added over the week split",
+    "players": [
+      {
+        "slot": "QB",
+        "name": "Lamar Jackson",
+        "what": "throws",
+        "total": 102,
+        "per_game": 20.4,
+        "yards": 967,
+        "yards_per_play": 9.5,
+        "games": 5,
+        "how": "split(PYT.QB, week, passer): 102 throws for 967 yards in 5 games with at least one"
+      },
+      {
+        "slot": "QB",
+        "name": "Lamar Jackson",
+        "what": "carries",
+        "total": 16,
+        "per_game": 4.0,
+        "yards": 147,
+        "yards_per_play": 9.2,
+        "games": 4,
+        "how": "split(PYT.QB, week, rusher): 16 carries for 147 yards in 4 games with at least one"
+      },
+      {
+        "slot": "RB",
+        "name": "Bijan Robinson",
+        "what": "carries",
+        "total": 169,
+        "per_game": 18.8,
+        "yards": 887,
+        "yards_per_play": 5.2,
+        "games": 9,
+        "how": "split(PYT.RB, week, rusher): 169 carries for 887 yards in 9 games with at least one"
+      },
+      {
+        "slot": "RB",
+        "name": "Bijan Robinson",
+        "what": "targets",
+        "total": 40,
+        "per_game": 4.4,
+        "yards": 238,
+        "yards_per_play": 6.0,
+        "games": 9,
+        "how": "split(PYT.RB, week, target): 40 targets for 238 yards in 9 games with at least one"
+      },
+      {
+        "slot": "WR1",
+        "name": "Justin Jefferson",
+        "what": "targets",
+        "total": 51,
+        "per_game": 7.3,
+        "yards": 393,
+        "yards_per_play": 7.7,
+        "games": 7,
+        "how": "split(PYT.WR1, week, target): 51 targets for 393 yards in 7 games with at least one"
+      },
+      {
+        "slot": "WR2",
+        "name": "Malik Nabers",
+        "what": "targets",
+        "total": 85,
+        "per_game": 9.4,
+        "yards": 697,
+        "yards_per_play": 8.2,
+        "games": 9,
+        "how": "split(PYT.WR2, week, target): 85 targets for 697 yards in 9 games with at least one"
+      },
+      {
+        "slot": "WR3",
+        "name": "Nico Collins",
+        "what": "targets",
+        "total": 39,
+        "per_game": 6.5,
+        "yards": 384,
+        "yards_per_play": 9.8,
+        "games": 6,
+        "how": "split(PYT.WR3, week, target): 39 targets for 384 yards in 6 games with at least one"
+      },
+      {
+        "slot": "TE",
+        "name": "George Kittle",
+        "what": "targets",
+        "total": 53,
+        "per_game": 6.6,
+        "yards": 484,
+        "yards_per_play": 9.1,
+        "games": 8,
+        "how": "split(PYT.TE, week, target): 53 targets for 484 yards in 8 games with at least one"
+      }
+    ]
+  },
+  "red_zone": {
+    "how": "plays inside the 20 (red zone and goal line rows of the zone split), most touchdowns first",
+    "players": [
+      {
+        "slot": "RB",
+        "name": "Bijan Robinson",
+        "what": "carries",
+        "inside_20": 29,
+        "inside_5": 8,
+        "touchdowns": 4,
+        "how": "split(PYT.RB, zone, rusher): rows red zone and goal line added"
+      },
+      {
+        "slot": "QB",
+        "name": "Lamar Jackson",
+        "what": "throws",
+        "inside_20": 15,
+        "inside_5": 5,
+        "touchdowns": 4,
+        "how": "split(PYT.QB, zone, passer): rows red zone and goal line added"
+      },
+      {
+        "slot": "TE",
+        "name": "George Kittle",
+        "what": "targets",
+        "inside_20": 12,
+        "inside_5": 1,
+        "touchdowns": 4,
+        "how": "split(PYT.TE, zone, target): rows red zone and goal line added"
+      },
+      {
+        "slot": "WR1",
+        "name": "Justin Jefferson",
+        "what": "targets",
+        "inside_20": 7,
+        "inside_5": 1,
+        "touchdowns": 3,
+        "how": "split(PYT.WR1, zone, target): rows red zone and goal line added"
+      },
+      {
+        "slot": "WR3",
+        "name": "Nico Collins",
+        "what": "targets",
+        "inside_20": 6,
+        "inside_5": 0,
+        "touchdowns": 3,
+        "how": "split(PYT.WR3, zone, target): rows red zone and goal line added"
+      },
+      {
+        "slot": "WR2",
+        "name": "Malik Nabers",
+        "what": "targets",
+        "inside_20": 10,
+        "inside_5": 2,
+        "touchdowns": 1,
+        "how": "split(PYT.WR2, zone, target): rows red zone and goal line added"
+      },
+      {
+        "slot": "QB",
+        "name": "Lamar Jackson",
+        "what": "carries",
+        "inside_20": 5,
+        "inside_5": 2,
+        "touchdowns": 1,
+        "how": "split(PYT.QB, zone, rusher): rows red zone and goal line added"
+      },
+      {
+        "slot": "RB",
+        "name": "Bijan Robinson",
+        "what": "targets",
+        "inside_20": 3,
+        "inside_5": 0,
+        "touchdowns": 0,
+        "how": "split(PYT.RB, zone, target): rows red zone and goal line added"
+      }
+    ]
+  },
+  "third_down": {
+    "how": "the third down row of the down split, most plays first; success means the play gained the distance needed or scored",
+    "players": [
+      {
+        "slot": "QB",
+        "name": "Lamar Jackson",
+        "what": "throws",
+        "plays": 23,
+        "first_downs": 8,
+        "success_rate": 0.348,
+        "touchdowns": 1,
+        "how": "split(PYT.QB, down, passer): row 3"
+      },
+      {
+        "slot": "WR1",
+        "name": "Justin Jefferson",
+        "what": "targets",
+        "plays": 21,
+        "first_downs": 10,
+        "success_rate": 0.476,
+        "touchdowns": 2,
+        "how": "split(PYT.WR1, down, target): row 3"
+      },
+      {
+        "slot": "WR2",
+        "name": "Malik Nabers",
+        "what": "targets",
+        "plays": 21,
+        "first_downs": 7,
+        "success_rate": 0.333,
+        "touchdowns": 0,
+        "how": "split(PYT.WR2, down, target): row 3"
+      },
+      {
+        "slot": "RB",
+        "name": "Bijan Robinson",
+        "what": "carries",
+        "plays": 15,
+        "first_downs": 4,
+        "success_rate": 0.267,
+        "touchdowns": 0,
+        "how": "split(PYT.RB, down, rusher): row 3"
+      },
+      {
+        "slot": "RB",
+        "name": "Bijan Robinson",
+        "what": "targets",
+        "plays": 10,
+        "first_downs": 4,
+        "success_rate": 0.4,
+        "touchdowns": 1,
+        "how": "split(PYT.RB, down, target): row 3"
+      },
+      {
+        "slot": "WR3",
+        "name": "Nico Collins",
+        "what": "targets",
+        "plays": 9,
+        "first_downs": 6,
+        "success_rate": 0.667,
+        "touchdowns": 2,
+        "how": "split(PYT.WR3, down, target): row 3"
+      },
+      {
+        "slot": "TE",
+        "name": "George Kittle",
+        "what": "targets",
+        "plays": 9,
+        "first_downs": 4,
+        "success_rate": 0.444,
+        "touchdowns": 0,
+        "how": "split(PYT.TE, down, target): row 3"
+      },
+      {
+        "slot": "QB",
+        "name": "Lamar Jackson",
+        "what": "carries",
+        "plays": 1,
+        "first_downs": 1,
+        "success_rate": 1.0,
+        "touchdowns": 0,
+        "how": "split(PYT.QB, down, rusher): row 3"
+      }
+    ]
+  },
+  "form": {
+    "how": "last three weeks with a play against the weeks before (week split); the label is a judgment and the reason is next to it",
+    "hot": [
+      {
+        "slot": "TE",
+        "name": "George Kittle",
+        "why": "targets and yards a game are up in the last three games",
+        "report": "data/profiles/notes/PYT-TE-report.md"
+      }
+    ],
+    "cold": [
+      {
+        "slot": "QB",
+        "name": "Lamar Jackson",
+        "why": "has barely played since week 4: one throw in week 8 in the play-by-play",
+        "report": "data/profiles/notes/PYT-QB-report.md"
+      },
+      {
+        "slot": "RB",
+        "name": "Bijan Robinson",
+        "why": "yards per carry and rushing yards a game are down in the last three games on the same carries",
+        "report": "data/profiles/notes/PYT-RB-report.md"
+      },
+      {
+        "slot": "WR1",
+        "name": "Justin Jefferson",
+        "why": "more targets but far fewer yards per target and a lower success rate in the last three games",
+        "report": "data/profiles/notes/PYT-WR1-report.md"
+      },
+      {
+        "slot": "WR2",
+        "name": "Malik Nabers",
+        "why": "fewer targets and yards a game in the last three games, no touchdown",
+        "report": "data/profiles/notes/PYT-WR2-report.md"
+      },
+      {
+        "slot": "WR3",
+        "name": "Nico Collins",
+        "why": "targets and yards a game are about half of what they were",
+        "report": "data/profiles/notes/PYT-WR3-report.md"
+      },
+      {
+        "slot": "K",
+        "name": "Harrison Butker",
+        "why": "made a low share of his kicks in the last three weeks",
+        "report": "data/profiles/notes/PYT-K-report.md"
+      }
+    ],
+    "steady": []
+  }
+}

@@ -40,7 +40,10 @@
   function boo() { if (claim('boo', 1.5)) later('crowd_boo', 250); }
 
   G.on(function (type, d) {
-    if (type === 'start' || type === 'snap') wake();
+    // 'start' comes inside the tap on Watch: the one moment a phone lets audio begin. The view
+    // opens right after it, so the recording is queued a moment later (Noah: from the kickoff).
+    if (type === 'start') { unlock(); setTimeout(function () { wake(); schedule(); if (ac && bus) bus.gain.setTargetAtTime(level(), ac.currentTime, 0.03); }, 0); }
+    if (type === 'snap') wake();
     if (type !== 'result' || !d || !d.res || G.seeking) return;
     var res = d.res, e = res.e || {};
     if (soccer) {
@@ -56,7 +59,7 @@
   // ------------------------------------------------------------- the recording
   // The clip is 15 seconds that fade in and out at its ends, so only its steady middle is used,
   // in copies that overlap and crossfade, which keeps the crowd at one level with no gap.
-  var LEVEL = 0.35;                   // medium, before js/audio.js's master and crowd volumes
+  var LEVEL = 0.28;                   // medium (2 dB under the first 0.35, Peyton's ask), before js/audio.js's master and crowd volumes
   var FROM = 2.5, TO = 9.5, FADE = 2;   // seconds of the clip; this keeps the loop within about 2 dB
   var ac = null, bus = null, buf = null, loading = false, nextAt = 0, timer = 0;
   function level() {
@@ -64,6 +67,29 @@
     if (!open() || document.hidden || (m && (m.muted || m.hidden))) return 0;
     var crowd = m && typeof m.crowd === 'number' ? m.crowd : 1, master = m && typeof m.target === 'number' ? m.target : 0.5;
     return LEVEL * crowd * Math.min(1, master * 2) * (m && m.ducked ? 0.6 : 1);
+  }
+  // The context and the recording are made as soon as this file loads, so the crowd can start
+  // the moment the game does instead of after a download and a fade.
+  function unlock() {
+    make();
+    if (ac && ac.state === 'suspended') { try { ac.resume(); } catch (err) { /* needs a tap */ } }
+  }
+  function make() {
+    if (!ac) {
+      var AC0 = window.AudioContext || window.webkitAudioContext;
+      if (!AC0) return;
+      try { ac = new AC0(); } catch (err) { return; }
+      bus = ac.createGain(); bus.gain.value = 0; bus.connect(ac.destination);
+    }
+    load();
+  }
+  function load() {
+    if (buf || loading || !ac) return;
+    loading = true;
+    fetch(new URL('sounds/stadium-crowd.mp3', HERE).href).then(function (r) { if (!r.ok) throw new Error('crowd ' + r.status); return r.arrayBuffer(); })
+      .then(function (data) { return new Promise(function (ok, no) { ac.decodeAudioData(data, ok, no); }); })
+      .then(function (b) { buf = b; schedule(); })
+      .catch(function () { loading = false; /* the game plays without the recording */ });
   }
   function wake() {
     if (!open()) return;
@@ -83,11 +109,13 @@
     }
   }
   // One copy of the steady middle, faded in and out; the next one starts before this one ends.
+  var playing = false;   // a copy is sounding now: the next one crossfades; the first one comes in fast
   function copyAt(t) {
     var len = Math.min(TO, buf.duration) - FROM, src = ac.createBufferSource(), g = ac.createGain();
     src.buffer = buf;
     g.gain.setValueAtTime(0.0001, t);
-    g.gain.linearRampToValueAtTime(1, t + FADE);
+    g.gain.linearRampToValueAtTime(1, t + (playing ? FADE : 0.15));
+    playing = true;
     g.gain.setValueAtTime(1, t + len - FADE);
     g.gain.linearRampToValueAtTime(0.0001, t + len);
     src.connect(g); g.connect(bus);
@@ -100,7 +128,7 @@
     // Copies are only queued while the game view is open, so a closed game goes quiet.
     if (open()) {
       var now = ac.currentTime;
-      if (nextAt < now) nextAt = now + 0.05;
+      if (nextAt < now) { nextAt = now + 0.02; playing = false; }
       while (nextAt < now + 2) nextAt = copyAt(nextAt);
     }
     timer = setTimeout(schedule, 500);
@@ -110,6 +138,8 @@
     if (open() && (!ac || ac.state === 'suspended' || (!buf && !loading))) wake();
     if (ac && bus) bus.gain.setTargetAtTime(level(), ac.currentTime, 0.3);
   }, 200);
+
+  make();   // a suspended context and the decoded recording, ready before the first tap
 
   window.FR_STADIUM_SOUND = {
     get sounds() { return played.slice(); },
