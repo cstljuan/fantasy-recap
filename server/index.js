@@ -47,6 +47,11 @@ var INSERT_AWARD =
 
 // A browser page on another port may call the service only from http://localhost:<port> or http://127.0.0.1:<port>.
 var LOCAL_ORIGIN = /^http:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/;
+// A hosted copy of the app (for example https://cstljuan.github.io) is allowed only when it is named, exactly, in the
+// environment: ALLOWED_ORIGINS=https://one.example,https://two.example. Nothing is allowed by default.
+function allowedOrigins() {
+  return String(process.env.ALLOWED_ORIGINS || '').split(',').map(function (x) { return x.trim().replace(/\/+$/, ''); }).filter(Boolean);
+}
 
 function send(res, status, body) {
   var text = JSON.stringify(body);
@@ -57,7 +62,7 @@ function send(res, status, body) {
     'Access-Control-Allow-Headers': 'Content-Type'
   };
   var origin = res.originHeader;
-  if (origin && LOCAL_ORIGIN.test(origin)) headers['Access-Control-Allow-Origin'] = origin;
+  if (origin && (LOCAL_ORIGIN.test(origin) || allowedOrigins().indexOf(origin) >= 0)) headers['Access-Control-Allow-Origin'] = origin;
   res.writeHead(status, headers);
   res.end(text);
 }

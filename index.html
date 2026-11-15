@@ -48,6 +48,21 @@
   </div>
 </div>
 
+<script src="live.js"></script>
+<script>
+// The hosted app talks to the hosted service without anyone typing ?api=: js/app.js and the screens read the
+// address from the page address, so it is added there before they load. Not on localhost, and never over an
+// address that is already given. ?api=off keeps a hosted page on its files.
+(function () {
+  var live = window.FR_LIVE_API || '', local = /^(localhost|127\.0\.0\.1|\[::1\])$/.test(location.hostname) || location.protocol === 'file:';
+  if (!live || local || /[?&]api=/.test(location.search)) return;
+  try {
+    history.replaceState(null, '', location.pathname + location.search + (location.search ? '&' : '?') + 'api=' + encodeURIComponent(live) + location.hash);
+    // Wake the service early: on a free plan it sleeps when nobody has called it for a while.
+    fetch(live + '/health').catch(function () { /* the app works from its files */ });
+  } catch (err) { /* an old browser: the app works from its files */ }
+})();
+</script>
 <script src="js/data.js"></script>
 <script src="data/games/current.js"></script>
 <script src="js/screens/pick-game.js"></script>
