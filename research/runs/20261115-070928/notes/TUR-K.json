@@ -1,0 +1,206 @@
+{
+ "key": "TUR-K",
+ "name": "Cameron Dicker",
+ "researched": "2026-11-15",
+ "background": [
+  {
+   "fact": "Cameron Lawrence Dicker, nicknamed \"Dicker the Kicker\", was born May 6, 2000. Wikipedia says he was born in Hong Kong to Kelly and Rachel Dicker and is the only NFL player born there. The data file (ESPN and Sleeper pulls) lists his birthplace as Austin, TX. The sources disagree; the data file value is Austin, TX and the Wikipedia value is Hong Kong. A search summary of a Shanghai American School alumni profile and an SCMP headline point toward Hong Kong, but those pages were not opened.",
+   "source": "https://en.wikipedia.org/wiki/Cameron_Dicker",
+   "date": null,
+   "confidence": "sources disagree on birthplace"
+  },
+  {
+   "fact": "His parents were from Seattle but were working in China. He spent his first 11 years in Shanghai, grew up watching soccer and is a Liverpool F.C. fan, and the family moved to Austin, Texas in 2011.",
+   "source": "https://en.wikipedia.org/wiki/Cameron_Dicker",
+   "date": null,
+   "confidence": "from Wikipedia"
+  },
+  {
+   "fact": "He did not play football until fifth grade, in an expat youth league in Shanghai. At Lake Travis High School in Austin he was a two-time all-state selection, kicker for three seasons and punter for two, won the 2016 Texas 6A Division I state title and set a school record with a 53-yard field goal.",
+   "source": "https://en.wikipedia.org/wiki/Cameron_Dicker",
+   "date": null,
+   "confidence": "from Wikipedia"
+  },
+  {
+   "fact": "He played at Texas, where he started as a freshman, became known as \"Dicker the Kicker\" after a 40-yard game-winner against Oklahoma, and holds the school record for field goals made.",
+   "source": "https://en.wikipedia.org/wiki/Cameron_Dicker",
+   "date": null,
+   "confidence": "from Wikipedia"
+  },
+  {
+   "fact": "He signed with the Rams as an undrafted free agent in 2022 and has also been with the Ravens and Eagles. Wikipedia calls him the most accurate kicker in NFL history by field goal percentage (92.8%), a figure as of that page's text, not recomputed here.",
+   "source": "https://en.wikipedia.org/wiki/Cameron_Dicker",
+   "date": null,
+   "confidence": "from Wikipedia"
+  },
+  {
+   "fact": "Listed at 6 ft 1 in, 216 lb, age 26, jersey 11, fifth NFL season, depth chart K1 for the Chargers. Madden Week 8 rating: 82 overall, kick accuracy 93, kick power 94.",
+   "source": "research/data/TUR-K.json (bio)",
+   "date": "2026-11-15",
+   "confidence": "one source"
+  },
+  {
+   "fact": "Wikipedia says he is a Christian and that the nickname came from his seventh grade science teacher.",
+   "source": "https://en.wikipedia.org/wiki/Cameron_Dicker",
+   "date": null,
+   "confidence": "from Wikipedia"
+  }
+ ],
+ "family": [
+  {
+   "fact": "Parents are Kelly and Rachel Dicker and he has a sister named Annabelle.",
+   "source": "https://en.wikipedia.org/wiki/Cameron_Dicker",
+   "date": null,
+   "confidence": "from Wikipedia"
+  },
+  {
+   "fact": "Wikipedia says he is engaged to Annie Buerk. A search found only low-quality sites on this, so treat it as unconfirmed; the data file lists an EssentiallySports headline about her dated 2025-09-17 (headline only).",
+   "source": "https://en.wikipedia.org/wiki/Cameron_Dicker",
+   "date": null,
+   "confidence": "unconfirmed, weak sources"
+  },
+  {
+   "fact": "A KSL News headline dated 2026-01-07 says he delivered a Christmas surprise to a Utah family. Headline only, article not opened.",
+   "source": "research/data/TUR-K.json (news.family)",
+   "date": "2026-01-07",
+   "confidence": "headline only"
+  }
+ ],
+ "recent_events": [
+  {
+   "fact": "Week 9, Nov 8: Dicker went 3-for-3 on field goals (52, 33 and 43 yards, all in the first half) and 1-for-1 on extra points in a 44-22 loss to Houston. The game log shows 13 fantasy points and a long of 52.",
+   "source": "research/data/TUR-K.json (status.espn and log)",
+   "date": "2026-11-09",
+   "confidence": "confirmed by two parts of the data file"
+  },
+  {
+   "fact": "Week 8, Nov 1 at the Rams: 3-for-3 on field goals with a long of 46, 0 extra points attempted, 11 fantasy points in a 24-9 loss (the data log has Chargers 9, opponent 24). A CBS Sports headline dated 2026-11-02 says he was responsible for all the Chargers' points.",
+   "source": "research/data/TUR-K.json (log, news.recent)",
+   "date": "2026-11-02",
+   "confidence": "one source plus headline"
+  },
+  {
+   "fact": "2026 season: 15 of 17 field goals (1 of 2 from 50 plus, 5 made from 40 to 49), 10 of 10 extra points, 62 fantasy points in 8 games, 7.75 per game. He had no field goal attempt in Week 1 and the Chargers had a bye in Week 7.",
+   "source": "research/data/TUR-K.json (season_2026, log)",
+   "date": "2026-11-15",
+   "confidence": "from the data file, checked game by game"
+  },
+  {
+   "fact": "He has made 2 or more field goals in 5 of 8 games (Weeks 3, 4, 6, 8, 9), and ESPN says it is the third straight game with multiple field goals (Weeks 6, 8, 9, with the Week 7 bye between).",
+   "source": "research/data/TUR-K.json (log, status.espn)",
+   "date": "2026-11-15",
+   "confidence": "checked in the game log"
+  },
+  {
+   "fact": "Splits in 2026: away games 9.75 fantasy points per game over 4 games (11 of 12 field goals), home games 5.75 over 4 games (4 of 5).",
+   "source": "research/data/TUR-K.json (splits_2026)",
+   "date": "2026-11-15",
+   "confidence": "from the data file"
+  },
+  {
+   "fact": "The Chargers named him their 2026 Salute to Service Award nominee, announced at a Nov 3 visit to Naval Weapons Station Seal Beach per a search summary; the data file has a Chargers headline dated 2026-11-07.",
+   "source": "https://www.chargers.com/photos/2026-chargers-naval-weapons-station-seal-beach-salute-to-service",
+   "date": "2026-11-07",
+   "confidence": "search summary, page not opened"
+  },
+  {
+   "fact": "He was selected to the AFC roster for the 2026 Pro Bowl Games (his first) and led kickers in fan voting, per a search summary of Chargers and NFL pages. Sources disagreed on his 2025 field goal totals (38 of 41 versus 36 of 38), so no 2025 total is stated.",
+   "source": "https://www.chargers.com/news/five-chargers-selected-to-2026-pro-bowl-games",
+   "date": null,
+   "confidence": "search summary only, page not opened"
+  }
+ ],
+ "quotes": [
+  {
+   "fact": "No quote from Dicker or the coach about this week was found.",
+   "source": "not found",
+   "date": null,
+   "confidence": "not found"
+  }
+ ],
+ "team_context": [
+  {
+   "fact": "The Chargers are 0-8 in 2026, averaging 15.1 points for and 27.4 against, all eight results losses. A search summary also describes the team as winless.",
+   "source": "research/data/TUR-K.json (season_2026.team, log)",
+   "date": "2026-11-15",
+   "confidence": "from the data file, one search result agrees"
+  },
+  {
+   "fact": "A search summary of a preview says the Chargers' offense is struggling; Squawka's model projects Baltimore 23-13 (page not opened). Quarterback Justin Herbert's finger imaging was reported negative and Ladd McConkey was day-to-day with back spasms in one search summary, but its date was not shown and the article was not opened.",
+   "source": "https://www.squawka.com/us/?p=91973",
+   "date": null,
+   "confidence": "search summary, unconfirmed"
+  },
+  {
+   "fact": "Contract: the data file shows a 3-year Rams deal signed in 2022 and notes that later extensions are missing, so his current contract is not found.",
+   "source": "research/data/TUR-K.json (bio.contract)",
+   "date": "2026-11-15",
+   "confidence": "not found beyond 2022"
+  }
+ ],
+ "next_opponent": [
+  {
+   "fact": "Monday Nov 16, 8:15 pm ET at Baltimore (M&T Bank Stadium, outdoors, grass), on ESPN, Week 10. Line BAL -4.5, total 38.5, implied Chargers points 17.0. Clear, 41 F forecast; wind not found. Rest 8 days.",
+   "source": "research/data/TUR-K.json (next_games)",
+   "date": "2026-11-15",
+   "confidence": "from the data file"
+  },
+  {
+   "fact": "A search summary of a preview says the Ravens are 4-5 and have allowed 236 points in nine games. Baltimore's record is not otherwise confirmed and its last result, field goal defense and DVOA were not found.",
+   "source": "https://www.squawka.com/us/?p=91973",
+   "date": null,
+   "confidence": "search summary, article not opened"
+  },
+  {
+   "fact": "Next games after Baltimore: Week 11 home vs the Jets (dome, LAC -1.5, total 42.5) and Week 12 home vs New England.",
+   "source": "research/data/TUR-K.json (next_games)",
+   "date": "2026-11-15",
+   "confidence": "from the data file"
+  }
+ ],
+ "style": [
+  {
+   "fact": "Strong leg: 6 of his 15 made field goals this season are from 40 yards or longer (5 from 40 to 49, 1 from 50 to 59), and he made the 52-yarder in Week 9.",
+   "source": "research/data/TUR-K.json (season_2026)",
+   "date": "2026-11-15",
+   "confidence": "from the data file"
+  },
+  {
+   "fact": "He is a high volume field goal source this season: 17 attempts in 8 games against 10 extra point attempts, with the Chargers losing all 8 games. No reporting on why was found.",
+   "source": "research/data/TUR-K.json (season_2026)",
+   "date": "2026-11-15",
+   "confidence": "from the data file counts"
+  }
+ ],
+ "availability": {
+  "status": "Active, expected to kick",
+  "detail": "Sleeper status Active, no injury designation in the data file for 2026 (ESPN status Active as of 2026-11-09). His only injury report in the file is an illness in 2024 week 6. No 2026 report of a kicker change found.",
+  "expected_return": "Not applicable",
+  "source": "research/data/TUR-K.json (status, injury_reports)",
+  "date": "2026-11-15"
+ },
+ "outlook_next_game": {
+  "lean": "likely 6 to 10 fantasy points, with a floor risk if the Chargers do not reach scoring range",
+  "confidence": "low to medium",
+  "reasons": [
+   "He is active with no injury status and has made multiple field goals in 5 of 8 games.",
+   "The Chargers are a 4.5 point underdog with an implied total of 17.0 in the data file.",
+   "His away average is 9.75 points against 5.75 at home in 2026, a small sample of 4 games each.",
+   "Risks: a 38.5 total suggests a low scoring game, the winless Chargers offense, and unknown wind (not found); cold forecast of 41 F."
+  ]
+ },
+ "scouts_read": "Dicker is active with no injury listed, so the question is how many field goals the Chargers' stalled offense gives him. Los Angeles is 0-8, a 4.5 point underdog at Baltimore with an implied total of 17, and his 2026 numbers show 15 of 17 field goals with at least two in five of eight games. He has been better on the road (9.75 points a game) than at home (5.75), though each is only four games. Weather looks clear and about 41 F, with wind not found. I would expect a middling kicker day around 6 to 10 points.",
+ "open_questions": [
+  "Baltimore's actual record, last result, field goal defense and weather wind speed (not found; only a search summary says 4-5).",
+  "Dicker's current contract and his 2025 field goal totals (sources disagreed; not found).",
+  "Birthplace: Wikipedia says Hong Kong, the data file says Austin, TX. Not settled.",
+  "Whether Annie Buerk engagement is current (weak sources only).",
+  "Page fetches failed: www.covers.com and www.nfl.com did not resolve (host not allowed); Wikipedia text came from the sections stored in the data file."
+ ],
+ "searches": [
+  "Chargers Ravens Monday Night Football Week 10 preview Dicker",
+  "Cameron Dicker Chargers kicker 2026 season Pro Bowl Salute to Service nominee",
+  "Chargers 0-8 winless Harbaugh Herbert Ravens week 10 injuries kicker",
+  "Cameron Dicker Hong Kong born Shanghai Texas kicker family Annie Buerk"
+ ]
+}
