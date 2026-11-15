@@ -1,0 +1,16 @@
+# Research run 20261115-073225
+
+Arguments: TUR-K OWL-K --dry
+Dry run: yes (everything is written inside research/runs/20261115-073225)
+Third run, after the researcher definition was tightened on private family members (run 2, research/runs/20261115-070928, failed OWL-K on that one check).
+
+## Plan
+- TUR-K: note missing, no projections file, profile missing; the note is researched fresh into the run folder
+- OWL-K: note exists, no projections file, profile missing; the note is researched fresh into the run folder
+- research/tools/model.py: missing (not available yet)
+- research/tools/write_profiles.py: present on the profiles branch, copied read-only for the write step, not committed
+
+| UTC time | Step | Agent | Result | Files written |
+|---|---|---|---|---|
+| 07:32:25 | 1 set up | command | ok, players TUR-K OWL-K, dry run | research/runs/20261115-073225/log.md |
+| 07:32:25 | 2 plan | command | ok, notes to research fresh: 2, model.py not available yet | research/runs/20261115-073225/log.md |
