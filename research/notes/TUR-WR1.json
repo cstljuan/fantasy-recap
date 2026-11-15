@@ -1,0 +1,201 @@
+{
+ "key": "TUR-WR1",
+ "name": "CeeDee Lamb",
+ "researched": "2026-11-15",
+ "background": [
+  {
+   "fact": "Born April 8, 1999 in Opelousas, Louisiana; lived in New Orleans until his family evacuated to Houston, Texas after Hurricane Katrina in 2005.",
+   "source": "https://en.wikipedia.org/wiki/CeeDee_Lamb",
+   "date": null,
+   "confidence": "from Wikipedia (data file bio lists birthplace Richmond, TX, which is his high school town)"
+  },
+  {
+   "fact": "He got the nickname CeeDee in 4th grade when a coach could not pronounce his first name; at Foster High School in Richmond, Texas he had 98 catches for 2,032 yards and 33 touchdowns as a senior.",
+   "source": "https://en.wikipedia.org/wiki/CeeDee_Lamb",
+   "date": null,
+   "confidence": "from Wikipedia"
+  },
+  {
+   "fact": "At Oklahoma he caught passes from Baker Mayfield and Kyler Murray and was a consensus All-American in 2019; Dallas picked him in the first round of the 2020 draft (17th overall per the data file).",
+   "source": "https://en.wikipedia.org/wiki/CeeDee_Lamb",
+   "date": null,
+   "confidence": "from Wikipedia, pick number from the data file"
+  },
+  {
+   "fact": "Pro Bowl in five of his first six seasons, All-Pro three times, and he led the NFL in receptions in 2023.",
+   "source": "https://en.wikipedia.org/wiki/CeeDee_Lamb",
+   "date": null,
+   "confidence": "from Wikipedia"
+  },
+  {
+   "fact": "Listed at 6 ft 2 in, 198 lb, age 27, jersey 88, in his seventh NFL season, all with Dallas.",
+   "source": "research/data/TUR-WR1.json (bio)",
+   "date": "2026-11-15",
+   "confidence": "one source"
+  },
+  {
+   "fact": "He signed a four-year, $136 million extension with Dallas in August 2024 with $100 million guaranteed and a $38 million signing bonus; he is under contract through 2028. Any later contract change: not found.",
+   "source": "https://www.foxsports.com/stories/nfl/cowboys-ceedee-lamb-reportedly-agree-four-year-136-million-extension",
+   "date": "date not shown (2024 article, per search result)",
+   "confidence": "one search snippet; several outlets agree"
+  }
+ ],
+ "family": [
+  {
+   "fact": "Family: not found beyond his move from Louisiana to Houston as a child. No reputable public reporting on relatives was retrieved, and nothing about partner or children is recorded here.",
+   "source": "not found",
+   "date": null,
+   "confidence": "not found"
+  }
+ ],
+ "recent_events": [
+  {
+   "fact": "Cowboys beat the Colts 27-23 on Sunday, November 8 (Week 9); Lamb had 10 catches on 16 targets for 195 yards and a 44-yard touchdown before halftime, plus a lost fumble. George Pickens missed that game with a hamstring injury.",
+   "source": "https://www.dallascowboys.com/news/game-recap-cowboys-win-late-27-23",
+   "date": "2026-11-08",
+   "confidence": "confirmed by two sources (also the ESPN note in the data file)"
+  },
+  {
+   "fact": "The 195 yards was a season high and the second best of his career (behind 227 against Detroit in 2023); the 10 catches put his career total at 641, an NFL record for most receptions before age 28, passing DeAndre Hopkins (632).",
+   "source": "https://sports.yahoo.com/articles/ceedee-lamb-sets-nfl-record-233000814.html",
+   "date": "2026-11-08",
+   "confidence": "one search summary of several headlines"
+  },
+  {
+   "fact": "ESPN notes he has four straight double-digit target games and is 96 yards from a sixth straight 1,000-yard season.",
+   "source": "research/data/TUR-WR1.json (status.espn)",
+   "date": "2026-11-08",
+   "confidence": "one source"
+  },
+  {
+   "fact": "2026 season: 9 games, 108 targets, 70 catches, 904 yards, 7 receiving touchdowns, 1 lost fumble, 14.4 fantasy points a game under league scoring.",
+   "source": "research/data/TUR-WR1.json (season_2026)",
+   "date": "2026-11-15",
+   "confidence": "from the data file"
+  },
+  {
+   "fact": "Game log by week (catches/targets, yards, TD, points): W1 NYG 5/8, 44, 1, 10.4; W2 WAS 8/9, 153, 2, 27.3; W3 BAL 7/8, 112, 0, 11.2; W4 HOU 17/21, 189, 1, 24.3; W5 TB 2/5, 9, 0, 0.9; W6 GB 9/18, 70, 0, 7.0; W7 PHI 5/12, 74, 2, 19.4; W8 ARI 7/11, 58, 0, 5.8; W9 IND 10/16, 195, 1, 23.5.",
+   "source": "research/data/TUR-WR1.json (log)",
+   "date": "2026-11-15",
+   "confidence": "from the data file"
+  },
+  {
+   "fact": "Headlines this week say Lamb called the season 'bittersweet', described it in one word, said beating San Francisco would 'prove us right', and called himself a perfectionist after a frustrating day against the Colts; the articles were not read.",
+   "source": "https://www.si.com/nfl/cowboys",
+   "date": "2026-11-13",
+   "confidence": "headlines only, in the data file news list (SI, Dallas News, Bleacher Report, Heavy)"
+  }
+ ],
+ "quotes": [
+  {
+   "fact": "No direct quote from Lamb or the coach on his health this week was read; only headlines (see recent_events): not found.",
+   "source": "not found",
+   "date": null,
+   "confidence": "not found"
+  }
+ ],
+ "team_context": [
+  {
+   "fact": "Quarterback Dak Prescott has thrown to him all 9 games (27 to 54 attempts a week); Lamb's target share is 32.9 percent with 108 targets, ahead of George Pickens (62 targets, 533 yards, 8 games), Ryan Flournoy (47) and Javonte Williams (29).",
+   "source": "research/data/TUR-WR1.json (teammates_2026)",
+   "date": "2026-11-15",
+   "confidence": "from the data file"
+  },
+  {
+   "fact": "George Pickens (hamstring) missed Week 9; several outlets report he practiced fully Friday and is cleared for San Francisco, though Yahoo earlier called him a likely game-time decision.",
+   "source": "https://www.dallasnews.com/sports/cowboys/article/cowboys-george-pickens-injuries-49ers-nfl-week-10-22529472.php",
+   "date": "2026-11-13",
+   "confidence": "sources differ slightly (Athlon, Yahoo, Dallas News)"
+  },
+  {
+   "fact": "Dallas ruled out 5 players for the 49ers game, including edge rusher Donovan Ezeiruaku and receiver Jonathan Mingo; cornerback DaRon Bland is questionable. Lamb was not named in what was read.",
+   "source": "https://www.dallasnews.com/sports/cowboys/article/cowboys-george-pickens-injuries-49ers-nfl-week-10-22529472.php",
+   "date": "2026-11-13",
+   "confidence": "search summary, article not opened"
+  },
+  {
+   "fact": "Of his 108 targets, 28 were deep (15.1 yards per target, 3 touchdowns, 50 percent catch rate) and 80 short (6.0 per target, 4 touchdowns, 70 percent); 17 targets came in the red zone and 3 passes were dropped.",
+   "source": "research/data/TUR-WR1.json (plays_2026, season_2026)",
+   "date": "2026-11-15",
+   "confidence": "from the data file"
+  },
+  {
+   "fact": "Head coach (a Heavy headline names Brian Schottenheimer giving injury updates) and offensive coordinator for 2026: not confirmed beyond that headline.",
+   "source": "https://heavy.com/sports/nfl/dallas-cowboys/brian-schottenheimer-gives-injury-update-on-2-stars/",
+   "date": "date not shown",
+   "confidence": "headline only"
+  }
+ ],
+ "next_opponent": [
+  {
+   "fact": "Dallas hosts San Francisco on Sunday, November 15, 4:25 pm ET at AT&T Stadium (indoor, turf), Fox; Dallas has 7 days of rest.",
+   "source": "research/data/TUR-WR1.json (next_games)",
+   "date": "2026-11-15",
+   "confidence": "from the data file"
+  },
+  {
+   "fact": "Lines: data file has SF -3.5, total 55.5, Dallas implied 26.0; Covers shows SF -4.5, Stats Insider SF -3.5 with a 29-25 San Francisco projection.",
+   "source": "https://www.statsinsider.com.au/news/cowboys-vs-49ers-prediction-and-preview-nfl-week-10-2026",
+   "date": "2026-11-15",
+   "confidence": "sources differ on the line"
+  },
+  {
+   "fact": "Previews call Lamb the central matchup problem for San Francisco, who must communicate on him when he moves into the slot or motions; Yahoo says 49ers coordinator Raheem Morris discussed the challenge of Lamb and Pickens (article not read).",
+   "source": "https://sports.yahoo.com/articles/cowboys-vs-49ers-offensive-defensive-200000903.html",
+   "date": "2026-11-13",
+   "confidence": "search summaries, one headline"
+  },
+  {
+   "fact": "A Cowboys losing streak is mentioned in a headline (Lamb backs Dallas to end it against San Francisco); the 49ers also get a key receiver back. Dallas' record and the 49ers' record: not found.",
+   "source": "https://sports.yahoo.com/articles/cowboys-49ers-key-wr-threat-173103778.html",
+   "date": "2026-11-13",
+   "confidence": "headline only"
+  }
+ ],
+ "style": [
+  {
+   "fact": "Madden week 8 rating is 95 overall with elite mid and short out routes and a YAC ability; awareness 95, catch in traffic 93, jumping 96.",
+   "source": "research/data/TUR-WR1.json (bio.madden)",
+   "date": "2026-11-15",
+   "confidence": "one source"
+  },
+  {
+   "fact": "Combine: 4.5 forty, 34.5 inch vertical, 124 inch broad jump; 2026 yards after catch total 275 on 904 receiving yards.",
+   "source": "research/data/TUR-WR1.json (bio.combine, season_2026)",
+   "date": "2026-11-15",
+   "confidence": "from the data file"
+  }
+ ],
+ "availability": {
+  "status": "Active, no injury designation found",
+  "detail": "Sleeper status is Active with no injury listed, and ESPN's Week 9 note lists him Active. He played all 9 games. The data file shows an unlisted thigh issue on the Week 5 and 6 practice reports with no game designation, and a search snippet called a Week 5 issue not serious. Searches of Week 10 coverage did not show Lamb on the Cowboys report, but the official final report was not seen. He is not on injured reserve and was not reported questionable in anything read.",
+  "expected_return": "Not applicable",
+  "source": "https://www.dallasnews.com/sports/cowboys/article/cowboys-george-pickens-injuries-49ers-nfl-week-10-22529472.php",
+  "date": "2026-11-15"
+ },
+ "outlook_next_game": {
+  "lean": "plays and is the top target; expected around 17 to 22 fantasy points",
+  "confidence": "medium",
+  "reasons": [
+   "He is active with no designation found and has 4 straight double-digit target games and a 32.9 percent target share.",
+   "Dallas implied total is 26.0 in a game with a 55.5 total, which points to a high passing volume.",
+   "Pickens is expected back, which may trim Lamb's targets from last week's 16 toward his earlier norm of 8 to 12.",
+   "His weekly points swing from 0.9 to 27.3 with a 14.4 average, so the floor is low."
+  ]
+ },
+ "scouts_read": "Lamb is healthy as far as public reporting shows and is the clear first option for Dak Prescott, with a 32.9 percent target share and a 195 yard game last week. Dallas hosts San Francisco in a high scoring projection (total 55.5), so passing volume should be good. Pickens returning will likely pull some looks away from the 16 targets Lamb got without him. His 2026 results are streaky, with two games under 6 points and three over 23, so I would not count on a steady number. I would project a solid game in the high teens to low 20s with a real chance of another big day.",
+ "open_questions": [
+  "Official final Cowboys injury report for Sunday and the inactive list (not found).",
+  "Head coach, offensive coordinator and Lamb's current contract terms after 2024 (not found beyond a headline and 2024 reports).",
+  "Wikipedia sections for 2025 and 2026 seasons were empty in the data file, so the 2026 thigh issue detail is not confirmed.",
+  "Family details (not found).",
+  "Quotes from Lamb on his health or the 49ers game (only headlines seen)."
+ ],
+ "searches": [
+  "CeeDee Lamb injury status 49ers Cowboys Week 10 practice report",
+  "Cowboys vs 49ers Week 10 2026 preview George Pickens Lamb Raheem Morris",
+  "CeeDee Lamb NFL record Colts 195 yards Week 9 Cowboys 27-23 thigh injury",
+  "CeeDee Lamb contract extension Cowboys (personal details left out of the query)",
+  "Cowboys injury report Friday 49ers CeeDee Lamb Dak Prescott Pickens"
+ ]
+}
