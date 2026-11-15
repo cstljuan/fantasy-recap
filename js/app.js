@@ -1517,9 +1517,11 @@
   }
   capEl.hidden = true;
   $('closeGame').parentNode.appendChild(capEl);
+  // Sound captions left out, at Peyton's request: the boos and the crowd rising.
+  var HIDDEN_CAPTIONS = /\bcrowd boos\b|\bcrowd rises\b|^\[boos\]$/i;
   function showCaption(text) {
     if (text && typeof text === 'object') text = text.text || text.line || '';
-    if (!text) return;
+    if (!text || HIDDEN_CAPTIONS.test(String(text).trim())) return;
     var span = document.createElement('span');
     span.textContent = String(text);
     capEl.textContent = '';
