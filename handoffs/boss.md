@@ -2,7 +2,7 @@
 
 Everyone is a boss, with equal authority (`board/ORDERS.md`, order 9; `tools/bosses.txt`). Any of the four people can run a boss session. Your branch is `<your GitHub username>/boss` and your commits are authored and committed by your own account only, with the email on your row in `tools/roster.txt`:
 
-- **Juan**: `cstljuan`, `68199309+cstljuan@users.noreply.github.com`, branch `cstljuan/boss`.
+- **Juan**: `cstljuan`, `68199309+cstljuan@users.noreply.github.com`, branch `cstljuan/director` (the old `cstljuan/boss` is retired).
 - **Ricky**: `Rickstar-App`, `222289480+Rickstar-App@users.noreply.github.com`, branch `Rickstar-App/boss`.
 - **Noah**: `nexodv`, the email on his row in `tools/roster.txt`, branch `nexodv/boss`.
 - **Peyton**: `Peypey-ryd`, the email on her row in `tools/roster.txt`, branch `Peypey-ryd/boss`.
