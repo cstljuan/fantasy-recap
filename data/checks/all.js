@@ -49,6 +49,7 @@ var CHECKS = [
     judge: function (r) { return r.status === 2 ? { skip: 'no Chrome or Chromium on this machine' } : { ok: r.status === 0 }; } },
   { name: 'plays service under load and bad input', cmd: 'node', args: ['server/stress.js'] },
   { name: 'schema for a plain PostgreSQL can be made', cmd: 'node', args: ['db/make-plain.js'] },
+  { name: 'every number in the Devpost text', cmd: 'node', args: ['data/checks/devpost.js'] },
   { name: 'league file and standings', cmd: 'node', args: ['data/checks/league.js'] },
   { name: 'league as the service gives it', cmd: 'node', args: ['server/league.js'] },
   { name: 'stat line sums', cmd: 'node', args: ['data/checks/statlines.js'] },

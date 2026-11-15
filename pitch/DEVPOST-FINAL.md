@@ -28,7 +28,7 @@ What ran on Tiger Data: the first schema (hypertable and both aggregates, no fai
 
 ## Gemini track
 
-Scout can run on a Gemini key (GOOGLE_API_KEY) or a Claude key, whichever is set. It ran once with Gemini: one player (Puka Nacua), model gemini-3.5-flash-lite, about 11 minutes, with the main agent and all three subagents working. Its report passed the evidence check, but it was weaker than the one we kept, so we say so. The run also exposed three bugs we fixed: a tool call with bad JSON ended the run, the profile step overwrote real numbers with nulls, and the fact checker rejected plays the model cited as plain text. The free Gemini tier allowed only about 20 requests on the larger model, so the other 27 players have not run through the agent. [AFTER THE LAPTOP RUN] if a Gemini key was set, `sh db/laptop.sh` ran Scout for one more player; say which.
+Scout can run on a Gemini key (GOOGLE_API_KEY) or a Claude key, whichever is set. It ran once with Gemini: one player (Puka Nacua), model gemini-3.5-flash-lite, about 2 minutes, with the main agent and all three subagents working. Its report passed the evidence check, but it was weaker than the one we kept, so we say so. The run also exposed three bugs we fixed: a tool call with bad JSON ended the run, the profile step overwrote real numbers with nulls, and the fact checker rejected plays the model cited as plain text. The free Gemini tier allowed only about 20 requests on the larger model, so the other 27 players have not run through the agent. [AFTER THE LAPTOP RUN] if a Gemini key was set, `sh db/laptop.sh` ran Scout for one more player; say which.
 
 ## LangChain deep agents track
 
