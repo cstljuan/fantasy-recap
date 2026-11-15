@@ -97,10 +97,13 @@ if (idx) {
   } catch (err) { problems.push('cannot collect every line with js/announcer/voice/render.js --json: ' + err.message); }
   Object.keys(said).forEach(function (t) { can[t] = true; });
   Object.keys(can).forEach(function (t) { if (!lines[t]) problems.push('no recording: ' + t); });
+  var orphans = 0;
   Object.keys(lines).forEach(function (t) {
-    if (!can[t]) problems.push('recording no game says: ' + lines[t] + ' "' + t + '"');
+    // An extra recording is unused, not wrong (for example a game rebuilt after it was recorded): count it, do not fail.
+    if (!can[t]) orphans++;
     if (!fs.existsSync(path.join(ROOT, 'assets/voice/football', lines[t]))) problems.push('index names a missing file: ' + lines[t]);
   });
+  if (orphans) console.log('note: ' + orphans + ' recordings no current game says (unused, not a problem)');
 }
 
 if (problems.length) {

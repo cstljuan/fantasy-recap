@@ -11,7 +11,7 @@ PYT, WR2 (WR). Written by `agents/scout/notes.py` on 2026-11-14 from the data fi
 | red zone use | 0.106 | red zone targets divided by targets | https://api.sleeper.com/stats/nfl/player/11632?season_type=regular&season=2026 | 2026-11-14 |
 | target share | 0.284 | targets divided by the team's throws in the games played (from the real plays) | data/rosters/plays-2026.json (ESPN play-by-play, parsed by agents/scout/plays.py) | 2026-11-14 |
 
-Season 2026 numbers through game week 9.0 (9.0 games). Filled by agents/scout/fill_profiles.py, no model.
+Deep threat who is best over the middle and on first down. Not a red zone scorer, and his targets are down over the last three games. Season 2026 numbers through game week 9.0 (9.0 games). Made by Scout's tools, researched in Juan's laptop session: stats step with find_player, season_stats, compute_tendencies and write_profile; film room and fact-check in data/profiles/notes/PYT-WR2-report.md.
 
 ## From the real plays
 

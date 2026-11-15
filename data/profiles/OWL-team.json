@@ -1,0 +1,315 @@
+{
+  "team": "OWL",
+  "name": "Midnight Owls",
+  "made_by": "Scout's tools, researched in Juan's laptop session",
+  "date": "2026-11-14",
+  "note": "A fantasy roster: the seven players play for different NFL teams, so this describes how these players are used, not one real offense.",
+  "source": "Scout's research tools (agents/scout/research.py) over data/rosters/plays-2026.json: https://site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event={event}. Season weeks 1 to 10, read on 2026-11-14. Trend labels and the summary are judgment, written by hand from the per-player reports in data/profiles/notes/.",
+  "summary": "Mahomes throws short and often (34.2 throws a game), mostly to the right, and all of his touchdown passes are short. Smith-Njigba is the engine at 11.0 targets a game, Higgins is the deep and middle threat, and Henry handles first down and the goal line with almost no receiving role. In the red zone it is Henry on the ground and Smith-Njigba and Higgins through the air. On third down the ball goes to Smith-Njigba.",
+  "how_the_offense_moves": {
+    "how": "plays and yards per player and role, added over the week split",
+    "players": [
+      {
+        "slot": "QB",
+        "name": "Patrick Mahomes",
+        "what": "throws",
+        "total": 274,
+        "per_game": 34.2,
+        "yards": 2001,
+        "yards_per_play": 7.3,
+        "games": 8,
+        "how": "split(OWL.QB, week, passer): 274 throws for 2001 yards in 8 games with at least one"
+      },
+      {
+        "slot": "QB",
+        "name": "Patrick Mahomes",
+        "what": "carries",
+        "total": 17,
+        "per_game": 2.1,
+        "yards": 93,
+        "yards_per_play": 5.5,
+        "games": 8,
+        "how": "split(OWL.QB, week, rusher): 17 carries for 93 yards in 8 games with at least one"
+      },
+      {
+        "slot": "RB",
+        "name": "Derrick Henry",
+        "what": "carries",
+        "total": 175,
+        "per_game": 19.4,
+        "yards": 689,
+        "yards_per_play": 3.9,
+        "games": 9,
+        "how": "split(OWL.RB, week, rusher): 175 carries for 689 yards in 9 games with at least one"
+      },
+      {
+        "slot": "RB",
+        "name": "Derrick Henry",
+        "what": "targets",
+        "total": 14,
+        "per_game": 1.8,
+        "yards": 75,
+        "yards_per_play": 5.4,
+        "games": 8,
+        "how": "split(OWL.RB, week, target): 14 targets for 75 yards in 8 games with at least one"
+      },
+      {
+        "slot": "WR1",
+        "name": "Tee Higgins",
+        "what": "targets",
+        "total": 67,
+        "per_game": 8.4,
+        "yards": 758,
+        "yards_per_play": 11.3,
+        "games": 8,
+        "how": "split(OWL.WR1, week, target): 67 targets for 758 yards in 8 games with at least one"
+      },
+      {
+        "slot": "WR2",
+        "name": "Jaxon Smith-Njigba",
+        "what": "targets",
+        "total": 99,
+        "per_game": 11.0,
+        "yards": 1036,
+        "yards_per_play": 10.5,
+        "games": 9,
+        "how": "split(OWL.WR2, week, target): 99 targets for 1036 yards in 9 games with at least one"
+      },
+      {
+        "slot": "WR3",
+        "name": "Ladd McConkey",
+        "what": "targets",
+        "total": 24,
+        "per_game": 4.0,
+        "yards": 286,
+        "yards_per_play": 11.9,
+        "games": 6,
+        "how": "split(OWL.WR3, week, target): 24 targets for 286 yards in 6 games with at least one"
+      },
+      {
+        "slot": "TE",
+        "name": "Tucker Kraft",
+        "what": "targets",
+        "total": 52,
+        "per_game": 5.8,
+        "yards": 350,
+        "yards_per_play": 6.7,
+        "games": 9,
+        "how": "split(OWL.TE, week, target): 52 targets for 350 yards in 9 games with at least one"
+      }
+    ]
+  },
+  "red_zone": {
+    "how": "plays inside the 20 (red zone and goal line rows of the zone split), most touchdowns first",
+    "players": [
+      {
+        "slot": "QB",
+        "name": "Patrick Mahomes",
+        "what": "throws",
+        "inside_20": 46,
+        "inside_5": 12,
+        "touchdowns": 12,
+        "how": "split(OWL.QB, zone, passer): rows red zone and goal line added"
+      },
+      {
+        "slot": "RB",
+        "name": "Derrick Henry",
+        "what": "carries",
+        "inside_20": 40,
+        "inside_5": 16,
+        "touchdowns": 7,
+        "how": "split(OWL.RB, zone, rusher): rows red zone and goal line added"
+      },
+      {
+        "slot": "WR2",
+        "name": "Jaxon Smith-Njigba",
+        "what": "targets",
+        "inside_20": 13,
+        "inside_5": 2,
+        "touchdowns": 5,
+        "how": "split(OWL.WR2, zone, target): rows red zone and goal line added"
+      },
+      {
+        "slot": "WR1",
+        "name": "Tee Higgins",
+        "what": "targets",
+        "inside_20": 7,
+        "inside_5": 1,
+        "touchdowns": 5,
+        "how": "split(OWL.WR1, zone, target): rows red zone and goal line added"
+      },
+      {
+        "slot": "TE",
+        "name": "Tucker Kraft",
+        "what": "targets",
+        "inside_20": 9,
+        "inside_5": 3,
+        "touchdowns": 3,
+        "how": "split(OWL.TE, zone, target): rows red zone and goal line added"
+      },
+      {
+        "slot": "QB",
+        "name": "Patrick Mahomes",
+        "what": "carries",
+        "inside_20": 3,
+        "inside_5": 1,
+        "touchdowns": 1,
+        "how": "split(OWL.QB, zone, rusher): rows red zone and goal line added"
+      },
+      {
+        "slot": "WR3",
+        "name": "Ladd McConkey",
+        "what": "targets",
+        "inside_20": 2,
+        "inside_5": 0,
+        "touchdowns": 1,
+        "how": "split(OWL.WR3, zone, target): rows red zone and goal line added"
+      },
+      {
+        "slot": "RB",
+        "name": "Derrick Henry",
+        "what": "targets",
+        "inside_20": 1,
+        "inside_5": 0,
+        "touchdowns": 1,
+        "how": "split(OWL.RB, zone, target): rows red zone and goal line added"
+      }
+    ]
+  },
+  "third_down": {
+    "how": "the third down row of the down split, most plays first; success means the play gained the distance needed or scored",
+    "players": [
+      {
+        "slot": "QB",
+        "name": "Patrick Mahomes",
+        "what": "throws",
+        "plays": 71,
+        "first_downs": 25,
+        "success_rate": 0.352,
+        "touchdowns": 3,
+        "how": "split(OWL.QB, down, passer): row 3"
+      },
+      {
+        "slot": "WR2",
+        "name": "Jaxon Smith-Njigba",
+        "what": "targets",
+        "plays": 32,
+        "first_downs": 16,
+        "success_rate": 0.5,
+        "touchdowns": 5,
+        "how": "split(OWL.WR2, down, target): row 3"
+      },
+      {
+        "slot": "WR1",
+        "name": "Tee Higgins",
+        "what": "targets",
+        "plays": 17,
+        "first_downs": 11,
+        "success_rate": 0.647,
+        "touchdowns": 0,
+        "how": "split(OWL.WR1, down, target): row 3"
+      },
+      {
+        "slot": "WR3",
+        "name": "Ladd McConkey",
+        "what": "targets",
+        "plays": 10,
+        "first_downs": 5,
+        "success_rate": 0.5,
+        "touchdowns": 1,
+        "how": "split(OWL.WR3, down, target): row 3"
+      },
+      {
+        "slot": "TE",
+        "name": "Tucker Kraft",
+        "what": "targets",
+        "plays": 10,
+        "first_downs": 5,
+        "success_rate": 0.5,
+        "touchdowns": 2,
+        "how": "split(OWL.TE, down, target): row 3"
+      },
+      {
+        "slot": "RB",
+        "name": "Derrick Henry",
+        "what": "carries",
+        "plays": 8,
+        "first_downs": 1,
+        "success_rate": 0.125,
+        "touchdowns": 0,
+        "how": "split(OWL.RB, down, rusher): row 3"
+      },
+      {
+        "slot": "QB",
+        "name": "Patrick Mahomes",
+        "what": "carries",
+        "plays": 5,
+        "first_downs": 3,
+        "success_rate": 0.6,
+        "touchdowns": 0,
+        "how": "split(OWL.QB, down, rusher): row 3"
+      },
+      {
+        "slot": "RB",
+        "name": "Derrick Henry",
+        "what": "targets",
+        "plays": 1,
+        "first_downs": 1,
+        "success_rate": 1.0,
+        "touchdowns": 0,
+        "how": "split(OWL.RB, down, target): row 3"
+      }
+    ]
+  },
+  "form": {
+    "how": "last three weeks with a play against the weeks before (week split); the label is a judgment and the reason is next to it",
+    "hot": [
+      {
+        "slot": "WR1",
+        "name": "Tee Higgins",
+        "why": "yards per target, success rate and touchdowns all jumped in the last three games",
+        "report": "data/profiles/notes/OWL-WR1-report.md"
+      },
+      {
+        "slot": "TE",
+        "name": "Tucker Kraft",
+        "why": "success rate and touchdowns are up in the last three games",
+        "report": "data/profiles/notes/OWL-TE-report.md"
+      },
+      {
+        "slot": "K",
+        "name": "Ka'imi Fairbairn",
+        "why": "made every kick in his last three weeks with a kick, long ones included",
+        "report": "data/profiles/notes/OWL-K-report.md"
+      }
+    ],
+    "cold": [
+      {
+        "slot": "QB",
+        "name": "Patrick Mahomes",
+        "why": "yards per throw are down in the last three games on more throws",
+        "report": "data/profiles/notes/OWL-QB-report.md"
+      },
+      {
+        "slot": "RB",
+        "name": "Derrick Henry",
+        "why": "carries, yards a game and touchdowns are all down in the last three games",
+        "report": "data/profiles/notes/OWL-RB-report.md"
+      },
+      {
+        "slot": "WR3",
+        "name": "Ladd McConkey",
+        "why": "targets and yards a game are down from an already small role",
+        "report": "data/profiles/notes/OWL-WR3-report.md"
+      }
+    ],
+    "steady": [
+      {
+        "slot": "WR2",
+        "name": "Jaxon Smith-Njigba",
+        "why": "same targets a game, slightly fewer yards and touchdowns",
+        "report": "data/profiles/notes/OWL-WR2-report.md"
+      }
+    ]
+  }
+}

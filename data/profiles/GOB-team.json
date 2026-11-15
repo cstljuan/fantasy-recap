@@ -1,0 +1,306 @@
+{
+  "team": "GOB",
+  "name": "Gridiron Goblins",
+  "made_by": "Scout's tools, researched in Juan's laptop session",
+  "date": "2026-11-14",
+  "note": "A fantasy roster: the seven players play for different NFL teams, so this describes how these players are used, not one real offense.",
+  "source": "Scout's research tools (agents/scout/research.py) over data/rosters/plays-2026.json: https://site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event={event}. Season weeks 1 to 10, read on 2026-11-14. Trend labels and the summary are judgment, written by hand from the per-player reports in data/profiles/notes/.",
+  "summary": "Pass first. Allen throws 31.6 times a game to three high-volume receivers (Nacua, St. Brown and Chase) with McBride underneath, and the middle of the field is his best area. The running game with Barkley has been inefficient at 4.3 yards a carry. In the red zone the throws go to McBride and St. Brown, and Allen runs it in himself at the goal line. On third down St. Brown gets the most targets but Chase is the one who converts.",
+  "how_the_offense_moves": {
+    "how": "plays and yards per player and role, added over the week split",
+    "players": [
+      {
+        "slot": "QB",
+        "name": "Josh Allen",
+        "what": "throws",
+        "total": 253,
+        "per_game": 31.6,
+        "yards": 2012,
+        "yards_per_play": 8.0,
+        "games": 8,
+        "how": "split(GOB.QB, week, passer): 253 throws for 2012 yards in 8 games with at least one"
+      },
+      {
+        "slot": "QB",
+        "name": "Josh Allen",
+        "what": "carries",
+        "total": 50,
+        "per_game": 6.2,
+        "yards": 294,
+        "yards_per_play": 5.9,
+        "games": 8,
+        "how": "split(GOB.QB, week, rusher): 50 carries for 294 yards in 8 games with at least one"
+      },
+      {
+        "slot": "RB",
+        "name": "Saquon Barkley",
+        "what": "carries",
+        "total": 69,
+        "per_game": 9.9,
+        "yards": 296,
+        "yards_per_play": 4.3,
+        "games": 7,
+        "how": "split(GOB.RB, week, rusher): 69 carries for 296 yards in 7 games with at least one"
+      },
+      {
+        "slot": "RB",
+        "name": "Saquon Barkley",
+        "what": "targets",
+        "total": 11,
+        "per_game": 1.6,
+        "yards": 41,
+        "yards_per_play": 3.7,
+        "games": 7,
+        "how": "split(GOB.RB, week, target): 11 targets for 41 yards in 7 games with at least one"
+      },
+      {
+        "slot": "WR1",
+        "name": "Ja'Marr Chase",
+        "what": "targets",
+        "total": 73,
+        "per_game": 9.1,
+        "yards": 647,
+        "yards_per_play": 8.9,
+        "games": 8,
+        "how": "split(GOB.WR1, week, target): 73 targets for 647 yards in 8 games with at least one"
+      },
+      {
+        "slot": "WR2",
+        "name": "Puka Nacua",
+        "what": "targets",
+        "total": 93,
+        "per_game": 13.3,
+        "yards": 716,
+        "yards_per_play": 7.7,
+        "games": 7,
+        "how": "split(GOB.WR2, week, target): 93 targets for 716 yards in 7 games with at least one"
+      },
+      {
+        "slot": "WR3",
+        "name": "Amon-Ra St. Brown",
+        "what": "targets",
+        "total": 86,
+        "per_game": 10.8,
+        "yards": 664,
+        "yards_per_play": 7.7,
+        "games": 8,
+        "how": "split(GOB.WR3, week, target): 86 targets for 664 yards in 8 games with at least one"
+      },
+      {
+        "slot": "TE",
+        "name": "Trey McBride",
+        "what": "targets",
+        "total": 94,
+        "per_game": 10.4,
+        "yards": 599,
+        "yards_per_play": 6.4,
+        "games": 9,
+        "how": "split(GOB.TE, week, target): 94 targets for 599 yards in 9 games with at least one"
+      }
+    ]
+  },
+  "red_zone": {
+    "how": "plays inside the 20 (red zone and goal line rows of the zone split), most touchdowns first",
+    "players": [
+      {
+        "slot": "QB",
+        "name": "Josh Allen",
+        "what": "carries",
+        "inside_20": 18,
+        "inside_5": 10,
+        "touchdowns": 8,
+        "how": "split(GOB.QB, zone, rusher): rows red zone and goal line added"
+      },
+      {
+        "slot": "QB",
+        "name": "Josh Allen",
+        "what": "throws",
+        "inside_20": 36,
+        "inside_5": 5,
+        "touchdowns": 6,
+        "how": "split(GOB.QB, zone, passer): rows red zone and goal line added"
+      },
+      {
+        "slot": "TE",
+        "name": "Trey McBride",
+        "what": "targets",
+        "inside_20": 20,
+        "inside_5": 5,
+        "touchdowns": 5,
+        "how": "split(GOB.TE, zone, target): rows red zone and goal line added"
+      },
+      {
+        "slot": "WR3",
+        "name": "Amon-Ra St. Brown",
+        "what": "targets",
+        "inside_20": 18,
+        "inside_5": 5,
+        "touchdowns": 4,
+        "how": "split(GOB.WR3, zone, target): rows red zone and goal line added"
+      },
+      {
+        "slot": "WR1",
+        "name": "Ja'Marr Chase",
+        "what": "targets",
+        "inside_20": 13,
+        "inside_5": 3,
+        "touchdowns": 3,
+        "how": "split(GOB.WR1, zone, target): rows red zone and goal line added"
+      },
+      {
+        "slot": "RB",
+        "name": "Saquon Barkley",
+        "what": "carries",
+        "inside_20": 12,
+        "inside_5": 6,
+        "touchdowns": 3,
+        "how": "split(GOB.RB, zone, rusher): rows red zone and goal line added"
+      },
+      {
+        "slot": "WR2",
+        "name": "Puka Nacua",
+        "what": "targets",
+        "inside_20": 8,
+        "inside_5": 2,
+        "touchdowns": 3,
+        "how": "split(GOB.WR2, zone, target): rows red zone and goal line added"
+      }
+    ]
+  },
+  "third_down": {
+    "how": "the third down row of the down split, most plays first; success means the play gained the distance needed or scored",
+    "players": [
+      {
+        "slot": "QB",
+        "name": "Josh Allen",
+        "what": "throws",
+        "plays": 66,
+        "first_downs": 29,
+        "success_rate": 0.439,
+        "touchdowns": 4,
+        "how": "split(GOB.QB, down, passer): row 3"
+      },
+      {
+        "slot": "WR3",
+        "name": "Amon-Ra St. Brown",
+        "what": "targets",
+        "plays": 27,
+        "first_downs": 12,
+        "success_rate": 0.444,
+        "touchdowns": 1,
+        "how": "split(GOB.WR3, down, target): row 3"
+      },
+      {
+        "slot": "WR2",
+        "name": "Puka Nacua",
+        "what": "targets",
+        "plays": 24,
+        "first_downs": 6,
+        "success_rate": 0.25,
+        "touchdowns": 0,
+        "how": "split(GOB.WR2, down, target): row 3"
+      },
+      {
+        "slot": "TE",
+        "name": "Trey McBride",
+        "what": "targets",
+        "plays": 23,
+        "first_downs": 9,
+        "success_rate": 0.391,
+        "touchdowns": 0,
+        "how": "split(GOB.TE, down, target): row 3"
+      },
+      {
+        "slot": "WR1",
+        "name": "Ja'Marr Chase",
+        "what": "targets",
+        "plays": 18,
+        "first_downs": 13,
+        "success_rate": 0.722,
+        "touchdowns": 4,
+        "how": "split(GOB.WR1, down, target): row 3"
+      },
+      {
+        "slot": "QB",
+        "name": "Josh Allen",
+        "what": "carries",
+        "plays": 15,
+        "first_downs": 10,
+        "success_rate": 0.667,
+        "touchdowns": 1,
+        "how": "split(GOB.QB, down, rusher): row 3"
+      },
+      {
+        "slot": "RB",
+        "name": "Saquon Barkley",
+        "what": "carries",
+        "plays": 4,
+        "first_downs": 3,
+        "success_rate": 0.75,
+        "touchdowns": 1,
+        "how": "split(GOB.RB, down, rusher): row 3"
+      },
+      {
+        "slot": "RB",
+        "name": "Saquon Barkley",
+        "what": "targets",
+        "plays": 1,
+        "first_downs": 1,
+        "success_rate": 1.0,
+        "touchdowns": 0,
+        "how": "split(GOB.RB, down, target): row 3"
+      }
+    ]
+  },
+  "form": {
+    "how": "last three weeks with a play against the weeks before (week split); the label is a judgment and the reason is next to it",
+    "hot": [
+      {
+        "slot": "WR1",
+        "name": "Ja'Marr Chase",
+        "why": "targets and yards a game are well up in the last three games",
+        "report": "data/profiles/notes/GOB-WR1-report.md"
+      },
+      {
+        "slot": "WR3",
+        "name": "Amon-Ra St. Brown",
+        "why": "yards per target and success rate are up in the last three games, without a touchdown",
+        "report": "data/profiles/notes/GOB-WR3-report.md"
+      },
+      {
+        "slot": "TE",
+        "name": "Trey McBride",
+        "why": "yards per target and yards a game are up in the last three games",
+        "report": "data/profiles/notes/GOB-TE-report.md"
+      }
+    ],
+    "cold": [
+      {
+        "slot": "QB",
+        "name": "Josh Allen",
+        "why": "yards per throw and rushing yards a game are both down in his last three games",
+        "report": "data/profiles/notes/GOB-QB-report.md"
+      },
+      {
+        "slot": "RB",
+        "name": "Saquon Barkley",
+        "why": "yards per carry and rushing yards a game are down in the last three games, though the touchdowns came then",
+        "report": "data/profiles/notes/GOB-RB-report.md"
+      }
+    ],
+    "steady": [
+      {
+        "slot": "WR2",
+        "name": "Puka Nacua",
+        "why": "same targets a game as before, with a better success rate",
+        "report": "data/profiles/notes/GOB-WR2-report.md"
+      },
+      {
+        "slot": "K",
+        "name": "Brandon Aubrey",
+        "why": "accuracy in the last three weeks is close to his season rate",
+        "report": "data/profiles/notes/GOB-K-report.md"
+      }
+    ]
+  }
+}

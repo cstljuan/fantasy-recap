@@ -28,6 +28,10 @@ Pages, in the order of Juan's earlier files (see `REFERENCE-LAYOUT.md`):
 
 | Path | What it is |
 |---|---|
+| `DESIGN.md` | The single source of truth for the builders: tokens, components, rules, what would change in the app |
+| `tokens.css` | The tokens as CSS variables, dark and light, with the font faces |
+| `MOTION.md` | Every motion with durations, easing and CSS |
+| `figma-ledger.json` | Node ids of every page, component and screen in the Figma file |
 | `REFERENCE-LAYOUT.md` | How Juan's three earlier Figma files are organized, and the page list this file follows |
 | `src/` | The drawings as code. `node design/src/build.js` writes `assets/` |
 | `assets/mascot/` | Tusk as SVG, one file per expression |

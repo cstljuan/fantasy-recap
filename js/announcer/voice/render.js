@@ -137,7 +137,7 @@ function collect(A, Rules, matches) {
 // the built-in sample with ?game=sample), or --game <file>.
 // Only the game files that have been recorded; every other game uses the browser voice until
 // Noah renders it (C37 for the real week 9 games, with Noah's OK on the credits).
-var VOICED = ['sample-football.json', 'week11-football.json', 'week09-gob-tur.json', 'week09-pyt-owl.json', 'week11-tur-owl.json'];
+var VOICED = ['sample-football.json', 'week11-football.json', 'week09-gob-tur.json', 'week09-pyt-owl.json'];
 function collectFootball() {
   var A = require(path.join(ROOT, 'js/announcer/index.js'));
   var Rules = require(path.join(ROOT, 'js/rules.js'));

@@ -1,0 +1,857 @@
+03:22:14 | Scout's workflow by hand in Juan's laptop session (no model, not scout.py). For each of 28 players: stats step, film room step, fact-checker step (verify_evidence), write_report. made_by: Scout's tools, researched in Juan's laptop session
+03:22:14 | research_plan(GOB.QB) -> depth, direction, down, zone, week
+03:22:14 | starting GOB.QB Josh Allen: stats step
+03:22:14 | find_player(Josh Allen) -> 2 match(es)
+03:22:15 | season_stats(4984) -> 74 stat keys
+03:22:15 | compute_tendencies(QB) -> deep_ball=0.716, short_pass=0.661, scramble=0.123
+03:22:15 | GOB.QB: film room step
+03:22:15 | split(GOB.QB, depth) -> 2 rows
+03:22:15 | player_plays(GOB.QB, {"role": "passer", "depth": "deep", "limit": 400}) -> 49 plays
+03:22:15 | player_plays(GOB.QB, {"role": "passer", "depth": "short", "limit": 400}) -> 187 plays
+03:22:15 | split(GOB.QB, direction) -> 3 rows
+03:22:15 | player_plays(GOB.QB, {"role": "passer", "direction": "middle", "limit": 400}) -> 56 plays
+03:22:15 | player_plays(GOB.QB, {"role": "passer", "direction": "left", "limit": 400}) -> 78 plays
+03:22:15 | split(GOB.QB, down) -> 4 rows
+03:22:15 | player_plays(GOB.QB, {"role": "passer", "down": 1, "limit": 400}) -> 81 plays
+03:22:15 | player_plays(GOB.QB, {"role": "passer", "down": 2, "limit": 400}) -> 101 plays
+03:22:15 | split(GOB.QB, zone) -> 3 rows
+03:22:15 | player_plays(GOB.QB, {"role": "rusher", "zone": "goal line", "limit": 400}) -> 10 plays
+03:22:15 | split(GOB.QB, zone) -> 4 rows
+03:22:15 | player_plays(GOB.QB, {"role": "passer", "zone": "red zone", "limit": 400}) -> 31 plays
+03:22:15 | player_plays(GOB.QB, {"role": "passer", "down": 3, "limit": 400}) -> 66 plays
+03:22:15 | split(GOB.QB, down) -> 4 rows
+03:22:15 | player_plays(GOB.QB, {"role": "rusher", "down": 3, "limit": 400}) -> 15 plays
+03:22:15 | player_plays(GOB.QB, {"kind": "sack", "limit": 400}) -> 17 plays
+03:22:15 | player_plays(GOB.QB, {"kind": "sack", "limit": 400}) -> 17 plays
+03:22:15 | player_plays(GOB.QB, {"kind": "int", "limit": 400}) -> 6 plays
+03:22:15 | player_plays(GOB.QB, {"kind": "int", "limit": 400}) -> 6 plays
+03:22:15 | split(GOB.QB, week) -> 8 rows
+03:22:15 | player_plays(GOB.QB, {"role": "passer", "week": 6, "limit": 400}) -> 35 plays
+03:22:15 | player_plays(GOB.QB, {"role": "passer", "week": 8, "limit": 400}) -> 35 plays
+03:22:15 | player_plays(GOB.QB, {"role": "passer", "week": 9, "limit": 400}) -> 35 plays
+03:22:15 | player_plays(GOB.QB, {"role": "passer", "week": 1, "limit": 400}) -> 31 plays
+03:22:15 | split(GOB.QB, week) -> 8 rows
+03:22:15 | player_plays(GOB.QB, {"role": "rusher", "week": 6, "limit": 400}) -> 2 plays
+03:22:15 | player_plays(GOB.QB, {"role": "rusher", "week": 8, "limit": 400}) -> 7 plays
+03:22:15 | player_plays(GOB.QB, {"role": "rusher", "week": 9, "limit": 400}) -> 5 plays
+03:22:15 | player_plays(GOB.QB, {"role": "rusher", "week": 1, "limit": 400}) -> 4 plays
+03:22:15 | GOB.QB: fact-checker step, 7 claims
+03:22:15 | verify_evidence(GOB.QB) -> 5 of 5 real
+03:22:15 | verify_evidence(GOB.QB) -> 5 of 5 real
+03:22:15 | verify_evidence(GOB.QB) -> 5 of 5 real
+03:22:15 | verify_evidence(GOB.QB) -> 5 of 5 real
+03:22:15 | verify_evidence(GOB.QB) -> 5 of 5 real
+03:22:15 | verify_evidence(GOB.QB) -> 5 of 5 real
+03:22:15 | verify_evidence(GOB.QB) -> 7 of 7 real
+03:22:15 | GOB.QB: fact-check kept 7 claims, dropped 0; 16 split rows re-read from the tools for the numbers
+03:22:15 | write_profile(GOB QB Josh Allen)
+03:22:15 | write_report(GOB.QB) -> 7 claims, 37 plays cited
+03:22:15 | GOB.QB: report written, 7 claims, 37 plays cited
+03:22:15 | research_plan(GOB.RB) -> gap, down, zone, week
+03:22:15 | starting GOB.RB Saquon Barkley: stats step
+03:22:15 | find_player(Saquon Barkley) -> 1 match(es)
+03:22:15 | season_stats(4866) -> 53 stat keys
+03:22:15 | compute_tendencies(RB) -> run_share=0.863, pass_catching=0.636, red_zone_use=0.174
+03:22:15 | GOB.RB: film room step
+03:22:15 | split(GOB.RB, gap) -> 7 rows
+03:22:15 | player_plays(GOB.RB, {"role": "rusher", "gap": "left tackle", "limit": 400}) -> 11 plays
+03:22:15 | player_plays(GOB.RB, {"role": "rusher", "gap": "up the middle", "limit": 400}) -> 14 plays
+03:22:15 | player_plays(GOB.RB, {"role": "rusher", "gap": "right guard", "limit": 400}) -> 13 plays
+03:22:15 | split(GOB.RB, down) -> 4 rows
+03:22:15 | player_plays(GOB.RB, {"role": "rusher", "down": 1, "limit": 400}) -> 46 plays
+03:22:15 | split(GOB.RB, zone) -> 4 rows
+03:22:15 | player_plays(GOB.RB, {"role": "rusher", "zone": "goal line", "limit": 400}) -> 6 plays
+03:22:15 | player_plays(GOB.RB, {"role": "rusher", "zone": "red zone", "limit": 400}) -> 6 plays
+03:22:15 | split(GOB.RB, zone) -> 1 rows
+03:22:15 | player_plays(GOB.RB, {"role": "target", "zone": "open", "limit": 400}) -> 11 plays
+03:22:15 | split(GOB.RB, week) -> 7 rows
+03:22:15 | player_plays(GOB.RB, {"role": "rusher", "week": 7, "limit": 400}) -> 7 plays
+03:22:15 | player_plays(GOB.RB, {"role": "rusher", "week": 8, "limit": 400}) -> 13 plays
+03:22:15 | player_plays(GOB.RB, {"role": "rusher", "week": 9, "limit": 400}) -> 13 plays
+03:22:15 | player_plays(GOB.RB, {"role": "rusher", "week": 1, "limit": 400}) -> 15 plays
+03:22:15 | GOB.RB: fact-checker step, 5 claims
+03:22:15 | verify_evidence(GOB.RB) -> 7 of 7 real
+03:22:15 | verify_evidence(GOB.RB) -> 3 of 3 real
+03:22:15 | verify_evidence(GOB.RB) -> 5 of 5 real
+03:22:15 | verify_evidence(GOB.RB) -> 3 of 3 real
+03:22:15 | verify_evidence(GOB.RB) -> 5 of 5 real
+03:22:15 | GOB.RB: fact-check kept 5 claims, dropped 0; 9 split rows re-read from the tools for the numbers
+03:22:15 | write_profile(GOB RB Saquon Barkley)
+03:22:15 | write_report(GOB.RB) -> 5 claims, 23 plays cited
+03:22:15 | GOB.RB: report written, 5 claims, 23 plays cited
+03:22:15 | research_plan(GOB.WR1) -> depth, direction, down, zone, week
+03:22:15 | starting GOB.WR1 Ja'Marr Chase: stats step
+03:22:15 | find_player(Ja'Marr Chase) -> 1 match(es)
+03:22:15 | season_stats(7564) -> 51 stat keys
+03:22:15 | compute_tendencies(WR) -> deep_ball=0.61, catch_rate=0.726, red_zone_use=0.178
+03:22:15 | GOB.WR1: film room step
+03:22:15 | split(GOB.WR1, depth) -> 2 rows
+03:22:15 | player_plays(GOB.WR1, {"role": "target", "depth": "deep", "limit": 400}) -> 14 plays
+03:22:15 | player_plays(GOB.WR1, {"role": "target", "depth": "short", "limit": 400}) -> 59 plays
+03:22:15 | split(GOB.WR1, direction) -> 3 rows
+03:22:15 | player_plays(GOB.WR1, {"role": "target", "direction": "right", "limit": 400}) -> 36 plays
+03:22:15 | player_plays(GOB.WR1, {"role": "target", "direction": "middle", "limit": 400}) -> 14 plays
+03:22:15 | player_plays(GOB.WR1, {"role": "target", "direction": "left", "limit": 400}) -> 23 plays
+03:22:15 | split(GOB.WR1, down) -> 4 rows
+03:22:15 | player_plays(GOB.WR1, {"role": "target", "down": 3, "limit": 400}) -> 18 plays
+03:22:15 | split(GOB.WR1, zone) -> 4 rows
+03:22:15 | player_plays(GOB.WR1, {"role": "target", "zone": "red zone", "limit": 400}) -> 10 plays
+03:22:15 | player_plays(GOB.WR1, {"role": "target", "zone": "goal line", "limit": 400}) -> 3 plays
+03:22:15 | split(GOB.WR1, week) -> 8 rows
+03:22:15 | player_plays(GOB.WR1, {"role": "target", "week": 7, "limit": 400}) -> 7 plays
+03:22:15 | player_plays(GOB.WR1, {"role": "target", "week": 8, "limit": 400}) -> 16 plays
+03:22:15 | player_plays(GOB.WR1, {"role": "target", "week": 9, "limit": 400}) -> 12 plays
+03:22:15 | player_plays(GOB.WR1, {"role": "target", "week": 1, "limit": 400}) -> 4 plays
+03:22:15 | GOB.WR1: fact-checker step, 5 claims
+03:22:15 | verify_evidence(GOB.WR1) -> 5 of 5 real
+03:22:15 | verify_evidence(GOB.WR1) -> 7 of 7 real
+03:22:15 | verify_evidence(GOB.WR1) -> 3 of 3 real
+03:22:15 | verify_evidence(GOB.WR1) -> 5 of 5 real
+03:22:15 | verify_evidence(GOB.WR1) -> 5 of 5 real
+03:22:15 | GOB.WR1: fact-check kept 5 claims, dropped 0; 10 split rows re-read from the tools for the numbers
+03:22:15 | write_profile(GOB WR1 Ja'Marr Chase)
+03:22:15 | write_report(GOB.WR1) -> 5 claims, 25 plays cited
+03:22:15 | GOB.WR1: report written, 5 claims, 25 plays cited
+03:22:15 | research_plan(GOB.WR2) -> depth, direction, down, zone, week
+03:22:15 | starting GOB.WR2 Puka Nacua: stats step
+03:22:15 | find_player(Puka Nacua) -> 1 match(es)
+03:22:15 | season_stats(9493) -> 63 stat keys
+03:22:15 | compute_tendencies(WR) -> deep_ball=0.511, catch_rate=0.753, red_zone_use=0.129
+03:22:15 | GOB.WR2: film room step
+03:22:15 | split(GOB.WR2, depth) -> 2 rows
+03:22:15 | player_plays(GOB.WR2, {"role": "target", "depth": "deep", "limit": 400}) -> 18 plays
+03:22:15 | player_plays(GOB.WR2, {"role": "target", "depth": "short", "limit": 400}) -> 75 plays
+03:22:15 | split(GOB.WR2, direction) -> 3 rows
+03:22:15 | player_plays(GOB.WR2, {"role": "target", "direction": "left", "limit": 400}) -> 31 plays
+03:22:15 | player_plays(GOB.WR2, {"role": "target", "direction": "middle", "limit": 400}) -> 22 plays
+03:22:15 | player_plays(GOB.WR2, {"role": "target", "direction": "right", "limit": 400}) -> 40 plays
+03:22:15 | split(GOB.WR2, down) -> 4 rows
+03:22:15 | player_plays(GOB.WR2, {"role": "target", "down": 2, "limit": 400}) -> 35 plays
+03:22:15 | player_plays(GOB.WR2, {"role": "target", "down": 3, "limit": 400}) -> 24 plays
+03:22:15 | split(GOB.WR2, zone) -> 4 rows
+03:22:15 | player_plays(GOB.WR2, {"role": "target", "zone": "red zone", "limit": 400}) -> 6 plays
+03:22:15 | split(GOB.WR2, week) -> 7 rows
+03:22:15 | player_plays(GOB.WR2, {"role": "target", "week": 7, "limit": 400}) -> 10 plays
+03:22:15 | player_plays(GOB.WR2, {"role": "target", "week": 8, "limit": 400}) -> 12 plays
+03:22:15 | player_plays(GOB.WR2, {"role": "target", "week": 9, "limit": 400}) -> 19 plays
+03:22:15 | player_plays(GOB.WR2, {"role": "target", "week": 1, "limit": 400}) -> 9 plays
+03:22:15 | GOB.WR2: fact-checker step, 5 claims
+03:22:15 | verify_evidence(GOB.WR2) -> 5 of 5 real
+03:22:15 | verify_evidence(GOB.WR2) -> 7 of 7 real
+03:22:15 | verify_evidence(GOB.WR2) -> 5 of 5 real
+03:22:15 | verify_evidence(GOB.WR2) -> 3 of 3 real
+03:22:15 | verify_evidence(GOB.WR2) -> 5 of 5 real
+03:22:15 | GOB.WR2: fact-check kept 5 claims, dropped 0; 10 split rows re-read from the tools for the numbers
+03:22:15 | write_profile(GOB WR2 Puka Nacua)
+03:22:15 | write_report(GOB.WR2) -> 5 claims, 25 plays cited
+03:22:15 | GOB.WR2: report written, 5 claims, 25 plays cited
+03:22:15 | research_plan(GOB.WR3) -> depth, direction, down, zone, week
+03:22:15 | starting GOB.WR3 Amon-Ra St. Brown: stats step
+03:22:15 | find_player(Amon-Ra St. Brown) -> 1 match(es)
+03:22:15 | season_stats(7547) -> 63 stat keys
+03:22:15 | compute_tendencies(WR) -> deep_ball=0.539, catch_rate=0.709, red_zone_use=0.209
+03:22:15 | GOB.WR3: film room step
+03:22:15 | split(GOB.WR3, depth) -> 2 rows
+03:22:15 | player_plays(GOB.WR3, {"role": "target", "depth": "deep", "limit": 400}) -> 21 plays
+03:22:15 | player_plays(GOB.WR3, {"role": "target", "depth": "short", "limit": 400}) -> 65 plays
+03:22:15 | split(GOB.WR3, direction) -> 3 rows
+03:22:15 | player_plays(GOB.WR3, {"role": "target", "direction": "left", "limit": 400}) -> 33 plays
+03:22:15 | player_plays(GOB.WR3, {"role": "target", "direction": "middle", "limit": 400}) -> 25 plays
+03:22:15 | player_plays(GOB.WR3, {"role": "target", "direction": "right", "limit": 400}) -> 28 plays
+03:22:15 | split(GOB.WR3, zone) -> 4 rows
+03:22:15 | player_plays(GOB.WR3, {"role": "target", "zone": "goal line", "limit": 400}) -> 5 plays
+03:22:15 | player_plays(GOB.WR3, {"role": "target", "zone": "red zone", "limit": 400}) -> 13 plays
+03:22:15 | split(GOB.WR3, down) -> 4 rows
+03:22:15 | player_plays(GOB.WR3, {"role": "target", "down": 3, "limit": 400}) -> 27 plays
+03:22:15 | split(GOB.WR3, week) -> 8 rows
+03:22:15 | player_plays(GOB.WR3, {"role": "target", "week": 7, "limit": 400}) -> 11 plays
+03:22:15 | player_plays(GOB.WR3, {"role": "target", "week": 8, "limit": 400}) -> 8 plays
+03:22:15 | player_plays(GOB.WR3, {"role": "target", "week": 9, "limit": 400}) -> 10 plays
+03:22:15 | player_plays(GOB.WR3, {"role": "target", "week": 1, "limit": 400}) -> 14 plays
+03:22:15 | GOB.WR3: fact-checker step, 5 claims
+03:22:15 | verify_evidence(GOB.WR3) -> 5 of 5 real
+03:22:15 | verify_evidence(GOB.WR3) -> 7 of 7 real
+03:22:15 | verify_evidence(GOB.WR3) -> 5 of 5 real
+03:22:15 | verify_evidence(GOB.WR3) -> 3 of 3 real
+03:22:15 | verify_evidence(GOB.WR3) -> 5 of 5 real
+03:22:15 | GOB.WR3: fact-check kept 5 claims, dropped 0; 10 split rows re-read from the tools for the numbers
+03:22:15 | write_profile(GOB WR3 Amon-Ra St. Brown)
+03:22:15 | write_report(GOB.WR3) -> 5 claims, 25 plays cited
+03:22:15 | GOB.WR3: report written, 5 claims, 25 plays cited
+03:22:15 | research_plan(GOB.TE) -> depth, down, zone, week
+03:22:15 | starting GOB.TE Trey McBride: stats step
+03:22:15 | find_player(Trey McBride) -> 1 match(es)
+03:22:15 | season_stats(8130) -> 47 stat keys
+03:22:15 | compute_tendencies(TE) -> deep_ball=0.41, catch_rate=0.777, red_zone_use=0.213
+03:22:15 | GOB.TE: film room step
+03:22:15 | split(GOB.TE, depth) -> 2 rows
+03:22:15 | player_plays(GOB.TE, {"role": "target", "depth": "deep", "limit": 400}) -> 7 plays
+03:22:15 | player_plays(GOB.TE, {"role": "target", "depth": "short", "limit": 400}) -> 87 plays
+03:22:15 | split(GOB.TE, down) -> 4 rows
+03:22:15 | player_plays(GOB.TE, {"role": "target", "down": 1, "limit": 400}) -> 34 plays
+03:22:15 | player_plays(GOB.TE, {"role": "target", "down": 3, "limit": 400}) -> 23 plays
+03:22:15 | split(GOB.TE, zone) -> 4 rows
+03:22:15 | player_plays(GOB.TE, {"role": "target", "zone": "red zone", "limit": 400}) -> 15 plays
+03:22:15 | player_plays(GOB.TE, {"role": "target", "zone": "goal line", "limit": 400}) -> 5 plays
+03:22:15 | player_plays(GOB.TE, {"role": "target", "down": 4, "limit": 400}) -> 4 plays
+03:22:15 | split(GOB.TE, week) -> 9 rows
+03:22:15 | player_plays(GOB.TE, {"role": "target", "week": 7, "limit": 400}) -> 13 plays
+03:22:15 | player_plays(GOB.TE, {"role": "target", "week": 8, "limit": 400}) -> 8 plays
+03:22:15 | player_plays(GOB.TE, {"role": "target", "week": 9, "limit": 400}) -> 8 plays
+03:22:15 | player_plays(GOB.TE, {"role": "target", "week": 1, "limit": 400}) -> 13 plays
+03:22:15 | GOB.TE: fact-checker step, 5 claims
+03:22:15 | verify_evidence(GOB.TE) -> 5 of 5 real
+03:22:15 | verify_evidence(GOB.TE) -> 5 of 5 real
+03:22:15 | verify_evidence(GOB.TE) -> 5 of 5 real
+03:22:15 | verify_evidence(GOB.TE) -> 3 of 3 real
+03:22:15 | verify_evidence(GOB.TE) -> 5 of 5 real
+03:22:15 | GOB.TE: fact-check kept 5 claims, dropped 0; 9 split rows re-read from the tools for the numbers
+03:22:15 | write_profile(GOB TE Trey McBride)
+03:22:15 | write_report(GOB.TE) -> 5 claims, 23 plays cited
+03:22:15 | GOB.TE: report written, 5 claims, 23 plays cited
+03:22:15 | research_plan(GOB.K) -> zone, week
+03:22:15 | starting GOB.K Brandon Aubrey: stats step
+03:22:15 | find_player(Brandon Aubrey) -> 1 match(es)
+03:22:15 | season_stats(11533) -> 37 stat keys
+03:22:15 | compute_tendencies(K) -> kicker_range=0.412, accuracy=0.773
+03:22:15 | GOB.K: film room step
+03:22:15 | player_plays(GOB.K, {"kind": "fg", "limit": 400}) -> 22 plays
+03:22:15 | GOB.K: fact-checker step, 4 claims
+03:22:15 | verify_evidence(GOB.K) -> 5 of 5 real
+03:22:15 | verify_evidence(GOB.K) -> 5 of 5 real
+03:22:15 | verify_evidence(GOB.K) -> 4 of 4 real
+03:22:15 | verify_evidence(GOB.K) -> 4 of 4 real
+03:22:15 | GOB.K: fact-check kept 4 claims, dropped 0; 4 split rows re-read from the tools for the numbers
+03:22:15 | write_profile(GOB K Brandon Aubrey)
+03:22:15 | write_report(GOB.K) -> 4 claims, 18 plays cited
+03:22:15 | GOB.K: report written, 4 claims, 18 plays cited
+03:22:15 | research_plan(PYT.QB) -> depth, direction, down, zone, week
+03:22:15 | starting PYT.QB Lamar Jackson: stats step
+03:22:15 | find_player(Lamar Jackson) -> 2 match(es)
+03:22:15 | season_stats(4881) -> 60 stat keys
+03:22:15 | compute_tendencies(QB) -> deep_ball=0.831, short_pass=0.701, scramble=0.13
+03:22:15 | PYT.QB: film room step
+03:22:15 | split(PYT.QB, depth) -> 2 rows
+03:22:15 | player_plays(PYT.QB, {"role": "passer", "depth": "deep", "limit": 400}) -> 21 plays
+03:22:15 | player_plays(PYT.QB, {"role": "passer", "depth": "short", "limit": 400}) -> 74 plays
+03:22:15 | split(PYT.QB, direction) -> 3 rows
+03:22:15 | player_plays(PYT.QB, {"role": "passer", "direction": "middle", "limit": 400}) -> 33 plays
+03:22:15 | player_plays(PYT.QB, {"role": "passer", "direction": "left", "limit": 400}) -> 31 plays
+03:22:15 | split(PYT.QB, down) -> 4 rows
+03:22:15 | player_plays(PYT.QB, {"role": "passer", "down": 1, "limit": 400}) -> 38 plays
+03:22:15 | player_plays(PYT.QB, {"role": "passer", "down": 2, "limit": 400}) -> 40 plays
+03:22:15 | player_plays(PYT.QB, {"role": "passer", "down": 3, "limit": 400}) -> 23 plays
+03:22:15 | split(PYT.QB, zone) -> 4 rows
+03:22:15 | player_plays(PYT.QB, {"role": "rusher", "zone": "open", "limit": 400}) -> 10 plays
+03:22:15 | split(PYT.QB, zone) -> 4 rows
+03:22:15 | player_plays(PYT.QB, {"role": "passer", "zone": "goal line", "limit": 400}) -> 5 plays
+03:22:15 | split(PYT.QB, week) -> 5 rows
+03:22:15 | player_plays(PYT.QB, {"role": "passer", "week": 8, "limit": 400}) -> 1 plays
+03:22:15 | PYT.QB: fact-checker step, 6 claims
+03:22:15 | verify_evidence(PYT.QB) -> 5 of 5 real
+03:22:15 | verify_evidence(PYT.QB) -> 5 of 5 real
+03:22:15 | verify_evidence(PYT.QB) -> 7 of 7 real
+03:22:15 | verify_evidence(PYT.QB) -> 3 of 3 real
+03:22:15 | verify_evidence(PYT.QB) -> 3 of 3 real
+03:22:15 | verify_evidence(PYT.QB) -> 1 of 1 real
+03:22:15 | PYT.QB: fact-check kept 6 claims, dropped 0; 10 split rows re-read from the tools for the numbers
+03:22:15 | write_profile(PYT QB Lamar Jackson)
+03:22:15 | write_report(PYT.QB) -> 6 claims, 24 plays cited
+03:22:15 | PYT.QB: report written, 6 claims, 24 plays cited
+03:22:15 | research_plan(PYT.RB) -> gap, down, zone, week
+03:22:15 | starting PYT.RB Bijan Robinson: stats step
+03:22:15 | find_player(Bijan Robinson) -> 1 match(es)
+03:22:15 | season_stats(9509) -> 65 stat keys
+03:22:15 | compute_tendencies(RB) -> run_share=0.809, pass_catching=0.775, red_zone_use=0.172
+03:22:15 | PYT.RB: film room step
+03:22:15 | split(PYT.RB, gap) -> 7 rows
+03:22:15 | player_plays(PYT.RB, {"role": "rusher", "gap": "left end", "limit": 400}) -> 23 plays
+03:22:15 | player_plays(PYT.RB, {"role": "rusher", "gap": "up the middle", "limit": 400}) -> 37 plays
+03:22:15 | split(PYT.RB, down) -> 4 rows
+03:22:15 | player_plays(PYT.RB, {"role": "rusher", "down": 2, "limit": 400}) -> 57 plays
+03:22:15 | player_plays(PYT.RB, {"role": "rusher", "down": 3, "limit": 400}) -> 15 plays
+03:22:15 | split(PYT.RB, zone) -> 4 rows
+03:22:15 | player_plays(PYT.RB, {"role": "rusher", "zone": "goal line", "limit": 400}) -> 8 plays
+03:22:15 | player_plays(PYT.RB, {"role": "rusher", "zone": "red zone", "limit": 400}) -> 21 plays
+03:22:15 | split(PYT.RB, down) -> 3 rows
+03:22:15 | player_plays(PYT.RB, {"role": "target", "down": 2, "limit": 400}) -> 21 plays
+03:22:15 | player_plays(PYT.RB, {"role": "target", "down": 3, "limit": 400}) -> 10 plays
+03:22:15 | split(PYT.RB, week) -> 9 rows
+03:22:15 | player_plays(PYT.RB, {"role": "rusher", "week": 7, "limit": 400}) -> 20 plays
+03:22:15 | player_plays(PYT.RB, {"role": "rusher", "week": 8, "limit": 400}) -> 19 plays
+03:22:15 | player_plays(PYT.RB, {"role": "rusher", "week": 9, "limit": 400}) -> 19 plays
+03:22:15 | player_plays(PYT.RB, {"role": "rusher", "week": 1, "limit": 400}) -> 21 plays
+03:22:15 | PYT.RB: fact-checker step, 5 claims
+03:22:15 | verify_evidence(PYT.RB) -> 5 of 5 real
+03:22:15 | verify_evidence(PYT.RB) -> 5 of 5 real
+03:22:15 | verify_evidence(PYT.RB) -> 5 of 5 real
+03:22:15 | verify_evidence(PYT.RB) -> 5 of 5 real
+03:22:15 | verify_evidence(PYT.RB) -> 5 of 5 real
+03:22:15 | PYT.RB: fact-check kept 5 claims, dropped 0; 10 split rows re-read from the tools for the numbers
+03:22:15 | write_profile(PYT RB Bijan Robinson)
+03:22:15 | write_report(PYT.RB) -> 5 claims, 25 plays cited
+03:22:15 | PYT.RB: report written, 5 claims, 25 plays cited
+03:22:15 | research_plan(PYT.WR1) -> depth, direction, down, zone, week
+03:22:15 | starting PYT.WR1 Justin Jefferson: stats step
+03:22:15 | find_player(Justin Jefferson) -> 2 match(es)
+03:22:15 | season_stats(6794) -> 50 stat keys
+03:22:15 | compute_tendencies(WR) -> deep_ball=0.634, catch_rate=0.608, red_zone_use=0.137
+03:22:15 | PYT.WR1: film room step
+03:22:15 | split(PYT.WR1, depth) -> 2 rows
+03:22:15 | player_plays(PYT.WR1, {"role": "target", "depth": "deep", "limit": 400}) -> 13 plays
+03:22:15 | player_plays(PYT.WR1, {"role": "target", "depth": "short", "limit": 400}) -> 38 plays
+03:22:15 | split(PYT.WR1, direction) -> 3 rows
+03:22:15 | player_plays(PYT.WR1, {"role": "target", "direction": "left", "limit": 400}) -> 22 plays
+03:22:15 | player_plays(PYT.WR1, {"role": "target", "direction": "right", "limit": 400}) -> 20 plays
+03:22:15 | split(PYT.WR1, down) -> 4 rows
+03:22:15 | player_plays(PYT.WR1, {"role": "target", "down": 3, "limit": 400}) -> 21 plays
+03:22:15 | split(PYT.WR1, zone) -> 4 rows
+03:22:15 | player_plays(PYT.WR1, {"role": "target", "zone": "red zone", "limit": 400}) -> 6 plays
+03:22:15 | split(PYT.WR1, week) -> 7 rows
+03:22:15 | player_plays(PYT.WR1, {"role": "target", "week": 7, "limit": 400}) -> 7 plays
+03:22:15 | player_plays(PYT.WR1, {"role": "target", "week": 8, "limit": 400}) -> 9 plays
+03:22:15 | player_plays(PYT.WR1, {"role": "target", "week": 9, "limit": 400}) -> 11 plays
+03:22:15 | player_plays(PYT.WR1, {"role": "target", "week": 1, "limit": 400}) -> 9 plays
+03:22:15 | PYT.WR1: fact-checker step, 5 claims
+03:22:15 | verify_evidence(PYT.WR1) -> 5 of 5 real
+03:22:15 | verify_evidence(PYT.WR1) -> 5 of 5 real
+03:22:15 | verify_evidence(PYT.WR1) -> 3 of 3 real
+03:22:15 | verify_evidence(PYT.WR1) -> 3 of 3 real
+03:22:15 | verify_evidence(PYT.WR1) -> 5 of 5 real
+03:22:15 | PYT.WR1: fact-check kept 5 claims, dropped 0; 8 split rows re-read from the tools for the numbers
+03:22:15 | write_profile(PYT WR1 Justin Jefferson)
+03:22:15 | write_report(PYT.WR1) -> 5 claims, 21 plays cited
+03:22:15 | PYT.WR1: report written, 5 claims, 21 plays cited
+03:22:15 | research_plan(PYT.WR2) -> depth, direction, down, zone, week
+03:22:15 | starting PYT.WR2 Malik Nabers: stats step
+03:22:15 | find_player(Malik Nabers) -> 1 match(es)
+03:22:15 | season_stats(11632) -> 49 stat keys
+03:22:15 | compute_tendencies(WR) -> deep_ball=0.597, catch_rate=0.682, red_zone_use=0.106
+03:22:15 | PYT.WR2: film room step
+03:22:15 | split(PYT.WR2, depth) -> 2 rows
+03:22:15 | player_plays(PYT.WR2, {"role": "target", "depth": "deep", "limit": 400}) -> 25 plays
+03:22:15 | player_plays(PYT.WR2, {"role": "target", "depth": "short", "limit": 400}) -> 60 plays
+03:22:15 | split(PYT.WR2, direction) -> 3 rows
+03:22:15 | player_plays(PYT.WR2, {"role": "target", "direction": "middle", "limit": 400}) -> 18 plays
+03:22:15 | player_plays(PYT.WR2, {"role": "target", "direction": "right", "limit": 400}) -> 35 plays
+03:22:15 | split(PYT.WR2, down) -> 3 rows
+03:22:15 | player_plays(PYT.WR2, {"role": "target", "down": 1, "limit": 400}) -> 38 plays
+03:22:15 | player_plays(PYT.WR2, {"role": "target", "down": 3, "limit": 400}) -> 21 plays
+03:22:15 | split(PYT.WR2, zone) -> 4 rows
+03:22:15 | player_plays(PYT.WR2, {"role": "target", "zone": "red zone", "limit": 400}) -> 8 plays
+03:22:15 | player_plays(PYT.WR2, {"role": "target", "zone": "goal line", "limit": 400}) -> 2 plays
+03:22:15 | split(PYT.WR2, week) -> 9 rows
+03:22:15 | player_plays(PYT.WR2, {"role": "target", "week": 7, "limit": 400}) -> 9 plays
+03:22:15 | player_plays(PYT.WR2, {"role": "target", "week": 9, "limit": 400}) -> 8 plays
+03:22:15 | player_plays(PYT.WR2, {"role": "target", "week": 10, "limit": 400}) -> 7 plays
+03:22:15 | player_plays(PYT.WR2, {"role": "target", "week": 1, "limit": 400}) -> 9 plays
+03:22:15 | PYT.WR2: fact-checker step, 5 claims
+03:22:15 | verify_evidence(PYT.WR2) -> 5 of 5 real
+03:22:15 | verify_evidence(PYT.WR2) -> 5 of 5 real
+03:22:15 | verify_evidence(PYT.WR2) -> 5 of 5 real
+03:22:15 | verify_evidence(PYT.WR2) -> 5 of 5 real
+03:22:15 | verify_evidence(PYT.WR2) -> 5 of 5 real
+03:22:15 | PYT.WR2: fact-check kept 5 claims, dropped 0; 10 split rows re-read from the tools for the numbers
+03:22:15 | write_profile(PYT WR2 Malik Nabers)
+03:22:15 | write_report(PYT.WR2) -> 5 claims, 25 plays cited
+03:22:15 | PYT.WR2: report written, 5 claims, 25 plays cited
+03:22:15 | research_plan(PYT.WR3) -> depth, direction, down, zone, week
+03:22:15 | starting PYT.WR3 Nico Collins: stats step
+03:22:15 | find_player(Nico Collins) -> 1 match(es)
+03:22:15 | season_stats(7569) -> 51 stat keys
+03:22:15 | compute_tendencies(WR) -> deep_ball=0.686, catch_rate=0.718, red_zone_use=0.128
+03:22:15 | PYT.WR3: film room step
+03:22:15 | split(PYT.WR3, depth) -> 2 rows
+03:22:15 | player_plays(PYT.WR3, {"role": "target", "depth": "deep", "limit": 400}) -> 14 plays
+03:22:15 | player_plays(PYT.WR3, {"role": "target", "depth": "short", "limit": 400}) -> 25 plays
+03:22:15 | split(PYT.WR3, direction) -> 3 rows
+03:22:15 | player_plays(PYT.WR3, {"role": "target", "direction": "left", "limit": 400}) -> 10 plays
+03:22:15 | player_plays(PYT.WR3, {"role": "target", "direction": "middle", "limit": 400}) -> 11 plays
+03:22:15 | player_plays(PYT.WR3, {"role": "target", "direction": "right", "limit": 400}) -> 18 plays
+03:22:15 | split(PYT.WR3, zone) -> 3 rows
+03:22:15 | player_plays(PYT.WR3, {"role": "target", "zone": "red zone", "limit": 400}) -> 6 plays
+03:22:15 | split(PYT.WR3, down) -> 3 rows
+03:22:15 | player_plays(PYT.WR3, {"role": "target", "down": 3, "limit": 400}) -> 9 plays
+03:22:15 | split(PYT.WR3, week) -> 6 rows
+03:22:15 | player_plays(PYT.WR3, {"role": "target", "week": 6, "limit": 400}) -> 5 plays
+03:22:15 | player_plays(PYT.WR3, {"role": "target", "week": 7, "limit": 400}) -> 5 plays
+03:22:15 | player_plays(PYT.WR3, {"role": "target", "week": 9, "limit": 400}) -> 4 plays
+03:22:15 | player_plays(PYT.WR3, {"role": "target", "week": 1, "limit": 400}) -> 10 plays
+03:22:15 | PYT.WR3: fact-checker step, 5 claims
+03:22:15 | verify_evidence(PYT.WR3) -> 5 of 5 real
+03:22:15 | verify_evidence(PYT.WR3) -> 7 of 7 real
+03:22:15 | verify_evidence(PYT.WR3) -> 3 of 3 real
+03:22:15 | verify_evidence(PYT.WR3) -> 3 of 3 real
+03:22:15 | verify_evidence(PYT.WR3) -> 5 of 5 real
+03:22:15 | PYT.WR3: fact-check kept 5 claims, dropped 0; 9 split rows re-read from the tools for the numbers
+03:22:15 | write_profile(PYT WR3 Nico Collins)
+03:22:15 | write_report(PYT.WR3) -> 5 claims, 23 plays cited
+03:22:15 | PYT.WR3: report written, 5 claims, 23 plays cited
+03:22:15 | research_plan(PYT.TE) -> depth, down, zone, week
+03:22:15 | starting PYT.TE George Kittle: stats step
+03:22:15 | find_player(George Kittle) -> 1 match(es)
+03:22:15 | season_stats(4217) -> 51 stat keys
+03:22:15 | compute_tendencies(TE) -> deep_ball=0.636, catch_rate=0.717, red_zone_use=0.208
+03:22:15 | PYT.TE: film room step
+03:22:15 | split(PYT.TE, depth) -> 2 rows
+03:22:15 | player_plays(PYT.TE, {"role": "target", "depth": "deep", "limit": 400}) -> 11 plays
+03:22:15 | player_plays(PYT.TE, {"role": "target", "depth": "short", "limit": 400}) -> 42 plays
+03:22:15 | split(PYT.TE, down) -> 4 rows
+03:22:15 | player_plays(PYT.TE, {"role": "target", "down": 1, "limit": 400}) -> 26 plays
+03:22:15 | player_plays(PYT.TE, {"role": "target", "down": 3, "limit": 400}) -> 9 plays
+03:22:15 | split(PYT.TE, zone) -> 4 rows
+03:22:15 | player_plays(PYT.TE, {"role": "target", "zone": "red zone", "limit": 400}) -> 11 plays
+03:22:15 | split(PYT.TE, week) -> 8 rows
+03:22:15 | player_plays(PYT.TE, {"role": "target", "week": 6, "limit": 400}) -> 8 plays
+03:22:15 | player_plays(PYT.TE, {"role": "target", "week": 7, "limit": 400}) -> 10 plays
+03:22:15 | player_plays(PYT.TE, {"role": "target", "week": 9, "limit": 400}) -> 7 plays
+03:22:15 | player_plays(PYT.TE, {"role": "target", "week": 1, "limit": 400}) -> 5 plays
+03:22:15 | PYT.TE: fact-checker step, 4 claims
+03:22:15 | verify_evidence(PYT.TE) -> 5 of 5 real
+03:22:15 | verify_evidence(PYT.TE) -> 5 of 5 real
+03:22:15 | verify_evidence(PYT.TE) -> 3 of 3 real
+03:22:15 | verify_evidence(PYT.TE) -> 5 of 5 real
+03:22:15 | PYT.TE: fact-check kept 4 claims, dropped 0; 7 split rows re-read from the tools for the numbers
+03:22:15 | write_profile(PYT TE George Kittle)
+03:22:15 | write_report(PYT.TE) -> 4 claims, 18 plays cited
+03:22:15 | PYT.TE: report written, 4 claims, 18 plays cited
+03:22:15 | research_plan(PYT.K) -> zone, week
+03:22:15 | starting PYT.K Harrison Butker: stats step
+03:22:15 | find_player(Harrison Butker) -> 1 match(es)
+03:22:15 | season_stats(4227) -> 34 stat keys
+03:22:15 | compute_tendencies(K) -> kicker_range=0.5, accuracy=0.632
+03:22:15 | PYT.K: film room step
+03:22:15 | player_plays(PYT.K, {"kind": "fg", "limit": 400}) -> 19 plays
+03:22:15 | PYT.K: fact-checker step, 4 claims
+03:22:15 | verify_evidence(PYT.K) -> 5 of 5 real
+03:22:15 | verify_evidence(PYT.K) -> 5 of 5 real
+03:22:15 | verify_evidence(PYT.K) -> 4 of 4 real
+03:22:15 | verify_evidence(PYT.K) -> 4 of 4 real
+03:22:15 | PYT.K: fact-check kept 4 claims, dropped 0; 4 split rows re-read from the tools for the numbers
+03:22:15 | write_profile(PYT K Harrison Butker)
+03:22:15 | write_report(PYT.K) -> 4 claims, 18 plays cited
+03:22:15 | PYT.K: report written, 4 claims, 18 plays cited
+03:22:15 | research_plan(TUR.QB) -> depth, direction, down, zone, week
+03:22:15 | starting TUR.QB Jayden Daniels: stats step
+03:22:15 | find_player(Jayden Daniels) -> 1 match(es)
+03:22:15 | season_stats(11566) -> 64 stat keys
+03:22:15 | compute_tendencies(QB) -> deep_ball=0.586, short_pass=0.648, scramble=0.157
+03:22:15 | TUR.QB: film room step
+03:22:15 | split(TUR.QB, depth) -> 2 rows
+03:22:15 | player_plays(TUR.QB, {"role": "passer", "depth": "deep", "limit": 400}) -> 40 plays
+03:22:15 | player_plays(TUR.QB, {"role": "passer", "depth": "short", "limit": 400}) -> 169 plays
+03:22:15 | split(TUR.QB, direction) -> 3 rows
+03:22:15 | player_plays(TUR.QB, {"role": "passer", "direction": "left", "limit": 400}) -> 67 plays
+03:22:15 | player_plays(TUR.QB, {"role": "passer", "direction": "middle", "limit": 400}) -> 54 plays
+03:22:15 | split(TUR.QB, down) -> 4 rows
+03:22:15 | player_plays(TUR.QB, {"role": "passer", "down": 1, "limit": 400}) -> 70 plays
+03:22:15 | player_plays(TUR.QB, {"role": "passer", "down": 2, "limit": 400}) -> 87 plays
+03:22:15 | player_plays(TUR.QB, {"role": "passer", "down": 3, "limit": 400}) -> 63 plays
+03:22:15 | split(TUR.QB, zone) -> 4 rows
+03:22:15 | player_plays(TUR.QB, {"role": "passer", "zone": "red zone", "limit": 400}) -> 19 plays
+03:22:15 | player_plays(TUR.QB, {"role": "passer", "zone": "goal line", "limit": 400}) -> 9 plays
+03:22:15 | split(TUR.QB, zone) -> 4 rows
+03:22:15 | player_plays(TUR.QB, {"role": "rusher", "zone": "open", "limit": 400}) -> 28 plays
+03:22:15 | player_plays(TUR.QB, {"kind": "sack", "limit": 400}) -> 17 plays
+03:22:15 | player_plays(TUR.QB, {"kind": "sack", "limit": 400}) -> 17 plays
+03:22:15 | split(TUR.QB, week) -> 7 rows
+03:22:15 | player_plays(TUR.QB, {"role": "passer", "week": 8, "limit": 400}) -> 31 plays
+03:22:15 | player_plays(TUR.QB, {"role": "passer", "week": 9, "limit": 400}) -> 38 plays
+03:22:15 | player_plays(TUR.QB, {"role": "passer", "week": 10, "limit": 400}) -> 34 plays
+03:22:15 | player_plays(TUR.QB, {"role": "passer", "week": 1, "limit": 400}) -> 35 plays
+03:22:15 | split(TUR.QB, week) -> 7 rows
+03:22:15 | player_plays(TUR.QB, {"role": "rusher", "week": 8, "limit": 400}) -> 2 plays
+03:22:15 | player_plays(TUR.QB, {"role": "rusher", "week": 9, "limit": 400}) -> 4 plays
+03:22:15 | player_plays(TUR.QB, {"role": "rusher", "week": 10, "limit": 400}) -> 8 plays
+03:22:15 | player_plays(TUR.QB, {"role": "rusher", "week": 1, "limit": 400}) -> 5 plays
+03:22:15 | TUR.QB: fact-checker step, 7 claims
+03:22:15 | verify_evidence(TUR.QB) -> 5 of 5 real
+03:22:15 | verify_evidence(TUR.QB) -> 5 of 5 real
+03:22:15 | verify_evidence(TUR.QB) -> 7 of 7 real
+03:22:15 | verify_evidence(TUR.QB) -> 5 of 5 real
+03:22:15 | verify_evidence(TUR.QB) -> 3 of 3 real
+03:22:15 | verify_evidence(TUR.QB) -> 3 of 3 real
+03:22:15 | verify_evidence(TUR.QB) -> 7 of 7 real
+03:22:15 | TUR.QB: fact-check kept 7 claims, dropped 0; 15 split rows re-read from the tools for the numbers
+03:22:15 | write_profile(TUR QB Jayden Daniels)
+03:22:15 | write_report(TUR.QB) -> 7 claims, 35 plays cited
+03:22:15 | TUR.QB: report written, 7 claims, 35 plays cited
+03:22:15 | research_plan(TUR.RB) -> gap, down, zone, week
+03:22:15 | starting TUR.RB Jahmyr Gibbs: stats step
+03:22:15 | find_player(Jahmyr Gibbs) -> 1 match(es)
+03:22:15 | season_stats(9221) -> 60 stat keys
+03:22:15 | compute_tendencies(RB) -> run_share=0.797, pass_catching=0.756, red_zone_use=0.243
+03:22:15 | TUR.RB: film room step
+03:22:15 | split(TUR.RB, gap) -> 7 rows
+03:22:15 | player_plays(TUR.RB, {"role": "rusher", "gap": "up the middle", "limit": 400}) -> 57 plays
+03:22:15 | player_plays(TUR.RB, {"role": "rusher", "gap": "right tackle", "limit": 400}) -> 36 plays
+03:22:15 | player_plays(TUR.RB, {"role": "rusher", "gap": "left tackle", "limit": 400}) -> 31 plays
+03:22:15 | player_plays(TUR.RB, {"role": "rusher", "gap": "left end", "limit": 400}) -> 17 plays
+03:22:15 | split(TUR.RB, zone) -> 4 rows
+03:22:15 | player_plays(TUR.RB, {"role": "rusher", "zone": "goal line", "limit": 400}) -> 15 plays
+03:22:15 | player_plays(TUR.RB, {"role": "rusher", "zone": "red zone", "limit": 400}) -> 29 plays
+03:22:15 | split(TUR.RB, down) -> 4 rows
+03:22:15 | player_plays(TUR.RB, {"role": "rusher", "down": 2, "limit": 400}) -> 68 plays
+03:22:15 | split(TUR.RB, down) -> 3 rows
+03:22:15 | player_plays(TUR.RB, {"role": "target", "down": 1, "limit": 400}) -> 20 plays
+03:22:15 | player_plays(TUR.RB, {"role": "target", "down": 3, "limit": 400}) -> 11 plays
+03:22:15 | split(TUR.RB, week) -> 8 rows
+03:22:15 | player_plays(TUR.RB, {"role": "rusher", "week": 7, "limit": 400}) -> 29 plays
+03:22:15 | player_plays(TUR.RB, {"role": "rusher", "week": 8, "limit": 400}) -> 23 plays
+03:22:15 | player_plays(TUR.RB, {"role": "rusher", "week": 9, "limit": 400}) -> 20 plays
+03:22:15 | player_plays(TUR.RB, {"role": "rusher", "week": 1, "limit": 400}) -> 29 plays
+03:22:15 | split(TUR.RB, week) -> 8 rows
+03:22:15 | player_plays(TUR.RB, {"role": "target", "week": 7, "limit": 400}) -> 6 plays
+03:22:15 | player_plays(TUR.RB, {"role": "target", "week": 8, "limit": 400}) -> 4 plays
+03:22:15 | player_plays(TUR.RB, {"role": "target", "week": 9, "limit": 400}) -> 1 plays
+03:22:15 | player_plays(TUR.RB, {"role": "target", "week": 1, "limit": 400}) -> 5 plays
+03:22:15 | TUR.RB: fact-checker step, 5 claims
+03:22:15 | verify_evidence(TUR.RB) -> 7 of 7 real
+03:22:15 | verify_evidence(TUR.RB) -> 5 of 5 real
+03:22:15 | verify_evidence(TUR.RB) -> 3 of 3 real
+03:22:15 | verify_evidence(TUR.RB) -> 5 of 5 real
+03:22:15 | verify_evidence(TUR.RB) -> 7 of 7 real
+03:22:15 | TUR.RB: fact-check kept 5 claims, dropped 0; 13 split rows re-read from the tools for the numbers
+03:22:15 | write_profile(TUR RB Jahmyr Gibbs)
+03:22:15 | write_report(TUR.RB) -> 5 claims, 27 plays cited
+03:22:15 | TUR.RB: report written, 5 claims, 27 plays cited
+03:22:15 | research_plan(TUR.WR1) -> depth, direction, down, zone, week
+03:22:15 | starting TUR.WR1 CeeDee Lamb: stats step
+03:22:15 | find_player(CeeDee Lamb) -> 1 match(es)
+03:22:16 | season_stats(6786) -> 59 stat keys
+03:22:16 | compute_tendencies(WR) -> deep_ball=0.646, catch_rate=0.648, red_zone_use=0.157
+03:22:16 | TUR.WR1: film room step
+03:22:16 | split(TUR.WR1, depth) -> 2 rows
+03:22:16 | player_plays(TUR.WR1, {"role": "target", "depth": "deep", "limit": 400}) -> 28 plays
+03:22:16 | player_plays(TUR.WR1, {"role": "target", "depth": "short", "limit": 400}) -> 80 plays
+03:22:16 | split(TUR.WR1, direction) -> 3 rows
+03:22:16 | player_plays(TUR.WR1, {"role": "target", "direction": "right", "limit": 400}) -> 51 plays
+03:22:16 | player_plays(TUR.WR1, {"role": "target", "direction": "middle", "limit": 400}) -> 19 plays
+03:22:16 | split(TUR.WR1, down) -> 4 rows
+03:22:16 | player_plays(TUR.WR1, {"role": "target", "down": 3, "limit": 400}) -> 32 plays
+03:22:16 | split(TUR.WR1, zone) -> 4 rows
+03:22:16 | player_plays(TUR.WR1, {"role": "target", "zone": "red zone", "limit": 400}) -> 15 plays
+03:22:16 | player_plays(TUR.WR1, {"role": "target", "zone": "goal line", "limit": 400}) -> 3 plays
+03:22:16 | split(TUR.WR1, week) -> 9 rows
+03:22:16 | player_plays(TUR.WR1, {"role": "target", "week": 7, "limit": 400}) -> 12 plays
+03:22:16 | player_plays(TUR.WR1, {"role": "target", "week": 8, "limit": 400}) -> 11 plays
+03:22:16 | player_plays(TUR.WR1, {"role": "target", "week": 9, "limit": 400}) -> 16 plays
+03:22:16 | player_plays(TUR.WR1, {"role": "target", "week": 1, "limit": 400}) -> 8 plays
+03:22:16 | TUR.WR1: fact-checker step, 5 claims
+03:22:16 | verify_evidence(TUR.WR1) -> 5 of 5 real
+03:22:16 | verify_evidence(TUR.WR1) -> 5 of 5 real
+03:22:16 | verify_evidence(TUR.WR1) -> 3 of 3 real
+03:22:16 | verify_evidence(TUR.WR1) -> 5 of 5 real
+03:22:16 | verify_evidence(TUR.WR1) -> 5 of 5 real
+03:22:16 | TUR.WR1: fact-check kept 5 claims, dropped 0; 9 split rows re-read from the tools for the numbers
+03:22:16 | write_profile(TUR WR1 CeeDee Lamb)
+03:22:16 | write_report(TUR.WR1) -> 5 claims, 23 plays cited
+03:22:16 | TUR.WR1: report written, 5 claims, 23 plays cited
+03:22:16 | research_plan(TUR.WR2) -> depth, direction, down, zone, week
+03:22:16 | starting TUR.WR2 Garrett Wilson: stats step
+03:22:16 | find_player(Garrett Wilson) -> 1 match(es)
+03:22:16 | season_stats(8146) -> 46 stat keys
+03:22:16 | compute_tendencies(WR) -> deep_ball=0.613, catch_rate=0.683, red_zone_use=0.095
+03:22:16 | TUR.WR2: film room step
+03:22:16 | split(TUR.WR2, direction) -> 3 rows
+03:22:16 | player_plays(TUR.WR2, {"role": "target", "direction": "right", "limit": 400}) -> 28 plays
+03:22:16 | player_plays(TUR.WR2, {"role": "target", "direction": "left", "limit": 400}) -> 25 plays
+03:22:16 | split(TUR.WR2, down) -> 4 rows
+03:22:16 | player_plays(TUR.WR2, {"role": "target", "down": 1, "limit": 400}) -> 25 plays
+03:22:16 | split(TUR.WR2, zone) -> 4 rows
+03:22:16 | player_plays(TUR.WR2, {"role": "target", "zone": "red zone", "limit": 400}) -> 4 plays
+03:22:16 | split(TUR.WR2, depth) -> 2 rows
+03:22:16 | player_plays(TUR.WR2, {"role": "target", "depth": "deep", "limit": 400}) -> 16 plays
+03:22:16 | player_plays(TUR.WR2, {"role": "target", "depth": "short", "limit": 400}) -> 47 plays
+03:22:16 | split(TUR.WR2, week) -> 8 rows
+03:22:16 | player_plays(TUR.WR2, {"role": "target", "week": 6, "limit": 400}) -> 6 plays
+03:22:16 | player_plays(TUR.WR2, {"role": "target", "week": 7, "limit": 400}) -> 3 plays
+03:22:16 | player_plays(TUR.WR2, {"role": "target", "week": 8, "limit": 400}) -> 12 plays
+03:22:16 | player_plays(TUR.WR2, {"role": "target", "week": 1, "limit": 400}) -> 7 plays
+03:22:16 | TUR.WR2: fact-checker step, 5 claims
+03:22:16 | verify_evidence(TUR.WR2) -> 5 of 5 real
+03:22:16 | verify_evidence(TUR.WR2) -> 3 of 3 real
+03:22:16 | verify_evidence(TUR.WR2) -> 3 of 3 real
+03:22:16 | verify_evidence(TUR.WR2) -> 5 of 5 real
+03:22:16 | verify_evidence(TUR.WR2) -> 5 of 5 real
+03:22:16 | TUR.WR2: fact-check kept 5 claims, dropped 0; 8 split rows re-read from the tools for the numbers
+03:22:16 | write_profile(TUR WR2 Garrett Wilson)
+03:22:16 | write_report(TUR.WR2) -> 5 claims, 21 plays cited
+03:22:16 | TUR.WR2: report written, 5 claims, 21 plays cited
+03:22:16 | research_plan(TUR.WR3) -> depth, direction, down, zone, week
+03:22:16 | starting TUR.WR3 Drake London: stats step
+03:22:16 | find_player(Drake London) -> 1 match(es)
+03:22:16 | season_stats(8112) -> 58 stat keys
+03:22:16 | compute_tendencies(WR) -> deep_ball=0.786, catch_rate=0.647, red_zone_use=0.059
+03:22:16 | TUR.WR3: film room step
+03:22:16 | split(TUR.WR3, depth) -> 2 rows
+03:22:16 | player_plays(TUR.WR3, {"role": "target", "depth": "deep", "limit": 400}) -> 18 plays
+03:22:16 | split(TUR.WR3, down) -> 4 rows
+03:22:16 | player_plays(TUR.WR3, {"role": "target", "down": 3, "limit": 400}) -> 24 plays
+03:22:16 | split(TUR.WR3, zone) -> 3 rows
+03:22:16 | player_plays(TUR.WR3, {"role": "target", "zone": "red zone", "limit": 400}) -> 4 plays
+03:22:16 | split(TUR.WR3, direction) -> 3 rows
+03:22:16 | player_plays(TUR.WR3, {"role": "target", "direction": "middle", "limit": 400}) -> 14 plays
+03:22:16 | split(TUR.WR3, week) -> 9 rows
+03:22:16 | player_plays(TUR.WR3, {"role": "target", "week": 7, "limit": 400}) -> 10 plays
+03:22:16 | player_plays(TUR.WR3, {"role": "target", "week": 8, "limit": 400}) -> 6 plays
+03:22:16 | player_plays(TUR.WR3, {"role": "target", "week": 9, "limit": 400}) -> 5 plays
+03:22:16 | player_plays(TUR.WR3, {"role": "target", "week": 1, "limit": 400}) -> 4 plays
+03:22:16 | TUR.WR3: fact-checker step, 5 claims
+03:22:16 | verify_evidence(TUR.WR3) -> 3 of 3 real
+03:22:16 | verify_evidence(TUR.WR3) -> 3 of 3 real
+03:22:16 | verify_evidence(TUR.WR3) -> 3 of 3 real
+03:22:16 | verify_evidence(TUR.WR3) -> 3 of 3 real
+03:22:16 | verify_evidence(TUR.WR3) -> 5 of 5 real
+03:22:16 | TUR.WR3: fact-check kept 5 claims, dropped 0; 6 split rows re-read from the tools for the numbers
+03:22:16 | write_profile(TUR WR3 Drake London)
+03:22:16 | write_report(TUR.WR3) -> 5 claims, 17 plays cited
+03:22:16 | TUR.WR3: report written, 5 claims, 17 plays cited
+03:22:16 | research_plan(TUR.TE) -> depth, down, zone, week
+03:22:16 | starting TUR.TE Brock Bowers: stats step
+03:22:16 | find_player(Brock Bowers) -> 1 match(es)
+03:22:16 | season_stats(11604) -> 51 stat keys
+03:22:16 | compute_tendencies(TE) -> deep_ball=0.685, catch_rate=0.686, red_zone_use=0.157
+03:22:16 | TUR.TE: film room step
+03:22:16 | split(TUR.TE, depth) -> 2 rows
+03:22:16 | player_plays(TUR.TE, {"role": "target", "depth": "deep", "limit": 400}) -> 13 plays
+03:22:16 | player_plays(TUR.TE, {"role": "target", "depth": "short", "limit": 400}) -> 56 plays
+03:22:16 | split(TUR.TE, down) -> 4 rows
+03:22:16 | player_plays(TUR.TE, {"role": "target", "down": 3, "limit": 400}) -> 26 plays
+03:22:16 | split(TUR.TE, zone) -> 4 rows
+03:22:16 | player_plays(TUR.TE, {"role": "target", "zone": "red zone", "limit": 400}) -> 9 plays
+03:22:16 | player_plays(TUR.TE, {"role": "target", "zone": "goal line", "limit": 400}) -> 2 plays
+03:22:16 | player_plays(TUR.TE, {"role": "target", "down": 1, "limit": 400}) -> 27 plays
+03:22:16 | split(TUR.TE, week) -> 7 rows
+03:22:16 | player_plays(TUR.TE, {"role": "target", "week": 7, "limit": 400}) -> 8 plays
+03:22:16 | player_plays(TUR.TE, {"role": "target", "week": 8, "limit": 400}) -> 10 plays
+03:22:16 | player_plays(TUR.TE, {"role": "target", "week": 9, "limit": 400}) -> 8 plays
+03:22:16 | player_plays(TUR.TE, {"role": "target", "week": 3, "limit": 400}) -> 13 plays
+03:22:16 | TUR.TE: fact-checker step, 5 claims
+03:22:16 | verify_evidence(TUR.TE) -> 5 of 5 real
+03:22:16 | verify_evidence(TUR.TE) -> 3 of 3 real
+03:22:16 | verify_evidence(TUR.TE) -> 5 of 5 real
+03:22:16 | verify_evidence(TUR.TE) -> 3 of 3 real
+03:22:16 | verify_evidence(TUR.TE) -> 5 of 5 real
+03:22:16 | TUR.TE: fact-check kept 5 claims, dropped 0; 8 split rows re-read from the tools for the numbers
+03:22:16 | write_profile(TUR TE Brock Bowers)
+03:22:16 | write_report(TUR.TE) -> 5 claims, 21 plays cited
+03:22:16 | TUR.TE: report written, 5 claims, 21 plays cited
+03:22:16 | research_plan(TUR.K) -> zone, week
+03:22:16 | starting TUR.K Cameron Dicker: stats step
+03:22:16 | find_player(Cameron Dicker) -> 1 match(es)
+03:22:16 | season_stats(8259) -> 33 stat keys
+03:22:16 | compute_tendencies(K) -> kicker_range=0.4, accuracy=0.882
+03:22:16 | TUR.K: film room step
+03:22:16 | player_plays(TUR.K, {"kind": "fg", "limit": 400}) -> 17 plays
+03:22:16 | TUR.K: fact-checker step, 4 claims
+03:22:16 | verify_evidence(TUR.K) -> 5 of 5 real
+03:22:16 | verify_evidence(TUR.K) -> 4 of 4 real
+03:22:16 | verify_evidence(TUR.K) -> 4 of 4 real
+03:22:16 | verify_evidence(TUR.K) -> 4 of 4 real
+03:22:16 | TUR.K: fact-check kept 4 claims, dropped 0; 4 split rows re-read from the tools for the numbers
+03:22:16 | write_profile(TUR K Cameron Dicker)
+03:22:16 | write_report(TUR.K) -> 4 claims, 17 plays cited
+03:22:16 | TUR.K: report written, 4 claims, 17 plays cited
+03:22:16 | research_plan(OWL.QB) -> depth, direction, down, zone, week
+03:22:16 | starting OWL.QB Patrick Mahomes: stats step
+03:22:16 | find_player(Patrick Mahomes) -> 1 match(es)
+03:22:16 | season_stats(4046) -> 61 stat keys
+03:22:16 | compute_tendencies(QB) -> deep_ball=0.645, short_pass=0.673, scramble=0.04
+03:22:16 | OWL.QB: film room step
+03:22:16 | split(OWL.QB, depth) -> 2 rows
+03:22:16 | player_plays(OWL.QB, {"role": "passer", "depth": "deep", "limit": 400}) -> 35 plays
+03:22:16 | player_plays(OWL.QB, {"role": "passer", "depth": "short", "limit": 400}) -> 228 plays
+03:22:16 | split(OWL.QB, direction) -> 3 rows
+03:22:16 | player_plays(OWL.QB, {"role": "passer", "direction": "right", "limit": 400}) -> 125 plays
+03:22:16 | player_plays(OWL.QB, {"role": "passer", "direction": "middle", "limit": 400}) -> 59 plays
+03:22:16 | split(OWL.QB, down) -> 4 rows
+03:22:16 | player_plays(OWL.QB, {"role": "passer", "down": 1, "limit": 400}) -> 109 plays
+03:22:16 | player_plays(OWL.QB, {"role": "passer", "down": 3, "limit": 400}) -> 71 plays
+03:22:16 | split(OWL.QB, zone) -> 4 rows
+03:22:16 | player_plays(OWL.QB, {"role": "passer", "zone": "red zone", "limit": 400}) -> 34 plays
+03:22:16 | player_plays(OWL.QB, {"role": "passer", "zone": "goal line", "limit": 400}) -> 12 plays
+03:22:16 | split(OWL.QB, week) -> 8 rows
+03:22:16 | player_plays(OWL.QB, {"role": "passer", "week": 7, "limit": 400}) -> 34 plays
+03:22:16 | player_plays(OWL.QB, {"role": "passer", "week": 8, "limit": 400}) -> 43 plays
+03:22:16 | player_plays(OWL.QB, {"role": "passer", "week": 9, "limit": 400}) -> 33 plays
+03:22:16 | player_plays(OWL.QB, {"role": "passer", "week": 1, "limit": 400}) -> 29 plays
+03:22:16 | OWL.QB: fact-checker step, 5 claims
+03:22:16 | verify_evidence(OWL.QB) -> 5 of 5 real
+03:22:16 | verify_evidence(OWL.QB) -> 5 of 5 real
+03:22:16 | verify_evidence(OWL.QB) -> 5 of 5 real
+03:22:16 | verify_evidence(OWL.QB) -> 5 of 5 real
+03:22:16 | verify_evidence(OWL.QB) -> 5 of 5 real
+03:22:16 | OWL.QB: fact-check kept 5 claims, dropped 0; 10 split rows re-read from the tools for the numbers
+03:22:16 | write_profile(OWL QB Patrick Mahomes)
+03:22:16 | write_report(OWL.QB) -> 5 claims, 25 plays cited
+03:22:16 | OWL.QB: report written, 5 claims, 25 plays cited
+03:22:16 | research_plan(OWL.RB) -> gap, down, zone, week
+03:22:16 | starting OWL.RB Derrick Henry: stats step
+03:22:16 | find_player(Derrick Henry) -> 1 match(es)
+03:22:16 | season_stats(3198) -> 72 stat keys
+03:22:16 | compute_tendencies(RB) -> run_share=0.926, pass_catching=0.857, red_zone_use=0.217
+03:22:16 | OWL.RB: film room step
+03:22:16 | split(OWL.RB, gap) -> 7 rows
+03:22:16 | player_plays(OWL.RB, {"role": "rusher", "gap": "right end", "limit": 400}) -> 30 plays
+03:22:16 | player_plays(OWL.RB, {"role": "rusher", "gap": "up the middle", "limit": 400}) -> 22 plays
+03:22:16 | split(OWL.RB, down) -> 4 rows
+03:22:16 | player_plays(OWL.RB, {"role": "rusher", "down": 1, "limit": 400}) -> 104 plays
+03:22:16 | player_plays(OWL.RB, {"role": "rusher", "down": 2, "limit": 400}) -> 59 plays
+03:22:16 | player_plays(OWL.RB, {"role": "rusher", "down": 3, "limit": 400}) -> 8 plays
+03:22:16 | split(OWL.RB, zone) -> 4 rows
+03:22:16 | player_plays(OWL.RB, {"role": "rusher", "zone": "goal line", "limit": 400}) -> 16 plays
+03:22:16 | player_plays(OWL.RB, {"role": "rusher", "zone": "red zone", "limit": 400}) -> 24 plays
+03:22:16 | split(OWL.RB, down) -> 3 rows
+03:22:16 | player_plays(OWL.RB, {"role": "target", "down": 1, "limit": 400}) -> 9 plays
+03:22:16 | player_plays(OWL.RB, {"role": "target", "down": 2, "limit": 400}) -> 4 plays
+03:22:16 | split(OWL.RB, week) -> 9 rows
+03:22:16 | player_plays(OWL.RB, {"role": "rusher", "week": 7, "limit": 400}) -> 17 plays
+03:22:16 | player_plays(OWL.RB, {"role": "rusher", "week": 8, "limit": 400}) -> 11 plays
+03:22:16 | player_plays(OWL.RB, {"role": "rusher", "week": 9, "limit": 400}) -> 17 plays
+03:22:16 | player_plays(OWL.RB, {"role": "rusher", "week": 1, "limit": 400}) -> 24 plays
+03:22:16 | OWL.RB: fact-checker step, 5 claims
+03:22:16 | verify_evidence(OWL.RB) -> 5 of 5 real
+03:22:16 | verify_evidence(OWL.RB) -> 7 of 7 real
+03:22:16 | verify_evidence(OWL.RB) -> 5 of 5 real
+03:22:16 | verify_evidence(OWL.RB) -> 5 of 5 real
+03:22:16 | verify_evidence(OWL.RB) -> 5 of 5 real
+03:22:16 | OWL.RB: fact-check kept 5 claims, dropped 0; 11 split rows re-read from the tools for the numbers
+03:22:16 | write_profile(OWL RB Derrick Henry)
+03:22:16 | write_report(OWL.RB) -> 5 claims, 27 plays cited
+03:22:16 | OWL.RB: report written, 5 claims, 27 plays cited
+03:22:16 | research_plan(OWL.WR1) -> depth, direction, down, zone, week
+03:22:16 | starting OWL.WR1 Tee Higgins: stats step
+03:22:16 | find_player(Tee Higgins) -> 1 match(es)
+03:22:16 | season_stats(6801) -> 44 stat keys
+03:22:16 | compute_tendencies(WR) -> deep_ball=0.79, catch_rate=0.716, red_zone_use=0.09
+03:22:16 | OWL.WR1: film room step
+03:22:16 | split(OWL.WR1, depth) -> 2 rows
+03:22:16 | player_plays(OWL.WR1, {"role": "target", "depth": "deep", "limit": 400}) -> 18 plays
+03:22:16 | split(OWL.WR1, direction) -> 3 rows
+03:22:16 | player_plays(OWL.WR1, {"role": "target", "direction": "middle", "limit": 400}) -> 16 plays
+03:22:16 | split(OWL.WR1, down) -> 3 rows
+03:22:16 | player_plays(OWL.WR1, {"role": "target", "down": 1, "limit": 400}) -> 25 plays
+03:22:16 | split(OWL.WR1, zone) -> 4 rows
+03:22:16 | player_plays(OWL.WR1, {"role": "target", "zone": "red zone", "limit": 400}) -> 6 plays
+03:22:16 | split(OWL.WR1, week) -> 8 rows
+03:22:16 | player_plays(OWL.WR1, {"role": "target", "week": 7, "limit": 400}) -> 7 plays
+03:22:16 | player_plays(OWL.WR1, {"role": "target", "week": 8, "limit": 400}) -> 11 plays
+03:22:16 | player_plays(OWL.WR1, {"role": "target", "week": 9, "limit": 400}) -> 6 plays
+03:22:16 | player_plays(OWL.WR1, {"role": "target", "week": 1, "limit": 400}) -> 6 plays
+03:22:16 | OWL.WR1: fact-checker step, 5 claims
+03:22:16 | verify_evidence(OWL.WR1) -> 3 of 3 real
+03:22:16 | verify_evidence(OWL.WR1) -> 3 of 3 real
+03:22:16 | verify_evidence(OWL.WR1) -> 3 of 3 real
+03:22:16 | verify_evidence(OWL.WR1) -> 3 of 3 real
+03:22:16 | verify_evidence(OWL.WR1) -> 5 of 5 real
+03:22:16 | OWL.WR1: fact-check kept 5 claims, dropped 0; 6 split rows re-read from the tools for the numbers
+03:22:16 | write_profile(OWL WR1 Tee Higgins)
+03:22:16 | write_report(OWL.WR1) -> 5 claims, 17 plays cited
+03:22:16 | OWL.WR1: report written, 5 claims, 17 plays cited
+03:22:16 | research_plan(OWL.WR2) -> depth, direction, down, zone, week
+03:22:16 | starting OWL.WR2 Jaxon Smith-Njigba: stats step
+03:22:16 | find_player(Jaxon Smith-Njigba) -> 1 match(es)
+03:22:16 | season_stats(9488) -> 70 stat keys
+03:22:16 | compute_tendencies(WR) -> deep_ball=0.73, catch_rate=0.717, red_zone_use=0.131
+03:22:16 | OWL.WR2: film room step
+03:22:16 | split(OWL.WR2, depth) -> 2 rows
+03:22:16 | player_plays(OWL.WR2, {"role": "target", "depth": "deep", "limit": 400}) -> 19 plays
+03:22:16 | player_plays(OWL.WR2, {"role": "target", "depth": "short", "limit": 400}) -> 79 plays
+03:22:16 | split(OWL.WR2, down) -> 4 rows
+03:22:16 | player_plays(OWL.WR2, {"role": "target", "down": 1, "limit": 400}) -> 33 plays
+03:22:16 | player_plays(OWL.WR2, {"role": "target", "down": 3, "limit": 400}) -> 32 plays
+03:22:16 | split(OWL.WR2, zone) -> 4 rows
+03:22:16 | player_plays(OWL.WR2, {"role": "target", "zone": "red zone", "limit": 400}) -> 11 plays
+03:22:16 | split(OWL.WR2, direction) -> 3 rows
+03:22:16 | player_plays(OWL.WR2, {"role": "target", "direction": "left", "limit": 400}) -> 31 plays
+03:22:16 | player_plays(OWL.WR2, {"role": "target", "direction": "middle", "limit": 400}) -> 28 plays
+03:22:16 | player_plays(OWL.WR2, {"role": "target", "direction": "right", "limit": 400}) -> 39 plays
+03:22:16 | split(OWL.WR2, week) -> 9 rows
+03:22:16 | player_plays(OWL.WR2, {"role": "target", "week": 7, "limit": 400}) -> 12 plays
+03:22:16 | player_plays(OWL.WR2, {"role": "target", "week": 8, "limit": 400}) -> 11 plays
+03:22:16 | player_plays(OWL.WR2, {"role": "target", "week": 9, "limit": 400}) -> 10 plays
+03:22:16 | player_plays(OWL.WR2, {"role": "target", "week": 1, "limit": 400}) -> 11 plays
+03:22:16 | OWL.WR2: fact-checker step, 6 claims
+03:22:16 | verify_evidence(OWL.WR2) -> 5 of 5 real
+03:22:16 | verify_evidence(OWL.WR2) -> 3 of 3 real
+03:22:16 | verify_evidence(OWL.WR2) -> 3 of 3 real
+03:22:16 | verify_evidence(OWL.WR2) -> 3 of 3 real
+03:22:16 | verify_evidence(OWL.WR2) -> 7 of 7 real
+03:22:16 | verify_evidence(OWL.WR2) -> 5 of 5 real
+03:22:16 | OWL.WR2: fact-check kept 6 claims, dropped 0; 10 split rows re-read from the tools for the numbers
+03:22:16 | write_profile(OWL WR2 Jaxon Smith-Njigba)
+03:22:16 | write_report(OWL.WR2) -> 6 claims, 26 plays cited
+03:22:16 | OWL.WR2: report written, 6 claims, 26 plays cited
+03:22:16 | research_plan(OWL.WR3) -> depth, direction, down, zone, week
+03:22:16 | starting OWL.WR3 Ladd McConkey: stats step
+03:22:16 | find_player(Ladd McConkey) -> 1 match(es)
+03:22:16 | season_stats(11635) -> 41 stat keys
+03:22:16 | compute_tendencies(WR) -> deep_ball=0.841, catch_rate=0.708, red_zone_use=0.083
+03:22:16 | OWL.WR3: film room step
+03:22:16 | split(OWL.WR3, depth) -> 2 rows
+03:22:16 | player_plays(OWL.WR3, {"role": "target", "depth": "deep", "limit": 400}) -> 7 plays
+03:22:16 | player_plays(OWL.WR3, {"role": "target", "depth": "short", "limit": 400}) -> 17 plays
+03:22:16 | split(OWL.WR3, down) -> 3 rows
+03:22:16 | player_plays(OWL.WR3, {"role": "target", "down": 3, "limit": 400}) -> 10 plays
+03:22:16 | split(OWL.WR3, zone) -> 3 rows
+03:22:16 | player_plays(OWL.WR3, {"role": "target", "zone": "red zone", "limit": 400}) -> 2 plays
+03:22:16 | split(OWL.WR3, week) -> 6 rows
+03:22:16 | player_plays(OWL.WR3, {"role": "target", "week": 4, "limit": 400}) -> 2 plays
+03:22:16 | player_plays(OWL.WR3, {"role": "target", "week": 6, "limit": 400}) -> 1 plays
+03:22:16 | player_plays(OWL.WR3, {"role": "target", "week": 8, "limit": 400}) -> 6 plays
+03:22:16 | player_plays(OWL.WR3, {"role": "target", "week": 1, "limit": 400}) -> 7 plays
+03:22:16 | OWL.WR3: fact-checker step, 4 claims
+03:22:16 | verify_evidence(OWL.WR3) -> 5 of 5 real
+03:22:16 | verify_evidence(OWL.WR3) -> 3 of 3 real
+03:22:16 | verify_evidence(OWL.WR3) -> 2 of 2 real
+03:22:16 | verify_evidence(OWL.WR3) -> 5 of 5 real
+03:22:16 | OWL.WR3: fact-check kept 4 claims, dropped 0; 6 split rows re-read from the tools for the numbers
+03:22:16 | write_profile(OWL WR3 Ladd McConkey)
+03:22:16 | write_report(OWL.WR3) -> 4 claims, 15 plays cited
+03:22:16 | OWL.WR3: report written, 4 claims, 15 plays cited
+03:22:16 | research_plan(OWL.TE) -> depth, down, zone, week
+03:22:16 | starting OWL.TE Tucker Kraft: stats step
+03:22:16 | find_player(Tucker Kraft) -> 1 match(es)
+03:22:16 | season_stats(9484) -> 59 stat keys
+03:22:16 | compute_tendencies(TE) -> deep_ball=0.487, catch_rate=0.692, red_zone_use=0.173
+03:22:16 | OWL.TE: film room step
+03:22:16 | split(OWL.TE, depth) -> 2 rows
+03:22:16 | player_plays(OWL.TE, {"role": "target", "depth": "deep", "limit": 400}) -> 7 plays
+03:22:16 | player_plays(OWL.TE, {"role": "target", "depth": "short", "limit": 400}) -> 45 plays
+03:22:16 | split(OWL.TE, down) -> 4 rows
+03:22:16 | player_plays(OWL.TE, {"role": "target", "down": 4, "limit": 400}) -> 3 plays
+03:22:16 | split(OWL.TE, zone) -> 4 rows
+03:22:16 | player_plays(OWL.TE, {"role": "target", "zone": "red zone", "limit": 400}) -> 6 plays
+03:22:16 | player_plays(OWL.TE, {"role": "target", "zone": "goal line", "limit": 400}) -> 3 plays
+03:22:16 | split(OWL.TE, week) -> 9 rows
+03:22:16 | player_plays(OWL.TE, {"role": "target", "week": 7, "limit": 400}) -> 6 plays
+03:22:16 | player_plays(OWL.TE, {"role": "target", "week": 8, "limit": 400}) -> 6 plays
+03:22:16 | player_plays(OWL.TE, {"role": "target", "week": 9, "limit": 400}) -> 3 plays
+03:22:16 | player_plays(OWL.TE, {"role": "target", "week": 1, "limit": 400}) -> 6 plays
+03:22:16 | OWL.TE: fact-checker step, 4 claims
+03:22:16 | verify_evidence(OWL.TE) -> 5 of 5 real
+03:22:16 | verify_evidence(OWL.TE) -> 3 of 3 real
+03:22:16 | verify_evidence(OWL.TE) -> 5 of 5 real
+03:22:16 | verify_evidence(OWL.TE) -> 5 of 5 real
+03:22:16 | OWL.TE: fact-check kept 4 claims, dropped 0; 7 split rows re-read from the tools for the numbers
+03:22:16 | write_profile(OWL TE Tucker Kraft)
+03:22:16 | write_report(OWL.TE) -> 4 claims, 18 plays cited
+03:22:16 | OWL.TE: report written, 4 claims, 18 plays cited
+03:22:16 | research_plan(OWL.K) -> zone, week
+03:22:16 | starting OWL.K Ka'imi Fairbairn: stats step
+03:22:16 | find_player(Ka'imi Fairbairn) -> 1 match(es)
+03:22:16 | season_stats(3451) -> 34 stat keys
+03:22:16 | compute_tendencies(K) -> kicker_range=0.611, accuracy=0.947
+03:22:16 | OWL.K: film room step
+03:22:16 | player_plays(OWL.K, {"kind": "fg", "limit": 400}) -> 19 plays
+03:22:16 | OWL.K: fact-checker step, 4 claims
+03:22:16 | verify_evidence(OWL.K) -> 5 of 5 real
+03:22:16 | verify_evidence(OWL.K) -> 5 of 5 real
+03:22:16 | verify_evidence(OWL.K) -> 4 of 4 real
+03:22:16 | verify_evidence(OWL.K) -> 4 of 4 real
+03:22:16 | OWL.K: fact-check kept 4 claims, dropped 0; 4 split rows re-read from the tools for the numbers
+03:22:16 | write_profile(OWL K Ka'imi Fairbairn)
+03:22:16 | write_report(OWL.K) -> 4 claims, 18 plays cited
+03:22:16 | OWL.K: report written, 4 claims, 18 plays cited
+03:22:16 | finished: 28 reports written
