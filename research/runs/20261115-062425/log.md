@@ -20,3 +20,13 @@ Dry run: yes (everything is written inside research/runs/20261115-062425)
 | 07:06:51 | 5 model | research-modeler | not available yet: research/tools/model.py is not on this branch (the projections branch has not been pushed) | none |
 | 07:07:38 | 6 write | research-writer | ok: write_profiles.py (read-only copy from the profiles branch) run from a temporary copy pointed at the run folder; projections missing so profiles say projection pending; scouts_read already present in both notes | research/runs/20261115-062425/players/TUR-K.md, research/runs/20261115-062425/players/OWL-K.md, research/runs/20261115-062425/teams/TUR.md, research/runs/20261115-062425/teams/OWL.md, research/runs/20261115-062425/matchups/TUR-vs-OWL.md |
 | 07:08:21 | 7 check TUR-K | research-checker | FAIL: one overstated stat, an unflagged birthplace conflict, an unsourced team record, an unconfirmed engagement | research/runs/20261115-062425/check-TUR-K.md |
+| 07:08:43 | 7 check OWL-K | research-checker | FAIL: the Browns' last game (score and opponent) and a pass defense figure are not in any source and contradicted by search | research/runs/20261115-062425/check-OWL-K.md |
+
+## Summary
+
+- What ran: set up and plan (command), pull (research-puller, once), research (research-researcher, 2 players), model (research-modeler, once), write (research-writer, once), check (research-checker, 2 players). Every step ran and logged a row.
+- What passed: no player. Both notes match the data file on every number checked, but both failed the fact check.
+- What failed: TUR-K (one overstated stat, an unflagged birthplace conflict, an unsourced team record, an unconfirmed engagement) and OWL-K (the opponent's last game, score and a defense figure that no source shows). Cause: the researcher definition did not make the researcher verify every claim against what it actually read before writing. The definition is fixed and the run is repeated in a new run folder.
+- What was not found: refused hosts (ESPN, Sleeper, Wikipedia, Google News, EA, GitHub); research/tools/model.py not available yet (projections pending); facts the notes mark "not found" (wind, this week's quotes, the week 10 injury reports).
+- Where the files are: this folder only (dry run). Nothing in research/notes/, research/players/, research/teams/ or research/matchups/ was written.
+- Nothing was committed or pushed by the pipeline; the person running it commits.
