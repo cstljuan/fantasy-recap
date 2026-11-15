@@ -1935,6 +1935,12 @@
         (w.document.head || w.document.documentElement).appendChild(st);
       }
       if (!w.__frTabsHooked) { w.__frTabsHooked = true; w.addEventListener('hashchange', soccerTabs); }
+      // The soccer crowd: background noise at all times, a loud cheer for goals, boos for fouls.
+      if (!w.document.getElementById('fr-stadium-sound')) {
+        var sc = w.document.createElement('script');
+        sc.id = 'fr-stadium-sound'; sc.src = '../js/screens/stadium-sound.js';
+        (w.document.body || w.document.documentElement).appendChild(sc);
+      }
     }
     fitSoccer();
   }
@@ -2154,6 +2160,11 @@
   var crowdScript = document.createElement('script');
   crowdScript.src = 'js/screens/crowd.js';
   document.body.appendChild(crowdScript);
+  // The stadium sound for football: background noise at all times, a loud cheer and claps for
+  // touchdowns and field goals, boos for incomplete passes and penalties (js/screens/stadium-sound.js).
+  var stadiumSound = document.createElement('script');
+  stadiumSound.src = 'js/screens/stadium-sound.js';
+  document.body.appendChild(stadiumSound);
 
   // Watch party: ?party=host makes this screen the host; any screen can join as a remote.
   var partyScript = document.createElement('script');
