@@ -1,0 +1,208 @@
+{
+ "key": "OWL-K",
+ "name": "Ka'imi Fairbairn",
+ "researched": "2026-11-15",
+ "background": [
+  {
+   "fact": "Born January 29, 1994 in Kailua, Hawaii, to John and Rochelle Fairbairn. His full name is John Christian Ka'iminoeauloameka'ikeokekumupa'a Fairbairn, and he has gone by Ka'imi since childhood; the name means 'seeker of wisdom'.",
+   "source": "https://en.wikipedia.org/wiki/Ka%CA%BBimi_Fairbairn",
+   "date": null,
+   "confidence": "from Wikipedia"
+  },
+  {
+   "fact": "At Punahou School in Honolulu he was a two-sport star in football and soccer (two-time first-team all-state central defender, two state titles), and he was ranked the No. 4 kicking recruit in the country.",
+   "source": "https://en.wikipedia.org/wiki/Ka%CA%BBimi_Fairbairn",
+   "date": null,
+   "confidence": "from Wikipedia"
+  },
+  {
+   "fact": "At UCLA he won the kicking job as a true freshman in 2012, became the Pac-12 career scoring record holder, kicked a 60-yard field goal in 2015, was a consensus first-team All-American and won the Lou Groza Award as the top college kicker in 2015.",
+   "source": "https://en.wikipedia.org/wiki/Ka%CA%BBimi_Fairbairn",
+   "date": null,
+   "confidence": "from Wikipedia (the data file also lists the 2015 Lou Groza Award)"
+  },
+  {
+   "fact": "He signed with Houston as an undrafted free agent in 2016 and was named the starting kicker in 2017. His career field goal percentage is 87.9 percent, listed as fourth best in NFL history.",
+   "source": "https://en.wikipedia.org/wiki/Ka%CA%BBimi_Fairbairn",
+   "date": null,
+   "confidence": "from Wikipedia"
+  },
+  {
+   "fact": "Listed at 6 ft 0 in, 183 lb, age 32, jersey 15, in his 11th NFL season, with the Texans since 2017. Contract data in the file shows a 2020 deal for 4 years and $17.65 million, but the file says later extensions are missing; one lifestyle article mentions a $15.9 million contract, so the contract is not confirmed.",
+   "source": "research/data/OWL-K.json (bio); https://essentiallysports.com/nfl-active-news-who-is-kaimi-fairbairns-wife-all-you-need-to-know-about-rachel-inouye",
+   "date": "2026-11-15",
+   "confidence": "two sources disagree on contract value"
+  }
+ ],
+ "family": [
+  {
+   "fact": "His parents are John and Rochelle Fairbairn (Wikipedia, early life section).",
+   "source": "https://en.wikipedia.org/wiki/Ka%CA%BBimi_Fairbairn",
+   "date": null,
+   "confidence": "from Wikipedia"
+  },
+  {
+   "fact": "A lifestyle site says he is married to Rachel Inouye, a former UCLA volleyball player from Honolulu, with a wedding on February 16, 2020 in Oahu. The article's own wording is muddled and it is not a primary source, so treat the wedding date as unconfirmed. Nothing about children was found: not found.",
+   "source": "https://essentiallysports.com/nfl-active-news-who-is-kaimi-fairbairns-wife-all-you-need-to-know-about-rachel-inouye",
+   "date": "date not shown",
+   "confidence": "one source, unconfirmed"
+  }
+ ],
+ "recent_events": [
+  {
+   "fact": "Week 9: Houston beat the Chargers 44-22. Fairbairn went 3 for 3 on field goals (56 yards in the first quarter, then 31 and 41 in the fourth) and made all five extra points.",
+   "source": "research/data/OWL-K.json (status.espn, log)",
+   "date": "2026-11-09",
+   "confidence": "from the data file (ESPN note and game log agree)"
+  },
+  {
+   "fact": "2026 season: 8 games, 18 of 19 field goals, 7 of 8 from 50-plus yards, 21 of 21 extra points, 93 fantasy points (11.6 a game). Houston averages 26.1 points for and 24.0 against, record 3-5.",
+   "source": "research/data/OWL-K.json (season_2026)",
+   "date": "2026-11-15",
+   "confidence": "from the data file"
+  },
+  {
+   "fact": "His longest 2026 kicks in the game log: 58 (Week 1 at Buffalo), 58 (Week 7 vs the Giants), 56 (Week 9), 54 (Week 4), 53 (Week 5). Per search results he won AFC Special Teams Player of the Week after a 59-yard field goal at the gun against Buffalo; the file shows 58, so the distance differs between sources.",
+   "source": "https://www.si.com/nfl/texans/onsi/news/houston-texans-kaimi-fairbairn-earns-another-nfl-award",
+   "date": "date not shown",
+   "confidence": "two sources disagree on the length (58 vs 59), search summary only"
+  },
+  {
+   "fact": "Named AFC Special Teams Player of the Month for October 2026 after making all 11 field goal tries that month, five of them from 50-plus yards.",
+   "source": "https://www.footballnationusa.com/post/ka-imi-fairbairn-s-october-range-changes-houston-s-fourth-down-map",
+   "date": "2026-11-05",
+   "confidence": "one source (search summary); Texans and Athlon headlines in the data file also report the award"
+  },
+  {
+   "fact": "He kicked a last-second 49-yard field goal to beat Jacksonville 34-31 at Wembley Stadium on October 18.",
+   "source": "research/data/OWL-K.json (news headline from Orlando Sentinel; log shows Week 6 JAX W 34-31, 2 of 2)",
+   "date": "2026-10-18",
+   "confidence": "headline only plus game log"
+  },
+  {
+   "fact": "Houston plays at Cleveland this Sunday after the Chargers win; the schedule shows 7 days of rest.",
+   "source": "research/data/OWL-K.json (next_games)",
+   "date": "2026-11-15",
+   "confidence": "one source"
+  }
+ ],
+ "quotes": [
+  {
+   "fact": "A Yahoo Sports headline dated the day of the game reads 'DeMeco Ryans Has High Praise for Texans Kicker Ka'imi Fairbairn'. The text was not read, so the exact words are not found. A search summary says Ryans has repeatedly credited Fairbairn for wins, including a six-50-yarder game against the Bears, but without dates.",
+   "source": "research/data/OWL-K.json (news.quotes, Yahoo Sports)",
+   "date": "2026-11-15",
+   "confidence": "headline only, quote text not found"
+  }
+ ],
+ "team_context": [
+  {
+   "fact": "Houston is 3-5 and scores 26.1 points a game while allowing 24.0. C.J. Stroud has been the passer every week (Davis Mills threw 2 passes in Week 9).",
+   "source": "research/data/OWL-K.json (season_2026.team, teammates_2026)",
+   "date": "2026-11-15",
+   "confidence": "from the data file"
+  },
+  {
+   "fact": "Top targets: Dalton Schultz (47), Xavier Hutchinson (45), Nico Collins (39 in 6 games), Kayshon Boutte (28), Jaylin Noel (23). Woody Marks has 95 carries and David Montgomery 52. One preview lists Montgomery as questionable and Noel on injured reserve.",
+   "source": "https://www.si.com/betting/texans-vs-browns-prediction-odds-spread-injuries-trends-for-nfl-week-10-2026",
+   "date": "date not shown",
+   "confidence": "targets and carries from the data file; injuries from one source (search summary)"
+  },
+  {
+   "fact": "Head coach is DeMeco Ryans (named in the Yahoo headline and search results). Offensive coordinator and special teams coordinator for 2026: not found. Long snapper and holder: not found.",
+   "source": "research/data/OWL-K.json (news.quotes)",
+   "date": "2026-11-15",
+   "confidence": "head coach from headline only; others not found"
+  },
+  {
+   "fact": "Houston fantasy kicker score has come from many extra points and long kicks: 21 extra points in 8 games, 7 field goals from 50-plus. Rotowire projections are stored in the data file for Week 10 but were not used here.",
+   "source": "research/data/OWL-K.json (season_2026)",
+   "date": "2026-11-15",
+   "confidence": "from the data file"
+  }
+ ],
+ "next_opponent": [
+  {
+   "fact": "Houston plays at the Cleveland Browns on Sunday, November 15, 1 pm ET at Huntington Bank Field (outdoors, grass), on Fox.",
+   "source": "research/data/OWL-K.json (next_games)",
+   "date": "2026-11-15",
+   "confidence": "from the data file; a search result also gives 1 pm ET at Huntington Bank Field"
+  },
+  {
+   "fact": "Lines: the data file has Houston -4.5, total 40.5 (implied Houston 22.5). A search result for an SI betting preview gives Houston -4.5 with a total of 38.5 at DraftKings. Spread agrees, total differs.",
+   "source": "https://www.si.com/betting/texans-vs-browns-prediction-odds-spread-injuries-trends-for-nfl-week-10-2026",
+   "date": "date not shown",
+   "confidence": "two sources disagree on the total"
+  },
+  {
+   "fact": "Weather in the data file: showers, 46 F; wind not found. Lake-side Cleveland wind has hurt kickers before, but no 2026 wind forecast was found.",
+   "source": "research/data/OWL-K.json (next_games)",
+   "date": "2026-11-15",
+   "confidence": "one source; wind not found"
+  },
+  {
+   "fact": "Squawka predicts Houston 26-17 and Dimers gives Houston a 65.8 percent win chance. Browns record and defensive ranking against kickers: not found.",
+   "source": "https://www.squawka.com/en/?p=1517578",
+   "date": "date not shown",
+   "confidence": "search summary only"
+  },
+  {
+   "fact": "Fairbairn vs Cleveland in the game log: 2017 1 of 1 (40 long), 2018 5 of 5 (53 long, 21 points), 2020 0 for 1 FG, 2022 2 of 2, 2023 week 16 no field goals, 2023 playoffs 1 of 1. A search headline about a 10-7 Houston loss to Cleveland with a wind-blown miss matches the 2020 game (7-10, 0 for 1), not this season.",
+   "source": "research/data/OWL-K.json (log)",
+   "date": "2026-11-15",
+   "confidence": "from the data file; the headline link was not opened"
+  }
+ ],
+ "style": [
+  {
+   "fact": "Known for a very strong leg: Madden week 8 rating of 81 overall with kick power 96 and kick accuracy 89.",
+   "source": "research/data/OWL-K.json (bio.madden)",
+   "date": "2026-11-15",
+   "confidence": "one source"
+  },
+  {
+   "fact": "In 2024 he kicked a 59-yard field goal against the Bears, called an NFL record, and in his career he has 57 made field goals from 50 to 59 yards plus one from 60 or more (regular season).",
+   "source": "research/data/OWL-K.json (career, news headline from Click2Houston dated 2024-09-16)",
+   "date": "2024-09-16",
+   "confidence": "career counts from the data file; record claim is a headline only"
+  },
+  {
+   "fact": "Career regular season: 146 games, 273 of 310 field goals, 289 of 308 extra points, 8.83 fantasy points a game; his best season was 2025 (44 of 48, 12.9 a game, 15 games).",
+   "source": "research/data/OWL-K.json (career)",
+   "date": "2026-11-15",
+   "confidence": "from the data file"
+  }
+ ],
+ "availability": {
+  "status": "Active, expected to kick",
+  "detail": "Sleeper and ESPN show Active with no injury designation in 2026. He missed Weeks 10 and 11 of 2025 with a quadriceps injury (the data file shows Out, then full practice in Week 12), which is a past issue and not current. No official inactive list or practice report for this Sunday was seen.",
+  "expected_return": "Not applicable",
+  "source": "research/data/OWL-K.json (status, injury_reports)",
+  "date": "2026-11-15"
+ },
+ "outlook_next_game": {
+  "lean": "plays; about 8 to 11 fantasy points with a chance of a long kick or two",
+  "confidence": "medium",
+  "reasons": [
+   "He is active with no 2026 injury and has been Houston's kicker all 8 games.",
+   "Houston is a 4.5 point favorite with an implied total of 22.5, a moderate scoring game that should still produce about 2 field goals and 2 extra points.",
+   "His 2026 average is 11.6 points a game and he is 7 for 8 from 50-plus, so long tries raise his ceiling.",
+   "Risks are wet and windy Cleveland weather (showers, 46 F, wind not found) and a low total of 38.5 to 40.5 points."
+  ]
+ },
+ "scouts_read": "Fairbairn is healthy and in strong form, with an October of 11 for 11 and only one missed field goal all year. Houston is a modest road favorite in Cleveland with a game total near 40, so this is not a high scoring setup. His floor is steady because he gets extra points and long tries, and his average of 11.6 points is well above his career 8.8. Showers and a lakeside stadium are the main worry, since wind was not found and a bad kick day is possible. I would project a middle of the road day around 9 points with upside if Houston stalls near midfield and chooses long field goals.",
+ "open_questions": [
+  "Wind and final game-time weather in Cleveland (not found; only showers and 46 F in the data file).",
+  "Browns record, defense and injuries (not found; an ESPN result seemed to be from an old season).",
+  "Exact words of the DeMeco Ryans praise (headline only).",
+  "Offensive and special teams coordinators, long snapper and holder (not found).",
+  "Current contract details and anything about children (not found)."
+ ],
+ "searches": [
+  "Ka'imi Fairbairn Texans Browns Week 10 kicker (top result matched a 2020 game, not this season)",
+  "DeMeco Ryans high praise Texans kicker Ka'imi Fairbairn",
+  "Texans at Browns Week 10 2026 preview Stroud injury report",
+  "Fairbairn AFC Special Teams Player of the Month October 2026 perfect",
+  "Ka'imi Fairbairn wife Rachel Inouye",
+  "No page fetches were made; the Wikipedia text came from the early life and college sections stored in research/data/OWL-K.json (the NFL career sections were not stored)"
+ ]
+}
