@@ -294,6 +294,31 @@ scStops.forEach(function (s) {
   var left = nodes.filter(function (n) { return (n.kind === 'source' || n.kind === 'osc') && n.createdAt <= s.t && running(n, later) && (s.all || reachesCrowd(n)); });
   if (left.length) problems.push(left.length + ' sound(s) still running ' + (later - s.t) + ' s after ' + s.what + ' (' + left.map(function (n) { return n.label || n.kind; }).slice(0, 3).join(', ') + ')');
 });
+// Football with Peyton's crowd layer (window.FR_CROWD): js/audio.js keeps to the whistles, without
+// it the reactions are its own.
+global.SC_GAME = undefined;
+function reactCounts(withCrowd) {
+  global.FF_GAME = { active: true, seeking: false };
+  global.FR_CROWD = withCrowd ? { names: function () { return ['defense [crowd chants DE-FENSE]']; } } : undefined;
+  advance(60);
+  var c0 = counts();
+  Snd.react('snap', { res: { e: { t: 'pass' }, pre: { down: 3 } } });
+  Snd.react('result', { res: { td: true, e: { t: 'pass' }, pre: { down: 3 } } });
+  advance(5);
+  Snd.react('half', {});
+  advance(5);
+  Snd.react('final', {});
+  advance(6);
+  var c = counts(), d = {};
+  Object.keys(c).forEach(function (k) { if (c[k] - (c0[k] || 0)) d[k] = c[k] - (c0[k] || 0); });
+  global.FF_GAME = undefined; global.FR_CROWD = undefined;
+  return d;
+}
+var alone = reactCounts(false), shared = reactCounts(true);
+if (!alone.crowd_chant || !alone.air_horn || !alone.whistle_long || !alone.whistle_full) problems.push('football without the crowd layer misses reactions: ' + JSON.stringify(alone));
+['crowd_chant', 'air_horn', 'crowd_clap', 'crowd_cheer'].forEach(function (k) { if (shared[k]) problems.push('js/audio.js plays ' + k + ' over Peyton\'s crowd layer'); });
+if (!shared.whistle_long || !shared.whistle_full) problems.push('the referee\'s whistles are missing when the crowd layer is there: ' + JSON.stringify(shared));
+
 // One crowd at a time: a second module asking for a kind that just played is told no.
 advance(20);
 if (!Snd.claim('chant') || Snd.claim('chant')) problems.push('FF_AUDIO.claim lets the same crowd kind play twice within 4 seconds');
@@ -307,4 +332,4 @@ if (problems.length) {
 }
 console.log('OK: a whole game (' + Math.round(gameEnd / 60) + ' minutes of sound, ' + ffLines +
   ' spoken lines): no gain above 1, the crowd ducks under every line, nothing runs on after crowd_stop or the final, no two jingles at once, nothing starts while muted.');
-console.log('OK: the soccer match through the same sound (' + scEvents + ' events, ' + goals + ' goals): every sound soccer asks for exists, the bed runs under every event, whistles at half and full time, a roar for every goal, no gain above 1, nothing runs on after the final, claim() keeps crowds from doubling up. ' + nodes.length + ' audio nodes in all.');
+console.log('OK: the soccer match through the same sound (' + scEvents + ' events, ' + goals + ' goals): every sound soccer asks for exists, the bed runs under every event, whistles at half and full time, a roar for every goal, no gain above 1, nothing runs on after the final, claim() keeps crowds from doubling up, and with Peyton\'s crowd layer only the whistles come from here. ' + nodes.length + ' audio nodes in all.');

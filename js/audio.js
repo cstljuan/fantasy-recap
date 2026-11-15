@@ -513,10 +513,20 @@
     if (!delay) { play(name); return; }
     setTimeout(function () { var G = game(); if (!G || G.active !== false) play(name); }, delay * 1000);
   }
+  // Peyton's stadium crowd (js/screens/crowd.js, window.FR_CROWD) plays its own chants, cheers,
+  // boos and horns on the football field. When it is there, this file keeps to the referee's
+  // whistles and the stadium bed, so the two crowds never double up.
+  function otherCrowd() {
+    var C = root.FR_CROWD;
+    try { return !!(C && typeof C.names === 'function' && C.names().length); } catch (err) { return false; }
+  }
   function react(type, d) {
     var G = root.FF_GAME;
     if (!G || G.active === false || G.seeking) return;
     var res = d && d.res, e = res && res.e || {};
+    if (type === 'half') { after('whistle_long', 0, 0); if (!otherCrowd()) after('crowd_clap', 1.6, 0); return; }
+    if (type === 'final') { after('whistle_full', 0, 0); if (!otherCrowd()) { after('crowd_cheer', 2.1, 0); after('crowd_clap', 3.0, 0); } return; }
+    if (otherCrowd()) return;
     if (type === 'snap' && res) {
       if (e.t === 'kickoff') after('crowd_stomp', 0, 30);
       else if (res.pre && res.pre.down === 3) after('crowd_chant', 0.2, 25);
@@ -528,8 +538,7 @@
       else if (e.t === 'sack') after('crowd_clap', 0.6, 12);
       else if (e.t === 'inc' && res.pre && res.pre.down >= 3) after('crowd_ooh', 0.1, 12);
       else if (e.t === 'int' || e.t === 'fumble') after('crowd_boo', 1.6, 15);
-    } else if (type === 'half') { after('whistle_long', 0, 0); after('crowd_clap', 1.6, 0); }
-    else if (type === 'final') { after('whistle_full', 0, 0); after('crowd_cheer', 2.1, 0); after('crowd_clap', 3.0, 0); }
+    }
   }
   // Soccer, with the same broadcast sound as football (C29): the bed under every event, the
   // whistle at half and full time, a roar for a goal, ooh for a save, aww for a miss, boos for a card.
