@@ -1,28 +1,35 @@
 # Scouting report: CeeDee Lamb
 
-TUR, WR1. Made by model Claude Code session (claims picked from Scout's splits by a script, read through by hand, not scout.py) on 2026-11-15, from the real play-by-play in `data/rosters/plays-2026.json` (ESPN, 9 games). Every claim lists the plays it rests on; each play links to its game.
+TUR, WR1. Made by Scout's tools, researched in Juan's laptop session on 2026-11-14, from the real play-by-play in `data/rosters/plays-2026.json` (ESPN, 9 games). Every claim lists the plays it rests on; each play links to its game.
 
-1. By direction, ranked by success rate: Lamb did best to the left (40 targets, 7.3 a play, 52 percent success) and worst up the middle (19 targets, 6.9 a play, 42 percent success). [1, 2, 3, 4, 5]
-2. By field zone, ranked by success rate: Lamb did best in the open field (86 targets, 8.8 a play, 51 percent success) and worst in the red zone (15 targets, 4.8 a play, 33 percent success). [6, 7, 8, 9, 10]
-3. In the last three games played (weeks 7, 8, 9) Lamb averaged 8.4 yards a play on 39 targets, against 8.0 in the 6 games before. [11, 12, 13]
-4. Inside the 20 Lamb had 18 targets and 5 touchdowns. [14, 15, 16, 17]
+1. Lamb is the deep target: 28 deep targets for 424 yards and 3 touchdowns; his 80 short targets gain 6.0 a target. [1, 2, 3, 4, 5]
+2. He works the right side (51 targets, 9.3 a target); the middle is his least productive area at 6.9 a target and 42 percent success. [6, 7, 8, 9, 10]
+3. On third down he has 32 targets, 15 first downs and 2 touchdowns. [11, 12, 13]
+4. He is thrown to a lot in the red zone (15 targets, 3 touchdowns) but only 33 percent of those succeed; at the goal line he has 2 touchdowns on 3 targets. [14, 15, 16, 17, 18]
+5. His volume is up to 13.0 targets and 109.0 yards a game in weeks 7, 8 and 9, with 3 touchdowns, but the success rate fell from 55 to 41 percent. [19, 20, 21, 22, 23]
 
 ## Evidence
 
-1. Week 1, Q1 6:05: D.Shelton reported in as eligible.  C.Lamb left end to DAL 16 for no gain (A.Phillips). ([game](https://site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event=401872930))
-2. Week 1, Q2 5:44: (Shotgun) D.Prescott pass short left to C.Lamb for 1 yard, TOUCHDOWN. B.Aubrey extra point is GOOD, Center-T.Sieg, Holder-B.Anger. ([game](https://site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event=401872930))
-3. Week 1, Q2 1:18: (Shotgun) D.Prescott pass short left to C.Lamb pushed ob at DAL 31 for 9 yards (K.Thibodeaux). ([game](https://site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event=401872930))
-4. Week 2, Q1 12:40: (Shotgun) D.Prescott pass deep middle to C.Lamb to WAS 16 for 23 yards (A.Robertson). ([game](https://site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event=401872944))
-5. Week 2, Q1 10:01: D.Prescott pass short middle to C.Lamb for 3 yards, TOUCHDOWN. B.Aubrey extra point is GOOD, Center-T.Sieg, Holder-B.Anger. ([game](https://site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event=401872944))
-6. Week 1, Q2 1:18: (Shotgun) D.Prescott pass short left to C.Lamb pushed ob at DAL 31 for 9 yards (K.Thibodeaux). ([game](https://site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event=401872930))
-7. Week 1, Q3 6:51: (Shotgun) D.Prescott pass short right to C.Lamb to DAL 38 for 13 yards (T.Edmunds). ([game](https://site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event=401872930))
-8. Week 1, Q4 6:57: (Shotgun) D.Prescott pass short right to C.Lamb pushed ob at DAL 37 for 6 yards (D.Banks). ([game](https://site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event=401872930))
-9. Week 1, Q3 1:59: (Shotgun) D.Prescott pass short left to C.Lamb to NYG 2 for 15 yards (P.Adebo). ([game](https://site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event=401872930))
-10. Week 4, Q4 12:42: (Shotgun) D.Prescott pass short right to C.Lamb to HST 3 for 17 yards (C.Bullock; J.Pitre). ([game](https://site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event=401872967))
+1. Week 9, Q2 0:21: (Shotgun) D.Prescott pass deep right to C.Lamb for 44 yards, TOUCHDOWN. B.Aubrey extra point is GOOD, Center-T.Sieg, Holder-B.Anger. ([game](https://site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event=401873040))
+2. Week 2, Q4 3:07: (Shotgun) D.Prescott pass deep right to C.Lamb for 24 yards, TOUCHDOWN. B.Aubrey extra point is GOOD, Center-T.Sieg, Holder-B.Anger. ([game](https://site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event=401872944))
+3. Week 7, Q3 1:30: (Shotgun) D.Prescott pass deep left to C.Lamb for 16 yards, TOUCHDOWN. TWO-POINT CONVERSION ATTEMPT. D.Prescott rushes left guard. ATTEMPT SUCCEEDS. ([game](https://site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event=401873009))
+4. Week 7, Q3 2:17: (Shotgun) D.Prescott FUMBLES (Aborted) at PHI 23, RECOVERED by PHI-T.Woolen at PHI 27. T.Woolen for 73 yards, TOUCHDOWN.The Replay Official reviewed the backwar ([game](https://site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event=401873009))
+5. Week 4, Q4 0:40: (Shotgun) D.Prescott pass short middle to C.Lamb for 12 yards, TOUCHDOWN. B.Aubrey extra point is GOOD, Center-T.Sieg, Holder-B.Anger. ** Injury Update: HST-J.C ([game](https://site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event=401872967))
+6. Week 9, Q2 0:21: (Shotgun) D.Prescott pass deep right to C.Lamb for 44 yards, TOUCHDOWN. B.Aubrey extra point is GOOD, Center-T.Sieg, Holder-B.Anger. ([game](https://site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event=401873040))
+7. Week 2, Q4 3:07: (Shotgun) D.Prescott pass deep right to C.Lamb for 24 yards, TOUCHDOWN. B.Aubrey extra point is GOOD, Center-T.Sieg, Holder-B.Anger. ([game](https://site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event=401872944))
+8. Week 9, Q3 3:04: B.Jones reported in as eligible.  D.Prescott pass short right to C.Lamb for 11 yards, TOUCHDOWN.The Replay Official reviewed the pass completion ruling, and the ([game](https://site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event=401873040))
+9. Week 4, Q4 0:40: (Shotgun) D.Prescott pass short middle to C.Lamb for 12 yards, TOUCHDOWN. B.Aubrey extra point is GOOD, Center-T.Sieg, Holder-B.Anger. ** Injury Update: HST-J.C ([game](https://site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event=401872967))
+10. Week 2, Q1 10:01: D.Prescott pass short middle to C.Lamb for 3 yards, TOUCHDOWN. B.Aubrey extra point is GOOD, Center-T.Sieg, Holder-B.Anger. ([game](https://site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event=401872944))
 11. Week 7, Q1 5:32: (Shotgun) D.Prescott pass short right to C.Lamb for 9 yards, TOUCHDOWN. B.Aubrey extra point is GOOD, Center-T.Sieg, Holder-B.Anger. ([game](https://site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event=401873009))
-12. Week 8, Q1 13:17: D.Prescott pass short right to C.Lamb to DAL 23 for 9 yards (K.Clark; B.Baker). ([game](https://site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event=401873024))
-13. Week 9, Q1 4:23: (Shotgun) D.Prescott pass short right to C.Lamb to IND 37 for 13 yards (C.Ward). ([game](https://site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event=401873040))
-14. Week 1, Q2 5:44: (Shotgun) D.Prescott pass short left to C.Lamb for 1 yard, TOUCHDOWN. B.Aubrey extra point is GOOD, Center-T.Sieg, Holder-B.Anger. ([game](https://site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event=401872930))
-15. Week 2, Q1 10:01: D.Prescott pass short middle to C.Lamb for 3 yards, TOUCHDOWN. B.Aubrey extra point is GOOD, Center-T.Sieg, Holder-B.Anger. ([game](https://site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event=401872944))
-16. Week 1, Q3 1:59: (Shotgun) D.Prescott pass short left to C.Lamb to NYG 2 for 15 yards (P.Adebo). ([game](https://site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event=401872930))
-17. Week 4, Q4 12:42: (Shotgun) D.Prescott pass short right to C.Lamb to HST 3 for 17 yards (C.Bullock; J.Pitre). ([game](https://site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event=401872967))
+12. Week 1, Q2 5:44: (Shotgun) D.Prescott pass short left to C.Lamb for 1 yard, TOUCHDOWN. B.Aubrey extra point is GOOD, Center-T.Sieg, Holder-B.Anger. ([game](https://site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event=401872930))
+13. Week 9, Q4 12:05: (Shotgun) D.Prescott pass deep right to C.Lamb to IND 13 for 48 yards (A.Ajiake).Indianapolis challenged the runner was down by contact ruling, and the play was ([game](https://site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event=401873040))
+14. Week 7, Q3 2:17: (Shotgun) D.Prescott FUMBLES (Aborted) at PHI 23, RECOVERED by PHI-T.Woolen at PHI 27. T.Woolen for 73 yards, TOUCHDOWN.The Replay Official reviewed the backwar ([game](https://site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event=401873009))
+15. Week 7, Q3 1:30: (Shotgun) D.Prescott pass deep left to C.Lamb for 16 yards, TOUCHDOWN. TWO-POINT CONVERSION ATTEMPT. D.Prescott rushes left guard. ATTEMPT SUCCEEDS. ([game](https://site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event=401873009))
+16. Week 4, Q4 0:40: (Shotgun) D.Prescott pass short middle to C.Lamb for 12 yards, TOUCHDOWN. B.Aubrey extra point is GOOD, Center-T.Sieg, Holder-B.Anger. ** Injury Update: HST-J.C ([game](https://site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event=401872967))
+17. Week 2, Q1 10:01: D.Prescott pass short middle to C.Lamb for 3 yards, TOUCHDOWN. B.Aubrey extra point is GOOD, Center-T.Sieg, Holder-B.Anger. ([game](https://site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event=401872944))
+18. Week 1, Q2 5:44: (Shotgun) D.Prescott pass short left to C.Lamb for 1 yard, TOUCHDOWN. B.Aubrey extra point is GOOD, Center-T.Sieg, Holder-B.Anger. ([game](https://site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event=401872930))
+19. Week 7, Q3 2:17: (Shotgun) D.Prescott FUMBLES (Aborted) at PHI 23, RECOVERED by PHI-T.Woolen at PHI 27. T.Woolen for 73 yards, TOUCHDOWN.The Replay Official reviewed the backwar ([game](https://site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event=401873009))
+20. Week 8, Q2 10:03: (Shotgun) B.Jones reported in as eligible.  D.Prescott pass deep left to C.Lamb pushed ob at ARZ 39 for 27 yards (M.Melton). ([game](https://site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event=401873024))
+21. Week 9, Q2 0:21: (Shotgun) D.Prescott pass deep right to C.Lamb for 44 yards, TOUCHDOWN. B.Aubrey extra point is GOOD, Center-T.Sieg, Holder-B.Anger. ([game](https://site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event=401873040))
+22. Week 1, Q2 5:44: (Shotgun) D.Prescott pass short left to C.Lamb for 1 yard, TOUCHDOWN. B.Aubrey extra point is GOOD, Center-T.Sieg, Holder-B.Anger. ([game](https://site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event=401872930))
+23. Week 1, Q3 1:59: (Shotgun) D.Prescott pass short left to C.Lamb to NYG 2 for 15 yards (P.Adebo). ([game](https://site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event=401872930))

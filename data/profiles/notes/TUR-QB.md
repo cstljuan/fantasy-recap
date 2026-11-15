@@ -10,7 +10,7 @@ TUR, QB (QB). Written by `agents/scout/notes.py` on 2026-11-14 from the data fil
 | short passing | 0.648 | completions divided by attempts | https://api.sleeper.com/stats/nfl/player/11566?season_type=regular&season=2026 | 2026-11-14 |
 | running as a quarterback | 0.157 | rush yards divided by pass plus rush yards | https://api.sleeper.com/stats/nfl/player/11566?season_type=regular&season=2026 | 2026-11-14 |
 
-Season 2026 numbers through game week 7.0 (7.0 games). Filled by agents/scout/fill_profiles.py, no model.
+Short passer and open-field runner who scores near the goal line, not deep. Passing yards are up over his last three games while his rushing is down. Season 2026 numbers through game week 7.0 (7.0 games). Made by Scout's tools, researched in Juan's laptop session: stats step with find_player, season_stats, compute_tendencies and write_profile; film room and fact-check in data/profiles/notes/TUR-QB-report.md.
 
 ## From the real plays
 

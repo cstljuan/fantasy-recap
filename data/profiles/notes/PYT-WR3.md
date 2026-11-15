@@ -11,7 +11,7 @@ PYT, WR3 (WR). Written by `agents/scout/notes.py` on 2026-11-14 from the data fi
 | red zone use | 0.128 | red zone targets divided by targets | https://api.sleeper.com/stats/nfl/player/7569?season_type=regular&season=2026 | 2026-11-14 |
 | target share | 0.195 | targets divided by the team's throws in the games played (from the real plays) | data/rosters/plays-2026.json (ESPN play-by-play, parsed by agents/scout/plays.py) | 2026-11-14 |
 
-Season 2026 numbers through game week 6.0 (6.0 games). Filled by agents/scout/fill_profiles.py, no model.
+Efficient receiver over the middle and to the right who scores in the red zone. His targets and yards have roughly halved over his last three games. Season 2026 numbers through game week 6.0 (6.0 games). Made by Scout's tools, researched in Juan's laptop session: stats step with find_player, season_stats, compute_tendencies and write_profile; film room and fact-check in data/profiles/notes/PYT-WR3-report.md.
 
 ## From the real plays
 

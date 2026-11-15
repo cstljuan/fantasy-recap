@@ -10,7 +10,7 @@ OWL, QB (QB). Written by `agents/scout/notes.py` on 2026-11-14 from the data fil
 | short passing | 0.673 | completions divided by attempts | https://api.sleeper.com/stats/nfl/player/4046?season_type=regular&season=2026 | 2026-11-14 |
 | running as a quarterback | 0.04 | rush yards divided by pass plus rush yards | https://api.sleeper.com/stats/nfl/player/4046?season_type=regular&season=2026 | 2026-11-14 |
 
-Season 2026 numbers through game week 8.0 (8.0 games). Filled by agents/scout/fill_profiles.py, no model.
+High-volume short passer who throws to the right and scores through the air inside the 20. Yards per throw are down over the last three games on more attempts. Season 2026 numbers through game week 8.0 (8.0 games). Made by Scout's tools, researched in Juan's laptop session: stats step with find_player, season_stats, compute_tendencies and write_profile; film room and fact-check in data/profiles/notes/OWL-QB-report.md.
 
 ## From the real plays
 

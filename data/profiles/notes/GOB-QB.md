@@ -10,7 +10,7 @@ GOB, QB (QB). Written by `agents/scout/notes.py` on 2026-11-14 from the data fil
 | short passing | 0.661 | completions divided by attempts | https://api.sleeper.com/stats/nfl/player/4984?season_type=regular&season=2026 | 2026-11-14 |
 | running as a quarterback | 0.123 | rush yards divided by pass plus rush yards | https://api.sleeper.com/stats/nfl/player/4984?season_type=regular&season=2026 | 2026-11-14 |
 
-Season 2026 numbers through game week 8.0 (8.0 games). Filled by agents/scout/fill_profiles.py, no model.
+Deep and middle-of-the-field passer who finishes drives with his own legs at the goal line. Passing efficiency and rushing volume are both down over his last three games. Season 2026 numbers through game week 8.0 (8.0 games). Made by Scout's tools, researched in Juan's laptop session: stats step with find_player, season_stats, compute_tendencies and write_profile; film room and fact-check in data/profiles/notes/GOB-QB-report.md.
 
 ## From the real plays
 
