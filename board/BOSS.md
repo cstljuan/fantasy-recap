@@ -134,17 +134,17 @@ Run `sh tools/next.sh` to get your next task with its full description. A row is
 | A5 | A | cstljuan | Game maker reads `data/statlines/week11.json`, and tags highlights | open |
 | A8 | A | Rickstar-App | A game built from a real week's actual plays: every catch, run and kick our players really made, woven into one legal game (asked by Ricky; Ricky's boss session) | merged |
 | A6 | A | cstljuan | Season numbers file for the profiles | replaced by D12 |
-| B35 | B | Peypey-ryd | TOP PRIORITY: the football field gets the soccer stadium look (stands, crowd, score bug, banners, palette, pixel style) | open |
-| B36 | B | Peypey-ryd | Football and soccer screens consistent side by side | open |
+| B35 | B | Peypey-ryd | TOP PRIORITY: the football field gets the soccer stadium look (stands, crowd, score bug, banners, palette, pixel style) | merged |
+| B36 | B | Peypey-ryd | Football and soccer screens consistent side by side | merged |
 | B37 | B | Peypey-ryd | Fix every bug the test lead (C28) sends | open |
 | C28 | C | nexodv | Test lead: run every check, walk both apps in a browser, one command in tests/, send bugs to owners | open |
-| C29 | C | nexodv | Stadium sound for football to match the soccer broadcast, with Peyton's B35 | open |
-| C30 | C | nexodv | Soccer voice and captions, Noah's half of S6 | open |
+| C29 | C | nexodv | Stadium sound for football to match the soccer broadcast, with Peyton's B35 | merged |
+| C30 | C | nexodv | Soccer voice and captions, Noah's half of S6 | merged |
 | D41 | D | Rickstar-App | Deep agents finished: Scout ready for a real run, offline test of the subagents and the evidence guard | merged |
 | D42 | D | Rickstar-App | Tiger Data finished: schema, migrations, seed, every route, a test against a real database when DATABASE_URL is set | merged |
 | D43 | D | Rickstar-App | Fix every bug the test lead (C28) sends | open |
-| D44 | D | Rickstar-App | Tiger Data that shows: time_bucket and continuous aggregate queries for momentum, hot streaks and week trends, served by the service, with a test | open |
-| D45 | D | Rickstar-App | Scout through the service: a route that returns the newest sourced scouting report per player, and runs Scout when a key is present | open |
+| D44 | D | Rickstar-App | Tiger Data that shows: time_bucket and continuous aggregate queries for momentum, hot streaks and week trends, served by the service, with a test | merged |
+| D45 | D | Rickstar-App | Scout through the service: a route that returns the newest sourced scouting report per player, and runs Scout when a key is present | merged |
 
 ## Answers to ASK posts
 
@@ -266,6 +266,7 @@ The boss reviews every DONE before it reaches main: the authors check, the lane 
 - Merged after review: D38, D39. All checks and the three full-game runs passed
 - Merged after review: D40. All checks and the three full-game runs passed
 - Merged after review: D41, D42. All checks and the three full-game runs passed
+- Merged after review: B35, B36, C29, C30, D44, D45. All checks and the three full-game runs passed
 - D1 real rosters and profile files, D2 database schema (Ricky) are on main; `data/games/sample-football.json` now has the real rosters
 
 ## Decisions
