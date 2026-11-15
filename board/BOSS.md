@@ -120,7 +120,7 @@ Run `sh tools/next.sh` to get your next task with its full description. A row is
 | S4 | S | cstljuan | The soccer match maker | merged |
 | S5 | S | cstljuan | The soccer app: lineups, feed, recap, hidden scores | merged |
 | S7 | S | cstljuan | `SC_GAME.seek(index)` and `SC_GAME.hold(on)` with the same meaning as `FF_GAME`, for Peyton's jump bar and rule cards | moved to C32 |
-| S6 | S | cstljuan | Soccer voice and captions, with Noah | open |
+| S6 | S | cstljuan | Soccer voice and captions, with Noah | done: Noah C30 and the boss wiring |
 | G1 | G | cstljuan | The Figma file with its pages set up (structure only for now) | open |
 | G2 | G | cstljuan | Brand guide, wordmark, mascot | open |
 | G3 | G | cstljuan | Every screen at phone and laptop size | open |
@@ -142,7 +142,7 @@ Run `sh tools/next.sh` to get your next task with its full description. A row is
 | B40 | B | Peypey-ryd | League home: the Turtles against Owls matchup opens its own game once D46's file is on main | open |
 | B41 | B | Peypey-ryd | Demo path at phone size, both sports, after tonight's changes: league, matchup, opt in, watch, jump, recap, share; fix what breaks | dropped: Juan, focus on data |
 | B42 | B | Peypey-ryd | Phone speed: first load on a throttled phone profile, what blocks the first screen, lazy loading where it is yours, a short report with numbers | dropped: Juan, focus on data |
-| C28 | C | nexodv | Test lead: run every check, walk both apps in a browser, one command in tests/, send bugs to owners | open |
+| C28 | C | nexodv | Test lead: run every check, walk both apps in a browser, one command in tests/, send bugs to owners | merged |
 | C32 | C | nexodv | Soccer seek and hold (S7, moved to Noah), then the jump bar, rule cards and share card on the soccer page, with Peyton | open |
 | C33 | C | nexodv | Voice for the second football game (Turtles against Owls, D46) once its file is on main | dropped (Noah's call) |
 | C34 | C | nexodv | The demo video shot list and two-minute script, refreshed against main tonight (new stadium, soccer in the same tab bar, recordings), with Peyton | open |
