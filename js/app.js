@@ -759,7 +759,8 @@
     var j = trend$.by[TEAMS[t].id + '.' + role];
     if (!j) return '';
     var open = m.status === 'final' && !masked(), wk = thisWeek();
-    var weeks = j.weeks.filter(function (w) { return open || w.week < wk; });
+    // Never a week after this game's (the league is at this game's week), and this game's own week only after the final.
+    var weeks = j.weeks.filter(function (w) { return open ? w.week <= wk : w.week < wk; });
     if (!weeks.length) return '';
     var s = trendSummary(weeks);
     var list = weeks.map(function (w) { return 'wk ' + w.week + ' ' + f1(w.points); }).join(', ');
