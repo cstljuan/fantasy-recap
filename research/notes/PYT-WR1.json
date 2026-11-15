@@ -1,0 +1,236 @@
+{
+ "key": "PYT-WR1",
+ "name": "Justin Jefferson",
+ "researched": "2026-11-15",
+ "background": [
+  {
+   "fact": "Justin Jamal Jefferson was born June 16, 1999, and attended Destrehan High School in Destrehan, Louisiana. He was a low three-star prospect (247Sports ranked him 308th among wide receivers) and committed to LSU.",
+   "source": "https://en.wikipedia.org/wiki/Justin_Jefferson",
+   "date": null,
+   "confidence": "from Wikipedia"
+  },
+  {
+   "fact": "He played three years at LSU under head coach Ed Orgeron and won the 2020 College Football Playoff National Championship as a junior.",
+   "source": "https://en.wikipedia.org/wiki/Justin_Jefferson",
+   "date": null,
+   "confidence": "from Wikipedia"
+  },
+  {
+   "fact": "Minnesota drafted him in the first round (22nd overall) of the 2020 NFL draft. He has been named to the Pro Bowl and All-Pro team in four of his first five seasons and has the most receiving yards through a player's first five seasons in NFL history.",
+   "source": "https://en.wikipedia.org/wiki/Justin_Jefferson",
+   "date": null,
+   "confidence": "from Wikipedia (draft slot also in research/data/PYT-WR1.json)"
+  },
+  {
+   "fact": "In 2022, at age 23, he became the youngest player to lead the league in receptions (128) and receiving yards (1,809) and won NFL Offensive Player of the Year.",
+   "source": "https://en.wikipedia.org/wiki/Justin_Jefferson",
+   "date": null,
+   "confidence": "from Wikipedia"
+  },
+  {
+   "fact": "Listed at 6 ft 1 in, 195 lb, age 27, jersey 18, in his seventh NFL season. Combine: 4.43 forty, 37.5 inch vertical, 126 inch broad jump.",
+   "source": "research/data/PYT-WR1.json (bio)",
+   "date": "2026-11-15",
+   "confidence": "one source"
+  },
+  {
+   "fact": "He signed a four-year extension worth $140 million with $110 million guaranteed, reported as the richest deal for a non-quarterback at the time. The deal dates from 2024, not 2026.",
+   "source": "https://www.si.com/nfl/vikings-justin-jefferson-agree-massive-contract-extension",
+   "date": "date not shown",
+   "confidence": "from a search result summary; the Vikings confirmed it per CBS Minnesota"
+  }
+ ],
+ "family": [
+  {
+   "fact": "He was born to John and Elaine Jefferson. His father John played Division II college basketball.",
+   "source": "https://en.wikipedia.org/wiki/Justin_Jefferson",
+   "date": null,
+   "confidence": "from Wikipedia"
+  },
+  {
+   "fact": "His brothers Jordan and Rickey also played college football at LSU.",
+   "source": "https://en.wikipedia.org/wiki/Justin_Jefferson",
+   "date": null,
+   "confidence": "from Wikipedia"
+  },
+  {
+   "fact": "On April 27, 2021 he was the first NFL player to be referenced in Fortnite, with his Griddy dance. Nothing about a spouse or children was found in the sources reached: not found.",
+   "source": "https://en.wikipedia.org/wiki/Justin_Jefferson",
+   "date": null,
+   "confidence": "from Wikipedia; spouse and children not found"
+  }
+ ],
+ "recent_events": [
+  {
+   "fact": "Minnesota traded a 2027 third-round pick to the Raiders for quarterback Kirk Cousins on November 10, before the deadline. Cousins is expected to start Sunday at Green Bay in place of Kyler Murray (Grade 2 hamstring strain).",
+   "source": "https://www.vikings.com/news/signing-quarterback-kirk-cousins-trade-raiders",
+   "date": "2026-11-10",
+   "confidence": "confirmed by two sources (ESPN and NBC Sports headlines in the same search)"
+  },
+  {
+   "fact": "The Vikings lost 23-6 to Buffalo on Monday night, November 9 at home with Carson Wentz starting. Jefferson had 11 targets, 3 catches, 58 yards, no touchdown (5.8 fantasy points).",
+   "source": "research/data/PYT-WR1.json (log, week 9)",
+   "date": "2026-11-15",
+   "confidence": "from the data file; the score is also in a search result summary"
+  },
+  {
+   "fact": "ESPN's player note says Jefferson averaged a career-low 56.1 receiving yards a game through the first eight contests with Murray, Wentz and Max Brosmer at quarterback, and that he averaged 98.0 yards a game with Cousins in his first four seasons (a 17-game pace of 1,671 yards and 8.5 touchdowns).",
+   "source": "research/data/PYT-WR1.json (status.espn, ESPN.com report by Michael F. Florio)",
+   "date": "2026-11-11",
+   "confidence": "one source"
+  },
+  {
+   "fact": "From 2020 to 2023 Cousins and Jefferson connected 354 times for 5,338 yards and 29 touchdowns in 54 games. Another outlet gives 98.9 yards a game with Cousins against 65 a game through six full games this season.",
+   "source": "https://www.espn.com/nfl/story/_/id/50466164/vikings-hyped-welcome-back-leader-kirk-cousins-1st-day-practice",
+   "date": "date not shown",
+   "confidence": "from a search result summary (the page itself was not read); figures differ slightly by outlet"
+  },
+  {
+   "fact": "Jefferson called the trade 'much needed' and said he sees 'joy' in Cousins' return; he also said earlier he had 'no expectations' about the reunion. One report says he struggled to build chemistry with Murray this season. No direct quote about frustration was found.",
+   "source": "https://bleacherreport.com/articles/25532776-justin-jefferson-reacts-kirk-cousins-vikings-return-after-raiders-trade-amid-frustration",
+   "date": "2026-11-13",
+   "confidence": "headlines and summaries only; pages not read"
+  },
+  {
+   "fact": "Ex-NFL player Chris Long said Jefferson is 'wasting his career' in Minnesota (opinion, headline only).",
+   "source": "date and outlet from the news list in research/data/PYT-WR1.json (Yahoo Sports, no article address stored)",
+   "date": "2026-11-14",
+   "confidence": "headline from the news list in research/data/PYT-WR1.json; article not read"
+  },
+  {
+   "fact": "He has played 7 of 8 games before this week (Week 6 bye, Week 4 missed), with 51 targets, 31 catches, 393 yards, 4 touchdowns, 8.89 fantasy points a game under league scoring. His career average is 11.6.",
+   "source": "research/data/PYT-WR1.json (season_2026, career)",
+   "date": "2026-11-15",
+   "confidence": "from the data file"
+  },
+  {
+   "fact": "Best 2026 game: Week 1 vs Green Bay, 8 catches on 9 targets for 92 yards and 2 touchdowns (21.2 points). Lowest: Week 7 vs Indianapolis, 4 for 44 (4.4), apart from a 12 percent snap game in Week 3 when he left hurt (3.2).",
+   "source": "research/data/PYT-WR1.json (log)",
+   "date": "2026-11-15",
+   "confidence": "from the data file"
+  },
+  {
+   "fact": "Since Week 7 he has 12 receptions in his games, per one preview.",
+   "source": "https://sports.yahoo.com/articles/3-offensive-keys-vikings-week-031313031.html",
+   "date": "date not shown",
+   "confidence": "from a search result summary; consistent with the log (4 + 5 + 3 = 12)"
+  }
+ ],
+ "quotes": [
+  {
+   "fact": "'It's a joy to see Kirk Cousins take over as a leader' is the Yahoo Sports headline paraphrasing Jefferson. Exact wording beyond the headline was not read.",
+   "source": "https://espn.com/nfl/story/_/id/50466164/vikings-hyped-welcome-back-leader-kirk-cousins-1st-day-practice",
+   "date": "2026-11-13",
+   "confidence": "headline level only"
+  }
+ ],
+ "team_context": [
+  {
+   "fact": "Minnesota is 6-2 entering this game (data file and previews agree; the two losses are Detroit and Buffalo), averaging 18.2 points for and 14.5 against. The Vikings are described as the No. 1 scoring defense.",
+   "source": "research/data/PYT-WR1.json (season_2026 team)",
+   "date": "2026-11-15",
+   "confidence": "confirmed by two sources (data file and previews)"
+  },
+  {
+   "fact": "Vikings quarterbacks have been pressured an NFL-high 46.9 percent of the time this season, and Green Bay defends deep throws well and limits touchdowns off play-action, a key part of Cousins' game.",
+   "source": "https://sports.yahoo.com/articles/3-offensive-keys-vikings-week-031313031.html",
+   "date": "date not shown",
+   "confidence": "from a search result summary"
+  },
+  {
+   "fact": "Jefferson's target share is 24.2 percent, ahead of tight end T.J. Hockenson (20.9 percent, 44 targets) and Jordan Addison (17.1 percent, 36 targets). Aaron Jones leads the backs with 115 carries and 22 targets.",
+   "source": "research/data/PYT-WR1.json (teammates_2026)",
+   "date": "2026-11-15",
+   "confidence": "from the data file"
+  },
+  {
+   "fact": "The 2026 tracking data shows 11.1 yards of intended air yards, 2.64 yards of separation (3.23 in 2025), and 32.5 percent of the team's air yards. 13 of 51 targets were deep (176 yards, 1 touchdown).",
+   "source": "research/data/PYT-WR1.json (season_2026 advanced, plays_2026)",
+   "date": "2026-11-15",
+   "confidence": "from the data file"
+  },
+  {
+   "fact": "Quarterbacks this year: Carson Wentz and Kyler Murray in Week 1, Wentz in Week 2, Murray in Weeks 3 to 8, Wentz and Max Brosmer in Week 9. Head coach is Kevin O'Connell (named in injury coverage); offensive coordinator not confirmed: not found.",
+   "source": "research/data/PYT-WR1.json (teammates_2026)",
+   "date": "2026-11-15",
+   "confidence": "quarterbacks from the data file; coach name from a search result"
+  }
+ ],
+ "next_opponent": [
+  {
+   "fact": "Minnesota plays at Green Bay on Sunday, November 15, 1 pm ET at Lambeau Field (outdoors, grass), on Fox. Division game, six days of rest.",
+   "source": "research/data/PYT-WR1.json (next_games)",
+   "date": "2026-11-15",
+   "confidence": "from the data file"
+  },
+  {
+   "fact": "Lines: Green Bay by 2.5, total 42.5, implied Minnesota total 20.0 in the data file. Green Bay is 6-3 per a preview, last in the division with a better record than expected.",
+   "source": "research/data/PYT-WR1.json (next_games)",
+   "date": "2026-11-15",
+   "confidence": "one source for the line; a search result said three-point Minnesota underdogs on Thursday night"
+  },
+  {
+   "fact": "Weather: the data file shows 41 F and mostly cloudy. Forecast articles say low to mid 40s, 2 to 3 mph wind, negligible weather impact.",
+   "source": "https://www.fantasyalarm.com/articles/nfl/nfl-weather/nfl-week-10-weather-report-fantasy-football-dfs-impact/198723",
+   "date": "2026-11-15",
+   "confidence": "confirmed by two sources (data file and forecast summary)"
+  },
+  {
+   "fact": "Jefferson's history against Green Bay: 11 games from 2020 to 2026 with 15 to 184 receiving yards in a game. Most recent: Week 1 2026 (8 for 92, 2 touchdowns, 21.2 points), Week 18 2025 (8 for 101, 10.4), Week 12 2025 (4 for 48, 4.8). He has gone over 100 yards twice there (169 and 184 in 2021 and 2022 openers).",
+   "source": "research/data/PYT-WR1.json (log)",
+   "date": "2026-11-15",
+   "confidence": "from the data file"
+  },
+  {
+   "fact": "Green Bay's cornerbacks and pass rush for this game were not found in the search results: not found.",
+   "source": "not found",
+   "date": null,
+   "confidence": "not found"
+  }
+ ],
+ "style": [
+  {
+   "fact": "Madden's week 8 rating is 99 overall, with 99 release, 98 short and medium route running, 97 deep route running, 98 catch in traffic and 99 spectacular catch. Abilities: Double Me, Short In Elite, Route Technician, Deep Out Elite.",
+   "source": "research/data/PYT-WR1.json (bio.madden)",
+   "date": "2026-11-15",
+   "confidence": "one source"
+  },
+  {
+   "fact": "In 2026, 38 of 51 targets were short (5.7 yards a target, 3 touchdowns) and 22 went left (3 of his 4 touchdowns). His 7 red zone targets and 4 drops are in the season totals.",
+   "source": "research/data/PYT-WR1.json (plays_2026, season_2026)",
+   "date": "2026-11-15",
+   "confidence": "from the data file"
+  }
+ ],
+ "availability": {
+  "status": "Active, not on the injury report",
+  "detail": "He is not on the Vikings' final Week 10 injury report. Out: Blake Cashman, T.J. Hockenson, Tyrion Ingram-Dawkins, Jauan Jennings and Kyler Murray. Questionable: Jordan Addison (thumb), Joshua Metellus (shoulder), Kyle Van Noy. His ankle (sprained in Week 3, missed Week 4, limited Week 5) is listed as full participation by Week 7.",
+  "expected_return": "Not applicable",
+  "source": "https://purpleptsd.com/2026/vikings/top_news/vikings-packers-week10-injury-report/",
+  "date": "2026-11-15"
+ },
+ "outlook_next_game": {
+  "lean": "plays with a bigger share of the offense; expected around 11 to 15 fantasy points, with a real chance of a big game",
+  "confidence": "low to medium",
+  "reasons": [
+   "He is healthy and unlisted, Hockenson is out, and Addison is questionable, which could raise his target share above 24 percent.",
+   "Cousins is back and his history with Jefferson is strong (98 yards a game over four seasons versus 56.1 this year).",
+   "Green Bay is a small favorite and the implied Minnesota total is only 20, and one preview says Green Bay defends deep throws well, so touchdowns are not assured.",
+   "Cousins has had less than a week with the offense and Minnesota's quarterbacks have been pressured an NFL-high 46.9 percent of the time."
+  ]
+ },
+ "scouts_read": "Jefferson is healthy and not on the injury report, so he should play most of the snaps. The bigger question is the quarterback: Cousins arrived on Tuesday, and the pair was productive together from 2020 to 2023 while Jefferson has been at a career-low pace this season. With Hockenson out and Addison questionable, Jefferson should see heavy targets, likely 9 to 12. The line suggests a low scoring game with Minnesota near 20 points, and Green Bay is described as good against deep throws, which caps the touchdown upside. I would project a solid 11 to 15 point game with a ceiling near 25 if he gets a touchdown, as he did in the Week 1 meeting.",
+ "open_questions": [
+  "Official Sunday inactive list; Addison's thumb status and whether Hockenson is truly out (one report had him in jeopardy, the final report lists him out).",
+  "Green Bay cornerback and pass rush status (not found).",
+  "Quotes from Jefferson himself about the short week with Cousins, beyond headlines (not found).",
+  "Spouse or children, if any (not found)."
+ ],
+ "searches": [
+  "Justin Jefferson Kirk Cousins Vikings Packers Week 10 preview",
+  "Vikings Packers Week 10 2026 injury report Justin Jefferson status",
+  "Vikings trade Kirk Cousins Raiders Kyler Murray hamstring Justin Jefferson frustration",
+  "Packers defense Week 10 vs Vikings Lambeau weather forecast wind (no Packers defense detail found)",
+  "Justin Jefferson ankle injury 2026 missed Week 4 Vikings contract extension"
+ ]
+}
