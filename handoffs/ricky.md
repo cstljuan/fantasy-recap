@@ -263,3 +263,11 @@ Write `pitch/ARCHITECTURE.md`: the parts (game makers with Jev, game files, the 
 ## Task D53: every number in the Devpost text proven
 
 Write `data/checks/devpost.js`: read `pitch/DEVPOST-FINAL.md` and check every count, score and size it states (plays, Jev choices, players, recordings, routes, scores) against the files on main. Add it to `node data/checks/all.js`. Fix the text where it is wrong.
+
+## Task D54: real data in the demo (top priority)
+
+Juan's call: the demo must show real data. Today the featured matchup plays week 11, built from made-up stat lines, while your week 9 real-play games (`data/games/week09-gob-tur.json`, `week09-pyt-owl.json`) sit unused. Make a real week the one the demo shows: the featured game, the lineups and fantasy points (from `data/statlines/week09-real.json` through the scoring rules), the league home's current week and results, the recap. Do what is in your lane (`data/league.json`, stat lines, profiles, checks), tell the boss exactly which game file `data/games/current.js` should point to (the boss runs `tools/use-game.js`), and ASK peyton for whatever her screens need (for example the week shown). Check: every point on screen matches the real stat lines, `node data/checks/all.js` passes, a full game plays to the final. Say in `pitch/REAL-AND-SIMULATED.md` exactly what is real now.
+
+## Task D55: soccer from a real match
+
+For this task you may edit `soccer/data/` and run `soccer/engine/make-match.js`. Build the soccer game from `data/statlines/soccer-real-2026-11-08.json` (convert to the match maker's lines format in `soccer/data/` if needed), make it the match the soccer page plays (`soccer/data/current.js`), and check that it replays to the real lines (`node soccer/check.js`, a full match in headless Chromium). Say what is real and what the maker invented in `pitch/REAL-AND-SIMULATED.md`.
