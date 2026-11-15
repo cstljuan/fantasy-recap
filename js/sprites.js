@@ -186,23 +186,24 @@
   root.FF_FONT = { draw: draw, width: width, H: HGT, render: render };
 })(window);
 
-// The football stadium, drawn once into an offscreen canvas in the soccer view's style
-// (soccer/js/stadium.js): stands full of fans, advertising boards, mown grass and pixel lines,
-// all on a 2 pixel grid to match the sprites. The geometry lives here so js/main.js and the
-// crowd layer (js/screens/crowd.js) agree on where the field and the stands are.
+// The football stadium: the soccer stadium (soccer/js/stadium.js) with a football field in it.
+// The same build, line for line: one scale for both directions (8 pixels per yard, as soccer has
+// 8 per meter), 4 yards of grass, a 1 yard band of advertising boards and 7 yards of stands on
+// all four sides, the same fans, aisles and seat rows, the far rows falling into the dark, the
+// same mown grass with fine noise and wear, the same shadow of the west stand, the same boards and
+// 2 pixel lines. Only the markings are football's: yard lines, hashes, numbers, end zones, posts.
+// js/main.js follows the ball with a camera on both axes, as soccer does.
 (function (root) {
   'use strict';
 
-  var W = 390;                  // logical canvas width
+  var W = 390;                  // logical canvas width (the same as soccer's)
   var FIELD_W = 53.3;           // yards across
-  var PXX = 5.4, PXY = 12;      // pixels per yard across and along
-  var MX = (W - FIELD_W * PXX) / 2;   // field edge from the canvas edge
-  var RUN = 14;                 // grass between the sideline and the boards, pixels
-  var BOARD = 10;               // advertising boards, pixels
-  var PAD = 80;                 // beyond each end line: grass, boards and the end stands
-  var END_RUN = 14;
-  var LEN = 120 * PXY;          // end line to end line, pixels
-  var H = LEN + 2 * PAD;
+  var LEN = 120;                // end line to end line, yards (end zones included)
+  var S = 8;                    // pixels per yard, both directions
+  var RUN = 4;                  // grass between the lines and the boards, yards
+  var BOARD = 1;                // advertising boards, yards
+  var STAND = 7;                // crowd, yards
+  var M = RUN + BOARD + STAND;  // margin around the field, yards
 
   function mulberry32(a) {
     return function () {
@@ -214,130 +215,136 @@
   }
   function hex(c) { return [parseInt(c.slice(1, 3), 16), parseInt(c.slice(3, 5), 16), parseInt(c.slice(5, 7), 16)]; }
   function mix(a, b, t) { return [a[0] + (b[0] - a[0]) * t, a[1] + (b[1] - a[1]) * t, a[2] + (b[2] - a[2]) * t]; }
-  function snap(v) { return Math.round(v / 2) * 2; }
+
+  // Field coordinates: x in yards across from the left sideline, y in yards from the top goal
+  // line (the top end zone runs from -10 to 0, the bottom one from 100 to 110).
+  function wx(x) { return (x + M) * S; }
+  function wy(y) { return (y + 10 + M) * S; }
 
   // teams: FF_DATA.TEAMS. CX: the middle of the field across, in yards. Font: FF_FONT.
   function build(teams, CX, Font) {
+    var SW = Math.round((FIELD_W + 2 * M) * S), SH = Math.round((LEN + 2 * M) * S);
+    SW -= SW % 2; SH -= SH % 2;
     var c = document.createElement('canvas');
-    c.width = W; c.height = H;
+    c.width = SW; c.height = SH;
     var g = c.getContext('2d');
     var rnd = mulberry32(90210);
-    function X(yx) { return MX + yx * PXX; }          // yards across -> pixels
-    function Y(yd) { return PAD + (yd + 10) * PXY; }  // yards from the top goal line -> pixels (end zone from -10)
+    function X(x) { return wx(x); }
+    function Y(y) { return wy(y); }
+    function snap(v) { return Math.round(v / 2) * 2; }
 
-    var img = g.createImageData(W, H), data = img.data;
+    // ---- stands and grass are written pixel by pixel into one ImageData, in 2x2 blocks
+    var img = g.createImageData(SW, SH), data = img.data;
     function put(x, y, col) {
       for (var j = 0; j < 2; j++) for (var i = 0; i < 2; i++) {
-        if (x + i >= W || y + j >= H) continue;
-        var o = ((y + j) * W + (x + i)) * 4;
+        var o = ((y + j) * SW + (x + i)) * 4;
         data[o] = col[0]; data[o + 1] = col[1]; data[o + 2] = col[2]; data[o + 3] = 255;
       }
     }
-
-    // ---- stands: rows of fans, home colors on the left, away on the right, neutral at the ends
+    // Stands: rows of fans, home colors on the west side, away on the east.
     var c0 = teams[0].colors, c1 = teams[1].colors;
-    var fans0 = [hex(c0.jersey), hex(c0.helmet), hex(c0.jersey), [42, 45, 48]];
-    var fans1 = [hex(c1.jersey), hex(c1.helmet), hex(c1.jersey), [42, 45, 48]];
+    var fans0 = [hex(c0.jersey), hex(c0.helmet), hex(c0.jersey), [42, 45, 48]], fans1 = [hex(c1.jersey), hex(c1.helmet), hex(c1.jersey), [42, 45, 48]];
     var neutral = [[58, 61, 64], [90, 86, 80], [37, 40, 43], [107, 98, 88], [29, 32, 35]];
     var EMPTY = [16, 18, 20], AISLE = [27, 30, 33], SEAT = [22, 25, 27];
-    var sx0 = snap(X(0) - RUN - BOARD), sx1 = snap(X(FIELD_W) + RUN + BOARD), sy0 = PAD - END_RUN - BOARD, sy1 = H - PAD + END_RUN + BOARD;
-    var depthSide = Math.max(8, sx0), depthEnd = sy0, y, x;
-    for (y = 0; y < H; y += 2) {
-      for (x = 0; x < W; x += 2) {
+    var sx0 = X(-RUN - BOARD), sx1 = X(FIELD_W + RUN + BOARD), sy0 = Y(-10 - RUN - BOARD), sy1 = Y(110 + RUN + BOARD);
+    var x, y;
+    for (y = 0; y < SH; y += 2) {
+      for (x = 0; x < SW; x += 2) {
         if (x >= sx0 && x < sx1 && y >= sy0 && y < sy1) continue;
         var west = x < sx0, east = x >= sx1;
         var across = west ? sx0 - x : east ? x - sx1 : y < sy0 ? sy0 - y : y - sy1;
         var along = west || east ? y : x, col;
-        if (Math.floor(along / 96) !== Math.floor((along + 4) / 96)) col = AISLE;
+        if (Math.floor(along / (12 * S)) !== Math.floor((along + 4) / (12 * S))) col = AISLE;
         else if (across % 6 === 4) col = SEAT;
         else {
           var r = rnd(), pal = west ? fans0 : east ? fans1 : neutral;
           col = r < 0.28 ? EMPTY : r < 0.72 ? pal[Math.floor(rnd() * pal.length)] : neutral[Math.floor(rnd() * neutral.length)];
         }
         // The far rows fall away into the dark.
-        var f = 1 - 0.55 * Math.min(1, across / (west || east ? depthSide : depthEnd));
+        var f = 1 - 0.55 * Math.min(1, across / (STAND * S));
         put(x, y, [col[0] * f + 8 * (1 - f), col[1] * f + 9 * (1 - f), col[2] * f + 10 * (1 - f)]);
       }
     }
 
-    // ---- grass: mowing bands every five yards, faint bands along, fine noise, wear between
-    // the hashes, the end zones in the home team's zone colors, the shadow of the left stand
+    // ---- grass: mowing bands across (every 5 yards), faint bands along, fine noise, wear, stand shadow
     var A = [47, 117, 57], B = [41, 106, 50], WEAR = [96, 108, 62];
     var z0 = hex(c0.zone), z1 = hex(c1.zone);
-    var gx0 = snap(X(0) - RUN), gx1 = snap(X(FIELD_W) + RUN), gy0 = PAD - END_RUN, gy1 = H - PAD + END_RUN;
-    for (y = gy0; y < gy1; y += 2) {
-      var yd = (y - PAD) / PXY - 10, band = Math.floor((yd + 100) / 5) % 2;
-      for (x = gx0; x < gx1; x += 2) {
-        var yx = (x - MX) / PXX, inField = yx >= 0 && yx < FIELD_W && yd >= -10 && yd < 110;
+    var gx0 = X(-RUN), gx1 = X(FIELD_W + RUN), gy0 = Y(-10 - RUN), gy1 = Y(110 + RUN);
+    function wear(mx, my) {
+      // Between the hashes, where the ball is snapped most, and worst in the middle of the field.
+      if (my < 0 || my >= 100) return 0;
+      var dx = Math.abs(mx - CX);
+      return dx < 5 ? (1 - dx / 5) * (0.5 + 0.35 * (1 - Math.abs(my - 50) / 50)) : 0;
+    }
+    for (var py = gy0; py < gy1; py += 2) {
+      var my = py / S - M - 10, band = Math.floor((my + 100) / 5) % 2;
+      for (var px = gx0; px < gx1; px += 2) {
+        var mx = px / S - M;
         var colr = band ? B : A;
-        if (inField && (yd < 0 || yd >= 100)) colr = mix(yd < 0 ? z0 : z1, A, 0.18);
-        if (Math.floor((yx + 40) / (FIELD_W / 6)) % 2) colr = [colr[0] + 3, colr[1] + 4, colr[2] + 3];
+        var inField = mx >= 0 && mx < FIELD_W && my >= -10 && my < 110;
+        if (inField && (my < 0 || my >= 100)) colr = mix(my < 0 ? z0 : z1, A, 0.18);
+        if (Math.floor((mx + 17) / (FIELD_W / 8)) % 2) colr = [colr[0] + 3, colr[1] + 4, colr[2] + 3];
         var n = (rnd() - 0.5) * 6;
         colr = [colr[0] + n, colr[1] + n * 1.4, colr[2] + n];
-        // Worn turf between the hashes, where the ball is snapped most.
-        if (inField && yd >= 0 && yd < 100) {
-          var dx = Math.abs(yx - CX), w = dx < 5 ? (1 - dx / 5) * 0.45 : 0;
-          if (w > 0 && rnd() < w) colr = mix(colr, WEAR, 0.3 + rnd() * 0.25);
-        }
-        // Shadow of the left stand, with a dithered edge.
-        var sh = 18 + Math.sin(yd * 0.08) * 3, px = x - gx0;
-        if (px < sh - 1 || (px < sh + 1 && rnd() < (sh + 1 - px) / 2)) colr = [colr[0] * 0.78, colr[1] * 0.8, colr[2] * 0.86];
-        put(x, y, colr);
+        var w = wear(mx, my);
+        if (w > 0 && rnd() < w * 0.9) colr = mix(colr, WEAR, 0.35 + rnd() * 0.3);
+        // Shadow of the west stand, with a dithered edge.
+        var sh = 9 + Math.sin(my * 0.05) * 1.5;
+        if (mx < sh - 1 || (mx < sh + 1 && rnd() < (sh + 1 - mx) / 2)) colr = [colr[0] * 0.78, colr[1] * 0.8, colr[2] * 0.86];
+        put(px, py, colr);
       }
     }
+
     g.putImageData(img, 0, 0);
 
-    // ---- boards around the field
-    var bx0 = gx0 - BOARD, bx1 = gx1, by0 = gy0 - BOARD, by1 = gy1;
+    // ---- boards
+    var bx0 = X(-RUN - BOARD), bx1 = X(FIELD_W + RUN), by0 = Y(-10 - RUN - BOARD), by1 = Y(110 + RUN), bt = BOARD * S;
     g.fillStyle = '#0b0c0d';
-    g.fillRect(bx0, by0, bx1 + BOARD - bx0, BOARD); g.fillRect(bx0, by1, bx1 + BOARD - bx0, BOARD);
-    g.fillRect(bx0, by0, BOARD, by1 + BOARD - by0); g.fillRect(bx1, by0, BOARD, by1 + BOARD - by0);
+    g.fillRect(bx0, by0, bx1 + bt - bx0, bt); g.fillRect(bx0, by1, bx1 + bt - bx0, bt);
+    g.fillRect(bx0, by0, bt, by1 + bt - by0); g.fillRect(bx1, by0, bt, by1 + bt - by0);
     var words = [[teams[0].name.toUpperCase(), c0.helmet], ['FANTASY RECAP', '#ffc21a'], [teams[1].name.toUpperCase(), c1.helmet]];
     function boardRun(len, drawAt) {
-      var pos = 8, i = 0;
+      var pos = 6, i = 0;
       while (pos < len - 10) {
         var wd = words[i % words.length], tw = Font.width(wd[0], 1, 1);
-        if (pos + tw > len - 8) break;
+        if (pos + tw > len - 6) break;
         drawAt(pos, wd);
         pos += tw + 22; i++;
       }
     }
-    var ty = Math.round((BOARD - 7) / 2);
-    boardRun(bx1 + BOARD - bx0, function (p, wd) {
+    var ty = Math.round((bt - 7) / 2);
+    boardRun(bx1 + bt - bx0, function (p, wd) {
       Font.draw(g, wd[0], bx0 + p, by0 + ty, { color: wd[1], track: 1 });
       Font.draw(g, wd[0], bx0 + p, by1 + ty, { color: wd[1], track: 1 });
     });
+    // Side boards read along the sideline, rotated.
     boardRun(by1 - by0, function (p, wd) {
       g.save(); g.translate(bx0 + ty, by0 + p); g.rotate(Math.PI / 2); g.translate(0, -7);
       Font.draw(g, wd[0], 0, 0, { color: wd[1], track: 1 }); g.restore();
-      g.save(); g.translate(bx1 + BOARD - ty, by1 - p); g.rotate(-Math.PI / 2); g.translate(0, -7);
+      g.save(); g.translate(bx1 + bt - ty, by1 - p); g.rotate(-Math.PI / 2); g.translate(0, -7);
       Font.draw(g, wd[0], 0, 0, { color: wd[1], track: 1 }); g.restore();
     });
 
-    // ---- lines, 2 pixels, snapped to the grid
+    // ---- lines, 2 pixels, snapped to the grid (soccer's line color)
     var LINE = 'rgba(238,240,230,0.92)';
-    var fl = snap(X(0)), fr = snap(X(FIELD_W)), ft = snap(Y(-10)), fb = snap(Y(110));
     g.fillStyle = LINE;
-    // The white border around the whole field, end zones included.
-    g.fillRect(fl - 4, ft - 4, fr - fl + 8, 4); g.fillRect(fl - 4, fb, fr - fl + 8, 4);
-    g.fillRect(fl - 4, ft, 4, fb - ft); g.fillRect(fr, ft, 4, fb - ft);
+    function hline(x0, x1, yy) { var y2 = snap(Y(yy)) - 1; g.fillRect(snap(X(x0)) - 1, y2, snap(X(x1)) - snap(X(x0)) + 2, 2); }
+    function vline(xx, y0, y1) { var x2 = snap(X(xx)) - 1; g.fillRect(x2, snap(Y(y0)) - 1, 2, snap(Y(y1)) - snap(Y(y0)) + 2); }
+    // Sidelines and end lines around the whole field, end zones included.
+    hline(0, FIELD_W, -10); hline(0, FIELD_W, 110); vline(0, -10, 110); vline(FIELD_W, -10, 110);
     var yl;
-    for (yl = 0; yl <= 100; yl += 5) {
-      var yy = snap(Y(yl));
-      g.fillRect(fl, yy - (yl % 100 === 0 ? 2 : 1), fr - fl, yl % 100 === 0 ? 4 : 2);
-    }
-    // One-yard ticks at the sidelines and on the hashes.
-    var hl = snap(X(CX - 6)), hr = snap(X(CX + 6));
+    for (yl = 0; yl <= 100; yl += 5) hline(0, FIELD_W, yl);
+    // One-yard ticks along the sidelines and the hashes.
     for (yl = 1; yl < 100; yl++) {
       if (yl % 5 === 0) continue;
-      var ty2 = snap(Y(yl)) - 1;
-      g.fillRect(fl + 2, ty2, 6, 2); g.fillRect(fr - 8, ty2, 6, 2);
+      var ty2 = snap(Y(yl)) - 1, fl = snap(X(0)), fr = snap(X(FIELD_W)), hl = snap(X(CX - 6)), hr = snap(X(CX + 6));
+      g.fillRect(fl, ty2, 6, 2); g.fillRect(fr - 6, ty2, 6, 2);
       g.fillRect(hl - 3, ty2, 6, 2); g.fillRect(hr - 3, ty2, 6, 2);
     }
-    // The two-point tries' short line.
-    g.fillRect(snap(X(CX)) - 1, snap(Y(2)) - 1, 2, 2); g.fillRect(snap(X(CX)) - 1, snap(Y(98)) - 1, 2, 2);
+    // The tries' short marks.
+    g.fillRect(snap(X(CX)) - 1, snap(Y(3)) - 1, 2, 2); g.fillRect(snap(X(CX)) - 1, snap(Y(97)) - 1, 2, 2);
 
-    // ---- yard numbers, read along the sidelines like a real field, with the arrows
+    // ---- yard numbers, read along the sidelines, with the arrows toward the nearer goal
     var NUM = 'rgba(238,240,230,0.85)';
     for (yl = 10; yl <= 90; yl += 10) {
       var label = String(50 - Math.abs(50 - yl)), yc = snap(Y(yl)), nx = [snap(X(9)), snap(X(FIELD_W - 9))];
@@ -345,7 +352,6 @@
         g.save(); g.translate(nx[side], yc); g.rotate(side ? Math.PI / 2 : -Math.PI / 2);
         var tw = Font.width(label, 3, 1);
         Font.draw(g, label, -tw / 2, -10, { unit: 3, color: NUM, track: 1 });
-        // The arrow points to the nearer goal line.
         if (yl !== 50) {
           var toward = (yl < 50) === (side === 0) ? 1 : -1, ax = toward > 0 ? tw / 2 + 6 : -tw / 2 - 8;
           g.fillStyle = NUM;
@@ -357,35 +363,29 @@
 
     // ---- end zones: the team name in big pixel letters
     [0, 1].forEach(function (t) {
-      var name = teams[t].name.toUpperCase(), room = fr - fl - 24, unit = 5;
+      var name = teams[t].name.toUpperCase(), fl2 = snap(X(0)), fr2 = snap(X(FIELD_W)), room = fr2 - fl2 - 24, unit = 6;
       while (unit > 2 && Font.width(name, unit, 1) > room) unit--;
-      var yc = snap(Y(t === 0 ? -5 : 105)) - Math.round(7 * unit / 2);
-      Font.draw(g, name, (fl + fr) / 2, yc, { unit: unit, color: teams[t].colors.pants, align: 'center', track: 1, shadow: 'rgba(0,0,0,0.35)' });
+      var yc2 = snap(Y(t === 0 ? -5 : 105)) - Math.round(7 * unit / 2);
+      Font.draw(g, name, (fl2 + fr2) / 2, yc2, { unit: unit, color: teams[t].colors.pants, align: 'center', track: 1, shadow: 'rgba(0,0,0,0.35)' });
     });
-
-    // ---- midfield: a small pixel badge of the app
-    var mx = snap(X(CX)), my = snap(Y(50));
-    g.fillStyle = 'rgba(11,13,14,0.55)'; g.fillRect(mx - 14, my + 6, 28, 14);
-    g.fillStyle = '#ffc21a'; g.fillRect(mx - 14, my + 6, 28, 2);
-    Font.draw(g, 'FR', mx, my + 10, { color: '#ffc21a', align: 'center', track: 1 });
 
     // ---- goalposts on the end lines, seen from above, and the orange pylons
     [-10, 110].forEach(function (ey) {
       var yy = snap(Y(ey)), out = ey < 0 ? -1 : 1, l = snap(X(CX - 3.1)), r = snap(X(CX + 3.1));
-      g.fillStyle = 'rgba(0,0,0,0.3)'; g.fillRect(l + 2, yy + 2, r - l, 2);
-      g.fillStyle = '#ffd21a';
+      g.fillStyle = 'rgba(10,12,12,0.35)'; g.fillRect(l + 2, yy + 2, r - l, 2);
+      g.fillStyle = '#f2d21a';
       g.fillRect(l, yy - 1, r - l, 2);
       g.fillRect(l - 2, yy - 3, 4, 6); g.fillRect(r - 2, yy - 3, 4, 6);
-      g.fillRect(snap(X(CX)) - 1, yy + (out > 0 ? 0 : -8), 2, 8);   // the gooseneck into the end
+      g.fillRect(snap(X(CX)) - 1, yy + (out > 0 ? 0 : -10), 2, 10);   // the gooseneck into the end
       [0, 10].forEach(function (d) {
-        var py = snap(Y(ey < 0 ? ey + d : ey - d));
+        var py2 = snap(Y(ey < 0 ? ey + d : ey - d)), fl3 = snap(X(0)), fr3 = snap(X(FIELD_W));
         g.fillStyle = '#ff7a1a';
-        g.fillRect(fl - 4, py - 2, 4, 4); g.fillRect(fr, py - 2, 4, 4);
+        g.fillRect(fl3 - 3, py2 - 2, 4, 4); g.fillRect(fr3 - 1, py2 - 2, 4, 4);
       });
     });
 
-    return { canvas: c, W: W, H: H };
+    return { canvas: c, W: SW, H: SH, M: M, S: S };
   }
 
-  root.FF_STADIUM = { build: build, W: W, H: H, FIELD_W: FIELD_W, PXX: PXX, PXY: PXY, MX: MX, PAD: PAD, RUN: RUN, BOARD: BOARD, END_RUN: END_RUN };
+  root.FF_STADIUM = { build: build, W: W, S: S, M: M, FIELD_W: FIELD_W, LEN: LEN, RUN: RUN, BOARD: BOARD, STAND: STAND, wx: wx, wy: wy };
 })(window);
