@@ -12,7 +12,7 @@ Do NOT edit or delete `.claude/settings.json`. Do NOT touch `agents/scout/` (Ric
 
 ## Units 1 to 6: the six OWL notes (one Sonnet subagent per player, 2 at a time at most)
 
-Prompt for each subagent: `KEY = OWL-RB. Read research/handoffs/NOTE-TASK.md and do exactly that task for this KEY.` (then OWL-WR1, OWL-WR2, OWL-WR3, OWL-TE, OWL-K). Pattern: `research/notes/GOB-QB.json`. After each: `python3 -m json.tool`, `grep -c "—"` must print 0, commit `research: note for <KEY>`, push.
+Prompt for each subagent: `KEY = OWL-RB. Read research/handoffs/NOTE-TASK.md and do exactly that task for this KEY.` (then OWL-WR1, OWL-WR2, OWL-WR3, OWL-TE, OWL-K). Pattern: `research/notes/GOB-QB.json`. After each: `python3 -m json.tool`, `grep -c $'\xe2\x80\x94'` (counts em dashes) must print 0, commit `research: note for <KEY>`, push.
 
 ## Unit 7: the deep agent (one Sonnet subagent writes the definitions)
 

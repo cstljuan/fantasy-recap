@@ -8,7 +8,7 @@ Read `research/handoffs/README.md` first (branch, identity, rules). Your branch:
 
 ## Units 1 to 7: the seven TUR notes (one Sonnet subagent per player, 2 at a time at most)
 
-Prompt for each subagent: `KEY = TUR-QB. Read research/handoffs/NOTE-TASK.md and do exactly that task for this KEY.` (then TUR-RB, TUR-WR1, TUR-WR2, TUR-WR3, TUR-TE, TUR-K). The finished pattern is `research/notes/GOB-QB.json`. After each one: `python3 -m json.tool research/notes/<KEY>.json`, `grep -c "—" research/notes/<KEY>.json` must print 0, then commit `research: note for <KEY>` and push.
+Prompt for each subagent: `KEY = TUR-QB. Read research/handoffs/NOTE-TASK.md and do exactly that task for this KEY.` (then TUR-RB, TUR-WR1, TUR-WR2, TUR-WR3, TUR-TE, TUR-K). The finished pattern is `research/notes/GOB-QB.json`. After each one: `python3 -m json.tool research/notes/<KEY>.json`, `grep -c $'\xe2\x80\x94' research/notes/<KEY>.json` (counts em dashes) must print 0, then commit `research: note for <KEY>` and push.
 
 If a TUR player is questionable or on injured reserve, the note must say so with the source and date (Ladd McConkey and Garrett Wilson were reported questionable; check which TUR or OWL slot they are in the data files).
 
@@ -33,7 +33,7 @@ the roster table with projections; how this fantasy team scores (which players c
 Each matchup file (GOB vs PYT, TUR vs OWL):
 expected score for both sides, win chance and margin range from `projections.json` `matchups`; the key head-to-head position battles; which players swing the result most (the widest ranges); how the weekend would unfold in broad strokes, in kickoff order of the NFL games involved (who plays in the early window, the late window, the night game, Monday, and who already played or is on bye). Plain words, no invented events.
 
-Checks: run `python3 research/tools/write_profiles.py` from the repo root; 28 + 4 + 2 files exist; `grep -rc "—" research/players research/teams research/matchups` totals 0; no file names an AI tool or model; open two profiles and confirm the numbers match the data file. Commit the script and the output files and push.
+Checks: run `python3 research/tools/write_profiles.py` from the repo root; 28 + 4 + 2 files exist; `grep -rc $'\xe2\x80\x94' research/players research/teams research/matchups` (counts em dashes) totals 0; no file names an AI tool or model; open two profiles and confirm the numbers match the data file. Commit the script and the output files and push.
 
 ## Unit 9: rerun once Ricky's projections exist
 
