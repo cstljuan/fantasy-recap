@@ -123,8 +123,8 @@ Run `sh tools/next.sh` to get your next task with its full description. A row is
 | S6 | S | cstljuan | Soccer voice and captions, with Noah | done: Noah C30 and the boss wiring |
 | G1 | G | cstljuan | The Figma file with its pages set up (structure only for now) | merged |
 | G2 | G | cstljuan | Brand guide, wordmark, mascot | merged |
-| G3 | G | cstljuan | Every screen at phone and laptop size | open |
-| G4 | G | cstljuan | Motion page and motion specs | open |
+| G3 | G | cstljuan | Every screen at phone and laptop size | merged |
+| G4 | G | cstljuan | Motion page and motion specs | merged |
 | G5 | G | cstljuan | Devpost thumbnail, gallery, video title card, architecture picture | merged |
 | G6 | G | cstljuan | DESIGN.md and tokens for the builders | open |
 | A1 | A | cstljuan | Load the game from `data/games/<id>.json`; contract v1 | merged |
@@ -310,6 +310,7 @@ The boss reviews every DONE before it reaches main: the authors check, the lane 
 - Merged after review: B39, G5. All checks and the three full-game runs passed
 - Merged after review: B40. All checks and the three full-game runs passed
 - Merged after review: G2. All checks and the three full-game runs passed
+- Merged after review: G3, G4. All checks and the three full-game runs passed
 - D1 real rosters and profile files, D2 database schema (Ricky) are on main; `data/games/sample-football.json` now has the real rosters
 
 ## Decisions
