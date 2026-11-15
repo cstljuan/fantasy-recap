@@ -1,0 +1,237 @@
+{
+ "key": "OWL-WR2",
+ "name": "Jaxon Smith-Njigba",
+ "researched": "2026-11-15",
+ "background": [
+  {
+   "fact": "Born February 14, 2002 in Nacogdoches, Texas, and raised in Rockwall, Texas, where he attended Rockwall High School.",
+   "source": "https://en.wikipedia.org/wiki/Jaxon_Smith-Njigba",
+   "date": null,
+   "confidence": "from Wikipedia"
+  },
+  {
+   "fact": "In his junior year at Rockwall he had 97 catches for 1,828 yards and 20 touchdowns; as a senior 104 catches for 2,094 yards and 35 touchdowns. He was Texas Gatorade Football Player of the Year and a five-star recruit who chose Ohio State.",
+   "source": "https://en.wikipedia.org/wiki/Jaxon_Smith-Njigba",
+   "date": null,
+   "confidence": "from Wikipedia"
+  },
+  {
+   "fact": "At Ohio State he set a school record with 1,606 receiving yards in 2021, including 347 yards in the 2022 Rose Bowl (an FBS bowl record).",
+   "source": "https://en.wikipedia.org/wiki/Jaxon_Smith-Njigba",
+   "date": null,
+   "confidence": "from Wikipedia"
+  },
+  {
+   "fact": "Seattle drafted him 20th overall in the first round of the 2023 NFL draft. He became a starter in his second season (1,130 yards, first Pro Bowl).",
+   "source": "https://en.wikipedia.org/wiki/Jaxon_Smith-Njigba",
+   "date": null,
+   "confidence": "from Wikipedia"
+  },
+  {
+   "fact": "In 2025 he led the NFL with 1,793 receiving yards on 119 catches, a Seahawks franchise record, won Offensive Player of the Year, and helped Seattle win Super Bowl LX.",
+   "source": "https://en.wikipedia.org/wiki/Jaxon_Smith-Njigba",
+   "date": null,
+   "confidence": "from Wikipedia"
+  },
+  {
+   "fact": "Listed at 6 ft 0 in, 197 lb, age 24, jersey 11, in his fourth NFL season.",
+   "source": "research/data/OWL-WR2.json (bio, from ESPN and Sleeper pulls)",
+   "date": "2026-11-15",
+   "confidence": "one source"
+  },
+  {
+   "fact": "Career regular season through Week 9 of 2026: 60 games, 353 catches, 4,587 yards and 29 touchdowns.",
+   "source": "research/data/OWL-WR2.json (career)",
+   "date": "2026-11-15",
+   "confidence": "from the data file"
+  }
+ ],
+ "family": [
+  {
+   "fact": "Parents are firefighter Maada and high school teacher Jami Smith, who later divorced; his father put him and older brother Canaan through daily sports workouts. Canaan is a former professional baseball player.",
+   "source": "https://en.wikipedia.org/wiki/Jaxon_Smith-Njigba",
+   "date": null,
+   "confidence": "from Wikipedia"
+  },
+  {
+   "fact": "He added \"Njigba\" to his surname in high school to honor his grandfather John, who died in 2014. His paternal grandparents are from Sierra Leone and he wears that country's flag on the back of his helmet.",
+   "source": "https://en.wikipedia.org/wiki/Jaxon_Smith-Njigba",
+   "date": null,
+   "confidence": "from Wikipedia"
+  },
+  {
+   "fact": "Wife, partner or children: not found in the sources reached.",
+   "source": "not found",
+   "date": null,
+   "confidence": "not found"
+  }
+ ],
+ "recent_events": [
+  {
+   "fact": "Seattle beat Arizona 17-3 in Week 9 (November 8). Smith-Njigba had 7 catches on 10 targets for 51 yards, a season low in yards and only the second game of 2026 under 100; the backup Drew Lock played for Sam Darnold (quadriceps/rib). He still passed 1,000 yards for a third straight season.",
+   "source": "research/data/OWL-WR2.json (status.espn, log)",
+   "date": "2026-11-09",
+   "confidence": "confirmed by two sources (ESPN note and the game log; also a Seahawks.com headline)"
+  },
+  {
+   "fact": "2026 through 9 games: 99 targets, 71 catches, 1,036 yards, 9 receiving touchdowns, 17.9 fantasy points a game; he has 100-plus yards in 7 games and a 35.7 percent target share.",
+   "source": "research/data/OWL-WR2.json (season_2026, teammates_2026)",
+   "date": "2026-11-15",
+   "confidence": "from the data file"
+  },
+  {
+   "fact": "Best 2026 game was Week 2 vs Arizona (9 catches, 155 yards, 3 touchdowns, 33.5 points); worst was Week 9 (5.1 points) and Week 4 at the Chargers (76 yards, 7.6 points).",
+   "source": "research/data/OWL-WR2.json (log)",
+   "date": "2026-11-15",
+   "confidence": "from the data file"
+  },
+  {
+   "fact": "Splits: 24.1 fantasy points a game in 3 road games vs 14.8 in 6 home games. Seattle has 5 wins and 4 losses in his games.",
+   "source": "research/data/OWL-WR2.json (splits_2026)",
+   "date": "2026-11-15",
+   "confidence": "from the data file"
+  },
+  {
+   "fact": "Seahawks coach Mike Macdonald said Darnold (quadriceps/ribs) will not be available Sunday at Las Vegas, so Drew Lock is the expected starter; Macdonald also said Lock's oblique tests were good.",
+   "source": "https://www.thefantasyfootballers.com/news/646822/sam-darnold-not-ready-to-return-in-week-10/",
+   "date": "date not shown",
+   "confidence": "headline and search summary only; page could not be fetched"
+  },
+  {
+   "fact": "Yahoo Sports headlines of November 12 and 13 say he had a day off in practice, then a full practice, and is set to play in Week 10. No injury designation was found.",
+   "source": "research/data/OWL-WR2.json (news, injury_reports)",
+   "date": "2026-11-13",
+   "confidence": "headline only"
+  },
+  {
+   "fact": "The data file lists Week 10 as a not-injury-related rest entry with full practice participation, and an earlier Week 6 ankle entry that was a full participant.",
+   "source": "research/data/OWL-WR2.json (injury_reports)",
+   "date": "2026-11-15",
+   "confidence": "one source"
+  }
+ ],
+ "quotes": [
+  {
+   "fact": "No quote from Smith-Njigba or the coach about this week's game was found in pages that could be reached: not found.",
+   "source": "not found",
+   "date": null,
+   "confidence": "not found"
+  }
+ ],
+ "team_context": [
+  {
+   "fact": "Seattle's quarterback has changed the pass volume: Darnold threw 45 and 51 times in two games, while Drew Lock threw 22, 26 and 28 times in his three starts.",
+   "source": "research/data/OWL-WR2.json (teammates_2026)",
+   "date": "2026-11-15",
+   "confidence": "from the data file"
+  },
+  {
+   "fact": "Top 2026 targets: Smith-Njigba 99, tight end AJ Barner 38, Cooper Kupp 34, Rashid Shaheed 30, Tory Horton 19. Running back Emanuel Wilson leads rushing with 403 yards.",
+   "source": "research/data/OWL-WR2.json (teammates_2026)",
+   "date": "2026-11-15",
+   "confidence": "from the data file"
+  },
+  {
+   "fact": "Seattle is 5-4 by the game results in the data file (5 wins, 4 losses); an Arizona win at 17-3 was the last game.",
+   "source": "research/data/OWL-WR2.json (splits_2026 result)",
+   "date": "2026-11-15",
+   "confidence": "from the data file"
+  },
+  {
+   "fact": "A Seahawks headline from November 9 about a trade decision for Smith-Njigba was seen, but no details were reached: not found.",
+   "source": "research/data/OWL-WR2.json (news)",
+   "date": "2026-11-09",
+   "confidence": "headline only"
+  }
+ ],
+ "next_opponent": [
+  {
+   "fact": "Seattle plays at the Las Vegas Raiders on Sunday, November 15, 4:05 pm ET (1:05 pm PT) at Allegiant Stadium (indoor, grass), on CBS.",
+   "source": "research/data/OWL-WR2.json (next_games)",
+   "date": "2026-11-15",
+   "confidence": "from the data file; time also shown by Seahawks.com headline"
+  },
+  {
+   "fact": "The Raiders are coached by Klint Kubiak, who was Seattle's offensive coordinator in 2025, so he faces his old offense.",
+   "source": "research/data/OWL-WR2.json (news: OregonLive headline, 2026-11-11)",
+   "date": "2026-11-11",
+   "confidence": "headline only (OregonLive headline in the data file)"
+  },
+  {
+   "fact": "Squawka says Las Vegas is the worst run defense in the NFL (about 151 rushing yards a game) and Seattle allows the fewest passing yards (about 155 a game). A Raiders.com table put Las Vegas at 234.2 pass yards allowed a game, 26th, but the columns were unlabeled.",
+   "source": "https://www.squawka.com/us/?p=91964",
+   "date": "date not shown",
+   "confidence": "search summary only"
+  },
+  {
+   "fact": "Betting lines disagree: the data file has Seattle -6.5 with a 40.5 total (23.5 implied); search results show Seattle -3 to -3.5 (Dimers, SI) with a 43.5 total, and one DraftKings listing at Raiders +7.",
+   "source": "https://www.dimers.com/nfl/news/seattle-seahawks-vs-las-vegas-raiders-early-prediction-nfl-week-10-2026-ac",
+   "date": "date not shown",
+   "confidence": "headline only, lines conflict"
+  },
+  {
+   "fact": "ClutchPoints bold prediction: 10 or more catches, 125 or more yards and a touchdown for him; Squawka projects Seattle 27-13.",
+   "source": "https://clutchpoints.com/nfl/nfl-stories/seahawks-vs-raiders-bold-predictions-for-nfl-week-10",
+   "date": "date not shown",
+   "confidence": "headline and search summary only"
+  },
+  {
+   "fact": "Raiders record and the outdoor weather: not found (game is indoors).",
+   "source": "not found",
+   "date": null,
+   "confidence": "not found"
+  }
+ ],
+ "style": [
+  {
+   "fact": "Slot-heavy receiver with elite route running and hands; Madden week 8 rating 91 overall, with 97 catching, 95 awareness and 91 speed.",
+   "source": "research/data/OWL-WR2.json (bio.madden)",
+   "date": "2026-11-15",
+   "confidence": "one source"
+  },
+  {
+   "fact": "2026 profile: 26 of 71 catches go 10 to 19 yards and 16 go 20 or more; 9 touchdowns include 3 of 40-plus yards; 13 red-zone targets.",
+   "source": "research/data/OWL-WR2.json (season_2026 sleeper_sums)",
+   "date": "2026-11-15",
+   "confidence": "from the data file"
+  },
+  {
+   "fact": "He recreated soccer player Michael Olise's goal celebration after his first touchdown of 2026.",
+   "source": "https://en.wikipedia.org/wiki/Jaxon_Smith-Njigba",
+   "date": null,
+   "confidence": "from Wikipedia"
+  }
+ ],
+ "availability": {
+  "status": "Active, expected to play",
+  "detail": "No injury designation was found. Yahoo headlines of November 13 say full practice and set to play. The quarterback is the question: Darnold is reported out and Drew Lock (oblique, tests good) is the expected starter. No official inactive list seen yet.",
+  "expected_return": "Not applicable",
+  "source": "https://www.thefantasyfootballers.com/news/646822/sam-darnold-not-ready-to-return-in-week-10/",
+  "date": "date not shown"
+ },
+ "outlook_next_game": {
+  "lean": "plays and produces; expected around 15 to 20 fantasy points",
+  "confidence": "medium",
+  "reasons": [
+   "He is active with a 35.7 percent target share and a 17.9 point average, and has been the offense whoever throws.",
+   "Weeks with Lock in 2026 were 18.2, 33.5 (Week 2 with Lock mostly) and 5.1 for him, so a Lock game can swing both ways.",
+   "Road games average 24.1 points vs 14.8 at home in the small sample, and Las Vegas is reported weak against the run, which could shift Seattle toward rushing.",
+   "Risks: a run-heavy script with a lead, Lock's oblique, and one report of a lower implied total (23.5)."
+  ]
+ },
+ "scouts_read": "Smith-Njigba looks healthy and set to play, so the question is quarterback and script, not availability. Darnold is reported out, and the one game he had with Lock in Week 9 was his worst of the year at 51 yards. Even so, Lock-throwing games produced both his best and worst weeks, and his 99 targets show he is the first read. Las Vegas is reported to be soft against the run, which could let Seattle lean on Wilson and trim his volume. I would project a decent game near 16 to 18 points with a real chance of a big day if Lock throws often.",
+ "open_questions": [
+  "Official Sunday inactive list and Lock's confirmed start (not found beyond a report that Darnold is out).",
+  "Raiders record, weather note and a reliable spread (sources conflict).",
+  "Quotes from Smith-Njigba or the coach this week (not found).",
+  "Details of the November 9 Seahawks trade-decision headline (not found)."
+ ],
+ "searches": [
+  "Jaxon Smith-Njigba Week 10 Seahawks Raiders injury report Darnold",
+  "Jaxon Smith-Njigba Seahawks Raiders preview Kubiak usage",
+  "Seahawks vs Raiders Week 10 2026 prediction odds Smith-Njigba",
+  "Jaxon Smith-Njigba full practice set to play Week 10 Raiders Drew Lock start",
+  "Raiders pass defense 2026 Seahawks Raiders Week 10 preview",
+  "Page fetches of si.com and thefantasyfootballers.com failed (host not reachable); Wikipedia text came from sections stored in research/data/OWL-WR2.json"
+ ]
+}
