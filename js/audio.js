@@ -528,8 +528,10 @@
   }
   function react(type, d) {
     var G = root.FF_GAME;
-    if (!G || G.active === false || G.seeking) return;
+    if (!G || G.seeking || (G.active === false && type !== 'start')) return;
     var res = d && d.res, e = res && res.e || {};
+    // The stadium is there from the moment the game starts, not from the first snap after it.
+    if (type === 'start') { after('crowd_murmur', 0.05, 0); return; }
     if (type === 'half') { after('whistle_long', 0, 0); if (!otherCrowd()) after('crowd_clap', 1.6, 0); return; }
     if (type === 'final') { after('whistle_full', 0, 0); if (!otherCrowd()) { after('crowd_cheer', 2.1, 0); after('crowd_clap', 3.0, 0); } return; }
     if (otherCrowd()) return;
@@ -555,7 +557,7 @@
     if (!G || G.seeking || (G.active === false && type !== 'start')) return;
     var res = d && d.res;
     // The match is set at its kickoff before the first tap, so the opening whistle comes with 'start'.
-    if (type === 'start') after('whistle', 0.4, 3);
+    if (type === 'start') { after('crowd_murmur', 0.05, 0); after('whistle', 0.4, 3); }
     else if (type === 'snap' && res) {
       play('crowd_murmur');
       if (res.kind === 'kickoff') after('whistle', 0.6, 3);   // football's kickoff whistles in js/plays.js
