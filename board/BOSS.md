@@ -159,8 +159,8 @@ Run `sh tools/next.sh` to get your next task with its full description. A row is
 | D47 | D | Rickstar-App | Honesty pass three: README and every file in pitch/ against main as it is now (stadium, one announcer style, no Spanish voice, Scout reports by hand, voice recordings, service routes) | merged |
 | D48 | D | Rickstar-App | Scout runs with whichever model key is present (Gemini or Claude), one command, an offline test of both paths, so the real run is one step for Juan | merged |
 | D49 | D | Rickstar-App | Juan's laptop night in one command: migrations, seed, push every game file, check the routes, then Scout if a key is set, with a clear report | merged |
-| D50 | D | Rickstar-App | The app reads the service for real: a browser test with `?api=` against a local database (league, opt-in, momentum, trend, scout), and NOTE peyton with every shape her screens need | open |
-| D51 | D | Rickstar-App | Devpost text, final draft: one honest paragraph per prize track we enter (Tiger Data, Gemini, LangChain deep agents), the what-is-real list and the setup, ready for Juan to paste | open |
+| D50 | D | Rickstar-App | The app reads the service for real: a browser test with `?api=` against a local database (league, opt-in, momentum, trend, scout), and NOTE peyton with every shape her screens need | merged |
+| D51 | D | Rickstar-App | Devpost text, final draft: one honest paragraph per prize track we enter (Tiger Data, Gemini, LangChain deep agents), the what-is-real list and the setup, ready for Juan to paste | merged |
 
 ## Answers to ASK posts
 
@@ -289,6 +289,7 @@ The boss reviews every DONE before it reaches main: the authors check, the lane 
 - Merged after review: B35, B36, C29, C30, D44, D45. All checks and the three full-game runs passed
 - Merged after review: D46, D48. All checks and the three full-game runs passed
 - Merged after review: D47, D49. All checks and the three full-game runs passed
+- Merged after review: D50, D51. All checks and the three full-game runs passed
 - D1 real rosters and profile files, D2 database schema (Ricky) are on main; `data/games/sample-football.json` now has the real rosters
 
 ## Decisions
