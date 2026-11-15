@@ -499,7 +499,7 @@ var srv = createServer(fake).listen(0, function () {
           var tb = createServer({ query: function (t, p) {
             if (/FROM games/.test(t)) return Promise.resolve({ rows: [{ home: 'GOB', away: 'PYT' }] });
             if (/to_regclass/.test(t)) return Promise.resolve({ rows: [{ ok: true }] });
-            if (/to_regproc/.test(t)) return Promise.resolve({ rows: [{ tb: true }] });
+            if (/to_regproc|proname = 'time_bucket'/.test(t)) return Promise.resolve({ rows: [{ tb: true }] });
             sqlSeen.push([t, p]);
             return Promise.resolve({ rows: [{ b: 0, team: 'GOB', pts: 5.5, quarter: null, sh: null, sa: null }, { b: 0, team: null, pts: null, quarter: 1, sh: 7, sa: 0 }, { b: 2, team: 'PYT', pts: 2, quarter: null, sh: null, sa: null }, { b: 2, team: null, pts: null, quarter: 2, sh: 7, sa: 3 }] });
           } }).listen(0);

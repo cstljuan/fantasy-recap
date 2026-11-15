@@ -1,13 +1,14 @@
 // The TimescaleDB queries of the service. On Tiger Data they use time_bucket; on a plain PostgreSQL (a laptop test)
 // the same queries use date_bin, which does the same bucketing (PostgreSQL 14 and newer). Nothing else differs.
-//   fn(db)            -> Promise<'time_bucket' | 'date_bin'>  which one this database has (asked once)
+//   fn(db)            -> Promise<'time_bucket' | 'date_bin'>  which one this database has (asked once).
+//   Checked in pg_proc: to_regproc('time_bucket') is NULL on Tiger Data because time_bucket has many overloads.
 //   momentum(db, fn, gameId, home, away, bucketSeconds) -> the same shape as server/momentum.js, or null with no awards
 //   hasAwards(db)     -> Promise<boolean>  whether migration 004 is applied (the fp_awards table exists)
 //   trend(db, id)     -> Promise<{rows}> weekly points per player from the player_points_per_week aggregate
 var momentumModule = require('./momentum.js');
 
 function fn(db) {
-  return db.query("SELECT to_regproc('time_bucket') IS NOT NULL AS tb").then(function (r) { return r.rows[0] && r.rows[0].tb ? 'time_bucket' : 'date_bin'; });
+  return db.query("SELECT EXISTS (SELECT 1 FROM pg_proc WHERE proname = 'time_bucket') AS tb").then(function (r) { return r.rows[0] && r.rows[0].tb ? 'time_bucket' : 'date_bin'; });
 }
 function hasAwards(db) {
   return db.query("SELECT to_regclass('fp_awards') IS NOT NULL AS ok").then(function (r) { return !!(r.rows[0] && r.rows[0].ok); });
