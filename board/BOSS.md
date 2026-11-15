@@ -125,7 +125,7 @@ Run `sh tools/next.sh` to get your next task with its full description. A row is
 | G2 | G | cstljuan | Brand guide, wordmark, mascot | open |
 | G3 | G | cstljuan | Every screen at phone and laptop size | open |
 | G4 | G | cstljuan | Motion page and motion specs | open |
-| G5 | G | cstljuan | Devpost thumbnail, gallery, video title card, architecture picture | open |
+| G5 | G | cstljuan | Devpost thumbnail, gallery, video title card, architecture picture | merged |
 | G6 | G | cstljuan | DESIGN.md and tokens for the builders | open |
 | A1 | A | cstljuan | Load the game from `data/games/<id>.json`; contract v1 | merged |
 | A2 | A | cstljuan | The football game maker with the play caller | merged |
@@ -138,8 +138,8 @@ Run `sh tools/next.sh` to get your next task with its full description. A row is
 | B36 | B | Peypey-ryd | Football and soccer screens consistent side by side | merged |
 | B37 | B | Peypey-ryd | Fix every bug the test lead (C28) sends | closed: C28 sent none |
 | B38 | B | Peypey-ryd | Polish the football stadium Juan chose (Noah's, built from the soccer stadium): check it at 375 and 1280 with your screens, crowd layer and captions, fix what overlaps | merged |
-| B39 | B | Peypey-ryd | Momentum and player trends from the service (D44) on the film room and lineups when `?api=` is set, file fallback otherwise | open |
-| B40 | B | Peypey-ryd | Two honest matchups: the featured real week 9 game ("Real plays") and a Jev game ("Jev called the plays"), each opening its own game, every label from the game file's `source` | open |
+| B39 | B | Peypey-ryd | Momentum and player trends from the service (D44) on the film room and lineups when `?api=` is set, file fallback otherwise | merged |
+| B40 | B | Peypey-ryd | Two honest matchups: the featured real week 9 game ("Real plays") and a Jev game ("Jev called the plays"), each opening its own game, every label from the game file's `source` | merged |
 | B43 | B | Peypey-ryd | No "made-up" on a real game: footer, header tag, canvas score box tag and final box read the game file's `source` and `source_note` (canvas text is in js/main.js, which is in your lane tonight) | open |
 | B41 | B | Peypey-ryd | Demo path at phone size, both sports, after tonight's changes: league, matchup, opt in, watch, jump, recap, share; fix what breaks | dropped: Juan, focus on data |
 | B42 | B | Peypey-ryd | Phone speed: first load on a throttled phone profile, what blocks the first screen, lazy loading where it is yours, a short report with numbers | dropped: Juan, focus on data |
@@ -147,7 +147,7 @@ Run `sh tools/next.sh` to get your next task with its full description. A row is
 | C32 | C | nexodv | Soccer seek and hold (S7, moved to Noah), then the jump bar, rule cards and share card on the soccer page, with Peyton | merged |
 | C33 | C | nexodv | Voice for the second football game (Turtles against Owls, D46) once its file is on main | dropped (Noah's call) |
 | C34 | C | nexodv | The demo video shot list and two-minute script, refreshed against main tonight (new stadium, soccer in the same tab bar, recordings), with Peyton | merged |
-| C37 | C | nexodv | The announcer for the real week 9 games: fix js/announcer/check.js for the new current week (Ricky's ASK), pre-game show for Goblins against Turtles, every line fits, then the recording count for Noah to approve | open |
+| C37 | C | nexodv | The announcer for the real week 9 games: fix js/announcer/check.js for the new current week (Ricky's ASK), pre-game show for Goblins against Turtles, every line fits, then the recording count for Noah to approve | dropped: Juan, no more assigned tasks |
 | C35 | C | nexodv | Sound starts right on a real phone: first tap unlocks audio, iPhone silent switch and background tab rules, resume after the tab returns, both sports, with a check | dropped: Juan, focus on data |
 | C36 | C | nexodv | The second football game with the browser voice: every line fits, names and numbers said right for the Turtles and Owls rosters, audit covers it | dropped: Juan, focus on data |
 | C29 | C | nexodv | Stadium sound for football to match the soccer broadcast, with Peyton's B35 | merged |
@@ -232,7 +232,11 @@ Newest at the bottom. The boss answers every ASK here. If the answer is "yes, do
 
 - Decision (Juan, 2026-11-15, 9 PM): no more test or polish filler. Focus is data: real plays and real stat lines in what the demo shows, Scout's real run, Tiger Data. Dropped C35, C36, B41, B42, D53.
 
-- Decision (boss, 2026-11-15): the demo shows both stories. The featured matchup is the real week 9 game (real plays, no Jev needed), the second matchup is a game built from stat lines where Jev called the plays. Game files carry `source` (contract section 1) so every screen labels them honestly.
+- Decision (boss, 2026-11-15, updated): the demo shows both stories. The league home shows week 9 as it really was (both matchups real plays); the Jev game built from stat lines is a separate "What if Jev called the plays" card. Game files carry `source` (contract section 1) so every screen labels them honestly.
+
+- ANSWER to Peypey-ryd (B40 files): (2) done: tools/use-game.js now copies `source` and `source_note` into current.js (`sample` when the file has none). (1) the boss adds `<script src="js/screens/pick-game.js"></script>` right after data/games/current.js in the same merge as your file, because a tag to a file not yet on main logs an error. Which card opens what: the league home shows week 9 as it really was, both matchups real (Goblins against Turtles featured, Pythons against Owls second, `week09-pyt-owl.json`); the Jev game (`week11-tur-owl.json`) is a separate card, for example "What if Jev called the plays", labeled from its `source`. Ricky adds `source` to every file in D56.
+
+- Decision (Juan, 2026-11-15, 9:25 PM): the boss assigns no more tasks. Noah's C37 is dropped. Each agent works only on what its own person asks for in its chat; rows already open for Peyton and Ricky stay only if their person wants them. The boss keeps reviewing and merging what agents push.
 
 ## Waiting for Juan
 
@@ -303,6 +307,8 @@ The boss reviews every DONE before it reaches main: the authors check, the lane 
 - Merged after review: D50, D51. All checks and the three full-game runs passed
 - Merged after review: D52, G1. All checks and the three full-game runs passed
 - Merged after review: B38, D54. All checks and the three full-game runs passed
+- Merged after review: B39, G5. All checks and the three full-game runs passed
+- Merged after review: B40. All checks and the three full-game runs passed
 - D1 real rosters and profile files, D2 database schema (Ricky) are on main; `data/games/sample-football.json` now has the real rosters
 
 ## Decisions

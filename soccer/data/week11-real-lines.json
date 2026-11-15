@@ -1,0 +1,55 @@
+{
+ "note": "REAL numbers from data/statlines/soccer-real-2026-11-08.json: each player's line is from his own league match in 2026-11-05 to 2026-11-08 (ESPN, read 2026-11-14). The players of a team play for different clubs, so these lines are not one match. One change so that the match maker accepts them: each keeper's saves are the other team's shots on target that were not goals (Ironside 2 became 6, Rail-Bridge 5 became 8). One more: Ironside's CM3 has a real goal and a real assist, but a player cannot assist his own goal and the two come from different matches, so his assist is left out (Ironside 1 assist became 0). Nothing else was changed.",
+ "teams": [
+  {
+   "players": {
+    "GK": {
+     "saves": 6
+    },
+    "LB": {
+     "sot": 1
+    },
+    "CM1": {
+     "sot": 2
+    },
+    "CM2": {
+     "sot": 2
+    },
+    "CM3": {
+     "goals": 1,
+     "sot": 2
+    },
+    "ST": {
+     "sot": 2
+    }
+   }
+  },
+  {
+   "players": {
+    "GK": {
+     "saves": 8
+    },
+    "CM1": {
+     "goals": 1,
+     "sot": 1
+    },
+    "CM3": {
+     "sot": 1
+    },
+    "LW": {
+     "goals": 1,
+     "sot": 4,
+     "yellow": 1
+    },
+    "ST": {
+     "assists": 2,
+     "sot": 1
+    },
+    "RW": {
+     "goals": 1,
+     "sot": 2
+    }
+   }
+  }
+ ]
+}
