@@ -51,10 +51,12 @@
   "contract": {
    "signed": "2022",
    "years": "4",
-   "total_value_millions": "6299640",
-   "per_year_millions": "1574910",
-   "guaranteed_millions": "3457900",
-   "team": "Cardinals"
+   "total_value_usd": 6299640.0,
+   "per_year_usd": 1574910.0,
+   "guaranteed_usd": 3457900.0,
+   "team": "Cardinals",
+   "active": true,
+   "note": "dollars, not millions; the contract file's newest signing year is 2022, so extensions signed later are missing"
   },
   "madden": {
    "overall": 94,
@@ -1547,6 +1549,141 @@
     "kind": "pass",
     "from_yards_out": 14,
     "text": "(Shotgun) G.Minshew pass short right to T.McBride for 14 yards, TOUCHDOWN. C.Ryland extra point is GOOD, Center-C.Kreiter, Holder-B.Gillikin."
+   }
+  ]
+ },
+ "teammates_2026": {
+  "passers_by_week": {
+   "1": [
+    {
+     "qb": "Jacoby Brissett",
+     "attempts": 37
+    }
+   ],
+   "2": [
+    {
+     "qb": "Jacoby Brissett",
+     "attempts": 28
+    }
+   ],
+   "3": [
+    {
+     "qb": "Jacoby Brissett",
+     "attempts": 52
+    }
+   ],
+   "4": [
+    {
+     "qb": "Jacoby Brissett",
+     "attempts": 35
+    }
+   ],
+   "5": [
+    {
+     "qb": "Jacoby Brissett",
+     "attempts": 47
+    }
+   ],
+   "6": [
+    {
+     "qb": "Jacoby Brissett",
+     "attempts": 35
+    }
+   ],
+   "7": [
+    {
+     "qb": "Jacoby Brissett",
+     "attempts": 48
+    }
+   ],
+   "8": [
+    {
+     "qb": "Jacoby Brissett",
+     "attempts": 23
+    },
+    {
+     "qb": "Gardner Minshew",
+     "attempts": 23
+    }
+   ],
+   "9": [
+    {
+     "qb": "Gardner Minshew",
+     "attempts": 30
+    }
+   ]
+  },
+  "top_targets": [
+   {
+    "name": "Trey McBride",
+    "pos": "TE",
+    "targets": 94,
+    "rec": 73,
+    "rec_yd": 598,
+    "games": 9,
+    "share": 0.275
+   },
+   {
+    "name": "Michael Wilson",
+    "pos": "WR",
+    "targets": 88,
+    "rec": 51,
+    "rec_yd": 546,
+    "games": 9,
+    "share": 0.257
+   },
+   {
+    "name": "Kendrick Bourne",
+    "pos": "WR",
+    "targets": 38,
+    "rec": 26,
+    "rec_yd": 263,
+    "games": 7,
+    "share": 0.111
+   },
+   {
+    "name": "Tyler Allgeier",
+    "pos": "RB",
+    "targets": 25,
+    "rec": 23,
+    "rec_yd": 128,
+    "games": 9,
+    "share": 0.073
+   },
+   {
+    "name": "Elijah Higgins",
+    "pos": "TE",
+    "targets": 20,
+    "rec": 18,
+    "rec_yd": 162,
+    "games": 7,
+    "share": 0.058
+   }
+  ],
+  "top_rushers": [
+   {
+    "name": "Tyler Allgeier",
+    "pos": "RB",
+    "carries": 89,
+    "rush_yd": 369,
+    "games": 9,
+    "share": 0.454
+   },
+   {
+    "name": "Jeremiyah Love",
+    "pos": "RB",
+    "carries": 76,
+    "rush_yd": 268,
+    "games": 6,
+    "share": 0.388
+   },
+   {
+    "name": "Bam Knight",
+    "pos": "RB",
+    "carries": 28,
+    "rush_yd": 168,
+    "games": 5,
+    "share": 0.143
    }
   ]
  },

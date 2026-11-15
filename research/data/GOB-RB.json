@@ -70,10 +70,12 @@
   "contract": {
    "signed": "2018",
    "years": "4",
-   "total_value_millions": "31194750",
-   "per_year_millions": "7798688",
-   "guaranteed_millions": "31194750",
-   "team": "Giants"
+   "total_value_usd": 31194750.0,
+   "per_year_usd": 7798688.0,
+   "guaranteed_usd": 31194750.0,
+   "team": "Giants",
+   "active": true,
+   "note": "dollars, not millions; the contract file's newest signing year is 2022, so extensions signed later are missing"
   },
   "madden": {
    "overall": 99,
@@ -2161,6 +2163,141 @@
     "kind": "run",
     "from_yards_out": 3,
     "text": "F.Johnson and W.Lampkin reported in as eligible.  S.Barkley left tackle for 3 yards, TOUCHDOWN. ** Injury Update: NYG-S.Harris has returned to the game. TWO-POI"
+   }
+  ]
+ },
+ "teammates_2026": {
+  "passers_by_week": {
+   "1": [
+    {
+     "qb": "Jalen Hurts",
+     "attempts": 25
+    }
+   ],
+   "2": [
+    {
+     "qb": "Jalen Hurts",
+     "attempts": 37
+    }
+   ],
+   "3": [
+    {
+     "qb": "Jalen Hurts",
+     "attempts": 25
+    },
+    {
+     "qb": "Andy Dalton",
+     "attempts": 1
+    }
+   ],
+   "4": [
+    {
+     "qb": "Jalen Hurts",
+     "attempts": 27
+    }
+   ],
+   "5": [
+    {
+     "qb": "Jalen Hurts",
+     "attempts": 40
+    }
+   ],
+   "6": [
+    {
+     "qb": "Tanner McKee",
+     "attempts": 45
+    }
+   ],
+   "7": [
+    {
+     "qb": "Tanner McKee",
+     "attempts": 35
+    }
+   ],
+   "8": [
+    {
+     "qb": "Tanner McKee",
+     "attempts": 34
+    }
+   ],
+   "9": [
+    {
+     "qb": "Joe Milton III",
+     "attempts": 34
+    }
+   ]
+  },
+  "top_targets": [
+   {
+    "name": "Makai Lemon",
+    "pos": "WR",
+    "targets": 54,
+    "rec": 37,
+    "rec_yd": 312,
+    "games": 9,
+    "share": 0.189
+   },
+   {
+    "name": "Dallas Goedert",
+    "pos": "TE",
+    "targets": 41,
+    "rec": 31,
+    "rec_yd": 308,
+    "games": 7,
+    "share": 0.144
+   },
+   {
+    "name": "DeVonta Smith",
+    "pos": "WR",
+    "targets": 41,
+    "rec": 26,
+    "rec_yd": 310,
+    "games": 4,
+    "share": 0.144
+   },
+   {
+    "name": "Dontayvion Wicks",
+    "pos": "WR",
+    "targets": 32,
+    "rec": 19,
+    "rec_yd": 284,
+    "games": 6,
+    "share": 0.112
+   },
+   {
+    "name": "Darius Cooper",
+    "pos": "WR",
+    "targets": 32,
+    "rec": 13,
+    "rec_yd": 200,
+    "games": 7,
+    "share": 0.112
+   }
+  ],
+  "top_rushers": [
+   {
+    "name": "Saquon Barkley",
+    "pos": "RB",
+    "carries": 69,
+    "rush_yd": 296,
+    "games": 7,
+    "share": 0.394
+   },
+   {
+    "name": "Dameon Pierce",
+    "pos": "RB",
+    "carries": 37,
+    "rush_yd": 96,
+    "games": 3,
+    "share": 0.211
+   },
+   {
+    "name": "Tank Bigsby",
+    "pos": "RB",
+    "carries": 28,
+    "rush_yd": 91,
+    "games": 3,
+    "share": 0.16
    }
   ]
  },

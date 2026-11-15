@@ -51,10 +51,12 @@
   "contract": {
    "signed": "2020",
    "years": "4",
-   "total_value_millions": "13122806",
-   "per_year_millions": "3280702",
-   "guaranteed_millions": "13122806",
-   "team": "Vikings"
+   "total_value_usd": 13122806.0,
+   "per_year_usd": 3280702.0,
+   "guaranteed_usd": 13122806.0,
+   "team": "Vikings",
+   "active": true,
+   "note": "dollars, not millions; the contract file's newest signing year is 2022, so extensions signed later are missing"
   },
   "madden": {
    "overall": 99,
@@ -1955,6 +1957,139 @@
     "kind": "pass",
     "from_yards_out": 1,
     "text": "(No Huddle) K.Murray pass short left to J.Jefferson for 1 yard, TOUCHDOWN. W.Reichard extra point is GOOD, Center-A.DePaola, Holder-B.Thorson."
+   }
+  ]
+ },
+ "teammates_2026": {
+  "passers_by_week": {
+   "1": [
+    {
+     "qb": "Carson Wentz",
+     "attempts": 19
+    },
+    {
+     "qb": "Kyler Murray",
+     "attempts": 5
+    }
+   ],
+   "2": [
+    {
+     "qb": "Carson Wentz",
+     "attempts": 20
+    }
+   ],
+   "3": [
+    {
+     "qb": "Kyler Murray",
+     "attempts": 29
+    }
+   ],
+   "4": [
+    {
+     "qb": "Kyler Murray",
+     "attempts": 37
+    }
+   ],
+   "5": [
+    {
+     "qb": "Kyler Murray",
+     "attempts": 30
+    }
+   ],
+   "7": [
+    {
+     "qb": "Kyler Murray",
+     "attempts": 24
+    }
+   ],
+   "8": [
+    {
+     "qb": "Kyler Murray",
+     "attempts": 29
+    }
+   ],
+   "9": [
+    {
+     "qb": "Carson Wentz",
+     "attempts": 25
+    },
+    {
+     "qb": "Max Brosmer",
+     "attempts": 7
+    }
+   ]
+  },
+  "top_targets": [
+   {
+    "name": "Justin Jefferson",
+    "pos": "WR",
+    "targets": 51,
+    "rec": 31,
+    "rec_yd": 393,
+    "games": 7,
+    "share": 0.242
+   },
+   {
+    "name": "T.J. Hockenson",
+    "pos": "TE",
+    "targets": 44,
+    "rec": 35,
+    "rec_yd": 328,
+    "games": 8,
+    "share": 0.209
+   },
+   {
+    "name": "Jordan Addison",
+    "pos": "WR",
+    "targets": 36,
+    "rec": 18,
+    "rec_yd": 277,
+    "games": 7,
+    "share": 0.171
+   },
+   {
+    "name": "Aaron Jones",
+    "pos": "RB",
+    "targets": 22,
+    "rec": 16,
+    "rec_yd": 95,
+    "games": 7,
+    "share": 0.104
+   },
+   {
+    "name": "Myles Price",
+    "pos": "WR",
+    "targets": 11,
+    "rec": 6,
+    "rec_yd": 32,
+    "games": 4,
+    "share": 0.052
+   }
+  ],
+  "top_rushers": [
+   {
+    "name": "Aaron Jones",
+    "pos": "RB",
+    "carries": 115,
+    "rush_yd": 474,
+    "games": 8,
+    "share": 0.665
+   },
+   {
+    "name": "Jordan Mason",
+    "pos": "RB",
+    "carries": 44,
+    "rush_yd": 182,
+    "games": 4,
+    "share": 0.254
+   },
+   {
+    "name": "Demond Claiborne",
+    "pos": "RB",
+    "carries": 6,
+    "rush_yd": 13,
+    "games": 2,
+    "share": 0.035
    }
   ]
  },

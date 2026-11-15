@@ -2266,6 +2266,145 @@
    }
   ]
  },
+ "teammates_2026": {
+  "passers_by_week": {
+   "1": [
+    {
+     "qb": "Jayden Daniels",
+     "attempts": 34
+    }
+   ],
+   "2": [
+    {
+     "qb": "Jayden Daniels",
+     "attempts": 17
+    },
+    {
+     "qb": "Marcus Mariota",
+     "attempts": 16
+    }
+   ],
+   "3": [
+    {
+     "qb": "Marcus Mariota",
+     "attempts": 31
+    }
+   ],
+   "4": [
+    {
+     "qb": "Athan Kaliakmanis",
+     "attempts": 33
+    },
+    {
+     "qb": "Marcus Mariota",
+     "attempts": 4
+    }
+   ],
+   "5": [
+    {
+     "qb": "Jayden Daniels",
+     "attempts": 25
+    }
+   ],
+   "6": [
+    {
+     "qb": "Jayden Daniels",
+     "attempts": 40
+    }
+   ],
+   "8": [
+    {
+     "qb": "Jayden Daniels",
+     "attempts": 29
+    }
+   ],
+   "9": [
+    {
+     "qb": "Jayden Daniels",
+     "attempts": 35
+    }
+   ],
+   "10": [
+    {
+     "qb": "Jayden Daniels",
+     "attempts": 33
+    }
+   ]
+  },
+  "top_targets": [
+   {
+    "name": "Stefon Diggs",
+    "pos": "WR",
+    "targets": 59,
+    "rec": 36,
+    "rec_yd": 386,
+    "games": 8,
+    "share": 0.21
+   },
+   {
+    "name": "Antonio Williams",
+    "pos": "WR",
+    "targets": 41,
+    "rec": 28,
+    "rec_yd": 326,
+    "games": 9,
+    "share": 0.146
+   },
+   {
+    "name": "Chig Okonkwo",
+    "pos": "TE",
+    "targets": 39,
+    "rec": 27,
+    "rec_yd": 263,
+    "games": 7,
+    "share": 0.139
+   },
+   {
+    "name": "Terry McLaurin",
+    "pos": "WR",
+    "targets": 27,
+    "rec": 15,
+    "rec_yd": 230,
+    "games": 5,
+    "share": 0.096
+   },
+   {
+    "name": "Treylon Burks",
+    "pos": "WR",
+    "targets": 25,
+    "rec": 14,
+    "rec_yd": 260,
+    "games": 7,
+    "share": 0.089
+   }
+  ],
+  "top_rushers": [
+   {
+    "name": "Jacory Croskey-Merritt",
+    "pos": "RB",
+    "carries": 67,
+    "rush_yd": 239,
+    "games": 5,
+    "share": 0.351
+   },
+   {
+    "name": "Rachaad White",
+    "pos": "RB",
+    "carries": 65,
+    "rush_yd": 275,
+    "games": 8,
+    "share": 0.34
+   },
+   {
+    "name": "Austin Ekeler",
+    "pos": "RB",
+    "carries": 33,
+    "rush_yd": 109,
+    "games": 6,
+    "share": 0.173
+   }
+  ]
+ },
  "log": [
   {
    "cmp": 17.0,

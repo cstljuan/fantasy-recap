@@ -1575,6 +1575,141 @@
    }
   ]
  },
+ "teammates_2026": {
+  "passers_by_week": {
+   "1": [
+    {
+     "qb": "Kirk Cousins",
+     "attempts": 30
+    }
+   ],
+   "2": [
+    {
+     "qb": "Kirk Cousins",
+     "attempts": 29
+    }
+   ],
+   "3": [
+    {
+     "qb": "Kirk Cousins",
+     "attempts": 33
+    }
+   ],
+   "4": [
+    {
+     "qb": "Kirk Cousins",
+     "attempts": 52
+    }
+   ],
+   "5": [
+    {
+     "qb": "Kirk Cousins",
+     "attempts": 28
+    },
+    {
+     "qb": "Fernando Mendoza",
+     "attempts": 8
+    }
+   ],
+   "6": [
+    {
+     "qb": "Kirk Cousins",
+     "attempts": 41
+    }
+   ],
+   "7": [
+    {
+     "qb": "Kirk Cousins",
+     "attempts": 44
+    }
+   ],
+   "8": [
+    {
+     "qb": "Kirk Cousins",
+     "attempts": 26
+    }
+   ],
+   "9": [
+    {
+     "qb": "Kirk Cousins",
+     "attempts": 32
+    }
+   ]
+  },
+  "top_targets": [
+   {
+    "name": "Brock Bowers",
+    "pos": "TE",
+    "targets": 69,
+    "rec": 48,
+    "rec_yd": 658,
+    "games": 7,
+    "share": 0.222
+   },
+   {
+    "name": "Tre Tucker",
+    "pos": "WR",
+    "targets": 56,
+    "rec": 33,
+    "rec_yd": 529,
+    "games": 9,
+    "share": 0.18
+   },
+   {
+    "name": "Ashton Jeanty",
+    "pos": "RB",
+    "targets": 55,
+    "rec": 42,
+    "rec_yd": 371,
+    "games": 9,
+    "share": 0.177
+   },
+   {
+    "name": "Michael Mayer",
+    "pos": "TE",
+    "targets": 46,
+    "rec": 39,
+    "rec_yd": 388,
+    "games": 9,
+    "share": 0.148
+   },
+   {
+    "name": "Jalen Nailor",
+    "pos": "WR",
+    "targets": 28,
+    "rec": 14,
+    "rec_yd": 122,
+    "games": 7,
+    "share": 0.09
+   }
+  ],
+  "top_rushers": [
+   {
+    "name": "Ashton Jeanty",
+    "pos": "RB",
+    "carries": 114,
+    "rush_yd": 362,
+    "games": 9,
+    "share": 0.573
+   },
+   {
+    "name": "Mike Washington Jr.",
+    "pos": "RB",
+    "carries": 71,
+    "rush_yd": 275,
+    "games": 9,
+    "share": 0.357
+   },
+   {
+    "name": "Connor Heyward",
+    "pos": "FB",
+    "carries": 5,
+    "rush_yd": -2,
+    "games": 4,
+    "share": 0.025
+   }
+  ]
+ },
  "log": [
   {
    "cmp": 0.0,

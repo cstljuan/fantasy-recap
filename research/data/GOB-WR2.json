@@ -1937,6 +1937,141 @@
    }
   ]
  },
+ "teammates_2026": {
+  "passers_by_week": {
+   "1": [
+    {
+     "qb": "Matthew Stafford",
+     "attempts": 25
+    },
+    {
+     "qb": "Stetson Bennett",
+     "attempts": 3
+    }
+   ],
+   "2": [
+    {
+     "qb": "Matthew Stafford",
+     "attempts": 31
+    }
+   ],
+   "3": [
+    {
+     "qb": "Matthew Stafford",
+     "attempts": 55
+    }
+   ],
+   "4": [
+    {
+     "qb": "Matthew Stafford",
+     "attempts": 51
+    }
+   ],
+   "5": [
+    {
+     "qb": "Matthew Stafford",
+     "attempts": 54
+    }
+   ],
+   "6": [
+    {
+     "qb": "Matthew Stafford",
+     "attempts": 33
+    }
+   ],
+   "7": [
+    {
+     "qb": "Matthew Stafford",
+     "attempts": 29
+    }
+   ],
+   "8": [
+    {
+     "qb": "Matthew Stafford",
+     "attempts": 25
+    }
+   ],
+   "9": [
+    {
+     "qb": "Matthew Stafford",
+     "attempts": 43
+    }
+   ]
+  },
+  "top_targets": [
+   {
+    "name": "Puka Nacua",
+    "pos": "WR",
+    "targets": 93,
+    "rec": 70,
+    "rec_yd": 715,
+    "games": 7,
+    "share": 0.276
+   },
+   {
+    "name": "Davante Adams",
+    "pos": "WR",
+    "targets": 49,
+    "rec": 30,
+    "rec_yd": 480,
+    "games": 6,
+    "share": 0.145
+   },
+   {
+    "name": "Kyren Williams",
+    "pos": "RB",
+    "targets": 46,
+    "rec": 36,
+    "rec_yd": 258,
+    "games": 9,
+    "share": 0.136
+   },
+   {
+    "name": "Tyler Higbee",
+    "pos": "TE",
+    "targets": 39,
+    "rec": 28,
+    "rec_yd": 287,
+    "games": 8,
+    "share": 0.116
+   },
+   {
+    "name": "Colby Parkinson",
+    "pos": "TE",
+    "targets": 23,
+    "rec": 18,
+    "rec_yd": 116,
+    "games": 7,
+    "share": 0.068
+   }
+  ],
+  "top_rushers": [
+   {
+    "name": "Kyren Williams",
+    "pos": "RB",
+    "carries": 127,
+    "rush_yd": 593,
+    "games": 9,
+    "share": 0.562
+   },
+   {
+    "name": "Blake Corum",
+    "pos": "RB",
+    "carries": 86,
+    "rush_yd": 447,
+    "games": 9,
+    "share": 0.381
+   },
+   {
+    "name": "Puka Nacua",
+    "pos": "WR",
+    "carries": 7,
+    "rush_yd": 41,
+    "games": 4,
+    "share": 0.031
+   }
+  ]
+ },
  "log": [
   {
    "cmp": 0.0,

@@ -1642,6 +1642,137 @@
    }
   ]
  },
+ "teammates_2026": {
+  "passers_by_week": {
+   "1": [
+    {
+     "qb": "Jordan Love",
+     "attempts": 42
+    }
+   ],
+   "2": [
+    {
+     "qb": "Jordan Love",
+     "attempts": 29
+    }
+   ],
+   "3": [
+    {
+     "qb": "Jordan Love",
+     "attempts": 53
+    }
+   ],
+   "4": [
+    {
+     "qb": "Jordan Love",
+     "attempts": 30
+    }
+   ],
+   "5": [
+    {
+     "qb": "Jordan Love",
+     "attempts": 31
+    }
+   ],
+   "6": [
+    {
+     "qb": "Jordan Love",
+     "attempts": 41
+    }
+   ],
+   "7": [
+    {
+     "qb": "Jordan Love",
+     "attempts": 45
+    }
+   ],
+   "8": [
+    {
+     "qb": "Jordan Love",
+     "attempts": 41
+    }
+   ],
+   "9": [
+    {
+     "qb": "Jordan Love",
+     "attempts": 29
+    }
+   ]
+  },
+  "top_targets": [
+   {
+    "name": "Matthew Golden",
+    "pos": "WR",
+    "targets": 92,
+    "rec": 53,
+    "rec_yd": 783,
+    "games": 9,
+    "share": 0.28
+   },
+   {
+    "name": "Christian Watson",
+    "pos": "WR",
+    "targets": 74,
+    "rec": 49,
+    "rec_yd": 879,
+    "games": 9,
+    "share": 0.225
+   },
+   {
+    "name": "Tucker Kraft",
+    "pos": "TE",
+    "targets": 52,
+    "rec": 36,
+    "rec_yd": 351,
+    "games": 9,
+    "share": 0.158
+   },
+   {
+    "name": "MarShawn Lloyd",
+    "pos": "RB",
+    "targets": 17,
+    "rec": 13,
+    "rec_yd": 79,
+    "games": 8,
+    "share": 0.052
+   },
+   {
+    "name": "Skyy Moore",
+    "pos": "WR",
+    "targets": 14,
+    "rec": 7,
+    "rec_yd": 35,
+    "games": 5,
+    "share": 0.043
+   }
+  ],
+  "top_rushers": [
+   {
+    "name": "MarShawn Lloyd",
+    "pos": "RB",
+    "carries": 57,
+    "rush_yd": 149,
+    "games": 8,
+    "share": 0.303
+   },
+   {
+    "name": "Kaleb Johnson",
+    "pos": "RB",
+    "carries": 42,
+    "rush_yd": 172,
+    "games": 6,
+    "share": 0.223
+   },
+   {
+    "name": "Josh Jacobs",
+    "pos": "RB",
+    "carries": 36,
+    "rush_yd": 80,
+    "games": 3,
+    "share": 0.191
+   }
+  ]
+ },
  "log": [
   {
    "cmp": 0.0,

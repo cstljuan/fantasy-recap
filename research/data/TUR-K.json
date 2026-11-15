@@ -51,10 +51,12 @@
   "contract": {
    "signed": "2022",
    "years": "3",
-   "total_value_millions": "2560000",
-   "per_year_millions": "853333",
-   "guaranteed_millions": "0",
-   "team": "Rams"
+   "total_value_usd": 2560000.0,
+   "per_year_usd": 853333.0,
+   "guaranteed_usd": 0.0,
+   "team": "Rams",
+   "active": true,
+   "note": "dollars, not millions; the contract file's newest signing year is 2022, so extensions signed later are missing"
   },
   "madden": {
    "overall": 82,
@@ -1413,6 +1415,135 @@
   },
   "longest_plays": [],
   "touchdown_plays": []
+ },
+ "teammates_2026": {
+  "passers_by_week": {
+   "1": [
+    {
+     "qb": "Justin Herbert",
+     "attempts": 27
+    }
+   ],
+   "2": [
+    {
+     "qb": "Justin Herbert",
+     "attempts": 27
+    }
+   ],
+   "3": [
+    {
+     "qb": "Justin Herbert",
+     "attempts": 34
+    }
+   ],
+   "4": [
+    {
+     "qb": "Justin Herbert",
+     "attempts": 31
+    }
+   ],
+   "5": [
+    {
+     "qb": "Justin Herbert",
+     "attempts": 24
+    }
+   ],
+   "6": [
+    {
+     "qb": "Justin Herbert",
+     "attempts": 37
+    }
+   ],
+   "8": [
+    {
+     "qb": "Justin Herbert",
+     "attempts": 32
+    }
+   ],
+   "9": [
+    {
+     "qb": "Justin Herbert",
+     "attempts": 23
+    },
+    {
+     "qb": "DJ Uiagalelei",
+     "attempts": 7
+    }
+   ]
+  },
+  "top_targets": [
+   {
+    "name": "Tre Harris",
+    "pos": "WR",
+    "targets": 35,
+    "rec": 21,
+    "rec_yd": 262,
+    "games": 7,
+    "share": 0.15
+   },
+   {
+    "name": "Quentin Johnston",
+    "pos": "WR",
+    "targets": 30,
+    "rec": 13,
+    "rec_yd": 260,
+    "games": 7,
+    "share": 0.128
+   },
+   {
+    "name": "Oronde Gadsden II",
+    "pos": "TE",
+    "targets": 29,
+    "rec": 19,
+    "rec_yd": 172,
+    "games": 8,
+    "share": 0.124
+   },
+   {
+    "name": "Ladd McConkey",
+    "pos": "WR",
+    "targets": 24,
+    "rec": 17,
+    "rec_yd": 286,
+    "games": 6,
+    "share": 0.103
+   },
+   {
+    "name": "Keaton Mitchell",
+    "pos": "RB",
+    "targets": 22,
+    "rec": 18,
+    "rec_yd": 103,
+    "games": 7,
+    "share": 0.094
+   }
+  ],
+  "top_rushers": [
+   {
+    "name": "Omarion Hampton",
+    "pos": "RB",
+    "carries": 102,
+    "rush_yd": 369,
+    "games": 8,
+    "share": 0.537
+   },
+   {
+    "name": "Keaton Mitchell",
+    "pos": "RB",
+    "carries": 46,
+    "rush_yd": 178,
+    "games": 8,
+    "share": 0.242
+   },
+   {
+    "name": "Kimani Vidal",
+    "pos": "RB",
+    "carries": 36,
+    "rush_yd": 162,
+    "games": 6,
+    "share": 0.189
+   }
+  ]
  },
  "log": [
   {

@@ -46,10 +46,12 @@
   "contract": {
    "signed": "2021",
    "years": "4",
-   "total_value_millions": "4265260",
-   "per_year_millions": "1066315",
-   "guaranteed_millions": "785260",
-   "team": "Lions"
+   "total_value_usd": 4265260.0,
+   "per_year_usd": 1066315.0,
+   "guaranteed_usd": 785260.0,
+   "team": "Lions",
+   "active": true,
+   "note": "dollars, not millions; the contract file's newest signing year is 2022, so extensions signed later are missing"
   },
   "madden": {
    "overall": 96,
@@ -2027,6 +2029,131 @@
     "kind": "pass",
     "from_yards_out": 4,
     "text": "J.Goff pass short right to A.St. Brown for 4 yards, TOUCHDOWN. J.Bates extra point is GOOD, Center-H.Hatten, Holder-J.Fox."
+   }
+  ]
+ },
+ "teammates_2026": {
+  "passers_by_week": {
+   "1": [
+    {
+     "qb": "Jared Goff",
+     "attempts": 39
+    }
+   ],
+   "2": [
+    {
+     "qb": "Jared Goff",
+     "attempts": 38
+    }
+   ],
+   "3": [
+    {
+     "qb": "Jared Goff",
+     "attempts": 32
+    }
+   ],
+   "4": [
+    {
+     "qb": "Jared Goff",
+     "attempts": 52
+    }
+   ],
+   "5": [
+    {
+     "qb": "Jared Goff",
+     "attempts": 30
+    }
+   ],
+   "7": [
+    {
+     "qb": "Jared Goff",
+     "attempts": 32
+    }
+   ],
+   "8": [
+    {
+     "qb": "Jared Goff",
+     "attempts": 25
+    }
+   ],
+   "9": [
+    {
+     "qb": "Jared Goff",
+     "attempts": 25
+    }
+   ]
+  },
+  "top_targets": [
+   {
+    "name": "Amon-Ra St. Brown",
+    "pos": "WR",
+    "targets": 86,
+    "rec": 61,
+    "rec_yd": 657,
+    "games": 8,
+    "share": 0.32
+   },
+   {
+    "name": "Sam LaPorta",
+    "pos": "TE",
+    "targets": 49,
+    "rec": 35,
+    "rec_yd": 399,
+    "games": 8,
+    "share": 0.182
+   },
+   {
+    "name": "Jameson Williams",
+    "pos": "WR",
+    "targets": 46,
+    "rec": 28,
+    "rec_yd": 468,
+    "games": 8,
+    "share": 0.171
+   },
+   {
+    "name": "Jahmyr Gibbs",
+    "pos": "RB",
+    "targets": 45,
+    "rec": 34,
+    "rec_yd": 285,
+    "games": 8,
+    "share": 0.167
+   },
+   {
+    "name": "Isaac TeSlaa",
+    "pos": "WR",
+    "targets": 23,
+    "rec": 11,
+    "rec_yd": 206,
+    "games": 7,
+    "share": 0.086
+   }
+  ],
+  "top_rushers": [
+   {
+    "name": "Jahmyr Gibbs",
+    "pos": "RB",
+    "carries": 177,
+    "rush_yd": 847,
+    "games": 8,
+    "share": 0.839
+   },
+   {
+    "name": "Sione Vaki",
+    "pos": "RB",
+    "carries": 30,
+    "rush_yd": 135,
+    "games": 7,
+    "share": 0.142
+   },
+   {
+    "name": "Amon-Ra St. Brown",
+    "pos": "WR",
+    "carries": 2,
+    "rush_yd": 9,
+    "games": 2,
+    "share": 0.009
    }
   ]
  },

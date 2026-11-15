@@ -46,10 +46,12 @@
   "contract": {
    "signed": "2021",
    "years": "4",
-   "total_value_millions": "4871516",
-   "per_year_millions": "1217879",
-   "guaranteed_millions": "902920",
-   "team": "Texans"
+   "total_value_usd": 4871516.0,
+   "per_year_usd": 1217879.0,
+   "guaranteed_usd": 902920.0,
+   "team": "Texans",
+   "active": true,
+   "note": "dollars, not millions; the contract file's newest signing year is 2022, so extensions signed later are missing"
   },
   "madden": {
    "overall": 88,
@@ -1966,6 +1968,135 @@
     "kind": "pass",
     "from_yards_out": 13,
     "text": "(Shotgun) C.Stroud pass short left to N.Collins for 13 yards, TOUCHDOWN. K.Fairbairn extra point is GOOD, Center-A.Brinkman, Holder-K.Kroeger."
+   }
+  ]
+ },
+ "teammates_2026": {
+  "passers_by_week": {
+   "1": [
+    {
+     "qb": "C.J. Stroud",
+     "attempts": 38
+    }
+   ],
+   "2": [
+    {
+     "qb": "C.J. Stroud",
+     "attempts": 55
+    }
+   ],
+   "3": [
+    {
+     "qb": "C.J. Stroud",
+     "attempts": 27
+    }
+   ],
+   "4": [
+    {
+     "qb": "C.J. Stroud",
+     "attempts": 31
+    }
+   ],
+   "5": [
+    {
+     "qb": "C.J. Stroud",
+     "attempts": 34
+    }
+   ],
+   "6": [
+    {
+     "qb": "C.J. Stroud",
+     "attempts": 34
+    }
+   ],
+   "7": [
+    {
+     "qb": "C.J. Stroud",
+     "attempts": 28
+    }
+   ],
+   "9": [
+    {
+     "qb": "C.J. Stroud",
+     "attempts": 35
+    },
+    {
+     "qb": "Davis Mills",
+     "attempts": 2
+    }
+   ]
+  },
+  "top_targets": [
+   {
+    "name": "Dalton Schultz",
+    "pos": "TE",
+    "targets": 47,
+    "rec": 35,
+    "rec_yd": 364,
+    "games": 8,
+    "share": 0.175
+   },
+   {
+    "name": "Xavier Hutchinson",
+    "pos": "WR",
+    "targets": 45,
+    "rec": 24,
+    "rec_yd": 287,
+    "games": 8,
+    "share": 0.168
+   },
+   {
+    "name": "Nico Collins",
+    "pos": "WR",
+    "targets": 39,
+    "rec": 28,
+    "rec_yd": 384,
+    "games": 6,
+    "share": 0.146
+   },
+   {
+    "name": "Kayshon Boutte",
+    "pos": "WR",
+    "targets": 28,
+    "rec": 19,
+    "rec_yd": 319,
+    "games": 8,
+    "share": 0.104
+   },
+   {
+    "name": "Jaylin Noel",
+    "pos": "WR",
+    "targets": 23,
+    "rec": 19,
+    "rec_yd": 331,
+    "games": 7,
+    "share": 0.086
+   }
+  ],
+  "top_rushers": [
+   {
+    "name": "Woody Marks",
+    "pos": "RB",
+    "carries": 95,
+    "rush_yd": 341,
+    "games": 8,
+    "share": 0.549
+   },
+   {
+    "name": "David Montgomery",
+    "pos": "RB",
+    "carries": 52,
+    "rush_yd": 138,
+    "games": 5,
+    "share": 0.301
+   },
+   {
+    "name": "Jawhar Jordan",
+    "pos": "RB",
+    "carries": 6,
+    "rush_yd": 43,
+    "games": 1,
+    "share": 0.035
    }
   ]
  },

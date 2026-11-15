@@ -315,6 +315,29 @@ def play_tendencies(key):
     return out
 
 
+def teammates(rows):
+    """Who threw the passes each week for this NFL team in 2026, and the season's top target and carry earners."""
+    byweek = defaultdict(list)
+    tg, ca = defaultdict(lambda: [0.0, 0.0, 0.0, 0.0]), defaultdict(lambda: [0.0, 0.0, 0.0])
+    for r in rows:
+        w = int(r["week"])
+        if f(r["attempts"]) > 0 and r["position"] == "QB":
+            byweek[w].append({"qb": r["player_display_name"], "attempts": int(f(r["attempts"]))})
+        if f(r["targets"]) > 0:
+            t = tg[(r["player_display_name"], r["position"])]
+            t[0] += f(r["targets"]); t[1] += f(r["receptions"]); t[2] += f(r["receiving_yards"]); t[3] += 1
+        if f(r["carries"]) > 0 and r["position"] != "QB":
+            c = ca[(r["player_display_name"], r["position"])]
+            c[0] += f(r["carries"]); c[1] += f(r["rushing_yards"]); c[2] += 1
+    tot_t = sum(v[0] for v in tg.values()) or 1
+    tot_c = sum(v[0] for v in ca.values()) or 1
+    return {"passers_by_week": {str(w): sorted(v, key=lambda x: -x["attempts"]) for w, v in sorted(byweek.items())},
+            "top_targets": [{"name": k[0], "pos": k[1], "targets": int(v[0]), "rec": int(v[1]), "rec_yd": int(v[2]), "games": int(v[3]), "share": round(v[0] / tot_t, 3)}
+                            for k, v in sorted(tg.items(), key=lambda kv: -kv[1][0])[:5]],
+            "top_rushers": [{"name": k[0], "pos": k[1], "carries": int(v[0]), "rush_yd": int(v[1]), "games": int(v[2]), "share": round(v[0] / tot_c, 3)}
+                            for k, v in sorted(ca.items(), key=lambda kv: -kv[1][0])[:3]]}
+
+
 def defense_tables(by_season, games):
     """What each defense has allowed, as a ratio of what those same players normally do (1.00 is average, above 1 is a soft
     matchup). Built for one season from the weeks before `upto` (so a backtest never sees the future)."""
@@ -379,6 +402,12 @@ def main():
     contracts = defaultdict(list)
     for r in rd("nflverse/contracts.csv"):
         contracts[r["otc_id"]].append(r)
+    cgroup = {"QB": {"QB"}, "RB": {"RB", "FB"}, "WR": {"WR"}, "TE": {"TE"}, "K": {"K"}}
+    # 2026 passers, targets and carries by NFL team, for the teammates_2026 block
+    tm_rows = defaultdict(list)
+    for r in rd("nflverse/stats_player_week_%d.csv" % SEASON):
+        if r["season_type"] == "REG":
+            tm_rows[tm(r["team"])].append(r)
     snaps = defaultdict(list)
     adv = {"rec": defaultdict(list), "rush": defaultdict(list), "pass": defaultdict(list)}
     for y in (SEASON - 1, SEASON):
@@ -470,7 +499,9 @@ def main():
         inj_rows = sorted(injuries.get(gsis, []), key=lambda r: (int(r["season"]), int(r["week"])))
         inj_hist = [{"season": int(r["season"]), "week": int(r["week"]), "injury": r["report_primary_injury"] or r["practice_primary_injury"],
                      "game_status": r["report_status"] or None, "practice": r["practice_status"] or None} for r in inj_rows]
-        con = sorted(contracts.get(otc, []), key=lambda r: f(r["year_signed"]))
+        # same person id AND same position group; the newest signing wins, an active deal first
+        con = sorted([r for r in contracts.get(otc, []) if r["position"] in cgroup[pos]],
+                     key=lambda r: (1 if r["is_active"] == "TRUE" else 0, f(r["year_signed"])))
         cb = combine.get(pfr) or {}
         md = (jl("%s/madden.json" % key) or {}).get("items") or []
         md = [m for m in md if ("%s %s" % (m.get("firstName"), m.get("lastName"))).lower().replace(".", "") == p["name"].lower().replace(".", "")] or md[:1]
@@ -524,8 +555,10 @@ def main():
                 "awards": [{"name": a.get("name"), "count": a.get("displayCount"), "seasons": a.get("seasons")} for a in bio.get("awards", [])],
                 "teams": [{"team": t.get("displayName"), "seasons": t.get("seasons")} for t in bio.get("teamHistory", [])],
                 "combine": {k: cb.get(k) for k in ("forty", "bench", "vertical", "broad_jump", "cone", "shuttle") if cb.get(k) not in (None, "", "NA")},
-                "contract": ({"signed": con[-1]["year_signed"], "years": con[-1]["years"], "total_value_millions": con[-1]["value"],
-                              "per_year_millions": con[-1]["apy"], "guaranteed_millions": con[-1]["guaranteed"], "team": con[-1]["team"]} if con else None),
+                "contract": ({"signed": con[-1]["year_signed"], "years": con[-1]["years"], "total_value_usd": f(con[-1]["value"]),
+                              "per_year_usd": f(con[-1]["apy"]), "guaranteed_usd": f(con[-1]["guaranteed"]), "team": con[-1]["team"],
+                              "active": con[-1]["is_active"] == "TRUE",
+                              "note": "dollars, not millions; the contract file's newest signing year is 2022, so extensions signed later are missing"} if con else None),
                 "madden": madden,
             },
             "status": {"sleeper_status": sl.get("status"), "injury_status": sl.get("injury_status"), "injury_body_part": sl.get("injury_body_part"),
@@ -538,6 +571,7 @@ def main():
             "splits_career": splits(log, pos),
             "splits_2026": {k: v for k, v in splits(cur, pos).items() if k in ("home_away", "result", "roof", "surface", "spread", "total", "kickoff", "opponent")},
             "plays_2026": play_tendencies(key),
+            "teammates_2026": teammates(tm_rows.get(team, [])),
             "log": log,
             "next_games": nxt[:3],
             "projections_rotowire": proj,

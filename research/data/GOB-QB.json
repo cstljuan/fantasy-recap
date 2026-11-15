@@ -53,10 +53,12 @@
   "contract": {
    "signed": "2021",
    "years": "6",
-   "total_value_millions": "258000000",
-   "per_year_millions": "43000000",
-   "guaranteed_millions": "150000000",
-   "team": "Bills"
+   "total_value_usd": 258000000.0,
+   "per_year_usd": 43000000.0,
+   "guaranteed_usd": 150000000.0,
+   "team": "Bills",
+   "active": true,
+   "note": "dollars, not millions; the contract file's newest signing year is 2022, so extensions signed later are missing"
   },
   "madden": {
    "overall": 99,
@@ -2625,6 +2627,131 @@
     "kind": "pass",
     "from_yards_out": 25,
     "text": "(Shotgun) J.Allen pass deep right to K.Latu for 25 yards, TOUCHDOWN [A.Van Ginkel]. T.Bass extra point is GOOD, Center-R.Ferguson, Holder-T.Doman."
+   }
+  ]
+ },
+ "teammates_2026": {
+  "passers_by_week": {
+   "1": [
+    {
+     "qb": "Josh Allen",
+     "attempts": 29
+    }
+   ],
+   "2": [
+    {
+     "qb": "Josh Allen",
+     "attempts": 31
+    }
+   ],
+   "3": [
+    {
+     "qb": "Josh Allen",
+     "attempts": 26
+    }
+   ],
+   "4": [
+    {
+     "qb": "Josh Allen",
+     "attempts": 33
+    }
+   ],
+   "5": [
+    {
+     "qb": "Josh Allen",
+     "attempts": 19
+    }
+   ],
+   "6": [
+    {
+     "qb": "Josh Allen",
+     "attempts": 33
+    }
+   ],
+   "8": [
+    {
+     "qb": "Josh Allen",
+     "attempts": 34
+    }
+   ],
+   "9": [
+    {
+     "qb": "Josh Allen",
+     "attempts": 31
+    }
+   ]
+  },
+  "top_targets": [
+   {
+    "name": "Khalil Shakir",
+    "pos": "WR",
+    "targets": 42,
+    "rec": 31,
+    "rec_yd": 412,
+    "games": 8,
+    "share": 0.189
+   },
+   {
+    "name": "Dalton Kincaid",
+    "pos": "TE",
+    "targets": 38,
+    "rec": 30,
+    "rec_yd": 429,
+    "games": 8,
+    "share": 0.171
+   },
+   {
+    "name": "Keon Coleman",
+    "pos": "WR",
+    "targets": 33,
+    "rec": 23,
+    "rec_yd": 304,
+    "games": 8,
+    "share": 0.149
+   },
+   {
+    "name": "DJ Moore",
+    "pos": "WR",
+    "targets": 32,
+    "rec": 19,
+    "rec_yd": 285,
+    "games": 5,
+    "share": 0.144
+   },
+   {
+    "name": "James Cook",
+    "pos": "RB",
+    "targets": 18,
+    "rec": 12,
+    "rec_yd": 110,
+    "games": 8,
+    "share": 0.081
+   }
+  ],
+  "top_rushers": [
+   {
+    "name": "James Cook",
+    "pos": "RB",
+    "carries": 169,
+    "rush_yd": 814,
+    "games": 8,
+    "share": 0.867
+   },
+   {
+    "name": "Ray Davis",
+    "pos": "RB",
+    "carries": 13,
+    "rush_yd": 44,
+    "games": 6,
+    "share": 0.067
+   },
+   {
+    "name": "Ty Johnson",
+    "pos": "RB",
+    "carries": 7,
+    "rush_yd": 11,
+    "games": 4,
+    "share": 0.036
    }
   ]
  },

@@ -60,10 +60,12 @@
   "contract": {
    "signed": "2021",
    "years": "4",
-   "total_value_millions": "30819642",
-   "per_year_millions": "7704911",
-   "guaranteed_millions": "30819642",
-   "team": "Bengals"
+   "total_value_usd": 30819642.0,
+   "per_year_usd": 7704911.0,
+   "guaranteed_usd": 30819642.0,
+   "team": "Bengals",
+   "active": true,
+   "note": "dollars, not millions; the contract file's newest signing year is 2022, so extensions signed later are missing"
   },
   "madden": {
    "overall": 99,
@@ -1948,6 +1950,131 @@
     "kind": "pass",
     "from_yards_out": 47,
     "text": "(Shotgun) J.Burrow pass deep right to J.Chase for 47 yards, TOUCHDOWN. E.McPherson extra point is GOOD, Center-W.Wagner, Holder-R.Rehkow."
+   }
+  ]
+ },
+ "teammates_2026": {
+  "passers_by_week": {
+   "1": [
+    {
+     "qb": "Joe Burrow",
+     "attempts": 35
+    }
+   ],
+   "2": [
+    {
+     "qb": "Joe Burrow",
+     "attempts": 31
+    }
+   ],
+   "3": [
+    {
+     "qb": "Joe Burrow",
+     "attempts": 37
+    }
+   ],
+   "4": [
+    {
+     "qb": "Joe Burrow",
+     "attempts": 54
+    }
+   ],
+   "5": [
+    {
+     "qb": "Joe Burrow",
+     "attempts": 32
+    }
+   ],
+   "7": [
+    {
+     "qb": "Joe Burrow",
+     "attempts": 30
+    }
+   ],
+   "8": [
+    {
+     "qb": "Joe Burrow",
+     "attempts": 48
+    }
+   ],
+   "9": [
+    {
+     "qb": "Joe Burrow",
+     "attempts": 29
+    }
+   ]
+  },
+  "top_targets": [
+   {
+    "name": "Ja'Marr Chase",
+    "pos": "WR",
+    "targets": 73,
+    "rec": 53,
+    "rec_yd": 647,
+    "games": 8,
+    "share": 0.253
+   },
+   {
+    "name": "Tee Higgins",
+    "pos": "WR",
+    "targets": 67,
+    "rec": 48,
+    "rec_yd": 758,
+    "games": 8,
+    "share": 0.232
+   },
+   {
+    "name": "Chase Brown",
+    "pos": "RB",
+    "targets": 45,
+    "rec": 39,
+    "rec_yd": 207,
+    "games": 8,
+    "share": 0.156
+   },
+   {
+    "name": "Mike Gesicki",
+    "pos": "TE",
+    "targets": 26,
+    "rec": 19,
+    "rec_yd": 252,
+    "games": 7,
+    "share": 0.09
+   },
+   {
+    "name": "Dohnte Meyers",
+    "pos": "WR",
+    "targets": 26,
+    "rec": 18,
+    "rec_yd": 222,
+    "games": 8,
+    "share": 0.09
+   }
+  ],
+  "top_rushers": [
+   {
+    "name": "Chase Brown",
+    "pos": "RB",
+    "carries": 103,
+    "rush_yd": 397,
+    "games": 8,
+    "share": 0.669
+   },
+   {
+    "name": "Samaje Perine",
+    "pos": "RB",
+    "carries": 46,
+    "rush_yd": 179,
+    "games": 8,
+    "share": 0.299
+   },
+   {
+    "name": "Tahj Brooks",
+    "pos": "RB",
+    "carries": 3,
+    "rush_yd": 6,
+    "games": 1,
+    "share": 0.019
    }
   ]
  },

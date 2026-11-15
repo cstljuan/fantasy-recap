@@ -52,10 +52,12 @@
   "contract": {
    "signed": "2022",
    "years": "4",
-   "total_value_millions": "20554006",
-   "per_year_millions": "5138502",
-   "guaranteed_millions": "20554006",
-   "team": "Jets"
+   "total_value_usd": 20554006.0,
+   "per_year_usd": 5138502.0,
+   "guaranteed_usd": 20554006.0,
+   "team": "Jets",
+   "active": true,
+   "note": "dollars, not millions; the contract file's newest signing year is 2022, so extensions signed later are missing"
   },
   "madden": {
    "overall": 87,
@@ -1832,6 +1834,137 @@
     "kind": "pass",
     "from_yards_out": 32,
     "text": "(Shotgun) G.Smith pass short right to G.Wilson for 32 yards, TOUCHDOWN. J.Sanders extra point is GOOD, Center-T.Hennessy, Holder-A.McNamara."
+   }
+  ]
+ },
+ "teammates_2026": {
+  "passers_by_week": {
+   "1": [
+    {
+     "qb": "Geno Smith",
+     "attempts": 24
+    }
+   ],
+   "2": [
+    {
+     "qb": "Geno Smith",
+     "attempts": 41
+    }
+   ],
+   "3": [
+    {
+     "qb": "Geno Smith",
+     "attempts": 37
+    }
+   ],
+   "4": [
+    {
+     "qb": "Geno Smith",
+     "attempts": 15
+    }
+   ],
+   "5": [
+    {
+     "qb": "Geno Smith",
+     "attempts": 30
+    }
+   ],
+   "6": [
+    {
+     "qb": "Geno Smith",
+     "attempts": 30
+    }
+   ],
+   "7": [
+    {
+     "qb": "Geno Smith",
+     "attempts": 30
+    }
+   ],
+   "8": [
+    {
+     "qb": "Geno Smith",
+     "attempts": 32
+    }
+   ],
+   "9": [
+    {
+     "qb": "Geno Smith",
+     "attempts": 32
+    }
+   ]
+  },
+  "top_targets": [
+   {
+    "name": "Garrett Wilson",
+    "pos": "WR",
+    "targets": 63,
+    "rec": 43,
+    "rec_yd": 527,
+    "games": 8,
+    "share": 0.244
+   },
+   {
+    "name": "Adonai Mitchell",
+    "pos": "WR",
+    "targets": 34,
+    "rec": 16,
+    "rec_yd": 265,
+    "games": 5,
+    "share": 0.132
+   },
+   {
+    "name": "Kenyon Sadiq",
+    "pos": "TE",
+    "targets": 31,
+    "rec": 21,
+    "rec_yd": 235,
+    "games": 9,
+    "share": 0.12
+   },
+   {
+    "name": "Mason Taylor",
+    "pos": "TE",
+    "targets": 25,
+    "rec": 18,
+    "rec_yd": 147,
+    "games": 6,
+    "share": 0.097
+   },
+   {
+    "name": "Braelon Allen",
+    "pos": "RB",
+    "targets": 24,
+    "rec": 19,
+    "rec_yd": 102,
+    "games": 9,
+    "share": 0.093
+   }
+  ],
+  "top_rushers": [
+   {
+    "name": "Braelon Allen",
+    "pos": "RB",
+    "carries": 120,
+    "rush_yd": 598,
+    "games": 9,
+    "share": 0.58
+   },
+   {
+    "name": "Breece Hall",
+    "pos": "RB",
+    "carries": 66,
+    "rush_yd": 224,
+    "games": 4,
+    "share": 0.319
+   },
+   {
+    "name": "Isaiah Davis",
+    "pos": "RB",
+    "carries": 15,
+    "rush_yd": 44,
+    "games": 4,
+    "share": 0.072
    }
   ]
  },

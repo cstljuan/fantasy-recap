@@ -44,10 +44,12 @@
   "contract": {
    "signed": "2020",
    "years": "5",
-   "total_value_millions": "75000000",
-   "per_year_millions": "15000000",
-   "guaranteed_millions": "40000000",
-   "team": "49ers"
+   "total_value_usd": 75000000.0,
+   "per_year_usd": 15000000.0,
+   "guaranteed_usd": 40000000.0,
+   "team": "49ers",
+   "active": true,
+   "note": "dollars, not millions; the contract file's newest signing year is 2022, so extensions signed later are missing"
   },
   "madden": {
    "overall": 98,
@@ -1739,6 +1741,131 @@
     "kind": "pass",
     "from_yards_out": 11,
     "text": "(Shotgun) B.Purdy pass short left to G.Kittle for 11 yards, TOUCHDOWN. E.Pineiro extra point is GOOD, Center-J.Weeks, Holder-C.Waitman."
+   }
+  ]
+ },
+ "teammates_2026": {
+  "passers_by_week": {
+   "1": [
+    {
+     "qb": "Brock Purdy",
+     "attempts": 34
+    }
+   ],
+   "2": [
+    {
+     "qb": "Brock Purdy",
+     "attempts": 22
+    }
+   ],
+   "3": [
+    {
+     "qb": "Brock Purdy",
+     "attempts": 27
+    }
+   ],
+   "4": [
+    {
+     "qb": "Brock Purdy",
+     "attempts": 30
+    }
+   ],
+   "5": [
+    {
+     "qb": "Brock Purdy",
+     "attempts": 29
+    }
+   ],
+   "6": [
+    {
+     "qb": "Brock Purdy",
+     "attempts": 29
+    }
+   ],
+   "7": [
+    {
+     "qb": "Brock Purdy",
+     "attempts": 40
+    }
+   ],
+   "9": [
+    {
+     "qb": "Brock Purdy",
+     "attempts": 25
+    }
+   ]
+  },
+  "top_targets": [
+   {
+    "name": "George Kittle",
+    "pos": "TE",
+    "targets": 53,
+    "rec": 38,
+    "rec_yd": 483,
+    "games": 8,
+    "share": 0.232
+   },
+   {
+    "name": "Christian McCaffrey",
+    "pos": "RB",
+    "targets": 45,
+    "rec": 36,
+    "rec_yd": 270,
+    "games": 8,
+    "share": 0.197
+   },
+   {
+    "name": "Mike Evans",
+    "pos": "WR",
+    "targets": 39,
+    "rec": 27,
+    "rec_yd": 420,
+    "games": 6,
+    "share": 0.171
+   },
+   {
+    "name": "Deebo Samuel Sr.",
+    "pos": "WR",
+    "targets": 20,
+    "rec": 16,
+    "rec_yd": 126,
+    "games": 4,
+    "share": 0.088
+   },
+   {
+    "name": "Jordan Watkins",
+    "pos": "WR",
+    "targets": 13,
+    "rec": 10,
+    "rec_yd": 224,
+    "games": 4,
+    "share": 0.057
+   }
+  ],
+  "top_rushers": [
+   {
+    "name": "Christian McCaffrey",
+    "pos": "RB",
+    "carries": 102,
+    "rush_yd": 457,
+    "games": 8,
+    "share": 0.537
+   },
+   {
+    "name": "Kaelon Black",
+    "pos": "RB",
+    "carries": 68,
+    "rush_yd": 303,
+    "games": 8,
+    "share": 0.358
+   },
+   {
+    "name": "Deebo Samuel Sr.",
+    "pos": "WR",
+    "carries": 9,
+    "rush_yd": 78,
+    "games": 5,
+    "share": 0.047
    }
   ]
  },

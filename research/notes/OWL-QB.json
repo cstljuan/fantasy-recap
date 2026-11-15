@@ -1,0 +1,304 @@
+{
+ "key": "OWL-QB",
+ "name": "Patrick Mahomes",
+ "researched": "2026-11-15",
+ "background": [
+  {
+   "fact": "Patrick Mahomes was born September 17, 1995, and played at Whitehouse High School in Whitehouse, Texas, before going to Texas Tech.",
+   "source": "https://en.wikipedia.org/wiki/Patrick_Mahomes",
+   "date": null,
+   "confidence": "from Wikipedia"
+  },
+  {
+   "fact": "The Chiefs drafted him 10th overall in 2017, and he has played only for Kansas City (jersey 15).",
+   "source": "/Users/juancstl/Projects/fantasy-recap-research/research/data/OWL-QB.json",
+   "date": "2026-11-15",
+   "confidence": "one source"
+  },
+  {
+   "fact": "He has won two NFL MVP awards (2018, 2022) and three Super Bowl MVPs (2019, 2022, 2023).",
+   "source": "/Users/juancstl/Projects/fantasy-recap-research/research/data/OWL-QB.json",
+   "date": "2026-11-15",
+   "confidence": "one source"
+  },
+  {
+   "fact": "His contract signed in 2020 is listed at 10 years and 450 million dollars, 45 million a year.",
+   "source": "/Users/juancstl/Projects/fantasy-recap-research/research/data/OWL-QB.json",
+   "date": "2026-11-15",
+   "confidence": "one source"
+  },
+  {
+   "fact": "His father Pat Mahomes was a Major League Baseball pitcher, and Mahomes credits years of baseball with building his arm strength.",
+   "source": "https://en.wikipedia.org/wiki/Patrick_Mahomes",
+   "date": null,
+   "confidence": "from Wikipedia"
+  },
+  {
+   "fact": "His combine 40-yard time is listed at 4.8 seconds, so he is a good but not elite runner; the Madden 2026 week 8 overall rating is 97.",
+   "source": "/Users/juancstl/Projects/fantasy-recap-research/research/data/OWL-QB.json",
+   "date": "2026-11-15",
+   "confidence": "one source"
+  }
+ ],
+ "family": [
+  {
+   "fact": "His father is former MLB pitcher Pat Mahomes and his mother is Randi Martin; the parents divorced in 2006.",
+   "source": "https://en.wikipedia.org/wiki/Patrick_Mahomes",
+   "date": null,
+   "confidence": "from Wikipedia"
+  },
+  {
+   "fact": "His younger brother Jackson is a social media influencer, and a half-brother, Graham Walker, plays football at Rice University.",
+   "source": "https://en.wikipedia.org/wiki/Patrick_Mahomes",
+   "date": null,
+   "confidence": "from Wikipedia"
+  },
+  {
+   "fact": "He is the godson of former MLB pitcher LaTroy Hawkins, a teammate of his father with the Minnesota Twins.",
+   "source": "https://en.wikipedia.org/wiki/Patrick_Mahomes",
+   "date": null,
+   "confidence": "from Wikipedia"
+  },
+  {
+   "fact": "He married his high school sweetheart Brittany Matthews on March 12, 2022; she co-owns the Kansas City Current soccer club.",
+   "source": "https://en.wikipedia.org/wiki/Patrick_Mahomes",
+   "date": null,
+   "confidence": "from Wikipedia"
+  },
+  {
+   "fact": "The couple announced on November 10, 2026 that they are expecting a fourth child; they already have Sterling (Feb 2021), Bronze (Nov 2022) and Golden (Jan 2025).",
+   "source": "https://www.ky3.com/2026/11/10/baby-news-patrick-brittany-mahomes-announce-baby-number-4/",
+   "date": "2026-11-10",
+   "confidence": "one source"
+  }
+ ],
+ "recent_events": [
+  {
+   "fact": "Mahomes hurt his right elbow on a strip-sack late in the first half of the 35-12 win over the Jets on Nov 8 but did not miss a snap; he finished 23 of 31 for 242 yards and 2 touchdowns.",
+   "source": "https://www.newstribune.com/news/2026/nov/09/mahomes-injury-considered-minor-called-day-to-day/",
+   "date": "2026-11-10",
+   "confidence": "confirmed by two sources"
+  },
+  {
+   "fact": "An MRI showed an elbow strain or sprain with no significant damage; Andy Reid called it minor and day-to-day.",
+   "source": "https://www.newstribune.com/news/2026/nov/09/mahomes-injury-considered-minor-called-day-to-day/",
+   "date": "2026-11-10",
+   "confidence": "confirmed by two sources"
+  },
+  {
+   "fact": "Mahomes had full practice participation all four days of Week 10 prep and carries no game designation for Sunday at Atlanta.",
+   "source": "https://www.chiefs.com/news/week-10-injury-report-chiefs-vs-falcons-2026",
+   "date": "2026-11-14",
+   "confidence": "confirmed by two sources"
+  },
+  {
+   "fact": "The Chiefs traded for wide receiver Josh Downs from the Colts at the deadline; he is expected to play Sunday, per Reid.",
+   "source": "/Users/juancstl/Projects/fantasy-recap-research/research/data/OWL-QB.json",
+   "date": "2026-11-13",
+   "confidence": "one source"
+  },
+  {
+   "fact": "Kansas City snapped a two-game losing streak against the Jets; the losses were 28-24 at Denver on Nov 1 (a penalty wiped out a late winning touchdown) and 2026 Week 7 at Seattle.",
+   "source": "https://www.kshb.com/sports/football/chiefs/5-takeaways-chiefs-make-arrowhead-no-fly-zone-ground-jets-to-snap-skid",
+   "date": "2026-11-09",
+   "confidence": "one source"
+  },
+  {
+   "fact": "Mahomes and Travis Kelce set the NFL record for QB-TE combined passing and receiving yards (9,360) in the Jets game.",
+   "source": "https://www.kshb.com/sports/football/chiefs/5-takeaways-chiefs-make-arrowhead-no-fly-zone-ground-jets-to-snap-skid",
+   "date": "2026-11-09",
+   "confidence": "one source"
+  },
+  {
+   "fact": "Headlines this week include an analyst arguing Mahomes is no longer in the top QB tier and a Yahoo list that moved him off the top of its player rankings; both are opinion pieces.",
+   "source": "/Users/juancstl/Projects/fantasy-recap-research/research/data/OWL-QB.json",
+   "date": "2026-11-14",
+   "confidence": "one source"
+  }
+ ],
+ "quotes": [
+  {
+   "fact": "Mahomes said Wednesday the elbow is in a better spot than after the game and that he expects to be available Sunday.",
+   "source": "https://www.ky3.com/2026/11/11/chiefs-mahomes-expresses-optimism-after-elbow-injury-scare/",
+   "date": "2026-11-11",
+   "confidence": "one source"
+  },
+  {
+   "fact": "Mahomes said that after talking to the doctors he feels he is in a great spot, and his focus is pain management.",
+   "source": "https://www.ky3.com/2026/11/11/chiefs-mahomes-expresses-optimism-after-elbow-injury-scare/",
+   "date": "2026-11-11",
+   "confidence": "one source"
+  },
+  {
+   "fact": "Mahomes said swelling affected his throws in the second half against the Jets and that being able to throw convinced him it was muscular, not ligament damage.",
+   "source": "https://www.newstribune.com/news/2026/nov/09/mahomes-injury-considered-minor-called-day-to-day/",
+   "date": "2026-11-10",
+   "confidence": "one source"
+  },
+  {
+   "fact": "Reid said Mahomes is in good spirits and the work is rehab and easing soreness.",
+   "source": "https://www.newstribune.com/news/2026/nov/09/mahomes-injury-considered-minor-called-day-to-day/",
+   "date": "2026-11-10",
+   "confidence": "one source"
+  },
+  {
+   "fact": "Mahomes praised Downs' mindset after meeting him (NBC Sports headline: 'You can tell the intellect', Nov 12); full article not read.",
+   "source": "/Users/juancstl/Projects/fantasy-recap-research/research/data/OWL-QB.json",
+   "date": "2026-11-12",
+   "confidence": "one source"
+  }
+ ],
+ "team_context": [
+  {
+   "fact": "Kansas City is 6-2, scoring 25.2 and allowing 17.9 points per game, and sits a half-game behind Denver (7-2) in the AFC West.",
+   "source": "/Users/juancstl/Projects/fantasy-recap-research/research/data/OWL-QB.json",
+   "date": "2026-11-15",
+   "confidence": "one source"
+  },
+  {
+   "fact": "Kenneth Walker III has 10 touchdowns (a career high) and gave Mahomes a real run threat; Mahomes is using play action 34.2% and snaps under center 40.1%, both career highs.",
+   "source": "https://www.sharpfootballanalysis.com/fantasy/chiefs-falcons-week-10-fantasy-football-preview-nfl-worksheet-rich-hribar-2026/amp/",
+   "date": "2026-11-14",
+   "confidence": "confirmed by two sources"
+  },
+  {
+   "fact": "Walker is hurt: ESPN said questionable (groin) on Nov 13, but the Chiefs' injury page shows him out after missing Friday and Saturday practice.",
+   "source": "https://www.chiefs.com/news/week-10-injury-report-chiefs-vs-falcons-2026",
+   "date": "2026-11-14",
+   "confidence": "confirmed by two sources"
+  },
+  {
+   "fact": "Right tackle Jaylon Moore (ankle) is ruled out; Josh Ezeudu replaced him in the Jets game.",
+   "source": "https://www.chiefs.com/news/week-10-injury-report-chiefs-vs-falcons-2026",
+   "date": "2026-11-14",
+   "confidence": "confirmed by two sources"
+  },
+  {
+   "fact": "Xavier Worthy left the Jets game with a hamstring injury but practiced fully all week; Rashee Rice (knee) and Kelce (ankle) also practiced fully.",
+   "source": "https://www.chiefs.com/news/week-10-injury-report-chiefs-vs-falcons-2026",
+   "date": "2026-11-14",
+   "confidence": "one source"
+  },
+  {
+   "fact": "Mahomes's throws are short: air yards per attempt were 5.0 or lower in four straight starts, and only 27.8% of passes went 10+ yards in the Jets game, a career low.",
+   "source": "https://www.sharpfootballanalysis.com/fantasy/chiefs-falcons-week-10-fantasy-football-preview-nfl-worksheet-rich-hribar-2026/amp/",
+   "date": "2026-11-14",
+   "confidence": "one source"
+  },
+  {
+   "fact": "His season line: 177 of 263 for 2,037 yards, 14 touchdowns, 4 interceptions, 11 sacks, 17.75 fantasy points a game.",
+   "source": "/Users/juancstl/Projects/fantasy-recap-research/research/data/OWL-QB.json",
+   "date": "2026-11-15",
+   "confidence": "one source"
+  },
+  {
+   "fact": "He faced two-high coverage 48.8% of the time, the highest of his career, which explains the short game.",
+   "source": "https://www.sharpfootballanalysis.com/fantasy/chiefs-falcons-week-10-fantasy-football-preview-nfl-worksheet-rich-hribar-2026/amp/",
+   "date": "2026-11-14",
+   "confidence": "one source"
+  }
+ ],
+ "next_opponent": [
+  {
+   "fact": "Kansas City plays at Atlanta on Sunday Nov 15, 1 pm ET, in the indoor Mercedes-Benz Stadium; line KC -3 (SI listed -3.5), total 47.5 in the data (45.5 at SI on Nov 10).",
+   "source": "/Users/juancstl/Projects/fantasy-recap-research/research/data/OWL-QB.json",
+   "date": "2026-11-15",
+   "confidence": "one source"
+  },
+  {
+   "fact": "Atlanta is 3-6 (1-4 at home) and lost 16-0 to Tampa Bay and 34-17 to Cincinnati in the last two games.",
+   "source": "https://www.si.com/betting/chiefs-vs-falcons-prediction-odds-spread-injuries-trends-for-nfl-week-10-2026",
+   "date": "2026-11-10",
+   "confidence": "one source"
+  },
+  {
+   "fact": "The Falcons allow 15.2 passing points per game (21st) and do poorly against play action (74.4% completions, 30th) and unpressured throws (75.9%, 29th).",
+   "source": "https://www.sharpfootballanalysis.com/fantasy/chiefs-falcons-week-10-fantasy-football-preview-nfl-worksheet-rich-hribar-2026/amp/",
+   "date": "2026-11-14",
+   "confidence": "one source"
+  },
+  {
+   "fact": "Atlanta's defensive success rate fell from 63.9% (2nd) in its first four games to 52.9% (30th) in the last four.",
+   "source": "https://www.sharpfootballanalysis.com/fantasy/chiefs-falcons-week-10-fantasy-football-preview-nfl-worksheet-rich-hribar-2026/amp/",
+   "date": "2026-11-14",
+   "confidence": "one source"
+  },
+  {
+   "fact": "Atlanta traded safety Jessie Bates III to Jacksonville on Nov 9 for a 2027 second and a 2028 fifth; he graded as PFF's fourth-best safety.",
+   "source": "https://www.ajc.com/sports/2026/11/falcons-bates-trade-assessment/",
+   "date": "2026-11-10",
+   "confidence": "confirmed by two sources"
+  },
+  {
+   "fact": "Xavier Watts replaces much of Bates' role but has struggled in coverage this season; DeMarcco Hellams is next man up per coach Kevin Stefanski.",
+   "source": "https://www.ajc.com/sports/2026/11/falcons-bates-trade-assessment/",
+   "date": "2026-11-10",
+   "confidence": "one source"
+  },
+  {
+   "fact": "Falcons pass rushers James Pearce Jr. (back) and Gervon Dexter (illness) are questionable, and linebacker Divine Deablo (forearm) is doubtful.",
+   "source": "https://www.chiefs.com/news/week-10-injury-report-chiefs-vs-falcons-2026",
+   "date": "2026-11-14",
+   "confidence": "one source"
+  }
+ ],
+ "style": [
+  {
+   "fact": "Wikipedia describes him as a pass-first, dual-threat passer known for arm strength, pocket elusiveness and innovative throws such as no-look and behind-the-back passes.",
+   "source": "https://en.wikipedia.org/wiki/Patrick_Mahomes",
+   "date": null,
+   "confidence": "from Wikipedia"
+  },
+  {
+   "fact": "Madden 2026 lists throw power 97, short accuracy 98, mid accuracy 94, deep accuracy 84 and throw-on-the-run 97, so deep accuracy is his weakest passing grade.",
+   "source": "/Users/juancstl/Projects/fantasy-recap-research/research/data/OWL-QB.json",
+   "date": "2026-11-15",
+   "confidence": "one source"
+  },
+  {
+   "fact": "Wikipedia notes he is credited with unusual timing and the ability to use athleticism to fool defenders, which suits a short, quick offense.",
+   "source": "https://en.wikipedia.org/wiki/Patrick_Mahomes",
+   "date": null,
+   "confidence": "from Wikipedia"
+  },
+  {
+   "fact": "Known weakness this season: fewer downfield shots and a 35.6% pressure rate on a line missing its right tackle.",
+   "source": "https://www.sharpfootballanalysis.com/fantasy/chiefs-falcons-week-10-fantasy-football-preview-nfl-worksheet-rich-hribar-2026/amp/",
+   "date": "2026-11-14",
+   "confidence": "one source"
+  }
+ ],
+ "availability": {
+  "status": "Active, expected to start",
+  "detail": "Right elbow strain from the Jets game; full practice all week and no designation for Sunday at Atlanta.",
+  "expected_return": null,
+  "source": "https://www.chiefs.com/news/week-10-injury-report-chiefs-vs-falcons-2026",
+  "date": "2026-11-14"
+ },
+ "outlook_next_game": {
+  "lean": "about his average",
+  "confidence": "medium",
+  "reasons": [
+   "He practiced fully and has no designation, so the elbow is a small risk (chiefs.com, Nov 14).",
+   "Atlanta allows 15.2 passing points a game (21st) and is weak against play action and unpressured throws, which fits KC's offense.",
+   "Right tackle Jaylon Moore is out and Kenneth Walker may be out, which takes away the play-action run threat that powered the offense.",
+   "His average is 17.75 fantasy points over 8 games with a range of 6.0 to 28.98; the offense throws short with low air yards, capping the ceiling.",
+   "Kansas City is a 3-point favorite in a dome, so game script should be neutral to slightly positive."
+  ]
+ },
+ "open_questions": [
+  "Whether Kenneth Walker plays: ESPN (Nov 13) said questionable, chiefs.com page shows out; needs Sunday inactive list.",
+  "Exact Falcons defensive coordinator and scheme details were not found.",
+  "The NBC Sports Downs quote was seen only as a headline, not read in full.",
+  "Weather: dome, so none; current temperature in data is for outside only."
+ ],
+ "searches": [
+  "Patrick Mahomes elbow injury Jets game Chiefs update Falcons week 10",
+  "Chiefs Falcons preview Mahomes Josh Downs Kenneth Walker Jaylon Moore ruled out",
+  "Falcons defense pass defense 2026 Jessie Bates traded Jacksonville secondary",
+  "Patrick Mahomes quotes Andy Reid Josh Downs offense this week",
+  "Chiefs 2026 season offense Kenneth Walker Rashee Rice Xavier Worthy Travis Kelce Mahomes passing struggles November",
+  "Brittany Mahomes pregnant fourth child announcement Patrick Mahomes 2026",
+  "fetched chiefs.com week 10 injury report, SI betting preview, Sharp Football preview, KSHB takeaways, AJC Bates, KY3, newstribune"
+ ]
+}

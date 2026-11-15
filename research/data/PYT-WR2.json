@@ -1719,6 +1719,149 @@
    }
   ]
  },
+ "teammates_2026": {
+  "passers_by_week": {
+   "1": [
+    {
+     "qb": "Jaxson Dart",
+     "attempts": 29
+    }
+   ],
+   "2": [
+    {
+     "qb": "Jameis Winston",
+     "attempts": 27
+    },
+    {
+     "qb": "Jaxson Dart",
+     "attempts": 5
+    }
+   ],
+   "3": [
+    {
+     "qb": "Jameis Winston",
+     "attempts": 22
+    }
+   ],
+   "4": [
+    {
+     "qb": "Jameis Winston",
+     "attempts": 29
+    }
+   ],
+   "5": [
+    {
+     "qb": "Jameis Winston",
+     "attempts": 54
+    }
+   ],
+   "6": [
+    {
+     "qb": "Jameis Winston",
+     "attempts": 26
+    },
+    {
+     "qb": "J.J. McCarthy",
+     "attempts": 21
+    }
+   ],
+   "7": [
+    {
+     "qb": "J.J. McCarthy",
+     "attempts": 28
+    }
+   ],
+   "9": [
+    {
+     "qb": "J.J. McCarthy",
+     "attempts": 19
+    },
+    {
+     "qb": "Jameis Winston",
+     "attempts": 8
+    }
+   ],
+   "10": [
+    {
+     "qb": "J.J. McCarthy",
+     "attempts": 36
+    }
+   ]
+  },
+  "top_targets": [
+   {
+    "name": "Malik Nabers",
+    "pos": "WR",
+    "targets": 85,
+    "rec": 58,
+    "rec_yd": 692,
+    "games": 9,
+    "share": 0.289
+   },
+   {
+    "name": "Isaiah Likely",
+    "pos": "TE",
+    "targets": 80,
+    "rec": 55,
+    "rec_yd": 575,
+    "games": 9,
+    "share": 0.272
+   },
+   {
+    "name": "Malachi Fields",
+    "pos": "WR",
+    "targets": 39,
+    "rec": 22,
+    "rec_yd": 350,
+    "games": 9,
+    "share": 0.133
+   },
+   {
+    "name": "Darnell Mooney",
+    "pos": "WR",
+    "targets": 31,
+    "rec": 14,
+    "rec_yd": 175,
+    "games": 9,
+    "share": 0.105
+   },
+   {
+    "name": "Cam Skattebo",
+    "pos": "RB",
+    "targets": 17,
+    "rec": 14,
+    "rec_yd": 120,
+    "games": 6,
+    "share": 0.058
+   }
+  ],
+  "top_rushers": [
+   {
+    "name": "Cam Skattebo",
+    "pos": "RB",
+    "carries": 116,
+    "rush_yd": 496,
+    "games": 7,
+    "share": 0.545
+   },
+   {
+    "name": "Devin Singletary",
+    "pos": "RB",
+    "carries": 40,
+    "rush_yd": 114,
+    "games": 6,
+    "share": 0.188
+   },
+   {
+    "name": "Najee Harris",
+    "pos": "RB",
+    "carries": 31,
+    "rush_yd": 99,
+    "games": 5,
+    "share": 0.146
+   }
+  ]
+ },
  "log": [
   {
    "cmp": 0.0,

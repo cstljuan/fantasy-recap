@@ -69,10 +69,12 @@
   "contract": {
    "signed": "2018",
    "years": "4",
-   "total_value_millions": "9471652",
-   "per_year_millions": "2367913",
-   "guaranteed_millions": "8055062",
-   "team": "Ravens"
+   "total_value_usd": 9471652.0,
+   "per_year_usd": 2367913.0,
+   "guaranteed_usd": 8055062.0,
+   "team": "Ravens",
+   "active": true,
+   "note": "dollars, not millions; the contract file's newest signing year is 2022, so extensions signed later are missing"
   },
   "madden": {
    "overall": 98,
@@ -2444,6 +2446,149 @@
     "kind": "pass",
     "from_yards_out": 3,
     "text": "L.Jackson pass short middle to M.Andrews for 3 yards, TOUCHDOWN. T.Loop extra point is GOOD, Center-N.Moore, Holder-R.Eckley."
+   }
+  ]
+ },
+ "teammates_2026": {
+  "passers_by_week": {
+   "1": [
+    {
+     "qb": "Lamar Jackson",
+     "attempts": 25
+    }
+   ],
+   "2": [
+    {
+     "qb": "Lamar Jackson",
+     "attempts": 31
+    }
+   ],
+   "3": [
+    {
+     "qb": "Lamar Jackson",
+     "attempts": 20
+    }
+   ],
+   "4": [
+    {
+     "qb": "Lamar Jackson",
+     "attempts": 20
+    },
+    {
+     "qb": "Tyler Huntley",
+     "attempts": 9
+    }
+   ],
+   "5": [
+    {
+     "qb": "Tyler Huntley",
+     "attempts": 32
+    }
+   ],
+   "6": [
+    {
+     "qb": "Tyler Huntley",
+     "attempts": 31
+    }
+   ],
+   "7": [
+    {
+     "qb": "Tyler Huntley",
+     "attempts": 34
+    }
+   ],
+   "8": [
+    {
+     "qb": "Joe Fagnano",
+     "attempts": 21
+    },
+    {
+     "qb": "Tyler Huntley",
+     "attempts": 4
+    },
+    {
+     "qb": "Lamar Jackson",
+     "attempts": 1
+    }
+   ],
+   "9": [
+    {
+     "qb": "Joe Fagnano",
+     "attempts": 18
+    }
+   ]
+  },
+  "top_targets": [
+   {
+    "name": "Zay Flowers",
+    "pos": "WR",
+    "targets": 64,
+    "rec": 43,
+    "rec_yd": 614,
+    "games": 8,
+    "share": 0.267
+   },
+   {
+    "name": "Mark Andrews",
+    "pos": "TE",
+    "targets": 43,
+    "rec": 31,
+    "rec_yd": 237,
+    "games": 9,
+    "share": 0.179
+   },
+   {
+    "name": "Rashod Bateman",
+    "pos": "WR",
+    "targets": 31,
+    "rec": 20,
+    "rec_yd": 294,
+    "games": 9,
+    "share": 0.129
+   },
+   {
+    "name": "Justice Hill",
+    "pos": "RB",
+    "targets": 28,
+    "rec": 20,
+    "rec_yd": 111,
+    "games": 8,
+    "share": 0.117
+   },
+   {
+    "name": "Derrick Henry",
+    "pos": "RB",
+    "targets": 14,
+    "rec": 12,
+    "rec_yd": 75,
+    "games": 8,
+    "share": 0.058
+   }
+  ],
+  "top_rushers": [
+   {
+    "name": "Derrick Henry",
+    "pos": "RB",
+    "carries": 175,
+    "rush_yd": 689,
+    "games": 9,
+    "share": 0.788
+   },
+   {
+    "name": "Justice Hill",
+    "pos": "RB",
+    "carries": 33,
+    "rush_yd": 240,
+    "games": 8,
+    "share": 0.149
+   },
+   {
+    "name": "Zay Flowers",
+    "pos": "WR",
+    "carries": 6,
+    "rush_yd": 51,
+    "games": 4,
+    "share": 0.027
    }
   ]
  },

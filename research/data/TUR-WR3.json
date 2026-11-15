@@ -39,10 +39,12 @@
   "contract": {
    "signed": "2022",
    "years": "4",
-   "total_value_millions": "21534472",
-   "per_year_millions": "5383618",
-   "guaranteed_millions": "21534472",
-   "team": "Falcons"
+   "total_value_usd": 21534472.0,
+   "per_year_usd": 5383618.0,
+   "guaranteed_usd": 21534472.0,
+   "team": "Falcons",
+   "active": true,
+   "note": "dollars, not millions; the contract file's newest signing year is 2022, so extensions signed later are missing"
   },
   "madden": {
    "overall": 91,
@@ -1994,6 +1996,145 @@
     "kind": "pass",
     "from_yards_out": 21,
     "text": "(Shotgun) M.Penix pass deep left to D.London for 21 yards, TOUCHDOWN. N.Folk extra point is GOOD, Center-L.McCullough, Holder-J.Bailey."
+   }
+  ]
+ },
+ "teammates_2026": {
+  "passers_by_week": {
+   "1": [
+    {
+     "qb": "Cooper Rush",
+     "attempts": 22
+    }
+   ],
+   "2": [
+    {
+     "qb": "Cooper Rush",
+     "attempts": 17
+    },
+    {
+     "qb": "Jack Strand",
+     "attempts": 15
+    }
+   ],
+   "3": [
+    {
+     "qb": "Michael Penix Jr.",
+     "attempts": 25
+    }
+   ],
+   "4": [
+    {
+     "qb": "Michael Penix Jr.",
+     "attempts": 20
+    }
+   ],
+   "5": [
+    {
+     "qb": "Michael Penix Jr.",
+     "attempts": 32
+    },
+    {
+     "qb": "Tua Tagovailoa",
+     "attempts": 3
+    }
+   ],
+   "6": [
+    {
+     "qb": "Michael Penix Jr.",
+     "attempts": 33
+    }
+   ],
+   "7": [
+    {
+     "qb": "Michael Penix Jr.",
+     "attempts": 34
+    }
+   ],
+   "8": [
+    {
+     "qb": "Michael Penix Jr.",
+     "attempts": 24
+    }
+   ],
+   "9": [
+    {
+     "qb": "Michael Penix Jr.",
+     "attempts": 31
+    }
+   ]
+  },
+  "top_targets": [
+   {
+    "name": "Drake London",
+    "pos": "WR",
+    "targets": 67,
+    "rec": 44,
+    "rec_yd": 692,
+    "games": 9,
+    "share": 0.277
+   },
+   {
+    "name": "Bijan Robinson",
+    "pos": "RB",
+    "targets": 40,
+    "rec": 31,
+    "rec_yd": 250,
+    "games": 9,
+    "share": 0.165
+   },
+   {
+    "name": "Kyle Pitts",
+    "pos": "TE",
+    "targets": 37,
+    "rec": 25,
+    "rec_yd": 220,
+    "games": 9,
+    "share": 0.153
+   },
+   {
+    "name": "Jahan Dotson",
+    "pos": "WR",
+    "targets": 32,
+    "rec": 16,
+    "rec_yd": 353,
+    "games": 9,
+    "share": 0.132
+   },
+   {
+    "name": "Olamide Zaccheaus",
+    "pos": "WR",
+    "targets": 16,
+    "rec": 6,
+    "rec_yd": 26,
+    "games": 7,
+    "share": 0.066
+   }
+  ],
+  "top_rushers": [
+   {
+    "name": "Bijan Robinson",
+    "pos": "RB",
+    "carries": 169,
+    "rush_yd": 880,
+    "games": 9,
+    "share": 0.722
+   },
+   {
+    "name": "Brian Robinson",
+    "pos": "RB",
+    "carries": 53,
+    "rush_yd": 211,
+    "games": 6,
+    "share": 0.226
+   },
+   {
+    "name": "Khalil Herbert",
+    "pos": "RB",
+    "carries": 7,
+    "rush_yd": 28,
+    "games": 3,
+    "share": 0.03
    }
   ]
  },

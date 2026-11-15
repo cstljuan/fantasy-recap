@@ -2031,6 +2031,141 @@
    }
   ]
  },
+ "teammates_2026": {
+  "passers_by_week": {
+   "1": [
+    {
+     "qb": "Drew Lock",
+     "attempts": 22
+    },
+    {
+     "qb": "Sam Darnold",
+     "attempts": 2
+    }
+   ],
+   "2": [
+    {
+     "qb": "Drew Lock",
+     "attempts": 26
+    }
+   ],
+   "3": [
+    {
+     "qb": "Sam Darnold",
+     "attempts": 45
+    }
+   ],
+   "4": [
+    {
+     "qb": "Sam Darnold",
+     "attempts": 22
+    }
+   ],
+   "5": [
+    {
+     "qb": "Sam Darnold",
+     "attempts": 29
+    }
+   ],
+   "6": [
+    {
+     "qb": "Sam Darnold",
+     "attempts": 51
+    }
+   ],
+   "7": [
+    {
+     "qb": "Sam Darnold",
+     "attempts": 28
+    }
+   ],
+   "8": [
+    {
+     "qb": "Sam Darnold",
+     "attempts": 34
+    }
+   ],
+   "9": [
+    {
+     "qb": "Drew Lock",
+     "attempts": 28
+    }
+   ]
+  },
+  "top_targets": [
+   {
+    "name": "Jaxon Smith-Njigba",
+    "pos": "WR",
+    "targets": 99,
+    "rec": 71,
+    "rec_yd": 1036,
+    "games": 9,
+    "share": 0.357
+   },
+   {
+    "name": "AJ Barner",
+    "pos": "TE",
+    "targets": 38,
+    "rec": 23,
+    "rec_yd": 210,
+    "games": 9,
+    "share": 0.137
+   },
+   {
+    "name": "Cooper Kupp",
+    "pos": "WR",
+    "targets": 34,
+    "rec": 22,
+    "rec_yd": 238,
+    "games": 9,
+    "share": 0.123
+   },
+   {
+    "name": "Rashid Shaheed",
+    "pos": "WR",
+    "targets": 30,
+    "rec": 16,
+    "rec_yd": 163,
+    "games": 7,
+    "share": 0.108
+   },
+   {
+    "name": "Tory Horton",
+    "pos": "WR",
+    "targets": 19,
+    "rec": 10,
+    "rec_yd": 115,
+    "games": 6,
+    "share": 0.069
+   }
+  ],
+  "top_rushers": [
+   {
+    "name": "Emanuel Wilson",
+    "pos": "RB",
+    "carries": 111,
+    "rush_yd": 403,
+    "games": 7,
+    "share": 0.463
+   },
+   {
+    "name": "Jadarian Price",
+    "pos": "RB",
+    "carries": 47,
+    "rush_yd": 172,
+    "games": 5,
+    "share": 0.196
+   },
+   {
+    "name": "George Holani",
+    "pos": "RB",
+    "carries": 37,
+    "rush_yd": 117,
+    "games": 8,
+    "share": 0.154
+   }
+  ]
+ },
  "log": [
   {
    "cmp": 0.0,

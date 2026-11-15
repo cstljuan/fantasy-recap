@@ -1408,6 +1408,137 @@
   "longest_plays": [],
   "touchdown_plays": []
  },
+ "teammates_2026": {
+  "passers_by_week": {
+   "1": [
+    {
+     "qb": "Dak Prescott",
+     "attempts": 34
+    }
+   ],
+   "2": [
+    {
+     "qb": "Dak Prescott",
+     "attempts": 31
+    }
+   ],
+   "3": [
+    {
+     "qb": "Dak Prescott",
+     "attempts": 40
+    }
+   ],
+   "4": [
+    {
+     "qb": "Dak Prescott",
+     "attempts": 45
+    }
+   ],
+   "5": [
+    {
+     "qb": "Dak Prescott",
+     "attempts": 42
+    }
+   ],
+   "6": [
+    {
+     "qb": "Dak Prescott",
+     "attempts": 54
+    }
+   ],
+   "7": [
+    {
+     "qb": "Dak Prescott",
+     "attempts": 27
+    }
+   ],
+   "8": [
+    {
+     "qb": "Dak Prescott",
+     "attempts": 29
+    }
+   ],
+   "9": [
+    {
+     "qb": "Dak Prescott",
+     "attempts": 34
+    }
+   ]
+  },
+  "top_targets": [
+   {
+    "name": "CeeDee Lamb",
+    "pos": "WR",
+    "targets": 108,
+    "rec": 70,
+    "rec_yd": 904,
+    "games": 9,
+    "share": 0.329
+   },
+   {
+    "name": "George Pickens",
+    "pos": "WR",
+    "targets": 62,
+    "rec": 39,
+    "rec_yd": 533,
+    "games": 8,
+    "share": 0.189
+   },
+   {
+    "name": "Ryan Flournoy",
+    "pos": "WR",
+    "targets": 47,
+    "rec": 32,
+    "rec_yd": 395,
+    "games": 9,
+    "share": 0.143
+   },
+   {
+    "name": "Javonte Williams",
+    "pos": "RB",
+    "targets": 29,
+    "rec": 24,
+    "rec_yd": 127,
+    "games": 8,
+    "share": 0.088
+   },
+   {
+    "name": "Jake Ferguson",
+    "pos": "TE",
+    "targets": 27,
+    "rec": 19,
+    "rec_yd": 136,
+    "games": 8,
+    "share": 0.082
+   }
+  ],
+  "top_rushers": [
+   {
+    "name": "Javonte Williams",
+    "pos": "RB",
+    "carries": 154,
+    "rush_yd": 629,
+    "games": 9,
+    "share": 0.74
+   },
+   {
+    "name": "Tyler Goodson",
+    "pos": "RB",
+    "carries": 40,
+    "rush_yd": 163,
+    "games": 6,
+    "share": 0.192
+   },
+   {
+    "name": "Emari Demercado",
+    "pos": "RB",
+    "carries": 5,
+    "rush_yd": 15,
+    "games": 2,
+    "share": 0.024
+   }
+  ]
+ },
  "log": [
   {
    "cmp": 0.0,
@@ -6647,22 +6778,47 @@
   ]
  },
  "wikipedia": {
-  "title": "List of longest NFL field goals",
-  "length": 4724,
+  "title": "Brandon Aubrey",
+  "length": 13370,
   "sections": {
-   "Intro": "The longest successful regular season field goal in National Football League (NFL) history is 68 yards by Cam Little of the Jacksonville Jaguars against the Las Vegas Raiders on November 2, 2025. The longest field goal attempt in an NFL game was 76 yards by Sebastian Janikowski of the Oakland Raiders against the San Diego Chargers on September 28, 2008. The longest successful field goal in NFL playoff history is 58 yards, first accomplished by Pete Stoyanovich on January 5, 1991, and then matched by Graham Gano on January 7, 2018. The Super Bowl record is 57 yards, set by Harrison Butker in Super Bowl LVIII."
+   "Intro": "Brandon Scott Aubrey (born March 14, 1995) is an American multi-sport athlete who plays as a placekicker for the Dallas Cowboys of the National Football League (NFL). He has also played professional association football as a center back.\nIn 2017, Aubrey was drafted by Toronto FC of Major League Soccer and played for the club's reserve team before moving to Bethlehem Steel FC. He then switched to American football and played for the Birmingham Stallions of the United States Football League (USFL) in 2022 and 2023 before being signed by the Cowboys in 2023.\nSince entering the NFL, Aubrey has emerged as one of the league's top placekickers. With a 88.2% career field goal percentage, Aubrey ranks as the fifth-most accurate field goal kicker in NFL history, and he has been named an All-Pro in all three of his seasons thus far. Aubrey also holds the NFL record for the most career field goals made from 60 yards or longer, with seven.",
+   "College career": "Aubrey played four years of college soccer at the University of Notre Dame between 2013 and 2016, wherein 2016 Aubrey was named NSCAA Third Team All-American, NSCAA First Team All-South Region, First Team All-ACC, and NSCAA Academic All-American. The 2013 team won a National Championship.",
+   "Personal life": "Aubrey met his wife Jenn in high school; the two married on January 4, 2019. Their son, Colton, was born in 2024."
   },
   "section_names": [
    "Intro",
-   "Longest field goals in regular season history",
-   "Unofficial records",
-   "Preseason",
-   "Playoffs",
-   "Super Bowl",
-   "Longest missed field goal attempts",
-   "Longest missed field goal return records",
+   "Soccer career",
+   "Youth career",
+   "College career",
+   "Professional career",
+   "Toronto FC",
+   "Bethlehem Steel FC",
+   "Transition to American football",
+   "Birmingham Stallions",
+   "2022 season",
+   "2023 season",
+   "Dallas Cowboys",
+   "2024 season",
+   "2025 season",
+   "2026 season",
+   "Statistics",
+   "College soccer",
+   "Club soccer",
+   "USFL",
+   "Regular season",
+   "Postseason",
+   "NFL",
+   "NFL records",
+   "Cowboys franchise records",
+   "Career honors",
+   "Soccer",
+   "NCAA",
+   "ACC",
+   "Football",
+   "Personal life",
    "Notes",
-   "See also"
+   "References",
+   "External links"
   ]
  }
 }
