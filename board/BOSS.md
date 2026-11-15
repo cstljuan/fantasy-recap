@@ -137,7 +137,7 @@ Run `sh tools/next.sh` to get your next task with its full description. A row is
 | B35 | B | Peypey-ryd | TOP PRIORITY: the football field gets the soccer stadium look (stands, crowd, score bug, banners, palette, pixel style) | merged |
 | B36 | B | Peypey-ryd | Football and soccer screens consistent side by side | merged |
 | B37 | B | Peypey-ryd | Fix every bug the test lead (C28) sends | closed: C28 sent none |
-| B38 | B | Peypey-ryd | Polish the football stadium Juan chose (Noah's, built from the soccer stadium): check it at 375 and 1280 with your screens, crowd layer and captions, fix what overlaps | open |
+| B38 | B | Peypey-ryd | Polish the football stadium Juan chose (Noah's, built from the soccer stadium): check it at 375 and 1280 with your screens, crowd layer and captions, fix what overlaps | merged |
 | B39 | B | Peypey-ryd | Momentum and player trends from the service (D44) on the film room and lineups when `?api=` is set, file fallback otherwise | open |
 | B40 | B | Peypey-ryd | Two honest matchups: the featured real week 9 game ("Real plays") and a Jev game ("Jev called the plays"), each opening its own game, every label from the game file's `source` | open |
 | B43 | B | Peypey-ryd | No "made-up" on a real game: footer, header tag, canvas score box tag and final box read the game file's `source` and `source_note` (canvas text is in js/main.js, which is in your lane tonight) | open |
@@ -163,7 +163,7 @@ Run `sh tools/next.sh` to get your next task with its full description. A row is
 | D49 | D | Rickstar-App | Juan's laptop night in one command: migrations, seed, push every game file, check the routes, then Scout if a key is set, with a clear report | merged |
 | D50 | D | Rickstar-App | The app reads the service for real: a browser test with `?api=` against a local database (league, opt-in, momentum, trend, scout), and NOTE peyton with every shape her screens need | merged |
 | D51 | D | Rickstar-App | Devpost text, final draft: one honest paragraph per prize track we enter (Tiger Data, Gemini, LangChain deep agents), the what-is-real list and the setup, ready for Juan to paste | merged |
-| D54 | D | Rickstar-App | TOP PRIORITY. Real data in the demo: the featured matchup plays a real week (the week 9 real-play games), with lineups, points, league and recap from real stat lines, with Peyton and the boss | open |
+| D54 | D | Rickstar-App | TOP PRIORITY. Real data in the demo: the featured matchup plays a real week (the week 9 real-play games), with lineups, points, league and recap from real stat lines, with Peyton and the boss | merged |
 | D55 | D | Rickstar-App | Soccer from a real match: build the soccer game from `data/statlines/soccer-real-2026-11-08.json` with the soccer match maker, so soccer shows real numbers too | open |
 | D56 | D | Rickstar-App | Every game file says what it is: add `source` and `source_note` (docs/CONTRACT.md section 1) to every football and soccer game file, and a check that fails when one is missing or wrong | open |
 | D52 | D | Rickstar-App | Architecture for the Devpost: `pitch/ARCHITECTURE.md` with every part, what talks to what and what is real, as the source for the design session's architecture picture (G5) | merged |
@@ -302,6 +302,7 @@ The boss reviews every DONE before it reaches main: the authors check, the lane 
 - Merged after review: D47, D49. All checks and the three full-game runs passed
 - Merged after review: D50, D51. All checks and the three full-game runs passed
 - Merged after review: D52, G1. All checks and the three full-game runs passed
+- Merged after review: B38, D54. All checks and the three full-game runs passed
 - D1 real rosters and profile files, D2 database schema (Ricky) are on main; `data/games/sample-football.json` now has the real rosters
 
 ## Decisions
