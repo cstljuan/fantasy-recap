@@ -147,3 +147,15 @@ After the reveal the announcer reads the story of the game: `FF_ANNOUNCER.recap(
 ## Task C27: say it right
 
 The browser voice misreads football text. Add one function every spoken line passes through before `speak` (captions keep the written form): names (`St. Brown`, `Ja'Marr`, initials), downs (`2nd & 10` as "second and ten"), scores (`17-14` as "seventeen to fourteen"), yard lines, clock times, team abbreviations (`GOB`, `PYT`) and decimals in fantasy points. Cover every player on both football rosters and both soccer rosters. A check runs every line the audit produces through it and fails on any leftover symbol or abbreviation a voice would spell out.
+
+## Task C28: test lead
+
+Run every check in the repo (`node js/announcer/audit.js`, `node js/audio-check.js`, `node soccer/check.js`, `node server/test.js`, `sh tools/smoke.sh`, the flow test, everything under `data/checks/`). Walk the football and soccer apps start to finish in headless Chromium at 375 and 1280 wide: opt-in and hidden scores, reveal, recap, sport switch, jump bar, Spanish. You own a new folder `tests/`: put one command there that runs everything (`tests/run-all.sh`) plus new browser tests. Each bug in someone else's files goes as ASK to its owner (peyton, ricky, juan) with file, steps and what you saw. Fix your own lane's bugs. DONE with a pass and fail list.
+
+## Task C29: stadium sound for football
+
+Peyton is rebuilding the football field to look like the soccer stadium (B35). Make the football crowd, whistle and stadium ambience match the soccer broadcast, and make sure lines and captions still fit. Coordinate with peyton by ASK.
+
+## Task C30: soccer voice and captions
+
+Your half of S6: every soccer event speaks and captions the same way football does, in both styles and in Spanish.

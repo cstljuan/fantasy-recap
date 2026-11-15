@@ -193,8 +193,57 @@ def build_agent(model, label, ro):
                              system_prompt=PROMPT.format(roster_lines=lines, model=label), name="scout")
 
 
+HOSTS = [("api.sleeper.app", "https://api.sleeper.app/v1/state/nfl"), ("site.api.espn.com", "https://site.api.espn.com/apis/site/v2/sports/football/nfl/scoreboard")]
+
+
+def preflight(network=True):
+    """Returns a list of plain-language problems that stop a real run. Empty means ready. Makes no model call."""
+    problems = []
+    for mod, pkg in (("deepagents", "deepagents"), ("langchain_anthropic", "langchain-anthropic"), ("langchain_google_genai", "langchain-google-genai")):
+        try:
+            __import__(mod)
+        except ImportError:
+            problems.append("package %s is not installed. Run: pip install -r agents/scout/requirements.txt (or sh agents/scout/run.sh)" % pkg)
+    if not (os.environ.get("GOOGLE_API_KEY") or os.environ.get("ANTHROPIC_API_KEY")):
+        problems.append("no model key. Set GOOGLE_API_KEY (Gemini) or ANTHROPIC_API_KEY (Claude) in the environment, never in a file.")
+    pf = os.path.join(T.ROOT, "data", "rosters", "plays-2026.json")
+    if not os.path.exists(pf) and not os.environ.get("SCOUT_PLAYS_FILE"):
+        problems.append("data/rosters/plays-2026.json is missing. Run: python3 agents/scout/plays.py")
+    if subprocess.call(["node", "--version"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL) != 0:
+        problems.append("node is not installed; Scout reads the rosters from js/data.js with it.")
+    if network:
+        import urllib.request
+        for host, url in HOSTS:
+            try:
+                urllib.request.urlopen(urllib.request.Request(url, headers={"User-Agent": "scout"}), timeout=15).read(1)
+            except Exception as e:
+                problems.append("cannot reach %s (%s). Check the network or proxy; the stats tools need it." % (host, type(e).__name__))
+    return problems
+
+
+def explain(e):
+    """A short plain message for the errors a real run can hit, or None for an error that should show its traceback."""
+    name, msg = type(e).__name__, str(e)
+    low = (name + " " + msg).lower()
+    if any(w in low for w in ("authentication", "api key", "api_key", "permission_denied", "unauthorized", "401", "403", "invalid x-api-key")):
+        return "The model refused the key (%s). Check GOOGLE_API_KEY or ANTHROPIC_API_KEY." % name
+    if any(w in low for w in ("notfound", "model not found", "404", "is not found")):
+        return "The model name was not accepted (%s). Set SCOUT_MODEL to a model your key can use." % name
+    if any(w in low for w in ("connection", "timeout", "timed out", "resolve", "unreachable", "ssl")):
+        return "The network failed during the run (%s). Run again; the log in agents/scout/runs/ shows how far it got." % name
+    if any(w in low for w in ("rate", "quota", "429", "overloaded", "529")):
+        return "The model service is rate limiting or overloaded (%s). Wait and run again." % name
+    return None
+
+
 def main(argv):
     dry = "--dry-run" in argv
+    if "--preflight" in argv:
+        probs = preflight()
+        for p in probs:
+            print("NOT READY:", p)
+        print("ready for a real run" if not probs else "%d problem(s)" % len(probs))
+        return 1 if probs else 0
     only = None
     if "--players" in argv:
         only = set(argv[argv.index("--players") + 1].split(","))
@@ -204,6 +253,12 @@ def main(argv):
         ro = {t: r for t, r in ro.items() if r}
     n = sum(len(r) for r in ro.values())
     model, label = pick_model()
+    if not dry:
+        probs = preflight()
+        if probs:
+            for p in probs:
+                print("NOT READY:", p)
+            return 2
     if model is None and not dry:
         print("No model key. Set GOOGLE_API_KEY or ANTHROPIC_API_KEY in the environment (not in a file).")
         print("Without a model, python3 agents/scout/research.py writes the reports with rules, and fill_profiles.py the profiles.")
@@ -220,8 +275,17 @@ def main(argv):
         for sp in subagents():
             print("subagent %s: %s" % (sp["name"], ", ".join(f.__name__ for f in sp["tools"])))
         return 0
-    result = agent.invoke({"messages": [{"role": "user", "content": "Build the profiles and the scouting reports for all %d players now." % n}]},
-                          {"recursion_limit": 2000})
+    try:
+        result = agent.invoke({"messages": [{"role": "user", "content": "Build the profiles and the scouting reports for all %d players now." % n}]},
+                              {"recursion_limit": 2000})
+    except Exception as e:
+        why = explain(e)
+        if why is None:
+            raise
+        T.log_step("Scout stopped: " + why)
+        print("STOPPED:", why)
+        print("log:", log)
+        return 3
     last = result["messages"][-1]
     text = last.content if isinstance(last.content, str) else json.dumps(last.content)
     T.log_step("Scout finished: " + text[:500])

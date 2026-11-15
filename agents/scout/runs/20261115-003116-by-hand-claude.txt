@@ -1,0 +1,15 @@
+00:31:16 | split(GOB.WR1, depth) -> 2 rows
+00:31:16 | split(GOB.WR1, down) -> 4 rows
+00:31:16 | split(GOB.WR1, zone) -> 4 rows
+00:31:16 | split(GOB.WR1, direction) -> 3 rows
+00:31:16 | split(GOB.WR1, week) -> 8 rows
+00:31:16 | verify_evidence(GOB.WR1) -> 23 of 23 real
+00:31:16 | by hand: verify_evidence(GOB.WR1) {"player": "GOB.WR1", "checked": 23, "real": 23, "not_real": []}
+00:31:16 | write_report(GOB.WR1) -> 5 claims, 23 plays cited
+00:31:16 | split(GOB.RB, gap) -> 7 rows
+00:31:16 | split(GOB.RB, down) -> 4 rows
+00:31:16 | split(GOB.RB, zone) -> 4 rows
+00:31:16 | split(GOB.RB, week) -> 7 rows
+00:31:16 | verify_evidence(GOB.RB) -> 22 of 22 real
+00:31:16 | by hand: verify_evidence(GOB.RB) {"player": "GOB.RB", "checked": 22, "real": 22, "not_real": []}
+00:31:16 | write_report(GOB.RB) -> 5 claims, 22 plays cited

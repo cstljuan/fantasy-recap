@@ -52,6 +52,7 @@ function memoryDb() {
     }
     if (/FROM games WHERE id/.test(text)) return { rows: games[p[0]] ? [games[p[0]]] : [] };
     if (/FROM optins WHERE game_id/.test(text)) return { rows: (optins[p[0]] || []).slice() };
+    if (/to_regclass\('fp_awards'\)/.test(text)) return { rows: [{ ok: false }] };  // this stand-in has no migration 004
     if (/FROM player_points_per_game|FROM team_points_per_quarter/.test(text)) return { rows: [] };
     if (/^INSERT INTO releases/.test(text)) { releases[p[0]] = { released: p[1], changed_at: new Date().toISOString() }; return { rows: [releases[p[0]]] }; }
     if (/FROM releases WHERE week/.test(text)) return { rows: releases[p[0]] ? [releases[p[0]]] : [] };

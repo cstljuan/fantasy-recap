@@ -119,6 +119,14 @@
     catch (err) { return ''; }
   }
 
+  // A longer piece from the soccer announcer (intro, halftime, wrap), same ctx as football, or ''.
+  function piece(kind, score) {
+    var A = window.SC_ANNOUNCER;
+    if (!A || !A[kind]) return '';
+    try { return A[kind]({ teams: TEAMS, score: score, leaders: [], hidden: !!(window.__app && window.__app.masked) }) || ''; }
+    catch (err) { return ''; }
+  }
+
   function say(text) {
     if (!text || !active || !VOICE || SPEED > 2 || !('speechSynthesis' in window)) return;
     // Through the announcer: its queue, its British voice, and the ElevenLabs clips when loaded.
@@ -157,7 +165,7 @@
       play = stillPlay(); pt = 0;
       mode = 'inter'; interUntil = clock + 3.4;
       disp.banner = null;
-      say(announce({ kind: 'half', post: { score: disp.score.slice() } }) || 'Half time. ' + spokenScore());
+      say(piece('halftime', disp.score.slice()) || announce({ kind: 'half', post: { score: disp.score.slice() } }) || 'Half time. ' + spokenScore());
       teleport = true; ball = { x: WID / 2, y: LEN / 2, holder: null };
       log.push({ step: si, text: 'HALF TIME', score: disp.score.slice() });
       emit('half', { score: disp.score.slice() });
@@ -166,7 +174,7 @@
     if (st.kind === 'final') {
       play = stillPlay(); pt = 0;
       mode = 'final'; disp.banner = null; disp.min = 90;
-      say(announce({ kind: 'final', post: { score: state.score.slice() } }) || 'Full time. ' + spokenScore());
+      say(piece('wrap', state.score.slice()) || announce({ kind: 'final', post: { score: state.score.slice() } }) || 'Full time. ' + spokenScore());
       log.push({ step: si, text: 'FULL TIME', score: state.score.slice() });
       // Clean sheets are only known at full time. They arrive as one last result, same shape as any other.
       var ft = Fantasy.fullTime(state.score);
@@ -605,10 +613,12 @@
     start: function () {
       if (mode !== 'ready') return;
       mode = 'play';
+      say(piece('intro', [0, 0]));
       emit('start');
     },
     restart: function () {
       reset();
+      say(piece('intro', [0, 0]));
       emit('start');
     },
     setActive: function (on) {

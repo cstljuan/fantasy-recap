@@ -20,7 +20,9 @@
   var G = window.FF_GAME, D = window.FF_DATA;
   var view = document.getElementById('gameView'), game = document.getElementById('game');
   if (!G || !D || !view || !game) return;
-  var TEAMS = D.TEAMS, W = 390, MX = (W - 53.3 * 6.6) / 2;   // the field canvas's own geometry
+  // The field canvas's own geometry, from js/sprites.js: the fans stand outside the advertising boards.
+  var ST = window.FF_STADIUM || { W: 390, MX: (390 - 53.3 * 6.6) / 2, RUN: 0, BOARD: 0 };
+  var TEAMS = D.TEAMS, W = ST.W, MX = ST.MX - ST.RUN - ST.BOARD;
 
   // ------------------------------------------------------------------ canvas
   var cv = document.createElement('canvas');
@@ -50,8 +52,9 @@
     cv.width = Math.ceil(vw / P); cv.height = Math.ceil(vh / P);
     cv.style.width = vw + 'px'; cv.style.height = vh + 'px';
     var s = r.width / W, fieldL = r.left + MX * s, fieldR = r.right - MX * s, depth = vw >= 760 ? 240 : 999;
-    // The canvas's score box (top left, about 8 to 60 canvas units) stays uncovered.
-    skip = { x0: r.left, x1: r.left + 110 * s, y0: r.top, y1: r.top + 64 * s };
+    // The canvas's broadcast graphics stay uncovered: the score bug with the down and distance
+    // under it (top left) and the sample tag (top right), both in the top 46 canvas units.
+    skip = { x0: r.left, x1: r.right, y0: r.top, y1: r.top + 46 * s };
     var CW = 4, CH = 7;   // a seat, in crowd pixels
     seats = [[], []];
     [[Math.max(0, fieldL - depth), fieldL, 0], [fieldR, Math.min(vw, fieldR + depth), 1]].forEach(function (side) {

@@ -447,6 +447,137 @@ var srv = createServer(fake).listen(0, function () {
         a.close(); b.close();
       });
     })
+    // trend and the time_bucket momentum: from the game files without a database, from aggregate rows with one
+    .then(function () {
+      var trend = require('./trend.js'), mom = require('./momentum.js');
+      var file = require('path').join(__dirname, '..', 'data', 'games', 'week11-football.json');
+      var want = trend.fromFiles('Josh Allen');
+      assert.deepEqual(want.weeks.map(function (w) { return w.week; }), [9, 11]);
+      assert.equal(trend.fromFiles('josh allen').weeks[0].points, want.weeks[0].points, 'name in any case');
+      assert.equal(trend.fromFiles('GOB.QB').player, 'Josh Allen', 'TEAM.SLOT finds the same player');
+      assert.equal(trend.fromFiles('Nobody Atall'), null);
+      // the summary rules, on numbers worked out by hand
+      var s = trend.summarize([{ week: 9, points: 10 }, { week: 10, points: 4 }, { week: 11, points: 14 }]);
+      assert.equal(s.average, 9.3); assert.equal(s.change, 10); assert.equal(s.direction, 'up'); assert.equal(s.bestWeek, 11); assert.equal(s.hotStreak, 1);
+      assert.equal(trend.summarize([{ week: 9, points: 5 }]).direction, 'none');
+      assert.equal(trend.summarize([{ week: 9, points: 5 }, { week: 10, points: 5.2 }]).direction, 'flat');
+      assert.equal(trend.summarize([{ week: 9, points: 5 }, { week: 10, points: 9 }, { week: 11, points: 8 }]).hotStreak, 2);
+      assert.equal(trend.weekOf('2026-11-09T00:00:00.000Z'), 11); assert.equal(trend.weekOf('2026-10-26T00:00:00.000Z'), 9);
+      var aggRows = [{ bucket: new Date('2026-10-26T00:00:00Z'), points: '25.5', awards: '43', player: 'Josh Allen', team: 'GOB', slot: 'QB' },
+                     { bucket: new Date('2026-11-09T00:00:00Z'), points: '7.4', awards: '11', player: 'Josh Allen', team: 'GOB', slot: 'QB' }];
+      var seen = [];
+      var withDb = createServer({ query: function (t, p) {
+        seen.push(t);
+        if (/to_regclass\('fp_awards'\)/.test(t)) return Promise.resolve({ rows: [{ ok: true }] });
+        if (/FROM player_points_per_week/.test(t)) return Promise.resolve({ rows: p[0] === 'Nobody Atall' ? [] : aggRows });
+        return Promise.reject(new Error('unexpected query'));
+      } }).listen(0);
+      var noDb = createServer({ query: function () { return Promise.reject(new Error('down')); } }).listen(0);
+      var noMig = createServer({ query: function (t) { return Promise.resolve({ rows: /to_regclass/.test(t) ? [{ ok: false }] : [] }); } }).listen(0);
+      return call('GET', '/players/Josh%20Allen/trend', undefined, undefined, withDb.address().port)
+        .then(function (r) {
+          assert.equal(r.status, 200); assert.equal(r.body.source, 'database');
+          assert.deepEqual(r.body.weeks, [{ week: 9, points: 25.5, awards: 43 }, { week: 11, points: 7.4, awards: 11 }]);
+          assert.equal(r.body.summary.direction, 'down'); assert.equal(r.body.summary.change, -18.1);
+          assert.ok(seen.some(function (t) { return /player_key = lower\(\$1\)/.test(t); }), 'name query');
+          return call('GET', '/players/GOB.QB/trend', undefined, undefined, withDb.address().port);
+        })
+        .then(function (r) { assert.equal(r.body.source, 'database'); assert.ok(seen.some(function (t) { return /upper\(team\) = upper\(\$1\)/.test(t); }), 'TEAM.SLOT query'); })
+        .then(function () { return call('GET', '/players/Nobody%20Atall/trend', undefined, undefined, withDb.address().port); })
+        .then(function (r) { assert.equal(r.status, 404); })
+        .then(function () { return call('GET', '/players/Josh%20Allen/trend', undefined, undefined, noDb.address().port); })
+        .then(function (r) { assert.equal(r.status, 200); assert.equal(r.body.source, 'file'); assert.deepEqual(r.body.weeks, want.weeks); assert.deepEqual(r.body.summary, want.summary); })
+        .then(function () { return call('GET', '/players/Josh%20Allen/trend', undefined, undefined, noMig.address().port); })
+        .then(function (r) { assert.equal(r.body.source, 'file', 'migration 004 not applied: files'); })
+        .then(function () { return call('POST', '/players/Josh%20Allen/trend', {}, undefined, noDb.address().port); })
+        .then(function (r) { assert.equal(r.status, 405); })
+        .then(function () { return call('GET', '/players/%20/trend', undefined, undefined, noDb.address().port); })
+        .then(function (r) { assert.equal(r.status, 400); })
+        // momentum: the time_bucket query is asked for first; its answer is returned with engine = the function used
+        .then(function () {
+          var sqlSeen = [];
+          var tb = createServer({ query: function (t, p) {
+            if (/FROM games/.test(t)) return Promise.resolve({ rows: [{ home: 'GOB', away: 'PYT' }] });
+            if (/to_regclass/.test(t)) return Promise.resolve({ rows: [{ ok: true }] });
+            if (/to_regproc/.test(t)) return Promise.resolve({ rows: [{ tb: true }] });
+            sqlSeen.push([t, p]);
+            return Promise.resolve({ rows: [{ b: 0, team: 'GOB', pts: 5.5, quarter: null, sh: null, sa: null }, { b: 0, team: null, pts: null, quarter: 1, sh: 7, sa: 0 }, { b: 2, team: 'PYT', pts: 2, quarter: null, sh: null, sa: null }, { b: 2, team: null, pts: null, quarter: 2, sh: 7, sa: 3 }] });
+          } }).listen(0);
+          return call('GET', '/games/week11-football/momentum?bucket=300', undefined, undefined, tb.address().port).then(function (r) {
+            assert.equal(r.body.source, 'database'); assert.equal(r.body.engine, 'time_bucket');
+            assert.ok(/time_bucket\(make_interval/.test(sqlSeen[0][0]), 'uses time_bucket'); assert.deepEqual(sqlSeen[0][1], ['week11-football', 300]);
+            assert.deepEqual(r.body.buckets.map(function (b) { return b.start; }), [0, 300, 600], 'empty buckets are listed');
+            assert.deepEqual(r.body.buckets[0].score, [7, 0]); assert.deepEqual(r.body.buckets[2].score, [0, 3]);
+            assert.deepEqual(r.body.buckets[2].fpTotal, [5.5, 2]); assert.equal(r.body.buckets[1].quarter, 1);
+            tb.close();
+          });
+        })
+        .then(function () { return call('GET', '/games/week11-football/momentum?bucket=300', undefined, undefined, noDb.address().port); })
+        .then(function (r) { assert.equal(r.body.source, 'file'); assert.equal(r.body.engine, 'javascript'); assert.deepEqual(r.body.buckets, mom.momentum(file, 300).buckets); withDb.close(); noDb.close(); noMig.close(); });
+    })
+    // Scout through the service: stored reports without a key, a refresh only with one (a stand-in runs in place of the model)
+    .then(function () {
+      var fs = require('fs'), os = require('os'), pth = require('path');
+      var root = fs.mkdtempSync(pth.join(os.tmpdir(), 'scout-svc-'));
+      fs.mkdirSync(pth.join(root, 'data', 'profiles', 'notes'), { recursive: true });
+      fs.mkdirSync(pth.join(root, 'agents', 'scout', 'runs'), { recursive: true });
+      var reportFile = pth.join(root, 'data', 'profiles', 'notes', 'ZZZ-WR1-report.md');
+      function report(text, by) {
+        return '# Scouting report: Test Receiver\n\nZZZ, WR1. Made by ' + by + ' on 2026-11-14, from the real play-by-play.\n\n1. ' + text + ' [1, 2]\n2. Second claim. [2]\n\n## Evidence\n\n' +
+          '1. Week 3, Q2 9:15: Q.Back pass short right to T.Receiver for 8 yards. ([game](https://example.test/game/1))\n' +
+          '2. Week 4, Q4 0:45: Q.Back pass deep left to T.Receiver for 31 yards, TOUCHDOWN. ([game](https://example.test/game/2))\n';
+      }
+      fs.writeFileSync(reportFile, report('Receiver had 2 catches on third down.', 'rules, no model (agents/scout/research.py)'));
+      fs.writeFileSync(pth.join(root, 'data', 'profiles', 'notes', 'ZZZ-WR1.md'), '# Notes: Test Receiver\n');
+      fs.writeFileSync(pth.join(root, 'data', 'profiles', 'notes', 'ZZZ-QB-report.md'), report('Back threw.', 'rules, no model'));
+      fs.writeFileSync(pth.join(root, 'agents', 'scout', 'runs', '20261114-100000-research.txt'), '10:00:00 | write_report(ZZZ.WR1) -> 2 claims, 3 plays cited\n');
+      fs.writeFileSync(pth.join(root, 'agents', 'scout', 'runs', '20261114-120000-scout.txt'), '12:00:00 | split(ZZZ.WR1, down)\n12:00:05 | write_report(ZZZ.WR1) -> 2 claims, 3 plays cited\n');
+      var asked = [], mode = 'ok', release = null;
+      var runner = function (key) {
+        asked.push(key);
+        if (mode === 'hang') return new Promise(function (ok) { release = ok; });
+        if (mode === 'fail') return Promise.resolve({ code: 2, output: 'NOT READY: cannot reach api.sleeper.app (URLError)' });
+        fs.writeFileSync(reportFile, report('Receiver had 5 catches on third down.', 'model test-model'));
+        return Promise.resolve({ code: 0, output: '' });
+      };
+      var KEY = 'sk-test-not-a-real-key-123';
+      var noKey = createServer({ query: function () { return Promise.reject(new Error('down')); } }, { scout: require('./scout.js').createScout({ root: root, env: {}, runner: runner }) }).listen(0);
+      var withKey = createServer({ query: function () { return Promise.reject(new Error('down')); } }, { scout: require('./scout.js').createScout({ root: root, env: { ANTHROPIC_API_KEY: KEY }, runner: runner }) }).listen(0);
+      var pn = noKey.address().port, pk = withKey.address().port;
+      return call('GET', '/scout', undefined, undefined, pn).then(function (r) {
+        assert.equal(r.status, 200); assert.deepEqual(r.body.players.map(function (p) { return p.player; }), ['ZZZ.QB', 'ZZZ.WR1']); assert.equal(r.body.canRefresh, false);
+        return call('GET', '/scout/zzz.wr1', undefined, undefined, pn);
+      }).then(function (r) {
+        assert.equal(r.status, 200); assert.equal(r.body.player, 'ZZZ.WR1'); assert.equal(r.body.refreshed, false);
+        assert.equal(r.body.report.made_by, 'rules, no model (agents/scout/research.py)'); assert.equal(r.body.report.modelMade, false);
+        assert.equal(r.body.report.claims.length, 2); assert.equal(r.body.report.claims[0].evidence.length, 2);
+        assert.deepEqual(r.body.report.claims[0].evidence[1], { n: 2, week: 4, quarter: '4', clock: '0:45', text: 'Q.Back pass deep left to T.Receiver for 31 yards, TOUCHDOWN.', game: 'https://example.test/game/2' });
+        r.body.report.claims.forEach(function (c) { assert.ok(c.evidence.length > 0 && c.evidence.every(function (e) { return /^https:/.test(e.game); }), 'every claim cites plays with a source'); });
+        assert.equal(r.body.run.log, 'agents/scout/runs/20261114-120000-scout.txt', 'the newest run that wrote it');
+        assert.ok(/Notes: Test Receiver/.test(r.body.notes.markdown));
+        return call('GET', '/scout/ZZZ.K', undefined, undefined, pn);
+      }).then(function (r) { assert.equal(r.status, 404); return call('GET', '/scout/..%2f..%2fpackage', undefined, undefined, pn); })
+        .then(function (r) { assert.equal(r.status, 400); return call('POST', '/scout/ZZZ.WR1/refresh', {}, undefined, pn); })
+        .then(function (r) {
+          assert.equal(r.status, 200); assert.equal(r.body.refreshed, false); assert.ok(/no model key/.test(r.body.reason)); assert.equal(asked.length, 0, 'no key: the model is never started');
+          assert.equal(r.body.report.claims[0].text, 'Receiver had 2 catches on third down.');
+          return call('POST', '/scout/ZZZ.WR1', {}, undefined, pn);
+        }).then(function (r) { assert.equal(r.status, 405); return call('POST', '/scout/ZZZ.WR1/refresh', {}, undefined, pk); })
+        .then(function (r) {
+          assert.equal(r.status, 200); assert.equal(r.body.refreshed, true); assert.deepEqual(asked, ['ZZZ.WR1']);
+          assert.equal(r.body.report.claims[0].text, 'Receiver had 5 catches on third down.'); assert.equal(r.body.report.modelMade, true);
+          assert.ok(JSON.stringify(r.body).indexOf(KEY) < 0, 'the key is never in an answer');
+          mode = 'fail'; return call('POST', '/scout/ZZZ.WR1/refresh', {}, undefined, pk);
+        }).then(function (r) {
+          assert.equal(r.status, 502); assert.equal(r.body.refreshed, false); assert.ok(/NOT READY: cannot reach api.sleeper.app/.test(r.body.reason));
+          assert.equal(r.body.report.claims[0].text, 'Receiver had 5 catches on third down.', 'a failed run still answers the stored report');
+          mode = 'hang';
+          var first = call('POST', '/scout/ZZZ.WR1/refresh', {}, undefined, pk);
+          return new Promise(function (ok) { setTimeout(ok, 50); }).then(function () { return call('POST', '/scout/ZZZ.WR1/refresh', {}, undefined, pk); }).then(function (r2) {
+            assert.equal(r2.status, 409); release({ code: 0, output: '' }); return first;
+          });
+        }).then(function (r) { assert.equal(r.status, 200); noKey.close(); withKey.close(); fs.rmSync(root, { recursive: true, force: true }); });
+    })
     .then(function () { console.log('OK'); srv.close(); })
     .catch(function (e) { console.error('FAIL', e.message); process.exit(1); });
 });
