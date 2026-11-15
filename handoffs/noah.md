@@ -179,3 +179,7 @@ Phones block sound until a tap, iPhones respect the silent switch for some audio
 ## Task C36: the second game with the browser voice
 
 `data/games/week11-tur-owl.json` uses the browser voice (C33 dropped). Run the announcer over it: every line fits the captions strip, every Turtles and Owls name and number is said right (your C27 say-it-right check), nothing blank or repeated too often. Change `UNVOICED` in `js/announcer/voice/render.js` however you like as long as `node js/announcer/audit.js` covers this game's lines too.
+
+## Task C37: the announcer for the real week 9 games
+
+Ricky's D54 makes week 9 the current league week (Goblins against Turtles featured, Pythons against Owls second), built from real plays. Fix `js/announcer/check.js` (his ASK: the C23 pre-game show check assumes GOB and PYT and week 11), make the pre-game show, intro, halftime and wrap right for Goblins against Turtles and the Turtles and Owls rosters, check every line fits and every name is said right. The recordings were made for week 11, so the featured game will use the browser voice until it is rendered: post the exact line and credit count for `data/games/week09-gob-tur.json` and render only if Noah approves in your chat.

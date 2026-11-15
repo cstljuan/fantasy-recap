@@ -13,6 +13,8 @@ Version 0 writes down what the code does today, so every lane can build against 
 
 Version 1 (live): a game file is `data/games/<id>.json`: `{ version: 1, sport, teams, game, report }`, with `teams` and `game` in the shape above. The boss picks the one the app plays with `node tools/use-game.js data/games/<id>.json`, which writes `data/games/current.js`; `index.html` loads it and puts it in `FF_DATA.TEAMS` and `FF_DATA.SAMPLE_GAME` before the game starts. `?game=sample` plays the built-in sample.
 
+Optional field (added 2026-11-15, old files stay valid): `source`, one of `"real-plays"` (every play really happened, built from real play-by-play, no choices made), `"jev"` (built from stat lines, Jev chose the plays), `"equal-weights"` (built from stat lines without Jev), `"sample"` (hand-made). Plus optional `source_note`, one plain sentence for screens and captions, for example "Real plays from week 9 of the 2026 season". Screens label a game from `source` and never say "made-up" for a `real-plays` game. A game file without `source` is treated as `sample`.
+
 A play the play caller chose carries two extra fields. Code that ignores unknown fields keeps working.
 
 - `why`: `{ play: { "<option>": probability, ... }, picked: "<option>", highlight: <0 to 1>, by: "jev" }`. Options are calls: `pass_<slot>` or `run_<slot>`, for example `pass_WR1`, `run_RB`. The probabilities are Jev's for the options that were legal at that snap.
