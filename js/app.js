@@ -759,7 +759,8 @@
     var j = trend$.by[TEAMS[t].id + '.' + role];
     if (!j) return '';
     var open = m.status === 'final' && !masked(), wk = thisWeek();
-    var weeks = j.weeks.filter(function (w) { return open || w.week < wk; });
+    // Never a week after this game's (the league is at this game's week), and this game's own week only after the final.
+    var weeks = j.weeks.filter(function (w) { return open ? w.week <= wk : w.week < wk; });
     if (!weeks.length) return '';
     var s = trendSummary(weeks);
     var list = weeks.map(function (w) { return 'wk ' + w.week + ' ' + f1(w.points); }).join(', ');
@@ -1844,7 +1845,9 @@
   }
   function showNextRule() {
     var kind = ruleQueue.shift();
-    if (!kind) return;
+    // Nothing left to show: let the game go again. Without this, a queue of rules already seen
+    // left the game held with no card on screen (Noah: the players stopped, the sound went on).
+    if (!kind) { if (ruleEl.hidden) slowFor(false); return; }
     var text = explainText(kind);
     if (!text || ruleSeen[kind]) { showNextRule(); return; }
     ruleSeen[kind] = true;

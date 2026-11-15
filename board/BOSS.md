@@ -122,7 +122,7 @@ Run `sh tools/next.sh` to get your next task with its full description. A row is
 | S7 | S | cstljuan | `SC_GAME.seek(index)` and `SC_GAME.hold(on)` with the same meaning as `FF_GAME`, for Peyton's jump bar and rule cards | moved to C32 |
 | S6 | S | cstljuan | Soccer voice and captions, with Noah | done: Noah C30 and the boss wiring |
 | G1 | G | cstljuan | The Figma file with its pages set up (structure only for now) | merged |
-| G2 | G | cstljuan | Brand guide, wordmark, mascot | open |
+| G2 | G | cstljuan | Brand guide, wordmark, mascot | merged |
 | G3 | G | cstljuan | Every screen at phone and laptop size | open |
 | G4 | G | cstljuan | Motion page and motion specs | open |
 | G5 | G | cstljuan | Devpost thumbnail, gallery, video title card, architecture picture | merged |
@@ -309,6 +309,7 @@ The boss reviews every DONE before it reaches main: the authors check, the lane 
 - Merged after review: B38, D54. All checks and the three full-game runs passed
 - Merged after review: B39, G5. All checks and the three full-game runs passed
 - Merged after review: B40. All checks and the three full-game runs passed
+- Merged after review: G2. All checks and the three full-game runs passed
 - D1 real rosters and profile files, D2 database schema (Ricky) are on main; `data/games/sample-football.json` now has the real rosters
 
 ## Decisions
