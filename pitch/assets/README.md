@@ -14,6 +14,8 @@ Made by the design session. Every picture is rendered from a page in `design/pit
 | `gallery-05-the-reveal.png` | 3000x2000 | Gallery 5: the final board and the recap |
 | `gallery-06-real-and-simulated.png` | 3000x2000 | Gallery 6: what is real, what is simulated, what was not checked |
 | `video-title-card.png` | 1920x1080 | Title card for the demo video |
+| `youtube-thumbnail.png` | 1280x720 (16:9) | YouTube thumbnail for the demo video: the video title card at YouTube's thumbnail size, under 2 MB |
+| `figma/` | 14 frames | The frames exported from the Figma file, in the order of the Devpost gallery; also used in the README |
 | `architecture.png` | 3840x2160 | The architecture on one page |
 
 The numbers on the pictures come from `pitch/DEVPOST-FINAL.md` as it was on main on 2026-11-15. If that text changes, change the page in `design/pitch/` and render again.
