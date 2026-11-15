@@ -216,3 +216,7 @@ Ricky's D44 adds `GET /games/:id/momentum` and `GET /players/:id/trend` (see `db
 ## Task B38 (replaces the earlier B38 text): polish the chosen stadium
 
 Juan chose Noah's football stadium (branch `nexodv/stadium`, now on main): the football field drawn with the soccer stadium code, the soccer camera and a team wordmark in the end zones. Your B35 work is replaced by it; thank you for it. Check it at 375 and 1280 with your screens: the crowd layer (`js/screens/crowd.js`), captions box, jump bar, rule cards, opt-in masking, recap. Fix what overlaps or looks wrong in `js/sprites.js`, `js/main.js` (drawing only) and your own files. Screenshots before and after, `sh tools/smoke.sh` passes.
+
+## Task B40: the second matchup plays
+
+When Ricky's `data/games/week11-tur-owl.json` (D46) is on main, make the Turtles against Owls card on the league home open that game (`?game=` or the way your screens load a game file), with its own lineups and recap. Until the file exists, leave the card as it is. Check both matchups to the final in headless Chromium.

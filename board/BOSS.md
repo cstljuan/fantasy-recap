@@ -119,7 +119,7 @@ Run `sh tools/next.sh` to get your next task with its full description. A row is
 | S3 | S | cstljuan | Soccer polish: celebrations, replays of goals, set pieces | merged |
 | S4 | S | cstljuan | The soccer match maker | merged |
 | S5 | S | cstljuan | The soccer app: lineups, feed, recap, hidden scores | merged |
-| S7 | S | cstljuan | `SC_GAME.seek(index)` and `SC_GAME.hold(on)` with the same meaning as `FF_GAME`, for Peyton's jump bar and rule cards | waiting: light duty, Juan restarts this after 9:30 PM Eastern |
+| S7 | S | cstljuan | `SC_GAME.seek(index)` and `SC_GAME.hold(on)` with the same meaning as `FF_GAME`, for Peyton's jump bar and rule cards | moved to C32 |
 | S6 | S | cstljuan | Soccer voice and captions, with Noah | waiting: light duty, Juan restarts this after 9:30 PM Eastern |
 | G1 | G | cstljuan | The Figma file with its pages set up (structure only for now) | open |
 | G2 | G | cstljuan | Brand guide, wordmark, mascot | waiting: light duty, Juan restarts this after 9:30 PM Eastern |
@@ -139,7 +139,10 @@ Run `sh tools/next.sh` to get your next task with its full description. A row is
 | B37 | B | Peypey-ryd | Fix every bug the test lead (C28) sends | open |
 | B38 | B | Peypey-ryd | Polish the football stadium Juan chose (Noah's, built from the soccer stadium): check it at 375 and 1280 with your screens, crowd layer and captions, fix what overlaps | open |
 | B39 | B | Peypey-ryd | Momentum and player trends from the service (D44) on the film room and lineups when `?api=` is set, file fallback otherwise | open |
+| B40 | B | Peypey-ryd | League home: the Turtles against Owls matchup opens its own game once D46's file is on main | open |
 | C28 | C | nexodv | Test lead: run every check, walk both apps in a browser, one command in tests/, send bugs to owners | open |
+| C32 | C | nexodv | Soccer seek and hold (S7, moved to Noah), then the jump bar, rule cards and share card on the soccer page, with Peyton | open |
+| C33 | C | nexodv | Voice for the second football game (Turtles against Owls, D46) once its file is on main | open |
 | C29 | C | nexodv | Stadium sound for football to match the soccer broadcast, with Peyton's B35 | merged |
 | C30 | C | nexodv | Soccer voice and captions, Noah's half of S6 | merged |
 | D41 | D | Rickstar-App | Deep agents finished: Scout ready for a real run, offline test of the subagents and the evidence guard | merged |
@@ -148,6 +151,7 @@ Run `sh tools/next.sh` to get your next task with its full description. A row is
 | D44 | D | Rickstar-App | Tiger Data that shows: time_bucket and continuous aggregate queries for momentum, hot streaks and week trends, served by the service, with a test | merged |
 | D45 | D | Rickstar-App | Scout through the service: a route that returns the newest sourced scouting report per player, and runs Scout when a key is present | merged |
 | D46 | D | Rickstar-App | The second football game: the game maker reads a stat lines file (A5, moved to Ricky), builds Turtles against Owls without Jev, tags highlights | open |
+| D47 | D | Rickstar-App | Honesty pass three: README and every file in pitch/ against main as it is now (stadium, one announcer style, no Spanish voice, Scout reports by hand, voice recordings, service routes) | open |
 
 ## Answers to ASK posts
 
