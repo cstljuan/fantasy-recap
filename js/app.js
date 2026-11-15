@@ -1029,7 +1029,7 @@
     var f = window.FF_GAME_FILE, src = f && !/[?&]game=sample/.test(location.search) && !window.FF_USE_SAMPLE ? f.source : 'sample';
     var note = f && typeof f.source_note === 'string' ? f.source_note.replace(/\.$/, '') : '';
     if (src === 'real-plays') return (note || 'Real plays') + '. Real names, real stats.';
-    if (src === 'jev') return 'Plays chosen by Jev from real stat lines. Real names.';
+    if (src === 'jev') return 'Plays chosen by Jev from invented stat lines. Real names.';
     if (src === 'equal-weights') return (note || 'Built from stat lines') + '. Real names, made-up stats.';
     return 'Sample game. Real names, made-up stats.';
   }
