@@ -1,0 +1,78 @@
+{
+ "key": "OWL-TE",
+ "name": "Tucker Kraft",
+ "researched": "2026-11-15",
+ "background": [
+  {"fact": "Tucker John Kraft was born November 3, 2000, in Timber Lake, South Dakota, and grew up on the Cheyenne River Sioux Tribe Reservation. In April 2024 he was named an honorary tribal member for his acts of service to the community, and he wears a tribal flag on his helmet.", "source": "https://en.wikipedia.org/wiki/Tucker_Kraft", "date": null, "confidence": "from Wikipedia"},
+  {"fact": "At Timber Lake High School he played running back, middle linebacker and punter; as a senior he rushed for 1,405 yards and 24 touchdowns and was first team All-State. He committed to South Dakota State over a late Wyoming offer.", "source": "https://en.wikipedia.org/wiki/Tucker_Kraft", "date": null, "confidence": "from Wikipedia"},
+  {"fact": "At South Dakota State he redshirted, then as a redshirt sophomore started all 15 games with 65 catches for 780 yards and 6 touchdowns, and was a consensus FCS All-American.", "source": "https://en.wikipedia.org/wiki/Tucker_Kraft", "date": null, "confidence": "from Wikipedia"},
+  {"fact": "Green Bay drafted him in the third round (pick 78) of the 2023 NFL draft. Listed at 6 ft 5 in, 259 lb, number 85, age 26, depth chart TE1, fourth NFL season.", "source": "research/data/OWL-TE.json (bio, from ESPN and Sleeper pulls)", "date": "2026-11-15", "confidence": "one source"},
+  {"fact": "Combine numbers: 4.69 forty, 34 inch vertical, 122 inch broad jump. Madden week 8 rating is 83 overall with 91 catching and 88 speed.", "source": "research/data/OWL-TE.json (bio.combine, bio.madden)", "date": "2026-11-15", "confidence": "one source"}
+ ],
+ "family": [
+  {"fact": "His father, Doug Kraft, died in 2013. He has two brothers, Cody and Tanner.", "source": "https://en.wikipedia.org/wiki/Tucker_Kraft", "date": null, "confidence": "from Wikipedia"},
+  {"fact": "He married Baylee Jandahl, a graphic designer, on May 18, 2024. They became parents of a daughter, Charlotte, in early 2025. Nothing further about the child is recorded here.", "source": "https://en.wikipedia.org/wiki/Tucker_Kraft", "date": null, "confidence": "from Wikipedia"},
+  {"fact": "He is a Christian.", "source": "https://en.wikipedia.org/wiki/Tucker_Kraft", "date": null, "confidence": "from Wikipedia"}
+ ],
+ "recent_events": [
+  {"fact": "2026 season so far: 9 games, 9 starts, 52 targets, 36 catches, 351 yards, 3 touchdowns, 54.4 fantasy points (6.04 a game under league scoring). He has 9 red zone targets and 5 drops, and played 487 offensive snaps.", "source": "research/data/OWL-TE.json (season_2026)", "date": "2026-11-15", "confidence": "from the data file"},
+  {"fact": "Recent game log (catches/targets/yards/TD, fantasy points): Week 4 vs TB 6/7, 42, 1 TD, 10.5; Week 5 at CHI 5/5, 64, 0, 6.6; Week 6 vs DAL 5/8, 37, 0, 3.7; Week 7 at DET 4/6, 48, 1 TD, 10.8; Week 8 vs CAR 6/6, 53, 1 TD, 11.3; Week 9 at NE 1/3, 1 yard, 0.9.",  "source": "research/data/OWL-TE.json (log)", "date": "2026-11-15", "confidence": "from the data file"},
+  {"fact": "A Yahoo Sports headline from Nov 9 says Kraft was 'reduced to spectator in New England' (headline only; the article was not read). The data file agrees: 1 catch for 1 yard on 3 targets.", "source": "research/data/OWL-TE.json (news, Yahoo Sports headline)", "date": "2026-11-09", "confidence": "headline only, plus data file"},
+  {"fact": "Headline Nov 13 from Channel 3000: 'Calling it immature to complain about opportunities, Tucker Kraft focuses on elevating Packers in other ways amid slow statistical start' (headline only; the article was not read).", "source": "research/data/OWL-TE.json (news, Channel 3000)", "date": "2026-11-13", "confidence": "headline only"},
+  {"fact": "A search summary said he tore his right ACL in Week 9 of the 2025 season (tests confirmed, season ending) and, in an August 2026 NBC item, was not practicing with a knee issue at camp, with a possible PUP list start. The data file shows him with 8 games in 2025 and 9 games played and started in 2026, so he has been playing since Week 1. Details of the rehab are not found.", "source": "https://www.nbcsports.com/fantasy/football/player-news/2026-08-07/tucker-kraft-knee-not-practicing-on-friday", "date": "2026-08-07", "confidence": "headline only (search summary), partly confirmed by the data file"},
+  {"fact": "A search summary said a Fox News piece dated Sept 25, 2026 called his response to Lambeau boos after the 35-14 loss to Atlanta tone deaf, and that he dropped two passes in that game (4 catches on 8 targets, 26 yards). The data file shows Week 3 vs ATL at 4 catches on 8 targets for 26 yards, which matches.", "source": "https://www.foxnews.com/outkick-sports/packers-tight-end-tucker-kraft-hears-boos-lambeau-field-fans-offers-tone-deaf-response.print", "date": "2026-09-25", "confidence": "headline only, matches data file"}
+ ],
+ "quotes": [
+  {"fact": "No direct quote from Kraft or the coach about his role or health this week was found in pages that could be read: not found.", "source": "not found", "date": null, "confidence": "not found"}
+ ],
+ "team_context": [
+  {"fact": "Jordan Love has been the only passer all 9 games. Kraft's target share is 15.8 percent, third on the team behind Matthew Golden (92 targets, 53 catches, 783 yards, 28 percent) and Christian Watson (74 targets, 49 catches, 879 yards, 22.5 percent).", "source": "research/data/OWL-TE.json (teammates_2026)", "date": "2026-11-15", "confidence": "from the data file"},
+  {"fact": "A search summary of a preview said Green Bay has the second best passing offense and the worst run game in the NFL, and is without Jayden Reed and Skyy Moore (both on injured reserve). Not confirmed on a second page.", "source": "https://www.packers.com/news/packers-host-division-foe-vikings-at-home-week-10-2026", "date": "2026-11-15", "confidence": "one source, search summary only"},
+  {"fact": "Yahoo's Week 10 start or sit piece, as summarized by search, advises sitting Kraft because Love focuses on Watson and Golden, making Kraft a tertiary option. Before Week 9 he ranked TE11 in PPR points a game with about 6.1 targets a game (summary only; the article was not read).", "source": "https://www.si.com/nfl/packers/news/packers-vikings-injury-report-minnesota-without-its-two-backs", "date": "2026-11-13", "confidence": "headline only, search summary; link is the Packers-Vikings report page, not the Yahoo piece"},
+  {"fact": "Head coach and offensive coordinator for 2026 were not confirmed from a current source (a search result lists Matt LaFleur with a 7-8 record against Minnesota): not found for the coordinator.", "source": "https://www.packers.com/news/packers-host-division-foe-vikings-at-home-week-10-2026", "date": "2026-11-15", "confidence": "one source, coordinator not found"}
+ ],
+ "next_opponent": [
+  {"fact": "Green Bay hosts Minnesota on Sunday, November 15, 1 pm ET at Lambeau Field (outdoors, grass), on Fox. It is a division game, the 133rd meeting. Green Bay has had a week of rest (7 days).", "source": "research/data/OWL-TE.json (next_games)", "date": "2026-11-15", "confidence": "from the data file, kickoff and network also in the Packers preview"},
+  {"fact": "Lines: the data file has Green Bay -2.5, total 42.5 (implied about 22.5 for Green Bay). Search summaries show Dimers at Packers -3.5 and StatsNiper at GB -4.5 with a total of 45.5. Sources disagree on the line.", "source": "https://www.dimers.com/nfl/news/minnesota-vikings-vs-green-bay-packers-early-prediction-nfl-week-10-2026-ac", "date": "2026-11-15", "confidence": "three sources disagree"},
+  {"fact": "Weather in the data file: mostly cloudy, 41 F; wind not found.", "source": "research/data/OWL-TE.json (next_games)", "date": "2026-11-15", "confidence": "one source"},
+  {"fact": "A summary said Minnesota allows the fewest fantasy points to tight ends (about 7.1 a game), has the best red zone defense and the league's best pass defense by DVOA (ranking summary, unverified on the page). Minnesota won the September meeting 39-22 per the Packers preview summary.", "source": "https://www.packers.com/news/packers-host-division-foe-vikings-at-home-week-10-2026", "date": "2026-11-15", "confidence": "one source, search summary; the TE and DVOA figures came from a different summary and may be from an earlier season"},
+  {"fact": "Kraft's career fantasy average against Minnesota was not checked: not found.", "source": "not found", "date": null, "confidence": "not found"}
+ ],
+ "style": [
+  {"fact": "Receiving tight end with size and speed; Madden gives him 91 catching, 88 speed, 89 acceleration, 77 catch in traffic, but only 62 pass blocking and 63 run blocking.", "source": "research/data/OWL-TE.json (bio.madden)", "date": "2026-11-15", "confidence": "one source"},
+  {"fact": "Splits from the data file: 2026 average 6.04 points a game; 2025 average was 10.65 in 8 games; 2024 was 6.55 in 17 games with 7 touchdowns.", "source": "research/data/OWL-TE.json (career)", "date": "2026-11-15", "confidence": "from the data file"}
+ ],
+ "availability": {
+  "status": "Active, no listed injury (not yet confirmed by an official Week 10 report)",
+  "detail": "The data file shows Sleeper status Active and no injury designation for 2026, and he has played all 9 games. One search summary said he could remain out in Week 10, but it appears to mix in an earlier season (the 2025 ACL year), and it conflicts with the data file. The Packers' official Week 10 injury report page could not be read, so no official designation was seen.",
+  "expected_return": "Not applicable per the data file; official report not found",
+  "source": "research/data/OWL-TE.json (status); https://www.packers.com/team/injury-report/week/REG-10 (not readable)",
+  "date": "2026-11-15"
+ },
+ "outlook_next_game": {
+  "lean": "plays, modest role; expected around 4 to 8 fantasy points",
+  "confidence": "low",
+  "reasons": [
+    "He appears active with no designation, but the official report was not seen.",
+    "He is third in the target pecking order behind Golden and Watson, and his last game was 1 catch for 1 yard.",
+    "Minnesota is described as strong against tight ends, and Green Bay is only a 2.5 to 4.5 point favorite with a low total.",
+    "Upside is a red zone touchdown: he has 3 touchdowns and 9 red zone targets in 9 games, and had a score in each of Weeks 4, 7 and 8."
+  ]
+ },
+ "scouts_read": "Kraft appears healthy and is likely to play, though the official Week 10 report was not seen, so check the final designation. His 2026 role is smaller than his 2025 pace, with a 15.8 percent target share behind Golden and Watson, and the last game against New England produced one catch for one yard. Minnesota is reported as tough on tight ends and the game total is low. His value rests on red zone looks, as in the touchdown games in Weeks 4, 7 and 8. I would project a modest game in the 4 to 8 point range with a touchdown the only path to a big day.",
+ "open_questions": [
+  "Official Packers Week 10 injury designations for Kraft, and any list of inactives (not found).",
+  "Whether the search summary about him being out against Minnesota refers to this season or an earlier one (data file says active).",
+  "Wind and final game-time weather (not found).",
+  "Quotes from Kraft or coach LaFleur about his role (headline only; articles were not read).",
+  "Packers offensive coordinator for 2026 (not found)."
+ ],
+ "searches": [
+  "Tucker Kraft Packers Vikings Week 10 injury status (summary mixed 2025 and 2026 items)",
+  "Tucker Kraft immature complain opportunities Packers slow statistical start (headline not matched; Sept 2026 boos piece found)",
+  "Packers vs Vikings Week 10 2026 preview Lambeau Matt LaFleur",
+  "Tucker Kraft Week 10 preview vs Vikings targets fantasy (mixed seasons)",
+  "Packers injury report Week 10 Vikings Kraft Reed Jordan Love (no Packers 2026 report content found)",
+  "Page fetches were not attempted for blocked hosts; Wikipedia text came from the sections stored in research/data/OWL-TE.json"
+ ]
+}
