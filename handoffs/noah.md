@@ -171,3 +171,11 @@ When Ricky's `data/games/week11-tur-owl.json` (D46) is on main, add its lines to
 ## Task C34: demo script and shot list, refreshed
 
 `pitch/DEMO-SCRIPT.md` and the video shot list were written before tonight. Update them against main as it is now: the football stadium built from the soccer stadium, soccer inside the same tab bar, every line recorded, one announcer style, no Why this play card. Ask peyton which screens she wants shown. Keep it to two minutes with timings.
+
+## Task C35: sound on a real phone
+
+Phones block sound until a tap, iPhones respect the silent switch for some audio paths, and a backgrounded tab can suspend the AudioContext. Make sure the first tap anywhere unlocks the announcer clips, the crowd and the whistles on both sports, that sound resumes when the tab comes back, and that mute stays muted. Add the cases to `js/audio-check.js` where a fake context can show them, and test in headless Chromium with a phone profile. Write what was not testable without a real iPhone in your DONE.
+
+## Task C36: the second game with the browser voice
+
+`data/games/week11-tur-owl.json` uses the browser voice (C33 dropped). Run the announcer over it: every line fits the captions strip, every Turtles and Owls name and number is said right (your C27 say-it-right check), nothing blank or repeated too often. Change `UNVOICED` in `js/announcer/voice/render.js` however you like as long as `node js/announcer/audit.js` covers this game's lines too.

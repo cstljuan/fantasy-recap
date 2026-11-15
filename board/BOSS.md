@@ -120,13 +120,13 @@ Run `sh tools/next.sh` to get your next task with its full description. A row is
 | S4 | S | cstljuan | The soccer match maker | merged |
 | S5 | S | cstljuan | The soccer app: lineups, feed, recap, hidden scores | merged |
 | S7 | S | cstljuan | `SC_GAME.seek(index)` and `SC_GAME.hold(on)` with the same meaning as `FF_GAME`, for Peyton's jump bar and rule cards | moved to C32 |
-| S6 | S | cstljuan | Soccer voice and captions, with Noah | waiting: light duty, Juan restarts this after 9:30 PM Eastern |
+| S6 | S | cstljuan | Soccer voice and captions, with Noah | waiting: Juan starts the design session |
 | G1 | G | cstljuan | The Figma file with its pages set up (structure only for now) | open |
-| G2 | G | cstljuan | Brand guide, wordmark, mascot | waiting: light duty, Juan restarts this after 9:30 PM Eastern |
-| G3 | G | cstljuan | Every screen at phone and laptop size | waiting: light duty, Juan restarts this after 9:30 PM Eastern |
-| G4 | G | cstljuan | Motion page and motion specs | waiting: light duty, Juan restarts this after 9:30 PM Eastern |
-| G5 | G | cstljuan | Devpost thumbnail, gallery, video title card, architecture picture | waiting: light duty, Juan restarts this after 9:30 PM Eastern |
-| G6 | G | cstljuan | DESIGN.md and tokens for the builders | waiting: light duty, Juan restarts this after 9:30 PM Eastern |
+| G2 | G | cstljuan | Brand guide, wordmark, mascot | waiting: Juan starts the design session |
+| G3 | G | cstljuan | Every screen at phone and laptop size | waiting: Juan starts the design session |
+| G4 | G | cstljuan | Motion page and motion specs | waiting: Juan starts the design session |
+| G5 | G | cstljuan | Devpost thumbnail, gallery, video title card, architecture picture | waiting: Juan starts the design session |
+| G6 | G | cstljuan | DESIGN.md and tokens for the builders | waiting: Juan starts the design session |
 | A1 | A | cstljuan | Load the game from `data/games/<id>.json`; contract v1 | merged |
 | A2 | A | cstljuan | The football game maker with the play caller | merged |
 | A3 | A | cstljuan | Connect the announcer, crowd, captions and the floaters switch | merged |
@@ -141,10 +141,13 @@ Run `sh tools/next.sh` to get your next task with its full description. A row is
 | B39 | B | Peypey-ryd | Momentum and player trends from the service (D44) on the film room and lineups when `?api=` is set, file fallback otherwise | open |
 | B40 | B | Peypey-ryd | League home: the Turtles against Owls matchup opens its own game once D46's file is on main | open |
 | B41 | B | Peypey-ryd | Demo path at phone size, both sports, after tonight's changes: league, matchup, opt in, watch, jump, recap, share; fix what breaks | open |
+| B42 | B | Peypey-ryd | Phone speed: first load on a throttled phone profile, what blocks the first screen, lazy loading where it is yours, a short report with numbers | open |
 | C28 | C | nexodv | Test lead: run every check, walk both apps in a browser, one command in tests/, send bugs to owners | open |
 | C32 | C | nexodv | Soccer seek and hold (S7, moved to Noah), then the jump bar, rule cards and share card on the soccer page, with Peyton | open |
 | C33 | C | nexodv | Voice for the second football game (Turtles against Owls, D46) once its file is on main | dropped (Noah's call) |
 | C34 | C | nexodv | The demo video shot list and two-minute script, refreshed against main tonight (new stadium, soccer in the same tab bar, recordings), with Peyton | open |
+| C35 | C | nexodv | Sound starts right on a real phone: first tap unlocks audio, iPhone silent switch and background tab rules, resume after the tab returns, both sports, with a check | open |
+| C36 | C | nexodv | The second football game with the browser voice: every line fits, names and numbers said right for the Turtles and Owls rosters, audit covers it | open |
 | C29 | C | nexodv | Stadium sound for football to match the soccer broadcast, with Peyton's B35 | merged |
 | C30 | C | nexodv | Soccer voice and captions, Noah's half of S6 | merged |
 | D41 | D | Rickstar-App | Deep agents finished: Scout ready for a real run, offline test of the subagents and the evidence guard | merged |
@@ -157,6 +160,7 @@ Run `sh tools/next.sh` to get your next task with its full description. A row is
 | D48 | D | Rickstar-App | Scout runs with whichever model key is present (Gemini or Claude), one command, an offline test of both paths, so the real run is one step for Juan | merged |
 | D49 | D | Rickstar-App | Juan's laptop night in one command: migrations, seed, push every game file, check the routes, then Scout if a key is set, with a clear report | open |
 | D50 | D | Rickstar-App | The app reads the service for real: a browser test with `?api=` against a local database (league, opt-in, momentum, trend, scout), and NOTE peyton with every shape her screens need | open |
+| D51 | D | Rickstar-App | Devpost text, final draft: one honest paragraph per prize track we enter (Tiger Data, Gemini, LangChain deep agents), the what-is-real list and the setup, ready for Juan to paste | open |
 
 ## Answers to ASK posts
 
